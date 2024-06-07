@@ -1,0 +1,29 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../common/common.dart';
+import '../../cubit/login_cubit.dart';
+import '../../cubit/login_state.dart';
+
+
+
+class LoginPasswordTextfieldWidget extends StatelessWidget {
+  const LoginPasswordTextfieldWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LoginCubit, LoginState>(
+      builder: (context, state) {
+        return CommonTextfield(
+        
+
+          textInputType: TextInputType.visiblePassword,
+          textEditingController: context.watch<LoginCubit>().passwordController, onChanged: (String? value) {
+          if(value != null) {
+            context.read<LoginCubit>().passwordChanged(value);
+          }
+        }, validator: (val) => state.passwordField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => 'Password is empty',), (r) => null), labelText: 'Password', hintText: "Enter your password", autovalidateMode: state.showError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction, isPasswordField: true,);
+      },
+    );
+  }
+}

@@ -1,0 +1,62 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
+
+
+
+import '../../../../../config/config.dart';
+import '../../../../../core/core.dart';
+import '../../../../../core/model/model.dart';
+import '../../../domain/models/login_post_model.dart';
+import '../../../domain/models/login_response_model.dart';
+
+abstract class LoginRemoteDataSource {
+  Future<LoginResponseModel> login({required LoginPostModel loginPostModel});
+}
+@Injectable(as : LoginRemoteDataSource)
+class LoginRemoteDataSourceImpl extends LoginRemoteDataSource {
+
+  final DioClient dioClient;
+  final KeyValueStorage keyValueStorage;
+
+  LoginRemoteDataSourceImpl({
+    required this.dioClient,
+    required this.keyValueStorage,
+  });
+
+  final logger = Logger();
+@override
+Future<LoginResponseModel> login({required LoginPostModel loginPostModel}) async {
+  try {
+    logger.d('LOGIN API STARTED');
+    
+    final response = await dioClient.post(
+      Endpoints.logingUrl,
+      data: loginPostModel.toJson(),
+    );
+
+    if(response.statusCode == 200){
+      logger.d('LOGIN API SUCCESS');
+      final data = response.data;
+    await  keyValueStorage.sharedPreferences.setString(KeyValueStrings.loginData, jsonEncode(data));
+      return LoginResponseModel.fromJson(response.data);
+    } else {
+      logger.e('LOGIN API FAILED');
+      throw ServerException(dioError: DioException(
+        requestOptions: response.requestOptions,
+        response: response,
+        error: 'Login API failed with status code: ${response.statusCode}',
+      ));
+    }
+  
+  } on DioException catch (e) {
+    throw NetworkExceptions.getException(e);
+  } on SocketException catch (e) {
+    throw NetworkExceptions.getException(e);
+  }
+}
+}
