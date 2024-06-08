@@ -30,7 +30,7 @@ import 'package:srinivasa_crm_new/src/common/services/common_permission_services
 import 'package:srinivasa_crm_new/src/common/services/common_shareplus_services.dart'
     as _i9;
 import 'package:srinivasa_crm_new/src/config/locator/service_locator.dart'
-    as _i25;
+    as _i33;
 import 'package:srinivasa_crm_new/src/core/connection/internet_checker.dart'
     as _i13;
 import 'package:srinivasa_crm_new/src/core/core.dart' as _i20;
@@ -46,7 +46,23 @@ import 'package:srinivasa_crm_new/src/features/login/domain/repository/login_rep
 import 'package:srinivasa_crm_new/src/features/login/domain/usecases/login_usecase.dart'
     as _i23;
 import 'package:srinivasa_crm_new/src/features/login/presentation/cubit/login_cubit.dart'
+    as _i30;
+import 'package:srinivasa_crm_new/src/features/mark%20attendance/data/datasource/remote/mark_attendance_remote_datasource.dart'
     as _i24;
+import 'package:srinivasa_crm_new/src/features/mark%20attendance/data/repo/mark_attendance_repo_impl.dart'
+    as _i26;
+import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/domain.dart'
+    as _i32;
+import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/repo/mark_attendance_repo.dart'
+    as _i25;
+import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/usecase/last_punch_in_usecase.dart'
+    as _i29;
+import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/usecase/punch_in_usecase.dart'
+    as _i27;
+import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/usecase/punch_out_usecase.dart'
+    as _i28;
+import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart'
+    as _i31;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -105,12 +121,32 @@ extension GetItInjectableX on _i1.GetIt {
         loginRemoteDataSource: gh<_i19.LoginRemoteDataSource>()));
     gh.factory<_i23.LoginUseCase>(
         () => _i23.LoginUseCase(loginRepository: gh<_i21.LoginRepository>()));
-    gh.factory<_i24.LoginCubit>(() => _i24.LoginCubit(
+    gh.factory<_i24.MarkAttendanceRemoteDataSource>(
+        () => _i24.MarkAttendanceRemoteDatasourceImpl(
+              dioClient: gh<_i20.DioClient>(),
+              logger: gh<_i4.Logger>(),
+              keyValueStorage: gh<_i20.KeyValueStorage>(),
+            ));
+    gh.factory<_i25.MarkAttendanceRepo>(() => _i26.MarkAttendanceRepoImpl(
+        markAttendanceRemoteDataSource:
+            gh<_i24.MarkAttendanceRemoteDataSource>()));
+    gh.factory<_i27.PunchInUseCase>(() =>
+        _i27.PunchInUseCase(markAttendanceRepo: gh<_i25.MarkAttendanceRepo>()));
+    gh.factory<_i28.PunchOutUsecase>(() => _i28.PunchOutUsecase(
+        markAttendanceRepo: gh<_i25.MarkAttendanceRepo>()));
+    gh.factory<_i29.LastPunchInOutUseCase>(() => _i29.LastPunchInOutUseCase(
+        markAttendanceRepo: gh<_i25.MarkAttendanceRepo>()));
+    gh.factory<_i30.LoginCubit>(() => _i30.LoginCubit(
           gh<_i23.LoginUseCase>(),
           gh<_i20.KeyValueStorage>(),
+        ));
+    gh.factory<_i31.MarkAttendanceCubit>(() => _i31.MarkAttendanceCubit(
+          gh<_i32.PunchInUseCase>(),
+          gh<_i32.PunchOutUsecase>(),
+          gh<_i32.LastPunchInOutUseCase>(),
         ));
     return this;
   }
 }
 
-class _$ThirdPartyDependencies extends _i25.ThirdPartyDependencies {}
+class _$ThirdPartyDependencies extends _i33.ThirdPartyDependencies {}

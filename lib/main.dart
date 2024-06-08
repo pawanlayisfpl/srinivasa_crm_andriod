@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:injectable/injectable.dart';
+import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 
 import 'src/config/config.dart';
 import 'src/features/login/presentation/cubit/login_cubit.dart';
@@ -24,7 +25,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        // BLOCS
+        // CUBITS
                 BlocProvider(create: (_) => locator.get<LoginCubit>()),
+                BlocProvider(create: (_) => locator.get<MarkAttendanceCubit>()),
 
       ],
       child: MaterialApp(

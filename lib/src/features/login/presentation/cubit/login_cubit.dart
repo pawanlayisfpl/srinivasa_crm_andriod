@@ -17,7 +17,7 @@ import '../../domain/models/password_field.dart';
 import '../../domain/usecases/login_usecase.dart';
 import 'login_state.dart';
 
-  @injectable
+@injectable
 class LoginCubit extends Cubit<LoginState> {
     final LoginUseCase loginUseCase;
     final KeyValueStorage keyValueStorage;
@@ -30,6 +30,7 @@ class LoginCubit extends Cubit<LoginState> {
     TextEditingController passwordController = TextEditingController();
 
     void emailChanged(String value) {
+      
       emit(state.copyWith(
           emailField: EmailField(value), isLoginFailed: false, showError: false));
     }

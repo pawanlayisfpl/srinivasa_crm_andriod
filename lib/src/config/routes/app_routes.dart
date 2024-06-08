@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:srinivasa_crm_new/src/features/login/presentation/screens/login_screen.dart';
+import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
 
 class Routes {
   // AUTH
@@ -64,8 +65,8 @@ class RouteGenerator {
     switch (routeSettings.name) {
       case Routes.loginScreen:
         return MaterialPageRoute(builder: (_) =>  LoginScreen());
-        case Routes.testScreen:
-        return MaterialPageRoute(builder: (_) =>  Placeholder());
+        case Routes.markAttendanceScreen:
+        return MaterialPageRoute(builder: (_) =>  MarkAttendanceScreen());
   
 
       default:
