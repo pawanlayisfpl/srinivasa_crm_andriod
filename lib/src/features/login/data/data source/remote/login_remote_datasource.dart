@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
+import 'package:srinivasa_crm_new/src/features/Profile/domain/model/profile_model.dart';
 
 
 
@@ -42,6 +43,14 @@ Future<LoginResponseModel> login({required LoginPostModel loginPostModel}) async
     if(response.statusCode == 200){
       logger.d('LOGIN API SUCCESS');
       final data = response.data;
+      ProfileModel profileModel = ProfileModel(
+        userModel: UserModel.fromJson(data['user']),
+        jwt: data['token'],
+        status: data['status'],
+
+      );
+      await keyValueStorage.sharedPreferences.setString(KeyValueStrings.userId, data['user']['id'].toString());
+      await keyValueStorage.sharedPreferences.setString(KeyValueStrings.profileDataModel, jsonEncode(profileModel));
     await  keyValueStorage.sharedPreferences.setString(KeyValueStrings.loginData, jsonEncode(data));
       return LoginResponseModel.fromJson(response.data);
     } else {
@@ -55,8 +64,8 @@ Future<LoginResponseModel> login({required LoginPostModel loginPostModel}) async
   
   } on DioException catch (e) {
     throw NetworkExceptions.getException(e);
-  } on SocketException catch (e) {
-    throw NetworkExceptions.getException(e);
+  } on SocketException  {
+    throw const NetworkExceptions.noInternetConnection();
   }
 }
 }

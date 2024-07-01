@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lottie/lottie.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
+import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
 
 
 import '../../../../../common/common.dart';
@@ -31,11 +32,14 @@ class LoginBodyWidget extends StatelessWidget {
  context: context,
  animType: QuickAlertAnimType.slideInDown,
  type: QuickAlertType.success,
- text: 'Login was successfull!',
+ text: 'Login successfull!',
   title: 'Success',
   showConfirmBtn: true,
   onConfirmBtnTap: () async {
     Navigator.pop(context);
+    if(context.mounted) {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (c) => const MarkAttendanceScreen(isCheckedInScreen: true,)));
+    }
   },
 );
         }
@@ -71,45 +75,45 @@ class LoginBodyWidget extends StatelessWidget {
         
       },
       builder: (context, state) {
-        return Center(
-      child: context.watch<LoginCubit>().state.isLoading ? const CircularProgressIndicator() :  SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset('assets/png/login.png',height: 0.18.sh,width: 0.9.sw,fit: BoxFit.fitHeight,).alignToCenter(),
-            // Image.asset('assets/png/login.png',height: 0.18.sh,width: 0.9.sw,fit: BoxFit.fitHeight,).alignToCenter(),
-            10.verticalSpace,
-            const LoginEmailTextFieldWidget(),
-            20.verticalSpace,
-            const LoginPasswordTextfieldWidget(),
+        return context.watch<LoginCubit>().state.isLoading ? const CustomLoadingWidget() :  SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 0.1.sh,),
+              Lottie.asset('assets/lottie/login.json',height: 0.35.sh,width: double.infinity,fit: BoxFit.fitHeight,).alignToCenter(),
+              // Image.asset('assets/png/login.png',height: 0.18.sh,width: 0.9.sw,fit: BoxFit.fitHeight,).alignToCenter(),
               10.verticalSpace,
-           SizedBox(
-              width: 1.sw,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Checkbox.adaptive(
-                    value: state.isRememberMe, onChanged: (bool? value) {
-                      context.read<LoginCubit>().toggleisRememberMe();
-                    } ),
-                 const CommonTextWidget(title: 'Remember me',textColor: AppColors.primaryColor,fontWeight: FontWeight.w500,)
-                ],
+              const LoginEmailTextFieldWidget(),
+              20.verticalSpace,
+              const LoginPasswordTextfieldWidget(),
+                10.verticalSpace,
+             SizedBox(
+                width: 1.sw,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Checkbox.adaptive(
+                      value: state.isRememberMe, onChanged: (bool? value) {
+                        context.read<LoginCubit>().toggleisRememberMe();
+                      } ),
+                   const CommonTextWidget(title: 'Remember me',textColor: AppColors.primaryColor,fontWeight: FontWeight.w500,)
+                  ],
+                ),
               ),
-            ),
-            20.verticalSpace,
-            CommonButton(callback: () async {
-              if(context.mounted) {
-                context.read<LoginCubit>().login();
-              }
-            }, title: 'Login'),
-          
-      
+              20.verticalSpace,
+              CommonButton(callback: () async {
+                    HapticFeedback.lightImpact();
+                if(context.mounted) {
+                  context.read<LoginCubit>().login();
+                }
+              }, title: 'Login'),
             
-          ],
-        ).withSymetricPadding(horizontalPadding: 20.w),
-      ),
-    );
+        
+              
+            ],
+          ).withSymetricPadding(horizontalPadding: 20.w),
+        );
       },
     );
   }

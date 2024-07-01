@@ -7,6 +7,7 @@ class CommonTextfield extends StatelessWidget {
   final TextEditingController textEditingController;
   final Function(String) onChanged;
   final Function(String?) validator;
+  final VoidCallback? onTapFunction; 
   final String labelText;
   final String hintText;
   final bool? obscureText;
@@ -25,6 +26,7 @@ class CommonTextfield extends StatelessWidget {
   CommonTextfield(
       {Key? key,
       required this.textEditingController,
+      this.onTapFunction,
       required this.onChanged,
       required this.validator,
       required this.labelText,
@@ -47,6 +49,8 @@ class CommonTextfield extends StatelessWidget {
       valueListenable: obscureNotifier,
       builder: (context, value, child) {
         return TextFormField(
+          autofocus: false,
+          onTap: onTapFunction,
           readOnly: readOnly ?? false,
           cursorColor: AppColors.primaryColor,
           onChanged: onChanged,

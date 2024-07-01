@@ -22,6 +22,7 @@ ApiFailedModel _$ApiFailedModelFromJson(Map<String, dynamic> json) {
 mixin _$ApiFailedModel {
   int get statusCode => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
+  String get errorMessage => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,7 @@ abstract class $ApiFailedModelCopyWith<$Res> {
           ApiFailedModel value, $Res Function(ApiFailedModel) then) =
       _$ApiFailedModelCopyWithImpl<$Res, ApiFailedModel>;
   @useResult
-  $Res call({int statusCode, String message});
+  $Res call({int statusCode, String message, String errorMessage});
 }
 
 /// @nodoc
@@ -53,6 +54,7 @@ class _$ApiFailedModelCopyWithImpl<$Res, $Val extends ApiFailedModel>
   $Res call({
     Object? statusCode = null,
     Object? message = null,
+    Object? errorMessage = null,
   }) {
     return _then(_value.copyWith(
       statusCode: null == statusCode
@@ -62,6 +64,10 @@ class _$ApiFailedModelCopyWithImpl<$Res, $Val extends ApiFailedModel>
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
+              as String,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -75,7 +81,7 @@ abstract class _$$ApiFailedModelImplCopyWith<$Res>
       __$$ApiFailedModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int statusCode, String message});
+  $Res call({int statusCode, String message, String errorMessage});
 }
 
 /// @nodoc
@@ -91,6 +97,7 @@ class __$$ApiFailedModelImplCopyWithImpl<$Res>
   $Res call({
     Object? statusCode = null,
     Object? message = null,
+    Object? errorMessage = null,
   }) {
     return _then(_$ApiFailedModelImpl(
       statusCode: null == statusCode
@@ -101,6 +108,10 @@ class __$$ApiFailedModelImplCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -108,7 +119,10 @@ class __$$ApiFailedModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ApiFailedModelImpl implements _ApiFailedModel {
-  const _$ApiFailedModelImpl({required this.statusCode, required this.message});
+  const _$ApiFailedModelImpl(
+      {required this.statusCode,
+      required this.message,
+      required this.errorMessage});
 
   factory _$ApiFailedModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ApiFailedModelImplFromJson(json);
@@ -117,10 +131,12 @@ class _$ApiFailedModelImpl implements _ApiFailedModel {
   final int statusCode;
   @override
   final String message;
+  @override
+  final String errorMessage;
 
   @override
   String toString() {
-    return 'ApiFailedModel(statusCode: $statusCode, message: $message)';
+    return 'ApiFailedModel(statusCode: $statusCode, message: $message, errorMessage: $errorMessage)';
   }
 
   @override
@@ -130,12 +146,15 @@ class _$ApiFailedModelImpl implements _ApiFailedModel {
             other is _$ApiFailedModelImpl &&
             (identical(other.statusCode, statusCode) ||
                 other.statusCode == statusCode) &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, statusCode, message);
+  int get hashCode =>
+      Object.hash(runtimeType, statusCode, message, errorMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -155,7 +174,8 @@ class _$ApiFailedModelImpl implements _ApiFailedModel {
 abstract class _ApiFailedModel implements ApiFailedModel {
   const factory _ApiFailedModel(
       {required final int statusCode,
-      required final String message}) = _$ApiFailedModelImpl;
+      required final String message,
+      required final String errorMessage}) = _$ApiFailedModelImpl;
 
   factory _ApiFailedModel.fromJson(Map<String, dynamic> json) =
       _$ApiFailedModelImpl.fromJson;
@@ -164,6 +184,8 @@ abstract class _ApiFailedModel implements ApiFailedModel {
   int get statusCode;
   @override
   String get message;
+  @override
+  String get errorMessage;
   @override
   @JsonKey(ignore: true)
   _$$ApiFailedModelImplCopyWith<_$ApiFailedModelImpl> get copyWith =>

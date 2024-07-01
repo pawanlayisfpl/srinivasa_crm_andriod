@@ -28,27 +28,27 @@ final KeyValueStorage keyValueStorage;
 
     try {
       logger.d('GET LAST PUNCH IN OUT DETAILS API STARTED');
-      final response = await dioClient.get(Endpoints.lastCheckInCheckOut,headers: {});
+      final response = await dioClient.post(Endpoints.lastPunchInDetails,headers: {});
 
       if(response.statusCode == 200){
         logger.d('GET LAST PUNCH IN OUT DETAILS API SUCCESS');
-        return LastPunchInResponseModel.fromJson(response.data);
+        return await Future.value(LastPunchInResponseModel.fromJson(response.data));
       }else{
         logger.e('GET LAST PUNCH IN OUT DETAILS API FAILED');
-        throw NetworkExceptions.getDioException(response);
+        throw NetworkExceptions.getDioException(response.data);
       }
       
     }  catch(e) {
       if(e is DioException) {
          if(e.response != null) {
-         logger.e('GET LAST PUNCH IN OUT DETAILS API FAILED ${e.response!.data.toString()}');
+         logger.e(e.response!.data['error'].toString()+" "+e.response!.data['status'].toString());
     throw NetworkExceptions.getException(e);
 
       }else {
-        throw NetworkExceptions.internalServerError();
+        throw NetworkExceptions.getDioException(e);
       }
       }else {
-        throw NetworkExceptions.formatException();
+        throw const NetworkExceptions.formatException();
       }
 
     }
@@ -61,13 +61,13 @@ final KeyValueStorage keyValueStorage;
       if(response.statusCode == 200){
         return PunchInOutResponseModel.fromJson(response.data);
       }else{
-        throw NetworkExceptions.getDioException(response);
+        throw const NetworkExceptions.unexpectedError();
       }
 
     }on DioException catch(e) {
       throw NetworkExceptions.getException(e);
     }on SocketException catch(e) {
-      throw NetworkExceptions.getException(e);
+      throw const NetworkExceptions.noInternetConnection();
     }
   }
   
@@ -79,7 +79,7 @@ final KeyValueStorage keyValueStorage;
       if(response.statusCode == 200){
         return PunchInOutResponseModel.fromJson(response.data);
       }else{
-        throw NetworkExceptions.getDioException(response);
+        throw const NetworkExceptions.unexpectedError();
       }
       
     }  on DioException catch(e)   {

@@ -3,6 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:injectable/injectable.dart';
+import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Full%20Details/cubit/customer_full_details_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Full%20Details/screen/customer_full_details_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Search/presentation/cubit/search_customer_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/cubit/view_monthly_plan_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 
 import 'src/config/config.dart';
@@ -29,6 +38,14 @@ class MyApp extends StatelessWidget {
         // CUBITS
                 BlocProvider(create: (_) => locator.get<LoginCubit>()),
                 BlocProvider(create: (_) => locator.get<MarkAttendanceCubit>()),
+                BlocProvider(create: (_) => locator.get<ProfileCubit>()),
+                BlocProvider(create: (_) => locator.get<AllCustomerCubit>()),
+                BlocProvider(create: (_) => locator.get<CheckinCubit>()),
+                BlocProvider(create: (_) => locator.get<ViewMonthlyPlanCubit>()),
+                BlocProvider(create: (_) => locator.get<CreateMonthlyPlanCubit>()),
+                BlocProvider(create: (_) => locator.get<AlertCubit>()),
+                BlocProvider(create: (_) => locator.get<SearchCustomerCubit>()),
+                BlocProvider(create: (_) => locator.get<CustomerFullDetailsCubit>()),
 
       ],
       child: MaterialApp(
@@ -73,7 +90,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
+  
 
 Future<void> _initDependencies() async {
   await registerDependencies(Environment.dev);

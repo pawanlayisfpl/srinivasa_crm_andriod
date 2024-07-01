@@ -2,6 +2,8 @@
     <application
         android:label="srinivasa_crm_new"
         android:name="${applicationName}"
+        android:enableOnBackInvokedCallback="true">
+
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

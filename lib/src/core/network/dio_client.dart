@@ -107,15 +107,22 @@ rethrow;
   Future<Response> put(
     String url, {
     data,
+      Map<String,dynamic>? headers,
+
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    String? token = keyValueStorage.getString(SharedPrefenceskeys.token);
+ final  String? getToken = keyValueStorage.getString(KeyValueStrings.token);
+  String token = getToken ?? '';
 
-   
+  headers = headers != null ? {
+    "Authorization" : 'Bearer $token'
+  } : {};
+  
+  log("Headers: $headers");
     try {
       final Response response = await _dio.put(
         url,
@@ -123,13 +130,13 @@ rethrow;
         queryParameters: queryParameters,
         options: Options(
             contentType: ContentType.json.toString(),
-            headers: {"Authorization": "Bearer $token"}),
+            headers: headers),
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
         onSendProgress: onSendProgress,
       );
       return response;
-    } catch (e) {
+    } on DioException {
       rethrow;
     }
   }
@@ -141,11 +148,19 @@ rethrow;
     data,
     Map<String, dynamic>? queryParameters,
     Options? options,
+      Map<String,dynamic>? headers,
+
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    String? token = keyValueStorage.getString(SharedPrefenceskeys.token);
+     final  String? getToken = keyValueStorage.getString(KeyValueStrings.token);
+  String token = getToken ?? '';
+
+  headers = headers != null ? {
+    "Authorization" : 'Bearer $token'
+  } : {};
+  
 
     try {
       final Response response = await _dio.delete(url,

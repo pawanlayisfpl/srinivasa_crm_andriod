@@ -10,6 +10,7 @@ _$ApiFailedModelImpl _$$ApiFailedModelImplFromJson(Map<String, dynamic> json) =>
     _$ApiFailedModelImpl(
       statusCode: (json['statusCode'] as num).toInt(),
       message: json['message'] as String,
+      errorMessage: json['errorMessage'] as String,
     );
 
 Map<String, dynamic> _$$ApiFailedModelImplToJson(
@@ -17,4 +18,5 @@ Map<String, dynamic> _$$ApiFailedModelImplToJson(
     <String, dynamic>{
       'statusCode': instance.statusCode,
       'message': instance.message,
+      'errorMessage': instance.errorMessage,
     };

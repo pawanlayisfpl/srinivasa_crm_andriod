@@ -1,5 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/screens/all_customer_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/screens/customer_details_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Search/presentation/screens/customer_search_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/customer_dashboard_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/create_monthly_plan_screen.dart';
 import 'package:srinivasa_crm_new/src/features/login/presentation/screens/login_screen.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
 
@@ -53,7 +58,9 @@ class Routes {
   static const String dummyScreen = '/viewSalesOrderScreen';
   static const String permissionScreen = '/permissoinScreen';
   static const String selectCustomerScreen = '/selectCustomerScreen';
+  // MONTHLY PLAN
   static const String monthlyPlanScreen = '/monthlyPlanScreen';
+  static const String monthlyPlanCreate = '/monthlyPlanCreate';
   // TEST SCREEN
   static const String testScreen = '/testScreen';
 }
@@ -64,9 +71,22 @@ class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case Routes.loginScreen:
-        return MaterialPageRoute(builder: (_) =>  LoginScreen());
+        return MaterialPageRoute(builder: (_) =>  const LoginScreen());
         case Routes.markAttendanceScreen:
-        return MaterialPageRoute(builder: (_) =>  MarkAttendanceScreen());
+        return MaterialPageRoute(builder: (_) =>  const MarkAttendanceScreen());
+        // CUSTOMERS 
+           case Routes.customerDashbaordScreen:
+        return MaterialPageRoute(builder: (_) =>  const CustomerDashbaordScreen());
+            case Routes.customer:
+        return MaterialPageRoute(builder: (_) =>  const AllCustomerScreen());
+            case Routes.customerDetails:
+        return MaterialPageRoute(builder: (_) =>   CustomerDetailsScreen());
+            case Routes.customerSearchScreen:
+        return MaterialPageRoute(builder: (_) =>   CustomerSearchScreen());
+        // MONTHLY PLAN
+             case Routes.monthlyPlanCreate:
+        return MaterialPageRoute(builder: (_) =>   CreateMonthlyPlanScreen());
+
   
 
       default:

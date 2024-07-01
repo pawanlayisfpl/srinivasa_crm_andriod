@@ -11,7 +11,7 @@ class CustomLoadingWidget extends StatelessWidget {
     return const Center(
       child: CircularProgressIndicator(
         color: AppColors.primaryColor,
-        strokeWidth: 2,
+        strokeWidth: 5,
       ),
     );
   }

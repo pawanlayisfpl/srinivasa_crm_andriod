@@ -1,6 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 
@@ -17,28 +21,59 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
     this.punchInUseCase,
     this.punchOutUseCase,
     this.getLastPunchInOutDetailsUseCase,
-  ) : super(const MarkAttendanceState.initial());
+  ) : super( MarkAttendanceState.initial());
 
   // GET LAST PUNCH IN-OUT DATA
   Future<void> getLastPunchInOutData() async {
-    
-    emit(const MarkAttendanceState.loading());
-    final results = await getLastPunchInOutDetailsUseCase.execute();
-    results.fold((l) => emit(MarkAttendanceState.error(NetworkExceptions.getErrorMessage(l))), (r) => emit(MarkAttendanceState.loaded(lastPunchInResponseModel: r)));
+    emit(MarkAttendanceState.initial());
+    emit(state.copyWith(loading: true));
+    await Future.delayed(const Duration(seconds: 1));
+   try {
+  final results = await getLastPunchInOutDetailsUseCase.execute();
+  await results.fold((l) async {
+    // handle failure
+  }, (r) async {
+    emit(state.copyWith(loading: false,loaded: true,lastPunchInResponseModel: r));
+    log(state.lastPunchInResponseModel!.toJson().toString());
+
+
+    // handle success
+  });
+} catch (e) {
+  log(e.toString());
+  // handle exception
+  emit(state.copyWith(loading: false,));
+}
   }
+     
 
   // PUNCH LOGIC
   Future<void> punchInLogic({required PunchInPostModel punchInPostModel}) async {
-    emit(const MarkAttendanceState.loading());
+    emit(state.copyWith(isSubmitting: true,punchInFailure: false,punchInSuccess: false,punchOutSuccess: false,punchOutFailure: false,loading: false,loaded: false,));
+    await Future.delayed(const Duration(seconds: 1));
     final result = await punchInUseCase.execute(punchInPostModel: punchInPostModel);
-   result.fold((l) => emit(MarkAttendanceState.punchInFailure(l.toString())), (r) => emit(MarkAttendanceState.punchInSuccess(r.message.toString())));
+   result.fold((l) {
+    emit(state.copyWith(isSubmitting: false, punchInFailure: true, apiFailModel: ApiFailedModel(statusCode: NetworkExceptions.getStatusCode(l),  message: NetworkExceptions.getErrorTitle(l), errorMessage: NetworkExceptions.getErrorMessage(l))));
+   }, (r)  async{
+    // emit(state.copyWith(isSubmitting: false, punchInSuccess: true, loading: ));
+    emit(state.copyWith(punchInSuccess: true,punchOutSuccess: false,punchInFailure: false,punchOutFailure: false,loading: false,loaded: false,));
+    await getLastPunchInOutData();
+   });
   } 
 
 
    // PUNCHOUT LOGIC
   Future<void> punchOutLogic({required PunchoutPostModel punchoutPostModel}) async {
-    emit(const MarkAttendanceState.loading());
+    emit(state.copyWith(isSubmitting: true,punchInFailure: false,punchInSuccess: false,punchOutSuccess: false,loading: false,loaded: false));
+    await Future.delayed(const Duration(seconds: 1));
     final result = await punchOutUseCase.execute(punchoutPostModel: punchoutPostModel);
-   result.fold((l) => emit(MarkAttendanceState.punchInFailure(l.toString())), (r) => emit(MarkAttendanceState.punchInSuccess(r.message.toString())));
+   result.fold((l) {
+
+    emit(state.copyWith( punchOutFailure: true, apiFailModel: ApiFailedModel(statusCode: NetworkExceptions.getStatusCode(l),  message: NetworkExceptions.getErrorTitle(l), errorMessage: NetworkExceptions.getErrorMessage(l))));
+   }, (r) async {
+
+    emit(state.copyWith(isSubmitting: false, punchOutSuccess: true, apiFailModel: null,loading: false,loaded: false,));
+       await getLastPunchInOutData();
+   });
   } 
 }

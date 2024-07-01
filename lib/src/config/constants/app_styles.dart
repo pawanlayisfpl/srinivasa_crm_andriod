@@ -42,6 +42,53 @@ class AppStyles {
       ),
     );
   }
+  static ButtonStyle primaryButtonStyle(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return ElevatedButton.styleFrom(
+      backgroundColor: AppColors.primaryColor, // Background color
+      foregroundColor: Colors.white, // Text color
+      elevation: 5, // Elevation (shadow)
+      enableFeedback: true,
+      enabledMouseCursor: MouseCursor.defer,
+      minimumSize: Size(size.width, size.height * 0.06),
+      // maximumSize: Size(size.width * 0.4, size.height * 0.08),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(6), // Button border radius
+      ),
+    );
+  }
+
+   static ButtonStyle rejectButtonStyle(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return ElevatedButton.styleFrom(
+      backgroundColor: AppColors.redColor, // Background color
+      foregroundColor: Colors.white, // Text color
+      elevation: 5, // Elevation (shadow)
+      enableFeedback: true,
+      enabledMouseCursor: MouseCursor.defer,
+      minimumSize: Size(size.width, size.height * 0.06),
+      // maximumSize: Size(size.width * 0.4, size.height * 0.08),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(6), // Button border radius
+      ),
+    );
+  }
+
+   static ButtonStyle approveButtonStyle(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return ElevatedButton.styleFrom(
+      backgroundColor: Color.fromARGB(255, 32, 209, 1), // Background color
+      foregroundColor: Colors.white, // Text color
+      elevation: 2, // Elevation (shadow)
+      enableFeedback: true,
+      enabledMouseCursor: MouseCursor.defer,
+      minimumSize: Size(size.width, size.height * 0.06),
+      // maximumSize: Size(size.width * 0.4, size.height * 0.08),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(6), // Button border radius
+      ),
+    );
+  }
 
   // TEXT-BUTTON
   static ButtonStyle buildTextButtonStyle(BuildContext context) {

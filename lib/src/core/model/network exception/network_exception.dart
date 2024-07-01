@@ -36,7 +36,7 @@ abstract class NetworkExceptions with _$NetworkExceptions {
 
   const factory NetworkExceptions.unableToProcess() = UnableToProcess;
 
-  const factory NetworkExceptions.defaultError(String error,int statusCode) = DefaultError;
+  const factory NetworkExceptions.defaultError(DioException dioException) = DefaultError;
 
   const factory NetworkExceptions.unexpectedError() = UnexpectedError;
 
@@ -126,61 +126,59 @@ abstract class NetworkExceptions with _$NetworkExceptions {
   // }
   // handling dio exceptions
 
-static NetworkExceptions getDioException(error) {
-  if (error is Exception) {
-    try {
-      NetworkExceptions networkExceptions;
-      if (error is SocketException) {
-        networkExceptions = const NetworkExceptions.noInternetConnection();
-      } else if (error is DioException) {
-        String errorMessage = error.response != null ? error.response!.data['message'] : 'No response received';
-        int errorCode = error.response?.statusCode ?? 400;
-        switch (error.type) {
-          case DioExceptionType.cancel:
-            networkExceptions = NetworkExceptions.defaultError(errorMessage, errorCode);
-            break;
-          case DioExceptionType.connectionTimeout:
-            networkExceptions = const NetworkExceptions.requestTimeout();
-            break;
-          case DioExceptionType.unknown:
-            networkExceptions = NetworkExceptions.defaultError(errorMessage, errorCode);
-            break;
-          case DioExceptionType.sendTimeout:
-            networkExceptions = const NetworkExceptions.sendTimeout();
-            break;
-          case DioExceptionType.badResponse:
-            networkExceptions = NetworkExceptions.defaultError(errorMessage, errorCode);
-            break;
-          default:
-            networkExceptions = NetworkExceptions.defaultError(errorMessage, errorCode);
-        }
-      } else {
-        networkExceptions = const NetworkExceptions.defaultError('Unexpected error occurred', 400);
-      }
-      return networkExceptions;
-    } on FormatException {
-      return const NetworkExceptions.formatException();
-    } catch (_) {
-      return const NetworkExceptions.unexpectedError();
+static NetworkExceptions getDioException(DioException error) {
+  try {
+    NetworkExceptions networkExceptions;
+    
+    
+    switch (error.type) {
+      case DioExceptionType.cancel:
+        networkExceptions = const NetworkExceptions.requestCancelled();
+        break;
+      case DioExceptionType.connectionTimeout:
+        networkExceptions = const NetworkExceptions.requestTimeout();
+        break;
+      case DioExceptionType.unknown:
+        networkExceptions = const NetworkExceptions.unableToProcess();
+        break;
+      case DioExceptionType.sendTimeout:
+        networkExceptions = const NetworkExceptions.sendTimeout();
+        break;
+      case DioExceptionType.badResponse:
+        networkExceptions = const NetworkExceptions.badRequest();
+        break;
+      default:
+        networkExceptions = NetworkExceptions.defaultError(error);
     }
-  } else {
-    if (error.toString().contains("is not a subtype of")) {
-      return const NetworkExceptions.unableToProcess();
-    } else {
-      return const NetworkExceptions.unexpectedError();
-    }
-  }
+  
+    return networkExceptions;
+  } on FormatException {
+    return const NetworkExceptions.formatException();
+  } 
 }
 
 
 static String getErrorMessage(NetworkExceptions networkExceptions) {
   return networkExceptions.when(
-    notImplemented: () => "Not Implemented",
+    defaultError: (dioException) {
+  // Ensure the response and data are not null and properly typed
+  if (dioException.response != null && dioException.response!.data is Map<String, dynamic>) {
+    final data = dioException.response!.data as Map<String, dynamic>;
+    // Safely access 'message' key if it exists
+    if (data.containsKey('message')) {
+      return data['message'];
+    }
+  }
+  return ""; // Return an empty string if conditions are not met
+},
+notImplemented: () => "Not Implemented",
+// defaultError: (dioException) => dioException.response != null && dioException.response?.data['message'] != null ? dioException.response?.data['message'] : "",    notImplemented: () => "Not Implemented",
     requestCancelled: () => "Request Cancelled",
     internalServerError: () => "Internal Server Error",
     notFound: (String reason) => reason.isNotEmpty ? reason : "Not Found",
     serviceUnavailable: () => "Service unavailable",
-    methodNotAllowed: () => "Method Allowed",
+    
+    methodNotAllowed: () => "Method not Allowed",
     badRequest: () => "Bad request",
     unauthorisedRequest: () => "Unauthorised request",
     unexpectedError: () => "Unexpected error occurred",
@@ -189,15 +187,51 @@ static String getErrorMessage(NetworkExceptions networkExceptions) {
     conflict: () => "Error due to a conflict",
     sendTimeout: () => "Send timeout in connection with API server",
     unableToProcess: () => "Unable to process the data",
-    defaultError: (String error,int statusCode) => error.isNotEmpty ? error : "Unexpected error occurred",
     formatException: () => "Unexpected error occurred",
     notAcceptable: () => "Not acceptable",
   );
 }
 
+static String getErrorTitle(NetworkExceptions networkExceptions) {
+  return networkExceptions.when(
+    defaultError: (dioException) {
+  // First, ensure the response and data are not null
+  if (dioException.response != null && dioException.response!.data != null) {
+    final data = dioException.response!.data;
+    // Check if data is a Map and contains the 'error' key
+    if (data is Map<String, dynamic> && data.containsKey('error')) {
+      return data['error'].toString(); // Safely return the error, converting to String if necessary
+    }
+  }
+  return "Bad request"; // Default error message if conditions are not met
+},
+// defaultError: (dioException) => dioException.response != null && dioException.response!.data != null && dioException.response?.data['error'] != null ? dioException.response?.data['error'] : "Bad request",  
+    notImplemented: () => "Not Implemented",
+    requestCancelled: () => "Request Cancelled",
+    internalServerError: () => "Internal Server Error",
+    notFound: (String reason) => reason.isNotEmpty ? reason : "Not Found",
+    serviceUnavailable: () => "Service unavailable",
+    
+    methodNotAllowed: () => "Method not Allowed",
+    badRequest: () => "Bad request",
+    unauthorisedRequest: () => "Unauthorised request",
+    unexpectedError: () => "Unexpected error occurred",
+    requestTimeout: () => "Connection request timeout",
+    noInternetConnection: () => "No internet connection",
+    conflict: () => "Error due to a conflict",
+    sendTimeout: () => "Send timeout in connection with API server",
+    unableToProcess: () => "Unable to process the data",
+    formatException: () => "Unexpected error occurred",
+    notAcceptable: () => "Not acceptable",
+  );
+}
+
+
 static int getStatusCode(NetworkExceptions networkExceptions) {
   return networkExceptions.when(
-    notImplemented: () => 501,
+defaultError: (dioException) => dioException.response != null && dioException.response!.statusCode != null 
+  ? int.tryParse(dioException.response!.statusCode.toString()) ?? 400 
+  : 400,    notImplemented: () => 501,
     requestCancelled: () => 499,
     internalServerError: () => 500,
     notFound: (String reason) => 404,
@@ -211,45 +245,28 @@ static int getStatusCode(NetworkExceptions networkExceptions) {
     conflict: () => 409,
     sendTimeout: () => 408,
     unableToProcess: () => 422,
-    defaultError: (String error, int statusCode) => statusCode, // This will now return the status code from the API
     formatException: () => 600,
     notAcceptable: () => 406,
   );
 }
 
-static NetworkExceptions getException(error) {
-  if (error is SocketException) {
-    return const NetworkExceptions.noInternetConnection();
-  } else if (error is DioException) {
-    try {
-      String errorMessage = error.response != null ? error.response!.data['message'] : 'Please try again later';
-      int errorCode = error.response?.statusCode ?? 400;
-      switch (error.type) {
+static NetworkExceptions getException(DioException exception) {
+  
+
+  switch (exception.type) {
         case DioExceptionType.cancel:
-          return NetworkExceptions.defaultError(errorMessage, errorCode);
+          return const NetworkExceptions.requestCancelled();
         case DioExceptionType.connectionTimeout:
           return const NetworkExceptions.requestTimeout();
         case DioExceptionType.unknown:
-          return NetworkExceptions.defaultError(errorMessage, errorCode);
+          return NetworkExceptions.defaultError(exception);
         case DioExceptionType.sendTimeout:
           return const NetworkExceptions.sendTimeout();
         case DioExceptionType.badResponse:
-          return NetworkExceptions.defaultError(errorMessage, errorCode);
+          return NetworkExceptions.defaultError(exception);
         default:
-          return const NetworkExceptions.unexpectedError();
+          return  NetworkExceptions.defaultError(exception);
       }
-    } on FormatException {
-      return const NetworkExceptions.formatException();
-    } catch (_) {
-      return const NetworkExceptions.unexpectedError();
-    }
-  } else {
-    if (error.toString().contains("is not a subtype of")) {
-      return const NetworkExceptions.unableToProcess();
-    } else {
-      return const NetworkExceptions.unexpectedError();
-    }
-  }
 }
 
 }

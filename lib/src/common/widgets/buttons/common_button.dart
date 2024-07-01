@@ -10,17 +10,22 @@ import '../../../config/constants/app_styles.dart';
 
 class CommonButton extends StatelessWidget {
   final VoidCallback callback;
+  final bool? isRejectButton;
+  final bool? isApproveButton;
   final String title;
   const CommonButton({
     Key? key,
     required this.callback,
+    this.isRejectButton,
+    this.isApproveButton,
     required this.title,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        style: AppStyles.buildElevatedButtonStyle(context),
+      
+        style: isApproveButton == true ? AppStyles.approveButtonStyle(context) : isRejectButton == true ? AppStyles.rejectButtonStyle(context) : AppStyles.buildElevatedButtonStyle(context),
         onPressed: callback,
         child: Text(
           title,

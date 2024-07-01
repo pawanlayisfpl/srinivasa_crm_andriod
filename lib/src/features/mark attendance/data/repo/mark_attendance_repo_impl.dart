@@ -22,7 +22,8 @@ class MarkAttendanceRepoImpl implements MarkAttendanceRepo {
       return Right(results);
       
     } on NetworkExceptions  catch (e) {
-      return Left(NetworkExceptions.getDioException(e));
+
+      return left(e);
       
     }
   }
@@ -34,7 +35,7 @@ class MarkAttendanceRepoImpl implements MarkAttendanceRepo {
       return Right(results);
       
     } on NetworkExceptions catch (e) {
-      return Left(NetworkExceptions.getDioException(e));
+      return left(e);
       
     }
   }
@@ -46,7 +47,7 @@ class MarkAttendanceRepoImpl implements MarkAttendanceRepo {
       return Right(results);
       
     } on NetworkExceptions catch (e) {
-      return Left(NetworkExceptions.getDioException(e));
+      return Left(e);
 
       
     }

@@ -1,0 +1,297 @@
+import 'dart:convert';
+import 'dart:math';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
+import 'package:srinivasa_crm_new/src/config/config.dart';
+import 'package:srinivasa_crm_new/src/core/core.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_full_details_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkin_post_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkout_post_model.dart';
+
+import '../../../../../core/model/model.dart';
+import '../../../domain/model/get/checkIn_response_model.dart';
+import '../../../domain/model/get/checkout_response_model.dart';
+import '../../../domain/model/get/customer_model.dart';
+import '../../../domain/model/get/customer_response_model.dart';
+import '../../../domain/model/get/last_checkin_out_respone_model.dart';
+
+abstract class CustomerRemoteDataSource{
+  Future<CustomerResponseModel> getCustomers();
+  Future<CustomerResponseModel> getAllCustomerDemo();
+  Future<Customermodel> getCustomerById(int id);
+  Future<CheckInResponseModel> checkIn({required CheckinPostModel checkinPostModel});
+  Future<CheckoutResponseModel> checkOut({required CheckoutPostModel checkoutPostModel});
+  Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails({required String customerId});
+  Future<List<Customermodel>> searchCustomer({required String searchKey});
+  Future<CustomerFullDetailsModel> getCustomerFullDetails({required String customerCode});
+  
+}
+
+
+@Injectable(as : CustomerRemoteDataSource)
+class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
+ final DioClient dioClient;
+  final KeyValueStorage keyValueStorage;
+  final Logger logger;
+  final InternetChecker connectionChecker;
+
+  CustomerRemoteDatasourcesImpl(this.dioClient, this.keyValueStorage, this.logger, this.connectionChecker);
+  
+  @override
+  Future<CheckInResponseModel> checkIn({required CheckinPostModel checkinPostModel}) async {
+    final result = await connectionChecker.isConnected();
+
+    if(result) {
+      try {
+        final response = await dioClient.post(Endpoints.checkInPostUrl,data: checkinPostModel.toJson(),headers: {});
+
+        if(response.statusCode == 200)  {
+          CheckInResponseModel checkInResponseModel =  CheckInResponseModel.fromJson(response.data);
+
+          await keyValueStorage.sharedPreferences.setString(KeyValueStrings.checkinTime,checkInResponseModel.time.toString());
+          return await Future.value(checkInResponseModel);
+        
+        }else {
+          throw  NetworkExceptions.getException(response.data);
+        }
+        
+      } catch (e) {
+        if(e is DioException) {
+          logger.e(e.response!.data.toString());
+          throw NetworkExceptions.getException(e);
+        }else {
+          throw const NetworkExceptions.internalServerError();
+        }
+        
+      }
+    }else {
+      throw const NetworkExceptions.noInternetConnection();
+    
+    }
+    }
+  
+  @override
+  Future<CheckoutResponseModel> checkOut({required CheckoutPostModel checkoutPostModel}) async {
+   final result = await connectionChecker.isConnected();
+
+   if(result) {
+    try {
+     List<MultipartFile> files = [];
+    if (checkoutPostModel.files != null) {
+      for (var file in checkoutPostModel.files!) {
+        files.add(MultipartFile.fromBytes(file, filename: 'file'));
+      }
+    }
+      List<MultipartFile> imagesList = [];
+    if (checkoutPostModel.images != null) {
+      for (var file in checkoutPostModel.images!) {
+        files.add(MultipartFile.fromBytes(file, filename: 'images'));
+      }
+    }
+
+    FormData data = FormData.fromMap({
+      'userIds': checkoutPostModel.userIds,
+      'outTime': DateTime.now().toString(),
+      'customerCode': checkoutPostModel.customerCode,
+      'customerName': checkoutPostModel.customerName,
+      'langitude': checkoutPostModel.langitude,
+      'latitude': checkoutPostModel.latitude,
+      'remarks': checkoutPostModel.remarks,
+      'puposeId': checkoutPostModel.purposeId,
+      'images': imagesList,
+      'pdfs': files,
+    });
+
+      final response = await dioClient.post(Endpoints.checkOut,data: data,headers: {});
+
+      if (response.statusCode == 200) {
+        return CheckoutResponseModel.fromJson(response.data);
+      } else {
+        throw NetworkExceptions.getException(response.data);
+      }
+    } on DioException catch (e) {
+      throw  NetworkExceptions.getException(e);
+    }
+
+   }else {
+    throw const NetworkExceptions.noInternetConnection();
+   
+   }
+  }
+  
+  @override
+  Future<CustomerResponseModel> getAllCustomerDemo()  async{
+   final result = await connectionChecker.isConnected();
+
+   if(result) {
+    try {
+      final response = await dioClient.get(Endpoints.getAllCustomerDemo);
+
+      if(response.statusCode == 200) {
+        return CustomerResponseModel.fromJson(response.data);
+      }else {
+        throw NetworkExceptions.getException(response.data);
+      }
+    } on DioException catch (e) {
+      logger.e(e);
+      throw NetworkExceptions.getException(e);
+    }on FormatException catch (e) {
+      logger.e(e);
+      throw const NetworkExceptions.formatException();
+    }
+
+   }else {
+    throw const NetworkExceptions.noInternetConnection();
+   }
+
+  }
+  
+  @override
+  Future<Customermodel> getCustomerById(int id)  async{
+    final result = await connectionChecker.isConnected();
+    if(result) {
+      try {
+        final response = await dioClient.get(
+          Endpoints.customerFullDeails,
+          
+         headers: {},
+        );
+        return Customermodel.fromJson(response.data);
+      } on DioException catch (e) {
+        logger.e(e);
+        throw NetworkExceptions.getException(e);
+      }
+    }else {
+      throw const NetworkExceptions.noInternetConnection();
+    }
+  }
+  
+  @override
+  Future<CustomerFullDetailsModel> getCustomerFullDetails({required String customerCode}) async {
+    final results = await connectionChecker.isConnected();
+
+    if(results) {
+      try {
+           final response = await dioClient.post(Endpoints.customerFullDeails,data: {
+        "custCode" : customerCode
+      },headers: {});
+        if(response.statusCode == 200) {
+          return Future.value(CustomerFullDetailsModel.fromJson(response.data));  
+        }else {
+          throw Future.error(NetworkExceptions.getException(response.data));
+        }
+        
+      } catch (e) {
+        if(e is DioException) {
+          logger.e(e);
+          throw NetworkExceptions.getException(e);
+        }else {
+          throw  const NetworkExceptions.conflict();
+        }
+        
+      }
+
+    }else {
+      throw const NetworkExceptions.noInternetConnection();
+    
+    }
+  }
+  
+  @override
+  Future<CustomerResponseModel> getCustomers() async {
+    final results = await connectionChecker.isConnected();
+    if(results)  {
+      
+      try {
+        final response = await dioClient.get(
+          Endpoints.getAllCustomers,
+          headers: {},
+
+        );
+        if(response.statusCode == 200) {
+          return CustomerResponseModel.fromJson(response.data);
+        }else {
+          throw NetworkExceptions.getException(response.data);
+        }
+      } on DioException catch (e) {
+        logger.e(e);
+        throw NetworkExceptions.getException(e);
+      }
+    }else {
+      String? data =  keyValueStorage.sharedPreferences.getString(KeyValueStrings.customersData);
+      if(data != null) {
+        return CustomerResponseModel.fromJson(jsonDecode(data));
+      }else {
+        throw const NetworkExceptions.noInternetConnection();
+
+
+      
+    }
+  }
+  }
+  
+  @override
+  Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails({required String customerId}) async {
+   final result = await connectionChecker.isConnected();
+    if(result) {
+      try {
+        final response = await dioClient.post(
+          Endpoints.lastCheckInCheckOut,
+          headers: {},
+          data: {
+            'custCode': customerId,
+            
+          },
+        );
+
+        if(response.statusCode == 200) {
+          return  await Future.value(LastCheckinOutResponseModel.fromJson(response.data));
+        }else {
+          throw NetworkExceptions.getException(response.data);
+        }
+      } on DioException catch (e) {
+        logger.e(e);
+        throw NetworkExceptions.getException(e);
+      }
+
+
+  }else {
+    throw const NetworkExceptions.noInternetConnection();
+  
+  }
+  }
+  
+  @override
+  Future<List<Customermodel>> searchCustomer({required String   searchKey}) async {
+   final results = await connectionChecker.isConnected();
+   if(results) {
+    try {
+      final response = await dioClient.post(
+        Endpoints.searchCustomer,
+        data: {
+                  "custName" : searchKey
+
+        },
+        
+        
+        headers: {},
+
+      );
+       List<Customermodel> customerList = [];
+      final List data = response.data['customers'];
+      customerList = data.map((e) => Customermodel.fromJson(e)).toList();
+      return customerList;
+    } on DioException catch (e) {
+      logger.e(e);
+      throw NetworkExceptions.getDioException(e);
+    }
+
+   }else {
+    throw  const NetworkExceptions.noInternetConnection();
+   }
+  }
+}

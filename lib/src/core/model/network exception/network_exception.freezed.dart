@@ -33,7 +33,7 @@ mixin _$NetworkExceptions {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) =>
       throw _privateConstructorUsedError;
@@ -54,7 +54,7 @@ mixin _$NetworkExceptions {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) =>
       throw _privateConstructorUsedError;
@@ -75,7 +75,7 @@ mixin _$NetworkExceptions {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) =>
@@ -217,7 +217,7 @@ class _$RequestCancelledImpl implements RequestCancelled {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) {
     return requestCancelled();
@@ -241,7 +241,7 @@ class _$RequestCancelledImpl implements RequestCancelled {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) {
     return requestCancelled?.call();
@@ -265,7 +265,7 @@ class _$RequestCancelledImpl implements RequestCancelled {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
@@ -410,7 +410,7 @@ class _$UnauthorisedRequestImpl implements UnauthorisedRequest {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) {
     return unauthorisedRequest();
@@ -434,7 +434,7 @@ class _$UnauthorisedRequestImpl implements UnauthorisedRequest {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) {
     return unauthorisedRequest?.call();
@@ -458,7 +458,7 @@ class _$UnauthorisedRequestImpl implements UnauthorisedRequest {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
@@ -602,7 +602,7 @@ class _$BadRequestImpl implements BadRequest {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) {
     return badRequest();
@@ -626,7 +626,7 @@ class _$BadRequestImpl implements BadRequest {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) {
     return badRequest?.call();
@@ -650,7 +650,7 @@ class _$BadRequestImpl implements BadRequest {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
@@ -820,7 +820,7 @@ class _$NotFoundImpl implements NotFound {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) {
     return notFound(reason);
@@ -844,7 +844,7 @@ class _$NotFoundImpl implements NotFound {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) {
     return notFound?.call(reason);
@@ -868,7 +868,7 @@ class _$NotFoundImpl implements NotFound {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
@@ -1017,7 +1017,7 @@ class _$MethodNotAllowedImpl implements MethodNotAllowed {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) {
     return methodNotAllowed();
@@ -1041,7 +1041,7 @@ class _$MethodNotAllowedImpl implements MethodNotAllowed {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) {
     return methodNotAllowed?.call();
@@ -1065,7 +1065,7 @@ class _$MethodNotAllowedImpl implements MethodNotAllowed {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
@@ -1209,7 +1209,7 @@ class _$NotAcceptableImpl implements NotAcceptable {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) {
     return notAcceptable();
@@ -1233,7 +1233,7 @@ class _$NotAcceptableImpl implements NotAcceptable {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) {
     return notAcceptable?.call();
@@ -1257,7 +1257,7 @@ class _$NotAcceptableImpl implements NotAcceptable {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
@@ -1401,7 +1401,7 @@ class _$RequestTimeoutImpl implements RequestTimeout {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) {
     return requestTimeout();
@@ -1425,7 +1425,7 @@ class _$RequestTimeoutImpl implements RequestTimeout {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) {
     return requestTimeout?.call();
@@ -1449,7 +1449,7 @@ class _$RequestTimeoutImpl implements RequestTimeout {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
@@ -1593,7 +1593,7 @@ class _$SendTimeoutImpl implements SendTimeout {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) {
     return sendTimeout();
@@ -1617,7 +1617,7 @@ class _$SendTimeoutImpl implements SendTimeout {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) {
     return sendTimeout?.call();
@@ -1641,7 +1641,7 @@ class _$SendTimeoutImpl implements SendTimeout {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
@@ -1785,7 +1785,7 @@ class _$ConflictImpl implements Conflict {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) {
     return conflict();
@@ -1809,7 +1809,7 @@ class _$ConflictImpl implements Conflict {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) {
     return conflict?.call();
@@ -1833,7 +1833,7 @@ class _$ConflictImpl implements Conflict {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
@@ -1978,7 +1978,7 @@ class _$InternalServerErrorImpl implements InternalServerError {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) {
     return internalServerError();
@@ -2002,7 +2002,7 @@ class _$InternalServerErrorImpl implements InternalServerError {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) {
     return internalServerError?.call();
@@ -2026,7 +2026,7 @@ class _$InternalServerErrorImpl implements InternalServerError {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
@@ -2170,7 +2170,7 @@ class _$NotImplementedImpl implements NotImplemented {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) {
     return notImplemented();
@@ -2194,7 +2194,7 @@ class _$NotImplementedImpl implements NotImplemented {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) {
     return notImplemented?.call();
@@ -2218,7 +2218,7 @@ class _$NotImplementedImpl implements NotImplemented {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
@@ -2362,7 +2362,7 @@ class _$ServiceUnavailableImpl implements ServiceUnavailable {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) {
     return serviceUnavailable();
@@ -2386,7 +2386,7 @@ class _$ServiceUnavailableImpl implements ServiceUnavailable {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) {
     return serviceUnavailable?.call();
@@ -2410,7 +2410,7 @@ class _$ServiceUnavailableImpl implements ServiceUnavailable {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
@@ -2555,7 +2555,7 @@ class _$NoInternetConnectionImpl implements NoInternetConnection {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) {
     return noInternetConnection();
@@ -2579,7 +2579,7 @@ class _$NoInternetConnectionImpl implements NoInternetConnection {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) {
     return noInternetConnection?.call();
@@ -2603,7 +2603,7 @@ class _$NoInternetConnectionImpl implements NoInternetConnection {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
@@ -2747,7 +2747,7 @@ class _$FormatExceptionImpl implements FormatException {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) {
     return formatException();
@@ -2771,7 +2771,7 @@ class _$FormatExceptionImpl implements FormatException {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) {
     return formatException?.call();
@@ -2795,7 +2795,7 @@ class _$FormatExceptionImpl implements FormatException {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
@@ -2939,7 +2939,7 @@ class _$UnableToProcessImpl implements UnableToProcess {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) {
     return unableToProcess();
@@ -2963,7 +2963,7 @@ class _$UnableToProcessImpl implements UnableToProcess {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) {
     return unableToProcess?.call();
@@ -2987,7 +2987,7 @@ class _$UnableToProcessImpl implements UnableToProcess {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
@@ -3084,7 +3084,7 @@ abstract class _$$DefaultErrorImplCopyWith<$Res> {
           _$DefaultErrorImpl value, $Res Function(_$DefaultErrorImpl) then) =
       __$$DefaultErrorImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String error, int statusCode});
+  $Res call({DioException dioException});
 }
 
 /// @nodoc
@@ -3098,18 +3098,13 @@ class __$$DefaultErrorImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? error = null,
-    Object? statusCode = null,
+    Object? dioException = null,
   }) {
     return _then(_$DefaultErrorImpl(
-      null == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == statusCode
-          ? _value.statusCode
-          : statusCode // ignore: cast_nullable_to_non_nullable
-              as int,
+      null == dioException
+          ? _value.dioException
+          : dioException // ignore: cast_nullable_to_non_nullable
+              as DioException,
     ));
   }
 }
@@ -3117,16 +3112,14 @@ class __$$DefaultErrorImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DefaultErrorImpl implements DefaultError {
-  const _$DefaultErrorImpl(this.error, this.statusCode);
+  const _$DefaultErrorImpl(this.dioException);
 
   @override
-  final String error;
-  @override
-  final int statusCode;
+  final DioException dioException;
 
   @override
   String toString() {
-    return 'NetworkExceptions.defaultError(error: $error, statusCode: $statusCode)';
+    return 'NetworkExceptions.defaultError(dioException: $dioException)';
   }
 
   @override
@@ -3134,13 +3127,12 @@ class _$DefaultErrorImpl implements DefaultError {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DefaultErrorImpl &&
-            (identical(other.error, error) || other.error == error) &&
-            (identical(other.statusCode, statusCode) ||
-                other.statusCode == statusCode));
+            (identical(other.dioException, dioException) ||
+                other.dioException == dioException));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, error, statusCode);
+  int get hashCode => Object.hash(runtimeType, dioException);
 
   @JsonKey(ignore: true)
   @override
@@ -3166,10 +3158,10 @@ class _$DefaultErrorImpl implements DefaultError {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) {
-    return defaultError(error, statusCode);
+    return defaultError(dioException);
   }
 
   @override
@@ -3190,10 +3182,10 @@ class _$DefaultErrorImpl implements DefaultError {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) {
-    return defaultError?.call(error, statusCode);
+    return defaultError?.call(dioException);
   }
 
   @override
@@ -3214,12 +3206,12 @@ class _$DefaultErrorImpl implements DefaultError {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
     if (defaultError != null) {
-      return defaultError(error, statusCode);
+      return defaultError(dioException);
     }
     return orElse();
   }
@@ -3302,11 +3294,10 @@ class _$DefaultErrorImpl implements DefaultError {
 }
 
 abstract class DefaultError implements NetworkExceptions {
-  const factory DefaultError(final String error, final int statusCode) =
+  const factory DefaultError(final DioException dioException) =
       _$DefaultErrorImpl;
 
-  String get error;
-  int get statusCode;
+  DioException get dioException;
   @JsonKey(ignore: true)
   _$$DefaultErrorImplCopyWith<_$DefaultErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -3365,7 +3356,7 @@ class _$UnexpectedErrorImpl implements UnexpectedError {
     required TResult Function() noInternetConnection,
     required TResult Function() formatException,
     required TResult Function() unableToProcess,
-    required TResult Function(String error, int statusCode) defaultError,
+    required TResult Function(DioException dioException) defaultError,
     required TResult Function() unexpectedError,
   }) {
     return unexpectedError();
@@ -3389,7 +3380,7 @@ class _$UnexpectedErrorImpl implements UnexpectedError {
     TResult? Function()? noInternetConnection,
     TResult? Function()? formatException,
     TResult? Function()? unableToProcess,
-    TResult? Function(String error, int statusCode)? defaultError,
+    TResult? Function(DioException dioException)? defaultError,
     TResult? Function()? unexpectedError,
   }) {
     return unexpectedError?.call();
@@ -3413,7 +3404,7 @@ class _$UnexpectedErrorImpl implements UnexpectedError {
     TResult Function()? noInternetConnection,
     TResult Function()? formatException,
     TResult Function()? unableToProcess,
-    TResult Function(String error, int statusCode)? defaultError,
+    TResult Function(DioException dioException)? defaultError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
