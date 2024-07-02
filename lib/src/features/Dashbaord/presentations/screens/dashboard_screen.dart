@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:srinivasa_crm_new/shared/widgets/common_drawer_widget.dart';
+import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/widgets/dashboard_body_widget.dart';
+import 'package:srinivasa_crm_new/src/features/Location%20Tracking/presentations/native_screen.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
 
@@ -114,6 +116,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             onSelected: (value) async {
               if (value == "0") {
                 Fluttertoast.showToast(msg: "App Permission clicked");
+                Navigator.push(context, SlideRightRoute(screen: NativeScreen()));
               } else if (value == "1") {
                 // await Workmanager().cancelAll();
                 // Fluttertoast.showToast(msg: "Sync list clicked");
