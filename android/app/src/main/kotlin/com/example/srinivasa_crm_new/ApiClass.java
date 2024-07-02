@@ -5,8 +5,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -15,10 +18,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.type.DateTime;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +40,7 @@ public class ApiClass {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void callAPI(double latitude, double longitude) {
         Log.d(TAG, "api: " + latitude + ", longitude: " + longitude);
 
@@ -49,7 +55,7 @@ public class ApiClass {
                 JSONObject data = new JSONObject();
                 data.put("latitude", latitude);
                 data.put("longitude", longitude);
-
+                data.put("DateTime",LocalDate.now().toString());
                 StringRequest request = new StringRequest(
                         Request.Method.POST, "http://192.168.1.45:8080/crmsfpl/locations/se",  // Replace with your actual endpoint
                         new Response.Listener<String>() {

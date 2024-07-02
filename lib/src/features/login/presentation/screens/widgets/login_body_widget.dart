@@ -49,8 +49,8 @@ class LoginBodyWidget extends StatelessWidget {
           QuickAlert.show(
   context: context,
   type: QuickAlertType.error,
-  text: state.apiFailedModel!.message.toString(),
-  title: state.apiFailedModel!.statusCode.toString(),
+  text: state.apiFailedModel!.errorMessage.toString(),
+  title: "Error",
   animType: QuickAlertAnimType.slideInUp,
 
 );
