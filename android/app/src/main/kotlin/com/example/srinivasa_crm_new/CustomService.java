@@ -21,7 +21,7 @@ import java.util.TimerTask;
 public class CustomService extends Service {
     private static final String TAG = "BACKGROUND_TASKS";
     //    private static final long INTERVAL = 5 * 1000; // Run task every 5 seconds
-    private static final long INTERVAL = 60 * 1000; // Run task every 5 seconds
+    private static final long INTERVAL = 10 * 1000; // Run task every 5 seconds
     private static final String CHANNEL_ID = "ForegroundServiceChannel";
     private LocationHelperClass locationHelperClass;
 
@@ -78,6 +78,9 @@ public class CustomService extends Service {
     }
 
     private void performTask() {
+        Log.d(TAG, "BACKGROUND TASK STARTED");
+
+
         locationHelperClass.getLatLongValues();
         Log.d(TAG, "Bg Task performed at: " + new Date());
     }

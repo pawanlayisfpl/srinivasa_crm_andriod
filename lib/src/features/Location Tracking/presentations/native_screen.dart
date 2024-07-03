@@ -1,12 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class NativeScreen extends StatelessWidget {
   static const platform = MethodChannel('com.example.srinivasa_crm_new');
 
+  // void startService() async {
+   
+  //   try {
+  //     await platform.invokeMethod('start');
+  //     print('Service started');
+  //   } on PlatformException catch (e) {
+  //     print('Failed to start service: ${e.message}');
+  //   }
+  // }
+
+  Future<void> requestPermissions() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.location,
+      Permission.storage,
+
+      Permission.locationWhenInUse,
+      Permission.ignoreBatteryOptimizations,
+
+      // Add other permissions required by your app
+    ].request();
+
+    // Check if all permissions are granted
+    if (statuses.values.every((status) => status.isGranted)) {
+      print("All permissions granted");
+    } else {
+      print("Not all permissions were granted");
+      // Handle the case where permissions are not granted
+    }
+  }
+
   void startService() async {
     try {
+      await requestPermissions();
+       // Request permissions before starting the service
       await platform.invokeMethod('start');
       print('Service started');
     } on PlatformException catch (e) {
