@@ -11,6 +11,7 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/reject_monthly_plan_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/update_monthlyplan_postmodel.dart';
 
+import '../model/get/pending_monthly_plan_response_model.dart';
 import '../model/view_monthly_plan_model.dart';
 
 
@@ -25,4 +26,6 @@ abstract class MonthlyPlanRepo {
 
   Future<Either<NetworkExceptions,List<MonthlyPlanCustomerModel>>> getAssignedCustomers();
   Future<Either<NetworkExceptions,DeleteMonthlyPlanResponseModel>> deleteMonthlyPlanResponseModel({required int monthlyPlanid});
+  Future<Either<NetworkExceptions,PendingMonthlyPlanResponseModel>> getPendingMonthlyPlan();
+
 }

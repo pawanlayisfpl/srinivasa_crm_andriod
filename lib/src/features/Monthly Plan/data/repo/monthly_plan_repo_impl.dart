@@ -8,6 +8,7 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/m
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/monthly_plan_customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/monthly_plan_months_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/monthly_plan_reject_response_model.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/pending_monthly_plan_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/approve_plan_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/monthly_plan_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/reject_monthly_plan_post_model.dart';
@@ -114,6 +115,18 @@ class MonthlyPlanRepoImpl implements MonthlyPlanRepo {
       return Right(monthlyPlan);
     }on NetworkExceptions catch(e) {
       return Left(e);
+    }
+  }
+
+  @override
+  Future<Either<NetworkExceptions, PendingMonthlyPlanResponseModel>> getPendingMonthlyPlan()  async {
+    try {
+      final pendingMonthlyPlan = await remoteDataSource.getPendingMonthlyPlan();
+      return Right(pendingMonthlyPlan);
+      
+    } on NetworkExceptions catch (e) {
+      throw Left(e);
+      
     }
   }
 }

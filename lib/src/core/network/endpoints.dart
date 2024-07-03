@@ -44,6 +44,7 @@ class Endpoints {
   static const String monthlyPlanMonths = '$basicUrl/se/monthly-plan/months';
   static const String monthlyPlanCustomers = '$basicUrl/customer-demo';
   static const String monthlyPlanDelte = '$basicUrl/se/monthly-plan';
+  static const String monthlyPlanPendingRequests = '$basicUrl/se/monthly-plan/pending-monthly-plans';
   // ROUTES
   static const String allRoutes = '$basicUrl/se/all-routes';
   // EMPLOYESS
