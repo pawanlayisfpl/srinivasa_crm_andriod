@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/create_daily_plan_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/create_monthly_plan_screen.dart';
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/screens/view_monthly_plan_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20Search/screen/monthly_plan_search_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/screens/view_months_screen.dart';
 
 import '../../../../shared/widgets/dashboard_card_widget.dart';
-import '../../../config/config.dart';
 
 class MonthlyPlanDashboardScreen extends StatelessWidget {
   const MonthlyPlanDashboardScreen({super.key});
@@ -16,9 +14,10 @@ class MonthlyPlanDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> cardNames = [
-      'Create Daily Plan',
+      // 'Create Daily Plan',
       'Create Monthly Plan',
       'View Monthly Plan',
+      'Search Monthly Plan'
 
 
     ];
@@ -37,16 +36,16 @@ class MonthlyPlanDashboardScreen extends StatelessWidget {
                 return GestureDetector(
                     onTap: () {
                       switch (i) {
-                        case 0:
-                        Navigator.push(context, SlideLeftRoute(screen: const CreateDailyScreen()));
+                        case 2:
+                        Navigator.push(context, SlideLeftRoute(screen: const MonthlyPlanSearchScreen()));
                       
                           break;
-                        case 1:
+                        case 0:
                         // Fluttertoast.showToast(msg: "Add Customer Feature is disabled");
                             Navigator.push(context, SlideLeftRoute(screen: const CreateMonthlyPlanScreen()));
                        
                           break;
-                        case 2:
+                        case 1:
                               Navigator.push(
                               context, ScaleRoute(screen: const ViewMonthsScreen()));
                           break;
