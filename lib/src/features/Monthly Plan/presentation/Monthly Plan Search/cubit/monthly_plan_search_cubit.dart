@@ -1,16 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20Search/cubit/state/monthly_paln_search_state.dart';
 
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/repo/monthly_plan_repo.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20Search/cubit/state/monthly_paln_search_state.dart';
 
 @injectable
 class MonthlyPlanSearchCubit extends Cubit<MonthlyPlanSearchState> {
+  final MonthlyPlanRepo monthlyPlanRepo;
 
 
   TextEditingController searchController = TextEditingController();
 
   MonthlyPlanSearchCubit(
+    this.monthlyPlanRepo,
   ) : super( MonthlyPlanSearchState.initial());
 
   // SEARCH EMPLOYE LIST

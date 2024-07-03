@@ -43,6 +43,6 @@ class _ViewMonthlyPlanScreenState extends State<ViewMonthlyPlanScreen> {
       appBar: AppBar(
         title: const Text('Monthly Plan'),
       ),
-      body: SafeArea(child: const ViewMonthlyPlanBodyWidget()));
+      body: const SafeArea(child: ViewMonthlyPlanBodyWidget()));
   }
 }

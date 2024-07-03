@@ -35,7 +35,7 @@ class DashboardChildrenCardWidget extends StatelessWidget {
         ),
         alignment: Alignment.center,
         child:
-            Text(title, style: TextStyle(fontSize: 24.sp, color: Colors.white)),
+            Text(title, style: TextStyle(fontSize: 24.sp, color: Colors.white),textAlign: TextAlign.center,),
       ),
     );
   }

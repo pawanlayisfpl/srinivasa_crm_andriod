@@ -22,4 +22,13 @@ class AppStrings {
   static const String designationRequiredText = "Designation is required";
   static const String planStartRequiredText = "Plan start date is required";
   static const String planEndRequiredText = "Plan end date is required";
+
+  // ROLES
+
+  static const String adminRole = "73";
+  static const String regionalMangerRole = "76";
+  static const String areaMangerRole = "77";
+  static const String technicalDoctorRole = "78";
+  static const String salesRepRole = "79";
+  static const String businessHeadRole = "75";
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:srinivasa_crm_new/src/core/core.dart';
 
 import '../../common.dart';
 
@@ -36,7 +37,7 @@ class EmptyWidget extends StatelessWidget {
           20.verticalSpace,
           CommonButton(title: 'Retry', callback: () => callback()),
         ],  
-      ),
+      ).withSymetricPadding(horizontalPadding: 10.w),
     );
   }
 }
