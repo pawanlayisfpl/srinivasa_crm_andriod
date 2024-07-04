@@ -23,7 +23,7 @@ import com.google.type.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +31,7 @@ public class ApiClass {
     private  Context context;
 
     private String url = "https://reqres.in/api/login"; // Replace with your actual API URL
-    private String postUrl = "http://192.168.1.45:8080/crmsfpl/locations/se";
+    private String postUrl = "http://192.168.1.45:8080/crmsfpl/se/locations";
     private String TAG = "ApiCaller"; // Tag for logging
     private LocationHelperClass locationHelperClass;
 
@@ -55,9 +55,9 @@ public class ApiClass {
                 JSONObject data = new JSONObject();
                 data.put("latitude", latitude);
                 data.put("longitude", longitude);
-                data.put("DateTime",LocalDate.now().toString());
+                data.put("userDateTime", LocalDateTime.now().toString());
                 StringRequest request = new StringRequest(
-                        Request.Method.POST, "http://192.168.1.45:8080/crmsfpl/locations/se",  // Replace with your actual endpoint
+                        Request.Method.POST, postUrl,  // Replace with your actual endpoint
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
