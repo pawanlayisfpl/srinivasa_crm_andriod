@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20Search/cubit/monthly_plan_search_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20Search/screen/widget/monthly_plan_search_body_widget.dart';
 
 import '../../../../../config/config.dart';
 
@@ -89,7 +90,7 @@ class _MonthlyPlanSearchScreenState extends State<MonthlyPlanSearchScreen> {
             ),
       ),
      
-      body:  SafeArea(child: Container()),
+      body:  SafeArea(child: MonthlyPlanSearchBodyWidget()),
     );
   }
 }

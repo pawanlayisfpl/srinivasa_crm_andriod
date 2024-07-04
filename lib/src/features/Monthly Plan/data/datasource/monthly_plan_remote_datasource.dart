@@ -19,6 +19,7 @@ import '../../../../config/config.dart';
 import '../../../../core/model/model.dart';
 import '../../domain/model/get/monthly_plan_months_model.dart';
 import '../../domain/model/get/monthly_plan_reject_response_model.dart';
+import '../../domain/model/get/monthly_plan_search_response_model.dart';
 import '../../domain/model/view_monthly_plan_model.dart';
 
 
@@ -28,11 +29,12 @@ abstract class MonthlyPlanRemoteDataSource {
     Future<CreateMonthlyPlanResposneModel> createMonthlyPlan({required CreateMonthlyPlanPostModel monthlyPlanPostModel});
   Future<MonthlyPlanApprovetResponseModel> approveMonthlyPlan({required ApprovePlanPostModel approvePlanPostModel});
   Future<MonthlyPlanRejectResponseModel> rejectMonthlyPlan({required RejectMonthlyPlanPostModel rejectPlanPostModel});
-  Future<List<MonthlyPlanMonthsModel>> getMonthlyPlanMonths();
+  Future<List<MonthlyPlanMonthsModel>> getMonthlyPlanMonths({required String userId});
   Future<List<MonthlyPlanCustomerModel>> getAssignedCustomers();
   Future<ViewMonthlyPlanModel> findMonthlyPlanByMonthlyPlanId({required int monhtlyPlanId});
   Future<DeleteMonthlyPlanResponseModel> deleteMonthlyPlanResponseModel({required int monthlyPlanid});
   Future<PendingMonthlyPlanResponseModel> getPendingMonthlyPlan();
+  Future<MonthlyPlanSearchResponseModel> searchMonthlyPlanUser({required String query});
 
 }
 // 
@@ -164,9 +166,9 @@ class MonthlyPlanRemoteDataSourceImpl implements MonthlyPlanRemoteDataSource {
   }
   
   @override
-  Future<List<MonthlyPlanMonthsModel>> getMonthlyPlanMonths() async {
+  Future<List<MonthlyPlanMonthsModel>> getMonthlyPlanMonths({required String userId}) async {
     try {
-      final response = await dioClient.get(Endpoints.monthlyPlanMonths,headers: {});
+      final response = await dioClient.get(Endpoints.monthlyPlanMonths + userId,headers: {});
 
       if(response.statusCode == 200) {
         return (response.data as List).map((e) => MonthlyPlanMonthsModel.fromJson(e)).toList();
@@ -242,6 +244,22 @@ class MonthlyPlanRemoteDataSourceImpl implements MonthlyPlanRemoteDataSource {
       
     } on DioException catch(e) {
       throw NetworkExceptions.getDioException(e);
+  }
+}
+
+  @override
+  Future<MonthlyPlanSearchResponseModel> searchMonthlyPlanUser({required String query}) async {
+    try {
+      final response = await dioClient.get(Endpoints.monthlyPlanSearch + query,headers: {});
+
+      if(response.statusCode == 200) {
+        return Future.value(MonthlyPlanSearchResponseModel.fromJson(response.data));
+      }else {
+        throw Future.value(NetworkExceptions.getDioException(response.data));
+      }
+      
+    } on DioException catch(e) {
+      throw Future.error(NetworkExceptions.getDioException(e));
   }
 }
 }

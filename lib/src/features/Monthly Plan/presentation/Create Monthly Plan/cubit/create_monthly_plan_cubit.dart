@@ -55,8 +55,8 @@ Future<void> getAllInitialValues() async {
 
 }
 // GET ALL MONTHS LIST
-Future<void> getAllMonthsList() async {
-  final data = await monthlyPlanRepo.getMonthlyPlanMonths();
+Future<void> getAllMonthsList({required String userId}) async {
+  final data = await monthlyPlanRepo.getMonthlyPlanMonths(userId: userId);
   data.fold((l) => ApiFailedModel(statusCode: NetworkExceptions.getStatusCode(l), message: NetworkExceptions.getErrorMessage(l), errorMessage: NetworkExceptions.getErrorTitle(l)), (r) {
     emit(state.copyWith(monthsList: r));
   });

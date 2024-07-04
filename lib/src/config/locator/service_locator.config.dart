@@ -106,9 +106,9 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/repo/monthl
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_cubit.dart'
     as _i58;
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20PendingRequests/cubit/monthly_plan_pending_cubit.dart'
-    as _i48;
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20Search/cubit/monthly_plan_search_cubit.dart'
     as _i47;
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20Search/cubit/monthly_plan_search_cubit.dart'
+    as _i48;
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/cubit/view_monthly_plan_cubit.dart'
     as _i46;
 import 'package:srinivasa_crm_new/src/features/Profile/data/datasource/local/profile_local_datasource.dart'
@@ -239,10 +239,10 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i45.AlertCubit>(() => _i45.AlertCubit(gh<_i27.AlertRepo>()));
     gh.factory<_i46.ViewMonthlyPlanCubit>(
         () => _i46.ViewMonthlyPlanCubit(gh<_i43.MonthlyPlanRepo>()));
-    gh.factory<_i47.MonthlyPlanSearchCubit>(
-        () => _i47.MonthlyPlanSearchCubit(gh<_i43.MonthlyPlanRepo>()));
-    gh.factory<_i48.MonthlyPlanPendingCubit>(
-        () => _i48.MonthlyPlanPendingCubit(gh<_i43.MonthlyPlanRepo>()));
+    gh.factory<_i47.MonthlyPlanPendingCubit>(
+        () => _i47.MonthlyPlanPendingCubit(gh<_i43.MonthlyPlanRepo>()));
+    gh.factory<_i48.MonthlyPlanSearchCubit>(
+        () => _i48.MonthlyPlanSearchCubit(gh<_i43.MonthlyPlanRepo>()));
     gh.factory<_i49.MarkAttendanceRepo>(() => _i50.MarkAttendanceRepoImpl(
         markAttendanceRemoteDataSource:
             gh<_i42.MarkAttendanceRemoteDataSource>()));

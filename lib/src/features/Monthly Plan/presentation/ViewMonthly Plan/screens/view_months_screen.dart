@@ -1,7 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
@@ -13,7 +15,11 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewM
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/screens/view_monthly_plan_screen.dart';
 
 class ViewMonthsScreen extends StatefulWidget {
-  const ViewMonthsScreen({super.key});
+  final String? id;
+  const ViewMonthsScreen({
+    Key? key,
+    this.id,
+  }) : super(key: key);
 
   @override
   State<ViewMonthsScreen> createState() => _ViewMonthsScreenState();
@@ -26,7 +32,7 @@ class _ViewMonthsScreenState extends State<ViewMonthsScreen> {
         (t) {
           context.read<ViewMonthlyPlanCubit>().managerClickedFalse();
           context.read<ViewMonthlyPlanCubit>().resetAlertModelValue();
-          context.read<CreateMonthlyPlanCubit>().getAllMonthsList();
+          context.read<CreateMonthlyPlanCubit>().getAllMonthsList(userId: widget.id ?? '');
         });
     super.initState();
   }

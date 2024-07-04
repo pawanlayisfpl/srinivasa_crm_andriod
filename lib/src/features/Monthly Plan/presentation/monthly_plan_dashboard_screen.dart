@@ -22,7 +22,7 @@ class MonthlyPlanDashboardScreen extends StatelessWidget {
       'Create Monthly Plan',
       'View Monthly Plan',
       'Search Monthly Plan',
-      'Monthly Plan Pending Requests'
+      'Monthly Plan\n Pending Requests'
 
 
     ];

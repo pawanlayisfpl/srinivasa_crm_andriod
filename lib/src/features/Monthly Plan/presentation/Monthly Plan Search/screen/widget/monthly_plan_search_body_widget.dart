@@ -8,6 +8,8 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%2
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20Search/cubit/monthly_plan_search_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20Search/cubit/state/monthly_paln_search_state.dart';
 
+import 'monthly_plan_search_list_widget.dart';
+
 
 
 class MonthlyPlanSearchBodyWidget extends StatefulWidget {
@@ -30,7 +32,7 @@ class _MonthlyPlanSearchBodyWidgetState extends State<MonthlyPlanSearchBodyWidge
           children: [
             
             // 5.verticalSpace,
-          state.isLoading ? const SearchCustomerLoadingWidget() :  const SearchCustomerListWidget(),
+          state.isLoading ? const SearchCustomerLoadingWidget() :  const MonthlyPlanEmployeListWidget(),
           ],
         );
       }
