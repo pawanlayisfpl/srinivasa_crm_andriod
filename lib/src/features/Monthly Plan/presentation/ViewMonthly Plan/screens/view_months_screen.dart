@@ -16,9 +16,11 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewM
 
 class ViewMonthsScreen extends StatefulWidget {
   final String? id;
+  final int? monthlyPlanId;
   const ViewMonthsScreen({
     Key? key,
     this.id,
+    this.monthlyPlanId,
   }) : super(key: key);
 
   @override
@@ -62,7 +64,7 @@ class _ViewMonthsScreenState extends State<ViewMonthsScreen> {
                     
                     child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context, SlideLeftRoute(screen: ViewMonthlyPlanScreen(selectedDate: state.monthsList[index].date.toString(),)));
+                    Navigator.push(context, SlideLeftRoute(screen: ViewMonthlyPlanScreen(monthlyPlanId: widget.monthlyPlanId ?? state.monthsList[index].monthlyPlanId,)));
                   },
                   child: Card(
                     elevation: 8,

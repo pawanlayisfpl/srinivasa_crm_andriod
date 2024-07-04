@@ -36,7 +36,8 @@ class MonthlyPlanEmployeListWidget extends StatelessWidget {
               
             
                 if(context.mounted) {
-                  Navigator.push(context, SlideLeftRoute(screen:   ViewMonthsScreen(id: model.id.toString(),)));
+                  Navigator.push(context, SlideLeftRoute(screen:   ViewMonthsScreen(id: model.id.toString(),
+                  )));
 
                 }
               },
