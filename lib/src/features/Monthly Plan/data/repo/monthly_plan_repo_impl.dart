@@ -8,6 +8,7 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/m
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/monthly_plan_customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/monthly_plan_months_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/monthly_plan_reject_response_model.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/monthly_plan_search_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/pending_monthly_plan_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/approve_plan_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/monthly_plan_post_model.dart';
@@ -86,9 +87,9 @@ class MonthlyPlanRepoImpl implements MonthlyPlanRepo {
   }
 
   @override
-  Future<Either<NetworkExceptions, List<MonthlyPlanMonthsModel>>> getMonthlyPlanMonths() async {
+  Future<Either<NetworkExceptions, List<MonthlyPlanMonthsModel>>> getMonthlyPlanMonths({required String userId}) async {
     try {
-      final monthlyPlanMonths = await remoteDataSource.getMonthlyPlanMonths();
+      final monthlyPlanMonths = await remoteDataSource.getMonthlyPlanMonths(userId: userId);
       return Right(monthlyPlanMonths);
     }on NetworkExceptions catch(e) {
       return Left(e);
@@ -128,5 +129,17 @@ class MonthlyPlanRepoImpl implements MonthlyPlanRepo {
       throw Left(e);
       
     }
+  }
+
+  @override
+  Future<Either<NetworkExceptions, MonthlyPlanSearchResponseModel>> searchMonthlyPlanUser({required String search}) async  {
+    try {
+    final results = await  remoteDataSource.searchMonthlyPlanUser(query: search);
+    return right(results);
+     
+   } on NetworkExceptions catch (e) {
+    return left(e);
+     
+   }
   }
 }

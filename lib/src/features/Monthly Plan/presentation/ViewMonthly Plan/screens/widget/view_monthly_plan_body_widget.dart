@@ -49,7 +49,7 @@ class ViewMonthlyPlanBodyWidget extends StatelessWidget {
 
             ],
           );
-        }, error: (e) => CommonErrorWidget(error: e.toString(), callback: () {}));
+        }, error: (e) => CommonErrorWidget(error: e.errorMessage.toString(), callback: () {}));
       },
     );
   }

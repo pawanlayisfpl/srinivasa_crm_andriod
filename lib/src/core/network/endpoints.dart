@@ -41,10 +41,11 @@ class Endpoints {
   static const String monthlyPlanApprove = '$basicUrl/se/monthly-plan/approve';
   static const String monthlyPlanReject = '$basicUrl/se/monthly-plan/reject';
   static const String monthlyPlanByMonthlyPlanId = '$basicUrl/se/monthly-plan/';
-  static const String monthlyPlanMonths = '$basicUrl/se/monthly-plan/months';
+  static const String monthlyPlanMonths = '$basicUrl/se/monthly-plan/months?userId=';
   static const String monthlyPlanCustomers = '$basicUrl/customer-demo';
   static const String monthlyPlanDelte = '$basicUrl/se/monthly-plan';
   static const String monthlyPlanPendingRequests = '$basicUrl/se/monthly-plan/pending-monthly-plans';
+  static const String monthlyPlanSearch = '$basicUrl/user/subordinates/cascade?searchPattern=';
   // ROUTES
   static const String allRoutes = '$basicUrl/se/all-routes';
   // EMPLOYESS

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:srinivasa_crm_new/src/core/model/model.dart';
 
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/repo/monthly_plan_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20Search/cubit/state/monthly_paln_search_state.dart';
@@ -25,9 +26,29 @@ class MonthlyPlanSearchCubit extends Cubit<MonthlyPlanSearchState> {
         isLoading: true,
       isSearchingAgain: true,
       searchQuery: searchKey,
+      monthlyPlanSearchResponseModel: null,
         
       ));
-      await Future.delayed(const Duration(milliseconds: 800));
+      final results = await monthlyPlanRepo.searchMonthlyPlanUser(search: searchKey);
+      results.fold(
+        (l) {
+          emit(state.copyWith(
+            isLoading: false,
+            isSearchingAgain: false,
+            empolyesList: [],
+            apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),
+            
+          ));
+        },
+        (r) {
+          emit(state.copyWith(
+            isLoading: false,
+            isSearchingAgain: false,
+            empolyesList: [],
+            monthlyPlanSearchResponseModel: r
+          ));
+        },
+      );
 
     }else {
 
@@ -40,6 +61,7 @@ class MonthlyPlanSearchCubit extends Cubit<MonthlyPlanSearchState> {
     emit(state.copyWith(
       searchQuery: '',
       empolyesList: [],
+      monthlyPlanSearchResponseModel:  null
     ));
   }
 

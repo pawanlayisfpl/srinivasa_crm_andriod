@@ -18,9 +18,12 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MonthlyPlanSearchState {
   String get searchQuery => throw _privateConstructorUsedError;
   List<EmployeeModel> get empolyesList => throw _privateConstructorUsedError;
+  MonthlyPlanSearchResponseModel? get monthlyPlanSearchResponseModel =>
+      throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isSearchingAgain => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
+  ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MonthlyPlanSearchStateCopyWith<MonthlyPlanSearchState> get copyWith =>
@@ -36,9 +39,13 @@ abstract class $MonthlyPlanSearchStateCopyWith<$Res> {
   $Res call(
       {String searchQuery,
       List<EmployeeModel> empolyesList,
+      MonthlyPlanSearchResponseModel? monthlyPlanSearchResponseModel,
       bool isLoading,
       bool isSearchingAgain,
-      bool hasError});
+      bool hasError,
+      ApiFailedModel? apiFailedModel});
+
+  $ApiFailedModelCopyWith<$Res>? get apiFailedModel;
 }
 
 /// @nodoc
@@ -57,9 +64,11 @@ class _$MonthlyPlanSearchStateCopyWithImpl<$Res,
   $Res call({
     Object? searchQuery = null,
     Object? empolyesList = null,
+    Object? monthlyPlanSearchResponseModel = freezed,
     Object? isLoading = null,
     Object? isSearchingAgain = null,
     Object? hasError = null,
+    Object? apiFailedModel = freezed,
   }) {
     return _then(_value.copyWith(
       searchQuery: null == searchQuery
@@ -70,6 +79,10 @@ class _$MonthlyPlanSearchStateCopyWithImpl<$Res,
           ? _value.empolyesList
           : empolyesList // ignore: cast_nullable_to_non_nullable
               as List<EmployeeModel>,
+      monthlyPlanSearchResponseModel: freezed == monthlyPlanSearchResponseModel
+          ? _value.monthlyPlanSearchResponseModel
+          : monthlyPlanSearchResponseModel // ignore: cast_nullable_to_non_nullable
+              as MonthlyPlanSearchResponseModel?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -82,7 +95,23 @@ class _$MonthlyPlanSearchStateCopyWithImpl<$Res,
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
               as bool,
+      apiFailedModel: freezed == apiFailedModel
+          ? _value.apiFailedModel
+          : apiFailedModel // ignore: cast_nullable_to_non_nullable
+              as ApiFailedModel?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ApiFailedModelCopyWith<$Res>? get apiFailedModel {
+    if (_value.apiFailedModel == null) {
+      return null;
+    }
+
+    return $ApiFailedModelCopyWith<$Res>(_value.apiFailedModel!, (value) {
+      return _then(_value.copyWith(apiFailedModel: value) as $Val);
+    });
   }
 }
 
@@ -98,9 +127,14 @@ abstract class _$$MonthlyPlanSearchStateImplCopyWith<$Res>
   $Res call(
       {String searchQuery,
       List<EmployeeModel> empolyesList,
+      MonthlyPlanSearchResponseModel? monthlyPlanSearchResponseModel,
       bool isLoading,
       bool isSearchingAgain,
-      bool hasError});
+      bool hasError,
+      ApiFailedModel? apiFailedModel});
+
+  @override
+  $ApiFailedModelCopyWith<$Res>? get apiFailedModel;
 }
 
 /// @nodoc
@@ -118,9 +152,11 @@ class __$$MonthlyPlanSearchStateImplCopyWithImpl<$Res>
   $Res call({
     Object? searchQuery = null,
     Object? empolyesList = null,
+    Object? monthlyPlanSearchResponseModel = freezed,
     Object? isLoading = null,
     Object? isSearchingAgain = null,
     Object? hasError = null,
+    Object? apiFailedModel = freezed,
   }) {
     return _then(_$MonthlyPlanSearchStateImpl(
       searchQuery: null == searchQuery
@@ -131,6 +167,10 @@ class __$$MonthlyPlanSearchStateImplCopyWithImpl<$Res>
           ? _value._empolyesList
           : empolyesList // ignore: cast_nullable_to_non_nullable
               as List<EmployeeModel>,
+      monthlyPlanSearchResponseModel: freezed == monthlyPlanSearchResponseModel
+          ? _value.monthlyPlanSearchResponseModel
+          : monthlyPlanSearchResponseModel // ignore: cast_nullable_to_non_nullable
+              as MonthlyPlanSearchResponseModel?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -143,6 +183,10 @@ class __$$MonthlyPlanSearchStateImplCopyWithImpl<$Res>
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
               as bool,
+      apiFailedModel: freezed == apiFailedModel
+          ? _value.apiFailedModel
+          : apiFailedModel // ignore: cast_nullable_to_non_nullable
+              as ApiFailedModel?,
     ));
   }
 }
@@ -153,9 +197,11 @@ class _$MonthlyPlanSearchStateImpl implements _MonthlyPlanSearchState {
   const _$MonthlyPlanSearchStateImpl(
       {this.searchQuery = '',
       final List<EmployeeModel> empolyesList = const [],
+      this.monthlyPlanSearchResponseModel = null,
       this.isLoading = false,
       this.isSearchingAgain = false,
-      this.hasError = false})
+      this.hasError = false,
+      this.apiFailedModel = null})
       : _empolyesList = empolyesList;
 
   @override
@@ -172,6 +218,9 @@ class _$MonthlyPlanSearchStateImpl implements _MonthlyPlanSearchState {
 
   @override
   @JsonKey()
+  final MonthlyPlanSearchResponseModel? monthlyPlanSearchResponseModel;
+  @override
+  @JsonKey()
   final bool isLoading;
   @override
   @JsonKey()
@@ -179,10 +228,13 @@ class _$MonthlyPlanSearchStateImpl implements _MonthlyPlanSearchState {
   @override
   @JsonKey()
   final bool hasError;
+  @override
+  @JsonKey()
+  final ApiFailedModel? apiFailedModel;
 
   @override
   String toString() {
-    return 'MonthlyPlanSearchState(searchQuery: $searchQuery, empolyesList: $empolyesList, isLoading: $isLoading, isSearchingAgain: $isSearchingAgain, hasError: $hasError)';
+    return 'MonthlyPlanSearchState(searchQuery: $searchQuery, empolyesList: $empolyesList, monthlyPlanSearchResponseModel: $monthlyPlanSearchResponseModel, isLoading: $isLoading, isSearchingAgain: $isSearchingAgain, hasError: $hasError, apiFailedModel: $apiFailedModel)';
   }
 
   @override
@@ -194,12 +246,18 @@ class _$MonthlyPlanSearchStateImpl implements _MonthlyPlanSearchState {
                 other.searchQuery == searchQuery) &&
             const DeepCollectionEquality()
                 .equals(other._empolyesList, _empolyesList) &&
+            (identical(other.monthlyPlanSearchResponseModel,
+                    monthlyPlanSearchResponseModel) ||
+                other.monthlyPlanSearchResponseModel ==
+                    monthlyPlanSearchResponseModel) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isSearchingAgain, isSearchingAgain) ||
                 other.isSearchingAgain == isSearchingAgain) &&
             (identical(other.hasError, hasError) ||
-                other.hasError == hasError));
+                other.hasError == hasError) &&
+            (identical(other.apiFailedModel, apiFailedModel) ||
+                other.apiFailedModel == apiFailedModel));
   }
 
   @override
@@ -207,9 +265,11 @@ class _$MonthlyPlanSearchStateImpl implements _MonthlyPlanSearchState {
       runtimeType,
       searchQuery,
       const DeepCollectionEquality().hash(_empolyesList),
+      monthlyPlanSearchResponseModel,
       isLoading,
       isSearchingAgain,
-      hasError);
+      hasError,
+      apiFailedModel);
 
   @JsonKey(ignore: true)
   @override
@@ -223,20 +283,26 @@ abstract class _MonthlyPlanSearchState implements MonthlyPlanSearchState {
   const factory _MonthlyPlanSearchState(
       {final String searchQuery,
       final List<EmployeeModel> empolyesList,
+      final MonthlyPlanSearchResponseModel? monthlyPlanSearchResponseModel,
       final bool isLoading,
       final bool isSearchingAgain,
-      final bool hasError}) = _$MonthlyPlanSearchStateImpl;
+      final bool hasError,
+      final ApiFailedModel? apiFailedModel}) = _$MonthlyPlanSearchStateImpl;
 
   @override
   String get searchQuery;
   @override
   List<EmployeeModel> get empolyesList;
   @override
+  MonthlyPlanSearchResponseModel? get monthlyPlanSearchResponseModel;
+  @override
   bool get isLoading;
   @override
   bool get isSearchingAgain;
   @override
   bool get hasError;
+  @override
+  ApiFailedModel? get apiFailedModel;
   @override
   @JsonKey(ignore: true)
   _$$MonthlyPlanSearchStateImplCopyWith<_$MonthlyPlanSearchStateImpl>
