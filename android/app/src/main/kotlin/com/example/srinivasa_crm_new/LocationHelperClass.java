@@ -3,11 +3,18 @@ package com.example.srinivasa_crm_new;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Looper;
+import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -23,46 +30,73 @@ public class LocationHelperClass {
     private final LocationCallback locationCallback;
 
     private final ApiClass apiClass;
+
     public LocationHelperClass(Context context) {
         this.context = context;
-        apiClass =  new ApiClass(context);
+        apiClass = new ApiClass(context);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
+
         locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(@NonNull LocationResult locationResult) {
-                //                        double latitude = location.getLatitude();
-                //                        double longitude = location.getLongitude();
-                //                        Log.d("latlng", "Latitude: " + latitude + ", Longitude: " + longitude);
-                // Call your API here with the lat/long values
+                if (locationResult == null) {
+                    Log.d("latlng", "LocationResult is null.");
+                    return;
+                }
+
+                for (Location location : locationResult.getLocations()) {
+                    if (location != null) {
+                        double latitude = location.getLatitude();
+                        double longitude = location.getLongitude();
+//                        Log.d("latlng", "Updated Location Latitude: " + latitude + ", Longitude: " + longitude);
+//                        // Implement API call here
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                            apiClass.callAPI(latitude, longitude);
+//                        }
+                    } else {
+                        Log.d("latlng", "Location is null in LocationResult.");
+                    }
+                }
             }
         };
     }
 
     public void getLatLongValues() {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            LocationRequest locationRequest = LocationRequest.create();
-            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            locationRequest.setInterval(5000); // 5 seconds
-            locationRequest.setFastestInterval(5000); // 5 seconds
+            // Check if location services are enabled
+            if (isLocationEnabled()) {
+                LocationRequest locationRequest = LocationRequest.create();
+                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                locationRequest.setInterval(5000); // 5 seconds
+                locationRequest.setFastestInterval(5000); // 5 seconds
 
-            fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
+                Log.d("BACKGROUND_TASKS", "Starting location updates");
 
-            fusedLocationProviderClient.getLastLocation()
-                    .addOnSuccessListener(location -> {
-                        if (location != null) {
-                            double latitude = location.getLatitude();
-                            double longitude = location.getLongitude();
-                            Log.d("latlng", "Last Location Latitude: " + latitude + ", Longitude: " + longitude);
-                            // Implement API call here
-                            apiClass.callAPI(latitude,longitude);
+                // Request location updates
+                fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
 
-                        } else {
-                            Log.d("latlng", "Location is null from getLastLocation.");
-                        }
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.d("latlng", "Failed to get location: " + e.getMessage());
-                    });
+                // Get last known location
+                fusedLocationProviderClient.getLastLocation()
+                        .addOnSuccessListener(location -> {
+                            if (location != null) {
+                                double latitude = location.getLatitude();
+                                double longitude = location.getLongitude();
+                                Log.d("latlng", "Last Location Latitude: " + latitude + ", Longitude: " + longitude);
+                                // Implement API call here
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    apiClass.callAPI(latitude, longitude);
+                                }
+                            } else {
+                                Log.d("latlng", "Location is null from getLastLocation.");
+                            }
+                        })
+                        .addOnFailureListener(e -> {
+                            Log.d("latlng", "Failed to get location: " + e.getMessage());
+                        });
+            } else {
+                Log.d("latlng", "Location services are disabled.");
+                promptEnableLocationServices();
+            }
         } else {
             Log.d("latlng", "Location permission not granted");
             if (context instanceof Activity) {
@@ -71,6 +105,19 @@ public class LocationHelperClass {
                 Log.d("latlng", "Context is not an instance of Activity, cannot request permissions.");
             }
         }
+    }
+
+    private void promptEnableLocationServices() {
+        if (context instanceof Activity) {
+            Toast.makeText(context, "Location services are disabled. Please enable them.", Toast.LENGTH_LONG).show();
+            context.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+        }
+    }
+
+    private boolean isLocationEnabled() {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        return locationManager != null && (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
     }
 
     public void askPermission(Activity activity) {

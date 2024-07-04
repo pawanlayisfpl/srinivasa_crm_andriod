@@ -23,7 +23,7 @@ import com.google.type.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,7 +55,7 @@ public class ApiClass {
                 JSONObject data = new JSONObject();
                 data.put("latitude", latitude);
                 data.put("longitude", longitude);
-                data.put("userDateTime",LocalDate.now().toString());
+                data.put("userDateTime", LocalDateTime.now().toString());
                 StringRequest request = new StringRequest(
                         Request.Method.POST, postUrl,  // Replace with your actual endpoint
                         new Response.Listener<String>() {
