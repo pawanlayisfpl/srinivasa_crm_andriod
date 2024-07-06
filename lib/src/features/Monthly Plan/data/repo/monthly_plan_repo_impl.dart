@@ -10,6 +10,7 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/m
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/monthly_plan_reject_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/monthly_plan_search_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/pending_monthly_plan_response_model.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/update_monthly_plan_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/approve_plan_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/monthly_plan_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/reject_monthly_plan_post_model.dart';
@@ -49,9 +50,13 @@ class MonthlyPlanRepoImpl implements MonthlyPlanRepo {
 
 
   @override
-  Future<Either<NetworkExceptions, UpdateMonthlyPlanPostModel>> updateMonthlyPlan({required UpdateMonthlyPlanPostModel updateMonthlyPlanPostModel})  async {
-    // TODO: implement approveMonthlyPlan
-    throw UnimplementedError();
+  Future<Either<NetworkExceptions, UpdateMonthlyPlanResponseModel>> updateMonthlyPlan({required UpdateMonthlyPlanPostModel updateMonthlyPlanPostModel})  async {
+    try {
+      final results = await remoteDataSource.updateMonthlyPlan(updateMonthlyPlanPostModel: updateMonthlyPlanPostModel);
+      return Right(results);
+    }on NetworkExceptions catch(e) {
+      return Left(e);
+    }
   }
 
   @override

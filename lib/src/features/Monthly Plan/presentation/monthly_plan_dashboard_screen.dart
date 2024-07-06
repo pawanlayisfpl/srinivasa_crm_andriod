@@ -36,7 +36,7 @@ class MonthlyPlanDashboardScreen extends StatelessWidget {
         child: Center(
           child: ListView.builder(
               shrinkWrap: true,
-              itemCount: context.watch<ProfileCubit>().state.maybeMap(orElse: () => cardNames.length,loadedLocal: (data) => data.profileResponseModel.userModel!.roleId.toString() ==  AppStrings.salesRepRole ? cardNames.length -1 : cardNames.length),
+              itemCount: context.watch<ProfileCubit>().state.maybeMap(orElse: () => cardNames.length,loadedLocal: (data) => data.profileResponseModel.userModel!.roleId.toString() !=  AppStrings.salesRepRole ? cardNames.length -2 : cardNames.length),
               itemBuilder: (c, i) {
                 return GestureDetector(
                     onTap: () {

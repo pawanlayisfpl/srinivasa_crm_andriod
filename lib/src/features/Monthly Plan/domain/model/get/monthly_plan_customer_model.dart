@@ -28,7 +28,7 @@ class MonthlyPlanCustomerModel {
 
   MonthlyPlanCustomerModel.fromJson(Map<String, dynamic> json) {
     customerCode = json['customerCode'];
-    customerName = json['customerName'];
+    customerName = json['custName'];
     customerAddress = json['customerAddress'];
     customerCity = json['customerCity'];
     customerContactNumber = json['customerContactNumber'];

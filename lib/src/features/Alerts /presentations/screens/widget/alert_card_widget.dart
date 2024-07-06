@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,16 +8,13 @@ import 'package:intl/intl.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
-import 'package:srinivasa_crm_new/src/features/Alerts%20/domain/model/post/mark_alert_as_read_postmodel.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/screens/alert_details_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/screen/update_monthly_plan_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/cubit/view_monthly_plan_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/screens/view_monthly_plan_screen.dart';
-import 'package:srinivasa_crm_new/src/features/Profile/domain/model/profile_model.dart';
-import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
 
 import '../../../../../config/constants/app_colors.dart';
 import '../../../domain/model/get/alert_response_model.dart';
-import '../../cubit/alert_cubit.dart';
 
 class AlertCardWidget extends StatelessWidget {
  final AlertModel alertModel;
@@ -46,36 +45,71 @@ class AlertCardWidget extends StatelessWidget {
               Navigator.push(context, SlideLeftRoute(screen: ViewMonthlyPlanScreen(monthlyPlanId: alertModel.monthlyPlanId,)));
             },
             onTap: ()async  {
+              log(alertModel.toJson().toString());
 
-                if(context.mounted) {
 
-                MarkAlertAsReadPostModel markAlertAsReadPostModel = MarkAlertAsReadPostModel(notificationId: alertModel.notificationId);
-                context.read<AlertCubit>().markAsRead(markAlertReadPostModel: markAlertAsReadPostModel);
+            switch(alertModel.type) {
+              case "REJECTED":
+              // ignore: prefer_const_constructors
+              Navigator.push(context, SlideLeftRoute(screen: UpdateMonthlyPlanScreen(
+                id: alertModel.monthlyPlanId,
+              )));
+              break;
+              case "APPROVED":
+              context.read<ViewMonthlyPlanCubit>().managerClickedFalse();
+              context.read<ViewMonthlyPlanCubit>().resetAlertModelValue();
+              Navigator.push(context, SlideLeftRoute(screen: ViewMonthlyPlanScreen(monthlyPlanId: alertModel.monthlyPlanId,)));
+              break;
+              case "CREATED":
+              // TODO: CREATE SHOULD NOT WORK FOR SALES REP
+              context.read<ViewMonthlyPlanCubit>().managerClickTrue();
+                            context.read<ViewMonthlyPlanCubit>().setAlertModelValue(alertModel);
 
-              }
+
+              Navigator.push(context, SlideLeftRoute(screen: ViewMonthlyPlanScreen(monthlyPlanId: alertModel.monthlyPlanId, )));
+              break;
+              case 'UPDATED':
+                            // TODO: CREATE SHOULD NOT WORK FOR SALES REP
+
+               context.read<ViewMonthlyPlanCubit>().managerClickTrue();
+                            context.read<ViewMonthlyPlanCubit>().setAlertModelValue(alertModel);
+
+
+              Navigator.push(context, SlideLeftRoute(screen: ViewMonthlyPlanScreen(monthlyPlanId: alertModel.monthlyPlanId, )));
+              break;
+              default : 
+              Navigator.push(context, SlideRightRoute(screen: AlertDetailsScreen(alertModel: alertModel,) ));
+
+            }
+              //   if(context.mounted) {
+
+              //   MarkAlertAsReadPostModel markAlertAsReadPostModel = MarkAlertAsReadPostModel(notificationId: alertModel.notificationId);
+              //   context.read<AlertCubit>().markAsRead(markAlertReadPostModel: markAlertAsReadPostModel);
+
+              // }
 
             
-              ProfileModel? profileModel = context.read<ProfileCubit>().state.maybeMap(orElse: ()=> null,loadedLocal: (data) => data.profileResponseModel);
+              // ProfileModel? profileModel = context.read<ProfileCubit>().state.maybeMap(orElse: ()=> null,loadedLocal: (data) => data.profileResponseModel);
               
-              if(profileModel != null && profileModel.userModel!.authorities!.first.roleId != 79 && alertModel.isDailyPlan == false) {
-                                              debugPrint('PROFILE MODEL IS  FOUNDDDDD');
+              // if(profileModel != null && profileModel.userModel!.authorities!.first.roleId != 79 && alertModel.isDailyPlan == false) {
+              //                                 debugPrint('PROFILE MODEL IS  FOUNDDDDD');
 
-                                    context.read<ViewMonthlyPlanCubit>().managerClickTrue();
+              //                       context.read<ViewMonthlyPlanCubit>().managerClickTrue();
 
-              context.read<ViewMonthlyPlanCubit>().setAlertModelValue(alertModel);
+              // context.read<ViewMonthlyPlanCubit>().setAlertModelValue(alertModel);
 
-                if(context.mounted) {
-                                                Navigator.push(context, SlideLeftRoute(screen: ViewMonthlyPlanScreen(monthlyPlanId: alertModel.monthlyPlanId,)));
+              //   if(context.mounted) {
+              //                                   Navigator.push(context, SlideLeftRoute(screen: ViewMonthlyPlanScreen(monthlyPlanId: alertModel.monthlyPlanId,)));
 
-                }
-              }else {
-                debugPrint('PROFILE MODEL IS NULL');
-                  if(context.mounted) {
+              //   }
+              // }else {
+              //   debugPrint('PROFILE MODEL IS NULL');
+              //     if(context.mounted) {
                 
-                Navigator.push(context, SlideRightRoute(screen: AlertDetailsScreen(alertModel: alertModel,) ));
-              }
+              //   Navigator.push(context, SlideRightRoute(screen: AlertDetailsScreen(alertModel: alertModel,) ));
+              // }
 
-              }
+              // }
               
             
 

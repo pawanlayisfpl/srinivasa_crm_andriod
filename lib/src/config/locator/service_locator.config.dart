@@ -42,7 +42,7 @@ import 'package:srinivasa_crm_new/src/common/services/common_permission_services
 import 'package:srinivasa_crm_new/src/common/services/common_shareplus_services.dart'
     as _i9;
 import 'package:srinivasa_crm_new/src/config/locator/service_locator.dart'
-    as _i61;
+    as _i62;
 import 'package:srinivasa_crm_new/src/core/connection/internet_checker.dart'
     as _i13;
 import 'package:srinivasa_crm_new/src/core/core.dart' as _i20;
@@ -86,7 +86,7 @@ import 'package:srinivasa_crm_new/src/features/mark%20attendance/data/datasource
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/data/repo/mark_attendance_repo_impl.dart'
     as _i50;
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/domain.dart'
-    as _i60;
+    as _i61;
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/repo/mark_attendance_repo.dart'
     as _i49;
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/usecase/last_punch_in_usecase.dart'
@@ -96,7 +96,7 @@ import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/usecase/
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/usecase/punch_out_usecase.dart'
     as _i54;
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart'
-    as _i59;
+    as _i60;
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/data/datasource/monthly_plan_remote_datasource.dart'
     as _i31;
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/data/repo/monthly_plan_repo_impl.dart'
@@ -104,11 +104,13 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/data/repo/monthly_
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/repo/monthly_plan_repo.dart'
     as _i43;
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_cubit.dart'
-    as _i58;
+    as _i59;
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20PendingRequests/cubit/monthly_plan_pending_cubit.dart'
     as _i47;
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20Search/cubit/monthly_plan_search_cubit.dart'
     as _i48;
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/cubit/update_monthly_plan_cubit.dart'
+    as _i58;
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/cubit/view_monthly_plan_cubit.dart'
     as _i46;
 import 'package:srinivasa_crm_new/src/features/Profile/data/datasource/local/profile_local_datasource.dart'
@@ -264,17 +266,19 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i41.LoginUseCase>(),
           gh<_i20.KeyValueStorage>(),
         ));
-    gh.factory<_i58.CreateMonthlyPlanCubit>(() => _i58.CreateMonthlyPlanCubit(
+    gh.factory<_i58.UpdateMonthlyPlanCubit>(() => _i58.UpdateMonthlyPlanCubit(
+        monthlyPlanRepo: gh<_i43.MonthlyPlanRepo>()));
+    gh.factory<_i59.CreateMonthlyPlanCubit>(() => _i59.CreateMonthlyPlanCubit(
           monthlyPlanRepo: gh<_i43.MonthlyPlanRepo>(),
           employeRepo: gh<_i51.EmployeRepo>(),
         ));
-    gh.factory<_i59.MarkAttendanceCubit>(() => _i59.MarkAttendanceCubit(
-          gh<_i60.PunchInUseCase>(),
-          gh<_i60.PunchOutUsecase>(),
-          gh<_i60.LastPunchInOutUseCase>(),
+    gh.factory<_i60.MarkAttendanceCubit>(() => _i60.MarkAttendanceCubit(
+          gh<_i61.PunchInUseCase>(),
+          gh<_i61.PunchOutUsecase>(),
+          gh<_i61.LastPunchInOutUseCase>(),
         ));
     return this;
   }
 }
 
-class _$ThirdPartyDependencies extends _i61.ThirdPartyDependencies {}
+class _$ThirdPartyDependencies extends _i62.ThirdPartyDependencies {}

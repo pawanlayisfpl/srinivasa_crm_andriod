@@ -20,19 +20,24 @@ class DashboardBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: 0.9,
-          crossAxisCount: 2, // Number of columns
-          crossAxisSpacing: 16.0, // Spacing between columns
-          mainAxisSpacing: 16.0, // Spacing between rows
-        ),
-        itemCount: dashboardIconLists.length,
-        itemBuilder: (context, index) {
-          return _buildGridItem(context, index);
-        },
-      ).withSymetricPadding(horizontalPadding: 10.w, verticalPadding: 20.h),
+    return RefreshIndicator(
+      onRefresh: () async {
+        context.read<AlertCubit>().getAlertCountValue();
+      },
+      child: Center(
+        child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: 0.9,
+            crossAxisCount: 2, // Number of columns
+            crossAxisSpacing: 16.0, // Spacing between columns
+            mainAxisSpacing: 16.0, // Spacing between rows
+          ),
+          itemCount: dashboardIconLists.length,
+          itemBuilder: (context, index) {
+            return _buildGridItem(context, index);
+          },
+        ).withSymetricPadding(horizontalPadding: 10.w, verticalPadding: 20.h),
+      ),
     );
   }
   

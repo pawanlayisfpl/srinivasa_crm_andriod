@@ -22,16 +22,19 @@ class ViewMonthlyPlanBodyWidget extends StatelessWidget {
       builder: (context, state) {
        
         return state.when(initial: () => const Center(child: Text('View  Monthly plan state screen'),), loading: () => const CustomLoadingWidget(), loaded: (r) {
-          return  r.viewDailyPlanModel == null ? EmptyWidget(title: 'No Plans found', callback: () {}) : context.watch<ViewMonthlyPlanCubit>().alertModel != null && r.approvalStatus == "APPROVED" || r.approvalStatus == "REJECTED" ? Center(child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-            CommonTextWidget(title: "You have already ${r.approvalStatus == 'APPROVED' ? "Approved" : r.approvalStatus == "REJECTED" ? "Rejected" : "Submitted"} this monthly plan",maxLines: 4,fontWeight: FontWeight.w500,),
-            20.verticalSpace,
-            CommonButton(callback: () {
-              Navigator.pop(context);
-            }, title: 'Go Back')
-          ],),).withSymetricPadding(horizontalPadding: 20.w) : Column(
+          return  r.viewDailyPlanModel == null ? EmptyWidget(title: 'No Plans found', callback: () {}) :
+          //  context.watch<ViewMonthlyPlanCubit>().alertModel != null && r.approvalStatus == "APPROVED" || r.approvalStatus == "REJECTED" ? Center(child: Column(
+          //   crossAxisAlignment: CrossAxisAlignment.center,
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //   CommonTextWidget(title: "You have already ${r.approvalStatus == 'APPROVED' ? "Approved" : r.approvalStatus == "REJECTED" ? "Rejected" : "Submitted"} this monthly plan",maxLines: 4,fontWeight: FontWeight.w500,),
+          //   20.verticalSpace,
+          //   CommonButton(callback: () {
+          //     Navigator.pop(context);
+          //   }, title: 'Go Back')
+          // ],),).withSymetricPadding(horizontalPadding: 20.w) : 
+          
+          Column(
             children: [
               Expanded(
                 child: ListView.builder(

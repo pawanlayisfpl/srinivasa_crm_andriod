@@ -29,7 +29,7 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
     DateTime firstDayOfNextMonth = DateTime.utc(now.year, now.month + 1, 1);
     DateTime lastDayOfNextMonth = DateTime.utc(now.year, now.month + 2, 0);
     DateTime focusedDay =
-        firstDayOfNextMonth; // Set focusedDay to the first day of the next month
+        firstDayOfNextMonth; 
 
     return SafeArea(
       child: BlocBuilder<CreateMonthlyPlanCubit, CreateMonthlyPlanState>(

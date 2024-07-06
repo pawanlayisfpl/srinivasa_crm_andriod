@@ -11,6 +11,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%2
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20PendingRequests/cubit/monthly_plan_pending_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20Search/cubit/monthly_plan_search_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/cubit/update_monthly_plan_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/cubit/view_monthly_plan_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
                 BlocProvider(create: (_) => locator.get<CustomerFullDetailsCubit>()),
                 BlocProvider(create: (_) => locator.get<MonthlyPlanSearchCubit>()),
                 BlocProvider(create: (_) => locator.get<MonthlyPlanPendingCubit>()),
+                BlocProvider(create: (_) => locator.get<UpdateMonthlyPlanCubit>()),
 
       ],
       child: MaterialApp(

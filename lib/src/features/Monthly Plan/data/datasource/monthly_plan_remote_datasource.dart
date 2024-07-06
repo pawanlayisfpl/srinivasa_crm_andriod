@@ -11,6 +11,7 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/d
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/monthly_plan_approve_resopsne_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/monthly_plan_customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/pending_monthly_plan_response_model.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/update_monthly_plan_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/approve_plan_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/monthly_plan_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/reject_monthly_plan_post_model.dart';
@@ -20,6 +21,7 @@ import '../../../../core/model/model.dart';
 import '../../domain/model/get/monthly_plan_months_model.dart';
 import '../../domain/model/get/monthly_plan_reject_response_model.dart';
 import '../../domain/model/get/monthly_plan_search_response_model.dart';
+import '../../domain/model/post/update_monthlyplan_postmodel.dart';
 import '../../domain/model/view_monthly_plan_model.dart';
 
 
@@ -35,6 +37,7 @@ abstract class MonthlyPlanRemoteDataSource {
   Future<DeleteMonthlyPlanResponseModel> deleteMonthlyPlanResponseModel({required int monthlyPlanid});
   Future<PendingMonthlyPlanResponseModel> getPendingMonthlyPlan();
   Future<MonthlyPlanSearchResponseModel> searchMonthlyPlanUser({required String query});
+  Future<UpdateMonthlyPlanResponseModel> updateMonthlyPlan({required UpdateMonthlyPlanPostModel updateMonthlyPlanPostModel});
 
 }
 // 
@@ -260,6 +263,21 @@ class MonthlyPlanRemoteDataSourceImpl implements MonthlyPlanRemoteDataSource {
       
     } on DioException catch(e) {
       throw Future.error(NetworkExceptions.getDioException(e));
+  }
+}
+
+  @override
+  Future<UpdateMonthlyPlanResponseModel> updateMonthlyPlan({required UpdateMonthlyPlanPostModel updateMonthlyPlanPostModel}) async {
+    try {
+      final response = await dioClient.put(Endpoints.monthlyPlanUpdate,data: updateMonthlyPlanPostModel.toJson(),headers: {});
+      if(response.statusCode == 200) {
+        return UpdateMonthlyPlanResponseModel.fromJson(response.data);
+      }else {
+        throw NetworkExceptions.getDioException(response.data);
+      }
+      
+    }on DioException catch (e) {
+      throw NetworkExceptions.getDioException(e);
   }
 }
 }
