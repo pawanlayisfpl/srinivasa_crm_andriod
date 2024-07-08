@@ -33,7 +33,7 @@ class CustomerDashbaordScreen extends StatelessWidget {
                       switch (i) {
                         case 1:
                            Navigator.pushNamed(
-                              context, Routes.customer);
+                              context, Routes.addCustomerScreen);
                       
                           break;
                         case 0:

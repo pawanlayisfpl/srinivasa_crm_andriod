@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Full%20Details/cubit/customer_full_details_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Search/presentation/cubit/search_customer_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_cubit.dart';
@@ -51,13 +52,14 @@ class MyApp extends StatelessWidget {
                 BlocProvider(create: (_) => locator.get<MonthlyPlanSearchCubit>()),
                 BlocProvider(create: (_) => locator.get<MonthlyPlanPendingCubit>()),
                 BlocProvider(create: (_) => locator.get<UpdateMonthlyPlanCubit>()),
+                BlocProvider(create: (_) => locator.get<CustomerCreateCubit>()),
 
       ],
       child: MaterialApp(
               navigatorKey: AppKeys.globalNavigatorKey, 
               scaffoldMessengerKey: AppKeys.scaffoldKey,
               onGenerateRoute: RouteGenerator.getRoute,
-              initialRoute: Routes.loginScreen,
+              initialRoute: Routes.addCustomerScreen,
               title: 'SF CRM',
               debugShowCheckedModeBanner: false,
               theme: ThemeData(

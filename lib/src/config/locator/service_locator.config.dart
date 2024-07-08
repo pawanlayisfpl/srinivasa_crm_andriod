@@ -79,7 +79,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Cust
     as _i41;
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_cubit.dart'
     as _i62;
-import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/cubit/customer_create_cubit.dart'
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart'
     as _i65;
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Full%20Details/cubit/customer_full_details_cubit.dart'
     as _i42;

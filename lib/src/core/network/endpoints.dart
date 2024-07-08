@@ -51,6 +51,10 @@ class Endpoints {
   // EMPLOYESS
     static const String allEmployess = '$basicUrl/se/alluserdetails';
 
+    // PRIMARY SOURCES
+      static const String getAllPrimarySources = '$basicUrl/se/primarysource-data';
+
+
   // ALERTS
   static const String allAlerts = '$basicUrl/se/notifications';
   static const String getAlertNotificationCount = '$basicUrl/se/unread-notifications-count';

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/screens/all_customer_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/screens/customer_details_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/customer_create_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Search/presentation/screens/customer_search_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/customer_dashboard_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/create_monthly_plan_screen.dart';
@@ -77,6 +78,8 @@ class RouteGenerator {
         // CUSTOMERS 
            case Routes.customerDashbaordScreen:
         return MaterialPageRoute(builder: (_) =>  const CustomerDashbaordScreen());
+           case Routes.addCustomerScreen:
+        return MaterialPageRoute(builder: (_) =>  const CustomerCreateScreen());
             case Routes.customer:
         return MaterialPageRoute(builder: (_) =>  const AllCustomerScreen());
             case Routes.customerDetails:

@@ -13,16 +13,19 @@ import 'package:srinivasa_crm_new/src/core/model/model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_address_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_addresslinetwo_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_city_field.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_credit_limit_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_customer_name_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_email_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_locality_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_mandal_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_pincode_field.dart';
 
-import '../../../../../../shared/shared.dart';
-import '../../../domain/model/field/customer_create_addation_phone_field.dart';
-import '../../../domain/model/field/customer_create_mobile_field.dart';
-import '../../../domain/model/field/customer_create_phone_field.dart';
+import '../../../../../../../shared/domain/model/Employe/employe_model.dart';
+import '../../../../../../../shared/shared.dart';
+import '../../../../domain/model/field/customer_create_addation_phone_field.dart';
+import '../../../../domain/model/field/customer_create_contact_person_field.dart';
+import '../../../../domain/model/field/customer_create_mobile_field.dart';
+import '../../../../domain/model/field/customer_create_phone_field.dart';
 import 'state/customer_create_state.dart';
 
 
@@ -33,14 +36,57 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
 
   CustomerCreateCubit({required this.primarySourceRepo, required this.addressRepo}) : super(CustomerCreateState.initial());
 
+  // CONTROLLERS
+  final TextEditingController customerNameController = TextEditingController();
+  final TextEditingController contactPersonController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController mobileController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController addationalPhoneController = TextEditingController();
+  final TextEditingController creditLimitController = TextEditingController();
+  final TextEditingController addressLineTwoController = TextEditingController();
+  final TextEditingController mandalController = TextEditingController();
+  final TextEditingController localityController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController pincodeController = TextEditingController( );
+  final TextEditingController cityController = TextEditingController( );
+
+
+  void clearAllController() {
+    customerNameController.clear();
+    phoneController.clear();
+    emailController.clear();
+    addationalPhoneController.clear();
+    creditLimitController.clear();
+    addressLineTwoController.clear();
+    localityController.clear();
+    addressController.clear();
+    pincodeController.clear();
+    mandalController.clear();
+    cityController.clear();
+  }
 
   // CHANGE NAME FIELD
   void changeCustomerName({required String customerName}) {
     emit(state.copyWith(customerCreateCustomerNameField: CustomerCreateCustomerNameField(customerName)));
   }
+  // CHANGE CONTACT PERSON FIELD
+  void changeContactPerson({required String contactPerson}) {
+    emit(state.copyWith(customerCreateContactPersonField: CustomerCreateContactPersonField(contactPerson)));
+  }
   // CHANGE PHONE FIELD
   void changePhone({required String phone}) {
     emit(state.copyWith(customerPhoneField: CustomerCreatePhoneField(phone)));
+  }
+
+  // CHANGE MANDAL FIELD
+  void changeMandlField({required String value}) {
+    emit(state.copyWith(customerCreateMandalField: CustomerCreateMandalField(value)));
+  }
+
+  // CHANGE CREDIT LIMIT
+  void changeCreditLimit({required String value}) {
+    emit(state.copyWith(customerCreateCreditLimitField: CustomerCreateCreditLimitField(value)));
   }
 
   void getTitleLists() {
@@ -156,6 +202,10 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     emit(state.copyWith(selectedStateModel: stateModel));
   }
 
+  void setAssignedValue({required EmployeeModel employeeModel}) {
+    emit(state.copyWith(selectedAssignedModel: employeeModel));
+  }
+
 
   // GET COUNTRY LIST
   Future<void> getCountryLists() async {
@@ -192,6 +242,32 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
   // CHANGE ADDRESS FIELD
   void changeAddress({required String address}) {
     emit(state.copyWith(customerCreateAddressField: CustomerCreateAddressField(address)));
+  }
+
+  //CLEAR ALL COUNTRIES
+  void clearCountiresModel() {
+    emit(state.copyWith(selectedCountryModel: null));
+  }
+
+  // CLEAR TITLE VALUE
+  void clearTitleValue() {
+    emit(state.copyWith(selectedTitleValue: null));
+  }
+
+
+  // CLEAR STATE VALUE
+  void clearStateValue() {
+    emit(state.copyWith(selectedStateModel: null));
+  }
+
+// CLEAR DIVISION VALUE
+  void clearDivisionValue() {
+    emit(state.copyWith(selectedDivisonModel: null));
+  }
+
+  // CLEAR ASSIGNE VALUE
+  void clearAssigneValue() {
+    emit(state.copyWith(selectedAssignedModel: null));
   }
 
 
@@ -250,4 +326,82 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     
   }  
 
+
+
+
+  // GET ALL PRIMARY SOURCES LISTS
+  Future<void> getPrimarySourceList() async {
+    final results = await primarySourceRepo.getPrimarySources();
+    results.fold((l) => emit(state.copyWith(apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))), (r) => emit(state.copyWith(primarySourceList: r)));
+  }
+
+ 
+
+//  GET ALL COUNTIRES LIST
+  Future<void> getAllCountires() async {
+    final resutls = await addressRepo.getCountries();
+    resutls.fold((l) => emit(state.copyWith(apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))), (r) => emit(state.copyWith(countryList: r)));
+  }
+
+  // GET ALL STATES LIST
+  Future<void> getAllStates({required String countryId}) async {
+    final results = await addressRepo.getStateByCountry(countryId: countryId);
+    results.fold((l) => emit(state.copyWith(apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))), (r) => emit(state.copyWith(stateList: r)));
+  }
+
+  // GET ALL DIVISION LIST
+   Future<void> getAllDivisionBySateId({required String stateId}) async {
+    final results = await addressRepo.getDivisionByState(stateId: stateId);
+    results.fold((l) => emit(state.copyWith(apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))), (r) => emit(state.copyWith(divisionList: r)));
+   }
+
+  //  GET ALL ZONE LIST
+  Future<void> getAllZoneList() async {
+    emit(state.copyWith(zoneList: [
+      ZoneModel(
+        zoneId: 1,
+        zoneName: "Test Zone"
+      )
+    ]));
+  }
+
+  // GET ALL TITLES
+  Future<void> getAllTitles() async {
+    emit(state.copyWith(titlesList: ['Mr', 'Mrs']));
+  }
+
+  // GET ALL CUSTOMER TYPES LIST
+  Future<void> getAllCustomerTypes() async {
+    emit(state.copyWith(customerTypeList: ['Commerical', 'Non-Commerical']));
+  }
+
+  void clearCustomerType() {
+    emit(state.copyWith(selectedCustomerType: null));
+  }
+
+
+
+  
+
+
+  // GET ALL INITIAL VALUES
+  Future<void> getAllInitialValues() async {
+    emit(CustomerCreateState.initial());
+    clearAllController();
+    await getAllTitles();
+    await getAllCustomerTypes();
+    // await getPrimarySourceList();
+    // await getCountryLists();
+    // await getZoneLists();
+
+  }
+
+
+  void clearAllFields() {
+    emit(CustomerCreateState.initial());
+    clearAllController();
+  }
+  
+
 }
+

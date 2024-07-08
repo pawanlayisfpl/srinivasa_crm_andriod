@@ -40,6 +40,10 @@ mixin _$CustomerCreateState {
       throw _privateConstructorUsedError;
   CustomerCreateAddressField get customerCreateAddressField =>
       throw _privateConstructorUsedError;
+  CustomerCreateContactPersonField get customerCreateContactPersonField =>
+      throw _privateConstructorUsedError;
+  CustomerCreateCreditLimitField get customerCreateCreditLimitField =>
+      throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   bool get isSuccess => throw _privateConstructorUsedError;
   ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
@@ -60,6 +64,9 @@ mixin _$CustomerCreateState {
   CountryModel? get selectedCountryModel => throw _privateConstructorUsedError;
   List<String> get titlesList => throw _privateConstructorUsedError;
   String? get selectedTitleValue => throw _privateConstructorUsedError;
+  List<EmployeeModel> get assignedList => throw _privateConstructorUsedError;
+  EmployeeModel? get selectedAssignedModel =>
+      throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -86,6 +93,8 @@ abstract class $CustomerCreateStateCopyWith<$Res> {
       CustomerCreateLocalityField customerCreateLocalityField,
       CustomerCreatePincodeField customerCreatePincodeField,
       CustomerCreateAddressField customerCreateAddressField,
+      CustomerCreateContactPersonField customerCreateContactPersonField,
+      CustomerCreateCreditLimitField customerCreateCreditLimitField,
       bool isSubmitting,
       bool isSuccess,
       ApiFailedModel? apiFailedModel,
@@ -104,6 +113,8 @@ abstract class $CustomerCreateStateCopyWith<$Res> {
       CountryModel? selectedCountryModel,
       List<String> titlesList,
       String? selectedTitleValue,
+      List<EmployeeModel> assignedList,
+      EmployeeModel? selectedAssignedModel,
       bool isLoading});
 
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel;
@@ -134,6 +145,8 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
     Object? customerCreateLocalityField = null,
     Object? customerCreatePincodeField = null,
     Object? customerCreateAddressField = null,
+    Object? customerCreateContactPersonField = null,
+    Object? customerCreateCreditLimitField = null,
     Object? isSubmitting = null,
     Object? isSuccess = null,
     Object? apiFailedModel = freezed,
@@ -152,6 +165,8 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
     Object? selectedCountryModel = freezed,
     Object? titlesList = null,
     Object? selectedTitleValue = freezed,
+    Object? assignedList = null,
+    Object? selectedAssignedModel = freezed,
     Object? isLoading = null,
   }) {
     return _then(_value.copyWith(
@@ -204,6 +219,14 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
           ? _value.customerCreateAddressField
           : customerCreateAddressField // ignore: cast_nullable_to_non_nullable
               as CustomerCreateAddressField,
+      customerCreateContactPersonField: null == customerCreateContactPersonField
+          ? _value.customerCreateContactPersonField
+          : customerCreateContactPersonField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateContactPersonField,
+      customerCreateCreditLimitField: null == customerCreateCreditLimitField
+          ? _value.customerCreateCreditLimitField
+          : customerCreateCreditLimitField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateCreditLimitField,
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -276,6 +299,14 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
           ? _value.selectedTitleValue
           : selectedTitleValue // ignore: cast_nullable_to_non_nullable
               as String?,
+      assignedList: null == assignedList
+          ? _value.assignedList
+          : assignedList // ignore: cast_nullable_to_non_nullable
+              as List<EmployeeModel>,
+      selectedAssignedModel: freezed == selectedAssignedModel
+          ? _value.selectedAssignedModel
+          : selectedAssignedModel // ignore: cast_nullable_to_non_nullable
+              as EmployeeModel?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -317,6 +348,8 @@ abstract class _$$CustomerCreateStateImplCopyWith<$Res>
       CustomerCreateLocalityField customerCreateLocalityField,
       CustomerCreatePincodeField customerCreatePincodeField,
       CustomerCreateAddressField customerCreateAddressField,
+      CustomerCreateContactPersonField customerCreateContactPersonField,
+      CustomerCreateCreditLimitField customerCreateCreditLimitField,
       bool isSubmitting,
       bool isSuccess,
       ApiFailedModel? apiFailedModel,
@@ -335,6 +368,8 @@ abstract class _$$CustomerCreateStateImplCopyWith<$Res>
       CountryModel? selectedCountryModel,
       List<String> titlesList,
       String? selectedTitleValue,
+      List<EmployeeModel> assignedList,
+      EmployeeModel? selectedAssignedModel,
       bool isLoading});
 
   @override
@@ -364,6 +399,8 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
     Object? customerCreateLocalityField = null,
     Object? customerCreatePincodeField = null,
     Object? customerCreateAddressField = null,
+    Object? customerCreateContactPersonField = null,
+    Object? customerCreateCreditLimitField = null,
     Object? isSubmitting = null,
     Object? isSuccess = null,
     Object? apiFailedModel = freezed,
@@ -382,6 +419,8 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
     Object? selectedCountryModel = freezed,
     Object? titlesList = null,
     Object? selectedTitleValue = freezed,
+    Object? assignedList = null,
+    Object? selectedAssignedModel = freezed,
     Object? isLoading = null,
   }) {
     return _then(_$CustomerCreateStateImpl(
@@ -434,6 +473,14 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
           ? _value.customerCreateAddressField
           : customerCreateAddressField // ignore: cast_nullable_to_non_nullable
               as CustomerCreateAddressField,
+      customerCreateContactPersonField: null == customerCreateContactPersonField
+          ? _value.customerCreateContactPersonField
+          : customerCreateContactPersonField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateContactPersonField,
+      customerCreateCreditLimitField: null == customerCreateCreditLimitField
+          ? _value.customerCreateCreditLimitField
+          : customerCreateCreditLimitField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateCreditLimitField,
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -506,6 +553,14 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
           ? _value.selectedTitleValue
           : selectedTitleValue // ignore: cast_nullable_to_non_nullable
               as String?,
+      assignedList: null == assignedList
+          ? _value._assignedList
+          : assignedList // ignore: cast_nullable_to_non_nullable
+              as List<EmployeeModel>,
+      selectedAssignedModel: freezed == selectedAssignedModel
+          ? _value.selectedAssignedModel
+          : selectedAssignedModel // ignore: cast_nullable_to_non_nullable
+              as EmployeeModel?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -532,6 +587,8 @@ class _$CustomerCreateStateImpl
       required this.customerCreateLocalityField,
       required this.customerCreatePincodeField,
       required this.customerCreateAddressField,
+      required this.customerCreateContactPersonField,
+      required this.customerCreateCreditLimitField,
       required this.isSubmitting,
       required this.isSuccess,
       this.apiFailedModel = null,
@@ -550,6 +607,8 @@ class _$CustomerCreateStateImpl
       this.selectedCountryModel = null,
       final List<String> titlesList = const [],
       this.selectedTitleValue = null,
+      final List<EmployeeModel> assignedList = const [],
+      this.selectedAssignedModel = null,
       this.isLoading = false})
       : _primarySourceList = primarySourceList,
         _zoneList = zoneList,
@@ -557,7 +616,8 @@ class _$CustomerCreateStateImpl
         _divisionList = divisionList,
         _stateList = stateList,
         _countryList = countryList,
-        _titlesList = titlesList;
+        _titlesList = titlesList,
+        _assignedList = assignedList;
 
   @override
   final CustomerCreateCustomerNameField customerCreateCustomerNameField;
@@ -583,6 +643,10 @@ class _$CustomerCreateStateImpl
   final CustomerCreatePincodeField customerCreatePincodeField;
   @override
   final CustomerCreateAddressField customerCreateAddressField;
+  @override
+  final CustomerCreateContactPersonField customerCreateContactPersonField;
+  @override
+  final CustomerCreateCreditLimitField customerCreateCreditLimitField;
   @override
   final bool isSubmitting;
   @override
@@ -676,13 +740,25 @@ class _$CustomerCreateStateImpl
   @override
   @JsonKey()
   final String? selectedTitleValue;
+  final List<EmployeeModel> _assignedList;
+  @override
+  @JsonKey()
+  List<EmployeeModel> get assignedList {
+    if (_assignedList is EqualUnmodifiableListView) return _assignedList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_assignedList);
+  }
+
+  @override
+  @JsonKey()
+  final EmployeeModel? selectedAssignedModel;
   @override
   @JsonKey()
   final bool isLoading;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CustomerCreateState(customerCreateCustomerNameField: $customerCreateCustomerNameField, customerPhoneField: $customerPhoneField, customerTitleField: $customerTitleField, customerMobileField: $customerMobileField, customerCreateEmailField: $customerCreateEmailField, customerCreateAddationField: $customerCreateAddationField, customerCreateAddressLineTwoField: $customerCreateAddressLineTwoField, customerCreateMandalField: $customerCreateMandalField, customerCreateCityField: $customerCreateCityField, customerCreateLocalityField: $customerCreateLocalityField, customerCreatePincodeField: $customerCreatePincodeField, customerCreateAddressField: $customerCreateAddressField, isSubmitting: $isSubmitting, isSuccess: $isSuccess, apiFailedModel: $apiFailedModel, showInputError: $showInputError, primarySourceList: $primarySourceList, selectedPrimarySourceModel: $selectedPrimarySourceModel, zoneList: $zoneList, selectedZoneModel: $selectedZoneModel, customerTypeList: $customerTypeList, selectedCustomerType: $selectedCustomerType, divisionList: $divisionList, selectedDivisonModel: $selectedDivisonModel, stateList: $stateList, selectedStateModel: $selectedStateModel, countryList: $countryList, selectedCountryModel: $selectedCountryModel, titlesList: $titlesList, selectedTitleValue: $selectedTitleValue, isLoading: $isLoading)';
+    return 'CustomerCreateState(customerCreateCustomerNameField: $customerCreateCustomerNameField, customerPhoneField: $customerPhoneField, customerTitleField: $customerTitleField, customerMobileField: $customerMobileField, customerCreateEmailField: $customerCreateEmailField, customerCreateAddationField: $customerCreateAddationField, customerCreateAddressLineTwoField: $customerCreateAddressLineTwoField, customerCreateMandalField: $customerCreateMandalField, customerCreateCityField: $customerCreateCityField, customerCreateLocalityField: $customerCreateLocalityField, customerCreatePincodeField: $customerCreatePincodeField, customerCreateAddressField: $customerCreateAddressField, customerCreateContactPersonField: $customerCreateContactPersonField, customerCreateCreditLimitField: $customerCreateCreditLimitField, isSubmitting: $isSubmitting, isSuccess: $isSuccess, apiFailedModel: $apiFailedModel, showInputError: $showInputError, primarySourceList: $primarySourceList, selectedPrimarySourceModel: $selectedPrimarySourceModel, zoneList: $zoneList, selectedZoneModel: $selectedZoneModel, customerTypeList: $customerTypeList, selectedCustomerType: $selectedCustomerType, divisionList: $divisionList, selectedDivisonModel: $selectedDivisonModel, stateList: $stateList, selectedStateModel: $selectedStateModel, countryList: $countryList, selectedCountryModel: $selectedCountryModel, titlesList: $titlesList, selectedTitleValue: $selectedTitleValue, assignedList: $assignedList, selectedAssignedModel: $selectedAssignedModel, isLoading: $isLoading)';
   }
 
   @override
@@ -711,6 +787,10 @@ class _$CustomerCreateStateImpl
           'customerCreatePincodeField', customerCreatePincodeField))
       ..add(DiagnosticsProperty(
           'customerCreateAddressField', customerCreateAddressField))
+      ..add(DiagnosticsProperty(
+          'customerCreateContactPersonField', customerCreateContactPersonField))
+      ..add(DiagnosticsProperty(
+          'customerCreateCreditLimitField', customerCreateCreditLimitField))
       ..add(DiagnosticsProperty('isSubmitting', isSubmitting))
       ..add(DiagnosticsProperty('isSuccess', isSuccess))
       ..add(DiagnosticsProperty('apiFailedModel', apiFailedModel))
@@ -730,6 +810,8 @@ class _$CustomerCreateStateImpl
       ..add(DiagnosticsProperty('selectedCountryModel', selectedCountryModel))
       ..add(DiagnosticsProperty('titlesList', titlesList))
       ..add(DiagnosticsProperty('selectedTitleValue', selectedTitleValue))
+      ..add(DiagnosticsProperty('assignedList', assignedList))
+      ..add(DiagnosticsProperty('selectedAssignedModel', selectedAssignedModel))
       ..add(DiagnosticsProperty('isLoading', isLoading));
   }
 
@@ -768,14 +850,16 @@ class _$CustomerCreateStateImpl
             (identical(other.customerCreateAddressField, customerCreateAddressField) ||
                 other.customerCreateAddressField ==
                     customerCreateAddressField) &&
-            (identical(other.isSubmitting, isSubmitting) ||
-                other.isSubmitting == isSubmitting) &&
-            (identical(other.isSuccess, isSuccess) ||
-                other.isSuccess == isSuccess) &&
-            (identical(other.apiFailedModel, apiFailedModel) ||
-                other.apiFailedModel == apiFailedModel) &&
-            (identical(other.showInputError, showInputError) ||
-                other.showInputError == showInputError) &&
+            (identical(other.customerCreateContactPersonField, customerCreateContactPersonField) ||
+                other.customerCreateContactPersonField ==
+                    customerCreateContactPersonField) &&
+            (identical(other.customerCreateCreditLimitField, customerCreateCreditLimitField) ||
+                other.customerCreateCreditLimitField ==
+                    customerCreateCreditLimitField) &&
+            (identical(other.isSubmitting, isSubmitting) || other.isSubmitting == isSubmitting) &&
+            (identical(other.isSuccess, isSuccess) || other.isSuccess == isSuccess) &&
+            (identical(other.apiFailedModel, apiFailedModel) || other.apiFailedModel == apiFailedModel) &&
+            (identical(other.showInputError, showInputError) || other.showInputError == showInputError) &&
             const DeepCollectionEquality().equals(other._primarySourceList, _primarySourceList) &&
             (identical(other.selectedPrimarySourceModel, selectedPrimarySourceModel) || other.selectedPrimarySourceModel == selectedPrimarySourceModel) &&
             const DeepCollectionEquality().equals(other._zoneList, _zoneList) &&
@@ -790,6 +874,8 @@ class _$CustomerCreateStateImpl
             (identical(other.selectedCountryModel, selectedCountryModel) || other.selectedCountryModel == selectedCountryModel) &&
             const DeepCollectionEquality().equals(other._titlesList, _titlesList) &&
             (identical(other.selectedTitleValue, selectedTitleValue) || other.selectedTitleValue == selectedTitleValue) &&
+            const DeepCollectionEquality().equals(other._assignedList, _assignedList) &&
+            (identical(other.selectedAssignedModel, selectedAssignedModel) || other.selectedAssignedModel == selectedAssignedModel) &&
             (identical(other.isLoading, isLoading) || other.isLoading == isLoading));
   }
 
@@ -808,6 +894,8 @@ class _$CustomerCreateStateImpl
         customerCreateLocalityField,
         customerCreatePincodeField,
         customerCreateAddressField,
+        customerCreateContactPersonField,
+        customerCreateCreditLimitField,
         isSubmitting,
         isSuccess,
         apiFailedModel,
@@ -826,6 +914,8 @@ class _$CustomerCreateStateImpl
         selectedCountryModel,
         const DeepCollectionEquality().hash(_titlesList),
         selectedTitleValue,
+        const DeepCollectionEquality().hash(_assignedList),
+        selectedAssignedModel,
         isLoading
       ]);
 
@@ -854,6 +944,10 @@ abstract class _CustomerCreateState implements CustomerCreateState {
       required final CustomerCreateLocalityField customerCreateLocalityField,
       required final CustomerCreatePincodeField customerCreatePincodeField,
       required final CustomerCreateAddressField customerCreateAddressField,
+      required final CustomerCreateContactPersonField
+          customerCreateContactPersonField,
+      required final CustomerCreateCreditLimitField
+          customerCreateCreditLimitField,
       required final bool isSubmitting,
       required final bool isSuccess,
       final ApiFailedModel? apiFailedModel,
@@ -872,6 +966,8 @@ abstract class _CustomerCreateState implements CustomerCreateState {
       final CountryModel? selectedCountryModel,
       final List<String> titlesList,
       final String? selectedTitleValue,
+      final List<EmployeeModel> assignedList,
+      final EmployeeModel? selectedAssignedModel,
       final bool isLoading}) = _$CustomerCreateStateImpl;
 
   @override
@@ -898,6 +994,10 @@ abstract class _CustomerCreateState implements CustomerCreateState {
   CustomerCreatePincodeField get customerCreatePincodeField;
   @override
   CustomerCreateAddressField get customerCreateAddressField;
+  @override
+  CustomerCreateContactPersonField get customerCreateContactPersonField;
+  @override
+  CustomerCreateCreditLimitField get customerCreateCreditLimitField;
   @override
   bool get isSubmitting;
   @override
@@ -934,6 +1034,10 @@ abstract class _CustomerCreateState implements CustomerCreateState {
   List<String> get titlesList;
   @override
   String? get selectedTitleValue;
+  @override
+  List<EmployeeModel> get assignedList;
+  @override
+  EmployeeModel? get selectedAssignedModel;
   @override
   bool get isLoading;
   @override

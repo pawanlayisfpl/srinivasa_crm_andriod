@@ -23,7 +23,7 @@ final Logger logger;
   @override
   Future<List<PrimarySourceModel>> getPrimarySources() async  {
     try {
-      final response  = await dioClient.get(Endpoints.alertMarkAsRead,headers: {});
+      final response  = await dioClient.get(Endpoints.getAllPrimarySources,headers: {});
 
       if(response.statusCode == 200) {
         final List<PrimarySourceModel> primarySourceList = [];

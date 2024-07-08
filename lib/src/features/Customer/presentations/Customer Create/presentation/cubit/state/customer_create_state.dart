@@ -4,12 +4,15 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Country/country_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Division/division_model.dart';
+import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Primary%20Source/primary_source_model.dart';
 import 'package:srinivasa_crm_new/src/core/model/api%20failed/api_failed_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_addation_phone_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_address_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_addresslinetwo_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_city_field.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_contact_person_field.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_credit_limit_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_customer_name_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_locality_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_mandal_field.dart';
@@ -18,9 +21,9 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/custo
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_pincode_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_title_field.dart';
 
-import '../../../../../../../shared/domain/model/StateModel/state_model.dart';
-import '../../../../../../../shared/domain/model/zone_model.dart';
-import '../../../../domain/model/field/customer_create_email_field.dart';
+import '../../../../../../../../shared/domain/model/StateModel/state_model.dart';
+import '../../../../../../../../shared/domain/model/zone_model.dart';
+import '../../../../../domain/model/field/customer_create_email_field.dart';
 
 part 'customer_create_state.freezed.dart';
 
@@ -39,6 +42,8 @@ const factory CustomerCreateState({
   required CustomerCreateLocalityField customerCreateLocalityField,
   required CustomerCreatePincodeField customerCreatePincodeField,
   required CustomerCreateAddressField customerCreateAddressField,
+  required CustomerCreateContactPersonField customerCreateContactPersonField,
+  required CustomerCreateCreditLimitField customerCreateCreditLimitField,
   required bool isSubmitting,
   required bool isSuccess,
   @Default(null) ApiFailedModel? apiFailedModel,
@@ -57,6 +62,8 @@ const factory CustomerCreateState({
   @Default(null) CountryModel? selectedCountryModel,
   @Default([]) List<String> titlesList,
   @Default(null) String? selectedTitleValue,
+  @Default([]) List<EmployeeModel> assignedList,
+  @Default(null) EmployeeModel? selectedAssignedModel,
   @Default(false) bool isLoading,
 
 
@@ -80,6 +87,12 @@ factory CustomerCreateState.initial() => CustomerCreateState(
   customerCreateLocalityField: CustomerCreateLocalityField(''),
   customerCreatePincodeField: CustomerCreatePincodeField(''),
   customerCreateAddressField: CustomerCreateAddressField(''),
+  customerCreateContactPersonField: CustomerCreateContactPersonField(''),
+  customerCreateCreditLimitField: CustomerCreateCreditLimitField(''),
+  
+
+
+  apiFailedModel: null,
   isSubmitting: false,
   isSuccess: false,
   showInputError: false,
@@ -97,6 +110,8 @@ factory CustomerCreateState.initial() => CustomerCreateState(
   selectedCountryModel: null,
   titlesList: [],
   selectedTitleValue: null,
+  assignedList: [],
+  selectedAssignedModel: null,
   isLoading: false,
   
   
