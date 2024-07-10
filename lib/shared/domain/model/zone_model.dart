@@ -1,11 +1,11 @@
 class ZoneModel {
-  int? zoneId;
+  String? zoneId;
   String? zoneName;
 
   ZoneModel({this.zoneId, this.zoneName});
 
   ZoneModel.fromJson(Map<String, dynamic> json) {
-    zoneId = json['zoneId'];
+    zoneId = json['id'];
     zoneName = json['zoneName'];
   }
 

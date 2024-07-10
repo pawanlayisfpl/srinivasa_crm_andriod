@@ -16,7 +16,7 @@ class CCAddressLineTwoTextFieldWidget extends StatelessWidget {
         
           textEditingController: context.read<CustomerCreateCubit>().addressLineTwoController, onChanged: (value) {
           context.read<CustomerCreateCubit>().changeAddressLineTwo(addressLineTwo: value);
-        }, validator: (val) => state.customerCreateAddressLineTwoField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "Address line two is empty",tooShort: (value) => "Address line two is too short",), (r) => null), labelText: "Address Line Two", hintText: "Enter address line two", autovalidateMode: state.showInputError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction);
+        }, validator: (val) => state.customerCreateAddressLineTwoField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "Address line two is empty",tooShort: (value) => "Address line two is too short",), (r) => null), labelText: "Address Line Two", hintText: "Enter address line two", autovalidateMode: state.showInputError ? AutovalidateMode.disabled : AutovalidateMode.disabled);
       },
     );
   }

@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:srinivasa_crm_new/shared/domain/model/zone_model.dart';
 
 import 'package:srinivasa_crm_new/src/core/model/network%20exception/network_exception.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/checkIn_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/checkout_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_full_details_model.dart';
@@ -113,6 +115,17 @@ class CustomerRepoImpl implements CustomerRepo {
     return Left(e);
      
    }
+  }
+
+  @override
+  Future<Either<NetworkExceptions, List<AssignedToModel>>> getAssignedList({required ZoneModel zoneModel}) async {
+    try {
+    final results = await customerRemoteDataSource.getAssignedLists(zoneModel: zoneModel );
+    return Right(results);
+     
+   } on  NetworkExceptions catch(e) {
+    return Left(e);
+  }
   }
   
 

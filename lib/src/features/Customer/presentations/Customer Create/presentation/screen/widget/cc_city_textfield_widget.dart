@@ -12,10 +12,11 @@ class CCCityTextFieldWidget extends StatelessWidget {
     return BlocBuilder<CustomerCreateCubit, CustomerCreateState>(
       builder: (context, state) {
         return CommonTextfield(
+          
         
           textEditingController: context.read<CustomerCreateCubit>().cityController, onChanged: (value) {
           context.read<CustomerCreateCubit>().changeCity(city: value);
-        }, validator: (val) => state.customerCreateLocalityField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "City is empty",tooShort: (value) => "City is too short",), (r) => null), labelText: "City", hintText: "Enter customer city", autovalidateMode: state.showInputError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction);
+        }, validator: (val) => state.customerCreateCityField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "City is empty",tooShort: (value) => "city is too short",), (r) => null), labelText: "City", hintText: "Enter customer city", autovalidateMode: state.showInputError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction);
       },
     );
   }

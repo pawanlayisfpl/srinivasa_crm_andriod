@@ -22,7 +22,7 @@ class CCAdditionalPhoneTextField extends StatelessWidget {
           textEditingController: context.read<CustomerCreateCubit>().addationalPhoneController, onChanged: (value) {
           context.read<CustomerCreateCubit>().changeAddationalPhone(addationalPhone: value);
         
-        }, validator: (val) => state.customerCreateAddationField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "Additional phone number is empty",invalidPhoneNumber: (val) => "Invalid addational phone number"), (r) => null), labelText: "Additional Phone", hintText: "Enter additional phone number", autovalidateMode: state.showInputError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction);
+        }, validator: (val) => state.customerCreateAddationField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "Additional phone number is empty",invalidPhoneNumber: (val) => "Invalid addational phone number"), (r) => null), labelText: "Additional Phone", hintText: "Enter additional phone number", autovalidateMode: state.showInputError ? AutovalidateMode.disabled : AutovalidateMode.disabled);
       },
     );
   }

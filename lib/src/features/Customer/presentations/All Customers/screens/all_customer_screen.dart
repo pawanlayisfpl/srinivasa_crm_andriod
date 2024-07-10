@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/screens/widget/all_customer_loaded_widget.dart';
 
 import '../../../../../common/common.dart';
@@ -43,7 +44,23 @@ class _AllCustomerScreenState extends State<AllCustomerScreen> {
         child: BlocBuilder<AllCustomerCubit, AllCustomerState>(
           builder: (context, state) {
             return state.map(initial: (initial) => const Center(child: Text("Initial State"),) , loading: (l) => const CustomLoadingWidget(),
-             loaded: (data) => AllCustomerLoadedWidget(customerLists: data.customerLists), error: (error) => CommonErrorWidget(error: error.message.toString(),callback: () {
+             loaded: (data) {
+           // Create a new, modifiable list from `data.customerLists`.
+List<Customermodel> modifiableList = List<Customermodel>.from(data.customerLists);
+
+// Sort the new list.
+modifiableList.sort((a, b) {
+  // Handle null custName by treating it as the lowest value (sort to the beginning).
+  var nameA = a.custName?.toLowerCase() ?? '';
+  var nameB = b.custName?.toLowerCase() ?? '';
+  return nameA.compareTo(nameB);
+});
+
+// Use the sorted, modifiable list.
+List<Customermodel> sortedList = modifiableList;
+
+               return AllCustomerLoadedWidget(customerLists:sortedList);
+             }, error: (error) => CommonErrorWidget(error: error.message.toString(),callback: () {
 
              },), );
           },

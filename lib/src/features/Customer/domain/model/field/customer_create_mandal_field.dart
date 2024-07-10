@@ -9,7 +9,7 @@ class CustomerCreateMandalField extends ValueObject<String> {
 
   factory CustomerCreateMandalField(String input) {
     return CustomerCreateMandalField._(
-      Validators.validateStringNotEmpty(input).flatMap((a) => Validators.validateEmailAddress(input))
+      Validators.validateStringNotEmpty(input).flatMap((a) => Validators.validateStringMinLength(input: input, minLength: 4))
        );
   }
 

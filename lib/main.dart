@@ -29,7 +29,7 @@ Future<void> main() async {
   await _initDependencies();
   runApp(const MyApp());
 }
-
+  
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
               navigatorKey: AppKeys.globalNavigatorKey, 
               scaffoldMessengerKey: AppKeys.scaffoldKey,
               onGenerateRoute: RouteGenerator.getRoute,
-              initialRoute: Routes.addCustomerScreen,
+              initialRoute: Routes.loginScreen,
               title: 'SF CRM',
               debugShowCheckedModeBanner: false,
               theme: ThemeData(

@@ -1,26 +1,25 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:srinivasa_crm_new/shared/domain/model/Country/country_model.dart';
-import 'package:srinivasa_crm_new/shared/shared.dart';
+import 'package:srinivasa_crm_new/shared/domain/model/Primary%20Source/primary_source_model.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/state/customer_create_state.dart';
 
 
 
-class CCZoneDropDownWidget extends StatelessWidget {
-  const CCZoneDropDownWidget({super.key});
+class CCPrimarySourceDropDownWidget extends StatelessWidget {
+  const CCPrimarySourceDropDownWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CustomerCreateCubit, CustomerCreateState>(
       builder: (context, state,) {
-        return DropdownSearch<ZoneModel>(
+        return DropdownSearch<PrimarySourceModel>(
                 enabled: true,
-                selectedItem: state.selectedZoneModel,
+                selectedItem: state.selectedPrimarySourceModel,
 
-                dropdownBuilder: (context, selectedItems) => state.selectedZoneModel == null ?  const CommonTextWidget(title: "Select your zone",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedZoneModel!.zoneName.toString()) ,
+                dropdownBuilder: (context, selectedItems) => state.selectedPrimarySourceModel == null ?  const CommonTextWidget(title: "Select primary source",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedPrimarySourceModel!.sourceName.toString()) ,
                 
                 
                 dropdownButtonProps:  const DropdownButtonProps(
@@ -30,7 +29,7 @@ class CCZoneDropDownWidget extends StatelessWidget {
                   
                   
                 ),
-    itemAsString: (item) => item.zoneName.toString(),
+    itemAsString: (item) => item.sourceName.toString(),
                 popupProps: const PopupPropsMultiSelection.modalBottomSheet(
                   
 
@@ -46,7 +45,7 @@ class CCZoneDropDownWidget extends StatelessWidget {
                 showSearchBox: true,
                 searchFieldProps: TextFieldProps(
                   decoration: InputDecoration(
-                    hintText: 'Search zone',
+                    hintText: 'Search primary source',
                     prefixIcon: Icon(Icons.search), 
                 ),
                 ),
@@ -57,24 +56,24 @@ class CCZoneDropDownWidget extends StatelessWidget {
                   enableFeedback: true,
                   icon: const Icon(Icons.clear),
                   onPressed: () {
-                    context.read<CustomerCreateCubit>().clearZoneValue();
+                    context.read<CustomerCreateCubit>().clearPrimarySourceModel();
                   }
 
 
                 ),
                 autoValidateMode: state.showInputError ?  AutovalidateMode.always : AutovalidateMode.onUserInteraction,
 
-                    items: state.zoneList,
+                    items: state.primarySourceList,
 
                 
               
                 onChanged: (values) {
                  if(values != null) {
-                    context.read<CustomerCreateCubit>().setZoneValue(zoneModel: values);
+                    context.read<CustomerCreateCubit>().setPrimarySourceValue(primarySourceModel: values);
                   
                  }
                 },
-                validator: (value) =>   value == null? 'Please select zone' : null,
+                validator: (value) =>   value == null? 'Please select primary source' : null,
               );
       },
     ); 

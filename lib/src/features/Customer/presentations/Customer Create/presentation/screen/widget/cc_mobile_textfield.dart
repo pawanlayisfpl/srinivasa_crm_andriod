@@ -21,7 +21,7 @@ class CCMobileTextFieldWidget extends StatelessWidget {
           textEditingController: context.read<CustomerCreateCubit>().mobileController, onChanged: (value) {
           context.read<CustomerCreateCubit>().changeMobile(mobile: value);
         
-        }, validator: (val) => state.customerMobileField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "Mobile numbre is empty",invalidPhoneNumber: (val) => "Invalid mobile phone"), (r) => null), labelText: "Mobile", hintText: "Enter customer mobile number", autovalidateMode: state.showInputError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction);
+        }, validator: (val) => state.customerMobileField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "Mobile number is empty",invalidPhoneNumber: (val) => "Invalid mobile phone"), (r) => null), labelText: "Mobile", hintText: "Enter customer mobile number", autovalidateMode: state.showInputError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction);
       },
     );
   }

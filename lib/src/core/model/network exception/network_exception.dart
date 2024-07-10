@@ -1,7 +1,16 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:quickalert/quickalert.dart';
+import 'package:srinivasa_crm_new/src/config/locator/locator.dart';
+import 'package:srinivasa_crm_new/src/core/core.dart';
+import 'package:srinivasa_crm_new/src/features/login/presentation/screens/login_screen.dart';
+
+import '../../../config/constants/app_keys.dart';
 
 part 'network_exception.freezed.dart';
 @freezed
@@ -40,97 +49,35 @@ abstract class NetworkExceptions with _$NetworkExceptions {
 
   const factory NetworkExceptions.unexpectedError() = UnexpectedError;
 
-  // handling dio exceptions for showing default error messages
-  // static NetworkExceptions getDioException(error) {
-  //   if (error is Exception) {
-  //     try {
-  //       NetworkExceptions networkExceptions;
-  //       if (error is DioException) {
-  //         switch (error.type) {
-  //           case DioExceptionType.cancel:
-  //             networkExceptions = const NetworkExceptions.requestCancelled();
-  //             break;
-  //           case DioExceptionType.connectionTimeout:
-  //             networkExceptions = const NetworkExceptions.requestTimeout();
-  //             break;
-  //           case DioExceptionType.unknown:
-  //             networkExceptions = const NetworkExceptions.noInternetConnection();
-  //             break;
-  //           case DioExceptionType.sendTimeout:
-  //             networkExceptions = const NetworkExceptions.sendTimeout();
-  //             break;
-  //           case DioExceptionType.badResponse:
-  //             if (error.response != null) {
-  //               switch (error.response!.statusCode) {
-  //                 case 400:
-  //                 case 401:
-  //                 case 403:
-  //                   networkExceptions = const NetworkExceptions.unauthorisedRequest();
-  //                   break;
-  //                 case 404:
-  //                   networkExceptions = const NetworkExceptions.notFound("Not found");
-  //                   break;
-  //                 case 409:
-  //                   networkExceptions = const NetworkExceptions.conflict();
-  //                   break;
-  //                 case 408:
-  //                   networkExceptions = const NetworkExceptions.requestTimeout();
-  //                   break;
-  //                 case 500:
-  //                   networkExceptions = const NetworkExceptions.internalServerError();
-  //                   break;
-  //                 case 503:
-  //                   networkExceptions = const NetworkExceptions.serviceUnavailable();
-  //                   break;
-  //                 default:
-  //                   var responseCode = error.response!.statusCode;
-  //                   networkExceptions = NetworkExceptions.defaultError(
-  //                     "Received invalid status code: $responseCode",
-  //                   );
-  //               }
-  //             } else {
-  //               networkExceptions = const NetworkExceptions.defaultError(
-  //                 "No response received",
-  //               );
-  //             }
-  //             break;
-  //           case DioExceptionType.receiveTimeout:
-  //             networkExceptions = const NetworkExceptions.requestTimeout();
-  //             break;
-  //           case DioExceptionType.badCertificate:
-  //             networkExceptions = const NetworkExceptions.unableToProcess();
-  //             break;
-  //           case DioExceptionType.connectionError:
-  //             networkExceptions = const NetworkExceptions.noInternetConnection();
-  //             break;
-  //         }
-  //       } else if (error is SocketException) {
-  //         networkExceptions = const NetworkExceptions.noInternetConnection();
-  //       } else {
-  //         networkExceptions = const NetworkExceptions.unexpectedError();
-  //       }
-  //       return networkExceptions;
-  //     } on FormatException {
-  //       // Helper.printError(e.toString());
-  //       return const NetworkExceptions.formatException();
-  //     } catch (_) {
-  //       return const NetworkExceptions.unexpectedError();
-  //     }
-  //   } else {
-  //     if (error.toString().contains("is not a subtype of")) {
-  //       return const NetworkExceptions.unableToProcess();
-  //     } else {
-  //       return const NetworkExceptions.unexpectedError();
-  //     }
-  //   }
-  // }
-  // handling dio exceptions
+  static NetworkExceptions getDioException(DioException error) {
 
-static NetworkExceptions getDioException(DioException error) {
+   // Check for a 401 Unauthorized response
+if (error.response?.statusCode == 401) {
+  try {
+    // Display a toast message for unauthorized request
+    // Fluttertoast.showToast(msg: "Unauthorized request. Please login again.");
+    QuickAlert.show(context: AppKeys.globalNavigatorKey.currentState!.context, type: QuickAlertType.error, title: "Unauthorized request", text: "Please login again",
+    confirmBtnColor: Colors.black,
+    confirmBtnText: "Okay",
+    barrierDismissible: false,
+    animType: QuickAlertAnimType.slideInUp,
+    onConfirmBtnTap: () {
+      final localStorge = locator.get<KeyValueStorage>();
+      localStorge..sharedPreferences.clear();
+      AppKeys.globalNavigatorKey.currentState!.pop(  );
+      AppKeys.globalNavigatorKey.currentState!.pushAndRemoveUntil(MaterialPageRoute(builder: (c) => LoginScreen()), (route) => true,);
+    },
+    );
+  } catch (e) {
+    // Log error or handle toast failure gracefully
+    log("Error displaying toast: $e");
+  }
+  // Return a specific exception for unauthorized requests
+  return const NetworkExceptions.unauthorisedRequest();
+}
   try {
     NetworkExceptions networkExceptions;
-    
-    
+
     switch (error.type) {
       case DioExceptionType.cancel:
         networkExceptions = const NetworkExceptions.requestCancelled();
@@ -138,24 +85,63 @@ static NetworkExceptions getDioException(DioException error) {
       case DioExceptionType.connectionTimeout:
         networkExceptions = const NetworkExceptions.requestTimeout();
         break;
-      case DioExceptionType.unknown:
-        networkExceptions = const NetworkExceptions.unableToProcess();
-        break;
+     
       case DioExceptionType.sendTimeout:
         networkExceptions = const NetworkExceptions.sendTimeout();
         break;
       case DioExceptionType.badResponse:
         networkExceptions = const NetworkExceptions.badRequest();
         break;
+      case DioExceptionType.unknown:
+        if (error.response?.statusCode == 401) {
+          Fluttertoast.showToast(msg: "Unauthorised request");
+          networkExceptions = const NetworkExceptions.unauthorisedRequest();
+        } else {
+          
+          networkExceptions = NetworkExceptions.defaultError(error);
+        }
+        break;
       default:
         networkExceptions = NetworkExceptions.defaultError(error);
     }
-  
+
     return networkExceptions;
   } on FormatException {
     return const NetworkExceptions.formatException();
-  } 
+  }
 }
+  // handling dio exceptions
+
+// static NetworkExceptions getDioException(DioException error) {
+//   try {
+//     NetworkExceptions networkExceptions;
+    
+    
+//     switch (error.type) {
+//       case DioExceptionType.cancel:
+//         networkExceptions = const NetworkExceptions.requestCancelled();
+//         break;
+//       case DioExceptionType.connectionTimeout:
+//         networkExceptions = const NetworkExceptions.requestTimeout();
+//         break;
+//       case DioExceptionType.unknown:
+//         networkExceptions = const NetworkExceptions.unableToProcess();
+//         break;
+//       case DioExceptionType.sendTimeout:
+//         networkExceptions = const NetworkExceptions.sendTimeout();
+//         break;
+//       case DioExceptionType.badResponse:
+//         networkExceptions = const NetworkExceptions.badRequest();
+//         break;
+//       default:
+//         networkExceptions = NetworkExceptions.defaultError(error);
+//     }
+  
+//     return networkExceptions;
+//   } on FormatException {
+//     return const NetworkExceptions.formatException();
+//   } 
+// }
 
 
 static String getErrorMessage(NetworkExceptions networkExceptions) {

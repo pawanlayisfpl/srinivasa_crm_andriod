@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../shared/widgets/dashboard_card_widget.dart';
 import '../../../config/config.dart';
@@ -32,6 +33,7 @@ class CustomerDashbaordScreen extends StatelessWidget {
                     onTap: () {
                       switch (i) {
                         case 1:
+                        // Fluttertoast.showToast(msg: "Page is under development");
                            Navigator.pushNamed(
                               context, Routes.addCustomerScreen);
                       

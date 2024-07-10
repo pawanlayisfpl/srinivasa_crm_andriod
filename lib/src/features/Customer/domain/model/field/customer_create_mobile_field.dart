@@ -9,7 +9,7 @@ class CustomerCreateMobileField extends ValueObject<String> {
 
   factory CustomerCreateMobileField(String input) {
     return CustomerCreateMobileField._(
-      Validators.validateStringNotEmpty(input).flatMap((a) => Validators.validateEmailAddress(input))
+      Validators.validateStringNotEmpty(input).flatMap((a) => Validators.validatePhoneNumber(input))
        );
   }
 

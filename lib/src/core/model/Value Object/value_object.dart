@@ -35,7 +35,7 @@ class Validators {
       {required String input, required int minLength}) {
     return input.length >= minLength
         ? right(input)
-        : left(ValueFailure.zero(failedValue: input));
+        : left(ValueFailure.tooShort(failedValue: input, min: minLength));
   }
 
   static Either<ValueFailure<String>,String> validatePhoneNumber(String input){

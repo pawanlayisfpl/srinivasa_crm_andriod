@@ -28,7 +28,7 @@ class CCStateDropDownWidget extends StatelessWidget {
                     )
                   : CommonTextWidget(
                       title:
-                          state.selectedCountryModel!.countryName.toString()),
+                          state.selectedStateModel!.stateName.toString()),
           dropdownButtonProps: const DropdownButtonProps(
               icon: Icon(Icons.arrow_downward),
               selectedIcon: Icon(Icons.arrow_drop_down_circle)),

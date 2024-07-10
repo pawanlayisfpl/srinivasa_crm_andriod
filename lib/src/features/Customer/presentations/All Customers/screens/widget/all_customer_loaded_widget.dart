@@ -28,8 +28,9 @@ class AllCustomerLoadedWidget extends StatelessWidget {
         children: [
           Expanded(
             child: AlphabetScrollView(
+              isAlphabetsFiltered: true,
               list: customerLists
-                  .map((e) => AlphaModel( e.custName.toString()))
+                  .map((e) => AlphaModel( e.custName ?? ""))
                   .toList(),
               alignment: LetterAlignment.right,
               itemExtent: 0.13.sh, // Set a fixed height for each item
@@ -40,6 +41,8 @@ class AllCustomerLoadedWidget extends StatelessWidget {
               selectedTextStyle: const TextStyle(
                   fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.primaryColor),
               overlayWidget: (value) => Stack(
+
+                
                 alignment: Alignment.center,
                 children: [
                   const Icon(

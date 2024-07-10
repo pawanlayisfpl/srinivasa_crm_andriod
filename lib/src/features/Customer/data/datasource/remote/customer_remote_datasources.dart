@@ -6,8 +6,10 @@ import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
+import 'package:srinivasa_crm_new/shared/domain/model/zone_model.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_full_details_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkin_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkout_post_model.dart';
@@ -28,6 +30,7 @@ abstract class CustomerRemoteDataSource{
   Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails({required String customerId});
   Future<List<Customermodel>> searchCustomer({required String searchKey});
   Future<CustomerFullDetailsModel> getCustomerFullDetails({required String customerCode});
+  Future<List<AssignedToModel>> getAssignedLists({required ZoneModel zoneModel});
   
 }
 
@@ -215,11 +218,11 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
         if(response.statusCode == 200) {
           return CustomerResponseModel.fromJson(response.data);
         }else {
-          throw NetworkExceptions.getException(response.data);
+          throw NetworkExceptions.getDioException(response.data);
         }
       } on DioException catch (e) {
         logger.e(e);
-        throw NetworkExceptions.getException(e);
+        throw NetworkExceptions.getDioException(e);
       }
     }else {
       String? data =  keyValueStorage.sharedPreferences.getString(KeyValueStrings.customersData);
@@ -292,6 +295,33 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
 
    }else {
     throw  const NetworkExceptions.noInternetConnection();
+   }
+  }
+  
+  @override
+  Future<List<AssignedToModel>> getAssignedLists({required ZoneModel zoneModel}) async {
+   try {
+    final response = await dioClient.post(
+    Endpoints.assignedToUrl,
+   headers: {},
+    
+    
+    data: {
+      "zoneId": zoneModel.zoneId.toString(),
+    },
+  );
+    if(response.statusCode == 200) {
+      final List data = response.data;
+      final List<AssignedToModel> assignedToList = data.map((e) => AssignedToModel.fromJson(e)).toList();
+      return await Future.value(assignedToList);
+    }else {
+      return Future.error(NetworkExceptions.getDioException(response.data));
+
+    }
+     
+   } on DioException catch (e) {
+    return Future.error(NetworkExceptions.getDioException(e));
+     
    }
   }
 }

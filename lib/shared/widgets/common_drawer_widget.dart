@@ -14,7 +14,7 @@ class CommonDrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
-        return state.maybeMap(orElse: () => SizedBox.shrink() ,loadedLocal: (data) => Drawer(
+        return state.maybeMap(orElse: () => const SizedBox.shrink() ,loadedLocal: (data) => Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
@@ -48,20 +48,7 @@ class CommonDrawerWidget extends StatelessWidget {
                       ),
                     ],
                   )),
-              ListTile(
-                title: const Text('Item 1'),
-                onTap: () {
-                  if (context.mounted) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      Navigator.pop(context);
-                    });
-                  }
-                },
-              ),
-              ListTile(
-                title: const Text('Item 2'),
-                onTap: () {},
-              ),
+           
             ],
           ),
         ));

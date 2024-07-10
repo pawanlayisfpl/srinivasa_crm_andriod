@@ -22,6 +22,8 @@ class CommonTextfield extends StatelessWidget {
   final int? maxLines;
   final bool? isPasswordField;
   final ValueNotifier<bool> obscureNotifier;
+  final int? maxLength;
+  
 
   CommonTextfield(
       {Key? key,
@@ -35,6 +37,7 @@ class CommonTextfield extends StatelessWidget {
       this.textInputType,
       this.inputFormatters,
       this.readOnly,
+      this.maxLength,
       this.textInputAction,
       required this.autovalidateMode,
       this.suffixIcon,
@@ -62,6 +65,7 @@ class CommonTextfield extends StatelessWidget {
           autovalidateMode: autovalidateMode,
           validator: (value) => validator(value),
           maxLines: maxLines ?? 1,
+          maxLength: maxLength,
           decoration: InputDecoration(
             labelText: labelText,
             hintText: hintText,

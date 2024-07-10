@@ -9,7 +9,7 @@ class CustomerCreateLocalityField extends ValueObject<String> {
 
   factory CustomerCreateLocalityField(String input) {
     return CustomerCreateLocalityField._(
-      Validators.validateStringNotEmpty(input).flatMap((a) => Validators.validateEmailAddress(input))
+      Validators.validateStringNotEmpty(input).flatMap((a) => Validators.validateStringMinLength(input: input, minLength: 4))
        );
   }
 

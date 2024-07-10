@@ -9,7 +9,7 @@ class CustomerCreateCustomerNameField extends ValueObject<String> {
 
   factory CustomerCreateCustomerNameField(String input) {
     return CustomerCreateCustomerNameField._(
-      Validators.validateStringNotEmpty(input).flatMap((a) => Validators.validateEmailAddress(input))
+      Validators.validateStringNotEmpty(input).flatMap((a) => Validators.validateStringMinLength(input: input, minLength: 4))
        );
   }
 

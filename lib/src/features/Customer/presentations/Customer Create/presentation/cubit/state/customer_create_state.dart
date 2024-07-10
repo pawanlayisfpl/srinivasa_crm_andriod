@@ -3,6 +3,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Country/country_model.dart';
+import 'package:srinivasa_crm_new/shared/domain/model/District/district_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Division/division_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Primary%20Source/primary_source_model.dart';
@@ -20,6 +21,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/custo
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_phone_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_pincode_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_title_field.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
 
 import '../../../../../../../../shared/domain/model/StateModel/state_model.dart';
 import '../../../../../../../../shared/domain/model/zone_model.dart';
@@ -54,17 +56,25 @@ const factory CustomerCreateState({
   @Default(null) ZoneModel? selectedZoneModel,
   required List<String> customerTypeList,
   @Default(null) String? selectedCustomerType,
-  @Default([]) List<DivisionModel> divisionList,
-  @Default(null) DivisionModel? selectedDivisonModel,
+  @Default([]) List<DistrictModel> districtList,
+  @Default(null) DistrictModel? selectedDistrictModel,
   @Default([]) List<StateModel> stateList,
   @Default(null) StateModel? selectedStateModel,
   @Default([]) List<CountryModel> countryList,
   @Default(null) CountryModel? selectedCountryModel,
   @Default([]) List<String> titlesList,
   @Default(null) String? selectedTitleValue,
-  @Default([]) List<EmployeeModel> assignedList,
-  @Default(null) EmployeeModel? selectedAssignedModel,
+  @Default([]) List<AssignedToModel> assignedList,
+  @Default(null) AssignedToModel? selectedAssignedModel,
   @Default(false) bool isLoading,
+  @Default(false) bool zoneLoading,
+  @Default(false) bool assingedToLaoding,
+  @Default(false) bool primarySourceLoading,
+  @Default(false) bool countryLoading,
+  @Default(false) bool stateLoading,
+  @Default(false) bool districtLoading,
+
+  
 
 
 
@@ -102,8 +112,8 @@ factory CustomerCreateState.initial() => CustomerCreateState(
   selectedZoneModel: null,
   customerTypeList: [],
   selectedCustomerType: null,
-  divisionList: [],
-  selectedDivisonModel: null,
+  districtList: [],
+  selectedDistrictModel: null,
   stateList: [],
   selectedStateModel: null,
   countryList: [],
@@ -113,6 +123,13 @@ factory CustomerCreateState.initial() => CustomerCreateState(
   assignedList: [],
   selectedAssignedModel: null,
   isLoading: false,
+  zoneLoading: false,
+  assingedToLaoding: false,
+  primarySourceLoading: false,
+  countryLoading: false,
+  stateLoading: false,
+  districtLoading: false,
+  
   
   
 );

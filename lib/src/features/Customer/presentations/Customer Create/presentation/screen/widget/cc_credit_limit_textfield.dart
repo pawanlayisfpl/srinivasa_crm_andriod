@@ -21,7 +21,7 @@ class CCCreditLimitTextField extends StatelessWidget {
           textEditingController: context.read<CustomerCreateCubit>().creditLimitController, onChanged: (value) {
           context.read<CustomerCreateCubit>().changeCreditLimit(value: value);
         
-        }, validator: (val) => state.customerCreateCreditLimitField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "Credit limit is empty",), (r) => null), labelText: "Credit Limit", hintText: "Enter customer credit limit", autovalidateMode: state.showInputError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction);
+        }, validator: (val) => state.customerCreateCreditLimitField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "Credit limit is empty",), (r) => null), labelText: "Credit Limit", hintText: "Enter customer credit limit", autovalidateMode: state.showInputError ? AutovalidateMode.disabled : AutovalidateMode.disabled);
       },
     );
   }

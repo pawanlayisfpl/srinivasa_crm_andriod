@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/checkIn_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/checkout_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_full_details_model.dart';
@@ -7,6 +8,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/last_ch
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkin_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkout_post_model.dart';
 
+import '../../../../../shared/domain/model/zone_model.dart';
 import '../model/get/customer_model.dart';
 import '../model/get/customer_response_model.dart';
 
@@ -24,4 +26,6 @@ abstract class CustomerRepo {
       {required String searchKey});
   Future<Either<NetworkExceptions, CustomerFullDetailsModel>>
       getCustomerFullDetails({required String customerCode});
+
+ Future<Either<NetworkExceptions,List<AssignedToModel>>> getAssignedList({required ZoneModel zoneModel});     
 }

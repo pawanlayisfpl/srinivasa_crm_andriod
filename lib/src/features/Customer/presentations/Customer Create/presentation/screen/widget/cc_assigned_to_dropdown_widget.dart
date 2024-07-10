@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_model.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/state/customer_create_state.dart';
 
@@ -15,7 +16,7 @@ class CCAssignedToDropDownWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CustomerCreateCubit, CustomerCreateState>(
       builder: (context, state,) {
-        return DropdownSearch<EmployeeModel>(
+        return DropdownSearch<AssignedToModel>(
                 enabled: true,
                 selectedItem: state.selectedAssignedModel,
 
@@ -69,7 +70,7 @@ class CCAssignedToDropDownWidget extends StatelessWidget {
               
                 onChanged: (values) {
                  if(values != null) {
-                    context.read<CustomerCreateCubit>().setAssignedValue(employeeModel: values);
+                    context.read<CustomerCreateCubit>().setAssignedValue(assignedModel: values);
                   
                  }
                 },

@@ -32,6 +32,8 @@ class Endpoints {
 
     static const String allPurposes = "$basicUrl/se/type-of-purposes";
 
+   static const String assignedToUrl = "$basicUrl/se/salesrepsinzone"; 
+
 
   static const String getAllCustomerDemo = '$basicUrl/se/all-customers-demo';
    // MONTHLY PLAN

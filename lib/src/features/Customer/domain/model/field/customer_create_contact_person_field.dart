@@ -9,7 +9,7 @@ class CustomerCreateContactPersonField extends ValueObject<String> {
 
   factory CustomerCreateContactPersonField(String input) {
     return CustomerCreateContactPersonField._(
-      Validators.validateStringNotEmpty(input).flatMap((a) => Validators.validateEmailAddress(input))
+      Validators.validateStringNotEmpty(input).flatMap((a) => Validators.validateStringMinLength(input: input,minLength: 3))
        );
   }
 

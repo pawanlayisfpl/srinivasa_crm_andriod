@@ -8,10 +8,12 @@ import 'package:srinivasa_crm_new/shared/domain/model/StateModel/state_model.dar
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 
+import '../../../../domain/model/District/district_model.dart';
+
 abstract class AddressRemoteDataSource {
   Future<List<CountryModel>> getCountries();
   Future<List<StateModel>> getStateByCountry({required String countryId});
-  Future<List<DivisionModel>> getDivisionByState({required String stateId});
+  Future<List<DistrictModel>> getDistrictByStateId({required String stateId});
 
 }
 
@@ -49,7 +51,7 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
   }
   
   @override
-  Future<List<DivisionModel>> getDivisionByState({required String stateId}) async {
+  Future<List<DistrictModel>> getDistrictByStateId({required String stateId}) async {
     logger.d('DIVISION API STARTED');
     try {
         final response = await dioClient.post(Endpoints.divisions,headers:  {},data: {
@@ -57,7 +59,7 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
         });
   
       if(response.statusCode == 200){
-        final List<DivisionModel> states = (response.data as List).map((e) => DivisionModel.fromJson(e)).toList();
+        final List<DistrictModel> states = (response.data as List).map((e) => DistrictModel.fromJson(e)).toList();
         return await Future.value(states);
       }else {
         logger.e('DIVISION API FAIELD');

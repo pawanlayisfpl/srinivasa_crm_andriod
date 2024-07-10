@@ -49,6 +49,8 @@ class MonthlyPlanCardWidget extends StatelessWidget {
         child: Stack(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                   flex: 8,
@@ -57,7 +59,7 @@ class MonthlyPlanCardWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [  MonthlyPlanRowWidget(
                         title: "Approval Status",
-                        value: monthlyPlanModel.approvalStatus ?? "Unknown",
+                        value: monthlyPlanModel.approvalStatus != null ? monthlyPlanModel.approvalStatus.toString().trim() : "UNKOWN",
                         isStatusField: true,
                       ),
                       5.verticalSpace,
@@ -72,6 +74,7 @@ class MonthlyPlanCardWidget extends StatelessWidget {
                     
                       MonthlyPlanRowWidget(
                           title: "Customers",
+                          
                           value: model.viewDailyPlanCustomers!
                               .map((e) => e.customer!.customerName.toString())
                               .join(', ')),
@@ -137,30 +140,33 @@ class MonthlyPlanRowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        CommonTextWidget(
-          title: title + " : ",
-          textSize: 14.sp,
-          textColor: Colors.black.withOpacity(0.5),
-          fontWeight: FontWeight.w600,
-        ),
-        Expanded(
-            flex: 5,
-            child: CommonTextWidget(
-              title: value,
-              textSize: 14.sp,
-              align: TextAlign.start,
-              textColor: isStatusField != null
-                  ? value.toString() != "PENDING"
-                      ? AppColors.primaryColor
-                      : AppColors.errorColor
-                  : AppColors.blackColor,
-              fontWeight: FontWeight.w500,
-              maxLines: 3,
-            ))
-      ],
+    return IntrinsicHeight(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CommonTextWidget(
+            title: title + " : ",
+            textSize: 14.sp,
+            textColor: Colors.black.withOpacity(0.5),
+            fontWeight: FontWeight.w600,
+          ),
+          Expanded(
+              flex: 5,
+              child: CommonTextWidget(
+                title: value,
+                textSize: 14.sp,
+                align: TextAlign.start,
+                textColor: isStatusField != null
+                    ? value.toString() != "PENDING"
+                        ? AppColors.primaryColor
+                        : AppColors.errorColor
+                    : AppColors.blackColor,
+                fontWeight: FontWeight.w500,
+                maxLines: 3,
+              ))
+        ],
+      ),
     );
   }
 }

@@ -21,7 +21,7 @@ class CCPincodeTextField extends StatelessWidget {
           textEditingController: context.read<CustomerCreateCubit>().pincodeController, onChanged: (value) {
           context.read<CustomerCreateCubit>().changePincode(pincode: value);
         
-        }, validator: (val) => state.customerCreatePincodeField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "Pincode is empty",), (r) => null), labelText: "Pincode", hintText: "Enter customer pincode", autovalidateMode: state.showInputError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction);
+        }, validator: (val) => state.customerCreatePincodeField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "Pincode is empty",invalidPincode: (value) => "(${value.failedValue.toString()}) is invalid pincode"), (r) => null), labelText: "Pincode", hintText: "Enter customer pincode", autovalidateMode: state.showInputError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction);
       },
     );
   }

@@ -15,14 +15,19 @@ class AppStyles {
       borderRadius: BorderRadius.circular(8),
       gapPadding: 10);
 
+  static InputBorder errorBorder = OutlineInputBorder(
+    
+      borderSide:  BorderSide(color: AppColors.errorColor, width: 1),
+      borderRadius: BorderRadius.circular(8),
+      gapPadding: 10);
+
    static TextStyle  labelStyle = GoogleFonts.poppins(
      fontSize: 18.sp,
     color: AppColors.primaryColor,
-    
-
-    
-    
-    
+   );   
+   static TextStyle  errorStyle = GoogleFonts.poppins(
+     fontSize: 18.sp,
+    color: AppColors.errorColor,
    );   
 
   //! buttons

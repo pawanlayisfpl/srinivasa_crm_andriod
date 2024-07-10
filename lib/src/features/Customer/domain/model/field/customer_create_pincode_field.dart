@@ -9,7 +9,7 @@ class CustomerCreatePincodeField extends ValueObject<String> {
 
   factory CustomerCreatePincodeField(String input) {
     return CustomerCreatePincodeField._(
-      Validators.validateStringNotEmpty(input).flatMap((a) => Validators.validateEmailAddress(input))
+      Validators.validateStringNotEmpty(input).flatMap((a) => Validators.validatePincode(input))
        );
   }
 
