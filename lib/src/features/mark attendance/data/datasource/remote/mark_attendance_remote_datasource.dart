@@ -42,7 +42,7 @@ final KeyValueStorage keyValueStorage;
       if(e is DioException) {
          if(e.response != null) {
          logger.e(e.response!.data['error'].toString()+" "+e.response!.data['status'].toString());
-    throw NetworkExceptions.getException(e);
+    throw NetworkExceptions.getDioException(e);
 
       }else {
         throw NetworkExceptions.getDioException(e);

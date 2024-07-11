@@ -79,6 +79,8 @@ mixin _$CustomerCreateState {
   List<DivisionModel> get selectedDivisionsList =>
       throw _privateConstructorUsedError;
   bool get isDivisionLoading => throw _privateConstructorUsedError;
+  DivisionModel? get selectedDivisionModel =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CustomerCreateStateCopyWith<CustomerCreateState> get copyWith =>
@@ -135,7 +137,8 @@ abstract class $CustomerCreateStateCopyWith<$Res> {
       bool districtLoading,
       List<DivisionModel> divisionsList,
       List<DivisionModel> selectedDivisionsList,
-      bool isDivisionLoading});
+      bool isDivisionLoading,
+      DivisionModel? selectedDivisionModel});
 
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel;
 }
@@ -197,6 +200,7 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
     Object? divisionsList = null,
     Object? selectedDivisionsList = null,
     Object? isDivisionLoading = null,
+    Object? selectedDivisionModel = freezed,
   }) {
     return _then(_value.copyWith(
       customerCreateCustomerNameField: null == customerCreateCustomerNameField
@@ -376,6 +380,10 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
           ? _value.isDivisionLoading
           : isDivisionLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      selectedDivisionModel: freezed == selectedDivisionModel
+          ? _value.selectedDivisionModel
+          : selectedDivisionModel // ignore: cast_nullable_to_non_nullable
+              as DivisionModel?,
     ) as $Val);
   }
 
@@ -444,7 +452,8 @@ abstract class _$$CustomerCreateStateImplCopyWith<$Res>
       bool districtLoading,
       List<DivisionModel> divisionsList,
       List<DivisionModel> selectedDivisionsList,
-      bool isDivisionLoading});
+      bool isDivisionLoading,
+      DivisionModel? selectedDivisionModel});
 
   @override
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel;
@@ -505,6 +514,7 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
     Object? divisionsList = null,
     Object? selectedDivisionsList = null,
     Object? isDivisionLoading = null,
+    Object? selectedDivisionModel = freezed,
   }) {
     return _then(_$CustomerCreateStateImpl(
       customerCreateCustomerNameField: null == customerCreateCustomerNameField
@@ -684,6 +694,10 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
           ? _value.isDivisionLoading
           : isDivisionLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      selectedDivisionModel: freezed == selectedDivisionModel
+          ? _value.selectedDivisionModel
+          : selectedDivisionModel // ignore: cast_nullable_to_non_nullable
+              as DivisionModel?,
     ));
   }
 }
@@ -737,7 +751,8 @@ class _$CustomerCreateStateImpl
       this.districtLoading = false,
       final List<DivisionModel> divisionsList = const [],
       final List<DivisionModel> selectedDivisionsList = const [],
-      this.isDivisionLoading = false})
+      this.isDivisionLoading = false,
+      this.selectedDivisionModel = null})
       : _primarySourceList = primarySourceList,
         _zoneList = zoneList,
         _customerTypeList = customerTypeList,
@@ -925,10 +940,13 @@ class _$CustomerCreateStateImpl
   @override
   @JsonKey()
   final bool isDivisionLoading;
+  @override
+  @JsonKey()
+  final DivisionModel? selectedDivisionModel;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CustomerCreateState(customerCreateCustomerNameField: $customerCreateCustomerNameField, customerPhoneField: $customerPhoneField, customerTitleField: $customerTitleField, customerMobileField: $customerMobileField, customerCreateEmailField: $customerCreateEmailField, customerCreateAddationField: $customerCreateAddationField, customerCreateAddressLineTwoField: $customerCreateAddressLineTwoField, customerCreateMandalField: $customerCreateMandalField, customerCreateCityField: $customerCreateCityField, customerCreateLocalityField: $customerCreateLocalityField, customerCreatePincodeField: $customerCreatePincodeField, customerCreateAddressField: $customerCreateAddressField, customerCreateContactPersonField: $customerCreateContactPersonField, customerCreateCreditLimitField: $customerCreateCreditLimitField, isSubmitting: $isSubmitting, isSuccess: $isSuccess, apiFailedModel: $apiFailedModel, showInputError: $showInputError, primarySourceList: $primarySourceList, selectedPrimarySourceModel: $selectedPrimarySourceModel, zoneList: $zoneList, selectedZoneModel: $selectedZoneModel, customerTypeList: $customerTypeList, selectedCustomerType: $selectedCustomerType, districtList: $districtList, selectedDistrictModel: $selectedDistrictModel, stateList: $stateList, selectedStateModel: $selectedStateModel, countryList: $countryList, selectedCountryModel: $selectedCountryModel, titlesList: $titlesList, selectedTitleValue: $selectedTitleValue, assignedList: $assignedList, selectedAssignedModel: $selectedAssignedModel, isLoading: $isLoading, zoneLoading: $zoneLoading, assingedToLaoding: $assingedToLaoding, primarySourceLoading: $primarySourceLoading, countryLoading: $countryLoading, stateLoading: $stateLoading, districtLoading: $districtLoading, divisionsList: $divisionsList, selectedDivisionsList: $selectedDivisionsList, isDivisionLoading: $isDivisionLoading)';
+    return 'CustomerCreateState(customerCreateCustomerNameField: $customerCreateCustomerNameField, customerPhoneField: $customerPhoneField, customerTitleField: $customerTitleField, customerMobileField: $customerMobileField, customerCreateEmailField: $customerCreateEmailField, customerCreateAddationField: $customerCreateAddationField, customerCreateAddressLineTwoField: $customerCreateAddressLineTwoField, customerCreateMandalField: $customerCreateMandalField, customerCreateCityField: $customerCreateCityField, customerCreateLocalityField: $customerCreateLocalityField, customerCreatePincodeField: $customerCreatePincodeField, customerCreateAddressField: $customerCreateAddressField, customerCreateContactPersonField: $customerCreateContactPersonField, customerCreateCreditLimitField: $customerCreateCreditLimitField, isSubmitting: $isSubmitting, isSuccess: $isSuccess, apiFailedModel: $apiFailedModel, showInputError: $showInputError, primarySourceList: $primarySourceList, selectedPrimarySourceModel: $selectedPrimarySourceModel, zoneList: $zoneList, selectedZoneModel: $selectedZoneModel, customerTypeList: $customerTypeList, selectedCustomerType: $selectedCustomerType, districtList: $districtList, selectedDistrictModel: $selectedDistrictModel, stateList: $stateList, selectedStateModel: $selectedStateModel, countryList: $countryList, selectedCountryModel: $selectedCountryModel, titlesList: $titlesList, selectedTitleValue: $selectedTitleValue, assignedList: $assignedList, selectedAssignedModel: $selectedAssignedModel, isLoading: $isLoading, zoneLoading: $zoneLoading, assingedToLaoding: $assingedToLaoding, primarySourceLoading: $primarySourceLoading, countryLoading: $countryLoading, stateLoading: $stateLoading, districtLoading: $districtLoading, divisionsList: $divisionsList, selectedDivisionsList: $selectedDivisionsList, isDivisionLoading: $isDivisionLoading, selectedDivisionModel: $selectedDivisionModel)';
   }
 
   @override
@@ -991,7 +1009,9 @@ class _$CustomerCreateStateImpl
       ..add(DiagnosticsProperty('districtLoading', districtLoading))
       ..add(DiagnosticsProperty('divisionsList', divisionsList))
       ..add(DiagnosticsProperty('selectedDivisionsList', selectedDivisionsList))
-      ..add(DiagnosticsProperty('isDivisionLoading', isDivisionLoading));
+      ..add(DiagnosticsProperty('isDivisionLoading', isDivisionLoading))
+      ..add(
+          DiagnosticsProperty('selectedDivisionModel', selectedDivisionModel));
   }
 
   @override
@@ -1064,7 +1084,8 @@ class _$CustomerCreateStateImpl
             (identical(other.districtLoading, districtLoading) || other.districtLoading == districtLoading) &&
             const DeepCollectionEquality().equals(other._divisionsList, _divisionsList) &&
             const DeepCollectionEquality().equals(other._selectedDivisionsList, _selectedDivisionsList) &&
-            (identical(other.isDivisionLoading, isDivisionLoading) || other.isDivisionLoading == isDivisionLoading));
+            (identical(other.isDivisionLoading, isDivisionLoading) || other.isDivisionLoading == isDivisionLoading) &&
+            (identical(other.selectedDivisionModel, selectedDivisionModel) || other.selectedDivisionModel == selectedDivisionModel));
   }
 
   @override
@@ -1113,7 +1134,8 @@ class _$CustomerCreateStateImpl
         districtLoading,
         const DeepCollectionEquality().hash(_divisionsList),
         const DeepCollectionEquality().hash(_selectedDivisionsList),
-        isDivisionLoading
+        isDivisionLoading,
+        selectedDivisionModel
       ]);
 
   @JsonKey(ignore: true)
@@ -1174,7 +1196,8 @@ abstract class _CustomerCreateState implements CustomerCreateState {
       final bool districtLoading,
       final List<DivisionModel> divisionsList,
       final List<DivisionModel> selectedDivisionsList,
-      final bool isDivisionLoading}) = _$CustomerCreateStateImpl;
+      final bool isDivisionLoading,
+      final DivisionModel? selectedDivisionModel}) = _$CustomerCreateStateImpl;
 
   @override
   CustomerCreateCustomerNameField get customerCreateCustomerNameField;
@@ -1264,6 +1287,8 @@ abstract class _CustomerCreateState implements CustomerCreateState {
   List<DivisionModel> get selectedDivisionsList;
   @override
   bool get isDivisionLoading;
+  @override
+  DivisionModel? get selectedDivisionModel;
   @override
   @JsonKey(ignore: true)
   _$$CustomerCreateStateImplCopyWith<_$CustomerCreateStateImpl> get copyWith =>

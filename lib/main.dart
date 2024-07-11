@@ -65,7 +65,6 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 fontFamily: 'Poppins',
                 inputDecorationTheme: InputDecorationTheme(
-                  
                   border: AppStyles.inputBorder,
                   // focusedBorder: AppStyles.focusBorder,
                   // labelStyle: AppStyles.labelStyle

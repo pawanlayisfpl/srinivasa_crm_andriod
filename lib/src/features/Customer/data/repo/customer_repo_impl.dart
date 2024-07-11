@@ -7,12 +7,14 @@ import 'package:srinivasa_crm_new/src/core/model/network%20exception/network_exc
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/checkIn_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/checkout_response_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_created_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_full_details_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/last_checkin_out_respone_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkin_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkout_post_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/customer_create_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
 
 import '../datasource/remote/customer_remote_datasources.dart';
@@ -128,5 +130,18 @@ class CustomerRepoImpl implements CustomerRepo {
   }
   }
   
+  @override
+  Future<Either<NetworkExceptions, CustomerCreatedResponseModel>> createCustomer({required CustomerCreatePostModel customerCreatePostModel}) async {
+     try {
+    final results = await customerRemoteDataSource.createCustomer(customerCreatePostModel: customerCreatePostModel);
+    return Right(results);
+     
+   } on  NetworkExceptions catch(e) {
+    return Left(e);
+  }
+   
+  }
+
+
 
 }

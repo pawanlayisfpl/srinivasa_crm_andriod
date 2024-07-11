@@ -57,7 +57,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<CheckinCubit, CheckinState>(
-      listener: (context, state) {
+    listener: (context, state) {
         if (state.isFailed) {
           QuickAlert.show(
               context: context,
@@ -68,21 +68,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               text: state.apiFailedModel!.errorMessage.toString());
         }
         if (state.isCheckOut) {
-         if(context.mounted) {
-        Navigator.pop(context);
-            if(context.mounted) {
-                QuickAlert.show(context: context,
-              disableBackBtn: true,
-
-
-
-               type: QuickAlertType.success, title: "Checkout", text: "Checkout Successfully");
+          if (context.mounted) {
+            Navigator.pop(context);
+            if (context.mounted) {
+              QuickAlert.show(
+                  context: context,
+                  disableBackBtn: true,
+                  type: QuickAlertType.success,
+                  title: "Checkout",
+                  text: "Checkout Successfully");
             }
-
-         }
-         
+          }
         }
-        
       },
       child: Scaffold(
         appBar: AppBar(
@@ -98,13 +95,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 child: ElevatedButton.icon(
                     onPressed: () async {
                       if (context
-                              .read<CheckinCubit>()
-                              .state
-                              .lastCheckinOutResponseModel !=
-                          null && context
-                              .read<CheckinCubit>()
-                              .state
-                              .selectedPurpose !=null){
+                                  .read<CheckinCubit>()
+                                  .state
+                                  .lastCheckinOutResponseModel !=
+                              null &&
+                          context.read<CheckinCubit>().state.selectedPurpose !=
+                              null) {
                         log(context
                             .read<CheckinCubit>()
                             .state
@@ -147,7 +143,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             checkOutPostModel: checkoutPostModel);
                       } else {
                         log('last checkin response model is getting null');
-                        Fluttertoast.showToast(msg: 'Please select purpose',backgroundColor: Colors.red,textColor: Colors.white,toastLength: Toast.LENGTH_LONG);
+                        Fluttertoast.showToast(
+                            msg: 'Please select purpose',
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            toastLength: Toast.LENGTH_LONG);
                       }
                     },
                     icon: const Icon(
@@ -180,7 +180,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               // const CheckoutPurposeDropDownWidget(),
               const CheckoutPurposeDropDownWidget(),
               25.verticalSpace,
-              context.watch<CheckinCubit>().state.selectedPurpose != null && context.watch<CheckinCubit>().state.selectedPurpose!.purposeName.toString() == 'Others' ? CommonTextfield(
+              context.watch<CheckinCubit>().state.selectedPurpose != null &&
+                      context
+                              .watch<CheckinCubit>()
+                              .state
+                              .selectedPurpose!
+                              .purposeName
+                              .toString() ==
+                          'Others'
+                  ? CommonTextfield(
                       maxLines: 1,
                       textEditingController: _othersController,
                       onChanged: (String? value) {},

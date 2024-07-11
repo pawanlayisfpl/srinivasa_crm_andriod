@@ -28,6 +28,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/custo
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_mandal_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_pincode_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/customer_create_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
 
 import '../../../../../../../shared/domain/model/Employe/employe_model.dart';
@@ -346,6 +347,13 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     emit(state.copyWith(selectedDivisionsList: []));
 
   }
+  void clearSelectedDivisionModel() {
+    emit(state.copyWith(selectedDivisionModel: null));
+  }
+
+  void setSelectedDivisionModel({required DivisionModel divisionModel}) {
+    emit(state.copyWith(selectedDivisionModel: divisionModel));
+  }
 
   void setSelectdDivisionsList({required List<DivisionModel> divisionList}) async {
     emit(state.copyWith(selectedDivisionsList: divisionList));
@@ -353,7 +361,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
 
 
 
-  void formSubmit() {
+  void formSubmit() async {
     emit(state.copyWith(isSubmitting: true));
     final customerName = state.customerCreateCustomerNameField.value.getOrElse(() => "");
     final phone = state.customerPhoneField.value.getOrElse(() => '');
@@ -378,6 +386,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     final zone = state.selectedZoneModel;
     final customerType = state.selectedCustomerType;
     final assginedTo = state.selectedAssignedModel;
+    final divisionModle = state.selectedDivisionModel;
 
 
 
@@ -386,9 +395,23 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
    
 
 
-    if(state.selectedDivisionsList.isNotEmpty && title != null &&  customerName.isNotEmpty  && phone.isNotEmpty && contactPerson.isNotEmpty && mobile.isNotEmpty && email.isNotEmpty && customerType != null &&  zone != null && assginedTo != null && country != null && stateModel != null && distirctModel != null && mandal.isNotEmpty && city.isNotEmpty && locality.isNotEmpty && address.isNotEmpty && pincode.isNotEmpty ) {
-      emit(state.copyWith(isSubmitting: false,showInputError: false));
-      Fluttertoast.showToast(msg: 'Form submitted successfully', backgroundColor: AppColors.greenColor, textColor: Colors.white, gravity: ToastGravity.BOTTOM);
+    if(state.selectedDivisionModel != null && title != null &&  customerName.isNotEmpty  && phone.isNotEmpty && contactPerson.isNotEmpty && mobile.isNotEmpty && email.isNotEmpty && customerType != null &&  zone != null && assginedTo != null && country != null && stateModel != null && distirctModel != null && mandal.isNotEmpty && city.isNotEmpty && locality.isNotEmpty && address.isNotEmpty && pincode.isNotEmpty ) {
+      CustomerCreatePostModel createPostModel = CustomerCreatePostModel(customerName: customerName, customerPhone: phone, title: title, contactPerson: contactPerson, mobile: mobile, email: email, additionalPhone: addressLineTwo, primarySourceId: primarySource!.sourceId.toString(), zoneId: zone.zoneId ?? "0", customerType: customerType.toString() == "Commercial" ? true : false , creditLimit: creditLimit.toString(), addressLine2: addressLineTwo, mandal: mandal, districtId: distirctModel.districtId ?? "0", assignTo: assginedTo.id.toString(), divisionId: divisionModle!.divisionId.toString(), countryId: country.countryId.toString(), stateId: stateModel.stateId, city: city, locality: locality, address: address, pincode: pincode);
+     await Future.delayed(const Duration(seconds: 2));
+     final results = await customerRepo.createCustomer(customerCreatePostModel: createPostModel);
+
+results.fold(
+  (l) => emit(state.copyWith(
+    isSubmitting: false,
+    showInputError: true,
+    apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),
+  )),
+  (r) => emit(state.copyWith(
+    isSubmitting: false,
+    isSuccess: true,
+    showInputError: false,
+    apiFailedModel: null,
+  )));
     } else {
       emit(state.copyWith(isSubmitting: false,showInputError: true));
             Fluttertoast.showToast(msg: 'Form submission faield', backgroundColor: AppColors.redColor, textColor: Colors.white, gravity: ToastGravity.BOTTOM);

@@ -76,6 +76,7 @@ const factory CustomerCreateState({
   @Default([]) List<DivisionModel> divisionsList,
   @Default([]) List<DivisionModel> selectedDivisionsList,
   @Default(false) bool isDivisionLoading,
+  @Default(null) DivisionModel? selectedDivisionModel,
 
   
 
@@ -134,7 +135,8 @@ factory CustomerCreateState.initial() => CustomerCreateState(
   districtLoading: false,
   divisionsList: [],
   selectedDivisionsList: [],
-  isDivisionLoading: false
+  isDivisionLoading: false,
+  selectedDivisionModel: null
   
   
   

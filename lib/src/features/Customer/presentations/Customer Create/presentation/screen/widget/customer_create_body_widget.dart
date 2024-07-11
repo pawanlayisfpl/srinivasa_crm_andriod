@@ -37,7 +37,7 @@ class CustomerCreateBodyWidget extends StatelessWidget {
     return SingleChildScrollView(
       physics:
           const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-      child: BlocBuilder<CustomerCreateCubit, CustomerCreateState>(
+      child: BlocConsumer<CustomerCreateCubit, CustomerCreateState>(
         builder: (context, state) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -141,7 +141,36 @@ class CustomerCreateBodyWidget extends StatelessWidget {
               10.verticalSpace,
             ],
           );
-        },
+        }, listener: (BuildContext context, CustomerCreateState state) { 
+          if(state.isSubmitting) {
+            QuickAlert.show(
+              barrierDismissible: true,
+              context: context,
+              type: QuickAlertType.loading,
+              title: "Loading",
+              text: "Please wait...",
+            );
+          }
+          
+
+          if(state.isSuccess) {
+            Navigator.pop(context);
+
+            if(context.mounted) {
+              Navigator.pop(context);
+            }
+            // if(context.mounted) {
+            //     QuickAlert.show(
+            //   context: context,
+            //   barrierDismissible: false,
+            //   onConfirmBtnTap: () => Navigator.pop(context),
+            //   type: QuickAlertType.success,
+            //   title: "Success",
+            //   text: "Customer created successfully",
+            // );
+            // }
+          }
+         },
       ),
     );
   }
