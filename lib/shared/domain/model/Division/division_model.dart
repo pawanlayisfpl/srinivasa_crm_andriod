@@ -1,20 +1,20 @@
 class DivisionModel {
-  final String districtId;
-  final String districtName;
+  final int divisionId;
+  final String divisionName;
 
-  DivisionModel({required this.districtId, required this.districtName});
+  DivisionModel({required this.divisionId, required this.divisionName});
 
   factory DivisionModel.fromJson(Map<String, dynamic> json) {
-	return DivisionModel(
-	  districtId: json['districtId'],
-	  districtName: json['districtName'],
-	);
+    return DivisionModel(
+      divisionId: json['divisionId'],
+      divisionName: json['divisionName'],
+    );
   }
 
   Map<String, dynamic> toJson() {
-	return {
-	  'districtId': districtId,
-	  'districtName': districtName,
-	};
+    return {
+      'divisionId': divisionId,
+      'divisionName': divisionName,
+    };
   }
 }

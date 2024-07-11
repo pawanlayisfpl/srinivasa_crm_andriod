@@ -75,6 +75,10 @@ mixin _$CustomerCreateState {
   bool get countryLoading => throw _privateConstructorUsedError;
   bool get stateLoading => throw _privateConstructorUsedError;
   bool get districtLoading => throw _privateConstructorUsedError;
+  List<DivisionModel> get divisionsList => throw _privateConstructorUsedError;
+  List<DivisionModel> get selectedDivisionsList =>
+      throw _privateConstructorUsedError;
+  bool get isDivisionLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CustomerCreateStateCopyWith<CustomerCreateState> get copyWith =>
@@ -128,7 +132,10 @@ abstract class $CustomerCreateStateCopyWith<$Res> {
       bool primarySourceLoading,
       bool countryLoading,
       bool stateLoading,
-      bool districtLoading});
+      bool districtLoading,
+      List<DivisionModel> divisionsList,
+      List<DivisionModel> selectedDivisionsList,
+      bool isDivisionLoading});
 
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel;
 }
@@ -187,6 +194,9 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
     Object? countryLoading = null,
     Object? stateLoading = null,
     Object? districtLoading = null,
+    Object? divisionsList = null,
+    Object? selectedDivisionsList = null,
+    Object? isDivisionLoading = null,
   }) {
     return _then(_value.copyWith(
       customerCreateCustomerNameField: null == customerCreateCustomerNameField
@@ -354,6 +364,18 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
           ? _value.districtLoading
           : districtLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      divisionsList: null == divisionsList
+          ? _value.divisionsList
+          : divisionsList // ignore: cast_nullable_to_non_nullable
+              as List<DivisionModel>,
+      selectedDivisionsList: null == selectedDivisionsList
+          ? _value.selectedDivisionsList
+          : selectedDivisionsList // ignore: cast_nullable_to_non_nullable
+              as List<DivisionModel>,
+      isDivisionLoading: null == isDivisionLoading
+          ? _value.isDivisionLoading
+          : isDivisionLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -419,7 +441,10 @@ abstract class _$$CustomerCreateStateImplCopyWith<$Res>
       bool primarySourceLoading,
       bool countryLoading,
       bool stateLoading,
-      bool districtLoading});
+      bool districtLoading,
+      List<DivisionModel> divisionsList,
+      List<DivisionModel> selectedDivisionsList,
+      bool isDivisionLoading});
 
   @override
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel;
@@ -477,6 +502,9 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
     Object? countryLoading = null,
     Object? stateLoading = null,
     Object? districtLoading = null,
+    Object? divisionsList = null,
+    Object? selectedDivisionsList = null,
+    Object? isDivisionLoading = null,
   }) {
     return _then(_$CustomerCreateStateImpl(
       customerCreateCustomerNameField: null == customerCreateCustomerNameField
@@ -644,6 +672,18 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
           ? _value.districtLoading
           : districtLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      divisionsList: null == divisionsList
+          ? _value._divisionsList
+          : divisionsList // ignore: cast_nullable_to_non_nullable
+              as List<DivisionModel>,
+      selectedDivisionsList: null == selectedDivisionsList
+          ? _value._selectedDivisionsList
+          : selectedDivisionsList // ignore: cast_nullable_to_non_nullable
+              as List<DivisionModel>,
+      isDivisionLoading: null == isDivisionLoading
+          ? _value.isDivisionLoading
+          : isDivisionLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -694,7 +734,10 @@ class _$CustomerCreateStateImpl
       this.primarySourceLoading = false,
       this.countryLoading = false,
       this.stateLoading = false,
-      this.districtLoading = false})
+      this.districtLoading = false,
+      final List<DivisionModel> divisionsList = const [],
+      final List<DivisionModel> selectedDivisionsList = const [],
+      this.isDivisionLoading = false})
       : _primarySourceList = primarySourceList,
         _zoneList = zoneList,
         _customerTypeList = customerTypeList,
@@ -702,7 +745,9 @@ class _$CustomerCreateStateImpl
         _stateList = stateList,
         _countryList = countryList,
         _titlesList = titlesList,
-        _assignedList = assignedList;
+        _assignedList = assignedList,
+        _divisionsList = divisionsList,
+        _selectedDivisionsList = selectedDivisionsList;
 
   @override
   final CustomerCreateCustomerNameField customerCreateCustomerNameField;
@@ -858,10 +903,32 @@ class _$CustomerCreateStateImpl
   @override
   @JsonKey()
   final bool districtLoading;
+  final List<DivisionModel> _divisionsList;
+  @override
+  @JsonKey()
+  List<DivisionModel> get divisionsList {
+    if (_divisionsList is EqualUnmodifiableListView) return _divisionsList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_divisionsList);
+  }
+
+  final List<DivisionModel> _selectedDivisionsList;
+  @override
+  @JsonKey()
+  List<DivisionModel> get selectedDivisionsList {
+    if (_selectedDivisionsList is EqualUnmodifiableListView)
+      return _selectedDivisionsList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_selectedDivisionsList);
+  }
+
+  @override
+  @JsonKey()
+  final bool isDivisionLoading;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CustomerCreateState(customerCreateCustomerNameField: $customerCreateCustomerNameField, customerPhoneField: $customerPhoneField, customerTitleField: $customerTitleField, customerMobileField: $customerMobileField, customerCreateEmailField: $customerCreateEmailField, customerCreateAddationField: $customerCreateAddationField, customerCreateAddressLineTwoField: $customerCreateAddressLineTwoField, customerCreateMandalField: $customerCreateMandalField, customerCreateCityField: $customerCreateCityField, customerCreateLocalityField: $customerCreateLocalityField, customerCreatePincodeField: $customerCreatePincodeField, customerCreateAddressField: $customerCreateAddressField, customerCreateContactPersonField: $customerCreateContactPersonField, customerCreateCreditLimitField: $customerCreateCreditLimitField, isSubmitting: $isSubmitting, isSuccess: $isSuccess, apiFailedModel: $apiFailedModel, showInputError: $showInputError, primarySourceList: $primarySourceList, selectedPrimarySourceModel: $selectedPrimarySourceModel, zoneList: $zoneList, selectedZoneModel: $selectedZoneModel, customerTypeList: $customerTypeList, selectedCustomerType: $selectedCustomerType, districtList: $districtList, selectedDistrictModel: $selectedDistrictModel, stateList: $stateList, selectedStateModel: $selectedStateModel, countryList: $countryList, selectedCountryModel: $selectedCountryModel, titlesList: $titlesList, selectedTitleValue: $selectedTitleValue, assignedList: $assignedList, selectedAssignedModel: $selectedAssignedModel, isLoading: $isLoading, zoneLoading: $zoneLoading, assingedToLaoding: $assingedToLaoding, primarySourceLoading: $primarySourceLoading, countryLoading: $countryLoading, stateLoading: $stateLoading, districtLoading: $districtLoading)';
+    return 'CustomerCreateState(customerCreateCustomerNameField: $customerCreateCustomerNameField, customerPhoneField: $customerPhoneField, customerTitleField: $customerTitleField, customerMobileField: $customerMobileField, customerCreateEmailField: $customerCreateEmailField, customerCreateAddationField: $customerCreateAddationField, customerCreateAddressLineTwoField: $customerCreateAddressLineTwoField, customerCreateMandalField: $customerCreateMandalField, customerCreateCityField: $customerCreateCityField, customerCreateLocalityField: $customerCreateLocalityField, customerCreatePincodeField: $customerCreatePincodeField, customerCreateAddressField: $customerCreateAddressField, customerCreateContactPersonField: $customerCreateContactPersonField, customerCreateCreditLimitField: $customerCreateCreditLimitField, isSubmitting: $isSubmitting, isSuccess: $isSuccess, apiFailedModel: $apiFailedModel, showInputError: $showInputError, primarySourceList: $primarySourceList, selectedPrimarySourceModel: $selectedPrimarySourceModel, zoneList: $zoneList, selectedZoneModel: $selectedZoneModel, customerTypeList: $customerTypeList, selectedCustomerType: $selectedCustomerType, districtList: $districtList, selectedDistrictModel: $selectedDistrictModel, stateList: $stateList, selectedStateModel: $selectedStateModel, countryList: $countryList, selectedCountryModel: $selectedCountryModel, titlesList: $titlesList, selectedTitleValue: $selectedTitleValue, assignedList: $assignedList, selectedAssignedModel: $selectedAssignedModel, isLoading: $isLoading, zoneLoading: $zoneLoading, assingedToLaoding: $assingedToLaoding, primarySourceLoading: $primarySourceLoading, countryLoading: $countryLoading, stateLoading: $stateLoading, districtLoading: $districtLoading, divisionsList: $divisionsList, selectedDivisionsList: $selectedDivisionsList, isDivisionLoading: $isDivisionLoading)';
   }
 
   @override
@@ -921,7 +988,10 @@ class _$CustomerCreateStateImpl
       ..add(DiagnosticsProperty('primarySourceLoading', primarySourceLoading))
       ..add(DiagnosticsProperty('countryLoading', countryLoading))
       ..add(DiagnosticsProperty('stateLoading', stateLoading))
-      ..add(DiagnosticsProperty('districtLoading', districtLoading));
+      ..add(DiagnosticsProperty('districtLoading', districtLoading))
+      ..add(DiagnosticsProperty('divisionsList', divisionsList))
+      ..add(DiagnosticsProperty('selectedDivisionsList', selectedDivisionsList))
+      ..add(DiagnosticsProperty('isDivisionLoading', isDivisionLoading));
   }
 
   @override
@@ -991,7 +1061,10 @@ class _$CustomerCreateStateImpl
             (identical(other.primarySourceLoading, primarySourceLoading) || other.primarySourceLoading == primarySourceLoading) &&
             (identical(other.countryLoading, countryLoading) || other.countryLoading == countryLoading) &&
             (identical(other.stateLoading, stateLoading) || other.stateLoading == stateLoading) &&
-            (identical(other.districtLoading, districtLoading) || other.districtLoading == districtLoading));
+            (identical(other.districtLoading, districtLoading) || other.districtLoading == districtLoading) &&
+            const DeepCollectionEquality().equals(other._divisionsList, _divisionsList) &&
+            const DeepCollectionEquality().equals(other._selectedDivisionsList, _selectedDivisionsList) &&
+            (identical(other.isDivisionLoading, isDivisionLoading) || other.isDivisionLoading == isDivisionLoading));
   }
 
   @override
@@ -1037,7 +1110,10 @@ class _$CustomerCreateStateImpl
         primarySourceLoading,
         countryLoading,
         stateLoading,
-        districtLoading
+        districtLoading,
+        const DeepCollectionEquality().hash(_divisionsList),
+        const DeepCollectionEquality().hash(_selectedDivisionsList),
+        isDivisionLoading
       ]);
 
   @JsonKey(ignore: true)
@@ -1095,7 +1171,10 @@ abstract class _CustomerCreateState implements CustomerCreateState {
       final bool primarySourceLoading,
       final bool countryLoading,
       final bool stateLoading,
-      final bool districtLoading}) = _$CustomerCreateStateImpl;
+      final bool districtLoading,
+      final List<DivisionModel> divisionsList,
+      final List<DivisionModel> selectedDivisionsList,
+      final bool isDivisionLoading}) = _$CustomerCreateStateImpl;
 
   @override
   CustomerCreateCustomerNameField get customerCreateCustomerNameField;
@@ -1179,6 +1258,12 @@ abstract class _CustomerCreateState implements CustomerCreateState {
   bool get stateLoading;
   @override
   bool get districtLoading;
+  @override
+  List<DivisionModel> get divisionsList;
+  @override
+  List<DivisionModel> get selectedDivisionsList;
+  @override
+  bool get isDivisionLoading;
   @override
   @JsonKey(ignore: true)
   _$$CustomerCreateStateImplCopyWith<_$CustomerCreateStateImpl> get copyWith =>

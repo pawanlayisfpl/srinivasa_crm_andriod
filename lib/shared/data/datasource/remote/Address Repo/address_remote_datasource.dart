@@ -54,7 +54,7 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
   Future<List<DistrictModel>> getDistrictByStateId({required String stateId}) async {
     logger.d('DIVISION API STARTED');
     try {
-        final response = await dioClient.post(Endpoints.divisions,headers:  {},data: {
+        final response = await dioClient.post(Endpoints.districts,headers:  {},data: {
           "stateId" : stateId
         });
   

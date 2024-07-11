@@ -64,8 +64,6 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 fontFamily: 'Poppins',
-        
-              
                 inputDecorationTheme: InputDecorationTheme(
                   
                   border: AppStyles.inputBorder,

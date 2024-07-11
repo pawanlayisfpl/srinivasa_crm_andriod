@@ -30,7 +30,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%2
 import 'cc_customer_locality_textfield.dart';
 
 class CustomerCreateBodyWidget extends StatelessWidget {
-  const CustomerCreateBodyWidget({super.key});
+  const CustomerCreateBodyWidget({super.key}); 
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +69,9 @@ class CustomerCreateBodyWidget extends StatelessWidget {
               // CUSTOMER CUSTOMER-TYPE
               20.verticalSpace,
               const CCCustomerTypeDropDownWidget(),
+              // DIVISONS DROPDOWN
+              20.verticalSpace,
+              state.isDivisionLoading ? const DropdownLoadingWidget() : CCDivisionDropDownWidget(),
 
               // CUSTOMR ZONE ID
               20.verticalSpace,

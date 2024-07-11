@@ -13,6 +13,7 @@ import 'package:srinivasa_crm_new/shared/domain/model/Primary%20Source/primary_s
 import 'package:srinivasa_crm_new/shared/domain/model/StateModel/state_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/zone_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Address/address_repo.dart';
+import 'package:srinivasa_crm_new/shared/domain/repo/Divisions/divison_repo.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Primary%20Source/primary_source_repo.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Zone/zone_repo.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
@@ -43,12 +44,14 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
   final AddressRepo addressRepo;
   final ZoneRepo zoneRepo;
   final CustomerRepo customerRepo;
+  final DivisionRepo divisionRepo;
 
   CustomerCreateCubit({
     required this.primarySourceRepo,
     required this.addressRepo,
     required this.zoneRepo,
     required this.customerRepo,
+    required this.divisionRepo,
   }) : super(CustomerCreateState.initial());
 
   // CONTROLLERS
@@ -188,7 +191,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
   }
 
   // GET DIVISION LIST
-  Future<void> getDivisionLists({required String stateId}) async {
+  Future<void> getDistrictList({required String stateId}) async {
     emit(state.copyWith(isLoading: true));
     final results = await addressRepo.getDistrictByState(stateId: stateId);
     results.fold((l) {
@@ -331,6 +334,24 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
   }
 
 
+  Future<void> getAllDivisions() async {
+    emit(state.copyWith(isDivisionLoading: true,selectedDivisionsList: [],divisionsList: []));
+    final results = await divisionRepo.getDivisions();
+    results.fold((l) => emit(state.copyWith(divisionsList: [],isDivisionLoading: false,apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))), (r) => emit(state.copyWith(apiFailedModel: null,divisionsList: r,isDivisionLoading: false)));
+
+    
+  }
+
+  void clearSelectedDivisionList() {
+    emit(state.copyWith(selectedDivisionsList: []));
+
+  }
+
+  void setSelectdDivisionsList({required List<DivisionModel> divisionList}) async {
+    emit(state.copyWith(selectedDivisionsList: divisionList));
+  }
+
+
 
   void formSubmit() {
     emit(state.copyWith(isSubmitting: true));
@@ -365,7 +386,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
    
 
 
-    if(title != null &&  customerName.isNotEmpty  && phone.isNotEmpty && contactPerson.isNotEmpty && mobile.isNotEmpty && email.isNotEmpty && customerType != null &&  zone != null && assginedTo != null && country != null && stateModel != null && distirctModel != null && mandal.isNotEmpty && city.isNotEmpty && locality.isNotEmpty && address.isNotEmpty && pincode.isNotEmpty ) {
+    if(state.selectedDivisionsList.isNotEmpty && title != null &&  customerName.isNotEmpty  && phone.isNotEmpty && contactPerson.isNotEmpty && mobile.isNotEmpty && email.isNotEmpty && customerType != null &&  zone != null && assginedTo != null && country != null && stateModel != null && distirctModel != null && mandal.isNotEmpty && city.isNotEmpty && locality.isNotEmpty && address.isNotEmpty && pincode.isNotEmpty ) {
       emit(state.copyWith(isSubmitting: false,showInputError: false));
       Fluttertoast.showToast(msg: 'Form submitted successfully', backgroundColor: AppColors.greenColor, textColor: Colors.white, gravity: ToastGravity.BOTTOM);
     } else {
@@ -451,6 +472,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
   // GET ALL INITIAL VALUES
   Future<void> getAllInitialValues() async {
     emit(CustomerCreateState.initial());
+    emit(state.copyWith(showInputError:  false));
     clearAllController();
 
     await getAllTitles();
@@ -458,6 +480,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     await getPrimarySourceList();
     await getCountryLists();
     await getAllZoneList();
+    await getAllDivisions();
 
   }
 

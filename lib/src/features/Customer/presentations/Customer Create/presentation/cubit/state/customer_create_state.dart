@@ -73,6 +73,9 @@ const factory CustomerCreateState({
   @Default(false) bool countryLoading,
   @Default(false) bool stateLoading,
   @Default(false) bool districtLoading,
+  @Default([]) List<DivisionModel> divisionsList,
+  @Default([]) List<DivisionModel> selectedDivisionsList,
+  @Default(false) bool isDivisionLoading,
 
   
 
@@ -129,6 +132,9 @@ factory CustomerCreateState.initial() => CustomerCreateState(
   countryLoading: false,
   stateLoading: false,
   districtLoading: false,
+  divisionsList: [],
+  selectedDivisionsList: [],
+  isDivisionLoading: false
   
   
   

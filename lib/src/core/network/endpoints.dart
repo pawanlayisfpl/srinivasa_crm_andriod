@@ -65,6 +65,6 @@ class Endpoints {
   // ADDRESS
   static const String countires = '$basicUrl/auth/countries';
   static const String states = '$basicUrl/auth/states';
-  static const String divisions = '$basicUrl/auth/districtsbystate';
+  static const String districts = '$basicUrl/auth/districtsbystate';
 
 }
