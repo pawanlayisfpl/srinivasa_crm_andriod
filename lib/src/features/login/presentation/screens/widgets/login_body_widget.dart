@@ -55,20 +55,6 @@ class LoginBodyWidget extends StatelessWidget {
 
 );
         }
-//         if(state.showError == true) {
-
-//            QuickAlert.show(
-//   context: context,
-//   type: QuickAlertType.error,
-//   text: 'Missing Credentails',
-//   animType: QuickAlertAnimType.slideInUp
-// );
-//         }
-
-
-        // if(state.showError == true) {
-        //   Fluttertoast.showToast(msg: 'Please enter valid email and password',backgroundColor: Colors.orange,textColor: Colors.white);
-        // }
 
        
 
@@ -82,7 +68,6 @@ class LoginBodyWidget extends StatelessWidget {
             children: [
               SizedBox(height: 0.1.sh,),
               Lottie.asset('assets/lottie/login.json',height: 0.35.sh,width: double.infinity,fit: BoxFit.fitHeight,).alignToCenter(),
-              // Image.asset('assets/png/login.png',height: 0.18.sh,width: 0.9.sw,fit: BoxFit.fitHeight,).alignToCenter(),
               10.verticalSpace,
               const LoginEmailTextFieldWidget(),
               20.verticalSpace,

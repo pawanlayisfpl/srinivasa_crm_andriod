@@ -88,19 +88,54 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                   int totalDailyPlanCount  = context.read<CreateMonthlyPlanCubit>().state.dailyPlanList.length;
                   int toatlCount = context.read<CreateMonthlyPlanCubit>().countDaysWithoutSundays(DateTime.now().year, DateTime.now().month +1);
                   int reamaingDays = toatlCount - totalDailyPlanCount;
-                  if(totalDailyPlanCount < toatlCount) {
-                    if(context.mounted) {
-                      QuickAlert.show(context: context, type: QuickAlertType.warning,
-                      showConfirmBtn: true,
-                      animType: QuickAlertAnimType.slideInDown,
-                      confirmBtnText: "okay",
-                      textColor: Colors.black,
+                  // if(totalDailyPlanCount < toatlCount) {
+                  //   if(context.mounted) {
+                  //     QuickAlert.show(context: context, type: QuickAlertType.warning,
+                  //     showConfirmBtn: true,
+                  //     animType: QuickAlertAnimType.slideInDown,
+                  //     confirmBtnText: "okay",
+                  //     textColor: Colors.black,
                       
-                    text: "Please fill all the remaining $reamaingDays days") ;
+                  //   text: "Please fill all the remaining $reamaingDays days") ;
                     
-                    }
-                  }else {
-                    if(context.mounted) {
+                  //   }
+                  // }else {
+                  //   if(context.mounted) {
+                  //     List<DateTime> dates = context.read<CreateMonthlyPlanCubit>().getStartAndEndDate();
+                  //     CreateMonthlyPlanPostModel createMonthlyPlanPostModel = CreateMonthlyPlanPostModel(
+                  //       planStartDate: dates.first.toString().split(" ").first.toString(),
+                  //       planEndDate: dates.last.toString().toString().split(" ").first.toString(),
+                  //       dailyPlans: context.read<CreateMonthlyPlanCubit>().state.dailyPlanList.map((e) => DailyPlanPostModel(
+                  //         createdDate: e.createdDate.toString().split(" ").first.toString(),
+                  //         approxKms: double.tryParse(e.approxKms.toString()) ?? 0.0,
+                  //         customerCodes: e.customerCodes.map((e) => int.parse(e.toString())).toList(),
+                  //       )).toList(),
+                  //     );
+
+                  //     // POST METHOD
+                  //     log(createMonthlyPlanPostModel.toJson().toString());
+
+                  //     context.read<CreateMonthlyPlanCubit>().createMonthlyPlan(createMonthlyPlanPostModel: createMonthlyPlanPostModel);
+                      
+                  //   }
+                  // }
+                  
+
+
+                    if(state.dailyPlanList.isEmpty) {
+                      if(context.mounted) {
+                        QuickAlert.show(context: context, type: QuickAlertType.warning,
+                        showConfirmBtn: true,
+                        barrierDismissible: false,
+                        animType: QuickAlertAnimType.slideInDown,
+                        confirmBtnText: "okay",
+                        textColor: Colors.black,
+                        
+                      text: "Please fill atleast one day from the remaining $reamaingDays days") ;
+                      
+                      }else {
+
+                   if(context.mounted) {
                       List<DateTime> dates = context.read<CreateMonthlyPlanCubit>().getStartAndEndDate();
                       CreateMonthlyPlanPostModel createMonthlyPlanPostModel = CreateMonthlyPlanPostModel(
                         planStartDate: dates.first.toString().split(" ").first.toString(),
@@ -118,7 +153,9 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                       context.read<CreateMonthlyPlanCubit>().createMonthlyPlan(createMonthlyPlanPostModel: createMonthlyPlanPostModel);
                       
                     }
-                  }
+
+                      }
+                    }
                 },),
             
              

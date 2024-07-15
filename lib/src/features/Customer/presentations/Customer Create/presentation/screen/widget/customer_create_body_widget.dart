@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/config/constants/app_colors.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/state/customer_create_state.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_addation_textfield_widget.dart';
@@ -38,6 +40,12 @@ class CustomerCreateBodyWidget extends StatelessWidget {
       physics:
           const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
       child: BlocConsumer<CustomerCreateCubit, CustomerCreateState>(
+        listenWhen: (previous, current) {
+          return previous.isSuccess != current.isSuccess ||
+                 (previous.apiFailedModel == null && current.apiFailedModel != null) ||
+                 (previous.apiFailedModel != null && current.apiFailedModel == null) ||
+                 previous.isLoading != current.isLoading;
+        },
         builder: (context, state) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -116,7 +124,7 @@ class CustomerCreateBodyWidget extends StatelessWidget {
               20.verticalSpace,
               const CCCreditLimitTextField(),
               20.verticalSpace,
-              CommonButton(
+         state.isSubmitting ? CustomLoadingWidget() :     CommonButton(
                   callback: () async {
                     QuickAlert.show(
                       context: context,
@@ -153,23 +161,23 @@ class CustomerCreateBodyWidget extends StatelessWidget {
           }
           
 
-          if(state.isSuccess) {
-            Navigator.pop(context);
+        if (state.isSuccess) {
+    Navigator.pop(context);
 
-            if(context.mounted) {
-              Navigator.pop(context);
-            }
-            // if(context.mounted) {
-            //     QuickAlert.show(
-            //   context: context,
-            //   barrierDismissible: false,
-            //   onConfirmBtnTap: () => Navigator.pop(context),
-            //   type: QuickAlertType.success,
-            //   title: "Success",
-            //   text: "Customer created successfully",
-            // );
-            // }
-          }
+  if (context.mounted) {
+    Fluttertoast.showToast(msg: 'Customer created successfuly',backgroundColor: AppColors.greenColor,textColor: Colors.white);
+    // Future.delayed(Duration.zero, () {
+    //   QuickAlert.show(
+    //     context: context,
+    //     barrierDismissible: false,
+    //     onConfirmBtnTap: () => Navigator.pop(context),
+    //     type: QuickAlertType.success,
+    //     title: "Success",
+    //     text: "Customer created successfully",
+    //   );
+    // });
+  }
+}
          },
       ),
     );

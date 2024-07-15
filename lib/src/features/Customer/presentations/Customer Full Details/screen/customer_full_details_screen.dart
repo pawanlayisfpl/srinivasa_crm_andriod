@@ -62,19 +62,6 @@ class _CustomerFullDetails2State extends State<CustomerFullDetails2> {
 };
 
 
-    Map<String, String> assosciatesMapping = {
-  "Status of customer": "customerCode",
-  "Document of  identify": "custName",
-  "Address Proof" : 'custPhone',
-  "Aadhar": "city",
-  "PAN" : 'custAddress',
-  "GSTIN Type": 'customerType',
-  "Description" : "country",
- 
-
-
-};
-
 Map<String,String> allContactsDetailsMappign = {
   "Title": "title",
   "Contact Person": "custContactPerson",

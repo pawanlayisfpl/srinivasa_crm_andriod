@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/config/constants/key_value_strings.dart';
 import 'package:srinivasa_crm_new/src/config/locator/locator.dart';
@@ -27,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
       String? token = locator.get<KeyValueStorage>().sharedPreferences.getString(KeyValueStrings.token);
 
       if(token != null) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (c) => MarkAttendanceScreen(isCheckedInScreen: true,)));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (c) => const MarkAttendanceScreen(isCheckedInScreen: true,)));
       }else {
      await context.read<LoginCubit>().getInitialValues();
 
@@ -38,6 +40,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return  Scaffold(
 
+appBar: AppBar(
+  title:CommonTextWidget(title: 'SRINIVASA CRM',fontWeight: FontWeight.w600,textColor: Colors.white,textSize: 22.sp,letterSpacing: 2,),
+  centerTitle: true,
+),
       
       body: SafeArea(child: LoginBodyWidget()));
   }

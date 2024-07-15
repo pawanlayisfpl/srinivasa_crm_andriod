@@ -61,11 +61,11 @@ final KeyValueStorage keyValueStorage;
       if(response.statusCode == 200){
         return PunchInOutResponseModel.fromJson(response.data);
       }else{
-        throw const NetworkExceptions.unexpectedError();
+        throw  NetworkExceptions.getDioException(response.data);
       }
 
     }on DioException catch(e) {
-      throw NetworkExceptions.getException(e);
+      throw NetworkExceptions.getDioException(e);
     }on SocketException catch(e) {
       throw const NetworkExceptions.noInternetConnection();
     }
@@ -79,7 +79,7 @@ final KeyValueStorage keyValueStorage;
       if(response.statusCode == 200){
         return PunchInOutResponseModel.fromJson(response.data);
       }else{
-        throw const NetworkExceptions.unexpectedError();
+        throw  NetworkExceptions.getDioException(response.data);
       }
       
     }  on DioException catch(e)   {
