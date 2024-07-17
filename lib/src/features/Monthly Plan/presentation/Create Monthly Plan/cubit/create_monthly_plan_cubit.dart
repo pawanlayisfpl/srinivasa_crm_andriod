@@ -271,7 +271,7 @@ int countDaysWithoutSundays(int year, int month) {
     final results = await monthlyPlanRepo.createMonthlyPlan(monthlyPlanPostModel: createMonthlyPlanPostModel);
      results.fold((l) {
       ApiFailedModel apiFailedModel = ApiFailedModel(statusCode: NetworkExceptions.getStatusCode(l), message: NetworkExceptions.getErrorMessage(l), errorMessage: NetworkExceptions.getErrorTitle(l));
-      emit(state.copyWith(apiFailedModel: apiFailedModel,isSuccess: false,showInputError: false,isLoading: false,dailyPlanList: []));
+      emit(state.copyWith(apiFailedModel: apiFailedModel,isSuccess: false,showInputError: false,isLoading: false,));
        return null;
      }, (r) => emit(state.copyWith(isSuccess: true,apiFailedModel: null,showInputError: false,isLoading: false)));
     

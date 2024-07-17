@@ -23,6 +23,8 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/custo
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_title_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
 
+import '../../../../../../../../shared/domain/model/City/city_model.dart';
+import '../../../../../../../../shared/domain/model/Locality/locality_model.dart';
 import '../../../../../../../../shared/domain/model/StateModel/state_model.dart';
 import '../../../../../../../../shared/domain/model/zone_model.dart';
 import '../../../../../domain/model/field/customer_create_email_field.dart';
@@ -77,6 +79,12 @@ const factory CustomerCreateState({
   @Default([]) List<DivisionModel> selectedDivisionsList,
   @Default(false) bool isDivisionLoading,
   @Default(null) DivisionModel? selectedDivisionModel,
+  @Default([]) List<CityModel> cityList,
+  @Default(null) CityModel? selectedCityModel,
+  @Default([]) List<LocalityModel> localityList,
+  @Default(null) LocalityModel? selectedLocalityModel,
+  @Default(false) bool isCityLoading,
+  @Default(false) bool isLocalityLoading,
 
   
 
@@ -136,7 +144,13 @@ factory CustomerCreateState.initial() => CustomerCreateState(
   divisionsList: [],
   selectedDivisionsList: [],
   isDivisionLoading: false,
-  selectedDivisionModel: null
+  selectedDivisionModel: null,
+  cityList: [],
+  selectedCityModel: null,
+  localityList: [],
+  selectedLocalityModel: null,
+  isCityLoading: false,
+  isLocalityLoading: false,
   
   
   

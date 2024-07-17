@@ -9,6 +9,7 @@ import 'package:injectable/injectable.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Country/country_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/District/district_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Division/division_model.dart';
+import 'package:srinivasa_crm_new/shared/domain/model/Locality/locality_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Primary%20Source/primary_source_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/StateModel/state_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/zone_model.dart';
@@ -31,6 +32,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigne
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/customer_create_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
 
+import '../../../../../../../shared/domain/model/City/city_model.dart';
 import '../../../../../../../shared/domain/model/Employe/employe_model.dart';
 import '../../../../../../../shared/shared.dart';
 import '../../../../domain/model/field/customer_create_addation_phone_field.dart';
@@ -227,6 +229,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     emit(state.copyWith(selectedStateModel: stateModel));
     await Future.delayed(const Duration(milliseconds: 800));
     await getDistrictByState(stateId: stateModel.stateId.toString());
+    await getAllCities(stateModel: stateModel);
   }
 
   void setAssignedValue({required AssignedToModel assignedModel}) {
@@ -296,7 +299,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
 
   //CLEAR ALL COUNTRIES
   void clearCountiresModel() {
-    emit(state.copyWith(selectedCountryModel: null,selectedStateModel: null,stateList: [],districtList: [],selectedDistrictModel: null,));
+    emit(state.copyWith(selectedCountryModel: null,selectedStateModel: null,stateList: [],districtList: [],selectedDistrictModel: null,cityList: [],selectedCityModel: null,localityList: [],selectedLocalityModel: null));
   }
 
     //CLEAR ALL PRIMAY SOURCE
@@ -312,7 +315,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
 
   // CLEAR STATE VALUE
   void clearStateValue() {
-    emit(state.copyWith(selectedStateModel: null,districtList: [],selectedDistrictModel: null));
+    emit(state.copyWith(selectedStateModel: null,districtList: [],selectedDistrictModel: null,cityList: [],selectedCityModel: null,localityList: [],selectedLocalityModel: null));
   }
 
 // CLEAR DIVISION VALUE
@@ -388,6 +391,9 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     final assginedTo = state.selectedAssignedModel;
     final divisionModle = state.selectedDivisionModel;
 
+    final selectedCityValue = state.selectedCityModel;
+    final selectedLocalityValue = state.selectedLocalityModel;
+
 
 
 
@@ -395,9 +401,11 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
    
 
 
-    if(state.selectedDivisionModel != null && title != null &&  customerName.isNotEmpty  && phone.isNotEmpty && contactPerson.isNotEmpty && mobile.isNotEmpty && email.isNotEmpty && customerType != null &&  zone != null && assginedTo != null && country != null && stateModel != null && distirctModel != null && mandal.isNotEmpty && city.isNotEmpty && locality.isNotEmpty && address.isNotEmpty && pincode.isNotEmpty ) {
-      CustomerCreatePostModel createPostModel = CustomerCreatePostModel(customerName: customerName, customerPhone: phone, title: title, contactPerson: contactPerson, mobile: mobile, email: email, additionalPhone: addressLineTwo, primarySourceId: primarySource!.sourceId.toString(), zoneId: zone.zoneId ?? "0", customerType: customerType.toString() == "Commercial" ? true : false , creditLimit: creditLimit.toString(), addressLine2: addressLineTwo, mandal: mandal, districtId: distirctModel.districtId ?? "0", assignTo: assginedTo.id.toString(), divisionId: divisionModle!.divisionId.toString(), countryId: country.countryId.toString(), stateId: stateModel.stateId, city: city, locality: locality, address: address, pincode: pincode);
-     await Future.delayed(const Duration(seconds: 2));
+    if(state.selectedDivisionModel != null && title != null &&  customerName.isNotEmpty  && phone.isNotEmpty && contactPerson.isNotEmpty && mobile.isNotEmpty && email.isNotEmpty && customerType != null &&  zone != null && assginedTo != null && country != null && stateModel != null && distirctModel != null && mandal.isNotEmpty && selectedCityValue != null && selectedLocalityValue != null && address.isNotEmpty && pincode.isNotEmpty ) {
+      CustomerCreatePostModel createPostModel = CustomerCreatePostModel(customerName: customerName, customerPhone: phone, title: title, contactPerson: contactPerson, mobile: mobile, email: email, additionalPhone: addationalPhone, primarySourceId: primarySource!.sourceId.toString(), zoneId: zone.zoneId ?? "0", customerType: customerType.toString() == "Commercial" ? true : false , creditLimit: creditLimit.toString(), addressLine2: addressLineTwo, mandal: mandal, districtId: distirctModel.districtId ?? "0", assignTo: assginedTo.id.toString(), divisionId: divisionModle!.divisionId.toString(), countryId: country.countryId.toString(), stateId: stateModel.stateId, cityId: selectedCityValue.cityId.toString(), localityId: selectedLocalityValue.localityId.toString(), address: address, pincode: pincode);
+    log(createPostModel.toJson().toString());
+      await Future.delayed(const Duration(seconds: 2));
+     emit(state.copyWith(isSubmitting: false,isSuccess: false));
      final results = await customerRepo.createCustomer(customerCreatePostModel: createPostModel);
 
 results.fold(
@@ -461,6 +469,41 @@ results.fold(
       emit(state.copyWith(districtList: sortedDistrictList,districtLoading: false));
     });
    }
+
+  //  GET ALL CITIES
+  Future<void> getAllCities({required StateModel stateModel}) async {
+    emit(state.copyWith(isCityLoading:  true,cityList: [],selectedCityModel: null));
+    final results = await addressRepo.getCityByStateId(statemodel: stateModel);
+    results.fold((l) => emit(state.copyWith(isCityLoading: false,apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))), (r) => emit(state.copyWith(cityList: r,isCityLoading: false)));
+  }
+
+  // SET CITY VALUE
+  void setCityValue({required CityModel cityModel}) async {
+    emit(state.copyWith(selectedCityModel: cityModel,localityList: [],selectedLocalityModel: null));
+    await Future.delayed(const Duration(milliseconds: 800));
+    await getAllLocalities(cityModel: cityModel);
+  }
+
+  void resetCityValue() {
+    emit(state.copyWith(selectedCityModel: null,localityList: [],selectedLocalityModel: null));
+  } 
+
+  // GET ALL LOCALITY
+  Future<void> getAllLocalities({required CityModel cityModel}) async {
+    emit(state.copyWith(isLocalityLoading: true,localityList: [],selectedLocalityModel: null));
+    final results = await addressRepo.getLocalityByCityId(cityModel: cityModel);
+    results.fold((l) => emit(state.copyWith(isLocalityLoading: false,apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))), (r) => emit(state.copyWith(localityList: r,isLocalityLoading: false)));
+  }
+
+  // SET LOCALITY VALUE
+  void setLocalityValue({required LocalityModel localityModel}) {
+    emit(state.copyWith(selectedLocalityModel: localityModel));
+    
+  }
+
+  void resetLocalityValue() {
+    emit(state.copyWith(selectedLocalityModel: null));
+  }
 
   //  GET ALL ZONE LIST
   Future<void> getAllZoneList() async {

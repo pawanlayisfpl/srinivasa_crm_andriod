@@ -109,6 +109,7 @@ class MonthlyPlanCardWidget extends StatelessWidget {
                           ),
                           // 5.verticalSpace,
                           CommonTextWidget(
+                            maxLines: 1,
                               title: DateFormat.MMMM().format(
                                   DateTime.parse(model.planDate.toString())),
                               textSize: 32.sp,

@@ -2,8 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:logger/logger.dart';
+import 'package:srinivasa_crm_new/shared/domain/model/City/city_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Country/country_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Division/division_model.dart';
+import 'package:srinivasa_crm_new/shared/domain/model/Locality/locality_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/StateModel/state_model.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
@@ -14,6 +16,8 @@ abstract class AddressRemoteDataSource {
   Future<List<CountryModel>> getCountries();
   Future<List<StateModel>> getStateByCountry({required String countryId});
   Future<List<DistrictModel>> getDistrictByStateId({required String stateId});
+  Future<List<CityModel>> getCityByStateId({required StateModel statemodel});
+  Future<List<LocalityModel>> getLocaliltyByCityId({required CityModel cityModel});
 
 }
 
@@ -97,5 +101,55 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
     throw Future.error(NetworkExceptions.getDioException(e));
      
    }
+  }
+  
+  @override
+  Future<List<CityModel>> getCityByStateId({required StateModel statemodel}) async {
+    logger.d('CITY API STARTED');
+    try {
+        final response = await dioClient.post(Endpoints.getCityByStateId,headers:  {},data: {
+          "stateId" : statemodel.stateId
+        });
+  
+      if(response.statusCode == 200){
+        final List<CityModel> cities = (response.data as List).map((e) => CityModel.fromJson(e)).toList();
+        return  cities;
+      }else {
+        logger.e('CITY API FAIELD');
+        throw NetworkExceptions.getDioException(response.data);
+      }
+  
+      
+    }on DioException catch (e) {
+            logger.e('CITY API FAIELD');
+  
+      throw NetworkExceptions.getDioException(e);
+      
+    }
+  }
+  
+  @override
+  Future<List<LocalityModel>> getLocaliltyByCityId({required CityModel cityModel}) async {
+    logger.d('LOCALITY API STARTED');
+    try {
+        final response = await dioClient.post(Endpoints.getLocalitiesByCity,headers:  {},data: {
+          "cityId" : cityModel.cityId
+        });
+  
+      if(response.statusCode == 200){
+        final List<LocalityModel> localities = (response.data as List).map((e) => LocalityModel.fromJson(e)).toList();
+        return  localities;
+      }else {
+        logger.e('LOCALITY API FAIELD');
+        throw NetworkExceptions.getDioException(response.data);
+      }
+  
+      
+    }on DioException catch (e) {
+            logger.e('LOCALITY API FAIELD');
+  
+      throw NetworkExceptions.getDioException(e);
+      
+    }
   }
 }

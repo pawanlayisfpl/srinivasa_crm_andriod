@@ -68,4 +68,10 @@ class Endpoints {
   static const String states = '$basicUrl/auth/states';
   static const String districts = '$basicUrl/auth/districtsbystate';
 
+  // LOCALILTY
+  static const String getLocalitiesByCity = '$basicUrl/auth/localitybycity';
+
+  // CITIES
+  static const String getCityByStateId = '$basicUrl/auth/citybystate';
+
 }

@@ -175,38 +175,31 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
       throw const NetworkExceptions.noInternetConnection();
     }
   }
-  
   @override
-  Future<CustomerFullDetailsModel> getCustomerFullDetails({required String customerCode}) async {
-    final results = await connectionChecker.isConnected();
-
-    if(results) {
-      try {
-           final response = await dioClient.post(Endpoints.customerFullDeails,data: {
-        "custCode" : customerCode
-      },headers: {});
-        if(response.statusCode == 200) {
-          return Future.value(CustomerFullDetailsModel.fromJson(response.data));  
-        }else {
-          throw Future.error(NetworkExceptions.getException(response.data));
-        }
-        
-      } catch (e) {
-        if(e is DioException) {
-          logger.e(e);
-          throw NetworkExceptions.getException(e);
-        }else {
-          throw  const NetworkExceptions.conflict();
-        }
-        
-      }
-
-    }else {
-      throw const NetworkExceptions.noInternetConnection();
-    
-    }
+Future<CustomerFullDetailsModel> getCustomerFullDetails({required String customerCode}) async {
+  final isConnected = await connectionChecker.isConnected();
+  if (!isConnected) {
+    throw const NetworkExceptions.noInternetConnection();
   }
-  
+
+  try {
+    final response = await dioClient.post(
+      Endpoints.customerFullDeails,
+      data: {"custCode": customerCode},
+      headers: {},
+    );
+
+    if (response.statusCode == 200) {
+      return CustomerFullDetailsModel.fromJson(response.data["customers"][0]);
+    } else {
+      throw NetworkExceptions.getException(response.data);
+    }
+  } on DioException catch (e) {
+    throw NetworkExceptions.getException(e);
+  } on FormatException {
+    throw const NetworkExceptions.formatException();
+  }
+}
   @override
   Future<CustomerResponseModel> getCustomers() async {
     final results = await connectionChecker.isConnected();
@@ -340,16 +333,16 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
         );
 
         if(response.statusCode == 200) {
-          return Future.value(CustomerCreatedResponseModel.fromJson(response.data));
+          return CustomerCreatedResponseModel.fromJson(response.data);
         }else {
-          throw Future.error(NetworkExceptions.getDioException(response.data));
+          throw NetworkExceptions.getDioException(response.data);
         }
       } on DioException catch (e) {
         logger.e(e);
-        throw Future.error(NetworkExceptions.getDioException(e));
+        throw NetworkExceptions.getDioException(e);
       }
     }else {
-      throw  Future.error(NetworkExceptions.noInternetConnection());
+      throw const  NetworkExceptions.noInternetConnection();
     }
   }
 }

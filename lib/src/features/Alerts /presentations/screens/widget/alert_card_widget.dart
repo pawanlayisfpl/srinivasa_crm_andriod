@@ -15,6 +15,8 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewM
 
 import '../../../../../config/constants/app_colors.dart';
 import '../../../domain/model/get/alert_response_model.dart';
+import '../../../domain/model/post/mark_alert_as_read_postmodel.dart';
+import '../../cubit/alert_cubit.dart';
 
 class AlertCardWidget extends StatelessWidget {
  final AlertModel alertModel;
@@ -38,14 +40,15 @@ class AlertCardWidget extends StatelessWidget {
           ),
           elevation: 4.0, // Adjust the elevation for desired shadow intensity
           child: ListTile(
-            onLongPress: () {
-              context.read<ViewMonthlyPlanCubit>().managerClickTrue();
-                            context.read<ViewMonthlyPlanCubit>().setAlertModelValue(alertModel);
-
-              Navigator.push(context, SlideLeftRoute(screen: ViewMonthlyPlanScreen(monthlyPlanId: alertModel.monthlyPlanId,)));
-            },
+           
             onTap: ()async  {
               log(alertModel.toJson().toString());
+                  if(context.mounted) {
+
+                MarkAlertAsReadPostModel markAlertAsReadPostModel = MarkAlertAsReadPostModel(notificationId: alertModel.notificationId);
+                context.read<AlertCubit>().markAsRead(markAlertReadPostModel: markAlertAsReadPostModel);
+
+              }
 
 
             switch(alertModel.type) {
@@ -81,12 +84,7 @@ class AlertCardWidget extends StatelessWidget {
               Navigator.push(context, SlideRightRoute(screen: AlertDetailsScreen(alertModel: alertModel,) ));
 
             }
-              //   if(context.mounted) {
-
-              //   MarkAlertAsReadPostModel markAlertAsReadPostModel = MarkAlertAsReadPostModel(notificationId: alertModel.notificationId);
-              //   context.read<AlertCubit>().markAsRead(markAlertReadPostModel: markAlertAsReadPostModel);
-
-              // }
+            
 
             
               // ProfileModel? profileModel = context.read<ProfileCubit>().state.maybeMap(orElse: ()=> null,loadedLocal: (data) => data.profileResponseModel);

@@ -112,15 +112,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
               // Assuming lastCheckinTime is in a valid DateTime format, e.g., ISO 8601
 String? lastCheckinTimeString = locator.get<KeyValueStorage>().sharedPreferences.getString(KeyValueStrings.checkinTime);
 log(lastCheckinTimeString ?? 'No last check in time found');
-
-if (lastCheckinTimeString != null) {
-  DateTime lastCheckinTime = DateTime.parse(lastCheckinTimeString);
-  DateTime currentTime = DateTime.now();
-  Duration difference = currentTime.difference(lastCheckinTime);
-
-  if (difference.inMinutes > 10) {
-    // checkin logic
-           HapticFeedback.mediumImpact();
+ HapticFeedback.mediumImpact();
                       double langitude = 0.0;
                       double latitude = 0.0;
 
@@ -145,53 +137,87 @@ if (lastCheckinTimeString != null) {
                             .read<CheckinCubit>()
                             .checkInLogic(checkInPostModel: checkInPostModel);
                       }
+
+// if (lastCheckinTimeString != null) {
+//   DateTime lastCheckinTime = DateTime.parse(lastCheckinTimeString);
+//   DateTime currentTime = DateTime.now();
+//   Duration difference = currentTime.difference(lastCheckinTime);
+// // CHANGING THE TIME TO 10 MINUTES
+//   if (difference.inMinutes > 10) {
+//     // checkin logic
+//            HapticFeedback.mediumImpact();
+//                       double langitude = 0.0;
+//                       double latitude = 0.0;
+
+//                       CheckinPostModel checkInPostModel = CheckinPostModel(
+//                         inTime: DateTime.now().toString(),
+//                         userIds: context
+//                             .read<CheckinCubit>()
+//                             .state
+//                             .selectedEmployeList
+//                             .map((e) => e.id!)
+//                             .toList(),
+//                         remarks: _remarksController.text,
+//                         customerName: widget.customermodel.custName,
+//                         customerCode:
+//                             int.parse(widget.customermodel.customerCode ?? '0'),
+//                         latitude: latitude.toString(),
+//                         langitude: langitude.toString(),
+//                       );
+
+//                       if (mounted) {
+//                         await context
+//                             .read<CheckinCubit>()
+//                             .checkInLogic(checkInPostModel: checkInPostModel);
+//                       }
     
-  } else {
-    log('Less than 5 minutes have passed since the last check-in.');
-  int minutesPending = 10 - difference.inMinutes;
-  QuickAlert.show(
-    context: context, 
-    disableBackBtn: true,
-    onConfirmBtnTap: () {
-      if(context.mounted) {
-        Navigator.pop(context);
-      }
-    },
-    type: QuickAlertType.warning, 
-    title: "Warning", 
-    text: "You still have $minutesPending minutes remaining before you can check in again. Please wait for the required time to elapse."
-  );    // Add your logic here for when less than 5 minutes have passed
-  }
-} else {
-  log('No last check in time found, possibly first check-in.');
-  // Handle the case for no last check-in time found
-   // checkin logic
-           HapticFeedback.mediumImpact();
-                      double langitude = 0.0;
-                      double latitude = 0.0;
+//   } else {
+//     log('Less than 5 minutes have passed since the last check-in.');
+//     // MINUTES PENDING
+//   int minutesPending = 1 - difference.inMinutes;
+//   QuickAlert.show(
+//     context: context, 
+//     disableBackBtn: true,
+//     onConfirmBtnTap: () {
+//       if(context.mounted) {
+//         Navigator.pop(context);
+//       }
+//     },
+//     type: QuickAlertType.warning, 
+//     title: "Warning", 
+//     text: "You still have $minutesPending minutes remaining before you can check in again. Please wait for the required time to elapse."
+//   );    // Add your logic here for when less than 5 minutes have passed
+//   }
+// } else {
+//   log('No last check in time found, possibly first check-in.');
+//   // Handle the case for no last check-in time found
+//    // checkin logic
+//            HapticFeedback.mediumImpact();
+//                       double langitude = 0.0;
+//                       double latitude = 0.0;
 
-                      CheckinPostModel checkInPostModel = CheckinPostModel(
-                        inTime: DateTime.now().toString(),
-                        userIds: context
-                            .read<CheckinCubit>()
-                            .state
-                            .selectedEmployeList
-                            .map((e) => e.id!)
-                            .toList(),
-                        remarks: _remarksController.text,
-                        customerName: widget.customermodel.custName,
-                        customerCode:
-                            int.parse(widget.customermodel.customerCode ?? '0'),
-                        latitude: latitude.toString(),
-                        langitude: langitude.toString(),
-                      );
+//                       CheckinPostModel checkInPostModel = CheckinPostModel(
+//                         inTime: DateTime.now().toString(),
+//                         userIds: context
+//                             .read<CheckinCubit>()
+//                             .state
+//                             .selectedEmployeList
+//                             .map((e) => e.id!)
+//                             .toList(),
+//                         remarks: _remarksController.text,
+//                         customerName: widget.customermodel.custName,
+//                         customerCode:
+//                             int.parse(widget.customermodel.customerCode ?? '0'),
+//                         latitude: latitude.toString(),
+//                         langitude: langitude.toString(),
+//                       );
 
-                      if (mounted) {
-                        await context
-                            .read<CheckinCubit>()
-                            .checkInLogic(checkInPostModel: checkInPostModel);
-                      }
-}
+//                       if (mounted) {
+//                         await context
+//                             .read<CheckinCubit>()
+//                             .checkInLogic(checkInPostModel: checkInPostModel);
+//                       }
+// }
                    
                     },
                     title: "Check In")

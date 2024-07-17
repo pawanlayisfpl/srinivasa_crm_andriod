@@ -2,7 +2,6 @@
 
 
 
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -72,7 +71,10 @@ class CheckinCubit extends Cubit<CheckinState> {
         ApiFailedModel apiFailedModel = ApiFailedModel(statusCode: NetworkExceptions.getStatusCode(l), message: NetworkExceptions.getErrorTitle(l), errorMessage: NetworkExceptions.getErrorMessage(l));
         emit(state.copyWith(isLoading:  false,apiFailedModel: apiFailedModel,checkInResponseModel: null,checkoutResponseModel: null,isFailed: true,isCheckIn: false));
       },
-      (r) => emit(state.copyWith(isLoading: false,apiFailedModel: null,checkoutResponseModel: r,isCheckOut: true)),
+      (r) {
+        emit(CheckinState.initial());
+        emit(state.copyWith(checkoutResponseModel: r,isCheckOut: true,));
+      },
     );
   }
 

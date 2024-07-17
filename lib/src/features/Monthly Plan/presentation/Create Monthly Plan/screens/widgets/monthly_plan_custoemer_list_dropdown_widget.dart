@@ -64,7 +64,7 @@ class MonthlyPlanCustomerListDropDownWidget extends StatelessWidget {
 
                 
               
-                itemAsString: (item) => item.customerName != null ? "${item.customerName}\n(${item.customerCode != null ? ' (${item.customerCode}))' : ''}" : 'No name found\n${item.customerCode != null ? "("+item.customerCode.toString()+")" : ""}',                // show: (EmployeModel employee) => employee.name,
+                itemAsString: (item) => item.customerName != null ? "${item.customerName}\n(${item.customerCode != null ? ' ${item.customerCode})' : ''}" : 'No name found\n${item.customerCode != null ? ""+item.customerCode.toString()+"" : ""}',                // show: (EmployeModel employee) => employee.name,
                 onChanged: (values) {
                   if(values.isNotEmpty) {
                     context.read<CreateMonthlyPlanCubit>().setSelectedCustomerLists(selectedCustomers: values);

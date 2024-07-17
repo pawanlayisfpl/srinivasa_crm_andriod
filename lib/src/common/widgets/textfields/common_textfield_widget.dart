@@ -54,6 +54,7 @@ class CommonTextfield extends StatelessWidget {
         return TextFormField(
           autofocus: false,
           onTap: onTapFunction,
+          onTapOutside: (event) => FocusScope.of(context).unfocus(),
           readOnly: readOnly ?? false,
           cursorColor: AppColors.primaryColor,
           onChanged: onChanged,
@@ -65,6 +66,7 @@ class CommonTextfield extends StatelessWidget {
           autovalidateMode: autovalidateMode,
           validator: (value) => validator(value),
           maxLines: maxLines ?? 1,
+        
           maxLength: maxLength,
           decoration: InputDecoration(
             labelText: labelText,

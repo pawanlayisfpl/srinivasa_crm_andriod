@@ -11,6 +11,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%2
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_address_linetwo_textfield_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_address_textfield_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_assigned_to_dropdown_widget.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_city_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_city_textfield_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_contact_person_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_countires_dropdown_widget.dart';
@@ -30,6 +31,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%2
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_zone_dropdown_widget.dart';
 
 import 'cc_customer_locality_textfield.dart';
+import 'cc_locality_dropdown_widget.dart';
 
 class CustomerCreateBodyWidget extends StatelessWidget {
   const CustomerCreateBodyWidget({super.key}); 
@@ -105,11 +107,13 @@ class CustomerCreateBodyWidget extends StatelessWidget {
               20.verticalSpace,
 
               // CUSTOMER CITY TEXTFIELD
-              const CCCityTextFieldWidget(),
+              state.isCityLoading ? const DropdownLoadingWidget() : const CCCityDropDownWidget(),
+              // const CCCityTextFieldWidget(),
               20.verticalSpace,
 
               // CUSTOMER LOCALITY
-              const CCLocalityTextFieldWidget(),
+              // const CCLocalityTextFieldWidget(),
+              state.isLocalityLoading ? const DropdownLoadingWidget() : const CCLocalityDropDownWidget(),
               20.verticalSpace,
               // CUSTOMER ADDRESS
               const CCAddressTextFieldWidget(),
@@ -157,6 +161,15 @@ class CustomerCreateBodyWidget extends StatelessWidget {
               type: QuickAlertType.loading,
               title: "Loading",
               text: "Please wait...",
+            );
+          }
+
+          if(state.apiFailedModel != null) {
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              title: "(${state.apiFailedModel!.statusCode})${state.apiFailedModel!.message}",
+              text: state.apiFailedModel!.errorMessage.toString(),
             );
           }
           

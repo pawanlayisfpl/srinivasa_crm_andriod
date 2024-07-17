@@ -17,8 +17,8 @@ class CustomerCreatePostModel {
   String divisionId;
   String countryId;
   String stateId;
-  String city;
-  String locality;
+  String cityId;
+  String localityId;
   String address;
   String pincode;
 
@@ -41,8 +41,8 @@ class CustomerCreatePostModel {
       required this.divisionId,
       required this.countryId,
       required this.stateId,
-      required this.city,
-      required this.locality,
+      required this.cityId,
+      required this.localityId,
       required this.address,
       required this.pincode});
 
@@ -65,8 +65,8 @@ class CustomerCreatePostModel {
         divisionId = json['divisionId'],
         countryId = json['countryId'],
         stateId = json['stateId'],
-        city = json['city'],
-        locality = json['locality'],
+        cityId = json['cityId'],
+        localityId = json['localityId'],
         address = json['address'],
         pincode = json['pincode'];
 
@@ -90,8 +90,8 @@ class CustomerCreatePostModel {
     data['divisionId'] = divisionId;
     data['countryId'] = countryId;
     data['stateId'] = stateId;
-    data['city'] = city;
-    data['locality'] = locality;
+    data['cityId'] = cityId;
+    data['localityId'] = localityId;
     data['address'] = address;
     data['pincode'] = pincode;
     return data;

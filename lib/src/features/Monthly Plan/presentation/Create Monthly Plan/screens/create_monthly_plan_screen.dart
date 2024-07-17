@@ -49,7 +49,13 @@ class _CreateMonthlyPlanScreenState extends State<CreateMonthlyPlanScreen> {
             }
 
             if(state.isSuccess == true) {
-              QuickAlert.show(
+
+              if(Navigator.canPop(context)) {
+              Navigator.pop(context);
+
+              }
+              if(context.mounted) {
+                 QuickAlert.show(
                 context: context,
                 type: QuickAlertType.success,
                 text: 'Plan Created Successfully!',
@@ -57,6 +63,9 @@ class _CreateMonthlyPlanScreenState extends State<CreateMonthlyPlanScreen> {
                 showConfirmBtn: true,
                 confirmBtnText: 'Ok',
               );
+
+              }
+             
             }
 
     //         if(state.isCreationFailed == true) {

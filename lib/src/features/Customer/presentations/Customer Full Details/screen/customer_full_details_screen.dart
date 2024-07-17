@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,53 +39,43 @@ class _CustomerFullDetails2State extends State<CustomerFullDetails2> {
   @override
   Widget build(BuildContext context) {
 
-    Map<String, String> customerModelMapping = {
+
+
+Map<String, String> customerModelMapping = {
   "Customer Code": "customerCode",
-  "Customer Name": "custName",
-  "Customer Phone" : 'custPhone',
-  "City": "custCity",
-  "Address" : 'custAddress',
-  "Customer Type": 'customerType',
-  "Country" : "custCountry",
-  "State" : "custStateCode",
-  'Zone' : 'zone',
-  'Locality': 'locality',
-  "Address Line" : 'addressLine',
-  "Mandal": 'mandal',
-  "District": 'district',
-  "Pincode": 'custPostal',
-  "Primary Source": 'custPrimarySource ',
-  "Create Name" : 'createdBy',
-  "Create Date" : 'createdDate',
-  "Assigned To": 'assignedTo',
-  "Credit Limit": 'custCreditLimit',
-
-
-};
-
-
-Map<String,String> allContactsDetailsMappign = {
-  "Title": "title",
-  "Contact Person": "custContactPerson",
-  "Mobile": 'custContPersContactNo',
-  "Additional Phone" : 'custContPersAltContNo',
+  "Name": "custName",
   "Email": "custEmail",
-
+  "Phone": "custPhone",
+  "City": "custCity",
+  "Address": "custAddress",
+  "Customer Type": "customerType",
+  "Country": "custCountry",
+  "State": "custStateCode",
+  "Zone": "zone", // Assuming you want to display zoneName from Zone object
+  "Pincode": "custPostal",
+  "Primary Source": "custPrimarySource",
+  "Create Name": "createdBy",
+  "Create Date": "createdDate",
+  "Credit Limit": "custCreditLimit",
+  "Assigned to":"empName",
+  "latitude":"latitude",
+  "longitude":"longitude",
 };
 
-Map<String,String> historyMapping = {
-  "Added by": "empName",
- 
-  
-};
 
 
-
-List<TableRow> _buildRows(Map<String, String> mapping, CustomerFullDetailsModel customer) {
+List<TableRow> buildRows(Map<String, String> mapping, CustomerFullDetailsModel customer) {
+  final customerJson = customer.toJson();
+  log('Customer JSON: $customerJson');
   return mapping.entries.map((entry) {
     var displayKey = entry.key;
     var actualKey = entry.value;
-    var value = customer.toJson()[actualKey]; // Fetch the value from the model using the actual key
+    // Check if the actual key exists in customerJson and is not null, otherwise set to 'N/A'
+    var value = customerJson.containsKey(actualKey) && customerJson[actualKey] != null ? customerJson[actualKey] : 'N/A';
+    if (actualKey == 'zone' && value != 'N/A') {
+      // Ensure value is not null before attempting to cast and access 'zoneName'
+      value = value != null && (value as Map)['zoneName'] != null ? (value as Map)['zoneName'] : 'N/A';
+    }
     return TableRow(
       children: [
         TableCell(
@@ -98,16 +90,13 @@ List<TableRow> _buildRows(Map<String, String> mapping, CustomerFullDetailsModel 
         TableCell(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(
-              value != null ? actualKey.toString() == 'zone' ? value.toString().split(":").last.toString().replaceAll("}", "") :  value.toString() : 'N/A', // Display the value
-            ),
+            child: Text(value.toString()),
           ),
         ),
       ],
     );
   }).toList();
 }
-
    
     return Scaffold(
       appBar: AppBar(
@@ -130,30 +119,30 @@ List<TableRow> _buildRows(Map<String, String> mapping, CustomerFullDetailsModel 
                     10.verticalSpace,
                    Table(
           border: TableBorder.all(),
-         children: _buildRows(customerModelMapping, value),
+         children: buildRows(customerModelMapping, value),
         ),
         20.verticalSpace,
-        const CustomHeadingTextWidget(title: 'All Contact Detail',textDecoration: TextDecoration.underline,),
-                    Table(
-                      border: TableBorder.all(),
-                      children: _buildRows(allContactsDetailsMappign,value),
-                    ),
-                    10.verticalSpace,
-                    const CustomHeadingTextWidget(
-                      title: 'History',
-                      textDecoration: TextDecoration.underline,
-                    ),
-                    20.verticalSpace,
-                    Table(
-                      border: TableBorder.all(),
-                      children: _buildRows(historyMapping,value),
-                    ),
-                    20.verticalSpace,
-                    const CustomHeadingTextWidget(
-                      title: 'All Images',
-                      textDecoration: TextDecoration.underline ,
-                    ),
-                    10.verticalSpace
+        // const CustomHeadingTextWidget(title: 'All Contact Detail',textDecoration: TextDecoration.underline,),
+        //             Table(
+        //               border: TableBorder.all(),
+        //               children: _buildRows(allContactsDetailsMappign,value),
+        //             ),
+        //             10.verticalSpace,
+        //             const CustomHeadingTextWidget(
+        //               title: 'History',
+        //               textDecoration: TextDecoration.underline,
+        //             ),
+        //             20.verticalSpace,
+        //             Table(
+        //               border: TableBorder.all(),
+        //               children: _buildRows(historyMapping,value),
+        //             ),
+        //             20.verticalSpace,
+        //             const CustomHeadingTextWidget(
+        //               title: 'All Images',
+        //               textDecoration: TextDecoration.underline ,
+        //             ),
+        //             10.verticalSpace
                     // Table(
                     //   border: TableBorder.all(),
                     //   children: _buildRows(addressDetailsKeys,value),

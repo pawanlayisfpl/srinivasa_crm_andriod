@@ -35,7 +35,7 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
       child: BlocBuilder<CreateMonthlyPlanCubit, CreateMonthlyPlanState>(
         builder: (context, state) {
           return SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
               TableCalendar(
@@ -122,7 +122,7 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                   
 
 
-                    if(state.dailyPlanList.isEmpty) {
+                    if(totalDailyPlanCount < 2) {
                       if(context.mounted) {
                         QuickAlert.show(context: context, type: QuickAlertType.warning,
                         showConfirmBtn: true,
@@ -131,11 +131,11 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                         confirmBtnText: "okay",
                         textColor: Colors.black,
                         
-                      text: "Please fill atleast one day from the remaining $reamaingDays days") ;
+                      text: "Please fill atleast two day from the remaining $reamaingDays days") ;
                       
-                      }else {
-
-                   if(context.mounted) {
+                      }
+                    }else {
+                      if(context.mounted) {
                       List<DateTime> dates = context.read<CreateMonthlyPlanCubit>().getStartAndEndDate();
                       CreateMonthlyPlanPostModel createMonthlyPlanPostModel = CreateMonthlyPlanPostModel(
                         planStartDate: dates.first.toString().split(" ").first.toString(),
@@ -153,8 +153,6 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                       context.read<CreateMonthlyPlanCubit>().createMonthlyPlan(createMonthlyPlanPostModel: createMonthlyPlanPostModel);
                       
                     }
-
-                      }
                     }
                 },),
             

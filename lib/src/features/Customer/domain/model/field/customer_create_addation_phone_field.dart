@@ -9,7 +9,7 @@ class CustomerCreateAddationalPhoneField extends ValueObject<String> {
 
   factory CustomerCreateAddationalPhoneField(String input) {
     return CustomerCreateAddationalPhoneField._(
-      Validators.validateStringNotEmpty(input).flatMap((a) => Validators.validateEmailAddress(input))
+      Validators.validateStringNotEmpty(input).flatMap((a) => Validators.validatePhoneNumber(input))
        );
   }
 

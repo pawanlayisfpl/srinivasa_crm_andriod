@@ -9,7 +9,7 @@ class CustomerCreateAddressLineTwoField extends ValueObject<String> {
 
   factory CustomerCreateAddressLineTwoField(String input) {
     return CustomerCreateAddressLineTwoField._(
-      Validators.validateStringNotEmpty(input).flatMap((a) => Validators.validateEmailAddress(input))
+      Validators.validateStringNotEmpty(input)
        );
   }
 

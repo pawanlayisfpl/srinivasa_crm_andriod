@@ -9,7 +9,7 @@ class CustomerCreateCreditLimitField extends ValueObject<String> {
 
   factory CustomerCreateCreditLimitField(String input) {
     return CustomerCreateCreditLimitField._(
-      Validators.validateStringNotEmpty(input).flatMap((a) => Validators.validateEmailAddress(input))
+      Validators.validateStringNotEmpty(input)
        );
   }
 
