@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:srinivasa_crm_new/src/common/widgets/widgets.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/screens/alerts_screen.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
+import 'package:srinivasa_crm_new/src/features/Kyc/presentation/screens/kyc_pending_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/monthly_plan_dashboard_screen.dart';
 
 import '../../../../config/animations/routes/all_animate_routes.dart';
 import '../../../../config/config.dart';
-import '../../../Monthly Plan/presentation/ViewMonthly Plan/screens/view_monthly_plan_screen.dart';
 import '../../../mark attendance/presentations/screens/mark_attendance_screen.dart';
 import '../../domain/dashboard_model.dart';
 
@@ -123,6 +123,12 @@ class DashboardBodyWidget extends StatelessWidget {
                     )));
 
       case 4:
+      // kyc list
+      Navigator.push(context, SlideRightRoute(screen: KycPendingScreen()));
+
+      case 5:
+            Fluttertoast.showToast(msg: 'Backend api not available');
+
      
 
       default:

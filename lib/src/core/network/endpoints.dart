@@ -74,4 +74,7 @@ class Endpoints {
   // CITIES
   static const String getCityByStateId = '$basicUrl/auth/citybystate';
 
+  // KYC 
+  static const String getPendingKycCustomers = '$basicUrl/se/kycpendingcustomers';
+
 }

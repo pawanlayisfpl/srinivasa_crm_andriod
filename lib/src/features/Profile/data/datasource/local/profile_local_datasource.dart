@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
@@ -33,7 +34,18 @@ class ProfileRepoImpl implements ProfileLocalRepo {
         KeyValueStrings.profileDataModel,
       );
       if (profileData != null) {
-        return ProfileModel.fromJson(jsonDecode(profileData));
+var decodedData = jsonDecode(profileData);
+var user = decodedData['user']; // Fetch the 'user' field
+
+ProfileModel profileModel = ProfileModel(
+  jwt: decodedData['jwt'],
+  userModel: UserModel.fromJson(user),
+  status: decodedData['status'],
+);
+
+
+
+     return profileModel;
       } else {
         throw Exception('No data found');
       }

@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
@@ -16,6 +19,8 @@ import 'login_email_textfield.dart';
 import 'login_pass_textfield.dart';
 
 class LoginBodyWidget extends StatelessWidget {
+    static const platform = MethodChannel('com.example.srinivasa_crm_new');
+
   const LoginBodyWidget({super.key});
 
   @override
@@ -36,6 +41,36 @@ class LoginBodyWidget extends StatelessWidget {
   title: 'Success',
   showConfirmBtn: true,
   onConfirmBtnTap: () async {
+  //    if(Platform.isAndroid) {
+
+  //       Future<void> requestPermissions() async {
+  //   Map<Permission, PermissionStatus> statuses = await [
+  //     Permission.location,
+  //     Permission.storage,
+
+  //     Permission.locationWhenInUse,
+  //     Permission.ignoreBatteryOptimizations,
+
+  //     // Add other permissions required by your app
+  //   ].request();
+
+  //   // Check if all permissions are granted
+  //   if (statuses.values.every((status) => status.isGranted)) {
+  //     print("All permissions granted");
+  //   } else {
+  //     print("Not all permissions were granted");
+  //     // Handle the case where permissions are not granted
+  //   }
+  // }
+  //        try {
+  //     await requestPermissions();
+  //      // Request permissions before starting the service
+  //     await platform.invokeMethod('start');
+  //     print('Service started');
+  //   } on PlatformException catch (e) {
+  //     print('Failed to start service: ${e.message}');
+  //   }
+  //     }
     Navigator.pop(context);
     if(context.mounted) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (c) => const MarkAttendanceScreen(isCheckedInScreen: true,)));

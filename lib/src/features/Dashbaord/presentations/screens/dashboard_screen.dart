@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:srinivasa_crm_new/shared/widgets/common_drawer_widget.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
@@ -24,12 +26,16 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+    static const platform = MethodChannel('com.example.srinivasa_crm_new');
+
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback( (time) async {
       context.read<AlertCubit>().getAlerts();
+
+     
     });
   }
   @override

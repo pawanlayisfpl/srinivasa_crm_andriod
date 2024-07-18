@@ -62,7 +62,7 @@ public class ApiClass {
                             @Override
                             public void onResponse(String response) {
                                 Log.d("api", "API Response: " + response);
-                                Toast.makeText(context, "Response: " + response, Toast.LENGTH_LONG).show();
+                                // Toast.makeText(context, "Response: " + response, Toast.LENGTH_LONG).show();
                             }
                         },
                         new Response.ErrorListener() {

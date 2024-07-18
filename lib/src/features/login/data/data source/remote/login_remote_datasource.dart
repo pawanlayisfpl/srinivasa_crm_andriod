@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -49,6 +50,8 @@ Future<LoginResponseModel> login({required LoginPostModel loginPostModel}) async
         status: data['status'],
 
       );
+    
+      log('printing profile model json in login remote datasource'+ "\n\n"+profileModel.toJson().toString());
       await keyValueStorage.sharedPreferences.setString(KeyValueStrings.userId, data['user']['id'].toString());
       await keyValueStorage.sharedPreferences.setString(KeyValueStrings.profileDataModel, jsonEncode(profileModel));
     await  keyValueStorage.sharedPreferences.setString(KeyValueStrings.loginData, jsonEncode(data));
