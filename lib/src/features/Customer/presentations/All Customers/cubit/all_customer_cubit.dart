@@ -15,7 +15,7 @@ class AllCustomerCubit extends Cubit<AllCustomerState> {
 
   Future<void> getAllCustomer() async {
     emit(const AllCustomerState.loading());
-    final result = await customerRepo.getCustomers();
+  final result = await customerRepo.getCustomers();
      result.fold(
       (l) {
         ApiFailedModel apiFailedModel = ApiFailedModel(statusCode: NetworkExceptions.getStatusCode(l), message: NetworkExceptions.getErrorTitle(l), errorMessage: NetworkExceptions.getErrorMessage(l));

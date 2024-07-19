@@ -37,7 +37,7 @@ class KycRemoteDatasourceImpl implements KycRemoteDataSource {
       }
     }on DioException catch (e) {
       logger.e('KYC API FAILED');
-      throw NetworkExceptions.getDioException(e);
+      throw NetworkExceptions.getDioException(e); 
     }
   }
 

@@ -49,7 +49,7 @@ class CustomerCreateBodyWidget extends StatelessWidget {
                  previous.isLoading != current.isLoading;
         },
         builder: (context, state) {
-          return Column(
+          return state.isSubmitting == true ? const  Center(child: CustomLoadingWidget()) : Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

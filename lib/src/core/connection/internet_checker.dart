@@ -14,7 +14,8 @@ class InternetChecker {
   }
 
   Future<bool> isConnected() async {
-    final results = await InternetConnectionChecker().hasConnection;
-    return results;
+ final connectivityResult = await connectivity.checkConnectivity();
+
+    return connectivityResult.isEmpty ? false : true;
   }
 }

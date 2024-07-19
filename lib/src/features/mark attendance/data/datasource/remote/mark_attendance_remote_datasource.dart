@@ -38,18 +38,9 @@ final KeyValueStorage keyValueStorage;
         throw NetworkExceptions.getDioException(response.data);
       }
       
-    }  catch(e) {
-      if(e is DioException) {
-         if(e.response != null) {
-         logger.e(e.response!.data['error'].toString()+" "+e.response!.data['status'].toString());
-    throw NetworkExceptions.getDioException(e);
-
-      }else {
-        throw NetworkExceptions.getDioException(e);
-      }
-      }else {
-        throw const NetworkExceptions.formatException();
-      }
+    } on DioException  catch(e) {
+         throw NetworkExceptions.getDioException(e);
+      
 
     }
   }

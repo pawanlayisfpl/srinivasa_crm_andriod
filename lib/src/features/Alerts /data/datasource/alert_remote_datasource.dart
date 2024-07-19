@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
@@ -26,6 +28,9 @@ class AlertRemoteDataSourceImpl implements AlertRemoteDataSource {
       required this.internetChecker});
   @override
   Future<AlertCountModel> getAlertCounts() async {
+        final results = await internetChecker.isConnected();
+        log(results.toString() + "printing bool vaue in alerts counts");
+
     try {
       final response = await dioClient.get(Endpoints.getAlertNotificationCount, headers: {});
 
@@ -41,6 +46,8 @@ class AlertRemoteDataSourceImpl implements AlertRemoteDataSource {
 
   @override
   Future<List<AlertModel>> getAlerts() async {
+
+
     try {
       final response = await dioClient.get(Endpoints.allAlerts, headers: {});
 

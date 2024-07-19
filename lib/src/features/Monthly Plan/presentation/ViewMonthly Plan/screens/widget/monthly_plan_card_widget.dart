@@ -102,7 +102,7 @@ class MonthlyPlanCardWidget extends StatelessWidget {
                         children: [
                           CommonTextWidget(
                             title: DateFormat.d().format(
-                                DateTime.parse(model.planDate.toString())),
+                                DateTime.parse(model.planDate.toString())).toString(),
                             textSize: 40.sp,
                             textColor: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -111,7 +111,7 @@ class MonthlyPlanCardWidget extends StatelessWidget {
                           CommonTextWidget(
                             maxLines: 1,
                               title: DateFormat.MMMM().format(
-                                  DateTime.parse(model.planDate.toString())),
+                                  DateTime.parse(model.planDate.toString())).toString().substring(0,3),
                               textSize: 32.sp,
                               textColor: Colors.white)
                         ],

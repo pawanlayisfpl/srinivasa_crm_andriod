@@ -21,7 +21,7 @@ class _AllCustomerScreenState extends State<AllCustomerScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((c) async {
-      context.read<AllCustomerCubit>().getAllCustomer();
+     await context.read<AllCustomerCubit>().getAllCustomer();
     });
     super.initState();
   }

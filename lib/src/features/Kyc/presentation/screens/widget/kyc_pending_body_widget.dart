@@ -17,49 +17,52 @@ class KycPendingBodyWidget extends StatelessWidget {
     return BlocConsumer<KycCubit, KycState>(
       builder: (context, state) {
         if (state is Loading) {
-          return const SearchCustomerLoadingWidget();
+          return const Column(
+            children: [
+              SearchCustomerLoadingWidget(),
+            ],
+          );
         } else if (state is Loaded) {
           return KycPendingListWidget(customersList: state.customerKycList);
         } else if (state is Initial) {
           return const Text('Please initiate KYC loading.');
         } else {
-          return CommonErrorWidget(
-            error: state.maybeMap(
+          return EmptyWidget(title: state.maybeMap(
               orElse: () => '', // Provide a default return value for other states
               error: (value) {
                 log(value.toString());
                 return value.apiFailedModel.message.toString();
               },
-            ),
-            callback: () {
+            ), callback: () {
               context.read<KycCubit>().getKycListLogic();
-            },
-          );
+
+            });
+         
         }
       },
       listener: (context, state) {
-        if (state is Error) {
-          if(context.mounted) {
-            QuickAlert.show(
-              context: context,
-              type: QuickAlertType.error,
-              title: 'Error',
-              text: state.apiFailedModel.errorMessage,
-              barrierDismissible: false,
-              confirmBtnColor: Colors.black,
-              onConfirmBtnTap: () {
-                Navigator.pop(context);
+        // if (state is Error) {
+        //   if(context.mounted) {
+        //     QuickAlert.show(
+        //       context: context,
+        //       type: QuickAlertType.error,
+        //       title: 'Error',
+        //       text: state.apiFailedModel.message,
+        //       barrierDismissible: false,
+        //       confirmBtnColor: Colors.black,
+        //       onConfirmBtnTap: () {
+        //         Navigator.pop(context);
 
-          //         if(Navigator.canPop(context)) {
-          //   Navigator.pop(context);
-          // }
-          // 
-              },
-              confirmBtnText: 'Ok',
-            );
-          }
+        //   //         if(Navigator.canPop(context)) {
+        //   //   Navigator.pop(context);
+        //   // }
+        //   // 
+        //       },
+        //       confirmBtnText: 'Ok',
+        //     );
+        //   }
       
-        }
+        // }
       },
     );
   }

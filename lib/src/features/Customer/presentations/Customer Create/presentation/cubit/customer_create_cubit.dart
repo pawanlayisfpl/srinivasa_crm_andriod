@@ -380,8 +380,6 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     final stateModel = state.selectedStateModel;
     final distirctModel = state.selectedDistrictModel;
     final mandal = state.customerCreateMandalField.value.getOrElse(() => '');
-    final city = state.customerCreateCityField.value.getOrElse(() => '');
-    final locality = state.customerCreateLocalityField.value.getOrElse(() => '');
     final pincode = state.customerCreatePincodeField.value.getOrElse(() => '');
     final address = state.customerCreateAddressField.value.getOrElse(() => '');
     final title = state.selectedTitleValue;

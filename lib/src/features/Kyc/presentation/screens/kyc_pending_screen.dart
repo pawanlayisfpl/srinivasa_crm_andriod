@@ -16,7 +16,7 @@ class _KycPendingScreenState extends State<KycPendingScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       context.read<KycCubit>().getKycListLogic();
     });
   }

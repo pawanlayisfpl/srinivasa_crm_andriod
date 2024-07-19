@@ -31,8 +31,6 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -42,63 +40,60 @@ class MyApp extends StatelessWidget {
       providers: [
         // BLOCS
         // CUBITS
-                BlocProvider(create: (_) => locator.get<LoginCubit>()),
-                BlocProvider(create: (_) => locator.get<MarkAttendanceCubit>()),
-                BlocProvider(create: (_) => locator.get<ProfileCubit>()),
-                BlocProvider(create: (_) => locator.get<AllCustomerCubit>()),
-                BlocProvider(create: (_) => locator.get<CheckinCubit>()),
-                BlocProvider(create: (_) => locator.get<ViewMonthlyPlanCubit>()),
-                BlocProvider(create: (_) => locator.get<CreateMonthlyPlanCubit>()),
-                BlocProvider(create: (_) => locator.get<AlertCubit>()),
-                BlocProvider(create: (_) => locator.get<SearchCustomerCubit>()),
-                BlocProvider(create: (_) => locator.get<CustomerFullDetailsCubit>()),
-                BlocProvider(create: (_) => locator.get<MonthlyPlanSearchCubit>()),
-                BlocProvider(create: (_) => locator.get<MonthlyPlanPendingCubit>()),
-                BlocProvider(create: (_) => locator.get<UpdateMonthlyPlanCubit>()),
-                BlocProvider(create: (_) => locator.get<CustomerCreateCubit>()),
-                BlocProvider(create: (_) => locator.get<KycCubit>()),
-
+        BlocProvider(create: (_) => locator.get<LoginCubit>()),
+        BlocProvider(create: (_) => locator.get<MarkAttendanceCubit>()),
+        BlocProvider(create: (_) => locator.get<ProfileCubit>()),
+        BlocProvider(create: (_) => locator.get<AllCustomerCubit>()),
+        BlocProvider(create: (_) => locator.get<CheckinCubit>()),
+        BlocProvider(create: (_) => locator.get<ViewMonthlyPlanCubit>()),
+        BlocProvider(create: (_) => locator.get<CreateMonthlyPlanCubit>()),
+        BlocProvider(create: (_) => locator.get<AlertCubit>()),
+        BlocProvider(create: (_) => locator.get<SearchCustomerCubit>()),
+        BlocProvider(create: (_) => locator.get<CustomerFullDetailsCubit>()),
+        BlocProvider(create: (_) => locator.get<MonthlyPlanSearchCubit>()),
+        BlocProvider(create: (_) => locator.get<MonthlyPlanPendingCubit>()),
+        BlocProvider(create: (_) => locator.get<UpdateMonthlyPlanCubit>()),
+        BlocProvider(create: (_) => locator.get<CustomerCreateCubit>()),
+        BlocProvider(create: (_) => locator.get<KycCubit>()),
       ],
       child: MaterialApp(
-              navigatorKey: AppKeys.globalNavigatorKey, 
-              scaffoldMessengerKey: AppKeys.scaffoldKey,
-              onGenerateRoute: RouteGenerator.getRoute,
-              initialRoute: Routes.loginScreen,
-              title: 'SF CRM',
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                fontFamily: 'Poppins',
-                inputDecorationTheme: InputDecorationTheme(
-                  border: AppStyles.inputBorder,
-                  // focusedBorder: AppStyles.focusBorder,
-                  // labelStyle: AppStyles.labelStyle
-                ),
-                  appBarTheme: const AppBarTheme(
-                    backgroundColor: AppColors.primaryColor,
-                    titleTextStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600),
-                    iconTheme: IconThemeData(color: Colors.white),
-                  ),
-                  primaryColor: AppColors.primaryColor,
-                  scaffoldBackgroundColor: Colors.white),
-                  
-              builder: (context, child) {
-                ScreenUtil.init(context,
-                    designSize: const Size(390, 844),
-                    minTextAdapt: true,
-                    splitScreenMode: true);
-                return MediaQuery(
-                    data: MediaQuery.of(context)
-                        .copyWith(textScaler: TextScaler.linear(1.0.sp)),
-                    child: child!);
-              },
+        navigatorKey: AppKeys.globalNavigatorKey,
+        scaffoldMessengerKey: AppKeys.scaffoldKey,
+        onGenerateRoute: RouteGenerator.getRoute,
+        initialRoute: Routes.loginScreen,
+        title: 'SF CRM',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            fontFamily: 'Poppins',
+            inputDecorationTheme: InputDecorationTheme(
+              border: AppStyles.inputBorder,
+              // focusedBorder: AppStyles.focusBorder,
+              // labelStyle: AppStyles.labelStyle
             ),
+            appBarTheme: const AppBarTheme(
+              backgroundColor: AppColors.primaryColor,
+              titleTextStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600),
+              iconTheme: IconThemeData(color: Colors.white),
+            ),
+            primaryColor: AppColors.primaryColor,
+            scaffoldBackgroundColor: Colors.white),
+        builder: (context, child) {
+          ScreenUtil.init(context,
+              designSize: const Size(390, 844),
+              minTextAdapt: true,
+              splitScreenMode: true);
+          return MediaQuery(
+              data: MediaQuery.of(context)
+                  .copyWith(textScaler: TextScaler.linear(1.0.sp)),
+              child: child!);
+        },
+      ),
     );
   }
 }
-  
 
 Future<void> _initDependencies() async {
   await registerDependencies(Environment.dev);

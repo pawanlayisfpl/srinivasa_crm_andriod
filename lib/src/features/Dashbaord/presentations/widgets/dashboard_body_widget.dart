@@ -21,8 +21,10 @@ class DashboardBodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
+      backgroundColor: AppColors.primaryColor,
+      color: Colors.white,
       onRefresh: () async {
-        context.read<AlertCubit>().getAlertCountValue();
+      await  context.read<AlertCubit>().getAlerts();
       },
       child: Center(
         child: GridView.builder(

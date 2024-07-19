@@ -18,7 +18,7 @@ class MarkAttendanceRepoImpl implements MarkAttendanceRepo {
   @override
   Future<Either<NetworkExceptions, LastPunchInResponseModel>> getLastPunchInOutDetails() async {
     try {
-      final results = await markAttendanceRemoteDataSource.getLastPunchInOutDetails();
+      final results =     await markAttendanceRemoteDataSource.getLastPunchInOutDetails();
       return Right(results);
       
     } on NetworkExceptions  catch (e) {
