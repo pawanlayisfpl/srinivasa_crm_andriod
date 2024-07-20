@@ -90,7 +90,7 @@ if (error.response?.statusCode == 401) {
         networkExceptions = const NetworkExceptions.sendTimeout();
         break;
       case DioExceptionType.badResponse:
-        networkExceptions =  NetworkExceptions.defaultError(error);
+        networkExceptions =  const NetworkExceptions.badRequest();
         break;
       case DioExceptionType.unknown:
         if (error.response?.statusCode == 401) {

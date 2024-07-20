@@ -61,7 +61,7 @@ class DioClient {
       );
 
       return response;
-    } catch (e) {
+    } on DioException {
       rethrow;
     }
   }

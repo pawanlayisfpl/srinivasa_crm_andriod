@@ -67,7 +67,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 // await Workmanager().cancelAll();
                 // TODO: IMPLEENTED FAKE LAT AND LONG
                 PunchoutPostModel punchoutPostModel = PunchoutPostModel(latitude: 0.0.toString(), longitude: 0.0.toString());
-                await context.read<MarkAttendanceCubit>().punchOutLogic(punchoutPostModel: punchoutPostModel);
+                await context.read<MarkAttendanceCubit>().punchOutLogic(punchoutPostModel: punchoutPostModel, isLogoutClicked: true);
               
                 Fluttertoast.showToast(msg: "All Background services stopped");
               await  localstorge.sharedPreferences.clear();

@@ -63,7 +63,7 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
 
 
    // PUNCHOUT LOGIC
-  Future<void> punchOutLogic({required PunchoutPostModel punchoutPostModel}) async {
+  Future<void> punchOutLogic({required PunchoutPostModel punchoutPostModel,bool? isLogoutClicked}) async {
     emit(state.copyWith(isSubmitting: true,punchInFailure: false,punchInSuccess: false,punchOutSuccess: false,loading: false,loaded: false));
     await Future.delayed(const Duration(seconds: 1));
     final result = await punchOutUseCase.execute(punchoutPostModel: punchoutPostModel);
@@ -73,6 +73,9 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
    }, (r) async {
 
     emit(state.copyWith(isSubmitting: false, punchOutSuccess: true, apiFailModel: null,loading: false,loaded: false,));
+        if(isLogoutClicked != null && isLogoutClicked == true) {
+        return;
+        }
        await getLastPunchInOutData();
    });
   } 

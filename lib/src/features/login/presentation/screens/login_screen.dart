@@ -26,10 +26,10 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async { 
-      String? token = locator.get<KeyValueStorage>().sharedPreferences.getString(KeyValueStrings.token);
+      String? token =   locator.get<KeyValueStorage>().sharedPreferences.getString(KeyValueStrings.token);
 
       if(token != null) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (c) => const MarkAttendanceScreen(isCheckedInScreen: true,)));
+     await   Navigator.pushReplacement(context, MaterialPageRoute(builder: (c) => const MarkAttendanceScreen(isCheckedInScreen: true,)));
       }else {
      await context.read<LoginCubit>().getInitialValues();
 

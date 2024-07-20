@@ -2,8 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 
 import 'package:srinivasa_crm_new/src/features/Kyc/domain/model/customer_kyu_model.dart';
+import 'package:srinivasa_crm_new/src/features/Kyc/presentation/Kyc%20Upload/screens/kyc_upload_screen.dart';
 
 class KycPendingCardWidget extends StatelessWidget {
   final CustomerKycModel customerKycModel;
@@ -19,8 +21,13 @@ class KycPendingCardWidget extends StatelessWidget {
       margin: EdgeInsets.all(8),
       
       child: ListTile(
+        onTap: () {
+          if(context.mounted) {
+            Navigator.push(context, SlideRightRoute(screen: KycUploadScreen( customerKycModel: customerKycModel,)));
+          }
+        },
         contentPadding: EdgeInsets.all(8),
-        trailing: Icon(Icons.arrow_forward_ios),
+        trailing: const Icon(Icons.arrow_forward_ios),
         title: CommonTextWidget(title: customerKycModel.customerName ?? "N/A",fontWeight: FontWeight.w600,textSize: 20.sp,),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
