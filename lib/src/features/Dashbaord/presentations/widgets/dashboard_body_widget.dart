@@ -6,6 +6,7 @@ import 'package:srinivasa_crm_new/src/common/widgets/widgets.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/screens/alerts_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/dashboard_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/screens/kyc_pending_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/monthly_plan_dashboard_screen.dart';
 
@@ -24,22 +25,45 @@ class DashboardBodyWidget extends StatelessWidget {
       backgroundColor: AppColors.primaryColor,
       color: Colors.white,
       onRefresh: () async {
-      await  context.read<AlertCubit>().getAlerts();
+      // await  context.read<AlertCubit>().getAlerts();
       },
-      child: Center(
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: 0.9,
-            crossAxisCount: 2, // Number of columns
-            crossAxisSpacing: 16.0, // Spacing between columns
-            mainAxisSpacing: 16.0, // Spacing between rows
-          ),
-          itemCount: dashboardIconLists.length,
-          itemBuilder: (context, index) {
-            return _buildGridItem(context, index);
-          },
-        ).withSymetricPadding(horizontalPadding: 10.w, verticalPadding: 20.h),
+      child:
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          20.verticalSpace,
+          Row(
+            children: [
+              CommonTextWidget(title: 'Dashboard',fontWeight: FontWeight.bold,textColor: AppColors.primaryColor,textSize: 20.sp,),
+              const Spacer(),
+              InkWell(
+                onTap: () {
+                  
+                  context.read<DashboardCubit>().toggleIsList();
+                },
+                child: Icon ( context.watch<DashboardCubit>().state ? Icons.grid_view_rounded :  Icons.view_list_sharp,color: AppColors.primaryColor,size: 30.sp,)),
+            ],
+          ).withSymetricPadding(horizontalPadding: 18.w),
+          20.verticalSpace,
+          // Expanded(
+          //   child: Container(
+          //     child: AnimatedSwitcher(
+          //       transitionBuilder: (child, animation) => ScaleTransition(child: child, scale: animation),
+                
+          //       switchInCurve: Curves.easeIn,
+          //       switchOutCurve: Curves.easeOut,
+                    
+          //       duration: const Duration(milliseconds: 600),
+          //     child:context.watch<DashboardCubit>().state ? _buildListWidget(context) :  _buildGridListWidget(context),),
+          //   ),
+          // ),
+        //  NORMAL LIST CHILDDDD
+        context.watch<DashboardCubit>().state ? _buildListWidget(context) :  _buildGridListWidget(context)
+          
+        ],
       ),
+      
+      
     );
   }
   
@@ -50,10 +74,10 @@ class DashboardBodyWidget extends StatelessWidget {
       onTap: () {
         navigateToPage(context, index);
       },
-      splashColor: AppColors.primaryColor.withOpacity(0.5),
+      splashColor: AppColors.primaryColor,
       child: Container(
         width: MediaQuery.of(context).size.width *
-            0.5, // Each child takes 50% of the screen width
+            0.25, // Each child takes 50% of the screen width
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
             boxShadow: [
@@ -74,11 +98,14 @@ class DashboardBodyWidget extends StatelessWidget {
             Stack(
               children: [
                 
-                Image.asset(
-                  dashboardModel.iconPath,
-                  height: 120.0,
-                  width: 120.0,
-                  fit: BoxFit.cover,
+                Hero(
+                  tag: dashboardIconLists[index].iconName,
+                  child: Image.asset(
+                    dashboardModel.iconPath,
+                    height: 60.0,
+                    width: 60.0,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               context.watch<AlertCubit>().alertCount != 0 && dashboardModel.isAlert == true  ?   Positioned(
                   right: 6,
@@ -87,7 +114,7 @@ class DashboardBodyWidget extends StatelessWidget {
                   backgroundColor: AppColors.redColor,
                   radius: 20.0,
                   child: CommonTextWidget(title: context.watch<AlertCubit>().alertCount.toString(),textColor: Colors.white,),
-                )) : SizedBox.shrink(),
+                )) : const SizedBox.shrink(),
               ],
             ),
             const SizedBox(height: 8.0),
@@ -95,7 +122,7 @@ class DashboardBodyWidget extends StatelessWidget {
               dashboardModel.iconName,
               textAlign: TextAlign.center,
               maxLines: 1,
-              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -108,10 +135,10 @@ class DashboardBodyWidget extends StatelessWidget {
       case 0:
         Navigator.pushNamed(context, Routes.customerDashbaordScreen);
       case 1:
-                Navigator.push(context, ScaleRoute(screen: MonthlyPlanDashboardScreen()));
+                Navigator.push(context, ScaleRoute(screen: const MonthlyPlanDashboardScreen()));
 
       case 2:
-                      Navigator.push(context, ScaleRoute(screen: AlertsScreen()));
+                      Navigator.push(context, ScaleRoute(screen: const AlertsScreen()));
 
 
       
@@ -126,7 +153,7 @@ class DashboardBodyWidget extends StatelessWidget {
 
       case 4:
       // kyc list
-      Navigator.push(context, SlideRightRoute(screen: KycPendingScreen()));
+      Navigator.push(context, SlideRightRoute(screen: const KycPendingScreen()));
 
       case 5:
             Fluttertoast.showToast(msg: 'Backend api not available');
@@ -136,5 +163,35 @@ class DashboardBodyWidget extends StatelessWidget {
       default:
         return Navigator.pushNamed(context, "unknown");
     }
+  }
+  
+  _buildListWidget(BuildContext context) {
+    return ListView.separated(
+      shrinkWrap: true,
+      // padding: EdgeInsets.only(top: 10.h),
+      itemBuilder: (c,i) {
+      return ListTile(
+        onTap: () => navigateToPage(context, i),
+        splashColor: AppColors.primaryColor,
+        trailing: Hero(tag: dashboardIconLists[i].iconName,
+        child: Image.asset(dashboardIconLists[i].iconPath,fit: BoxFit.fitHeight,height: 40.h,width: 40.w,)),
+        title: CommonTextWidget(title: dashboardIconLists[i].iconName.toString(),fontWeight: FontWeight.w600,),);
+    },itemCount: dashboardIconLists.length, separatorBuilder: (BuildContext context, int index) { return const Divider(); },).withSymetricPadding(horizontalPadding: 10.w);
+  }
+  
+  _buildGridListWidget(BuildContext context) {
+    return GridView.builder(
+               shrinkWrap: true,
+               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                 childAspectRatio:0.9,
+                 crossAxisCount: 3, // Number of columns
+                 crossAxisSpacing: 16.0, // Spacing between columns
+                 mainAxisSpacing: 16.0, // Spacing between rows
+               ),
+               itemCount: dashboardIconLists.length,
+               itemBuilder: (context, index) {
+                 return _buildGridItem(context, index);
+               },
+             ).withSymetricPadding(horizontalPadding: 10.w);
   }
 }

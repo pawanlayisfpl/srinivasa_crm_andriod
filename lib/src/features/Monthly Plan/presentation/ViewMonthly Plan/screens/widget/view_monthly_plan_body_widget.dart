@@ -38,7 +38,6 @@ class ViewMonthlyPlanBodyWidget extends StatelessWidget {
             children: [
               Expanded(
                 child: ListView.builder(
-                  
                   shrinkWrap: true,
                   itemBuilder: (c,i) {
                   return MonthlyPlanCardWidget(model: r.viewDailyPlanModel![i], monthlyPlanModel: r,);

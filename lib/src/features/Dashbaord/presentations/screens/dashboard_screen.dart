@@ -112,7 +112,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ));
       },
       child: Scaffold(
-        drawer: CommonDrawerWidget(),
+        drawer: const CommonDrawerWidget(),
         appBar: AppBar(
       
           title: const CustomAppBarTitleWidget(title: "Dashboard",),

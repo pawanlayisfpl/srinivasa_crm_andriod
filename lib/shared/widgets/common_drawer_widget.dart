@@ -1,9 +1,13 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/constants/app_colors.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
+import 'package:srinivasa_crm_new/src/features/Profile/data/datasource/local/profile_local_datasource.dart';
+import 'package:srinivasa_crm_new/src/features/Profile/domain/model/profile_model.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_state.dart';
 
@@ -14,45 +18,70 @@ class CommonDrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
-        return state.maybeMap(orElse: () => const SizedBox.shrink() ,loadedLocal: (data) => Drawer(
+        return state.maybeMap(orElse: () => const SizedBox.shrink() ,loadedLocal: (data) {
+          
+          return Drawer(
+            
           child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              Container(
-                  padding: EdgeInsets.only(top: 60.h, left: 10.w),
-                  decoration: const BoxDecoration(
-                    color: AppColors.primaryColor,
-                  ),
-                  alignment: Alignment.centerLeft,
-                  child:  Row(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        child: Icon(
-                          Icons.person,
-                          color: AppColors.primaryColor,
-                        ),
-                      ),
-                      Expanded(
-                        child: ListTile(
-                          title: CommonTextWidget(
-                            title: data.profileResponseModel.userModel!.username?.toCapitalize() ?? "No Name Found",
-                            textColor: Colors.white,
-                          ),
-                          subtitle: CommonTextWidget(
-                            maxLines: 2,
-                            title: data.profileResponseModel.userModel!.email.toString().toCapitalize(),
-                            textColor: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  )),
-           
+            children: [
+              SizedBox(height: 0.1.sh,),
+            // NAME
+            ReusableListTileWidget(title: data.profileResponseModel.userModel!.username.toString(), icon: Icons.person,),
+              const Divider(),
+              // EMAIL
+                     ReusableListTileWidget(title: data.profileResponseModel.userModel!.email.toString(), icon: Icons.email_outlined,),
+
+              const Divider(),
+              // PHONE
+                                  ReusableListTileWidget(title: data.profileResponseModel.userModel!.contactNo.toString(), icon: Icons.phone_android_rounded,),
+
+              const Divider(),
+              // ROLE
+                                 ReusableListTileWidget(title: data.profileResponseModel.userModel!.authorities!.first.authority.toString(), icon: Icons.shield,),
+
+              const Divider(),
+              // ZONE
+             ReusableListTileWidget(title: data.profileResponseModel.userModel!.zones!.map((e) => e.zoneName).join(", "), icon: Icons.location_city)
+           ,
+           const Divider(),
+           ReusableListTileWidget(title: data.profileResponseModel.userModel!.reportingTo.toString(), icon: Icons.dashboard,subTitleText: "(Reporting Manager)" ,), 
+           const Divider(), 
+           20.verticalSpace,
+              // LOGOUT
+              ListTile(
+                title: const CommonTextWidget(title: "Logout",textColor: AppColors.primaryColor,),
+                onTap: () {
+                },
+                trailing: const Icon(Icons.logout),
+              ),
             ],
-          ),
-        ));
+          ).withSymetricPadding(horizontalPadding: 10.w,),
+          
+        );
+        });
       },
     );
+  }
+}
+
+
+class ReusableListTileWidget extends StatelessWidget {
+  final String title;
+  final String? subTitleText;
+  final IconData icon;
+  const ReusableListTileWidget({
+    Key? key,
+    required this.title,
+    this.subTitleText,
+    required this.icon,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+                leading: Icon(icon),
+                title: CommonTextWidget(title: title),
+                subtitle:subTitleText != null ? CommonTextWidget(title:  subTitleText ?? ""  ,textColor: Colors.black.withOpacity(0.6),fontWeight: FontWeight.w500,) : null,
+              );
   }
 }

@@ -37,6 +37,8 @@ class MonthlyPlanDashboardScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 0.05.sw), // 5% padding
         child: Center(
           child: ListView.builder(
+                              padding: EdgeInsets.symmetric(vertical: 20.h),
+
               shrinkWrap: true,
               itemCount: context.watch<ProfileCubit>().state.maybeMap(orElse: () => cardNames.length,loadedLocal: (data) {
                 log(data.profileResponseModel.userModel!.authorities!.first.roleId.toString());

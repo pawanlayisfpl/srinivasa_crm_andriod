@@ -60,8 +60,10 @@ class DioClient {
         onReceiveProgress: progressCallback,
       );
 
-      return response;
+      return  response;
     } on DioException {
+      rethrow;
+    }catch(e){
       rethrow;
     }
   }
