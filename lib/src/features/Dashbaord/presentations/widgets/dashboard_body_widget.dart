@@ -34,7 +34,7 @@ class DashboardBodyWidget extends StatelessWidget {
           20.verticalSpace,
           Row(
             children: [
-              CommonTextWidget(title: 'Dashboard',fontWeight: FontWeight.bold,textColor: AppColors.primaryColor,textSize: 20.sp,),
+              CommonTextWidget(title: '',fontWeight: FontWeight.bold,textColor: AppColors.primaryColor,textSize: 20.sp,),
               const Spacer(),
               InkWell(
                 onTap: () {
@@ -108,11 +108,11 @@ class DashboardBodyWidget extends StatelessWidget {
                   ),
                 ),
               context.watch<AlertCubit>().alertCount != 0 && dashboardModel.isAlert == true  ?   Positioned(
-                  right: 6,
+                  right: 0,
                   top: 6,
                   child: CircleAvatar(
                   backgroundColor: AppColors.redColor,
-                  radius: 20.0,
+                  radius: 12.0,
                   child: CommonTextWidget(title: context.watch<AlertCubit>().alertCount.toString(),textColor: Colors.white,),
                 )) : const SizedBox.shrink(),
               ],

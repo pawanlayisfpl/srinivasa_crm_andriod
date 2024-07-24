@@ -104,3 +104,8 @@ Future<void> _initDependencies() async {
   locator.registerLazySingleton<Environment>(
       () => const Environment(Environment.prod));
 }
+
+
+// urls
+  // static const String basicUrl = "http://192.168.1.45:8080/crmsfpl";
+  // static const String testUrl = "http://65.109.229.140:8080/crmsfpl";

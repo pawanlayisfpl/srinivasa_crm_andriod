@@ -31,7 +31,8 @@ public class ApiClass {
     private  Context context;
 
     private String url = "https://reqres.in/api/login"; // Replace with your actual API URL
-    private String postUrl = "http://192.168.1.45:8080/crmsfpl/se/locations";
+     private String postUrl = "http://65.109.229.140:8080/crmsfpl/se/locations";
+//    private String postUrl = "http://192.168.1.45:8080/crmsfpl/se/locations";
     private String TAG = "ApiCaller"; // Tag for logging
     private LocationHelperClass locationHelperClass;
 
