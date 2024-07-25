@@ -18,6 +18,7 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Month
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/cubit/update_monthly_plan_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/cubit/view_monthly_plan_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/sales_order_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 
 import 'src/config/config.dart';
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => locator.get<KycCubit>()),
         BlocProvider(create: (_) => locator.get<KycUploadCubit>()),
         BlocProvider(create: (_) => locator.get<DashboardCubit>()),
+        BlocProvider(create: (_) => locator.get<SalesOrderCreateCubit>()),
       ],
       child: MaterialApp(
         navigatorKey: AppKeys.globalNavigatorKey,

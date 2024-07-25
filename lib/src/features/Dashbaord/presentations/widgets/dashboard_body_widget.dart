@@ -6,9 +6,12 @@ import 'package:srinivasa_crm_new/src/common/widgets/widgets.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/screens/alerts_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/customer_dashboard_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/dashboard_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/screens/kyc_pending_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/monthly_plan_dashboard_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/data/repo/sales_repo.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/sales_dashboard_screen.dart';
 
 import '../../../../config/animations/routes/all_animate_routes.dart';
 import '../../../../config/config.dart';
@@ -133,12 +136,14 @@ class DashboardBodyWidget extends StatelessWidget {
   navigateToPage(context, index) async {
     switch (index) {
       case 0:
-        Navigator.pushNamed(context, Routes.customerDashbaordScreen);
+      // customer dashboard
+        Navigator.push(context, SlideRightRoute(screen: const CustomerDashbaordScreen()));
       case 1:
                 Navigator.push(context, ScaleRoute(screen: const MonthlyPlanDashboardScreen()));
 
       case 2:
-                      Navigator.push(context, ScaleRoute(screen: const AlertsScreen()));
+      // ALERTS
+                      Navigator.push(context, SlideLeftRoute(screen: const AlertsScreen()));
 
 
       
@@ -156,7 +161,11 @@ class DashboardBodyWidget extends StatelessWidget {
       Navigator.push(context, SlideRightRoute(screen: const KycPendingScreen()));
 
       case 5:
+      // REPORTS
             Fluttertoast.showToast(msg: 'Backend api not available');
+
+      case 6:
+          Navigator.push(context, SlideRightRoute(screen: SalesOrderDashboardScreen()));
 
      
 

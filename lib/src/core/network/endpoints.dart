@@ -78,4 +78,10 @@ class Endpoints {
   // KYC 
   static const String getPendingKycCustomers = '$basicUrl/se/kycpendingcustomers';
 
+  // SALES ORDER
+  static const String getAllProducts = '$basicUrl/se/product';
+
+  // UOM
+  static const String getAllUom = '$basicUrl/se/uom';
+
 }
