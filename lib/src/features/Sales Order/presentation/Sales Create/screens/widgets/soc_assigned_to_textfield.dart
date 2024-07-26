@@ -6,8 +6,8 @@ import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%
 
 import '../../../../../../config/config.dart';
 
-class SocOrderRemakrsTextField extends StatelessWidget {
-  const SocOrderRemakrsTextField({super.key});
+class SocAssignedToTextField extends StatelessWidget {
+  const SocAssignedToTextField({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class SocOrderRemakrsTextField extends StatelessWidget {
         return CommonTextfield(
           fillColor: AppColors.textFieldBgColor,
           
-          textEditingController: context.read<SalesOrderCreateCubit>().orderRemarksController, onChanged: (String? value) => value == null ? null : context.read<SalesOrderCreateCubit>().onOrderRemarksChanged(value), validator: (c) => null ,  hintText: "Enter your remarks",maxLines: 4, autovalidateMode: AutovalidateMode.disabled,);
+          textEditingController: context.read<SalesOrderCreateCubit>().employeeIdController, onChanged: (String? value) => null, validator: (c) => null ,readOnly: true,  hintText: "Enter your employe id",maxLines: 1, autovalidateMode: AutovalidateMode.disabled,);
       },
     );
   }

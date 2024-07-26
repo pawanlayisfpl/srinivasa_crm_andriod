@@ -1,16 +1,18 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/payment_mode_model.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/uom_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/sales_order_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/state/sales_order_create_state.dart';
 
 
 
-class SocPaymentModeDropDownWidget extends StatelessWidget {
-  const SocPaymentModeDropDownWidget({super.key});
+class SocUomDropDownWidget extends StatelessWidget {
+  const SocUomDropDownWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,21 +20,24 @@ class SocPaymentModeDropDownWidget extends StatelessWidget {
       builder: (context, state,) {
         return ColoredBox(
           color: Colors.grey.shade300,
-          child: DropdownSearch<PaymentModeModel>(
+          child: DropdownSearch<UOMModel>(
+            
                   enabled: true,
-                  selectedItem: state.selectedPaymentModeModel,
+                  selectedItem: state.selectedUomModel,
           
-                  dropdownBuilder: (context, selectedItems) => state.selectedPaymentModeModel == null ?  const CommonTextWidget(title: "Select your payment mode",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedPaymentModeModel!.paymentModeName.toString()) ,
+                  dropdownBuilder: (context, selectedItems) => state.selectedUomModel == null ?  const CommonTextWidget(title: "Select your uom type",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedUomModel!.uomName.toString()) ,
                   
                   
-                  dropdownButtonProps:  const DropdownButtonProps(
+                  dropdownButtonProps:   DropdownButtonProps( 
+                      padding: EdgeInsets.symmetric(vertical: 10.h),
+                    
                     icon: Icon(Icons.arrow_downward),
                     selectedIcon: Icon(Icons.arrow_drop_down_circle)
                      
                     
                     
                   ),
-              itemAsString: (item) => item.paymentModeName.toString(),
+              itemAsString: (item) => item.uomName.toString(),
                   popupProps: const PopupPropsMultiSelection.modalBottomSheet(
                     
           
@@ -48,7 +53,7 @@ class SocPaymentModeDropDownWidget extends StatelessWidget {
                   showSearchBox: true,
                   searchFieldProps: TextFieldProps(
                     decoration: InputDecoration(
-                      hintText: 'Search payment mode',
+                      hintText: 'Search uom type',
                       prefixIcon: Icon(Icons.search), 
                   ),
                   ),
@@ -59,24 +64,24 @@ class SocPaymentModeDropDownWidget extends StatelessWidget {
                     enableFeedback: true,
                     icon: const Icon(Icons.clear),
                     onPressed: () {
-                      context.read<CustomerCreateCubit>().clearZoneValue();
+                      context.read<SalesOrderCreateCubit>().resetUomType();
                     }
           
           
                   ),
                   autoValidateMode: state.showInputError ?  AutovalidateMode.always : AutovalidateMode.onUserInteraction,
           
-                      items: state.paymentModeList,
+                      items: state.uomList,
           
                   
                 
                   onChanged: (values) {
                    if(values != null) {
-                    context.read<SalesOrderCreateCubit>().setPaymentMode(values);
+                    context.read<SalesOrderCreateCubit>().setUomType(values);
                     
                    }
                   },
-                  validator: (value) =>   value == null? 'Please select zone' : null,
+                  validator: (value) =>   value == null? 'uom type is required' : null,
                 ),
         );
       },

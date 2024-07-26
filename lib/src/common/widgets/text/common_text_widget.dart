@@ -32,13 +32,19 @@ class CommonTextWidget extends StatelessWidget {
       title,
       maxLines: maxLines,
       textAlign: align ?? TextAlign.start,
+      
       style: TextStyle(
+         decorationStyle: TextDecorationStyle.solid,
+          decorationThickness: 1,
+           
+          decorationColor: textColor ?? Colors.black,
           color: textColor ?? Colors.black,
           decoration: textDecoration,
           fontSize: textSize ?? 18.sp,
           fontWeight: fontWeight ?? FontWeight.normal,
           overflow: TextOverflow.ellipsis,
           wordSpacing: wordsSpacing,
+
           letterSpacing: letterSpacing),
     );
   }

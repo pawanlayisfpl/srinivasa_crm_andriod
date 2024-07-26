@@ -87,13 +87,13 @@ import 'package:srinivasa_crm_new/src/features/Customer/data/repo/customer_repo_
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart'
     as _i42;
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_cubit.dart'
-    as _i52;
+    as _i53;
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_cubit.dart'
     as _i76;
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart'
     as _i77;
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Full%20Details/cubit/customer_full_details_cubit.dart'
-    as _i53;
+    as _i54;
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Search/presentation/cubit/search_customer_cubit.dart'
     as _i44;
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/dashboard_cubit.dart'
@@ -115,11 +115,11 @@ import 'package:srinivasa_crm_new/src/features/login/data/repository/login_repo_
 import 'package:srinivasa_crm_new/src/features/login/domain/repository/login_repo.dart'
     as _i24;
 import 'package:srinivasa_crm_new/src/features/login/domain/usecases/login_usecase.dart'
-    as _i54;
+    as _i55;
 import 'package:srinivasa_crm_new/src/features/login/presentation/cubit/login_cubit.dart'
     as _i78;
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/data/datasource/remote/mark_attendance_remote_datasource.dart'
-    as _i55;
+    as _i56;
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/data/repo/mark_attendance_repo_impl.dart'
     as _i68;
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/domain.dart'
@@ -161,7 +161,7 @@ import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profi
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/data/repo/sales_repo.dart'
     as _i23;
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/sales_order_create_cubit.dart'
-    as _i56;
+    as _i52;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -308,22 +308,23 @@ extension GetItInjectableX on _i1.GetIt {
           internetChecker: gh<_i22.InternetChecker>(),
           logger: gh<_i5.Logger>(),
         ));
-    gh.factory<_i52.AllCustomerCubit>(
-        () => _i52.AllCustomerCubit(customerRepo: gh<_i42.CustomerRepo>()));
-    gh.factory<_i53.CustomerFullDetailsCubit>(() =>
-        _i53.CustomerFullDetailsCubit(customerRepo: gh<_i42.CustomerRepo>()));
-    gh.factory<_i54.LoginUseCase>(
-        () => _i54.LoginUseCase(loginRepository: gh<_i24.LoginRepository>()));
-    gh.factory<_i55.MarkAttendanceRemoteDataSource>(
-        () => _i55.MarkAttendanceRemoteDatasourceImpl(
+    gh.factory<_i52.SalesOrderCreateCubit>(() => _i52.SalesOrderCreateCubit(
+          salesRepo: gh<_i23.SalesRepo>(),
+          keyValueStorage: gh<_i22.KeyValueStorage>(),
+          customerRepo: gh<_i42.CustomerRepo>(),
+        ));
+    gh.factory<_i53.AllCustomerCubit>(
+        () => _i53.AllCustomerCubit(customerRepo: gh<_i42.CustomerRepo>()));
+    gh.factory<_i54.CustomerFullDetailsCubit>(() =>
+        _i54.CustomerFullDetailsCubit(customerRepo: gh<_i42.CustomerRepo>()));
+    gh.factory<_i55.LoginUseCase>(
+        () => _i55.LoginUseCase(loginRepository: gh<_i24.LoginRepository>()));
+    gh.factory<_i56.MarkAttendanceRemoteDataSource>(
+        () => _i56.MarkAttendanceRemoteDatasourceImpl(
               dioClient: gh<_i22.DioClient>(),
               logger: gh<_i5.Logger>(),
               keyValueStorage: gh<_i22.KeyValueStorage>(),
             ));
-    gh.factory<_i56.SalesOrderCreateCubit>(() => _i56.SalesOrderCreateCubit(
-          salesRepo: gh<_i23.SalesRepo>(),
-          keyValueStorage: gh<_i22.KeyValueStorage>(),
-        ));
     gh.factory<_i57.AddressRepo>(() => _i58.AddressRepoImpl(
         addressRemoteDataSource: gh<_i31.AddressRemoteDataSource>()));
     gh.factory<_i59.ZoneRepo>(() => _i60.ZoneRepoImpl(
@@ -339,7 +340,7 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i66.MonthlyPlanSearchCubit(gh<_i61.MonthlyPlanRepo>()));
     gh.factory<_i67.MarkAttendanceRepo>(() => _i68.MarkAttendanceRepoImpl(
         markAttendanceRemoteDataSource:
-            gh<_i55.MarkAttendanceRemoteDataSource>()));
+            gh<_i56.MarkAttendanceRemoteDataSource>()));
     gh.factory<_i69.PrimarySourceRepo>(() => _i70.PrimarySourceRepoImpl(
         primarySourceRemoteDataSource:
             gh<_i41.PrimarySourceRemoteDataSource>()));
@@ -365,7 +366,7 @@ extension GetItInjectableX on _i1.GetIt {
           divisionRepo: gh<_i48.DivisionRepo>(),
         ));
     gh.factory<_i78.LoginCubit>(() => _i78.LoginCubit(
-          gh<_i54.LoginUseCase>(),
+          gh<_i55.LoginUseCase>(),
           gh<_i22.KeyValueStorage>(),
         ));
     gh.factory<_i79.UpdateMonthlyPlanCubit>(() => _i79.UpdateMonthlyPlanCubit(

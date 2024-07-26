@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SalesOrderCreateState {
   List<ProductsModel> get productsList => throw _privateConstructorUsedError;
+  ProductsModel? get selectedProductModel => throw _privateConstructorUsedError;
   List<dynamic> get selectedProductList => throw _privateConstructorUsedError;
   bool get isProductLoading => throw _privateConstructorUsedError;
   bool get isUomLoading => throw _privateConstructorUsedError;
@@ -46,6 +47,13 @@ mixin _$SalesOrderCreateState {
   bool get isInitialLoading => throw _privateConstructorUsedError;
   ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
   bool get showInputError => throw _privateConstructorUsedError;
+  List<Customermodel> get customerList => throw _privateConstructorUsedError;
+  Customermodel? get selectedCustomerModel =>
+      throw _privateConstructorUsedError;
+  List<ProductFormModel> get productFormList =>
+      throw _privateConstructorUsedError;
+  List<ProductPendingFormModel> get pendingFormList =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SalesOrderCreateStateCopyWith<SalesOrderCreateState> get copyWith =>
@@ -60,6 +68,7 @@ abstract class $SalesOrderCreateStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<ProductsModel> productsList,
+      ProductsModel? selectedProductModel,
       List<dynamic> selectedProductList,
       bool isProductLoading,
       bool isUomLoading,
@@ -83,7 +92,11 @@ abstract class $SalesOrderCreateStateCopyWith<$Res> {
       bool isSubmitting,
       bool isInitialLoading,
       ApiFailedModel? apiFailedModel,
-      bool showInputError});
+      bool showInputError,
+      List<Customermodel> customerList,
+      Customermodel? selectedCustomerModel,
+      List<ProductFormModel> productFormList,
+      List<ProductPendingFormModel> pendingFormList});
 
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel;
 }
@@ -103,6 +116,7 @@ class _$SalesOrderCreateStateCopyWithImpl<$Res,
   @override
   $Res call({
     Object? productsList = null,
+    Object? selectedProductModel = freezed,
     Object? selectedProductList = null,
     Object? isProductLoading = null,
     Object? isUomLoading = null,
@@ -127,12 +141,20 @@ class _$SalesOrderCreateStateCopyWithImpl<$Res,
     Object? isInitialLoading = null,
     Object? apiFailedModel = freezed,
     Object? showInputError = null,
+    Object? customerList = null,
+    Object? selectedCustomerModel = freezed,
+    Object? productFormList = null,
+    Object? pendingFormList = null,
   }) {
     return _then(_value.copyWith(
       productsList: null == productsList
           ? _value.productsList
           : productsList // ignore: cast_nullable_to_non_nullable
               as List<ProductsModel>,
+      selectedProductModel: freezed == selectedProductModel
+          ? _value.selectedProductModel
+          : selectedProductModel // ignore: cast_nullable_to_non_nullable
+              as ProductsModel?,
       selectedProductList: null == selectedProductList
           ? _value.selectedProductList
           : selectedProductList // ignore: cast_nullable_to_non_nullable
@@ -229,6 +251,22 @@ class _$SalesOrderCreateStateCopyWithImpl<$Res,
           ? _value.showInputError
           : showInputError // ignore: cast_nullable_to_non_nullable
               as bool,
+      customerList: null == customerList
+          ? _value.customerList
+          : customerList // ignore: cast_nullable_to_non_nullable
+              as List<Customermodel>,
+      selectedCustomerModel: freezed == selectedCustomerModel
+          ? _value.selectedCustomerModel
+          : selectedCustomerModel // ignore: cast_nullable_to_non_nullable
+              as Customermodel?,
+      productFormList: null == productFormList
+          ? _value.productFormList
+          : productFormList // ignore: cast_nullable_to_non_nullable
+              as List<ProductFormModel>,
+      pendingFormList: null == pendingFormList
+          ? _value.pendingFormList
+          : pendingFormList // ignore: cast_nullable_to_non_nullable
+              as List<ProductPendingFormModel>,
     ) as $Val);
   }
 
@@ -256,6 +294,7 @@ abstract class _$$SalesOrderCreateStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {List<ProductsModel> productsList,
+      ProductsModel? selectedProductModel,
       List<dynamic> selectedProductList,
       bool isProductLoading,
       bool isUomLoading,
@@ -279,7 +318,11 @@ abstract class _$$SalesOrderCreateStateImplCopyWith<$Res>
       bool isSubmitting,
       bool isInitialLoading,
       ApiFailedModel? apiFailedModel,
-      bool showInputError});
+      bool showInputError,
+      List<Customermodel> customerList,
+      Customermodel? selectedCustomerModel,
+      List<ProductFormModel> productFormList,
+      List<ProductPendingFormModel> pendingFormList});
 
   @override
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel;
@@ -298,6 +341,7 @@ class __$$SalesOrderCreateStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? productsList = null,
+    Object? selectedProductModel = freezed,
     Object? selectedProductList = null,
     Object? isProductLoading = null,
     Object? isUomLoading = null,
@@ -322,12 +366,20 @@ class __$$SalesOrderCreateStateImplCopyWithImpl<$Res>
     Object? isInitialLoading = null,
     Object? apiFailedModel = freezed,
     Object? showInputError = null,
+    Object? customerList = null,
+    Object? selectedCustomerModel = freezed,
+    Object? productFormList = null,
+    Object? pendingFormList = null,
   }) {
     return _then(_$SalesOrderCreateStateImpl(
       productsList: null == productsList
           ? _value._productsList
           : productsList // ignore: cast_nullable_to_non_nullable
               as List<ProductsModel>,
+      selectedProductModel: freezed == selectedProductModel
+          ? _value.selectedProductModel
+          : selectedProductModel // ignore: cast_nullable_to_non_nullable
+              as ProductsModel?,
       selectedProductList: null == selectedProductList
           ? _value._selectedProductList
           : selectedProductList // ignore: cast_nullable_to_non_nullable
@@ -424,6 +476,22 @@ class __$$SalesOrderCreateStateImplCopyWithImpl<$Res>
           ? _value.showInputError
           : showInputError // ignore: cast_nullable_to_non_nullable
               as bool,
+      customerList: null == customerList
+          ? _value._customerList
+          : customerList // ignore: cast_nullable_to_non_nullable
+              as List<Customermodel>,
+      selectedCustomerModel: freezed == selectedCustomerModel
+          ? _value.selectedCustomerModel
+          : selectedCustomerModel // ignore: cast_nullable_to_non_nullable
+              as Customermodel?,
+      productFormList: null == productFormList
+          ? _value._productFormList
+          : productFormList // ignore: cast_nullable_to_non_nullable
+              as List<ProductFormModel>,
+      pendingFormList: null == pendingFormList
+          ? _value._pendingFormList
+          : pendingFormList // ignore: cast_nullable_to_non_nullable
+              as List<ProductPendingFormModel>,
     ));
   }
 }
@@ -433,6 +501,7 @@ class __$$SalesOrderCreateStateImplCopyWithImpl<$Res>
 class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
   const _$SalesOrderCreateStateImpl(
       {final List<ProductsModel> productsList = const [],
+      this.selectedProductModel = null,
       final List<dynamic> selectedProductList = const [],
       this.isProductLoading = false,
       this.isUomLoading = false,
@@ -457,13 +526,20 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
       this.isSubmitting = false,
       this.isInitialLoading = false,
       this.apiFailedModel = null,
-      this.showInputError = false})
+      this.showInputError = false,
+      final List<Customermodel> customerList = const [],
+      this.selectedCustomerModel = null,
+      final List<ProductFormModel> productFormList = const [],
+      final List<ProductPendingFormModel> pendingFormList = const []})
       : _productsList = productsList,
         _selectedProductList = selectedProductList,
         _uomList = uomList,
         _productDetailsPostModelList = productDetailsPostModelList,
         _paymentModeList = paymentModeList,
-        _paymentsDetailsList = paymentsDetailsList;
+        _paymentsDetailsList = paymentsDetailsList,
+        _customerList = customerList,
+        _productFormList = productFormList,
+        _pendingFormList = pendingFormList;
 
   final List<ProductsModel> _productsList;
   @override
@@ -474,6 +550,9 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
     return EqualUnmodifiableListView(_productsList);
   }
 
+  @override
+  @JsonKey()
+  final ProductsModel? selectedProductModel;
   final List<dynamic> _selectedProductList;
   @override
   @JsonKey()
@@ -566,10 +645,39 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
   @override
   @JsonKey()
   final bool showInputError;
+  final List<Customermodel> _customerList;
+  @override
+  @JsonKey()
+  List<Customermodel> get customerList {
+    if (_customerList is EqualUnmodifiableListView) return _customerList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_customerList);
+  }
+
+  @override
+  @JsonKey()
+  final Customermodel? selectedCustomerModel;
+  final List<ProductFormModel> _productFormList;
+  @override
+  @JsonKey()
+  List<ProductFormModel> get productFormList {
+    if (_productFormList is EqualUnmodifiableListView) return _productFormList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_productFormList);
+  }
+
+  final List<ProductPendingFormModel> _pendingFormList;
+  @override
+  @JsonKey()
+  List<ProductPendingFormModel> get pendingFormList {
+    if (_pendingFormList is EqualUnmodifiableListView) return _pendingFormList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_pendingFormList);
+  }
 
   @override
   String toString() {
-    return 'SalesOrderCreateState(productsList: $productsList, selectedProductList: $selectedProductList, isProductLoading: $isProductLoading, isUomLoading: $isUomLoading, uomList: $uomList, selectedUomModel: $selectedUomModel, remarksToAssignedField: $remarksToAssignedField, productDetailsPostModelList: $productDetailsPostModelList, customerCodeField: $customerCodeField, orderAmountField: $orderAmountField, orderGstAmountField: $orderGstAmountField, orderTotalAmountField: $orderTotalAmountField, orderTotalDiscountField: $orderTotalDiscountField, amountPaidField: $amountPaidField, paymentModeList: $paymentModeList, selectedPaymentModeModel: $selectedPaymentModeModel, balanceAmountField: $balanceAmountField, balanceAmountDueDateField: $balanceAmountDueDateField, orderRemarksField: $orderRemarksField, assignedToRemarks: $assignedToRemarks, paymentsDetailsList: $paymentsDetailsList, isSubmitting: $isSubmitting, isInitialLoading: $isInitialLoading, apiFailedModel: $apiFailedModel, showInputError: $showInputError)';
+    return 'SalesOrderCreateState(productsList: $productsList, selectedProductModel: $selectedProductModel, selectedProductList: $selectedProductList, isProductLoading: $isProductLoading, isUomLoading: $isUomLoading, uomList: $uomList, selectedUomModel: $selectedUomModel, remarksToAssignedField: $remarksToAssignedField, productDetailsPostModelList: $productDetailsPostModelList, customerCodeField: $customerCodeField, orderAmountField: $orderAmountField, orderGstAmountField: $orderGstAmountField, orderTotalAmountField: $orderTotalAmountField, orderTotalDiscountField: $orderTotalDiscountField, amountPaidField: $amountPaidField, paymentModeList: $paymentModeList, selectedPaymentModeModel: $selectedPaymentModeModel, balanceAmountField: $balanceAmountField, balanceAmountDueDateField: $balanceAmountDueDateField, orderRemarksField: $orderRemarksField, assignedToRemarks: $assignedToRemarks, paymentsDetailsList: $paymentsDetailsList, isSubmitting: $isSubmitting, isInitialLoading: $isInitialLoading, apiFailedModel: $apiFailedModel, showInputError: $showInputError, customerList: $customerList, selectedCustomerModel: $selectedCustomerModel, productFormList: $productFormList, pendingFormList: $pendingFormList)';
   }
 
   @override
@@ -579,6 +687,8 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
             other is _$SalesOrderCreateStateImpl &&
             const DeepCollectionEquality()
                 .equals(other._productsList, _productsList) &&
+            (identical(other.selectedProductModel, selectedProductModel) ||
+                other.selectedProductModel == selectedProductModel) &&
             const DeepCollectionEquality()
                 .equals(other._selectedProductList, _selectedProductList) &&
             (identical(other.isProductLoading, isProductLoading) ||
@@ -601,8 +711,7 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
                 other.orderGstAmountField == orderGstAmountField) &&
             (identical(other.orderTotalAmountField, orderTotalAmountField) ||
                 other.orderTotalAmountField == orderTotalAmountField) &&
-            (identical(
-                    other.orderTotalDiscountField, orderTotalDiscountField) ||
+            (identical(other.orderTotalDiscountField, orderTotalDiscountField) ||
                 other.orderTotalDiscountField == orderTotalDiscountField) &&
             (identical(other.amountPaidField, amountPaidField) ||
                 other.amountPaidField == amountPaidField) &&
@@ -613,8 +722,7 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
                 other.selectedPaymentModeModel == selectedPaymentModeModel) &&
             (identical(other.balanceAmountField, balanceAmountField) ||
                 other.balanceAmountField == balanceAmountField) &&
-            (identical(other.balanceAmountDueDateField,
-                    balanceAmountDueDateField) ||
+            (identical(other.balanceAmountDueDateField, balanceAmountDueDateField) ||
                 other.balanceAmountDueDateField == balanceAmountDueDateField) &&
             (identical(other.orderRemarksField, orderRemarksField) ||
                 other.orderRemarksField == orderRemarksField) &&
@@ -629,13 +737,22 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
             (identical(other.apiFailedModel, apiFailedModel) ||
                 other.apiFailedModel == apiFailedModel) &&
             (identical(other.showInputError, showInputError) ||
-                other.showInputError == showInputError));
+                other.showInputError == showInputError) &&
+            const DeepCollectionEquality()
+                .equals(other._customerList, _customerList) &&
+            (identical(other.selectedCustomerModel, selectedCustomerModel) ||
+                other.selectedCustomerModel == selectedCustomerModel) &&
+            const DeepCollectionEquality()
+                .equals(other._productFormList, _productFormList) &&
+            const DeepCollectionEquality()
+                .equals(other._pendingFormList, _pendingFormList));
   }
 
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
         const DeepCollectionEquality().hash(_productsList),
+        selectedProductModel,
         const DeepCollectionEquality().hash(_selectedProductList),
         isProductLoading,
         isUomLoading,
@@ -659,7 +776,11 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
         isSubmitting,
         isInitialLoading,
         apiFailedModel,
-        showInputError
+        showInputError,
+        const DeepCollectionEquality().hash(_customerList),
+        selectedCustomerModel,
+        const DeepCollectionEquality().hash(_productFormList),
+        const DeepCollectionEquality().hash(_pendingFormList)
       ]);
 
   @JsonKey(ignore: true)
@@ -672,34 +793,42 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
 
 abstract class _SalesOrderCreateState implements SalesOrderCreateState {
   const factory _SalesOrderCreateState(
-      {final List<ProductsModel> productsList,
-      final List<dynamic> selectedProductList,
-      final bool isProductLoading,
-      final bool isUomLoading,
-      final List<UOMModel> uomList,
-      final UOMModel? selectedUomModel,
-      required final StringField remarksToAssignedField,
-      final List<ProductDetailsPostModel> productDetailsPostModelList,
-      required final StringField customerCodeField,
-      required final NumberField orderAmountField,
-      required final NumberField orderGstAmountField,
-      required final NumberField orderTotalAmountField,
-      required final NumberField orderTotalDiscountField,
-      required final NumberField amountPaidField,
-      final List<PaymentModeModel> paymentModeList,
-      final PaymentModeModel? selectedPaymentModeModel,
-      required final NumberField balanceAmountField,
-      required final StringField balanceAmountDueDateField,
-      required final StringField orderRemarksField,
-      required final StringField assignedToRemarks,
-      final List<PaymentDetailsModel> paymentsDetailsList,
-      final bool isSubmitting,
-      final bool isInitialLoading,
-      final ApiFailedModel? apiFailedModel,
-      final bool showInputError}) = _$SalesOrderCreateStateImpl;
+          {final List<ProductsModel> productsList,
+          final ProductsModel? selectedProductModel,
+          final List<dynamic> selectedProductList,
+          final bool isProductLoading,
+          final bool isUomLoading,
+          final List<UOMModel> uomList,
+          final UOMModel? selectedUomModel,
+          required final StringField remarksToAssignedField,
+          final List<ProductDetailsPostModel> productDetailsPostModelList,
+          required final StringField customerCodeField,
+          required final NumberField orderAmountField,
+          required final NumberField orderGstAmountField,
+          required final NumberField orderTotalAmountField,
+          required final NumberField orderTotalDiscountField,
+          required final NumberField amountPaidField,
+          final List<PaymentModeModel> paymentModeList,
+          final PaymentModeModel? selectedPaymentModeModel,
+          required final NumberField balanceAmountField,
+          required final StringField balanceAmountDueDateField,
+          required final StringField orderRemarksField,
+          required final StringField assignedToRemarks,
+          final List<PaymentDetailsModel> paymentsDetailsList,
+          final bool isSubmitting,
+          final bool isInitialLoading,
+          final ApiFailedModel? apiFailedModel,
+          final bool showInputError,
+          final List<Customermodel> customerList,
+          final Customermodel? selectedCustomerModel,
+          final List<ProductFormModel> productFormList,
+          final List<ProductPendingFormModel> pendingFormList}) =
+      _$SalesOrderCreateStateImpl;
 
   @override
   List<ProductsModel> get productsList;
+  @override
+  ProductsModel? get selectedProductModel;
   @override
   List<dynamic> get selectedProductList;
   @override
@@ -748,6 +877,14 @@ abstract class _SalesOrderCreateState implements SalesOrderCreateState {
   ApiFailedModel? get apiFailedModel;
   @override
   bool get showInputError;
+  @override
+  List<Customermodel> get customerList;
+  @override
+  Customermodel? get selectedCustomerModel;
+  @override
+  List<ProductFormModel> get productFormList;
+  @override
+  List<ProductPendingFormModel> get pendingFormList;
   @override
   @JsonKey(ignore: true)
   _$$SalesOrderCreateStateImplCopyWith<_$SalesOrderCreateStateImpl>

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/common/fields/number_field.dart';
+import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/sales_order_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/state/sales_order_create_state.dart';
 
@@ -17,10 +18,11 @@ class SocAmountPaidController extends StatelessWidget {
       },
       builder: (context, state) {
         return CommonTextfield(
+          fillColor: AppColors.textFieldBgColor,
           inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))],
           textInputType: TextInputType.number,
           
-          textEditingController: context.read<SalesOrderCreateCubit>().amountPaidController , onChanged: (String? value) { }, validator: (v) => null, labelText: "Amount Paid", hintText: "Enter paid amount", autovalidateMode: AutovalidateMode.always);
+          textEditingController: context.read<SalesOrderCreateCubit>().amountPaidController , onChanged: (String? value) { }, validator: (v) => null,  hintText: "Enter paid amount", autovalidateMode: AutovalidateMode.always);
       },
     );
   }

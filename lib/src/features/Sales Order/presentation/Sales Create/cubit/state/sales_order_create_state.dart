@@ -2,18 +2,22 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:srinivasa_crm_new/src/common/fields/number_field.dart';
 import 'package:srinivasa_crm_new/src/common/fields/string_field.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 
 import '../../../../domain/model/get/payment_mode_model.dart';
 import '../../../../domain/model/get/product_model.dart';
 import '../../../../domain/model/get/uom_model.dart';
 import '../../../../domain/model/post/payment_details_model.dart';
 import '../../../../domain/model/post/product_details_post_model.dart';
+import '../../../../domain/model/post/product_form_model.dart';
+import '../../../../domain/model/post/product_pending_form_model.dart';
 
 part 'sales_order_create_state.freezed.dart';
 @freezed
 class SalesOrderCreateState with _$SalesOrderCreateState {
   const factory SalesOrderCreateState({
     @Default([]) List<ProductsModel> productsList,
+    @Default(null) ProductsModel? selectedProductModel,
     @Default([]) List<dynamic> selectedProductList,
     @Default(false) bool isProductLoading,
     @Default(false) bool isUomLoading,
@@ -38,6 +42,10 @@ class SalesOrderCreateState with _$SalesOrderCreateState {
     @Default(false) bool isInitialLoading,
     @Default(null) ApiFailedModel? apiFailedModel,
   @Default(false) bool showInputError,
+  @Default([]) List<Customermodel> customerList,
+  @Default(null) Customermodel? selectedCustomerModel,
+  @Default([]) List<ProductFormModel> productFormList,
+  @Default([]) List<ProductPendingFormModel> pendingFormList,
   }) = _SalesOrderCreateState;
 
    factory SalesOrderCreateState.initial() => SalesOrderCreateState(
@@ -52,6 +60,25 @@ class SalesOrderCreateState with _$SalesOrderCreateState {
     orderRemarksField: StringField(''),
     assignedToRemarks: StringField(''),
     customerCodeField: StringField(''),
-    showInputError: false
+    showInputError: false,
+    customerList: [],
+    selectedCustomerModel: null,
+    selectedProductModel: null,
+    productFormList: [],
+    pendingFormList : [],
+    apiFailedModel: null,
+    isInitialLoading: false,
+    isProductLoading: false,
+    isSubmitting: false,
+    isUomLoading: false,
+    paymentModeList: [],
+    paymentsDetailsList: [],
+    productDetailsPostModelList: [],
+    selectedPaymentModeModel: null,
+    selectedProductList: [],
+    selectedUomModel: null,
+    productsList: [],
+
+
   );
 }

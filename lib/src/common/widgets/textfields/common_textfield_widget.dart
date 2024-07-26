@@ -8,7 +8,7 @@ class CommonTextfield extends StatelessWidget {
   final Function(String) onChanged;
   final Function(String?) validator;
   final VoidCallback? onTapFunction; 
-  final String labelText;
+  final String? labelText;
   final String hintText;
   final bool? obscureText;
   final TextInputType? textInputType;
@@ -31,7 +31,7 @@ class CommonTextfield extends StatelessWidget {
       this.onTapFunction,
       required this.onChanged,
       required this.validator,
-      required this.labelText,
+       this.labelText,
       required this.hintText,
       this.obscureText,
       this.textInputType,
@@ -85,8 +85,9 @@ class CommonTextfield extends StatelessWidget {
             prefixIcon: prefixIcon,
             border: AppStyles.inputBorder,
             focusedBorder: AppStyles.focusBorder,
-            fillColor: fillColor,
-            filled: fillColor != null,
+            fillColor: Colors.grey.shade300,
+            
+            filled: fillColor != null  ? true : false,
             floatingLabelAlignment: FloatingLabelAlignment.start,
             alignLabelWithHint: true,
             labelStyle: AppStyles.labelStyle),

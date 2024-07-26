@@ -13,4 +13,6 @@ class AppColors {
   static Color errorColor = Color.fromARGB(255, 181, 33, 33);
   static Color secondaryTextClr = Colors.grey;
   static Color redColor = Colors.redAccent;
+  // static Color textfieldBgColor = Color(0xffEBEDED);
+  static Color textfieldBgColor = Colors.red;
 }

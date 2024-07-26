@@ -6,6 +6,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%2
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Search/presentation/screens/customer_search_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/customer_dashboard_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/create_monthly_plan_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/sales_dashboard_screen.dart';
 import 'package:srinivasa_crm_new/src/features/login/presentation/screens/login_screen.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
 
@@ -89,6 +90,9 @@ class RouteGenerator {
         // MONTHLY PLAN
              case Routes.monthlyPlanCreate:
         return MaterialPageRoute(builder: (_) =>   CreateMonthlyPlanScreen());
+        // SALES ORDER PLAN
+             case Routes.salesOrderDashboardScreen:
+        return MaterialPageRoute(builder: (_) =>   SalesOrderDashboardScreen());
 
   
 
