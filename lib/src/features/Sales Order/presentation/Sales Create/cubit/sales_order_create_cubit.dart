@@ -158,6 +158,87 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
     });
   }
 
+
+  //on selling rate changed
+  void onSellingRateChanged() {
+    if(productQtyController.text.isNotEmpty && productSellingRateController.text.isNotEmpty && productRateController.text.isNotEmpty) {
+      int qty = int.tryParse(productQtyController.text) ?? 0;
+      int price = int.tryParse(productSellingRateController.text) ?? 0;
+      int givenRate = int.tryParse(productRateController.text) ?? 0;
+
+      if(price < givenRate) {
+
+      }else {
+        Fluttertoast.showToast(msg: 'Selling price can\'t be more that Actual Rate',backgroundColor: Colors.red,textColor: Colors.white);
+      }
+
+      double totalAmountValue = (qty * price).toDouble();
+      log(totalAmountValue.toString());
+      producttotalController.text = totalAmountValue.toString();
+    }else {
+      producttotalController.text =  "0.0";
+    }
+  } 
+
+
+  // ON DISCOUNT PER QTY CHANGED
+ void onDiscountPerQtyChanged() {
+  // Check if all necessary text fields are not empty
+  if (productQtyController.text.isNotEmpty &&
+      productSellingRateController.text.isNotEmpty &&
+      productRateController.text.isNotEmpty) {
+
+
+   
+    
+    // Parse values from text controllers
+    // int givenRate = int.tryParse(productRateController.text) ?? 0;
+    int sellingPrice = int.tryParse(productSellingRateController.text) ?? 0;
+    int qty = int.tryParse(productQtyController.text) ?? 0;
+    // double existingTotalAmount = double.tryParse(producttotalController.text) ?? 0.0;
+
+    // Calculate discount per quantity
+    double discountPerQtyValue = double.tryParse(productDiscountPerQty.text) ?? 0.0;
+
+    if(discountPerQtyValue < qty) {
+          double totalAmountBeforeDiscount = (sellingPrice * qty).toDouble();
+              double discountAmount = discountPerQtyValue * qty;
+                  double totalAmountAfterDiscount = totalAmountBeforeDiscount - discountAmount;
+                      producttotalController.text = totalAmountAfterDiscount.toStringAsFixed(2);
+
+
+
+
+
+
+
+    }else {
+      Fluttertoast.showToast(msg: 'Discount qty can\'t be more than actual qty',backgroundColor: Colors.red,textColor: Colors.white,toastLength: Toast.LENGTH_LONG);
+    }
+    
+    // Calculate the total amount after discount
+
+    // Update the total amount in the controller or wherever needed
+
+    // Optional: Update UI or perform further actions based on the new total amount
+    // Example: notifyListeners(), setState(), or similar
+  } else {
+    // Handle the case where some fields are empty
+    producttotalController.text = '0.00'; // Default value or handle as needed
+  }
+}
+
+
+  void onDiscountPerPercentageChanged() {
+
+        if(productQtyController.text.isNotEmpty && productSellingRateController.text.isNotEmpty && productRateController.text.isNotEmpty) {
+
+    }else {
+      
+    }
+
+  }
+
 // GET ALL CUSTOMERS
   Future<void> getAllCustomer() async {
     emit(state.copyWith(customerList: []));
@@ -358,7 +439,7 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
     producttotalController.clear();
     productDiscountPerPercentage.clear();
     productDiscountPerQty.clear();
-    productShipmentDateController.clear();
+    productShipmentDateController.clear(); 
     productChDateController.clear();
     successCallback();
     }else {

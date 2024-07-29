@@ -21,7 +21,7 @@ class SocProductDiscountPerQtyTextFieldWidget extends StatelessWidget {
             textInputType: TextInputType.number,
             textEditingController:
                 context.watch<SalesOrderCreateCubit>().productDiscountPerQty,
-            onChanged: (String? value) {},
+            onChanged: (String? value) => context.read<SalesOrderCreateCubit>().onDiscountPerQtyChanged(),
             validator: (v) => null,
             hintText: "Enter discount per qty",
             autovalidateMode: AutovalidateMode.disabled);

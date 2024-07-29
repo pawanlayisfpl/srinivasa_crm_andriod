@@ -21,7 +21,7 @@ class SocProductSellingRateTextField extends StatelessWidget {
             textInputType: TextInputType.number,
             textEditingController:
                 context.read<SalesOrderCreateCubit>().productSellingRateController,
-            onChanged: (String? value) {},
+            onChanged: (String? value) => context.read<SalesOrderCreateCubit>().onSellingRateChanged(),
             validator: (v) => null,
             hintText: "Enter product selling rate",
             autovalidateMode: AutovalidateMode.disabled);

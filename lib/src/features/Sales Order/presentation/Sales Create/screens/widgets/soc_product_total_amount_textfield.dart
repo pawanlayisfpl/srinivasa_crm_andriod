@@ -15,6 +15,7 @@ class SocProductTotalAmountTextField extends StatelessWidget {
     return BlocBuilder<SalesOrderCreateCubit, SalesOrderCreateState>(
       builder: (context, state) {
         return CommonTextfield(
+          readOnly: true,
             fillColor: AppColors.textFieldBgColor,
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
