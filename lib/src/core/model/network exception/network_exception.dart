@@ -89,9 +89,9 @@ if (error.response?.statusCode == 401) {
       case DioExceptionType.sendTimeout:
         networkExceptions = const NetworkExceptions.sendTimeout();
         break;
-      case DioExceptionType.badResponse:
-        networkExceptions =  const NetworkExceptions.badRequest();
-        break;
+      // case DioExceptionType.badResponse:
+      //   networkExceptions =   NetworkExceptions.defaultError(error);
+      //   break;
       case DioExceptionType.unknown:
         if (error.response?.statusCode == 401) {
           Fluttertoast.showToast(msg: "Unauthorised request");

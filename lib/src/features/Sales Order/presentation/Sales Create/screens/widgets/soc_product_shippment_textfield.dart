@@ -15,6 +15,10 @@ class SocProductShipmentTextField extends StatelessWidget {
     return BlocBuilder<SalesOrderCreateCubit, SalesOrderCreateState>(
       builder: (context, state) {
         return CommonTextfield(
+          onTapFunction: () {
+            context.read<SalesOrderCreateCubit>().onPickShipmentDate(context: context);
+          },
+          readOnly: true,
             fillColor: AppColors.textFieldBgColor,
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))

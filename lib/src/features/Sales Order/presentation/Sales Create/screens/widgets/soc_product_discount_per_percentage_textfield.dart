@@ -20,8 +20,8 @@ class SocProductDiscountPerPercentageTextField extends StatelessWidget {
             ],
             textInputType: TextInputType.number,
             textEditingController:
-                context.watch<SalesOrderCreateCubit>().productDiscountPerPercentage,
-            onChanged: (String? value) {},
+                context.read<SalesOrderCreateCubit>().productDiscountPerPercentage,
+            onChanged: (String? value) => context.read<SalesOrderCreateCubit>().onDiscountPerPercentageChanged(),
             validator: (v) => null,
             hintText: "Enter discount per percentage",
             autovalidateMode: AutovalidateMode.disabled);

@@ -16,6 +16,9 @@ part 'sales_order_create_state.freezed.dart';
 @freezed
 class SalesOrderCreateState with _$SalesOrderCreateState {
   const factory SalesOrderCreateState({
+    @Default('') String originalTotalAmountValue,
+    @Default('') String totalPendingAmountValue,
+    @Default("") String remainingPercentage,
     @Default([]) List<ProductsModel> productsList,
     @Default(null) ProductsModel? selectedProductModel,
     @Default([]) List<dynamic> selectedProductList,
@@ -78,6 +81,9 @@ class SalesOrderCreateState with _$SalesOrderCreateState {
     selectedProductList: [],
     selectedUomModel: null,
     productsList: [],
+    originalTotalAmountValue : '',
+    totalPendingAmountValue: '',
+    remainingPercentage: '',
 
 
   );

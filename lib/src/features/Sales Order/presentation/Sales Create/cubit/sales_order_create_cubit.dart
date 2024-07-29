@@ -111,6 +111,8 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
       getProducts(),
       getUomLists(),
       getEmployeIdValue(),
+      getAllCustomer(),
+      getAllPaymentMode(),
     ]);
     emit(state.copyWith(isInitialLoading: false));
   }
@@ -163,18 +165,23 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
   void onSellingRateChanged() {
     if(productQtyController.text.isNotEmpty && productSellingRateController.text.isNotEmpty && productRateController.text.isNotEmpty) {
       int qty = int.tryParse(productQtyController.text) ?? 0;
-      int price = int.tryParse(productSellingRateController.text) ?? 0;
-      int givenRate = int.tryParse(productRateController.text) ?? 0;
+      double price = double.tryParse(productSellingRateController.text) ?? 0.0;
+      double givenRate = double.tryParse(productRateController.text) ?? 0.0;
 
-      if(price < givenRate) {
-
-      }else {
-        Fluttertoast.showToast(msg: 'Selling price can\'t be more that Actual Rate',backgroundColor: Colors.red,textColor: Colors.white);
-      }
-
-      double totalAmountValue = (qty * price).toDouble();
+      if(price <= givenRate) {
+          double totalAmountValue = (qty * price);
       log(totalAmountValue.toString());
       producttotalController.text = totalAmountValue.toString();
+      emit(state.copyWith(originalTotalAmountValue: producttotalController.text));
+
+      }else if(productSellingRateController.text.isEmpty) {
+        Fluttertoast.showToast(msg: 'selling rate can\'t be empty',backgroundColor: Colors.red,textColor: Colors.white);
+      }
+      else {
+        // Fluttertoast.showToast(msg: 'Selling price can\'t be more that Actual Rate',backgroundColor: Colors.red,textColor: Colors.white);
+      }
+
+    
     }else {
       producttotalController.text =  "0.0";
     }
@@ -182,66 +189,93 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
 
 
   // ON DISCOUNT PER QTY CHANGED
- void onDiscountPerQtyChanged() {
+// ON DISCOUNT PER QTY CHANGED
+void onDiscountPerQtyChanged() {
+  String lastTotalValue = producttotalController.text;
+
   // Check if all necessary text fields are not empty
   if (productQtyController.text.isNotEmpty &&
       productSellingRateController.text.isNotEmpty &&
       productRateController.text.isNotEmpty) {
 
+        if(productDiscountPerQty.text.isNotEmpty) {
+          productDiscountPerPercentage.clear();
+          producttotalController.text = state.originalTotalAmountValue.toString();
+        }
 
-   
-    
     // Parse values from text controllers
-    // int givenRate = int.tryParse(productRateController.text) ?? 0;
-    int sellingPrice = int.tryParse(productSellingRateController.text) ?? 0;
+    double sellingPrice = double.tryParse(productSellingRateController.text) ?? 0.0;
     int qty = int.tryParse(productQtyController.text) ?? 0;
-    // double existingTotalAmount = double.tryParse(producttotalController.text) ?? 0.0;
-
-    // Calculate discount per quantity
     double discountPerQtyValue = double.tryParse(productDiscountPerQty.text) ?? 0.0;
 
-    if(discountPerQtyValue < qty) {
-          double totalAmountBeforeDiscount = (sellingPrice * qty).toDouble();
-              double discountAmount = discountPerQtyValue * qty;
-                  double totalAmountAfterDiscount = totalAmountBeforeDiscount - discountAmount;
-                      producttotalController.text = totalAmountAfterDiscount.toStringAsFixed(2);
-
-
-
-
-
-
-
-    }else {
-      Fluttertoast.showToast(msg: 'Discount qty can\'t be more than actual qty',backgroundColor: Colors.red,textColor: Colors.white,toastLength: Toast.LENGTH_LONG);
+    // Ensure discount quantity is not more than actual quantity
+    if (discountPerQtyValue <= qty) {
+      double totalAmountBeforeDiscount = sellingPrice * qty;
+      double discountAmount = discountPerQtyValue * sellingPrice;
+      double totalAmountAfterDiscount = totalAmountBeforeDiscount - discountAmount;
+      producttotalController.text = totalAmountAfterDiscount.toStringAsFixed(2);
+    } else {
+      Fluttertoast.showToast(
+        msg: 'Discount qty can\'t be more than actual qty',
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_LONG,
+      );
     }
-    
-    // Calculate the total amount after discount
-
-    // Update the total amount in the controller or wherever needed
-
-    // Optional: Update UI or perform further actions based on the new total amount
-    // Example: notifyListeners(), setState(), or similar
   } else {
-    // Handle the case where some fields are empty
-    producttotalController.text = '0.00'; // Default value or handle as needed
+    Fluttertoast.showToast(
+      msg: 'Please fill in all required fields',
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      toastLength: Toast.LENGTH_LONG,
+    );
   }
 }
 
 
   void onDiscountPerPercentageChanged() {
 
-        if(productQtyController.text.isNotEmpty && productSellingRateController.text.isNotEmpty && productRateController.text.isNotEmpty) {
-
-    }else {
-      
+    if(productDiscountPerPercentage.text.isEmpty && productDiscountPerQty.text.isNotEmpty ) {
+      producttotalController.text = state.originalTotalAmountValue.toString();
+      return;
     }
+
+       if (productQtyController.text.isNotEmpty &&
+    productSellingRateController.text.isNotEmpty &&
+    productRateController.text.isNotEmpty) {
+
+      if(productDiscountPerPercentage.text.isNotEmpty) {
+        productDiscountPerQty.clear();
+        producttotalController.text = state.originalTotalAmountValue.toString();
+      }
+  double totalAmount = double.tryParse(state.originalTotalAmountValue) ?? 0.0;
+  double discountPerPercentage = double.tryParse(productDiscountPerPercentage.text) ?? 0.0;
+
+  if (discountPerPercentage <= 100) {
+    double discountAmount = (totalAmount * discountPerPercentage) / 100;
+    double totalAmountAfterDiscount = totalAmount - discountAmount;
+    producttotalController.text = totalAmountAfterDiscount.toStringAsFixed(2);
+  } else if (discountPerPercentage == 0.0 || productDiscountPerPercentage.text.isEmpty) {
+    producttotalController.text = state.originalTotalAmountValue;
+  } else {
+    // Handle invalid discount percentage case
+    // For example, you might want to show an error message or reset the discount percentage
+    productDiscountPerPercentage.text = '0.0';
+    producttotalController.text = state.originalTotalAmountValue;
+  }
+}
 
   }
 
 // GET ALL CUSTOMERS
   Future<void> getAllCustomer() async {
-    emit(state.copyWith(customerList: []));
+    final results = await customerRepo.getAllCustomerDemo();
+    results.fold((l) {
+      emit(state.copyWith(apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),customerList: [],selectedCustomerModel: null,));
+    }, (r) {
+      emit(state.copyWith(customerList:r.customermodel ?? []));
+    });
+    
   }
 
 // SET SELECTED CUSTOMER
@@ -308,10 +342,36 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
 
   void resetProductModel() {
     emit(state.copyWith(selectedProductModel: null));
+    productQtyController.clear();
+    productRateController.clear();
+    productSellingRateController.clear();
+    productDiscountPerPercentage.clear();
+    productDiscountPerQty.clear();
   }
 
-  void setSelectedProductModel({required ProductsModel value}) {
-    emit(state.copyWith(selectedProductModel: value));
+  void setSelectedProductModel({required ProductsModel value}) async {
+    emit(state.copyWith(apiFailedModel: null, isProductLoading: false));
+    log(value.toJson().toString());
+    emit(state.copyWith(selectedProductModel: value,));
+    // GETTING PRODUCT PRICE
+    final results = await salesRepo.getPriceByProductId(value.productId ?? 0);
+    results.fold((l) {
+      emit(state.copyWith(
+          apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),
+          selectedProductModel: null,
+          isProductLoading: false));
+    }, (r) {
+      emit(state.copyWith(
+       
+          selectedProductModel: value,
+          isProductLoading: false));
+    productRateController.text = r.rate.toString();
+  productSellingRateController.text = r.rate.toString();
+
+    onGstAmountChanged(r.gst.toString());
+  // onSellingRateChanged();
+
+    });
   }
 
   void setUomType(UOMModel value) {
@@ -353,11 +413,12 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
     }
   }
 
-  void submitPendingProductForm({required VoidCallback successCallback,required VoidCallback  failedCallback}) {
-    
+  void submitPendingProductForm({required VoidCallback successCallback,required VoidCallback    failedCallback}) {
+
+
 
     if(pendingPaymentDueDateController.text.isNotEmpty && pendingPaymentAmountController.text.isNotEmpty && pendingPaymentAmountPerentageController.text.isNotEmpty) {
-      ProductPendingFormModel pendingFormModel = ProductPendingFormModel(id: const Uuid().v4().toString(), dueDate: DateTime.now().toIso8601String(), dueAmount: double.tryParse(pendingPaymentDueDateController.text) ?? 0.0,dueAmountPercentage: double.tryParse(pendingPaymentAmountPerentageController.text) ?? 0.0);
+      ProductPendingFormModel pendingFormModel = ProductPendingFormModel(id: const Uuid().v4().toString(), dueDate: DateTime.now().toIso8601String(), dueAmount: double.tryParse(pendingPaymentAmountController.text) ?? 0.0,dueAmountPercentage: double.tryParse(pendingPaymentAmountPerentageController.text) ?? 0.0);
     log(pendingFormModel.toJson().toString());
     addToProductPendingList(productPendingFormModel: pendingFormModel);
     pendingPaymentAmountController.clear();
@@ -394,6 +455,16 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
         productFormList: productsLists, selectedProductModel: null));
   }
 
+  void onQtyChanged() {
+    if(productSellingRateController.text.isNotEmpty && productRateController.text.isNotEmpty) {
+      double sellingRate = double.tryParse(productSellingRateController.text) ?? 0.0;
+      int qty = int.tryParse(productQtyController.text) ?? 0;
+
+      double totalAmountValue = (qty * sellingRate);
+      producttotalController.text = totalAmountValue.toString();
+    }
+  }
+
   void updateProductFormList({required ProductFormModel productFormModel}) {
     String id = productFormModel.id;
     List<ProductFormModel> productsLists = List.from(state.productFormList);
@@ -410,10 +481,109 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
     }
   }
 
+  // GET TOTAL AMOUNT FROM PRODUCT IST
+ // GET TOTAL AMOUNT FROM PRODUCT LIST
+void getTotalPendingAmountValue() {
+  double totalProductsAmount = state.productFormList
+      .map((element) => element.totalAmount)
+      .reduce((acc, amount) => acc + amount);
+
+  double totalPendingDueAmount = state.pendingFormList.fold(
+      0.0, (acc, element) => acc + element.dueAmount);
+
+ double totalPendingPercentage = state.pendingFormList.fold(
+      0.0, (acc, element) => acc + double.parse(element.dueAmountPercentage.toString()));
+
+double remainingPercentage = 100.0 - totalPendingPercentage;
+
+  double totalValue = totalProductsAmount - totalPendingDueAmount;
+
+  log(totalProductsAmount.toString());
+  log('printing total percentage');
+  log(totalPendingPercentage.toString());
+  emit(state.copyWith(
+    totalPendingAmountValue: totalValue.toString(),
+    remainingPercentage: remainingPercentage.toString(),
+  ));
+}
+void onDueAmountChanged() {
+  if (pendingPaymentAmountController.text.isNotEmpty) {
+    getTotalPendingAmountValue();
+    double totalPendingAmount = double.tryParse(state.totalPendingAmountValue) ?? 0.0;
+    double enteredAmount = double.tryParse(pendingPaymentAmountController.text) ?? 0.0;
+    double newTotalPendingAmount = totalPendingAmount - enteredAmount;
+
+    // Calculate the percentage
+    double percentage = (enteredAmount / totalPendingAmount) * 100;
+    pendingPaymentAmountPerentageController.text = percentage.toStringAsFixed(2);
+
+    emit(state.copyWith(totalPendingAmountValue: newTotalPendingAmount.toString()));
+  } else {
+    getTotalPendingAmountValue();
+  }
+}
+
+void onDuePercentageChanged() {
+  if (pendingPaymentAmountPerentageController.text.isNotEmpty) {
+    getTotalPendingAmountValue();
+    double totalPendingAmount = double.tryParse(state.totalPendingAmountValue) ?? 0.0;
+    double percentage = double.tryParse(pendingPaymentAmountPerentageController.text) ?? 0.0;
+    double percentageAmount = (totalPendingAmount * percentage) / 100;
+    double newTotalPendingAmount = totalPendingAmount - percentageAmount;
+
+    pendingPaymentAmountController.text = percentageAmount.toStringAsFixed(2);
+    emit(state.copyWith(totalPendingAmountValue: newTotalPendingAmount.toString()));
+  } else {
+    getTotalPendingAmountValue();
+  }
+}
+
+
+  void onPickShipmentDate({required BuildContext context}) async {
+   final DateTime now = DateTime.now();
+  final DateTime? picked = await showDatePicker(
+    context: context,
+    initialDate: now,
+    firstDate: now,
+    lastDate: DateTime(2101),
+  );
+    if (picked != null) {
+      productShipmentDateController.text = picked.toString().split(" ").first.toString();
+      
+    }
+  }
+
+  void onPickChDate({required BuildContext context}) async {
+  final DateTime now = DateTime.now();
+  final DateTime? picked = await showDatePicker(
+    context: context,
+    initialDate: now,
+    firstDate: now,
+    lastDate: DateTime(2101),
+  );
+  if (picked != null) {
+    productChDateController.text = picked.toString().split(" ").first;
+  }
+}
+
+
+  void onPickPendingDueDate({required BuildContext context}) async {
+   final DateTime now = DateTime.now();
+  final DateTime? picked = await showDatePicker(
+    context: context,
+    initialDate: now,
+    firstDate: now,
+    lastDate: DateTime(2101),
+  );
+    if (picked != null) {
+      pendingPaymentDueDateController.text = picked.toString().split(" ").first.toString();
+      
+    }
+  }
   void submitProductForm({required VoidCallback successCallback,required VoidCallback failedCallback}) {
 
 
-    if(state.selectedProductModel == null && state.selectedUomModel == null && productQtyController.text.isNotEmpty && productRateController.text.isNotEmpty && producttotalController.text.isNotEmpty  && productShipmentDateController.text.isNotEmpty ) {
+    if(state.selectedProductModel != null && state.selectedUomModel != null && productQtyController.text.isNotEmpty && productRateController.text.isNotEmpty  && productShipmentDateController.text.isNotEmpty ) {
        ProductFormModel productFormModel = ProductFormModel(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         productsModel: state.selectedProductModel ,
@@ -479,4 +649,15 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
     producttotalController.dispose();
     return super.close();
   }
+  
+ Future<void>  getAllPaymentMode() async {
+  final results = await salesRepo.getAllPaymentModes();
+  results.fold((l) {
+    emit(state.copyWith(apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),paymentModeList: [],selectedPaymentModeModel: null,));
+  }, (r) {
+    emit(state.copyWith(paymentModeList:r));
+  });
+ }
+
+ 
 }

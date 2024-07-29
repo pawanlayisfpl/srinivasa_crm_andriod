@@ -16,6 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SalesOrderCreateState {
+  String get originalTotalAmountValue => throw _privateConstructorUsedError;
+  String get totalPendingAmountValue => throw _privateConstructorUsedError;
+  String get remainingPercentage => throw _privateConstructorUsedError;
   List<ProductsModel> get productsList => throw _privateConstructorUsedError;
   ProductsModel? get selectedProductModel => throw _privateConstructorUsedError;
   List<dynamic> get selectedProductList => throw _privateConstructorUsedError;
@@ -67,7 +70,10 @@ abstract class $SalesOrderCreateStateCopyWith<$Res> {
       _$SalesOrderCreateStateCopyWithImpl<$Res, SalesOrderCreateState>;
   @useResult
   $Res call(
-      {List<ProductsModel> productsList,
+      {String originalTotalAmountValue,
+      String totalPendingAmountValue,
+      String remainingPercentage,
+      List<ProductsModel> productsList,
       ProductsModel? selectedProductModel,
       List<dynamic> selectedProductList,
       bool isProductLoading,
@@ -115,6 +121,9 @@ class _$SalesOrderCreateStateCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? originalTotalAmountValue = null,
+    Object? totalPendingAmountValue = null,
+    Object? remainingPercentage = null,
     Object? productsList = null,
     Object? selectedProductModel = freezed,
     Object? selectedProductList = null,
@@ -147,6 +156,18 @@ class _$SalesOrderCreateStateCopyWithImpl<$Res,
     Object? pendingFormList = null,
   }) {
     return _then(_value.copyWith(
+      originalTotalAmountValue: null == originalTotalAmountValue
+          ? _value.originalTotalAmountValue
+          : originalTotalAmountValue // ignore: cast_nullable_to_non_nullable
+              as String,
+      totalPendingAmountValue: null == totalPendingAmountValue
+          ? _value.totalPendingAmountValue
+          : totalPendingAmountValue // ignore: cast_nullable_to_non_nullable
+              as String,
+      remainingPercentage: null == remainingPercentage
+          ? _value.remainingPercentage
+          : remainingPercentage // ignore: cast_nullable_to_non_nullable
+              as String,
       productsList: null == productsList
           ? _value.productsList
           : productsList // ignore: cast_nullable_to_non_nullable
@@ -293,7 +314,10 @@ abstract class _$$SalesOrderCreateStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<ProductsModel> productsList,
+      {String originalTotalAmountValue,
+      String totalPendingAmountValue,
+      String remainingPercentage,
+      List<ProductsModel> productsList,
       ProductsModel? selectedProductModel,
       List<dynamic> selectedProductList,
       bool isProductLoading,
@@ -340,6 +364,9 @@ class __$$SalesOrderCreateStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? originalTotalAmountValue = null,
+    Object? totalPendingAmountValue = null,
+    Object? remainingPercentage = null,
     Object? productsList = null,
     Object? selectedProductModel = freezed,
     Object? selectedProductList = null,
@@ -372,6 +399,18 @@ class __$$SalesOrderCreateStateImplCopyWithImpl<$Res>
     Object? pendingFormList = null,
   }) {
     return _then(_$SalesOrderCreateStateImpl(
+      originalTotalAmountValue: null == originalTotalAmountValue
+          ? _value.originalTotalAmountValue
+          : originalTotalAmountValue // ignore: cast_nullable_to_non_nullable
+              as String,
+      totalPendingAmountValue: null == totalPendingAmountValue
+          ? _value.totalPendingAmountValue
+          : totalPendingAmountValue // ignore: cast_nullable_to_non_nullable
+              as String,
+      remainingPercentage: null == remainingPercentage
+          ? _value.remainingPercentage
+          : remainingPercentage // ignore: cast_nullable_to_non_nullable
+              as String,
       productsList: null == productsList
           ? _value._productsList
           : productsList // ignore: cast_nullable_to_non_nullable
@@ -500,7 +539,10 @@ class __$$SalesOrderCreateStateImplCopyWithImpl<$Res>
 
 class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
   const _$SalesOrderCreateStateImpl(
-      {final List<ProductsModel> productsList = const [],
+      {this.originalTotalAmountValue = '',
+      this.totalPendingAmountValue = '',
+      this.remainingPercentage = "",
+      final List<ProductsModel> productsList = const [],
       this.selectedProductModel = null,
       final List<dynamic> selectedProductList = const [],
       this.isProductLoading = false,
@@ -541,6 +583,15 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
         _productFormList = productFormList,
         _pendingFormList = pendingFormList;
 
+  @override
+  @JsonKey()
+  final String originalTotalAmountValue;
+  @override
+  @JsonKey()
+  final String totalPendingAmountValue;
+  @override
+  @JsonKey()
+  final String remainingPercentage;
   final List<ProductsModel> _productsList;
   @override
   @JsonKey()
@@ -677,7 +728,7 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
 
   @override
   String toString() {
-    return 'SalesOrderCreateState(productsList: $productsList, selectedProductModel: $selectedProductModel, selectedProductList: $selectedProductList, isProductLoading: $isProductLoading, isUomLoading: $isUomLoading, uomList: $uomList, selectedUomModel: $selectedUomModel, remarksToAssignedField: $remarksToAssignedField, productDetailsPostModelList: $productDetailsPostModelList, customerCodeField: $customerCodeField, orderAmountField: $orderAmountField, orderGstAmountField: $orderGstAmountField, orderTotalAmountField: $orderTotalAmountField, orderTotalDiscountField: $orderTotalDiscountField, amountPaidField: $amountPaidField, paymentModeList: $paymentModeList, selectedPaymentModeModel: $selectedPaymentModeModel, balanceAmountField: $balanceAmountField, balanceAmountDueDateField: $balanceAmountDueDateField, orderRemarksField: $orderRemarksField, assignedToRemarks: $assignedToRemarks, paymentsDetailsList: $paymentsDetailsList, isSubmitting: $isSubmitting, isInitialLoading: $isInitialLoading, apiFailedModel: $apiFailedModel, showInputError: $showInputError, customerList: $customerList, selectedCustomerModel: $selectedCustomerModel, productFormList: $productFormList, pendingFormList: $pendingFormList)';
+    return 'SalesOrderCreateState(originalTotalAmountValue: $originalTotalAmountValue, totalPendingAmountValue: $totalPendingAmountValue, remainingPercentage: $remainingPercentage, productsList: $productsList, selectedProductModel: $selectedProductModel, selectedProductList: $selectedProductList, isProductLoading: $isProductLoading, isUomLoading: $isUomLoading, uomList: $uomList, selectedUomModel: $selectedUomModel, remarksToAssignedField: $remarksToAssignedField, productDetailsPostModelList: $productDetailsPostModelList, customerCodeField: $customerCodeField, orderAmountField: $orderAmountField, orderGstAmountField: $orderGstAmountField, orderTotalAmountField: $orderTotalAmountField, orderTotalDiscountField: $orderTotalDiscountField, amountPaidField: $amountPaidField, paymentModeList: $paymentModeList, selectedPaymentModeModel: $selectedPaymentModeModel, balanceAmountField: $balanceAmountField, balanceAmountDueDateField: $balanceAmountDueDateField, orderRemarksField: $orderRemarksField, assignedToRemarks: $assignedToRemarks, paymentsDetailsList: $paymentsDetailsList, isSubmitting: $isSubmitting, isInitialLoading: $isInitialLoading, apiFailedModel: $apiFailedModel, showInputError: $showInputError, customerList: $customerList, selectedCustomerModel: $selectedCustomerModel, productFormList: $productFormList, pendingFormList: $pendingFormList)';
   }
 
   @override
@@ -685,6 +736,12 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SalesOrderCreateStateImpl &&
+            (identical(other.originalTotalAmountValue, originalTotalAmountValue) ||
+                other.originalTotalAmountValue == originalTotalAmountValue) &&
+            (identical(other.totalPendingAmountValue, totalPendingAmountValue) ||
+                other.totalPendingAmountValue == totalPendingAmountValue) &&
+            (identical(other.remainingPercentage, remainingPercentage) ||
+                other.remainingPercentage == remainingPercentage) &&
             const DeepCollectionEquality()
                 .equals(other._productsList, _productsList) &&
             (identical(other.selectedProductModel, selectedProductModel) ||
@@ -717,8 +774,7 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
                 other.amountPaidField == amountPaidField) &&
             const DeepCollectionEquality()
                 .equals(other._paymentModeList, _paymentModeList) &&
-            (identical(
-                    other.selectedPaymentModeModel, selectedPaymentModeModel) ||
+            (identical(other.selectedPaymentModeModel, selectedPaymentModeModel) ||
                 other.selectedPaymentModeModel == selectedPaymentModeModel) &&
             (identical(other.balanceAmountField, balanceAmountField) ||
                 other.balanceAmountField == balanceAmountField) &&
@@ -730,27 +786,22 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
                 other.assignedToRemarks == assignedToRemarks) &&
             const DeepCollectionEquality()
                 .equals(other._paymentsDetailsList, _paymentsDetailsList) &&
-            (identical(other.isSubmitting, isSubmitting) ||
-                other.isSubmitting == isSubmitting) &&
-            (identical(other.isInitialLoading, isInitialLoading) ||
-                other.isInitialLoading == isInitialLoading) &&
-            (identical(other.apiFailedModel, apiFailedModel) ||
-                other.apiFailedModel == apiFailedModel) &&
-            (identical(other.showInputError, showInputError) ||
-                other.showInputError == showInputError) &&
-            const DeepCollectionEquality()
-                .equals(other._customerList, _customerList) &&
-            (identical(other.selectedCustomerModel, selectedCustomerModel) ||
-                other.selectedCustomerModel == selectedCustomerModel) &&
-            const DeepCollectionEquality()
-                .equals(other._productFormList, _productFormList) &&
-            const DeepCollectionEquality()
-                .equals(other._pendingFormList, _pendingFormList));
+            (identical(other.isSubmitting, isSubmitting) || other.isSubmitting == isSubmitting) &&
+            (identical(other.isInitialLoading, isInitialLoading) || other.isInitialLoading == isInitialLoading) &&
+            (identical(other.apiFailedModel, apiFailedModel) || other.apiFailedModel == apiFailedModel) &&
+            (identical(other.showInputError, showInputError) || other.showInputError == showInputError) &&
+            const DeepCollectionEquality().equals(other._customerList, _customerList) &&
+            (identical(other.selectedCustomerModel, selectedCustomerModel) || other.selectedCustomerModel == selectedCustomerModel) &&
+            const DeepCollectionEquality().equals(other._productFormList, _productFormList) &&
+            const DeepCollectionEquality().equals(other._pendingFormList, _pendingFormList));
   }
 
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
+        originalTotalAmountValue,
+        totalPendingAmountValue,
+        remainingPercentage,
         const DeepCollectionEquality().hash(_productsList),
         selectedProductModel,
         const DeepCollectionEquality().hash(_selectedProductList),
@@ -793,7 +844,10 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
 
 abstract class _SalesOrderCreateState implements SalesOrderCreateState {
   const factory _SalesOrderCreateState(
-          {final List<ProductsModel> productsList,
+          {final String originalTotalAmountValue,
+          final String totalPendingAmountValue,
+          final String remainingPercentage,
+          final List<ProductsModel> productsList,
           final ProductsModel? selectedProductModel,
           final List<dynamic> selectedProductList,
           final bool isProductLoading,
@@ -825,6 +879,12 @@ abstract class _SalesOrderCreateState implements SalesOrderCreateState {
           final List<ProductPendingFormModel> pendingFormList}) =
       _$SalesOrderCreateStateImpl;
 
+  @override
+  String get originalTotalAmountValue;
+  @override
+  String get totalPendingAmountValue;
+  @override
+  String get remainingPercentage;
   @override
   List<ProductsModel> get productsList;
   @override

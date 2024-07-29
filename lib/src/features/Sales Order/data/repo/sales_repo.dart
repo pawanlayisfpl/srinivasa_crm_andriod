@@ -4,12 +4,16 @@ import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/payment_mode_model.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/price_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/product_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/uom_model.dart';
 
 abstract class SalesRepo {
   Future<Either<NetworkExceptions, List<ProductsModel>>> getAllProducts();
   Future<Either<NetworkExceptions, List<UOMModel>>> getAllUom();
+  Future<Either<NetworkExceptions,PriceModel>> getPriceByProductId(int productId);
+  Future<Either<NetworkExceptions, List<PaymentModeModel>>> getAllPaymentModes();
 }
 
 @Injectable(as: SalesRepo)
@@ -91,6 +95,43 @@ class SaleRepoImpl implements SalesRepo {
     } else {
       logger.d('INTERNET CONNECTION IS DISABLEDÍ');
       return const Left(NetworkExceptions.noInternetConnection());
+    }
+  }
+  
+  @override
+  Future<Either<NetworkExceptions, PriceModel>> getPriceByProductId(int productId) async {
+   try {
+    final response = await dioClient.get(Endpoints.getProductPriceById+productId.toString(), headers: {});
+    if (response.statusCode == 200) {
+      final PriceModel priceModel = PriceModel.fromJson(response.data);
+      return Right(priceModel);
+    } else {
+      return Left(NetworkExceptions.getDioException(response.data));
+    }
+     
+   } on DioException catch (e) {
+    return Left(NetworkExceptions.getDioException(e));
+
+     
+   }
+  }
+  
+  @override
+  Future<Either<NetworkExceptions, List<PaymentModeModel>>> getAllPaymentModes() async  {
+    try {
+      final response = await dioClient.get(Endpoints.getAllPaymentModes, headers: {});
+      if (response.statusCode == 200) {
+        final List<PaymentModeModel> paymentModeList = [];
+        response.data.forEach((element) {
+          paymentModeList.add(PaymentModeModel.fromJson(element));
+        });
+        return Right(paymentModeList);
+        
+      } else {
+        return Left(NetworkExceptions.getDioException(response.data));
+      }
+    } on DioException catch (e) {
+      return Left(NetworkExceptions.getDioException(e));
     }
   }
 }

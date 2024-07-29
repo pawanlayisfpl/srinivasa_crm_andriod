@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/sales_order_create_cubit.dart';
@@ -18,8 +19,8 @@ import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_product_total_amount_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_uom_dropdown.dart';
 
+import '../cubit/state/sales_order_create_state.dart';
 import 'widgets/soc_product_qty_textfield.dart';
-
 
 class SalesProductFormScreen extends StatefulWidget {
   const SalesProductFormScreen({super.key});
@@ -36,69 +37,88 @@ class _SalesProductFormScreenState extends State<SalesProductFormScreen> {
         title: const Text('Sales Product Form'),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(child: Column(crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          20.verticalSpace,
-          const CustomHeadingTextWidget(title: 'Product Name'),
-           2.verticalSpace,
-           const SocProductDropDown(),
-         20.verticalSpace,
-          const CustomHeadingTextWidget(title: 'Quanity'),
-           2.verticalSpace,
-           const SocProductQtyTextFieldWidget(),
-          20.verticalSpace,
-          const CustomHeadingTextWidget(title: 'Rate'),
-           2.verticalSpace,
-         const  SocProductRateTextField(),
-          20.verticalSpace,
-          const CustomHeadingTextWidget(title: 'Selling Rate'),
-           2.verticalSpace,
-           const SocProductSellingRateTextField(),
-          20.verticalSpace,
-          const CustomHeadingTextWidget(title: 'Discount per Qty'),
-           2.verticalSpace,
-           const SocProductDiscountPerQtyTextFieldWidget(),
-            20.verticalSpace,
-          const CustomHeadingTextWidget(title: 'Discount per Percentage'),
-           2.verticalSpace,
-           const SocProductDiscountPerPercentageTextField(),
-            20.verticalSpace,
-          const CustomHeadingTextWidget(title: 'Total Amount'),
-           2.verticalSpace,
-           const SocProductTotalAmountTextField(),
-            20.verticalSpace,
-          // const CustomHeadingTextWidget(title: 'Gst Amount'),
-          //  2.verticalSpace,
-          //  const SocAmountPaidController(),
-          //   20.verticalSpace,
-          const CustomHeadingTextWidget(title: 'Uom Type'),
-           2.verticalSpace,
-          const SocUomDropDownWidget(),
-            20.verticalSpace,
-          const CustomHeadingTextWidget(title: 'Shipping Date'),
-           2.verticalSpace,
-           const SocProductShipmentTextField(),
-            20.verticalSpace,
-          const CustomHeadingTextWidget(title: 'CH Hatching Date'),
-           2.verticalSpace,
-           const SocProductChDateTextField(),
-          20.verticalSpace,
-          CommonButton(callback: () async {
-            context.read<SalesOrderCreateCubit>().submitProductForm(successCallback: () { 
-              Fluttertoast.showToast(msg: 'Product saved',backgroundColor: Colors.green,textColor: Colors.white);
-            Navigator.pop(context);
-
-             }, failedCallback: () { 
-              Fluttertoast.showToast(msg: 'Please fill all the details',backgroundColor: Colors.red,textColor: Colors.white);
-             });
-            
-
-
-          }, title: "Submit"),
-          20.verticalSpace
+        child: BlocConsumer<SalesOrderCreateCubit, SalesOrderCreateState>(
+          listenWhen: (previous, current) => previous.apiFailedModel != current.apiFailedModel,
+          listener: (context, state) {
+            if(state.apiFailedModel != null) {
+              QuickAlert.show(context: context, type: QuickAlertType.error, title: 'Error', text: state.apiFailedModel!.message,confirmBtnColor: Colors.black,barrierDismissible: false);  
+            }
+          },
+          builder: (context, state) {
+            return SingleChildScrollView(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                20.verticalSpace,
+                const CustomHeadingTextWidget(title: 'Product Name'),
+                2.verticalSpace,
+                const SocProductDropDown(),
+                20.verticalSpace,
           
-
-        ],).withSymetricPadding(horizontalPadding: 15.w)),
+                const CustomHeadingTextWidget(title: 'Rate'),
+                2.verticalSpace,
+                const SocProductRateTextField(),
+                20.verticalSpace,
+                const CustomHeadingTextWidget(title: 'Selling Rate'),
+                2.verticalSpace,
+                const SocProductSellingRateTextField(),
+                20.verticalSpace,
+                      const CustomHeadingTextWidget(title: 'Quanity'),
+                2.verticalSpace,
+                const SocProductQtyTextFieldWidget(),
+                20.verticalSpace,
+                  const CustomHeadingTextWidget(title: 'Total Amount'),
+                2.verticalSpace,
+                const SocProductTotalAmountTextField(),
+                20.verticalSpace,
+                const CustomHeadingTextWidget(title: 'Discount per Qty'),
+                2.verticalSpace,
+                const SocProductDiscountPerQtyTextFieldWidget(),
+                20.verticalSpace,
+                const CustomHeadingTextWidget(title: 'Discount per Percentage'),
+                2.verticalSpace,
+                const SocProductDiscountPerPercentageTextField(),
+                20.verticalSpace,
+              
+                // const CustomHeadingTextWidget(title: 'Gst Amount'),
+                //  2.verticalSpace,
+                //  const SocAmountPaidController(),
+                //   20.verticalSpace,
+                const CustomHeadingTextWidget(title: 'Uom Type'),
+                2.verticalSpace,
+                const SocUomDropDownWidget(),
+                20.verticalSpace,
+                const CustomHeadingTextWidget(title: 'Shipping Date'),
+                2.verticalSpace,
+                const SocProductShipmentTextField(),
+                20.verticalSpace,
+                const CustomHeadingTextWidget(title: 'CH Hatching Date'),
+                2.verticalSpace,
+                const SocProductChDateTextField(),
+                20.verticalSpace,
+                CommonButton(
+                    callback: () async {
+                      context.read<SalesOrderCreateCubit>().submitProductForm(
+                          successCallback: () {
+                        Fluttertoast.showToast(
+                            msg: 'Product saved',
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white);
+                        Navigator.pop(context);
+                      }, failedCallback: () {
+                        Fluttertoast.showToast(
+                            msg: 'Please fill all the details',
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white);
+                      });
+                    },
+                    title: "Submit"),
+                20.verticalSpace
+              ],
+            ).withSymetricPadding(horizontalPadding: 15.w));
+          },
+        ),
       ),
     );
   }

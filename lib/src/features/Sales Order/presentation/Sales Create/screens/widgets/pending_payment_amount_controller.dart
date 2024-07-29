@@ -19,6 +19,7 @@ class PendingPaymentAmountTextfield extends StatelessWidget {
       },
       builder: (context, state) {
         return CommonTextfield(
+          
           fillColor: AppColors.textFieldBgColor,
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,
@@ -26,7 +27,7 @@ class PendingPaymentAmountTextfield extends StatelessWidget {
           ],
           textInputType: TextInputType.number,
           textInputAction: TextInputAction.next,
-          textEditingController: context.read<SalesOrderCreateCubit>().pendingPaymentAmountController , onChanged: (String? value) { }, validator: (v) => null, hintText: "Enter pending amount", autovalidateMode: AutovalidateMode.disabled);
+          textEditingController: context.watch<SalesOrderCreateCubit>().pendingPaymentAmountController , onChanged: (String? value) => context.read<SalesOrderCreateCubit>().onDueAmountChanged(), validator: (v) => null, hintText: "Enter pending amount", autovalidateMode: AutovalidateMode.disabled);
       },
     );
   }

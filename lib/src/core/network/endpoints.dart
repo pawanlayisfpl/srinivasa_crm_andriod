@@ -80,8 +80,12 @@ class Endpoints {
 
   // SALES ORDER
   static const String getAllProducts = '$basicUrl/se/product';
+  static const String getProductPriceById = '$basicUrl/se/product-price/';
 
   // UOM
   static const String getAllUom = '$basicUrl/se/uom';
+
+  // PAYMENT MODES
+  static const String getAllPaymentModes = '$basicUrl/se/payment-mode';
 
 }

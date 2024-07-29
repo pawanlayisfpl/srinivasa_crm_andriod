@@ -15,13 +15,18 @@ class SocProductChDateTextField extends StatelessWidget {
     return BlocBuilder<SalesOrderCreateCubit, SalesOrderCreateState>(
       builder: (context, state) {
         return CommonTextfield(
+          readOnly: true,
+          onTapFunction: () {
+            context.read<SalesOrderCreateCubit>().onPickChDate(context: context);
+          
+          },
             fillColor: AppColors.textFieldBgColor,
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
             ],
             textInputType: TextInputType.number,
             textEditingController:
-                context.watch<SalesOrderCreateCubit>().productChDateController,
+                context.read<SalesOrderCreateCubit>().productChDateController,
             onChanged: (String? value) {},
             validator: (v) => null,
             hintText: "Enter product ch date ",

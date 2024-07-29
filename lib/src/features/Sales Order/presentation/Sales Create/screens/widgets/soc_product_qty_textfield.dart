@@ -22,7 +22,7 @@ class SocProductQtyTextFieldWidget extends StatelessWidget {
             textInputType: TextInputType.number,
             textEditingController:
                 context.watch<SalesOrderCreateCubit>().productQtyController,
-            onChanged: (String? value) {},
+            onChanged: (String? value) => context.read<SalesOrderCreateCubit>().onQtyChanged(),
             validator: (v) => null,
             hintText: "Enter product qty",
             autovalidateMode: AutovalidateMode.disabled);

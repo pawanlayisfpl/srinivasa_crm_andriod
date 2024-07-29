@@ -18,6 +18,12 @@ class PendingPaymentDueDateTextField extends StatelessWidget {
       },
       builder: (context, state) {
         return CommonTextfield(
+          readOnly: true,
+          onTapFunction: () {
+            context.read<SalesOrderCreateCubit>().onPickPendingDueDate(context: context);
+          
+          
+          },
           fillColor: AppColors.textFieldBgColor,
           inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))],
           textInputType: TextInputType.number,

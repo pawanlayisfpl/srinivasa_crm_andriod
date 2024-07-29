@@ -59,7 +59,7 @@ class SocPaymentModeDropDownWidget extends StatelessWidget {
                     enableFeedback: true,
                     icon: const Icon(Icons.clear),
                     onPressed: () {
-                      context.read<CustomerCreateCubit>().clearZoneValue();
+                      context.read<SalesOrderCreateCubit>().resetPaymentMode();
                     }
           
           

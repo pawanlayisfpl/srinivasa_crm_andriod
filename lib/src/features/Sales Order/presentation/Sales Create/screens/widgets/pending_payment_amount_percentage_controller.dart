@@ -26,7 +26,7 @@ class PendingPaymentDuePercentageTextField extends StatelessWidget {
           ],
           textInputType: TextInputType.number,
           textInputAction: TextInputAction.next,
-          textEditingController: context.watch<SalesOrderCreateCubit>().pendingPaymentAmountPerentageController , onChanged: (String? value) { }, validator: (v) => null,  hintText: "Enter pending amount percentage", autovalidateMode: AutovalidateMode.disabled);
+          textEditingController: context.watch<SalesOrderCreateCubit>().pendingPaymentAmountPerentageController , onChanged: (String? value)  => context.read<SalesOrderCreateCubit>().onDuePercentageChanged(), validator: (v) => null,  hintText: "Enter pending amount percentage", autovalidateMode: AutovalidateMode.disabled);
       },
     );
   }

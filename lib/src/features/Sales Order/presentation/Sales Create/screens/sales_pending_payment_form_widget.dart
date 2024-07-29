@@ -24,6 +24,12 @@ class SalesPendingPaymentForm extends StatefulWidget {
 
 class _SalesPendingPaymentFormState extends State<SalesPendingPaymentForm> {
   @override
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<SalesOrderCreateCubit>().getTotalPendingAmountValue();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -32,6 +38,26 @@ class _SalesPendingPaymentFormState extends State<SalesPendingPaymentForm> {
       body: SafeArea(
         child: SingleChildScrollView(child: Column(crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          20.verticalSpace,
+          RichText(text: TextSpan(
+            text: 'Total Pending Amount : ',
+            style: TextStyle(color: Colors.black,fontSize: 16.sp),
+            children: [
+              TextSpan(text: context.watch<SalesOrderCreateCubit>().state.totalPendingAmountValue.toString(),style: TextStyle(color: Colors.red,fontSize: 16.sp))
+            ]
+          )),
+          20.verticalSpace,
+            //  20.verticalSpace,
+//           RichText(text: TextSpan(
+//             text: 'Total Remaining Amount Percentage : ',
+//             style: TextStyle(color: Colors.black,fontSize: 16.sp),
+//             children: [
+// TextSpan(
+//   text: (int.tryParse(context.watch<SalesOrderCreateCubit>().state.remainingPercentage.toString()) ?? 0).toString(),
+//   style: TextStyle(color: Colors.red, fontSize: 16.sp),
+// )              // TextSpan(text: int.parse(context.watch<SalesOrderCreateCubit>().state.remainingPercentage.toString()).toString(),style: TextStyle(color: Colors.red,fontSize: 16.sp))
+//             ]
+//           )),
           20.verticalSpace,
           CustomHeadingTextWidget(title: 'Due Date'),
            2.verticalSpace,
