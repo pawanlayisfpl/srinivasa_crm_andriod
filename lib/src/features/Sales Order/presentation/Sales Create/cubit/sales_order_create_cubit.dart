@@ -190,82 +190,191 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
 
   // ON DISCOUNT PER QTY CHANGED
 // ON DISCOUNT PER QTY CHANGED
-void onDiscountPerQtyChanged() {
-  String lastTotalValue = producttotalController.text;
 
+// void onDiscountPerQtyChanged() {
+
+//   // Check if all necessary text fields are not empty
+//   if (productQtyController.text.isNotEmpty &&
+//       productSellingRateController.text.isNotEmpty &&
+//       productRateController.text.isNotEmpty) {
+
+//         if(productDiscountPerQty.text.isNotEmpty) {
+//           productDiscountPerPercentage.clear();
+//           producttotalController.text = state.originalTotalAmountValue.toString();
+//         }
+
+//     // Parse values from text controllers
+//     double sellingPrice = double.tryParse(productSellingRateController.text) ?? 0.0;
+//     int qty = int.tryParse(productQtyController.text) ?? 0;
+//     double discountPerQtyValue = double.tryParse(productDiscountPerQty.text) ?? 0.0;
+
+//     // Ensure discount quantity is not more than actual quantity
+//     if (discountPerQtyValue <= qty) {
+//       double totalAmountBeforeDiscount = sellingPrice * qty;
+//       double discountAmount = discountPerQtyValue * sellingPrice;
+//       double totalAmountAfterDiscount = totalAmountBeforeDiscount - discountAmount;
+//       producttotalController.text = totalAmountAfterDiscount.toStringAsFixed(2);
+//     } else {
+//       Fluttertoast.showToast(
+//         msg: 'Discount qty can\'t be more than actual qty',
+//         backgroundColor: Colors.red,
+//         textColor: Colors.white,
+//         toastLength: Toast.LENGTH_LONG,
+//       );
+//     }
+//   } else {
+//     Fluttertoast.showToast(
+//       msg: 'Please fill in all required fields',
+//       backgroundColor: Colors.red,
+//       textColor: Colors.white,
+//       toastLength: Toast.LENGTH_LONG,
+//     );
+//   }
+// }
+
+void onDiscountPerPercentageClicked() {
+  if(productDiscountPerPercentage.text.isNotEmpty && productDiscountPerPercentage.text.contains("%")) {
+    productDiscountPerPercentage.text = productDiscountPerPercentage.text.split(" ").first.toString();
+  }
+}
+
+
+void onDiscountPerQtyChanged  () {
   // Check if all necessary text fields are not empty
   if (productQtyController.text.isNotEmpty &&
-      productSellingRateController.text.isNotEmpty &&
       productRateController.text.isNotEmpty) {
 
-        if(productDiscountPerQty.text.isNotEmpty) {
-          productDiscountPerPercentage.clear();
-          producttotalController.text = state.originalTotalAmountValue.toString();
-        }
+    if (productDiscountPerQty.text.isNotEmpty) {
+      productDiscountPerPercentage.clear();
+      producttotalController.text = state.originalTotalAmountValue.toString();
+    }else {
 
-    // Parse values from text controllers
-    double sellingPrice = double.tryParse(productSellingRateController.text) ?? 0.0;
+    }
+
+   
+    double givenPrice = double.tryParse(productRateController.text) ?? 0.0;
     int qty = int.tryParse(productQtyController.text) ?? 0;
     double discountPerQtyValue = double.tryParse(productDiscountPerQty.text) ?? 0.0;
+    double finalAmount = givenPrice - discountPerQtyValue;
+    const double minPercentage = 0.20;
+    double minAllowedAmount = givenPrice * minPercentage;
+    // Check if finalAmount is less than the minimum allowed amount
+if (discountPerQtyValue <= minAllowedAmount) {
 
-    // Ensure discount quantity is not more than actual quantity
-    if (discountPerQtyValue <= qty) {
-      double totalAmountBeforeDiscount = sellingPrice * qty;
-      double discountAmount = discountPerQtyValue * sellingPrice;
-      double totalAmountAfterDiscount = totalAmountBeforeDiscount - discountAmount;
-      producttotalController.text = totalAmountAfterDiscount.toStringAsFixed(2);
-    } else {
-      Fluttertoast.showToast(
-        msg: 'Discount qty can\'t be more than actual qty',
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        toastLength: Toast.LENGTH_LONG,
-      );
-    }
-  } else {
-    Fluttertoast.showToast(
-      msg: 'Please fill in all required fields',
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
-      toastLength: Toast.LENGTH_LONG,
-    );
-  }
+
+    double finaltotalAmountValue = finalAmount * qty;
+    double totalGivenAmountValue = givenPrice * qty;
+    productSellingRateController.text = finalAmount.toStringAsFixed(2);
+    log('printing final amount value is ${finaltotalAmountValue.toString()}');
+    producttotalController.text = finaltotalAmountValue.toString();
+
+
+    log("selling price total amount is ${finaltotalAmountValue.toString()}");
+    log('original price total amount is ${totalGivenAmountValue.toString()}');
+
+
+    double discountPercentage = ((totalGivenAmountValue - finaltotalAmountValue) / totalGivenAmountValue) * 100;
+    log('discount percentage is ${discountPercentage.toString()}');
+    productDiscountPerPercentage.text = discountPercentage.toStringAsFixed(2) + " %";
+
+    
+ 
+} else {
+  productDiscountPerQty.clear();
+  productSellingRateController.text =  givenPrice.toString();
+  producttotalController.text = state.originalTotalAmountValue.toString();
+
+   Fluttertoast.showToast(
+    msg: 'Final amount should not be greater than \n${minAllowedAmount.toIndianPriceFormat()}',
+    backgroundColor: Colors.red,
+    textColor: Colors.white,
+    toastLength: Toast.LENGTH_LONG,
+  );
 }
 
 
-  void onDiscountPerPercentageChanged() {
 
-    if(productDiscountPerPercentage.text.isEmpty && productDiscountPerQty.text.isNotEmpty ) {
+
+
+   
+  } else {
+   
+  }
+}
+
+void onDiscountPerPercentageChanged() {
+  if (productDiscountPerPercentage.text.isEmpty && productDiscountPerQty.text.isNotEmpty) {
+    producttotalController.text = state.originalTotalAmountValue.toString();
+    return;
+  }
+
+  if (productQtyController.text.isNotEmpty && productRateController.text.isNotEmpty) {
+    if (productDiscountPerPercentage.text.isNotEmpty) {
+      productDiscountPerQty.clear();
       producttotalController.text = state.originalTotalAmountValue.toString();
-      return;
     }
 
-       if (productQtyController.text.isNotEmpty &&
-    productSellingRateController.text.isNotEmpty &&
-    productRateController.text.isNotEmpty) {
+    int givenQty = int.tryParse(productQtyController.text) ?? 0;
+    double givenRate = double.tryParse(productRateController.text) ?? 0.0;
+    double discountPerPercentage = double.tryParse(productDiscountPerPercentage.text) ?? 0.0;
 
-      if(productDiscountPerPercentage.text.isNotEmpty) {
-        productDiscountPerQty.clear();
-        producttotalController.text = state.originalTotalAmountValue.toString();
-      }
-  double totalAmount = double.tryParse(state.originalTotalAmountValue) ?? 0.0;
-  double discountPerPercentage = double.tryParse(productDiscountPerPercentage.text) ?? 0.0;
+    if (discountPerPercentage <= 10) {
+      double actualTotalAmount = givenRate * givenQty;
+      double discountAmount = (actualTotalAmount * discountPerPercentage) / 100;
+      double discountPerQty = discountAmount / givenQty;
+      double finalAmount = actualTotalAmount - discountAmount;
 
-  if (discountPerPercentage <= 100) {
-    double discountAmount = (totalAmount * discountPerPercentage) / 100;
-    double totalAmountAfterDiscount = totalAmount - discountAmount;
-    producttotalController.text = totalAmountAfterDiscount.toStringAsFixed(2);
-  } else if (discountPerPercentage == 0.0 || productDiscountPerPercentage.text.isEmpty) {
-    producttotalController.text = state.originalTotalAmountValue;
-  } else {
-    // Handle invalid discount percentage case
-    // For example, you might want to show an error message or reset the discount percentage
-    productDiscountPerPercentage.text = '0.0';
-    producttotalController.text = state.originalTotalAmountValue;
+      producttotalController.text = finalAmount.toString();
+      // Assuming you have a controller to display discount per quantity
+      productDiscountPerQty.text = discountPerQty.toStringAsFixed(2);
+       double newSellingRateValue =  finalAmount / double.parse(productQtyController.text);
+    log('new selling price is ${newSellingRateValue.toString()}');
+    productSellingRateController.text = newSellingRateValue.toStringAsFixed(2);
+    } else if (discountPerPercentage == 0.0 || productDiscountPerPercentage.text.isEmpty) {
+      producttotalController.text = state.originalTotalAmountValue.toString();
+    } else {
+      // Handle invalid discount percentage case
+      // For example, you might want to show an error message or reset the discount percentage
+      productDiscountPerPercentage.text = '0.0';
+      productSellingRateController.text = productRateController.text;
+      producttotalController.text = state.originalTotalAmountValue.toString();
+    }
   }
 }
 
-  }
+
+//   void onDiscountPerPercentageChanged() {
+//   if (productDiscountPerPercentage.text.isEmpty && productDiscountPerQty.text.isNotEmpty) {
+//     producttotalController.text = state.originalTotalAmountValue.toString();
+//     return;
+//   }
+
+//   if (productQtyController.text.isNotEmpty && productRateController.text.isNotEmpty) {
+//     if (productDiscountPerPercentage.text.isNotEmpty) {
+//       productDiscountPerQty.clear();
+//       producttotalController.text = state.originalTotalAmountValue.toString();
+//     }
+
+//     int givenQty = int.tryParse(productQtyController.text) ?? 0;
+//     double givenRate = double.tryParse(productRateController.text) ?? 0.0;
+//     double discountPerPercentage = double.tryParse(productDiscountPerPercentage.text) ?? 0.0;
+
+//     if (discountPerPercentage <= 10) {
+//       double actualTotalAmount = givenRate * givenQty;
+//       double discountAmount = (actualTotalAmount * discountPerPercentage) / 100;
+//       double finalAmount = actualTotalAmount - discountAmount;
+
+//       producttotalController.text = finalAmount.toString();
+//     } else if (discountPerPercentage == 0.0 || productDiscountPerPercentage.text.isEmpty) {
+//       producttotalController.text = state.originalTotalAmountValue.toString();
+//     } else {
+//       // Handle invalid discount percentage case
+//       // For example, you might want to show an error message or reset the discount percentage
+//       productDiscountPerPercentage.text = '0.0';
+//       producttotalController.text = state.originalTotalAmountValue.toString();
+//     }
+//   }
+// }
 
 // GET ALL CUSTOMERS
   Future<void> getAllCustomer() async {
@@ -341,12 +450,13 @@ void onDiscountPerQtyChanged() {
   }
 
   void resetProductModel() {
-    emit(state.copyWith(selectedProductModel: null));
+    emit(state.copyWith(selectedProductModel: null,totalPendingAmountValue: ""));
     productQtyController.clear();
     productRateController.clear();
     productSellingRateController.clear();
     productDiscountPerPercentage.clear();
     productDiscountPerQty.clear();
+    producttotalController.clear();
   }
 
   void setSelectedProductModel({required ProductsModel value}) async {
@@ -532,6 +642,7 @@ void onDuePercentageChanged() {
     double newTotalPendingAmount = totalPendingAmount - percentageAmount;
 
     pendingPaymentAmountController.text = percentageAmount.toStringAsFixed(2);
+   
     emit(state.copyWith(totalPendingAmountValue: newTotalPendingAmount.toString()));
   } else {
     getTotalPendingAmountValue();
@@ -594,7 +705,7 @@ void onDuePercentageChanged() {
         totalAmount: double.tryParse(producttotalController.text) ?? 0.0,
         uomId:state.selectedUomModel == null ? 0 : int.tryParse(state.selectedUomModel!.uomId.toString()) ?? 0,
         quanitiyToDeliver: int.tryParse(productQtyController.text) ?? 0,
-        discountPerPercentage: double.tryParse(productDiscountPerPercentage.text) ?? 0.0,
+        discountPerPercentage: double.tryParse(productDiscountPerPercentage.text.toString().split(" ").first) ?? 0.0,
         discountPerQty: double.tryParse(productDiscountPerQty.text) ?? 0.0,
         gstAmount: 0.0,
         sellingRate: double.tryParse(productSellingRateController.text) ?? 0.0,
@@ -611,6 +722,8 @@ void onDuePercentageChanged() {
     productDiscountPerQty.clear();
     productShipmentDateController.clear(); 
     productChDateController.clear();
+    // CALLING TOTAL ORDER AMOUNT VALUES HERE
+    getOrderAmountTotalValues();
     successCallback();
     }else {
       failedCallback();
@@ -657,6 +770,21 @@ void onDuePercentageChanged() {
   }, (r) {
     emit(state.copyWith(paymentModeList:r));
   });
+ }
+
+
+ void getOrderAmountTotalValues() {
+   double newOrderAmount =  state.productFormList.fold(0.0, (acc, element) => acc + element.totalAmount);
+
+  log("total order amount is ${newOrderAmount.toString()}");
+
+   double totalGstAmountValue = state.productFormList.fold(0.0, (acc,element) => acc + double.parse(element.gstAmount.toString()));
+ 
+  log("total gst amount is ${totalGstAmountValue.toString()}");
+
+  orderAmountController.text = newOrderAmount.toString();
+  orderAmountTotalController.text = newOrderAmount.toString();
+orderAmountController.text = (double.tryParse(newOrderAmount.toString()) ?? 0.0 - totalGstAmountValue).toString();  orderGstAmountController.text = totalGstAmountValue.toString();
  }
 
  

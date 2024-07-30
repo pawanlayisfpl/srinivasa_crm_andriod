@@ -39,24 +39,7 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           20.verticalSpace,
-          // CUSTOMER CODE NON EDIT
-
-          // PROUDCT DETAILS DROPDOWN
-          // ORDER AMOUNT TEXTFIELD
-          // ORDER GST NUMBER TEXTFIELD
-          // ORDER DISCOUNT TEXTFIELD
-          // AMOUNT PAID TEXTFIELD
-          // PAYMENT MODE DROPDOWN LSIT
-          // BALANCE AMOUNT TEXTFIELD
-          // BALANCE AMOUNT DUE DATE FIELD
-          // ORDER REMAKRS TEXTAREA FIELD
-          // EMPLOYEE OWN ID TEXTFIELD NOT EDITABLE
-          // ASSIGNED TO REMAKRS FIELD
-          // LIST OF PENDING PAYMENT DROPDOWNS
-          // SUBMIT BUTTON
-
-          // CUSTOMER CODE NON EDIT
-          // CUSTOMER EXPANSION TILE
+       
           CustomExpansionTileWidget(heading: 'Customer Details', childrens: [
             // 20.verticalSpace,
             const CustomHeadingTextWidget(title: 'Customer'),
@@ -78,7 +61,7 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
                         context, ScaleRoute(screen: SalesProductFormScreen()));
                   }
                 },
-                title: 'Add Product'),
+                title: context.watch<SalesOrderCreateCubit>().state.productFormList.isNotEmpty ? "Add another product" : 'Add Product'),
             20.verticalSpace,
           ]),
           20.verticalSpace,
@@ -87,7 +70,7 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
           CustomExpansionTileWidget(heading: 'Order Details:', childrens: [
             20.verticalSpace,
             const CustomHeadingTextWidget(title: 'Order Amount '),
-            const SocAmountPaidController(),
+            const SocOrderAmountTextField(),
             20.verticalSpace,
             const CustomHeadingTextWidget(title: 'Order Amount Total'),
             const SocTotalOrderAmountTextField(),

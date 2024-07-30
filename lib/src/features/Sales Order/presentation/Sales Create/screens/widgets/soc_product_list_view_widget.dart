@@ -25,6 +25,7 @@ class SocProductListWidget extends StatelessWidget {
                         itemBuilder: (c,i) {
                           ProductFormModel pendingFormModel = state.productFormList[i];
                           return Container(
+                            margin: EdgeInsets.symmetric(horizontal: 10.w),
   
                             padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
                             decoration: BoxDecoration(
@@ -58,6 +59,7 @@ class SocProductListWidget extends StatelessWidget {
                                             
                                         ],
                                       ),
+                                      Divider(),
                                       5.verticalSpace,
                                        Row(
                                         children: [
@@ -72,6 +74,7 @@ class SocProductListWidget extends StatelessWidget {
                                         ],
                                       ),
                                       // DUE PERCENTAGE
+                                         Divider(),
                                         5.verticalSpace,
                                         Row(
                                         children: [
@@ -85,6 +88,67 @@ class SocProductListWidget extends StatelessWidget {
                                             
                                         ],
                                       ),
+                                       // DISCOUNT PER QTY
+                                          Divider(),
+                                        5.verticalSpace,
+                                        Row(
+                                        children: [
+                                          Expanded( 
+                                            flex: 5,
+                                            child: CommonTextWidget(title: "Selling\nRate :",align: TextAlign.start,)),
+                                               Expanded( 
+                                            flex: 6,
+                                            child: CommonTextWidget(title: pendingFormModel.sellingRate!.toIndianPriceFormat(),align: TextAlign.start,),)
+                                            
+                                            
+                                        ],
+                                      ),
+                                       // DISCOUNT PER PERCENTAGE
+                                          Divider(),
+                                        5.verticalSpace,
+                                        Row(
+                                        children: [
+                                          Expanded( 
+                                            flex: 5,
+                                            child: CommonTextWidget(title: "Discount\nQty :",align: TextAlign.start,)),
+                                               Expanded( 
+                                            flex: 6,
+                                            child: CommonTextWidget(title: pendingFormModel.discountPerQty.toString(),align: TextAlign.start,),)
+                                            
+                                            
+                                        ],
+                                      ),
+
+                                       // TOTAL PERCENTAGE
+                                          Divider(),
+                                        5.verticalSpace,
+                                        Row(
+                                        children: [
+                                          Expanded( 
+                                            flex: 5,
+                                            child: CommonTextWidget(title: "Discount\nPercentage :",align: TextAlign.start,)),
+                                               Expanded( 
+                                            flex: 6,
+                                            child: CommonTextWidget(title: pendingFormModel.discountPerPercentage.toString() +" %",align: TextAlign.start,),)
+                                            
+                                            
+                                        ],
+                                      ),
+                                         Divider(),
+                                            5.verticalSpace,
+                                        Row(
+                                        children: [
+                                          Expanded( 
+                                            flex: 5,
+                                            child: CommonTextWidget(title: "Total value :",align: TextAlign.start,)),
+                                               Expanded( 
+                                            flex: 6,
+                                            child: CommonTextWidget(title: pendingFormModel.totalAmount.toIndianPriceFormat(),align: TextAlign.start,),)
+                                            
+                                            
+                                        ],
+                                      ),
+                                         Divider(),
                                     ],
                                   ),
                                 ),

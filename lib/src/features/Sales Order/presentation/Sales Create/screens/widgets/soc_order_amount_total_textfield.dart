@@ -18,6 +18,7 @@ class SocTotalOrderAmountTextField extends StatelessWidget {
       },
       builder: (context, state) {
         return CommonTextfield(
+          
           fillColor: AppColors.textFieldBgColor,
           
           textEditingController: context.read<SalesOrderCreateCubit>().orderAmountTotalController ,readOnly: true, onChanged: (String? value) { }, validator: (v) => null,  hintText: "Enter order amount total", autovalidateMode: AutovalidateMode.always);

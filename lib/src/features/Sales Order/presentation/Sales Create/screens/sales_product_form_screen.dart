@@ -45,78 +45,82 @@ class _SalesProductFormScreenState extends State<SalesProductFormScreen> {
             }
           },
           builder: (context, state) {
-            return SingleChildScrollView(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                20.verticalSpace,
-                const CustomHeadingTextWidget(title: 'Product Name'),
-                2.verticalSpace,
-                const SocProductDropDown(),
-                20.verticalSpace,
-          
-                const CustomHeadingTextWidget(title: 'Rate'),
-                2.verticalSpace,
-                const SocProductRateTextField(),
-                20.verticalSpace,
-                const CustomHeadingTextWidget(title: 'Selling Rate'),
-                2.verticalSpace,
-                const SocProductSellingRateTextField(),
-                20.verticalSpace,
-                      const CustomHeadingTextWidget(title: 'Quanity'),
-                2.verticalSpace,
-                const SocProductQtyTextFieldWidget(),
-                20.verticalSpace,
-                  const CustomHeadingTextWidget(title: 'Total Amount'),
-                2.verticalSpace,
-                const SocProductTotalAmountTextField(),
-                20.verticalSpace,
-                const CustomHeadingTextWidget(title: 'Discount per Qty'),
-                2.verticalSpace,
-                const SocProductDiscountPerQtyTextFieldWidget(),
-                20.verticalSpace,
-                const CustomHeadingTextWidget(title: 'Discount per Percentage'),
-                2.verticalSpace,
-                const SocProductDiscountPerPercentageTextField(),
-                20.verticalSpace,
-              
-                // const CustomHeadingTextWidget(title: 'Gst Amount'),
-                //  2.verticalSpace,
-                //  const SocAmountPaidController(),
-                //   20.verticalSpace,
-                const CustomHeadingTextWidget(title: 'Uom Type'),
-                2.verticalSpace,
-                const SocUomDropDownWidget(),
-                20.verticalSpace,
-                const CustomHeadingTextWidget(title: 'Shipping Date'),
-                2.verticalSpace,
-                const SocProductShipmentTextField(),
-                20.verticalSpace,
-                const CustomHeadingTextWidget(title: 'CH Hatching Date'),
-                2.verticalSpace,
-                const SocProductChDateTextField(),
-                20.verticalSpace,
-                CommonButton(
-                    callback: () async {
-                      context.read<SalesOrderCreateCubit>().submitProductForm(
-                          successCallback: () {
-                        Fluttertoast.showToast(
-                            msg: 'Product saved',
-                            backgroundColor: Colors.green,
-                            textColor: Colors.white);
-                        Navigator.pop(context);
-                      }, failedCallback: () {
-                        Fluttertoast.showToast(
-                            msg: 'Please fill all the details',
-                            backgroundColor: Colors.red,
-                            textColor: Colors.white);
-                      });
-                    },
-                    title: "Submit"),
-                20.verticalSpace
-              ],
-            ).withSymetricPadding(horizontalPadding: 15.w));
+            return Scrollbar(
+              radius: const Radius.circular(10),
+              thickness: 2,
+              child: SingleChildScrollView(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  20.verticalSpace,
+                  const CustomHeadingTextWidget(title: 'Product Name'),
+                  2.verticalSpace,
+                  const SocProductDropDown(),
+                  20.verticalSpace,
+                        
+                  const CustomHeadingTextWidget(title: 'Rate'),
+                  2.verticalSpace,
+                  const SocProductRateTextField(),
+                  20.verticalSpace,
+                  const CustomHeadingTextWidget(title: 'Selling Rate'),
+                  2.verticalSpace,
+                  const SocProductSellingRateTextField(),
+                  20.verticalSpace,
+                        const CustomHeadingTextWidget(title: 'Quanity'),
+                  2.verticalSpace,
+                  const SocProductQtyTextFieldWidget(),
+                  20.verticalSpace,
+                    const CustomHeadingTextWidget(title: 'Total Amount'),
+                  2.verticalSpace,
+                  const SocProductTotalAmountTextField(),
+                  20.verticalSpace,
+                  const CustomHeadingTextWidget(title: 'Discount per Qty'),
+                  2.verticalSpace,
+                  const SocProductDiscountPerQtyTextFieldWidget(),
+                  20.verticalSpace,
+                  const CustomHeadingTextWidget(title: 'Discount per Percentage'),
+                  2.verticalSpace,
+                  const SocProductDiscountPerPercentageTextField(),
+                  20.verticalSpace,
+                
+                  // const CustomHeadingTextWidget(title: 'Gst Amount'),
+                  //  2.verticalSpace,
+                  //  const SocAmountPaidController(),
+                  //   20.verticalSpace,
+                  const CustomHeadingTextWidget(title: 'Uom Type'),
+                  2.verticalSpace,
+                  const SocUomDropDownWidget(),
+                  20.verticalSpace,
+                  const CustomHeadingTextWidget(title: 'Shipping Date'),
+                  2.verticalSpace,
+                  const SocProductShipmentTextField(),
+                  20.verticalSpace,
+                  const CustomHeadingTextWidget(title: 'CH Hatching Date'),
+                  2.verticalSpace,
+                  const SocProductChDateTextField(),
+                  20.verticalSpace,
+                  CommonButton(
+                      callback: () async {
+                        context.read<SalesOrderCreateCubit>().submitProductForm(
+                            successCallback: () {
+                          Fluttertoast.showToast(
+                              msg: 'Product saved',
+                              backgroundColor: Colors.green,
+                              textColor: Colors.white);
+                          Navigator.pop(context);
+                        }, failedCallback: () {
+                          Fluttertoast.showToast(
+                              msg: 'Please fill all the details',
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white);
+                        });
+                      },
+                      title: "Submit"),
+                  20.verticalSpace
+                ],
+              ).withSymetricPadding(horizontalPadding: 15.w)),
+            );
           },
         ),
       ),

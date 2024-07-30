@@ -18,6 +18,7 @@ class SocProductDiscountPerQtyTextFieldWidget extends StatelessWidget {
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
             ],
+            textInputAction: TextInputAction.done,
             textInputType: TextInputType.number,
             textEditingController:
                 context.watch<SalesOrderCreateCubit>().productDiscountPerQty,

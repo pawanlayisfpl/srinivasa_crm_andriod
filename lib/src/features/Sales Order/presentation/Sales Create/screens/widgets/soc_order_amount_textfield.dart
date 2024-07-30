@@ -11,13 +11,9 @@ class SocOrderAmountTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<SalesOrderCreateCubit, SalesOrderCreateState,NumberField>(
-      selector: (state) {
-        return state.orderAmountField;
-      },
-      builder: (context, state) {
-        return CommonTextfield(textEditingController: context.read<SalesOrderCreateCubit>().orderAmountController , onChanged: (String? value) { }, validator: (v) => null, labelText: "Order Amount", hintText: "Enter order amount", autovalidateMode: AutovalidateMode.always);
-      },
-    );
+    return CommonTextfield(
+          readOnly: true,
+          fillColor: Colors.grey,
+          textEditingController: context.watch<SalesOrderCreateCubit>().orderAmountTotalController , onChanged: (String? value) { }, validator: (v) => null, hintText: "Enter order amount", autovalidateMode: AutovalidateMode.disabled);
   }
 }
