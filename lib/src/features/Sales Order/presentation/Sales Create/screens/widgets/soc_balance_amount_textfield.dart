@@ -18,6 +18,7 @@ class SocBalanceAmountTextField extends StatelessWidget {
       },
       builder: (context, state) {
         return CommonTextfield(
+          readOnly: true,
           fillColor: AppColors.textFieldBgColor,
           inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))],
           textInputType: TextInputType.number,

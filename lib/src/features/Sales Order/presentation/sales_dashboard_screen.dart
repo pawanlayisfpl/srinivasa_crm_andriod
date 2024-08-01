@@ -23,7 +23,7 @@ class SalesOrderDashboardScreen extends StatelessWidget {
     List<String> cardNames = [
       // 'Create Daily Plan',
       'Create Sales Order',
-      'View Sales Plan',
+      'View Sales Orders',
       'Search Sales Plan',
       'Sales order\n Pending Requests'
 

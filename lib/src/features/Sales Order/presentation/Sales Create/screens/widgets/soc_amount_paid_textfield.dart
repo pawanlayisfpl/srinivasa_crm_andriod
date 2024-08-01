@@ -12,18 +12,11 @@ class SocAmountPaidController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<SalesOrderCreateCubit, SalesOrderCreateState,NumberField>(
-      selector: (state) {
-        return state.orderAmountField;
-      },
-      builder: (context, state) {
-        return CommonTextfield(
+    return CommonTextfield(
           fillColor: AppColors.textFieldBgColor,
           inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))],
           textInputType: TextInputType.number,
           
-          textEditingController: context.read<SalesOrderCreateCubit>().amountPaidController , onChanged: (String? value) { }, validator: (v) => null,  hintText: "Enter paid amount", autovalidateMode: AutovalidateMode.always);
-      },
-    );
+          textEditingController: context.read<SalesOrderCreateCubit>().amountPaidController , onChanged: (String? value) => context.read<SalesOrderCreateCubit>().onAmountPaidChanged("") ,validator: (v) => null,  hintText: "Enter paid amount", autovalidateMode: AutovalidateMode.disabled);
   }
 }

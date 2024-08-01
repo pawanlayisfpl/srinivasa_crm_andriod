@@ -41,6 +41,9 @@ class _SalesProductFormScreenState extends State<SalesProductFormScreen> {
           listenWhen: (previous, current) => previous.apiFailedModel != current.apiFailedModel,
           listener: (context, state) {
             if(state.apiFailedModel != null) {
+              if(Navigator.canPop(context)) {
+                Navigator.pop(context);
+              }
               QuickAlert.show(context: context, type: QuickAlertType.error, title: 'Error', text: state.apiFailedModel!.message,confirmBtnColor: Colors.black,barrierDismissible: false);  
             }
           },

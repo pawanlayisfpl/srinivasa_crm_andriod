@@ -25,6 +25,7 @@ class SalesOrderCreateState with _$SalesOrderCreateState {
     @Default(false) bool isProductLoading,
     @Default(false) bool isUomLoading,
     @Default([]) List<UOMModel> uomList,
+    @Default(false) bool isSuccess,
     UOMModel? selectedUomModel,
     required StringField remarksToAssignedField,
     @Default([]) List<ProductDetailsPostModel> productDetailsPostModelList,
@@ -84,6 +85,7 @@ class SalesOrderCreateState with _$SalesOrderCreateState {
     originalTotalAmountValue : '',
     totalPendingAmountValue: '',
     remainingPercentage: '',
+    isSuccess: false
 
 
   );

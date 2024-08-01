@@ -25,6 +25,7 @@ mixin _$SalesOrderCreateState {
   bool get isProductLoading => throw _privateConstructorUsedError;
   bool get isUomLoading => throw _privateConstructorUsedError;
   List<UOMModel> get uomList => throw _privateConstructorUsedError;
+  bool get isSuccess => throw _privateConstructorUsedError;
   UOMModel? get selectedUomModel => throw _privateConstructorUsedError;
   StringField get remarksToAssignedField => throw _privateConstructorUsedError;
   List<ProductDetailsPostModel> get productDetailsPostModelList =>
@@ -79,6 +80,7 @@ abstract class $SalesOrderCreateStateCopyWith<$Res> {
       bool isProductLoading,
       bool isUomLoading,
       List<UOMModel> uomList,
+      bool isSuccess,
       UOMModel? selectedUomModel,
       StringField remarksToAssignedField,
       List<ProductDetailsPostModel> productDetailsPostModelList,
@@ -130,6 +132,7 @@ class _$SalesOrderCreateStateCopyWithImpl<$Res,
     Object? isProductLoading = null,
     Object? isUomLoading = null,
     Object? uomList = null,
+    Object? isSuccess = null,
     Object? selectedUomModel = freezed,
     Object? remarksToAssignedField = null,
     Object? productDetailsPostModelList = null,
@@ -192,6 +195,10 @@ class _$SalesOrderCreateStateCopyWithImpl<$Res,
           ? _value.uomList
           : uomList // ignore: cast_nullable_to_non_nullable
               as List<UOMModel>,
+      isSuccess: null == isSuccess
+          ? _value.isSuccess
+          : isSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
       selectedUomModel: freezed == selectedUomModel
           ? _value.selectedUomModel
           : selectedUomModel // ignore: cast_nullable_to_non_nullable
@@ -323,6 +330,7 @@ abstract class _$$SalesOrderCreateStateImplCopyWith<$Res>
       bool isProductLoading,
       bool isUomLoading,
       List<UOMModel> uomList,
+      bool isSuccess,
       UOMModel? selectedUomModel,
       StringField remarksToAssignedField,
       List<ProductDetailsPostModel> productDetailsPostModelList,
@@ -373,6 +381,7 @@ class __$$SalesOrderCreateStateImplCopyWithImpl<$Res>
     Object? isProductLoading = null,
     Object? isUomLoading = null,
     Object? uomList = null,
+    Object? isSuccess = null,
     Object? selectedUomModel = freezed,
     Object? remarksToAssignedField = null,
     Object? productDetailsPostModelList = null,
@@ -435,6 +444,10 @@ class __$$SalesOrderCreateStateImplCopyWithImpl<$Res>
           ? _value._uomList
           : uomList // ignore: cast_nullable_to_non_nullable
               as List<UOMModel>,
+      isSuccess: null == isSuccess
+          ? _value.isSuccess
+          : isSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
       selectedUomModel: freezed == selectedUomModel
           ? _value.selectedUomModel
           : selectedUomModel // ignore: cast_nullable_to_non_nullable
@@ -548,6 +561,7 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
       this.isProductLoading = false,
       this.isUomLoading = false,
       final List<UOMModel> uomList = const [],
+      this.isSuccess = false,
       this.selectedUomModel,
       required this.remarksToAssignedField,
       final List<ProductDetailsPostModel> productDetailsPostModelList =
@@ -629,6 +643,9 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
     return EqualUnmodifiableListView(_uomList);
   }
 
+  @override
+  @JsonKey()
+  final bool isSuccess;
   @override
   final UOMModel? selectedUomModel;
   @override
@@ -728,7 +745,7 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
 
   @override
   String toString() {
-    return 'SalesOrderCreateState(originalTotalAmountValue: $originalTotalAmountValue, totalPendingAmountValue: $totalPendingAmountValue, remainingPercentage: $remainingPercentage, productsList: $productsList, selectedProductModel: $selectedProductModel, selectedProductList: $selectedProductList, isProductLoading: $isProductLoading, isUomLoading: $isUomLoading, uomList: $uomList, selectedUomModel: $selectedUomModel, remarksToAssignedField: $remarksToAssignedField, productDetailsPostModelList: $productDetailsPostModelList, customerCodeField: $customerCodeField, orderAmountField: $orderAmountField, orderGstAmountField: $orderGstAmountField, orderTotalAmountField: $orderTotalAmountField, orderTotalDiscountField: $orderTotalDiscountField, amountPaidField: $amountPaidField, paymentModeList: $paymentModeList, selectedPaymentModeModel: $selectedPaymentModeModel, balanceAmountField: $balanceAmountField, balanceAmountDueDateField: $balanceAmountDueDateField, orderRemarksField: $orderRemarksField, assignedToRemarks: $assignedToRemarks, paymentsDetailsList: $paymentsDetailsList, isSubmitting: $isSubmitting, isInitialLoading: $isInitialLoading, apiFailedModel: $apiFailedModel, showInputError: $showInputError, customerList: $customerList, selectedCustomerModel: $selectedCustomerModel, productFormList: $productFormList, pendingFormList: $pendingFormList)';
+    return 'SalesOrderCreateState(originalTotalAmountValue: $originalTotalAmountValue, totalPendingAmountValue: $totalPendingAmountValue, remainingPercentage: $remainingPercentage, productsList: $productsList, selectedProductModel: $selectedProductModel, selectedProductList: $selectedProductList, isProductLoading: $isProductLoading, isUomLoading: $isUomLoading, uomList: $uomList, isSuccess: $isSuccess, selectedUomModel: $selectedUomModel, remarksToAssignedField: $remarksToAssignedField, productDetailsPostModelList: $productDetailsPostModelList, customerCodeField: $customerCodeField, orderAmountField: $orderAmountField, orderGstAmountField: $orderGstAmountField, orderTotalAmountField: $orderTotalAmountField, orderTotalDiscountField: $orderTotalDiscountField, amountPaidField: $amountPaidField, paymentModeList: $paymentModeList, selectedPaymentModeModel: $selectedPaymentModeModel, balanceAmountField: $balanceAmountField, balanceAmountDueDateField: $balanceAmountDueDateField, orderRemarksField: $orderRemarksField, assignedToRemarks: $assignedToRemarks, paymentsDetailsList: $paymentsDetailsList, isSubmitting: $isSubmitting, isInitialLoading: $isInitialLoading, apiFailedModel: $apiFailedModel, showInputError: $showInputError, customerList: $customerList, selectedCustomerModel: $selectedCustomerModel, productFormList: $productFormList, pendingFormList: $pendingFormList)';
   }
 
   @override
@@ -753,6 +770,8 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
             (identical(other.isUomLoading, isUomLoading) ||
                 other.isUomLoading == isUomLoading) &&
             const DeepCollectionEquality().equals(other._uomList, _uomList) &&
+            (identical(other.isSuccess, isSuccess) ||
+                other.isSuccess == isSuccess) &&
             (identical(other.selectedUomModel, selectedUomModel) ||
                 other.selectedUomModel == selectedUomModel) &&
             (identical(other.remarksToAssignedField, remarksToAssignedField) ||
@@ -784,8 +803,7 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
                 other.orderRemarksField == orderRemarksField) &&
             (identical(other.assignedToRemarks, assignedToRemarks) ||
                 other.assignedToRemarks == assignedToRemarks) &&
-            const DeepCollectionEquality()
-                .equals(other._paymentsDetailsList, _paymentsDetailsList) &&
+            const DeepCollectionEquality().equals(other._paymentsDetailsList, _paymentsDetailsList) &&
             (identical(other.isSubmitting, isSubmitting) || other.isSubmitting == isSubmitting) &&
             (identical(other.isInitialLoading, isInitialLoading) || other.isInitialLoading == isInitialLoading) &&
             (identical(other.apiFailedModel, apiFailedModel) || other.apiFailedModel == apiFailedModel) &&
@@ -808,6 +826,7 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
         isProductLoading,
         isUomLoading,
         const DeepCollectionEquality().hash(_uomList),
+        isSuccess,
         selectedUomModel,
         remarksToAssignedField,
         const DeepCollectionEquality().hash(_productDetailsPostModelList),
@@ -853,6 +872,7 @@ abstract class _SalesOrderCreateState implements SalesOrderCreateState {
           final bool isProductLoading,
           final bool isUomLoading,
           final List<UOMModel> uomList,
+          final bool isSuccess,
           final UOMModel? selectedUomModel,
           required final StringField remarksToAssignedField,
           final List<ProductDetailsPostModel> productDetailsPostModelList,
@@ -897,6 +917,8 @@ abstract class _SalesOrderCreateState implements SalesOrderCreateState {
   bool get isUomLoading;
   @override
   List<UOMModel> get uomList;
+  @override
+  bool get isSuccess;
   @override
   UOMModel? get selectedUomModel;
   @override

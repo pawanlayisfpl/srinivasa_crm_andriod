@@ -79,6 +79,7 @@ class Endpoints {
   static const String getPendingKycCustomers = '$basicUrl/se/kycpendingcustomers';
 
   // SALES ORDER
+  static const String createOrder = '$basicUrl/se/order';
   static const String getAllProducts = '$basicUrl/se/product';
   static const String getProductPriceById = '$basicUrl/se/product-price/';
 

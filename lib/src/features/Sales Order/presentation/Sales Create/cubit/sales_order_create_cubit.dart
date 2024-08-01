@@ -3,20 +3,23 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
 
 import 'package:srinivasa_crm_new/src/common/fields/number_field.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
+import 'package:srinivasa_crm_new/src/core/extensions/string_extension.dart';
 import 'package:srinivasa_crm_new/src/core/model/api%20failed/api%20failed.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/data/repo/sales_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/uom_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/post/product_pending_form_model.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/post/soc_create_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/state/sales_order_create_state.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/sales_pending_payment_form_widget.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../../common/fields/string_field.dart';
@@ -78,7 +81,7 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
     amountPaidController.clear();
     balanceAmountController.clear();
     orderRemarksController.clear();
-    employeeIdController.clear();
+    // employeeIdController.clear();
     assignedToRemarksController.clear();
     discountController.clear();
     balanceAmountDueDateController.clear();
@@ -106,7 +109,8 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
 
   // GET ALL INITIAL
   Future<void> getAllInitialValues() async {
-    emit(state.copyWith(isInitialLoading: true));
+    emit(SalesOrderCreateState.initial());
+    // emit(state.copyWith(isInitialLoading: true));
     await Future.wait([
       getProducts(),
       getUomLists(),
@@ -119,7 +123,7 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
 
   Future<void> getEmployeIdValue() async {
     String? employeeId =
-        keyValueStorage.sharedPreferences.getString(KeyValueStrings.userId);
+        keyValueStorage.sharedPreferences.getString(KeyValueStrings.userName);
     if (employeeId != null) {
       emit(state.copyWith(remarksToAssignedField: StringField(employeeId)));
       employeeIdController.text = employeeId;
@@ -398,6 +402,9 @@ void onDiscountPerPercentageChanged() {
 
 // AMOUNT TEXTFIELD
   void onAmountChanged(String value) {
+
+  
+       
     emit(state.copyWith(orderAmountField: NumberField(value)));
   }
 
@@ -413,7 +420,49 @@ void onDiscountPerPercentageChanged() {
 
 // AMOUNT PAID FIELD
   void onAmountPaidChanged(String value) {
-    emit(state.copyWith(amountPaidField: NumberField(value)));
+    log(amountPaidController.text.toString());
+   double newOrderAmount =  state.productFormList.fold(0.0, (acc, element) => acc + element.totalAmount);
+    double paidAmountValue = double.tryParse(amountPaidController.text) ?? 0.0;
+
+
+    if(paidAmountValue < newOrderAmount) {
+       log('total order amount value ${newOrderAmount.toString()}');
+       double newBalanceAmountValue = newOrderAmount - paidAmountValue;
+        balanceAmountController.text = newBalanceAmountValue.toStringAsFixed(2);
+
+        emit(state.copyWith(pendingFormList: []));
+        balanceAmountDueDateController.clear();
+
+    log('paid amount value ${paidAmountValue.toString()}');
+
+    }else {
+      Fluttertoast.showToast(msg: 'Paid amount can\'t be more than total order amount',backgroundColor: Colors.red,textColor: Colors.white);
+      balanceAmountController.clear();
+    }
+
+  }
+
+  // ON BALANCE AMOUNT DUE DATE
+  void pickBalanceAmountDueDate({required BuildContext context}) async {
+   
+    final DateTime now = DateTime.now();
+    final pickedDate = await showDatePicker(context: context,keyboardType: TextInputType.datetime,initialDate: now,barrierDismissible: false, firstDate: now, lastDate: DateTime(2100));
+
+    
+
+    if(pickedDate != null) {
+       emit(state.copyWith(pendingFormList: []));
+      balanceAmountDueDateController.text = DateFormat('dd-MM-yyyy').format(pickedDate);
+
+      if(balanceAmountController.text.isNotEmpty && balanceAmountController.text.isNotEmpty) {
+  ProductPendingFormModel pendingFormModel = ProductPendingFormModel(id: const Uuid().v4().toString(), dueDate: pickedDate.toString(), dueAmount: double.tryParse(balanceAmountController.text) ?? 0.0,dueAmountPercentage: 100);
+    addToProductPendingList(productPendingFormModel: pendingFormModel);
+        }
+      
+
+    }else {
+
+    }
   }
 
 // BALANCE AMOUNT FIELD
@@ -503,6 +552,9 @@ void onDiscountPerPercentageChanged() {
         .pendingFormList); // Create a new list to avoid mutating the state directly
     list.removeWhere((item) => item.id == id);
     emit(state.copyWith(pendingFormList: list, selectedPaymentModeModel: null));
+    balanceAmountDueDateController.clear();
+    balanceAmountController.clear();
+    amountPaidController.clear();
   }
 
   void updatePendingFormById(
@@ -659,7 +711,7 @@ void onDuePercentageChanged() {
     lastDate: DateTime(2101),
   );
     if (picked != null) {
-      productShipmentDateController.text = picked.toString().split(" ").first.toString();
+      productShipmentDateController.text = DateFormat('dd-MM-yyyy').format(picked);
       
     }
   }
@@ -673,7 +725,7 @@ void onDuePercentageChanged() {
     lastDate: DateTime(2101),
   );
   if (picked != null) {
-    productChDateController.text = picked.toString().split(" ").first;
+    productChDateController.text =DateFormat('dd-MM-yyyy').format(picked);
   }
 }
 
@@ -773,6 +825,10 @@ void onDuePercentageChanged() {
  }
 
 
+
+
+
+
  void getOrderAmountTotalValues() {
    double newOrderAmount =  state.productFormList.fold(0.0, (acc, element) => acc + element.totalAmount);
 
@@ -786,6 +842,97 @@ void onDuePercentageChanged() {
   orderAmountTotalController.text = newOrderAmount.toString();
 orderAmountController.text = (double.tryParse(newOrderAmount.toString()) ?? 0.0 - totalGstAmountValue).toString();  orderGstAmountController.text = totalGstAmountValue.toString();
  }
+
+
+ void resetForm() {
+  emit(state.copyWith(selectedCustomerModel: null,selectedProductList: [],pendingFormList: [],productFormList: []));
+    cleaAllController();
+    Fluttertoast.showToast(msg: 'Form reset successfully',backgroundColor: Colors.green,textColor: Colors.white);
+ }
+
+
+void createOrder() async {
+
+
+Customermodel? customerModel = state.selectedCustomerModel;
+
+List<ProductFormModel> productFormList = state.productFormList;
+
+String? orderTotalAmountValue = orderAmountTotalController.text;
+
+String? orderAmountValue = orderAmountController.text;
+
+String? amountPaidValue = amountPaidController.text;
+
+String? balanceAmountValue = balanceAmountController.text;
+
+String? balanceDueDateValue = balanceAmountDueDateController.text;
+
+PaymentModeModel? paymentModeModel = state.selectedPaymentModeModel;
+
+String? orderRemarksValue = orderRemarksController.text;
+
+String? assignedToReamarksValue = assignedToRemarksController.text;
+
+List<ProductPendingFormModel> pendingFormList = state.pendingFormList;
+
+
+SocCreatePostModel socCreatePostModel = SocCreatePostModel(
+  customerCode: customerModel!.customerCode!,
+  productDetails: productFormList.map((e) => ProductDetails(
+    divisionId: e.divisionId,
+    productId: e.productId,
+    quantity: e.quanity,
+    rate: e.rate,
+    discountPerQuantity: double.tryParse(e.discountPerQty.toString()) ?? 0.0,
+    getDiscountPerQuantityInPercent: double.tryParse(e.discountPerPercentage.toString()) ?? 0.0,
+    totalAmount: e.totalAmount,
+    gstAmount: double.tryParse(e.gstAmount.toString()) ?? 0.0,
+    sellingRate: double.tryParse(e.sellingRate.toString()) ?? 0.0,
+    uomId: e.uomId,
+    quantityToDeliver: e.quanity,
+    shipmentDate: e.shipmentDate,
+    ceHatchDate: e.chDate,
+  )).toList(),
+  orderAmount: double.tryParse(orderAmountValue) ?? 0.0,
+  orderGstAmount: 0.0,
+  orderTotalAmount: double.tryParse(orderTotalAmountValue) ?? 0.0,
+  orderDiscountAmount:  0.0,
+  amountPaid: double.tryParse(amountPaidValue) ?? 0.0,
+  paymentModeId: paymentModeModel!.paymentModeId!,
+  balanceAmount: double.tryParse(balanceAmountValue) ?? 0.0,
+  balanceAmountDueDate: balanceDueDateValue,
+  orderRemarks: orderRemarksValue,
+  assignTo: 0,
+  assignToRemarks: assignedToReamarksValue,
+  pendingPaymentDetails: pendingFormList.map((e) => PendingPaymentDetails(
+    dueDate: e.dueDate,
+    amount: e.dueAmount,
+    dueAmountPercentage: 100.0,
+  )).toList(),
+);
+
+
+log(socCreatePostModel.toJson().toString());
+emit(state.copyWith(isSubmitting: true,apiFailedModel: null));
+await Future.delayed(const Duration(seconds: 2)); 
+
+final results = await salesRepo.createSaleOrder(socCreatePostModel: socCreatePostModel);
+
+results.fold((l) {
+  emit(state.copyWith(isSubmitting: false, apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),),);
+}, (r) {
+  emit(state.copyWith(apiFailedModel: null,isSubmitting: false,isSuccess: true ));
+  Fluttertoast.showToast(msg: 'Order created successfully',backgroundColor: Colors.green,textColor: Colors.white);
+  resetForm();
+});
+
+
+
+
+
+}
+
 
  
 }

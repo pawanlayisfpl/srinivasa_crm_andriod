@@ -12,18 +12,15 @@ class SocBalanceDueDateTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<SalesOrderCreateCubit, SalesOrderCreateState,NumberField>(
-      selector: (state) {
-        return state.balanceAmountField;
+    return CommonTextfield(
+      readOnly: true,
+      onTapFunction: () {
+        context.read<SalesOrderCreateCubit>().pickBalanceAmountDueDate(context: context);
       },
-      builder: (context, state) {
-        return CommonTextfield(
           fillColor: AppColors.textFieldBgColor,
           inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))],
           textInputType: TextInputType.number,
           
-          textEditingController: context.read<SalesOrderCreateCubit>().balanceAmountDueDateController , onChanged: (String? value) { }, validator: (v) => null,  hintText: "Enter balance due date", autovalidateMode: AutovalidateMode.always);
-      },
-    );
+          textEditingController: context.read<SalesOrderCreateCubit>().balanceAmountDueDateController , onChanged: (String? value) { }, validator: (v) => null,  hintText: "Enter balance due date", autovalidateMode: AutovalidateMode.disabled);
   }
 }

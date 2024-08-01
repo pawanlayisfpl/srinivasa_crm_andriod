@@ -46,7 +46,7 @@ class UpdateMonthlyPlanDateTextFieldWidget extends StatelessWidget {
           },
           labelText: "Select Date",
           hintText: "Select your date",
-          autovalidateMode: AutovalidateMode.always,
+          autovalidateMode: AutovalidateMode.disabled,
           // autovalidateMode:  state. showInputError== true ? AutovalidateMode.always : AutovalidateMode.onUserInteraction,
         );
       },

@@ -53,6 +53,7 @@ Future<LoginResponseModel> login({required LoginPostModel loginPostModel}) async
     
       log('printing profile model json in login remote datasource'+ "\n\n"+profileModel.toJson().toString());
       await keyValueStorage.sharedPreferences.setString(KeyValueStrings.userId, data['user']['id'].toString());
+      await keyValueStorage.sharedPreferences.setString(KeyValueStrings.userName, data['user']['username']);
       await keyValueStorage.sharedPreferences.setString(KeyValueStrings.profileDataModel, jsonEncode(profileModel));
     await  keyValueStorage.sharedPreferences.setString(KeyValueStrings.loginData, jsonEncode(data));
       return LoginResponseModel.fromJson(response.data);
