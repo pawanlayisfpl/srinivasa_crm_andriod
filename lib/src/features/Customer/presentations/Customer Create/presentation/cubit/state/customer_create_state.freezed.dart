@@ -19,8 +19,10 @@ mixin _$CustomerCreateState {
   CustomerCreateCustomerNameField get customerCreateCustomerNameField =>
       throw _privateConstructorUsedError;
   CustomerCreatePhoneField get customerPhoneField =>
-      throw _privateConstructorUsedError;
+      throw _privateConstructorUsedError; // REMOVE THIS FIELD
   CustomreCreateTitleField get customerTitleField =>
+      throw _privateConstructorUsedError;
+  CustomerCreateContactPersonField get customerCreateContactPersonField =>
       throw _privateConstructorUsedError;
   CustomerCreateMobileField get customerMobileField =>
       throw _privateConstructorUsedError;
@@ -28,26 +30,6 @@ mixin _$CustomerCreateState {
       throw _privateConstructorUsedError;
   CustomerCreateAddationalPhoneField get customerCreateAddationField =>
       throw _privateConstructorUsedError;
-  CustomerCreateAddressLineTwoField get customerCreateAddressLineTwoField =>
-      throw _privateConstructorUsedError;
-  CustomerCreateMandalField get customerCreateMandalField =>
-      throw _privateConstructorUsedError;
-  CustomerCreateCityField get customerCreateCityField =>
-      throw _privateConstructorUsedError;
-  CustomerCreateLocalityField get customerCreateLocalityField =>
-      throw _privateConstructorUsedError;
-  CustomerCreatePincodeField get customerCreatePincodeField =>
-      throw _privateConstructorUsedError;
-  CustomerCreateAddressField get customerCreateAddressField =>
-      throw _privateConstructorUsedError;
-  CustomerCreateContactPersonField get customerCreateContactPersonField =>
-      throw _privateConstructorUsedError;
-  CustomerCreateCreditLimitField get customerCreateCreditLimitField =>
-      throw _privateConstructorUsedError;
-  bool get isSubmitting => throw _privateConstructorUsedError;
-  bool get isSuccess => throw _privateConstructorUsedError;
-  ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
-  bool get showInputError => throw _privateConstructorUsedError;
   List<PrimarySourceModel> get primarySourceList =>
       throw _privateConstructorUsedError;
   PrimarySourceModel? get selectedPrimarySourceModel =>
@@ -56,24 +38,17 @@ mixin _$CustomerCreateState {
   ZoneModel? get selectedZoneModel => throw _privateConstructorUsedError;
   List<String> get customerTypeList => throw _privateConstructorUsedError;
   String? get selectedCustomerType => throw _privateConstructorUsedError;
-  List<DistrictModel> get districtList => throw _privateConstructorUsedError;
-  DistrictModel? get selectedDistrictModel =>
+  CustomerCreateCreditLimitField get customerCreateCreditLimitField =>
       throw _privateConstructorUsedError;
-  List<StateModel> get stateList => throw _privateConstructorUsedError;
-  StateModel? get selectedStateModel => throw _privateConstructorUsedError;
-  List<CountryModel> get countryList => throw _privateConstructorUsedError;
-  CountryModel? get selectedCountryModel => throw _privateConstructorUsedError;
-  List<String> get titlesList => throw _privateConstructorUsedError;
-  String? get selectedTitleValue => throw _privateConstructorUsedError;
+  List<CityModel> get cityList => throw _privateConstructorUsedError;
+  CityModel? get selectedCityModel => throw _privateConstructorUsedError;
+  CustomerCreateAddressLineTwoField get customerCreateAddressLineTwoField =>
+      throw _privateConstructorUsedError;
+  CustomerCreateMandalField get customerCreateMandalField =>
+      throw _privateConstructorUsedError;
   List<AssignedToModel> get assignedList => throw _privateConstructorUsedError;
   AssignedToModel? get selectedAssignedModel =>
       throw _privateConstructorUsedError;
-  bool get isLoading => throw _privateConstructorUsedError;
-  bool get zoneLoading => throw _privateConstructorUsedError;
-  bool get assingedToLaoding => throw _privateConstructorUsedError;
-  bool get primarySourceLoading => throw _privateConstructorUsedError;
-  bool get countryLoading => throw _privateConstructorUsedError;
-  bool get stateLoading => throw _privateConstructorUsedError;
   bool get districtLoading => throw _privateConstructorUsedError;
   List<DivisionModel> get divisionsList => throw _privateConstructorUsedError;
   List<DivisionModel> get selectedDivisionsList =>
@@ -81,11 +56,42 @@ mixin _$CustomerCreateState {
   bool get isDivisionLoading => throw _privateConstructorUsedError;
   DivisionModel? get selectedDivisionModel =>
       throw _privateConstructorUsedError;
-  List<CityModel> get cityList => throw _privateConstructorUsedError;
-  CityModel? get selectedCityModel => throw _privateConstructorUsedError;
+  List<CountryModel> get countryList => throw _privateConstructorUsedError;
+  List<StateModel> get stateList => throw _privateConstructorUsedError;
+  StateModel? get selectedStateModel => throw _privateConstructorUsedError;
+  List<DistrictModel> get districtList => throw _privateConstructorUsedError;
+  DistrictModel? get selectedDistrictModel =>
+      throw _privateConstructorUsedError;
   List<LocalityModel> get localityList => throw _privateConstructorUsedError;
   LocalityModel? get selectedLocalityModel =>
       throw _privateConstructorUsedError;
+  CustomerCreateAddressField get customerCreateAddressField =>
+      throw _privateConstructorUsedError;
+  CustomerCreatePincodeField get customerCreatePincodeField =>
+      throw _privateConstructorUsedError;
+  bool get isBusinessPartner => throw _privateConstructorUsedError;
+  StringField get faxNumberField => throw _privateConstructorUsedError;
+  StringField get farmNameField => throw _privateConstructorUsedError;
+  NumberField get farmCapacityField => throw _privateConstructorUsedError;
+  List<CustomerCodeModel> get customerCodeList =>
+      throw _privateConstructorUsedError; // REMOVEE
+  CustomerCreateCityField get customerCreateCityField =>
+      throw _privateConstructorUsedError;
+  CustomerCreateLocalityField get customerCreateLocalityField =>
+      throw _privateConstructorUsedError;
+  bool get isSubmitting => throw _privateConstructorUsedError;
+  bool get isSuccess => throw _privateConstructorUsedError;
+  ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
+  bool get showInputError => throw _privateConstructorUsedError;
+  CountryModel? get selectedCountryModel => throw _privateConstructorUsedError;
+  List<String> get titlesList => throw _privateConstructorUsedError;
+  String? get selectedTitleValue => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
+  bool get zoneLoading => throw _privateConstructorUsedError;
+  bool get assingedToLaoding => throw _privateConstructorUsedError;
+  bool get primarySourceLoading => throw _privateConstructorUsedError;
+  bool get countryLoading => throw _privateConstructorUsedError;
+  bool get stateLoading => throw _privateConstructorUsedError;
   bool get isCityLoading => throw _privateConstructorUsedError;
   bool get isLocalityLoading => throw _privateConstructorUsedError;
 
@@ -104,52 +110,57 @@ abstract class $CustomerCreateStateCopyWith<$Res> {
       {CustomerCreateCustomerNameField customerCreateCustomerNameField,
       CustomerCreatePhoneField customerPhoneField,
       CustomreCreateTitleField customerTitleField,
+      CustomerCreateContactPersonField customerCreateContactPersonField,
       CustomerCreateMobileField customerMobileField,
       CustomerCreateEmailField customerCreateEmailField,
       CustomerCreateAddationalPhoneField customerCreateAddationField,
-      CustomerCreateAddressLineTwoField customerCreateAddressLineTwoField,
-      CustomerCreateMandalField customerCreateMandalField,
-      CustomerCreateCityField customerCreateCityField,
-      CustomerCreateLocalityField customerCreateLocalityField,
-      CustomerCreatePincodeField customerCreatePincodeField,
-      CustomerCreateAddressField customerCreateAddressField,
-      CustomerCreateContactPersonField customerCreateContactPersonField,
-      CustomerCreateCreditLimitField customerCreateCreditLimitField,
-      bool isSubmitting,
-      bool isSuccess,
-      ApiFailedModel? apiFailedModel,
-      bool showInputError,
       List<PrimarySourceModel> primarySourceList,
       PrimarySourceModel? selectedPrimarySourceModel,
       List<ZoneModel> zoneList,
       ZoneModel? selectedZoneModel,
       List<String> customerTypeList,
       String? selectedCustomerType,
-      List<DistrictModel> districtList,
-      DistrictModel? selectedDistrictModel,
+      CustomerCreateCreditLimitField customerCreateCreditLimitField,
+      List<CityModel> cityList,
+      CityModel? selectedCityModel,
+      CustomerCreateAddressLineTwoField customerCreateAddressLineTwoField,
+      CustomerCreateMandalField customerCreateMandalField,
+      List<AssignedToModel> assignedList,
+      AssignedToModel? selectedAssignedModel,
+      bool districtLoading,
+      List<DivisionModel> divisionsList,
+      List<DivisionModel> selectedDivisionsList,
+      bool isDivisionLoading,
+      DivisionModel? selectedDivisionModel,
+      List<CountryModel> countryList,
       List<StateModel> stateList,
       StateModel? selectedStateModel,
-      List<CountryModel> countryList,
+      List<DistrictModel> districtList,
+      DistrictModel? selectedDistrictModel,
+      List<LocalityModel> localityList,
+      LocalityModel? selectedLocalityModel,
+      CustomerCreateAddressField customerCreateAddressField,
+      CustomerCreatePincodeField customerCreatePincodeField,
+      bool isBusinessPartner,
+      StringField faxNumberField,
+      StringField farmNameField,
+      NumberField farmCapacityField,
+      List<CustomerCodeModel> customerCodeList,
+      CustomerCreateCityField customerCreateCityField,
+      CustomerCreateLocalityField customerCreateLocalityField,
+      bool isSubmitting,
+      bool isSuccess,
+      ApiFailedModel? apiFailedModel,
+      bool showInputError,
       CountryModel? selectedCountryModel,
       List<String> titlesList,
       String? selectedTitleValue,
-      List<AssignedToModel> assignedList,
-      AssignedToModel? selectedAssignedModel,
       bool isLoading,
       bool zoneLoading,
       bool assingedToLaoding,
       bool primarySourceLoading,
       bool countryLoading,
       bool stateLoading,
-      bool districtLoading,
-      List<DivisionModel> divisionsList,
-      List<DivisionModel> selectedDivisionsList,
-      bool isDivisionLoading,
-      DivisionModel? selectedDivisionModel,
-      List<CityModel> cityList,
-      CityModel? selectedCityModel,
-      List<LocalityModel> localityList,
-      LocalityModel? selectedLocalityModel,
       bool isCityLoading,
       bool isLocalityLoading});
 
@@ -172,52 +183,57 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
     Object? customerCreateCustomerNameField = null,
     Object? customerPhoneField = null,
     Object? customerTitleField = null,
+    Object? customerCreateContactPersonField = null,
     Object? customerMobileField = null,
     Object? customerCreateEmailField = null,
     Object? customerCreateAddationField = null,
-    Object? customerCreateAddressLineTwoField = null,
-    Object? customerCreateMandalField = null,
-    Object? customerCreateCityField = null,
-    Object? customerCreateLocalityField = null,
-    Object? customerCreatePincodeField = null,
-    Object? customerCreateAddressField = null,
-    Object? customerCreateContactPersonField = null,
-    Object? customerCreateCreditLimitField = null,
-    Object? isSubmitting = null,
-    Object? isSuccess = null,
-    Object? apiFailedModel = freezed,
-    Object? showInputError = null,
     Object? primarySourceList = null,
     Object? selectedPrimarySourceModel = freezed,
     Object? zoneList = null,
     Object? selectedZoneModel = freezed,
     Object? customerTypeList = null,
     Object? selectedCustomerType = freezed,
-    Object? districtList = null,
-    Object? selectedDistrictModel = freezed,
+    Object? customerCreateCreditLimitField = null,
+    Object? cityList = null,
+    Object? selectedCityModel = freezed,
+    Object? customerCreateAddressLineTwoField = null,
+    Object? customerCreateMandalField = null,
+    Object? assignedList = null,
+    Object? selectedAssignedModel = freezed,
+    Object? districtLoading = null,
+    Object? divisionsList = null,
+    Object? selectedDivisionsList = null,
+    Object? isDivisionLoading = null,
+    Object? selectedDivisionModel = freezed,
+    Object? countryList = null,
     Object? stateList = null,
     Object? selectedStateModel = freezed,
-    Object? countryList = null,
+    Object? districtList = null,
+    Object? selectedDistrictModel = freezed,
+    Object? localityList = null,
+    Object? selectedLocalityModel = freezed,
+    Object? customerCreateAddressField = null,
+    Object? customerCreatePincodeField = null,
+    Object? isBusinessPartner = null,
+    Object? faxNumberField = null,
+    Object? farmNameField = null,
+    Object? farmCapacityField = null,
+    Object? customerCodeList = null,
+    Object? customerCreateCityField = null,
+    Object? customerCreateLocalityField = null,
+    Object? isSubmitting = null,
+    Object? isSuccess = null,
+    Object? apiFailedModel = freezed,
+    Object? showInputError = null,
     Object? selectedCountryModel = freezed,
     Object? titlesList = null,
     Object? selectedTitleValue = freezed,
-    Object? assignedList = null,
-    Object? selectedAssignedModel = freezed,
     Object? isLoading = null,
     Object? zoneLoading = null,
     Object? assingedToLaoding = null,
     Object? primarySourceLoading = null,
     Object? countryLoading = null,
     Object? stateLoading = null,
-    Object? districtLoading = null,
-    Object? divisionsList = null,
-    Object? selectedDivisionsList = null,
-    Object? isDivisionLoading = null,
-    Object? selectedDivisionModel = freezed,
-    Object? cityList = null,
-    Object? selectedCityModel = freezed,
-    Object? localityList = null,
-    Object? selectedLocalityModel = freezed,
     Object? isCityLoading = null,
     Object? isLocalityLoading = null,
   }) {
@@ -234,6 +250,10 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
           ? _value.customerTitleField
           : customerTitleField // ignore: cast_nullable_to_non_nullable
               as CustomreCreateTitleField,
+      customerCreateContactPersonField: null == customerCreateContactPersonField
+          ? _value.customerCreateContactPersonField
+          : customerCreateContactPersonField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateContactPersonField,
       customerMobileField: null == customerMobileField
           ? _value.customerMobileField
           : customerMobileField // ignore: cast_nullable_to_non_nullable
@@ -246,55 +266,6 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
           ? _value.customerCreateAddationField
           : customerCreateAddationField // ignore: cast_nullable_to_non_nullable
               as CustomerCreateAddationalPhoneField,
-      customerCreateAddressLineTwoField: null ==
-              customerCreateAddressLineTwoField
-          ? _value.customerCreateAddressLineTwoField
-          : customerCreateAddressLineTwoField // ignore: cast_nullable_to_non_nullable
-              as CustomerCreateAddressLineTwoField,
-      customerCreateMandalField: null == customerCreateMandalField
-          ? _value.customerCreateMandalField
-          : customerCreateMandalField // ignore: cast_nullable_to_non_nullable
-              as CustomerCreateMandalField,
-      customerCreateCityField: null == customerCreateCityField
-          ? _value.customerCreateCityField
-          : customerCreateCityField // ignore: cast_nullable_to_non_nullable
-              as CustomerCreateCityField,
-      customerCreateLocalityField: null == customerCreateLocalityField
-          ? _value.customerCreateLocalityField
-          : customerCreateLocalityField // ignore: cast_nullable_to_non_nullable
-              as CustomerCreateLocalityField,
-      customerCreatePincodeField: null == customerCreatePincodeField
-          ? _value.customerCreatePincodeField
-          : customerCreatePincodeField // ignore: cast_nullable_to_non_nullable
-              as CustomerCreatePincodeField,
-      customerCreateAddressField: null == customerCreateAddressField
-          ? _value.customerCreateAddressField
-          : customerCreateAddressField // ignore: cast_nullable_to_non_nullable
-              as CustomerCreateAddressField,
-      customerCreateContactPersonField: null == customerCreateContactPersonField
-          ? _value.customerCreateContactPersonField
-          : customerCreateContactPersonField // ignore: cast_nullable_to_non_nullable
-              as CustomerCreateContactPersonField,
-      customerCreateCreditLimitField: null == customerCreateCreditLimitField
-          ? _value.customerCreateCreditLimitField
-          : customerCreateCreditLimitField // ignore: cast_nullable_to_non_nullable
-              as CustomerCreateCreditLimitField,
-      isSubmitting: null == isSubmitting
-          ? _value.isSubmitting
-          : isSubmitting // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isSuccess: null == isSuccess
-          ? _value.isSuccess
-          : isSuccess // ignore: cast_nullable_to_non_nullable
-              as bool,
-      apiFailedModel: freezed == apiFailedModel
-          ? _value.apiFailedModel
-          : apiFailedModel // ignore: cast_nullable_to_non_nullable
-              as ApiFailedModel?,
-      showInputError: null == showInputError
-          ? _value.showInputError
-          : showInputError // ignore: cast_nullable_to_non_nullable
-              as bool,
       primarySourceList: null == primarySourceList
           ? _value.primarySourceList
           : primarySourceList // ignore: cast_nullable_to_non_nullable
@@ -319,14 +290,59 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
           ? _value.selectedCustomerType
           : selectedCustomerType // ignore: cast_nullable_to_non_nullable
               as String?,
-      districtList: null == districtList
-          ? _value.districtList
-          : districtList // ignore: cast_nullable_to_non_nullable
-              as List<DistrictModel>,
-      selectedDistrictModel: freezed == selectedDistrictModel
-          ? _value.selectedDistrictModel
-          : selectedDistrictModel // ignore: cast_nullable_to_non_nullable
-              as DistrictModel?,
+      customerCreateCreditLimitField: null == customerCreateCreditLimitField
+          ? _value.customerCreateCreditLimitField
+          : customerCreateCreditLimitField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateCreditLimitField,
+      cityList: null == cityList
+          ? _value.cityList
+          : cityList // ignore: cast_nullable_to_non_nullable
+              as List<CityModel>,
+      selectedCityModel: freezed == selectedCityModel
+          ? _value.selectedCityModel
+          : selectedCityModel // ignore: cast_nullable_to_non_nullable
+              as CityModel?,
+      customerCreateAddressLineTwoField: null ==
+              customerCreateAddressLineTwoField
+          ? _value.customerCreateAddressLineTwoField
+          : customerCreateAddressLineTwoField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateAddressLineTwoField,
+      customerCreateMandalField: null == customerCreateMandalField
+          ? _value.customerCreateMandalField
+          : customerCreateMandalField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateMandalField,
+      assignedList: null == assignedList
+          ? _value.assignedList
+          : assignedList // ignore: cast_nullable_to_non_nullable
+              as List<AssignedToModel>,
+      selectedAssignedModel: freezed == selectedAssignedModel
+          ? _value.selectedAssignedModel
+          : selectedAssignedModel // ignore: cast_nullable_to_non_nullable
+              as AssignedToModel?,
+      districtLoading: null == districtLoading
+          ? _value.districtLoading
+          : districtLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      divisionsList: null == divisionsList
+          ? _value.divisionsList
+          : divisionsList // ignore: cast_nullable_to_non_nullable
+              as List<DivisionModel>,
+      selectedDivisionsList: null == selectedDivisionsList
+          ? _value.selectedDivisionsList
+          : selectedDivisionsList // ignore: cast_nullable_to_non_nullable
+              as List<DivisionModel>,
+      isDivisionLoading: null == isDivisionLoading
+          ? _value.isDivisionLoading
+          : isDivisionLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      selectedDivisionModel: freezed == selectedDivisionModel
+          ? _value.selectedDivisionModel
+          : selectedDivisionModel // ignore: cast_nullable_to_non_nullable
+              as DivisionModel?,
+      countryList: null == countryList
+          ? _value.countryList
+          : countryList // ignore: cast_nullable_to_non_nullable
+              as List<CountryModel>,
       stateList: null == stateList
           ? _value.stateList
           : stateList // ignore: cast_nullable_to_non_nullable
@@ -335,10 +351,74 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
           ? _value.selectedStateModel
           : selectedStateModel // ignore: cast_nullable_to_non_nullable
               as StateModel?,
-      countryList: null == countryList
-          ? _value.countryList
-          : countryList // ignore: cast_nullable_to_non_nullable
-              as List<CountryModel>,
+      districtList: null == districtList
+          ? _value.districtList
+          : districtList // ignore: cast_nullable_to_non_nullable
+              as List<DistrictModel>,
+      selectedDistrictModel: freezed == selectedDistrictModel
+          ? _value.selectedDistrictModel
+          : selectedDistrictModel // ignore: cast_nullable_to_non_nullable
+              as DistrictModel?,
+      localityList: null == localityList
+          ? _value.localityList
+          : localityList // ignore: cast_nullable_to_non_nullable
+              as List<LocalityModel>,
+      selectedLocalityModel: freezed == selectedLocalityModel
+          ? _value.selectedLocalityModel
+          : selectedLocalityModel // ignore: cast_nullable_to_non_nullable
+              as LocalityModel?,
+      customerCreateAddressField: null == customerCreateAddressField
+          ? _value.customerCreateAddressField
+          : customerCreateAddressField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateAddressField,
+      customerCreatePincodeField: null == customerCreatePincodeField
+          ? _value.customerCreatePincodeField
+          : customerCreatePincodeField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreatePincodeField,
+      isBusinessPartner: null == isBusinessPartner
+          ? _value.isBusinessPartner
+          : isBusinessPartner // ignore: cast_nullable_to_non_nullable
+              as bool,
+      faxNumberField: null == faxNumberField
+          ? _value.faxNumberField
+          : faxNumberField // ignore: cast_nullable_to_non_nullable
+              as StringField,
+      farmNameField: null == farmNameField
+          ? _value.farmNameField
+          : farmNameField // ignore: cast_nullable_to_non_nullable
+              as StringField,
+      farmCapacityField: null == farmCapacityField
+          ? _value.farmCapacityField
+          : farmCapacityField // ignore: cast_nullable_to_non_nullable
+              as NumberField,
+      customerCodeList: null == customerCodeList
+          ? _value.customerCodeList
+          : customerCodeList // ignore: cast_nullable_to_non_nullable
+              as List<CustomerCodeModel>,
+      customerCreateCityField: null == customerCreateCityField
+          ? _value.customerCreateCityField
+          : customerCreateCityField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateCityField,
+      customerCreateLocalityField: null == customerCreateLocalityField
+          ? _value.customerCreateLocalityField
+          : customerCreateLocalityField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateLocalityField,
+      isSubmitting: null == isSubmitting
+          ? _value.isSubmitting
+          : isSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSuccess: null == isSuccess
+          ? _value.isSuccess
+          : isSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      apiFailedModel: freezed == apiFailedModel
+          ? _value.apiFailedModel
+          : apiFailedModel // ignore: cast_nullable_to_non_nullable
+              as ApiFailedModel?,
+      showInputError: null == showInputError
+          ? _value.showInputError
+          : showInputError // ignore: cast_nullable_to_non_nullable
+              as bool,
       selectedCountryModel: freezed == selectedCountryModel
           ? _value.selectedCountryModel
           : selectedCountryModel // ignore: cast_nullable_to_non_nullable
@@ -351,14 +431,6 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
           ? _value.selectedTitleValue
           : selectedTitleValue // ignore: cast_nullable_to_non_nullable
               as String?,
-      assignedList: null == assignedList
-          ? _value.assignedList
-          : assignedList // ignore: cast_nullable_to_non_nullable
-              as List<AssignedToModel>,
-      selectedAssignedModel: freezed == selectedAssignedModel
-          ? _value.selectedAssignedModel
-          : selectedAssignedModel // ignore: cast_nullable_to_non_nullable
-              as AssignedToModel?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -383,42 +455,6 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
           ? _value.stateLoading
           : stateLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      districtLoading: null == districtLoading
-          ? _value.districtLoading
-          : districtLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      divisionsList: null == divisionsList
-          ? _value.divisionsList
-          : divisionsList // ignore: cast_nullable_to_non_nullable
-              as List<DivisionModel>,
-      selectedDivisionsList: null == selectedDivisionsList
-          ? _value.selectedDivisionsList
-          : selectedDivisionsList // ignore: cast_nullable_to_non_nullable
-              as List<DivisionModel>,
-      isDivisionLoading: null == isDivisionLoading
-          ? _value.isDivisionLoading
-          : isDivisionLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      selectedDivisionModel: freezed == selectedDivisionModel
-          ? _value.selectedDivisionModel
-          : selectedDivisionModel // ignore: cast_nullable_to_non_nullable
-              as DivisionModel?,
-      cityList: null == cityList
-          ? _value.cityList
-          : cityList // ignore: cast_nullable_to_non_nullable
-              as List<CityModel>,
-      selectedCityModel: freezed == selectedCityModel
-          ? _value.selectedCityModel
-          : selectedCityModel // ignore: cast_nullable_to_non_nullable
-              as CityModel?,
-      localityList: null == localityList
-          ? _value.localityList
-          : localityList // ignore: cast_nullable_to_non_nullable
-              as List<LocalityModel>,
-      selectedLocalityModel: freezed == selectedLocalityModel
-          ? _value.selectedLocalityModel
-          : selectedLocalityModel // ignore: cast_nullable_to_non_nullable
-              as LocalityModel?,
       isCityLoading: null == isCityLoading
           ? _value.isCityLoading
           : isCityLoading // ignore: cast_nullable_to_non_nullable
@@ -455,52 +491,57 @@ abstract class _$$CustomerCreateStateImplCopyWith<$Res>
       {CustomerCreateCustomerNameField customerCreateCustomerNameField,
       CustomerCreatePhoneField customerPhoneField,
       CustomreCreateTitleField customerTitleField,
+      CustomerCreateContactPersonField customerCreateContactPersonField,
       CustomerCreateMobileField customerMobileField,
       CustomerCreateEmailField customerCreateEmailField,
       CustomerCreateAddationalPhoneField customerCreateAddationField,
-      CustomerCreateAddressLineTwoField customerCreateAddressLineTwoField,
-      CustomerCreateMandalField customerCreateMandalField,
-      CustomerCreateCityField customerCreateCityField,
-      CustomerCreateLocalityField customerCreateLocalityField,
-      CustomerCreatePincodeField customerCreatePincodeField,
-      CustomerCreateAddressField customerCreateAddressField,
-      CustomerCreateContactPersonField customerCreateContactPersonField,
-      CustomerCreateCreditLimitField customerCreateCreditLimitField,
-      bool isSubmitting,
-      bool isSuccess,
-      ApiFailedModel? apiFailedModel,
-      bool showInputError,
       List<PrimarySourceModel> primarySourceList,
       PrimarySourceModel? selectedPrimarySourceModel,
       List<ZoneModel> zoneList,
       ZoneModel? selectedZoneModel,
       List<String> customerTypeList,
       String? selectedCustomerType,
-      List<DistrictModel> districtList,
-      DistrictModel? selectedDistrictModel,
+      CustomerCreateCreditLimitField customerCreateCreditLimitField,
+      List<CityModel> cityList,
+      CityModel? selectedCityModel,
+      CustomerCreateAddressLineTwoField customerCreateAddressLineTwoField,
+      CustomerCreateMandalField customerCreateMandalField,
+      List<AssignedToModel> assignedList,
+      AssignedToModel? selectedAssignedModel,
+      bool districtLoading,
+      List<DivisionModel> divisionsList,
+      List<DivisionModel> selectedDivisionsList,
+      bool isDivisionLoading,
+      DivisionModel? selectedDivisionModel,
+      List<CountryModel> countryList,
       List<StateModel> stateList,
       StateModel? selectedStateModel,
-      List<CountryModel> countryList,
+      List<DistrictModel> districtList,
+      DistrictModel? selectedDistrictModel,
+      List<LocalityModel> localityList,
+      LocalityModel? selectedLocalityModel,
+      CustomerCreateAddressField customerCreateAddressField,
+      CustomerCreatePincodeField customerCreatePincodeField,
+      bool isBusinessPartner,
+      StringField faxNumberField,
+      StringField farmNameField,
+      NumberField farmCapacityField,
+      List<CustomerCodeModel> customerCodeList,
+      CustomerCreateCityField customerCreateCityField,
+      CustomerCreateLocalityField customerCreateLocalityField,
+      bool isSubmitting,
+      bool isSuccess,
+      ApiFailedModel? apiFailedModel,
+      bool showInputError,
       CountryModel? selectedCountryModel,
       List<String> titlesList,
       String? selectedTitleValue,
-      List<AssignedToModel> assignedList,
-      AssignedToModel? selectedAssignedModel,
       bool isLoading,
       bool zoneLoading,
       bool assingedToLaoding,
       bool primarySourceLoading,
       bool countryLoading,
       bool stateLoading,
-      bool districtLoading,
-      List<DivisionModel> divisionsList,
-      List<DivisionModel> selectedDivisionsList,
-      bool isDivisionLoading,
-      DivisionModel? selectedDivisionModel,
-      List<CityModel> cityList,
-      CityModel? selectedCityModel,
-      List<LocalityModel> localityList,
-      LocalityModel? selectedLocalityModel,
       bool isCityLoading,
       bool isLocalityLoading});
 
@@ -522,52 +563,57 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
     Object? customerCreateCustomerNameField = null,
     Object? customerPhoneField = null,
     Object? customerTitleField = null,
+    Object? customerCreateContactPersonField = null,
     Object? customerMobileField = null,
     Object? customerCreateEmailField = null,
     Object? customerCreateAddationField = null,
-    Object? customerCreateAddressLineTwoField = null,
-    Object? customerCreateMandalField = null,
-    Object? customerCreateCityField = null,
-    Object? customerCreateLocalityField = null,
-    Object? customerCreatePincodeField = null,
-    Object? customerCreateAddressField = null,
-    Object? customerCreateContactPersonField = null,
-    Object? customerCreateCreditLimitField = null,
-    Object? isSubmitting = null,
-    Object? isSuccess = null,
-    Object? apiFailedModel = freezed,
-    Object? showInputError = null,
     Object? primarySourceList = null,
     Object? selectedPrimarySourceModel = freezed,
     Object? zoneList = null,
     Object? selectedZoneModel = freezed,
     Object? customerTypeList = null,
     Object? selectedCustomerType = freezed,
-    Object? districtList = null,
-    Object? selectedDistrictModel = freezed,
+    Object? customerCreateCreditLimitField = null,
+    Object? cityList = null,
+    Object? selectedCityModel = freezed,
+    Object? customerCreateAddressLineTwoField = null,
+    Object? customerCreateMandalField = null,
+    Object? assignedList = null,
+    Object? selectedAssignedModel = freezed,
+    Object? districtLoading = null,
+    Object? divisionsList = null,
+    Object? selectedDivisionsList = null,
+    Object? isDivisionLoading = null,
+    Object? selectedDivisionModel = freezed,
+    Object? countryList = null,
     Object? stateList = null,
     Object? selectedStateModel = freezed,
-    Object? countryList = null,
+    Object? districtList = null,
+    Object? selectedDistrictModel = freezed,
+    Object? localityList = null,
+    Object? selectedLocalityModel = freezed,
+    Object? customerCreateAddressField = null,
+    Object? customerCreatePincodeField = null,
+    Object? isBusinessPartner = null,
+    Object? faxNumberField = null,
+    Object? farmNameField = null,
+    Object? farmCapacityField = null,
+    Object? customerCodeList = null,
+    Object? customerCreateCityField = null,
+    Object? customerCreateLocalityField = null,
+    Object? isSubmitting = null,
+    Object? isSuccess = null,
+    Object? apiFailedModel = freezed,
+    Object? showInputError = null,
     Object? selectedCountryModel = freezed,
     Object? titlesList = null,
     Object? selectedTitleValue = freezed,
-    Object? assignedList = null,
-    Object? selectedAssignedModel = freezed,
     Object? isLoading = null,
     Object? zoneLoading = null,
     Object? assingedToLaoding = null,
     Object? primarySourceLoading = null,
     Object? countryLoading = null,
     Object? stateLoading = null,
-    Object? districtLoading = null,
-    Object? divisionsList = null,
-    Object? selectedDivisionsList = null,
-    Object? isDivisionLoading = null,
-    Object? selectedDivisionModel = freezed,
-    Object? cityList = null,
-    Object? selectedCityModel = freezed,
-    Object? localityList = null,
-    Object? selectedLocalityModel = freezed,
     Object? isCityLoading = null,
     Object? isLocalityLoading = null,
   }) {
@@ -584,6 +630,10 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
           ? _value.customerTitleField
           : customerTitleField // ignore: cast_nullable_to_non_nullable
               as CustomreCreateTitleField,
+      customerCreateContactPersonField: null == customerCreateContactPersonField
+          ? _value.customerCreateContactPersonField
+          : customerCreateContactPersonField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateContactPersonField,
       customerMobileField: null == customerMobileField
           ? _value.customerMobileField
           : customerMobileField // ignore: cast_nullable_to_non_nullable
@@ -596,55 +646,6 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
           ? _value.customerCreateAddationField
           : customerCreateAddationField // ignore: cast_nullable_to_non_nullable
               as CustomerCreateAddationalPhoneField,
-      customerCreateAddressLineTwoField: null ==
-              customerCreateAddressLineTwoField
-          ? _value.customerCreateAddressLineTwoField
-          : customerCreateAddressLineTwoField // ignore: cast_nullable_to_non_nullable
-              as CustomerCreateAddressLineTwoField,
-      customerCreateMandalField: null == customerCreateMandalField
-          ? _value.customerCreateMandalField
-          : customerCreateMandalField // ignore: cast_nullable_to_non_nullable
-              as CustomerCreateMandalField,
-      customerCreateCityField: null == customerCreateCityField
-          ? _value.customerCreateCityField
-          : customerCreateCityField // ignore: cast_nullable_to_non_nullable
-              as CustomerCreateCityField,
-      customerCreateLocalityField: null == customerCreateLocalityField
-          ? _value.customerCreateLocalityField
-          : customerCreateLocalityField // ignore: cast_nullable_to_non_nullable
-              as CustomerCreateLocalityField,
-      customerCreatePincodeField: null == customerCreatePincodeField
-          ? _value.customerCreatePincodeField
-          : customerCreatePincodeField // ignore: cast_nullable_to_non_nullable
-              as CustomerCreatePincodeField,
-      customerCreateAddressField: null == customerCreateAddressField
-          ? _value.customerCreateAddressField
-          : customerCreateAddressField // ignore: cast_nullable_to_non_nullable
-              as CustomerCreateAddressField,
-      customerCreateContactPersonField: null == customerCreateContactPersonField
-          ? _value.customerCreateContactPersonField
-          : customerCreateContactPersonField // ignore: cast_nullable_to_non_nullable
-              as CustomerCreateContactPersonField,
-      customerCreateCreditLimitField: null == customerCreateCreditLimitField
-          ? _value.customerCreateCreditLimitField
-          : customerCreateCreditLimitField // ignore: cast_nullable_to_non_nullable
-              as CustomerCreateCreditLimitField,
-      isSubmitting: null == isSubmitting
-          ? _value.isSubmitting
-          : isSubmitting // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isSuccess: null == isSuccess
-          ? _value.isSuccess
-          : isSuccess // ignore: cast_nullable_to_non_nullable
-              as bool,
-      apiFailedModel: freezed == apiFailedModel
-          ? _value.apiFailedModel
-          : apiFailedModel // ignore: cast_nullable_to_non_nullable
-              as ApiFailedModel?,
-      showInputError: null == showInputError
-          ? _value.showInputError
-          : showInputError // ignore: cast_nullable_to_non_nullable
-              as bool,
       primarySourceList: null == primarySourceList
           ? _value._primarySourceList
           : primarySourceList // ignore: cast_nullable_to_non_nullable
@@ -669,14 +670,59 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
           ? _value.selectedCustomerType
           : selectedCustomerType // ignore: cast_nullable_to_non_nullable
               as String?,
-      districtList: null == districtList
-          ? _value._districtList
-          : districtList // ignore: cast_nullable_to_non_nullable
-              as List<DistrictModel>,
-      selectedDistrictModel: freezed == selectedDistrictModel
-          ? _value.selectedDistrictModel
-          : selectedDistrictModel // ignore: cast_nullable_to_non_nullable
-              as DistrictModel?,
+      customerCreateCreditLimitField: null == customerCreateCreditLimitField
+          ? _value.customerCreateCreditLimitField
+          : customerCreateCreditLimitField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateCreditLimitField,
+      cityList: null == cityList
+          ? _value._cityList
+          : cityList // ignore: cast_nullable_to_non_nullable
+              as List<CityModel>,
+      selectedCityModel: freezed == selectedCityModel
+          ? _value.selectedCityModel
+          : selectedCityModel // ignore: cast_nullable_to_non_nullable
+              as CityModel?,
+      customerCreateAddressLineTwoField: null ==
+              customerCreateAddressLineTwoField
+          ? _value.customerCreateAddressLineTwoField
+          : customerCreateAddressLineTwoField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateAddressLineTwoField,
+      customerCreateMandalField: null == customerCreateMandalField
+          ? _value.customerCreateMandalField
+          : customerCreateMandalField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateMandalField,
+      assignedList: null == assignedList
+          ? _value._assignedList
+          : assignedList // ignore: cast_nullable_to_non_nullable
+              as List<AssignedToModel>,
+      selectedAssignedModel: freezed == selectedAssignedModel
+          ? _value.selectedAssignedModel
+          : selectedAssignedModel // ignore: cast_nullable_to_non_nullable
+              as AssignedToModel?,
+      districtLoading: null == districtLoading
+          ? _value.districtLoading
+          : districtLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      divisionsList: null == divisionsList
+          ? _value._divisionsList
+          : divisionsList // ignore: cast_nullable_to_non_nullable
+              as List<DivisionModel>,
+      selectedDivisionsList: null == selectedDivisionsList
+          ? _value._selectedDivisionsList
+          : selectedDivisionsList // ignore: cast_nullable_to_non_nullable
+              as List<DivisionModel>,
+      isDivisionLoading: null == isDivisionLoading
+          ? _value.isDivisionLoading
+          : isDivisionLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      selectedDivisionModel: freezed == selectedDivisionModel
+          ? _value.selectedDivisionModel
+          : selectedDivisionModel // ignore: cast_nullable_to_non_nullable
+              as DivisionModel?,
+      countryList: null == countryList
+          ? _value._countryList
+          : countryList // ignore: cast_nullable_to_non_nullable
+              as List<CountryModel>,
       stateList: null == stateList
           ? _value._stateList
           : stateList // ignore: cast_nullable_to_non_nullable
@@ -685,10 +731,74 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
           ? _value.selectedStateModel
           : selectedStateModel // ignore: cast_nullable_to_non_nullable
               as StateModel?,
-      countryList: null == countryList
-          ? _value._countryList
-          : countryList // ignore: cast_nullable_to_non_nullable
-              as List<CountryModel>,
+      districtList: null == districtList
+          ? _value._districtList
+          : districtList // ignore: cast_nullable_to_non_nullable
+              as List<DistrictModel>,
+      selectedDistrictModel: freezed == selectedDistrictModel
+          ? _value.selectedDistrictModel
+          : selectedDistrictModel // ignore: cast_nullable_to_non_nullable
+              as DistrictModel?,
+      localityList: null == localityList
+          ? _value._localityList
+          : localityList // ignore: cast_nullable_to_non_nullable
+              as List<LocalityModel>,
+      selectedLocalityModel: freezed == selectedLocalityModel
+          ? _value.selectedLocalityModel
+          : selectedLocalityModel // ignore: cast_nullable_to_non_nullable
+              as LocalityModel?,
+      customerCreateAddressField: null == customerCreateAddressField
+          ? _value.customerCreateAddressField
+          : customerCreateAddressField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateAddressField,
+      customerCreatePincodeField: null == customerCreatePincodeField
+          ? _value.customerCreatePincodeField
+          : customerCreatePincodeField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreatePincodeField,
+      isBusinessPartner: null == isBusinessPartner
+          ? _value.isBusinessPartner
+          : isBusinessPartner // ignore: cast_nullable_to_non_nullable
+              as bool,
+      faxNumberField: null == faxNumberField
+          ? _value.faxNumberField
+          : faxNumberField // ignore: cast_nullable_to_non_nullable
+              as StringField,
+      farmNameField: null == farmNameField
+          ? _value.farmNameField
+          : farmNameField // ignore: cast_nullable_to_non_nullable
+              as StringField,
+      farmCapacityField: null == farmCapacityField
+          ? _value.farmCapacityField
+          : farmCapacityField // ignore: cast_nullable_to_non_nullable
+              as NumberField,
+      customerCodeList: null == customerCodeList
+          ? _value._customerCodeList
+          : customerCodeList // ignore: cast_nullable_to_non_nullable
+              as List<CustomerCodeModel>,
+      customerCreateCityField: null == customerCreateCityField
+          ? _value.customerCreateCityField
+          : customerCreateCityField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateCityField,
+      customerCreateLocalityField: null == customerCreateLocalityField
+          ? _value.customerCreateLocalityField
+          : customerCreateLocalityField // ignore: cast_nullable_to_non_nullable
+              as CustomerCreateLocalityField,
+      isSubmitting: null == isSubmitting
+          ? _value.isSubmitting
+          : isSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSuccess: null == isSuccess
+          ? _value.isSuccess
+          : isSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      apiFailedModel: freezed == apiFailedModel
+          ? _value.apiFailedModel
+          : apiFailedModel // ignore: cast_nullable_to_non_nullable
+              as ApiFailedModel?,
+      showInputError: null == showInputError
+          ? _value.showInputError
+          : showInputError // ignore: cast_nullable_to_non_nullable
+              as bool,
       selectedCountryModel: freezed == selectedCountryModel
           ? _value.selectedCountryModel
           : selectedCountryModel // ignore: cast_nullable_to_non_nullable
@@ -701,14 +811,6 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
           ? _value.selectedTitleValue
           : selectedTitleValue // ignore: cast_nullable_to_non_nullable
               as String?,
-      assignedList: null == assignedList
-          ? _value._assignedList
-          : assignedList // ignore: cast_nullable_to_non_nullable
-              as List<AssignedToModel>,
-      selectedAssignedModel: freezed == selectedAssignedModel
-          ? _value.selectedAssignedModel
-          : selectedAssignedModel // ignore: cast_nullable_to_non_nullable
-              as AssignedToModel?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -733,42 +835,6 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
           ? _value.stateLoading
           : stateLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      districtLoading: null == districtLoading
-          ? _value.districtLoading
-          : districtLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      divisionsList: null == divisionsList
-          ? _value._divisionsList
-          : divisionsList // ignore: cast_nullable_to_non_nullable
-              as List<DivisionModel>,
-      selectedDivisionsList: null == selectedDivisionsList
-          ? _value._selectedDivisionsList
-          : selectedDivisionsList // ignore: cast_nullable_to_non_nullable
-              as List<DivisionModel>,
-      isDivisionLoading: null == isDivisionLoading
-          ? _value.isDivisionLoading
-          : isDivisionLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      selectedDivisionModel: freezed == selectedDivisionModel
-          ? _value.selectedDivisionModel
-          : selectedDivisionModel // ignore: cast_nullable_to_non_nullable
-              as DivisionModel?,
-      cityList: null == cityList
-          ? _value._cityList
-          : cityList // ignore: cast_nullable_to_non_nullable
-              as List<CityModel>,
-      selectedCityModel: freezed == selectedCityModel
-          ? _value.selectedCityModel
-          : selectedCityModel // ignore: cast_nullable_to_non_nullable
-              as CityModel?,
-      localityList: null == localityList
-          ? _value._localityList
-          : localityList // ignore: cast_nullable_to_non_nullable
-              as List<LocalityModel>,
-      selectedLocalityModel: freezed == selectedLocalityModel
-          ? _value.selectedLocalityModel
-          : selectedLocalityModel // ignore: cast_nullable_to_non_nullable
-              as LocalityModel?,
       isCityLoading: null == isCityLoading
           ? _value.isCityLoading
           : isCityLoading // ignore: cast_nullable_to_non_nullable
@@ -790,105 +856,88 @@ class _$CustomerCreateStateImpl
       {required this.customerCreateCustomerNameField,
       required this.customerPhoneField,
       required this.customerTitleField,
+      required this.customerCreateContactPersonField,
       required this.customerMobileField,
       required this.customerCreateEmailField,
       required this.customerCreateAddationField,
-      required this.customerCreateAddressLineTwoField,
-      required this.customerCreateMandalField,
-      required this.customerCreateCityField,
-      required this.customerCreateLocalityField,
-      required this.customerCreatePincodeField,
-      required this.customerCreateAddressField,
-      required this.customerCreateContactPersonField,
-      required this.customerCreateCreditLimitField,
-      required this.isSubmitting,
-      required this.isSuccess,
-      this.apiFailedModel = null,
-      this.showInputError = false,
       required final List<PrimarySourceModel> primarySourceList,
       this.selectedPrimarySourceModel = null,
       required final List<ZoneModel> zoneList,
       this.selectedZoneModel = null,
       required final List<String> customerTypeList,
       this.selectedCustomerType = null,
-      final List<DistrictModel> districtList = const [],
-      this.selectedDistrictModel = null,
+      required this.customerCreateCreditLimitField,
+      final List<CityModel> cityList = const [],
+      this.selectedCityModel = null,
+      required this.customerCreateAddressLineTwoField,
+      required this.customerCreateMandalField,
+      final List<AssignedToModel> assignedList = const [],
+      this.selectedAssignedModel = null,
+      this.districtLoading = false,
+      final List<DivisionModel> divisionsList = const [],
+      final List<DivisionModel> selectedDivisionsList = const [],
+      this.isDivisionLoading = false,
+      this.selectedDivisionModel = null,
+      final List<CountryModel> countryList = const [],
       final List<StateModel> stateList = const [],
       this.selectedStateModel = null,
-      final List<CountryModel> countryList = const [],
+      final List<DistrictModel> districtList = const [],
+      this.selectedDistrictModel = null,
+      final List<LocalityModel> localityList = const [],
+      this.selectedLocalityModel = null,
+      required this.customerCreateAddressField,
+      required this.customerCreatePincodeField,
+      this.isBusinessPartner = true,
+      required this.faxNumberField,
+      required this.farmNameField,
+      required this.farmCapacityField,
+      final List<CustomerCodeModel> customerCodeList = const [],
+      required this.customerCreateCityField,
+      required this.customerCreateLocalityField,
+      required this.isSubmitting,
+      required this.isSuccess,
+      this.apiFailedModel = null,
+      this.showInputError = false,
       this.selectedCountryModel = null,
       final List<String> titlesList = const [],
       this.selectedTitleValue = null,
-      final List<AssignedToModel> assignedList = const [],
-      this.selectedAssignedModel = null,
       this.isLoading = false,
       this.zoneLoading = false,
       this.assingedToLaoding = false,
       this.primarySourceLoading = false,
       this.countryLoading = false,
       this.stateLoading = false,
-      this.districtLoading = false,
-      final List<DivisionModel> divisionsList = const [],
-      final List<DivisionModel> selectedDivisionsList = const [],
-      this.isDivisionLoading = false,
-      this.selectedDivisionModel = null,
-      final List<CityModel> cityList = const [],
-      this.selectedCityModel = null,
-      final List<LocalityModel> localityList = const [],
-      this.selectedLocalityModel = null,
       this.isCityLoading = false,
       this.isLocalityLoading = false})
       : _primarySourceList = primarySourceList,
         _zoneList = zoneList,
         _customerTypeList = customerTypeList,
-        _districtList = districtList,
-        _stateList = stateList,
-        _countryList = countryList,
-        _titlesList = titlesList,
+        _cityList = cityList,
         _assignedList = assignedList,
         _divisionsList = divisionsList,
         _selectedDivisionsList = selectedDivisionsList,
-        _cityList = cityList,
-        _localityList = localityList;
+        _countryList = countryList,
+        _stateList = stateList,
+        _districtList = districtList,
+        _localityList = localityList,
+        _customerCodeList = customerCodeList,
+        _titlesList = titlesList;
 
   @override
   final CustomerCreateCustomerNameField customerCreateCustomerNameField;
   @override
   final CustomerCreatePhoneField customerPhoneField;
+// REMOVE THIS FIELD
   @override
   final CustomreCreateTitleField customerTitleField;
+  @override
+  final CustomerCreateContactPersonField customerCreateContactPersonField;
   @override
   final CustomerCreateMobileField customerMobileField;
   @override
   final CustomerCreateEmailField customerCreateEmailField;
   @override
   final CustomerCreateAddationalPhoneField customerCreateAddationField;
-  @override
-  final CustomerCreateAddressLineTwoField customerCreateAddressLineTwoField;
-  @override
-  final CustomerCreateMandalField customerCreateMandalField;
-  @override
-  final CustomerCreateCityField customerCreateCityField;
-  @override
-  final CustomerCreateLocalityField customerCreateLocalityField;
-  @override
-  final CustomerCreatePincodeField customerCreatePincodeField;
-  @override
-  final CustomerCreateAddressField customerCreateAddressField;
-  @override
-  final CustomerCreateContactPersonField customerCreateContactPersonField;
-  @override
-  final CustomerCreateCreditLimitField customerCreateCreditLimitField;
-  @override
-  final bool isSubmitting;
-  @override
-  final bool isSuccess;
-  @override
-  @JsonKey()
-  final ApiFailedModel? apiFailedModel;
-  @override
-  @JsonKey()
-  final bool showInputError;
   final List<PrimarySourceModel> _primarySourceList;
   @override
   List<PrimarySourceModel> get primarySourceList {
@@ -924,54 +973,24 @@ class _$CustomerCreateStateImpl
   @override
   @JsonKey()
   final String? selectedCustomerType;
-  final List<DistrictModel> _districtList;
+  @override
+  final CustomerCreateCreditLimitField customerCreateCreditLimitField;
+  final List<CityModel> _cityList;
   @override
   @JsonKey()
-  List<DistrictModel> get districtList {
-    if (_districtList is EqualUnmodifiableListView) return _districtList;
+  List<CityModel> get cityList {
+    if (_cityList is EqualUnmodifiableListView) return _cityList;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_districtList);
+    return EqualUnmodifiableListView(_cityList);
   }
 
   @override
   @JsonKey()
-  final DistrictModel? selectedDistrictModel;
-  final List<StateModel> _stateList;
+  final CityModel? selectedCityModel;
   @override
-  @JsonKey()
-  List<StateModel> get stateList {
-    if (_stateList is EqualUnmodifiableListView) return _stateList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_stateList);
-  }
-
+  final CustomerCreateAddressLineTwoField customerCreateAddressLineTwoField;
   @override
-  @JsonKey()
-  final StateModel? selectedStateModel;
-  final List<CountryModel> _countryList;
-  @override
-  @JsonKey()
-  List<CountryModel> get countryList {
-    if (_countryList is EqualUnmodifiableListView) return _countryList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_countryList);
-  }
-
-  @override
-  @JsonKey()
-  final CountryModel? selectedCountryModel;
-  final List<String> _titlesList;
-  @override
-  @JsonKey()
-  List<String> get titlesList {
-    if (_titlesList is EqualUnmodifiableListView) return _titlesList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_titlesList);
-  }
-
-  @override
-  @JsonKey()
-  final String? selectedTitleValue;
+  final CustomerCreateMandalField customerCreateMandalField;
   final List<AssignedToModel> _assignedList;
   @override
   @JsonKey()
@@ -984,24 +1003,6 @@ class _$CustomerCreateStateImpl
   @override
   @JsonKey()
   final AssignedToModel? selectedAssignedModel;
-  @override
-  @JsonKey()
-  final bool isLoading;
-  @override
-  @JsonKey()
-  final bool zoneLoading;
-  @override
-  @JsonKey()
-  final bool assingedToLaoding;
-  @override
-  @JsonKey()
-  final bool primarySourceLoading;
-  @override
-  @JsonKey()
-  final bool countryLoading;
-  @override
-  @JsonKey()
-  final bool stateLoading;
   @override
   @JsonKey()
   final bool districtLoading;
@@ -1030,18 +1031,39 @@ class _$CustomerCreateStateImpl
   @override
   @JsonKey()
   final DivisionModel? selectedDivisionModel;
-  final List<CityModel> _cityList;
+  final List<CountryModel> _countryList;
   @override
   @JsonKey()
-  List<CityModel> get cityList {
-    if (_cityList is EqualUnmodifiableListView) return _cityList;
+  List<CountryModel> get countryList {
+    if (_countryList is EqualUnmodifiableListView) return _countryList;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_cityList);
+    return EqualUnmodifiableListView(_countryList);
+  }
+
+  final List<StateModel> _stateList;
+  @override
+  @JsonKey()
+  List<StateModel> get stateList {
+    if (_stateList is EqualUnmodifiableListView) return _stateList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_stateList);
   }
 
   @override
   @JsonKey()
-  final CityModel? selectedCityModel;
+  final StateModel? selectedStateModel;
+  final List<DistrictModel> _districtList;
+  @override
+  @JsonKey()
+  List<DistrictModel> get districtList {
+    if (_districtList is EqualUnmodifiableListView) return _districtList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_districtList);
+  }
+
+  @override
+  @JsonKey()
+  final DistrictModel? selectedDistrictModel;
   final List<LocalityModel> _localityList;
   @override
   @JsonKey()
@@ -1055,6 +1077,77 @@ class _$CustomerCreateStateImpl
   @JsonKey()
   final LocalityModel? selectedLocalityModel;
   @override
+  final CustomerCreateAddressField customerCreateAddressField;
+  @override
+  final CustomerCreatePincodeField customerCreatePincodeField;
+  @override
+  @JsonKey()
+  final bool isBusinessPartner;
+  @override
+  final StringField faxNumberField;
+  @override
+  final StringField farmNameField;
+  @override
+  final NumberField farmCapacityField;
+  final List<CustomerCodeModel> _customerCodeList;
+  @override
+  @JsonKey()
+  List<CustomerCodeModel> get customerCodeList {
+    if (_customerCodeList is EqualUnmodifiableListView)
+      return _customerCodeList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_customerCodeList);
+  }
+
+// REMOVEE
+  @override
+  final CustomerCreateCityField customerCreateCityField;
+  @override
+  final CustomerCreateLocalityField customerCreateLocalityField;
+  @override
+  final bool isSubmitting;
+  @override
+  final bool isSuccess;
+  @override
+  @JsonKey()
+  final ApiFailedModel? apiFailedModel;
+  @override
+  @JsonKey()
+  final bool showInputError;
+  @override
+  @JsonKey()
+  final CountryModel? selectedCountryModel;
+  final List<String> _titlesList;
+  @override
+  @JsonKey()
+  List<String> get titlesList {
+    if (_titlesList is EqualUnmodifiableListView) return _titlesList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_titlesList);
+  }
+
+  @override
+  @JsonKey()
+  final String? selectedTitleValue;
+  @override
+  @JsonKey()
+  final bool isLoading;
+  @override
+  @JsonKey()
+  final bool zoneLoading;
+  @override
+  @JsonKey()
+  final bool assingedToLaoding;
+  @override
+  @JsonKey()
+  final bool primarySourceLoading;
+  @override
+  @JsonKey()
+  final bool countryLoading;
+  @override
+  @JsonKey()
+  final bool stateLoading;
+  @override
   @JsonKey()
   final bool isCityLoading;
   @override
@@ -1063,7 +1156,7 @@ class _$CustomerCreateStateImpl
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CustomerCreateState(customerCreateCustomerNameField: $customerCreateCustomerNameField, customerPhoneField: $customerPhoneField, customerTitleField: $customerTitleField, customerMobileField: $customerMobileField, customerCreateEmailField: $customerCreateEmailField, customerCreateAddationField: $customerCreateAddationField, customerCreateAddressLineTwoField: $customerCreateAddressLineTwoField, customerCreateMandalField: $customerCreateMandalField, customerCreateCityField: $customerCreateCityField, customerCreateLocalityField: $customerCreateLocalityField, customerCreatePincodeField: $customerCreatePincodeField, customerCreateAddressField: $customerCreateAddressField, customerCreateContactPersonField: $customerCreateContactPersonField, customerCreateCreditLimitField: $customerCreateCreditLimitField, isSubmitting: $isSubmitting, isSuccess: $isSuccess, apiFailedModel: $apiFailedModel, showInputError: $showInputError, primarySourceList: $primarySourceList, selectedPrimarySourceModel: $selectedPrimarySourceModel, zoneList: $zoneList, selectedZoneModel: $selectedZoneModel, customerTypeList: $customerTypeList, selectedCustomerType: $selectedCustomerType, districtList: $districtList, selectedDistrictModel: $selectedDistrictModel, stateList: $stateList, selectedStateModel: $selectedStateModel, countryList: $countryList, selectedCountryModel: $selectedCountryModel, titlesList: $titlesList, selectedTitleValue: $selectedTitleValue, assignedList: $assignedList, selectedAssignedModel: $selectedAssignedModel, isLoading: $isLoading, zoneLoading: $zoneLoading, assingedToLaoding: $assingedToLaoding, primarySourceLoading: $primarySourceLoading, countryLoading: $countryLoading, stateLoading: $stateLoading, districtLoading: $districtLoading, divisionsList: $divisionsList, selectedDivisionsList: $selectedDivisionsList, isDivisionLoading: $isDivisionLoading, selectedDivisionModel: $selectedDivisionModel, cityList: $cityList, selectedCityModel: $selectedCityModel, localityList: $localityList, selectedLocalityModel: $selectedLocalityModel, isCityLoading: $isCityLoading, isLocalityLoading: $isLocalityLoading)';
+    return 'CustomerCreateState(customerCreateCustomerNameField: $customerCreateCustomerNameField, customerPhoneField: $customerPhoneField, customerTitleField: $customerTitleField, customerCreateContactPersonField: $customerCreateContactPersonField, customerMobileField: $customerMobileField, customerCreateEmailField: $customerCreateEmailField, customerCreateAddationField: $customerCreateAddationField, primarySourceList: $primarySourceList, selectedPrimarySourceModel: $selectedPrimarySourceModel, zoneList: $zoneList, selectedZoneModel: $selectedZoneModel, customerTypeList: $customerTypeList, selectedCustomerType: $selectedCustomerType, customerCreateCreditLimitField: $customerCreateCreditLimitField, cityList: $cityList, selectedCityModel: $selectedCityModel, customerCreateAddressLineTwoField: $customerCreateAddressLineTwoField, customerCreateMandalField: $customerCreateMandalField, assignedList: $assignedList, selectedAssignedModel: $selectedAssignedModel, districtLoading: $districtLoading, divisionsList: $divisionsList, selectedDivisionsList: $selectedDivisionsList, isDivisionLoading: $isDivisionLoading, selectedDivisionModel: $selectedDivisionModel, countryList: $countryList, stateList: $stateList, selectedStateModel: $selectedStateModel, districtList: $districtList, selectedDistrictModel: $selectedDistrictModel, localityList: $localityList, selectedLocalityModel: $selectedLocalityModel, customerCreateAddressField: $customerCreateAddressField, customerCreatePincodeField: $customerCreatePincodeField, isBusinessPartner: $isBusinessPartner, faxNumberField: $faxNumberField, farmNameField: $farmNameField, farmCapacityField: $farmCapacityField, customerCodeList: $customerCodeList, customerCreateCityField: $customerCreateCityField, customerCreateLocalityField: $customerCreateLocalityField, isSubmitting: $isSubmitting, isSuccess: $isSuccess, apiFailedModel: $apiFailedModel, showInputError: $showInputError, selectedCountryModel: $selectedCountryModel, titlesList: $titlesList, selectedTitleValue: $selectedTitleValue, isLoading: $isLoading, zoneLoading: $zoneLoading, assingedToLaoding: $assingedToLaoding, primarySourceLoading: $primarySourceLoading, countryLoading: $countryLoading, stateLoading: $stateLoading, isCityLoading: $isCityLoading, isLocalityLoading: $isLocalityLoading)';
   }
 
   @override
@@ -1075,31 +1168,13 @@ class _$CustomerCreateStateImpl
           'customerCreateCustomerNameField', customerCreateCustomerNameField))
       ..add(DiagnosticsProperty('customerPhoneField', customerPhoneField))
       ..add(DiagnosticsProperty('customerTitleField', customerTitleField))
+      ..add(DiagnosticsProperty(
+          'customerCreateContactPersonField', customerCreateContactPersonField))
       ..add(DiagnosticsProperty('customerMobileField', customerMobileField))
       ..add(DiagnosticsProperty(
           'customerCreateEmailField', customerCreateEmailField))
       ..add(DiagnosticsProperty(
           'customerCreateAddationField', customerCreateAddationField))
-      ..add(DiagnosticsProperty('customerCreateAddressLineTwoField',
-          customerCreateAddressLineTwoField))
-      ..add(DiagnosticsProperty(
-          'customerCreateMandalField', customerCreateMandalField))
-      ..add(DiagnosticsProperty(
-          'customerCreateCityField', customerCreateCityField))
-      ..add(DiagnosticsProperty(
-          'customerCreateLocalityField', customerCreateLocalityField))
-      ..add(DiagnosticsProperty(
-          'customerCreatePincodeField', customerCreatePincodeField))
-      ..add(DiagnosticsProperty(
-          'customerCreateAddressField', customerCreateAddressField))
-      ..add(DiagnosticsProperty(
-          'customerCreateContactPersonField', customerCreateContactPersonField))
-      ..add(DiagnosticsProperty(
-          'customerCreateCreditLimitField', customerCreateCreditLimitField))
-      ..add(DiagnosticsProperty('isSubmitting', isSubmitting))
-      ..add(DiagnosticsProperty('isSuccess', isSuccess))
-      ..add(DiagnosticsProperty('apiFailedModel', apiFailedModel))
-      ..add(DiagnosticsProperty('showInputError', showInputError))
       ..add(DiagnosticsProperty('primarySourceList', primarySourceList))
       ..add(DiagnosticsProperty(
           'selectedPrimarySourceModel', selectedPrimarySourceModel))
@@ -1107,31 +1182,54 @@ class _$CustomerCreateStateImpl
       ..add(DiagnosticsProperty('selectedZoneModel', selectedZoneModel))
       ..add(DiagnosticsProperty('customerTypeList', customerTypeList))
       ..add(DiagnosticsProperty('selectedCustomerType', selectedCustomerType))
-      ..add(DiagnosticsProperty('districtList', districtList))
-      ..add(DiagnosticsProperty('selectedDistrictModel', selectedDistrictModel))
+      ..add(DiagnosticsProperty(
+          'customerCreateCreditLimitField', customerCreateCreditLimitField))
+      ..add(DiagnosticsProperty('cityList', cityList))
+      ..add(DiagnosticsProperty('selectedCityModel', selectedCityModel))
+      ..add(DiagnosticsProperty('customerCreateAddressLineTwoField',
+          customerCreateAddressLineTwoField))
+      ..add(DiagnosticsProperty(
+          'customerCreateMandalField', customerCreateMandalField))
+      ..add(DiagnosticsProperty('assignedList', assignedList))
+      ..add(DiagnosticsProperty('selectedAssignedModel', selectedAssignedModel))
+      ..add(DiagnosticsProperty('districtLoading', districtLoading))
+      ..add(DiagnosticsProperty('divisionsList', divisionsList))
+      ..add(DiagnosticsProperty('selectedDivisionsList', selectedDivisionsList))
+      ..add(DiagnosticsProperty('isDivisionLoading', isDivisionLoading))
+      ..add(DiagnosticsProperty('selectedDivisionModel', selectedDivisionModel))
+      ..add(DiagnosticsProperty('countryList', countryList))
       ..add(DiagnosticsProperty('stateList', stateList))
       ..add(DiagnosticsProperty('selectedStateModel', selectedStateModel))
-      ..add(DiagnosticsProperty('countryList', countryList))
+      ..add(DiagnosticsProperty('districtList', districtList))
+      ..add(DiagnosticsProperty('selectedDistrictModel', selectedDistrictModel))
+      ..add(DiagnosticsProperty('localityList', localityList))
+      ..add(DiagnosticsProperty('selectedLocalityModel', selectedLocalityModel))
+      ..add(DiagnosticsProperty(
+          'customerCreateAddressField', customerCreateAddressField))
+      ..add(DiagnosticsProperty(
+          'customerCreatePincodeField', customerCreatePincodeField))
+      ..add(DiagnosticsProperty('isBusinessPartner', isBusinessPartner))
+      ..add(DiagnosticsProperty('faxNumberField', faxNumberField))
+      ..add(DiagnosticsProperty('farmNameField', farmNameField))
+      ..add(DiagnosticsProperty('farmCapacityField', farmCapacityField))
+      ..add(DiagnosticsProperty('customerCodeList', customerCodeList))
+      ..add(DiagnosticsProperty(
+          'customerCreateCityField', customerCreateCityField))
+      ..add(DiagnosticsProperty(
+          'customerCreateLocalityField', customerCreateLocalityField))
+      ..add(DiagnosticsProperty('isSubmitting', isSubmitting))
+      ..add(DiagnosticsProperty('isSuccess', isSuccess))
+      ..add(DiagnosticsProperty('apiFailedModel', apiFailedModel))
+      ..add(DiagnosticsProperty('showInputError', showInputError))
       ..add(DiagnosticsProperty('selectedCountryModel', selectedCountryModel))
       ..add(DiagnosticsProperty('titlesList', titlesList))
       ..add(DiagnosticsProperty('selectedTitleValue', selectedTitleValue))
-      ..add(DiagnosticsProperty('assignedList', assignedList))
-      ..add(DiagnosticsProperty('selectedAssignedModel', selectedAssignedModel))
       ..add(DiagnosticsProperty('isLoading', isLoading))
       ..add(DiagnosticsProperty('zoneLoading', zoneLoading))
       ..add(DiagnosticsProperty('assingedToLaoding', assingedToLaoding))
       ..add(DiagnosticsProperty('primarySourceLoading', primarySourceLoading))
       ..add(DiagnosticsProperty('countryLoading', countryLoading))
       ..add(DiagnosticsProperty('stateLoading', stateLoading))
-      ..add(DiagnosticsProperty('districtLoading', districtLoading))
-      ..add(DiagnosticsProperty('divisionsList', divisionsList))
-      ..add(DiagnosticsProperty('selectedDivisionsList', selectedDivisionsList))
-      ..add(DiagnosticsProperty('isDivisionLoading', isDivisionLoading))
-      ..add(DiagnosticsProperty('selectedDivisionModel', selectedDivisionModel))
-      ..add(DiagnosticsProperty('cityList', cityList))
-      ..add(DiagnosticsProperty('selectedCityModel', selectedCityModel))
-      ..add(DiagnosticsProperty('localityList', localityList))
-      ..add(DiagnosticsProperty('selectedLocalityModel', selectedLocalityModel))
       ..add(DiagnosticsProperty('isCityLoading', isCityLoading))
       ..add(DiagnosticsProperty('isLocalityLoading', isLocalityLoading));
   }
@@ -1148,6 +1246,9 @@ class _$CustomerCreateStateImpl
                 other.customerPhoneField == customerPhoneField) &&
             (identical(other.customerTitleField, customerTitleField) ||
                 other.customerTitleField == customerTitleField) &&
+            (identical(other.customerCreateContactPersonField, customerCreateContactPersonField) ||
+                other.customerCreateContactPersonField ==
+                    customerCreateContactPersonField) &&
             (identical(other.customerMobileField, customerMobileField) ||
                 other.customerMobileField == customerMobileField) &&
             (identical(other.customerCreateEmailField, customerCreateEmailField) ||
@@ -1155,63 +1256,65 @@ class _$CustomerCreateStateImpl
             (identical(other.customerCreateAddationField, customerCreateAddationField) ||
                 other.customerCreateAddationField ==
                     customerCreateAddationField) &&
+            const DeepCollectionEquality()
+                .equals(other._primarySourceList, _primarySourceList) &&
+            (identical(other.selectedPrimarySourceModel, selectedPrimarySourceModel) ||
+                other.selectedPrimarySourceModel ==
+                    selectedPrimarySourceModel) &&
+            const DeepCollectionEquality().equals(other._zoneList, _zoneList) &&
+            (identical(other.selectedZoneModel, selectedZoneModel) ||
+                other.selectedZoneModel == selectedZoneModel) &&
+            const DeepCollectionEquality()
+                .equals(other._customerTypeList, _customerTypeList) &&
+            (identical(other.selectedCustomerType, selectedCustomerType) ||
+                other.selectedCustomerType == selectedCustomerType) &&
+            (identical(other.customerCreateCreditLimitField, customerCreateCreditLimitField) ||
+                other.customerCreateCreditLimitField ==
+                    customerCreateCreditLimitField) &&
+            const DeepCollectionEquality().equals(other._cityList, _cityList) &&
+            (identical(other.selectedCityModel, selectedCityModel) ||
+                other.selectedCityModel == selectedCityModel) &&
             (identical(other.customerCreateAddressLineTwoField, customerCreateAddressLineTwoField) ||
                 other.customerCreateAddressLineTwoField ==
                     customerCreateAddressLineTwoField) &&
             (identical(other.customerCreateMandalField, customerCreateMandalField) ||
                 other.customerCreateMandalField == customerCreateMandalField) &&
-            (identical(other.customerCreateCityField, customerCreateCityField) ||
-                other.customerCreateCityField == customerCreateCityField) &&
-            (identical(other.customerCreateLocalityField, customerCreateLocalityField) ||
-                other.customerCreateLocalityField ==
-                    customerCreateLocalityField) &&
-            (identical(other.customerCreatePincodeField, customerCreatePincodeField) ||
-                other.customerCreatePincodeField ==
-                    customerCreatePincodeField) &&
-            (identical(other.customerCreateAddressField, customerCreateAddressField) ||
-                other.customerCreateAddressField ==
-                    customerCreateAddressField) &&
-            (identical(other.customerCreateContactPersonField, customerCreateContactPersonField) ||
-                other.customerCreateContactPersonField ==
-                    customerCreateContactPersonField) &&
-            (identical(other.customerCreateCreditLimitField, customerCreateCreditLimitField) ||
-                other.customerCreateCreditLimitField ==
-                    customerCreateCreditLimitField) &&
+            const DeepCollectionEquality().equals(other._assignedList, _assignedList) &&
+            (identical(other.selectedAssignedModel, selectedAssignedModel) || other.selectedAssignedModel == selectedAssignedModel) &&
+            (identical(other.districtLoading, districtLoading) || other.districtLoading == districtLoading) &&
+            const DeepCollectionEquality().equals(other._divisionsList, _divisionsList) &&
+            const DeepCollectionEquality().equals(other._selectedDivisionsList, _selectedDivisionsList) &&
+            (identical(other.isDivisionLoading, isDivisionLoading) || other.isDivisionLoading == isDivisionLoading) &&
+            (identical(other.selectedDivisionModel, selectedDivisionModel) || other.selectedDivisionModel == selectedDivisionModel) &&
+            const DeepCollectionEquality().equals(other._countryList, _countryList) &&
+            const DeepCollectionEquality().equals(other._stateList, _stateList) &&
+            (identical(other.selectedStateModel, selectedStateModel) || other.selectedStateModel == selectedStateModel) &&
+            const DeepCollectionEquality().equals(other._districtList, _districtList) &&
+            (identical(other.selectedDistrictModel, selectedDistrictModel) || other.selectedDistrictModel == selectedDistrictModel) &&
+            const DeepCollectionEquality().equals(other._localityList, _localityList) &&
+            (identical(other.selectedLocalityModel, selectedLocalityModel) || other.selectedLocalityModel == selectedLocalityModel) &&
+            (identical(other.customerCreateAddressField, customerCreateAddressField) || other.customerCreateAddressField == customerCreateAddressField) &&
+            (identical(other.customerCreatePincodeField, customerCreatePincodeField) || other.customerCreatePincodeField == customerCreatePincodeField) &&
+            (identical(other.isBusinessPartner, isBusinessPartner) || other.isBusinessPartner == isBusinessPartner) &&
+            (identical(other.faxNumberField, faxNumberField) || other.faxNumberField == faxNumberField) &&
+            (identical(other.farmNameField, farmNameField) || other.farmNameField == farmNameField) &&
+            (identical(other.farmCapacityField, farmCapacityField) || other.farmCapacityField == farmCapacityField) &&
+            const DeepCollectionEquality().equals(other._customerCodeList, _customerCodeList) &&
+            (identical(other.customerCreateCityField, customerCreateCityField) || other.customerCreateCityField == customerCreateCityField) &&
+            (identical(other.customerCreateLocalityField, customerCreateLocalityField) || other.customerCreateLocalityField == customerCreateLocalityField) &&
             (identical(other.isSubmitting, isSubmitting) || other.isSubmitting == isSubmitting) &&
             (identical(other.isSuccess, isSuccess) || other.isSuccess == isSuccess) &&
             (identical(other.apiFailedModel, apiFailedModel) || other.apiFailedModel == apiFailedModel) &&
             (identical(other.showInputError, showInputError) || other.showInputError == showInputError) &&
-            const DeepCollectionEquality().equals(other._primarySourceList, _primarySourceList) &&
-            (identical(other.selectedPrimarySourceModel, selectedPrimarySourceModel) || other.selectedPrimarySourceModel == selectedPrimarySourceModel) &&
-            const DeepCollectionEquality().equals(other._zoneList, _zoneList) &&
-            (identical(other.selectedZoneModel, selectedZoneModel) || other.selectedZoneModel == selectedZoneModel) &&
-            const DeepCollectionEquality().equals(other._customerTypeList, _customerTypeList) &&
-            (identical(other.selectedCustomerType, selectedCustomerType) || other.selectedCustomerType == selectedCustomerType) &&
-            const DeepCollectionEquality().equals(other._districtList, _districtList) &&
-            (identical(other.selectedDistrictModel, selectedDistrictModel) || other.selectedDistrictModel == selectedDistrictModel) &&
-            const DeepCollectionEquality().equals(other._stateList, _stateList) &&
-            (identical(other.selectedStateModel, selectedStateModel) || other.selectedStateModel == selectedStateModel) &&
-            const DeepCollectionEquality().equals(other._countryList, _countryList) &&
             (identical(other.selectedCountryModel, selectedCountryModel) || other.selectedCountryModel == selectedCountryModel) &&
             const DeepCollectionEquality().equals(other._titlesList, _titlesList) &&
             (identical(other.selectedTitleValue, selectedTitleValue) || other.selectedTitleValue == selectedTitleValue) &&
-            const DeepCollectionEquality().equals(other._assignedList, _assignedList) &&
-            (identical(other.selectedAssignedModel, selectedAssignedModel) || other.selectedAssignedModel == selectedAssignedModel) &&
             (identical(other.isLoading, isLoading) || other.isLoading == isLoading) &&
             (identical(other.zoneLoading, zoneLoading) || other.zoneLoading == zoneLoading) &&
             (identical(other.assingedToLaoding, assingedToLaoding) || other.assingedToLaoding == assingedToLaoding) &&
             (identical(other.primarySourceLoading, primarySourceLoading) || other.primarySourceLoading == primarySourceLoading) &&
             (identical(other.countryLoading, countryLoading) || other.countryLoading == countryLoading) &&
             (identical(other.stateLoading, stateLoading) || other.stateLoading == stateLoading) &&
-            (identical(other.districtLoading, districtLoading) || other.districtLoading == districtLoading) &&
-            const DeepCollectionEquality().equals(other._divisionsList, _divisionsList) &&
-            const DeepCollectionEquality().equals(other._selectedDivisionsList, _selectedDivisionsList) &&
-            (identical(other.isDivisionLoading, isDivisionLoading) || other.isDivisionLoading == isDivisionLoading) &&
-            (identical(other.selectedDivisionModel, selectedDivisionModel) || other.selectedDivisionModel == selectedDivisionModel) &&
-            const DeepCollectionEquality().equals(other._cityList, _cityList) &&
-            (identical(other.selectedCityModel, selectedCityModel) || other.selectedCityModel == selectedCityModel) &&
-            const DeepCollectionEquality().equals(other._localityList, _localityList) &&
-            (identical(other.selectedLocalityModel, selectedLocalityModel) || other.selectedLocalityModel == selectedLocalityModel) &&
             (identical(other.isCityLoading, isCityLoading) || other.isCityLoading == isCityLoading) &&
             (identical(other.isLocalityLoading, isLocalityLoading) || other.isLocalityLoading == isLocalityLoading));
   }
@@ -1222,52 +1325,57 @@ class _$CustomerCreateStateImpl
         customerCreateCustomerNameField,
         customerPhoneField,
         customerTitleField,
+        customerCreateContactPersonField,
         customerMobileField,
         customerCreateEmailField,
         customerCreateAddationField,
-        customerCreateAddressLineTwoField,
-        customerCreateMandalField,
-        customerCreateCityField,
-        customerCreateLocalityField,
-        customerCreatePincodeField,
-        customerCreateAddressField,
-        customerCreateContactPersonField,
-        customerCreateCreditLimitField,
-        isSubmitting,
-        isSuccess,
-        apiFailedModel,
-        showInputError,
         const DeepCollectionEquality().hash(_primarySourceList),
         selectedPrimarySourceModel,
         const DeepCollectionEquality().hash(_zoneList),
         selectedZoneModel,
         const DeepCollectionEquality().hash(_customerTypeList),
         selectedCustomerType,
-        const DeepCollectionEquality().hash(_districtList),
-        selectedDistrictModel,
+        customerCreateCreditLimitField,
+        const DeepCollectionEquality().hash(_cityList),
+        selectedCityModel,
+        customerCreateAddressLineTwoField,
+        customerCreateMandalField,
+        const DeepCollectionEquality().hash(_assignedList),
+        selectedAssignedModel,
+        districtLoading,
+        const DeepCollectionEquality().hash(_divisionsList),
+        const DeepCollectionEquality().hash(_selectedDivisionsList),
+        isDivisionLoading,
+        selectedDivisionModel,
+        const DeepCollectionEquality().hash(_countryList),
         const DeepCollectionEquality().hash(_stateList),
         selectedStateModel,
-        const DeepCollectionEquality().hash(_countryList),
+        const DeepCollectionEquality().hash(_districtList),
+        selectedDistrictModel,
+        const DeepCollectionEquality().hash(_localityList),
+        selectedLocalityModel,
+        customerCreateAddressField,
+        customerCreatePincodeField,
+        isBusinessPartner,
+        faxNumberField,
+        farmNameField,
+        farmCapacityField,
+        const DeepCollectionEquality().hash(_customerCodeList),
+        customerCreateCityField,
+        customerCreateLocalityField,
+        isSubmitting,
+        isSuccess,
+        apiFailedModel,
+        showInputError,
         selectedCountryModel,
         const DeepCollectionEquality().hash(_titlesList),
         selectedTitleValue,
-        const DeepCollectionEquality().hash(_assignedList),
-        selectedAssignedModel,
         isLoading,
         zoneLoading,
         assingedToLaoding,
         primarySourceLoading,
         countryLoading,
         stateLoading,
-        districtLoading,
-        const DeepCollectionEquality().hash(_divisionsList),
-        const DeepCollectionEquality().hash(_selectedDivisionsList),
-        isDivisionLoading,
-        selectedDivisionModel,
-        const DeepCollectionEquality().hash(_cityList),
-        selectedCityModel,
-        const DeepCollectionEquality().hash(_localityList),
-        selectedLocalityModel,
         isCityLoading,
         isLocalityLoading
       ]);
@@ -1286,56 +1394,61 @@ abstract class _CustomerCreateState implements CustomerCreateState {
           customerCreateCustomerNameField,
       required final CustomerCreatePhoneField customerPhoneField,
       required final CustomreCreateTitleField customerTitleField,
+      required final CustomerCreateContactPersonField
+          customerCreateContactPersonField,
       required final CustomerCreateMobileField customerMobileField,
       required final CustomerCreateEmailField customerCreateEmailField,
       required final CustomerCreateAddationalPhoneField
           customerCreateAddationField,
-      required final CustomerCreateAddressLineTwoField
-          customerCreateAddressLineTwoField,
-      required final CustomerCreateMandalField customerCreateMandalField,
-      required final CustomerCreateCityField customerCreateCityField,
-      required final CustomerCreateLocalityField customerCreateLocalityField,
-      required final CustomerCreatePincodeField customerCreatePincodeField,
-      required final CustomerCreateAddressField customerCreateAddressField,
-      required final CustomerCreateContactPersonField
-          customerCreateContactPersonField,
-      required final CustomerCreateCreditLimitField
-          customerCreateCreditLimitField,
-      required final bool isSubmitting,
-      required final bool isSuccess,
-      final ApiFailedModel? apiFailedModel,
-      final bool showInputError,
       required final List<PrimarySourceModel> primarySourceList,
       final PrimarySourceModel? selectedPrimarySourceModel,
       required final List<ZoneModel> zoneList,
       final ZoneModel? selectedZoneModel,
       required final List<String> customerTypeList,
       final String? selectedCustomerType,
-      final List<DistrictModel> districtList,
-      final DistrictModel? selectedDistrictModel,
+      required final CustomerCreateCreditLimitField
+          customerCreateCreditLimitField,
+      final List<CityModel> cityList,
+      final CityModel? selectedCityModel,
+      required final CustomerCreateAddressLineTwoField
+          customerCreateAddressLineTwoField,
+      required final CustomerCreateMandalField customerCreateMandalField,
+      final List<AssignedToModel> assignedList,
+      final AssignedToModel? selectedAssignedModel,
+      final bool districtLoading,
+      final List<DivisionModel> divisionsList,
+      final List<DivisionModel> selectedDivisionsList,
+      final bool isDivisionLoading,
+      final DivisionModel? selectedDivisionModel,
+      final List<CountryModel> countryList,
       final List<StateModel> stateList,
       final StateModel? selectedStateModel,
-      final List<CountryModel> countryList,
+      final List<DistrictModel> districtList,
+      final DistrictModel? selectedDistrictModel,
+      final List<LocalityModel> localityList,
+      final LocalityModel? selectedLocalityModel,
+      required final CustomerCreateAddressField customerCreateAddressField,
+      required final CustomerCreatePincodeField customerCreatePincodeField,
+      final bool isBusinessPartner,
+      required final StringField faxNumberField,
+      required final StringField farmNameField,
+      required final NumberField farmCapacityField,
+      final List<CustomerCodeModel> customerCodeList,
+      required final CustomerCreateCityField customerCreateCityField,
+      required final CustomerCreateLocalityField customerCreateLocalityField,
+      required final bool isSubmitting,
+      required final bool isSuccess,
+      final ApiFailedModel? apiFailedModel,
+      final bool showInputError,
       final CountryModel? selectedCountryModel,
       final List<String> titlesList,
       final String? selectedTitleValue,
-      final List<AssignedToModel> assignedList,
-      final AssignedToModel? selectedAssignedModel,
       final bool isLoading,
       final bool zoneLoading,
       final bool assingedToLaoding,
       final bool primarySourceLoading,
       final bool countryLoading,
       final bool stateLoading,
-      final bool districtLoading,
-      final List<DivisionModel> divisionsList,
-      final List<DivisionModel> selectedDivisionsList,
-      final bool isDivisionLoading,
-      final DivisionModel? selectedDivisionModel,
-      final List<CityModel> cityList,
-      final CityModel? selectedCityModel,
-      final List<LocalityModel> localityList,
-      final LocalityModel? selectedLocalityModel,
       final bool isCityLoading,
       final bool isLocalityLoading}) = _$CustomerCreateStateImpl;
 
@@ -1343,38 +1456,16 @@ abstract class _CustomerCreateState implements CustomerCreateState {
   CustomerCreateCustomerNameField get customerCreateCustomerNameField;
   @override
   CustomerCreatePhoneField get customerPhoneField;
-  @override
+  @override // REMOVE THIS FIELD
   CustomreCreateTitleField get customerTitleField;
+  @override
+  CustomerCreateContactPersonField get customerCreateContactPersonField;
   @override
   CustomerCreateMobileField get customerMobileField;
   @override
   CustomerCreateEmailField get customerCreateEmailField;
   @override
   CustomerCreateAddationalPhoneField get customerCreateAddationField;
-  @override
-  CustomerCreateAddressLineTwoField get customerCreateAddressLineTwoField;
-  @override
-  CustomerCreateMandalField get customerCreateMandalField;
-  @override
-  CustomerCreateCityField get customerCreateCityField;
-  @override
-  CustomerCreateLocalityField get customerCreateLocalityField;
-  @override
-  CustomerCreatePincodeField get customerCreatePincodeField;
-  @override
-  CustomerCreateAddressField get customerCreateAddressField;
-  @override
-  CustomerCreateContactPersonField get customerCreateContactPersonField;
-  @override
-  CustomerCreateCreditLimitField get customerCreateCreditLimitField;
-  @override
-  bool get isSubmitting;
-  @override
-  bool get isSuccess;
-  @override
-  ApiFailedModel? get apiFailedModel;
-  @override
-  bool get showInputError;
   @override
   List<PrimarySourceModel> get primarySourceList;
   @override
@@ -1388,25 +1479,75 @@ abstract class _CustomerCreateState implements CustomerCreateState {
   @override
   String? get selectedCustomerType;
   @override
-  List<DistrictModel> get districtList;
+  CustomerCreateCreditLimitField get customerCreateCreditLimitField;
   @override
-  DistrictModel? get selectedDistrictModel;
+  List<CityModel> get cityList;
+  @override
+  CityModel? get selectedCityModel;
+  @override
+  CustomerCreateAddressLineTwoField get customerCreateAddressLineTwoField;
+  @override
+  CustomerCreateMandalField get customerCreateMandalField;
+  @override
+  List<AssignedToModel> get assignedList;
+  @override
+  AssignedToModel? get selectedAssignedModel;
+  @override
+  bool get districtLoading;
+  @override
+  List<DivisionModel> get divisionsList;
+  @override
+  List<DivisionModel> get selectedDivisionsList;
+  @override
+  bool get isDivisionLoading;
+  @override
+  DivisionModel? get selectedDivisionModel;
+  @override
+  List<CountryModel> get countryList;
   @override
   List<StateModel> get stateList;
   @override
   StateModel? get selectedStateModel;
   @override
-  List<CountryModel> get countryList;
+  List<DistrictModel> get districtList;
+  @override
+  DistrictModel? get selectedDistrictModel;
+  @override
+  List<LocalityModel> get localityList;
+  @override
+  LocalityModel? get selectedLocalityModel;
+  @override
+  CustomerCreateAddressField get customerCreateAddressField;
+  @override
+  CustomerCreatePincodeField get customerCreatePincodeField;
+  @override
+  bool get isBusinessPartner;
+  @override
+  StringField get faxNumberField;
+  @override
+  StringField get farmNameField;
+  @override
+  NumberField get farmCapacityField;
+  @override
+  List<CustomerCodeModel> get customerCodeList;
+  @override // REMOVEE
+  CustomerCreateCityField get customerCreateCityField;
+  @override
+  CustomerCreateLocalityField get customerCreateLocalityField;
+  @override
+  bool get isSubmitting;
+  @override
+  bool get isSuccess;
+  @override
+  ApiFailedModel? get apiFailedModel;
+  @override
+  bool get showInputError;
   @override
   CountryModel? get selectedCountryModel;
   @override
   List<String> get titlesList;
   @override
   String? get selectedTitleValue;
-  @override
-  List<AssignedToModel> get assignedList;
-  @override
-  AssignedToModel? get selectedAssignedModel;
   @override
   bool get isLoading;
   @override
@@ -1419,24 +1560,6 @@ abstract class _CustomerCreateState implements CustomerCreateState {
   bool get countryLoading;
   @override
   bool get stateLoading;
-  @override
-  bool get districtLoading;
-  @override
-  List<DivisionModel> get divisionsList;
-  @override
-  List<DivisionModel> get selectedDivisionsList;
-  @override
-  bool get isDivisionLoading;
-  @override
-  DivisionModel? get selectedDivisionModel;
-  @override
-  List<CityModel> get cityList;
-  @override
-  CityModel? get selectedCityModel;
-  @override
-  List<LocalityModel> get localityList;
-  @override
-  LocalityModel? get selectedLocalityModel;
   @override
   bool get isCityLoading;
   @override

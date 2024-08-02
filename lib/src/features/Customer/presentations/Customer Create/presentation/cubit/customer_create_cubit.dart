@@ -535,7 +535,7 @@ results.fold(
 
   // GET ALL INITIAL VALUES
   Future<void> getAllInitialValues() async {
-    emit(CustomerCreateState.initial());
+    // emit(CustomerCreateState.initial());
     emit(state.copyWith(showInputError:  false));
     clearAllController();
 
@@ -546,6 +546,12 @@ results.fold(
     await getAllZoneList();
     await getAllDivisions();
 
+  }
+
+
+  void setBusinessPartnerBoolValue(bool value) {
+    emit(state.copyWith(isBusinessPartner: value));
+    log(value.toString());
   }
 
 

@@ -56,15 +56,12 @@ class CustomerCreateBodyWidget extends StatelessWidget {
               // CUSTOMER NAME
               20.verticalSpace,
               const CCTitleDropDownWidget(),
-              20.verticalSpace,
-              const CCNameTextFieldWidget(),
-              20.verticalSpace,
+          context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     20.verticalSpace,
+         context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     const CCNameTextFieldWidget(),
+         context.read<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :      20.verticalSpace,
               // CUSTOMER PHONE
-              const CCPhoneTextFieldWidget(),
-              // CUSTOMER ADDITIONAL FIELD
-              20.verticalSpace,
-
-              const CCAdditionalPhoneTextField(),
+          context.read<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     const CCPhoneTextFieldWidget(),
+           
               20.verticalSpace,
               // CUSTOMER TITLE
               // CUSTOMER CONTACT PERSON
@@ -75,6 +72,10 @@ class CustomerCreateBodyWidget extends StatelessWidget {
               20.verticalSpace,
               // CUSTOMER EMAIL
               const CCEmailTextFieldWidget(),
+                 // CUSTOMER ADDITIONAL FIELD
+              20.verticalSpace,
+
+              const CCAdditionalPhoneTextField(),
 
               // CUSTOMER CUSTOMER-TYPE
               20.verticalSpace,
