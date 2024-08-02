@@ -877,8 +877,13 @@ String? assignedToReamarksValue = assignedToRemarksController.text;
 List<ProductPendingFormModel> pendingFormList = state.pendingFormList;
 
 
+if(customerModel == null || productFormList.isEmpty || orderTotalAmountValue.isEmpty|| orderAmountValue.isEmpty || amountPaidValue.isEmpty || balanceAmountValue.isEmpty || balanceDueDateValue.isEmpty || paymentModeModel == null || orderRemarksValue.isEmpty || assignedToReamarksValue.isEmpty || pendingFormList.isEmpty) {
+  Fluttertoast.showToast(msg: 'Please fill in all required fields',backgroundColor: Colors.red,textColor: Colors.white);
+  return;
+}else {
+
 SocCreatePostModel socCreatePostModel = SocCreatePostModel(
-  customerCode: customerModel!.customerCode!,
+  customerCode: customerModel.customerCode!,
   productDetails: productFormList.map((e) => ProductDetails(
     divisionId: e.divisionId,
     productId: e.productId,
@@ -899,7 +904,7 @@ SocCreatePostModel socCreatePostModel = SocCreatePostModel(
   orderTotalAmount: double.tryParse(orderTotalAmountValue) ?? 0.0,
   orderDiscountAmount:  0.0,
   amountPaid: double.tryParse(amountPaidValue) ?? 0.0,
-  paymentModeId: paymentModeModel!.paymentModeId!,
+  paymentModeId: paymentModeModel.paymentModeId!,
   balanceAmount: double.tryParse(balanceAmountValue) ?? 0.0,
   balanceAmountDueDate: balanceDueDateValue,
   orderRemarks: orderRemarksValue,
@@ -926,6 +931,10 @@ results.fold((l) {
   Fluttertoast.showToast(msg: 'Order created successfully',backgroundColor: Colors.green,textColor: Colors.white);
   resetForm();
 });
+
+}
+
+
 
 
 
