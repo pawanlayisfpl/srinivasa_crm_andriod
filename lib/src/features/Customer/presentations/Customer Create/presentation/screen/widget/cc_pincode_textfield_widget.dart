@@ -13,15 +13,27 @@ class CCPincodeTextField extends StatelessWidget {
     return BlocBuilder<CustomerCreateCubit, CustomerCreateState>(
       builder: (context, state) {
         return CommonTextfield(
-          inputFormatters: [
-            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-            LengthLimitingTextInputFormatter(6)
-          ],
-          textInputType: TextInputType.phone,
-          textEditingController: context.read<CustomerCreateCubit>().pincodeController, onChanged: (value) {
-          context.read<CustomerCreateCubit>().changePincode(pincode: value);
-        
-        }, validator: (val) => state.customerCreatePincodeField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "Pincode is empty",invalidPincode: (value) => "(${value.failedValue.toString()}) is invalid pincode"), (r) => null), labelText: "Pincode", hintText: "Enter customer pincode", autovalidateMode: state.showInputError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction);
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+              LengthLimitingTextInputFormatter(6)
+            ],
+            textInputType: TextInputType.phone,
+            textEditingController:
+                context.read<CustomerCreateCubit>().pincodeController,
+            onChanged: (value) {
+              context.read<CustomerCreateCubit>().changePincode(pincode: value);
+            },
+            validator: (val) => state.customerCreatePincodeField.value.fold(
+                (l) => l.maybeMap(
+                    orElse: () => null,
+                    empty: (value) => "Pincode is empty",
+                    invalidPincode: (value) =>
+                        "(${value.failedValue.toString()}) is invalid pincode"),
+                (r) => null),
+            hintText: "Enter customer pincode",
+            autovalidateMode: state.showInputError
+                ? AutovalidateMode.always
+                : AutovalidateMode.onUserInteraction);
       },
     );
   }

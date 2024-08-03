@@ -12,10 +12,25 @@ class CCNameTextFieldWidget extends StatelessWidget {
     return BlocBuilder<CustomerCreateCubit, CustomerCreateState>(
       builder: (context, state) {
         return CommonTextfield(
-        
-          textEditingController: context.read<CustomerCreateCubit>().customerNameController, onChanged: (value) {
-          context.read<CustomerCreateCubit>().changeCustomerName(customerName: value);
-        }, validator: (val) => state.customerCreateCustomerNameField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "Name is empty",tooShort: (value) => "Name is too short",), (r) => null), labelText: "Name", hintText: "Enter customer name", autovalidateMode: state.showInputError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction);
+            textEditingController:
+                context.read<CustomerCreateCubit>().customerNameController,
+            onChanged: (value) {
+              context
+                  .read<CustomerCreateCubit>()
+                  .changeCustomerName(customerName: value);
+            },
+            validator: (val) =>
+                state.customerCreateCustomerNameField.value.fold(
+                    (l) => l.maybeMap(
+                          orElse: () => null,
+                          empty: (value) => "Name is empty",
+                          tooShort: (value) => "Name is too short",
+                        ),
+                    (r) => null),
+            hintText: "Enter customer name",
+            autovalidateMode: state.showInputError
+                ? AutovalidateMode.always
+                : AutovalidateMode.onUserInteraction);
       },
     );
   }

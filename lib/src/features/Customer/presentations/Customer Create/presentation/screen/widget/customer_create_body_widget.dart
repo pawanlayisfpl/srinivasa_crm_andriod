@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/common/widgets/text/common_textfield_heading_widget.dart';
 import 'package:srinivasa_crm_new/src/config/constants/app_colors.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/state/customer_create_state.dart';
@@ -20,6 +21,8 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%2
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_district_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_divison_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_email_textfield_widget.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_farm_capacity_textfield.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_fax_number_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_mandal_textfield_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_mobile_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_name_textfield.dart';
@@ -38,7 +41,7 @@ class CustomerCreateBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return context.watch<CustomerCreateCubit>().state.isSubmitting == true ? const   CustomLoadingWidget() : SingleChildScrollView(
       physics:
           const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
       child: BlocConsumer<CustomerCreateCubit, CustomerCreateState>(
@@ -49,85 +52,136 @@ class CustomerCreateBodyWidget extends StatelessWidget {
                  previous.isLoading != current.isLoading;
         },
         builder: (context, state) {
-          return state.isSubmitting == true ? const  Center(child: CustomLoadingWidget()) : Column(
+          return  Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // CUSTOMER NAME
               20.verticalSpace,
+                            const CommonTextFieldHeadingWidget(title: "Title",isRequired: true,),
+
               const CCTitleDropDownWidget(),
           context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     20.verticalSpace,
+                    context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     CommonTextFieldHeadingWidget(title: 'Customer Name',isRequired: true,),
+
          context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     const CCNameTextFieldWidget(),
          context.read<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :      20.verticalSpace,
+                             context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     CommonTextFieldHeadingWidget(title: 'Customer Phone',isRequired: true,),
+
               // CUSTOMER PHONE
           context.read<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     const CCPhoneTextFieldWidget(),
            
               20.verticalSpace,
               // CUSTOMER TITLE
               // CUSTOMER CONTACT PERSON
+              const CommonTextFieldHeadingWidget(title: "Contact Person Name",isRequired: true,),
               const CCContactPersonTextField(),
               20.verticalSpace,
               // CUSTOMER MOBILE
+                            const CommonTextFieldHeadingWidget(title: "Contact Mobile Number",isRequired: true,),
+
               const CCMobileTextFieldWidget(),
               20.verticalSpace,
               // CUSTOMER EMAIL
+                                          const CommonTextFieldHeadingWidget(title: "Email",isRequired: true,),
+
               const CCEmailTextFieldWidget(),
                  // CUSTOMER ADDITIONAL FIELD
               20.verticalSpace,
+                                                      const CommonTextFieldHeadingWidget(title: "Additional Phone",isRequired: false,),
 
               const CCAdditionalPhoneTextField(),
 
               // CUSTOMER CUSTOMER-TYPE
               20.verticalSpace,
+                                                        const CommonTextFieldHeadingWidget(title: "Customer Type",isRequired: true,),
+
               const CCCustomerTypeDropDownWidget(),
               // DIVISONS DROPDOWN
               20.verticalSpace,
+                                                                      const CommonTextFieldHeadingWidget(title: "Division",isRequired: true,),
+
               state.isDivisionLoading ? const DropdownLoadingWidget() : CCDivisionDropDownWidget(),
 
               // CUSTOMR ZONE ID
               20.verticalSpace,
+                                                                                    const CommonTextFieldHeadingWidget(title: "Zone",isRequired: true,),
+
             state.zoneLoading ? const DropdownLoadingWidget() :  const CCZoneDropDownWidget(),
               20.verticalSpace,
               // CUSTOMER ASSIGNED TO DROPDOWN
+                                                                                    const CommonTextFieldHeadingWidget(title: "Assign To",isRequired: true,),
+
               const CCAssignedToDropDownWidget(),
 
               20.verticalSpace,
+                                                                                    const CommonTextFieldHeadingWidget(title: "Primary Source",isRequired: true,),
+
              state.primarySourceLoading ? const DropdownLoadingWidget() :  CCPrimarySourceDropDownWidget(),
               20.verticalSpace,
               // CUSTOMER COUNTRY ID
+                                                                                    const CommonTextFieldHeadingWidget(title: "Country",isRequired: true,),
+
             state.countryLoading ? const DropdownLoadingWidget() :   const CCCountiresDropDownWidget(),
               20.verticalSpace,
+ const CommonTextFieldHeadingWidget(title: "State",isRequired: true,),
+
             state.stateLoading ? const DropdownLoadingWidget() :   const CCStateDropDownWidget(),
               20.verticalSpace,
               // CUSTOMRE DIVISION DROPDOWN
+               const CommonTextFieldHeadingWidget(title: "District",isRequired: true,),
+
 
            state.districtLoading ? const DropdownLoadingWidget() :    const CCDistrictDropDownWidget(),
               // CUSTOMER MANDAM DROPDOWN
               20.verticalSpace,
+               const CommonTextFieldHeadingWidget(title: "Mandal",isRequired: true,),
+
               const CCMandalTextFieldWidget(),
               20.verticalSpace,
 
               // CUSTOMER CITY TEXTFIELD
+               const CommonTextFieldHeadingWidget(title: "City",isRequired: true,),
+
               state.isCityLoading ? const DropdownLoadingWidget() : const CCCityDropDownWidget(),
               // const CCCityTextFieldWidget(),
               20.verticalSpace,
 
               // CUSTOMER LOCALITY
               // const CCLocalityTextFieldWidget(),
+               const CommonTextFieldHeadingWidget(title: "Locality",isRequired: true,),
+
               state.isLocalityLoading ? const DropdownLoadingWidget() : const CCLocalityDropDownWidget(),
               20.verticalSpace,
               // CUSTOMER ADDRESS
+               const CommonTextFieldHeadingWidget(title: "Address",isRequired: true,),
+
               const CCAddressTextFieldWidget(),
               20.verticalSpace,
 
               // CUSTOMER ADDRESSS LINE TWO
+               const CommonTextFieldHeadingWidget(title: "Address Line Two",isRequired: true,),
+
               const CCAddressLineTwoTextFieldWidget(),
               // CUSTOMER PINCODE
               20.verticalSpace,
+               const CommonTextFieldHeadingWidget(title: "Pincode",isRequired: true,),
+
               const CCPincodeTextField(),
               // CUSTOMER CREDIT LIMIT
               20.verticalSpace,
+               const CommonTextFieldHeadingWidget(title: "Credit Limit (Optional)",isRequired: false,),
+
               const CCCreditLimitTextField(),
+              20.verticalSpace,
+                             const CommonTextFieldHeadingWidget(title: "Fax number (Optional)",isRequired: false,),
+
+            const CCFaxNumberField(),
+            20.verticalSpace,
+                           const CommonTextFieldHeadingWidget(title: "Farm Capacity",isRequired: true,),
+
+            const CCFarmCapacityTextField(),
+            
               20.verticalSpace,
          state.isSubmitting ? CustomLoadingWidget() :     CommonButton(
                   callback: () async {

@@ -12,11 +12,26 @@ class CCAddressLineTwoTextFieldWidget extends StatelessWidget {
     return BlocBuilder<CustomerCreateCubit, CustomerCreateState>(
       builder: (context, state) {
         return CommonTextfield(
-          maxLines: 4,
-        
-          textEditingController: context.read<CustomerCreateCubit>().addressLineTwoController, onChanged: (value) {
-          context.read<CustomerCreateCubit>().changeAddressLineTwo(addressLineTwo: value);
-        }, validator: (val) => state.customerCreateAddressLineTwoField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "Address line two is empty",tooShort: (value) => "Address line two is too short",), (r) => null), labelText: "Address Line Two", hintText: "Enter address line two", autovalidateMode: state.showInputError ? AutovalidateMode.disabled : AutovalidateMode.disabled);
+            maxLines: 4,
+            textEditingController:
+                context.read<CustomerCreateCubit>().addressLineTwoController,
+            onChanged: (value) {
+              context
+                  .read<CustomerCreateCubit>()
+                  .changeAddressLineTwo(addressLineTwo: value);
+            },
+            validator: (val) =>
+                state.customerCreateAddressLineTwoField.value.fold(
+                    (l) => l.maybeMap(
+                          orElse: () => null,
+                          empty: (value) => "Address line two is empty",
+                          tooShort: (value) => "Address line two is too short",
+                        ),
+                    (r) => null),
+            hintText: "Enter address line two",
+            autovalidateMode: state.showInputError
+                ? AutovalidateMode.always
+                : AutovalidateMode.onUserInteraction);
       },
     );
   }

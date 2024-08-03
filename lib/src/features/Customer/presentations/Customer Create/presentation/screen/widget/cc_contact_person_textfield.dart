@@ -15,7 +15,7 @@ class CCContactPersonTextField extends StatelessWidget {
         
           textEditingController: context.read<CustomerCreateCubit>().contactPersonController, onChanged: (value) {
           context.read<CustomerCreateCubit>().changeContactPerson(contactPerson: value);
-        }, validator: (val) => state.customerCreateContactPersonField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "Contact person is empty",tooShort: (value) => "Contact person name is too short",), (r) => null), labelText: "Contact Person", hintText: "Enter contact person name", autovalidateMode: state.showInputError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction);
+        }, validator: (val) => state.customerCreateContactPersonField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "Contact person is empty",tooShort: (value) => "Contact person name is too short",), (r) => null),  hintText: "Enter contact person name", autovalidateMode: state.showInputError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction);
       },
     );
   }

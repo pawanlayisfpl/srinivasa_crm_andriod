@@ -27,7 +27,6 @@ class CCEmailTextFieldWidget extends StatelessWidget {
                           invalidEmail: (value) => "Invalid email address",
                         ),
                     (r) => null),
-            labelText: "Email",
             hintText: "Enter customer email address",
             textInputType: TextInputType.emailAddress,
             autovalidateMode: state.showInputError

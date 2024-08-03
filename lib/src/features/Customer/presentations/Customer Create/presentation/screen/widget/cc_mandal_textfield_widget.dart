@@ -12,10 +12,22 @@ class CCMandalTextFieldWidget extends StatelessWidget {
     return BlocBuilder<CustomerCreateCubit, CustomerCreateState>(
       builder: (context, state) {
         return CommonTextfield(
-        
-          textEditingController: context.read<CustomerCreateCubit>().mandalController, onChanged: (value) {
-          context.read<CustomerCreateCubit>().changeMandal(mandal: value);
-        }, validator: (val) => state.customerCreateMandalField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "Mandal is empty",tooShort: (value) => "Mandal is too short",), (r) => null), labelText: "Mandal", hintText: "Enter customer mandal", autovalidateMode: state.showInputError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction);
+            textEditingController:
+                context.read<CustomerCreateCubit>().mandalController,
+            onChanged: (value) {
+              context.read<CustomerCreateCubit>().changeMandal(mandal: value);
+            },
+            validator: (val) => state.customerCreateMandalField.value.fold(
+                (l) => l.maybeMap(
+                      orElse: () => null,
+                      empty: (value) => "Mandal is empty",
+                      tooShort: (value) => "Mandal is too short",
+                    ),
+                (r) => null),
+            hintText: "Enter customer mandal",
+            autovalidateMode: state.showInputError
+                ? AutovalidateMode.always
+                : AutovalidateMode.onUserInteraction);
       },
     );
   }

@@ -363,15 +363,15 @@ Future<CustomerFullDetailsModel> getCustomerFullDetails({required String custome
   );
     if(response.statusCode == 200) {
       final List data = response.data['body'];
-      final List<AssignedToModel> assignedToList = data.map((e) => AssignedToModel.fromJson(e)).toList();
-      return await Future.value(assignedToList);
+      final List<AssignedToModel> assignedToList = data.isEmpty ? [] :  data.map((e) => AssignedToModel.fromJson(e)).toList();
+      return assignedToList;
     }else {
-      return Future.error(NetworkExceptions.getDioException(response.data));
+      throw NetworkExceptions.getDioException(response.data);
 
     }
      
    } on DioException catch (e) {
-    return Future.error(NetworkExceptions.getDioException(e));
+    throw NetworkExceptions.getDioException(e);
      
    }
   }

@@ -5,8 +5,8 @@ import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/state/customer_create_state.dart';
 
-class CCPhoneTextFieldWidget extends StatelessWidget {
-  const CCPhoneTextFieldWidget({super.key});
+class CCFarmCapacityTextField extends StatelessWidget {
+  const CCFarmCapacityTextField({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,21 +15,24 @@ class CCPhoneTextFieldWidget extends StatelessWidget {
         return CommonTextfield(
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-              LengthLimitingTextInputFormatter(10)
+              // LengthLimitingTextInputFormatter(10)
             ],
-            textInputType: TextInputType.phone,
+            textInputType:
+                const TextInputType.numberWithOptions(signed: false, decimal: false),
             textEditingController:
-                context.read<CustomerCreateCubit>().phoneController,
+                context.read<CustomerCreateCubit>().farmCapacityController,
             onChanged: (value) {
-              context.read<CustomerCreateCubit>().changePhone(phone: value);
+              context
+                  .read<CustomerCreateCubit>()
+                  .changeFarmCapacity(value: value);
             },
-            validator: (val) => state.customerPhoneField.value.fold(
+            validator: (val) => state.customerCreateCreditLimitField.value.fold(
                 (l) => l.maybeMap(
-                    orElse: () => null,
-                    empty: (value) => "Phone is empty",
-                    invalidPhoneNumber: (val) => "Invalid Phone Number"),
+                      orElse: () => null,
+                      empty: (value) => "Farm capacity is empty",
+                    ),
                 (r) => null),
-            hintText: "Enter customer phone",
+            hintText: "Enter customer farm capacity",
             autovalidateMode: state.showInputError
                 ? AutovalidateMode.always
                 : AutovalidateMode.onUserInteraction);

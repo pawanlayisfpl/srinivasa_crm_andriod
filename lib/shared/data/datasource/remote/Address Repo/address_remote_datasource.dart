@@ -137,7 +137,7 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
         });
   
       if(response.statusCode == 200){
-        final List<LocalityModel> localities = (response.data as List).map((e) => LocalityModel.fromJson(e)).toList();
+        final List<LocalityModel> localities = (response.data['body'] as List).map((e) => LocalityModel.fromJson(e)).toList();
         return  localities;
       }else {
         logger.e('LOCALITY API FAIELD');

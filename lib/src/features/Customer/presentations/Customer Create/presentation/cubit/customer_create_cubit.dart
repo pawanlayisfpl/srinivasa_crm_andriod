@@ -17,6 +17,7 @@ import 'package:srinivasa_crm_new/shared/domain/repo/Address/address_repo.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Divisions/divison_repo.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Primary%20Source/primary_source_repo.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Zone/zone_repo.dart';
+import 'package:srinivasa_crm_new/src/common/fields/string_field.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_address_field.dart';
@@ -31,10 +32,12 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/custo
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/customer_create_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/product_model.dart';
 
 import '../../../../../../../shared/domain/model/City/city_model.dart';
 import '../../../../../../../shared/domain/model/Employe/employe_model.dart';
 import '../../../../../../../shared/shared.dart';
+import '../../../../../../common/fields/number_field.dart';
 import '../../../../domain/model/field/customer_create_addation_phone_field.dart';
 import '../../../../domain/model/field/customer_create_contact_person_field.dart';
 import '../../../../domain/model/field/customer_create_mobile_field.dart';
@@ -71,6 +74,8 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
   final TextEditingController addressController = TextEditingController();
   final TextEditingController pincodeController = TextEditingController( );
   final TextEditingController cityController = TextEditingController( );
+  final TextEditingController faxNumberController = TextEditingController();
+  final TextEditingController farmCapacityController = TextEditingController();
 
 
   void clearAllController() {
@@ -87,6 +92,8 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     contactPersonController.clear();
     mobileController.clear();
     cityController.clear();
+    faxNumberController.clear();
+    farmCapacityController.clear();
   }
 
   // CHANGE NAME FIELD
@@ -111,6 +118,14 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
   void changeCreditLimit({required String value}) {
     emit(state.copyWith(customerCreateCreditLimitField: CustomerCreateCreditLimitField(value)));
   }
+
+  void changeFaxNumber({required String value}) {
+    emit(state.copyWith(faxNumberField: StringField(value)));
+  }
+
+  void changeFarmCapacity({required String value}) {
+    emit(state.copyWith(farmCapacityField: NumberField(value)));
+  } 
 
   void getTitleLists() {
     emit(state.copyWith(titlesList: ['Mr', 'Mrs', ]));
@@ -239,7 +254,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     emit(state.copyWith(isLoading: true));
     final results = await customerRepo.getAssignedList(zoneModel: zoneModel);
     results.fold((l) {
-      emit(state.copyWith(isLoading: false, apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
+      emit(state.copyWith(isLoading: false, apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),assignedList: []));
     }, (r) {
       List<AssignedToModel> sortedAssignedList = List.from(r);
       sortedAssignedList.sort((a, b) => a.userName!.toLowerCase().compareTo(b.userName!.toLowerCase()));
@@ -250,13 +265,18 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
 
   // GET COUNTRY LIST
   Future<void> getCountryLists() async {
-    emit(state.copyWith(isLoading: true));
-    final results = await addressRepo.getCountries();
-    results.fold((l) {
-      emit(state.copyWith(isLoading: false, apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
-    }, (r) {
-      emit(state.copyWith(countryList: r, isLoading: false));
-    });
+    await Future.delayed(const Duration(milliseconds: 800));
+    emit(state.copyWith(isLoading: true,countryList: [
+      CountryModel(countryId: 79, countryName: "India")
+    ],));
+
+    // emit(state.copyWith(isLoading: true));
+    // final results = await addressRepo.getCountries();
+    // results.fold((l) {
+    //   emit(state.copyWith(isLoading: false, apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
+    // }, (r) {
+    //   emit(state.copyWith(countryList: r, isLoading: false));
+    // });
   }
 
   // SET COUNTRY VALUE
@@ -341,7 +361,11 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
   Future<void> getAllDivisions() async {
     emit(state.copyWith(isDivisionLoading: true,selectedDivisionsList: [],divisionsList: []));
     final results = await divisionRepo.getDivisions();
-    results.fold((l) => emit(state.copyWith(divisionsList: [],isDivisionLoading: false,apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))), (r) => emit(state.copyWith(apiFailedModel: null,divisionsList: r,isDivisionLoading: false)));
+    results.fold((l) => emit(state.copyWith(divisionsList: [],isDivisionLoading: false,apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))), (r) {
+      List<DivisionModel> sortedDivisionList = List.from(r);
+      sortedDivisionList.sort((a, b) => a.divisionName.toLowerCase().compareTo(b.divisionName.toLowerCase()));
+      emit(state.copyWith(apiFailedModel: null,divisionsList: sortedDivisionList,isDivisionLoading: false));
+    });
 
     
   }
@@ -365,7 +389,10 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
 
 
   void formSubmit() async {
+  
+
     emit(state.copyWith(isSubmitting: true));
+    await Future.delayed(const Duration(seconds: 3));
     final customerName = state.customerCreateCustomerNameField.value.getOrElse(() => "");
     final phone = state.customerPhoneField.value.getOrElse(() => '');
     final mobile = state.customerMobileField.value.getOrElse(() => '');
@@ -387,11 +414,39 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     final zone = state.selectedZoneModel;
     final customerType = state.selectedCustomerType;
     final assginedTo = state.selectedAssignedModel;
-    final divisionModle = state.selectedDivisionModel;
+    final divisionModel = state.selectedDivisionModel;
 
     final selectedCityValue = state.selectedCityModel;
     final selectedLocalityValue = state.selectedLocalityModel;
 
+
+    final faxNumber = state.farmNameField.value.getOrElse(() => "");
+    final farmCapacity = state.farmCapacityField.value.getOrElse(() => "");
+
+      final bool isOrganization = state.isBusinessPartner;
+
+    if(isOrganization) {
+
+
+      if(state.selectedTitleValue != null && customerName.isNotEmpty && phone.isNotEmpty && contactPerson.isNotEmpty  && mobile.isNotEmpty && email.isNotEmpty && customerType != null && divisionModel != null && zone != null && mandal.isNotEmpty && assginedTo != null  &&    country != null && stateModel != null && distirctModel != null && selectedCityValue != null && selectedLocalityValue != null && address.isNotEmpty && addressLineTwo.isNotEmpty && pincode.isNotEmpty && faxNumber.isNotEmpty && farmCapacity.isNotEmpty) {
+
+      }else {
+        Fluttertoast.showToast(msg: 'Please fill all the fields');
+        emit(state.copyWith(showInputError: true));
+      }
+
+    }else {
+      // INDIVIDUAL
+
+      if(state.selectedTitleValue != null && customerName.isNotEmpty && mobile.isNotEmpty && email.isNotEmpty && customerType != null && divisionModel != null && zone != null && mandal.isNotEmpty && assginedTo != null  &&    country != null && stateModel != null && distirctModel != null && selectedCityValue != null && selectedLocalityValue != null && address.isNotEmpty && addressLineTwo.isNotEmpty && pincode.isNotEmpty && faxNumber.isNotEmpty && farmCapacity.isNotEmpty) {
+
+      }else {
+        Fluttertoast.showToast(msg: 'Please fill all the fields');
+        emit(state.copyWith(showInputError: true));
+      }
+      
+    }
+  emit(state.copyWith(isSubmitting: false));
 
 
 
@@ -399,30 +454,30 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
    
 
 
-    if(state.selectedDivisionModel != null && title != null &&  customerName.isNotEmpty  && phone.isNotEmpty && contactPerson.isNotEmpty && mobile.isNotEmpty && email.isNotEmpty && customerType != null &&  zone != null && assginedTo != null && country != null && stateModel != null && distirctModel != null && mandal.isNotEmpty && selectedCityValue != null && selectedLocalityValue != null && address.isNotEmpty && pincode.isNotEmpty ) {
-      CustomerCreatePostModel createPostModel = CustomerCreatePostModel(customerName: customerName, customerPhone: phone, title: title.toLowerCase(), contactPerson: contactPerson, mobile: mobile, email: email, additionalPhone: addationalPhone, primarySourceId: primarySource!.sourceId.toString(), zoneId: zone.zoneId ?? "0", customerType: customerType.toString() == "Commercial" ? true : false , creditLimit: creditLimit.toString(), addressLine2: addressLineTwo, mandal: mandal, districtId: distirctModel.districtId ?? "0", assignTo: assginedTo.id.toString(), divisionId: divisionModle!.divisionId.toString(), countryId: country.countryId.toString(), stateId: stateModel.stateId, cityId: selectedCityValue.cityId.toString(), localityId: selectedLocalityValue.localityId.toString(), address: address, pincode: pincode);
-    log(createPostModel.toJson().toString());
-      await Future.delayed(const Duration(seconds: 2));
-     emit(state.copyWith(isSubmitting: false,isSuccess: false));
-     final results = await customerRepo.createCustomer(customerCreatePostModel: createPostModel);
+//     if(state.selectedDivisionModel != null && title != null &&  customerName.isNotEmpty  && phone.isNotEmpty && contactPerson.isNotEmpty && mobile.isNotEmpty && email.isNotEmpty && customerType != null &&  zone != null && assginedTo != null && country != null && stateModel != null && distirctModel != null && mandal.isNotEmpty && selectedCityValue != null && selectedLocalityValue != null && address.isNotEmpty && pincode.isNotEmpty ) {
+//       CustomerCreatePostModel createPostModel = CustomerCreatePostModel(customerName: customerName, customerPhone: phone, title: title.toLowerCase(), contactPerson: contactPerson, mobile: mobile, email: email, additionalPhone: addationalPhone, primarySourceId: primarySource!.sourceId.toString(), zoneId: zone.zoneId ?? "0", customerType: customerType.toString() == "Commercial" ? true : false , creditLimit: creditLimit.toString(), addressLine2: addressLineTwo, mandal: mandal, districtId: distirctModel.districtId ?? "0", assignTo: assginedTo.id.toString(), divisionId: divisionModle!.divisionId.toString(), countryId: country.countryId.toString(), stateId: stateModel.stateId, cityId: selectedCityValue.cityId.toString(), localityId: selectedLocalityValue.localityId.toString(), address: address, pincode: pincode);
+//     log(createPostModel.toJson().toString());
+//       await Future.delayed(const Duration(seconds: 2));
+//      emit(state.copyWith(isSubmitting: false,isSuccess: false));
+//      final results = await customerRepo.createCustomer(customerCreatePostModel: createPostModel);
 
-results.fold(
-  (l) => emit(state.copyWith(
-    isSubmitting: false,
-    showInputError: true,
-    apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),
-  )),
-  (r) => emit(state.copyWith(
-    isSubmitting: false,
-    isSuccess: true,
-    showInputError: false,
-    apiFailedModel: null,
-  )));
-    } else {
-      emit(state.copyWith(isSubmitting: false,showInputError: true));
-            Fluttertoast.showToast(msg: 'Form submission faield', backgroundColor: AppColors.redColor, textColor: Colors.white, gravity: ToastGravity.BOTTOM);
+// results.fold(
+//   (l) => emit(state.copyWith(
+//     isSubmitting: false,
+//     showInputError: true,
+//     apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),
+//   )),
+//   (r) => emit(state.copyWith(
+//     isSubmitting: false,
+//     isSuccess: true,
+//     showInputError: false,
+//     apiFailedModel: null,
+//   )));
+//     } else {
+//       emit(state.copyWith(isSubmitting: false,showInputError: true));
+//             Fluttertoast.showToast(msg: 'Form submission faield', backgroundColor: AppColors.redColor, textColor: Colors.white, gravity: ToastGravity.BOTTOM);
 
-    }
+//     }
 
 
     
@@ -558,6 +613,26 @@ results.fold(
   void clearAllFields() {
     emit(CustomerCreateState.initial());
     clearAllController();
+  }
+
+
+  @override
+  Future<void> close() {
+    customerNameController.dispose();
+    phoneController.dispose();
+    emailController.dispose();
+    addationalPhoneController.dispose();
+    creditLimitController.dispose();
+    addressLineTwoController.dispose();
+    mandalController.dispose();
+    localityController.dispose();
+    addressController.dispose();
+    pincodeController.dispose();
+    cityController.dispose();
+    faxNumberController.dispose();
+    farmCapacityController.dispose();
+    
+    return super.close();
   }
   
 

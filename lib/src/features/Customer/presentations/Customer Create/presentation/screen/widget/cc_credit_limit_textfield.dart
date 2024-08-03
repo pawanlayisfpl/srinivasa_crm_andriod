@@ -13,15 +13,28 @@ class CCCreditLimitTextField extends StatelessWidget {
     return BlocBuilder<CustomerCreateCubit, CustomerCreateState>(
       builder: (context, state) {
         return CommonTextfield(
-          inputFormatters: [
-            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-            LengthLimitingTextInputFormatter(10)
-          ],
-          textInputType: TextInputType.phone,
-          textEditingController: context.read<CustomerCreateCubit>().creditLimitController, onChanged: (value) {
-          context.read<CustomerCreateCubit>().changeCreditLimit(value: value);
-        
-        }, validator: (val) => state.customerCreateCreditLimitField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (value) => "Credit limit is empty",), (r) => null), labelText: "Credit Limit", hintText: "Enter customer credit limit", autovalidateMode: state.showInputError ? AutovalidateMode.disabled : AutovalidateMode.disabled);
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+              LengthLimitingTextInputFormatter(10)
+            ],
+            textInputType: TextInputType.phone,
+            textEditingController:
+                context.read<CustomerCreateCubit>().creditLimitController,
+            onChanged: (value) {
+              context
+                  .read<CustomerCreateCubit>()
+                  .changeCreditLimit(value: value);
+            },
+            validator: (val) => state.customerCreateCreditLimitField.value.fold(
+                (l) => l.maybeMap(
+                      orElse: () => null,
+                      empty: (value) => "Credit limit is empty",
+                    ),
+                (r) => null),
+            hintText: "Enter customer credit limit",
+            autovalidateMode: state.showInputError
+                ? AutovalidateMode.disabled
+                : AutovalidateMode.disabled);
       },
     );
   }
