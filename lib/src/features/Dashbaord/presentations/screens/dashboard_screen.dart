@@ -34,6 +34,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback( (time) async {
       context.read<AlertCubit>().getAlerts();
+      await checkingPermissions();
 
      
     });
@@ -60,6 +61,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             ElevatedButton(
               onPressed: () async {
+                       const platform = MethodChannel('com.example.srinivasa_crm_new');
+                platform.invokeMethod('stop');
                 // Handle LOGOUT button action
                 // You can add your logout logic here
                 final localstorge = locator.get<KeyValueStorage>();
@@ -156,6 +159,42 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
       
     );
+    
+  }
+  
+  checkingPermissions() async  {
+    Future<void> requestPermissions() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.location,
+      Permission.storage,
+
+      Permission.locationWhenInUse,
+      Permission.ignoreBatteryOptimizations,
+
+      // Add other permissions required by your app
+    ].request();
+
+    // Check if all permissions are granted
+    if (statuses.values.every((status) => status.isGranted)) {
+      print("All permissions granted");
+    } else {
+      print("Not all permissions were granted");
+      // Handle the case where permissions are not granted
+    }
+  }
+
+     try {
+      if(Platform.isAndroid) {
+    await requestPermissions();
+       // Request permissions before starting the service
+      await platform.invokeMethod('start');
+      }
+  
+      print('Service started');
+    } on PlatformException catch (e) {
+      print('Failed to start service: ${e.message}');
+    }
+  
     
   }
 }

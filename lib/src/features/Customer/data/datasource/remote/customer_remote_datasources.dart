@@ -1,15 +1,18 @@
 import 'dart:convert';
-import 'dart:math';
+import 'dart:developer';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/zone_model.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/approved_customer_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_code_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_full_details_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkin_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkout_post_model.dart';
@@ -34,6 +37,7 @@ abstract class CustomerRemoteDataSource{
   Future<CustomerFullDetailsModel> getCustomerFullDetails({required String customerCode});
   Future<List<AssignedToModel>> getAssignedLists({required ZoneModel zoneModel});
   Future<CustomerCreatedResponseModel> createCustomer({required CustomerCreatePostModel customerCreatePostModel});
+  Future<List<CustomerCodeModel>> getApprovedCustomerList();
   
 }
 
@@ -380,6 +384,7 @@ Future<CustomerFullDetailsModel> getCustomerFullDetails({required String custome
   Future<CustomerCreatedResponseModel> createCustomer({required CustomerCreatePostModel customerCreatePostModel}) async {
     final result = await connectionChecker.isConnected();
     if(result) {
+      log(customerCreatePostModel.toJson().toString());
       try {
         final response = await dioClient.post(
           Endpoints.createCustomer,
@@ -387,7 +392,7 @@ Future<CustomerFullDetailsModel> getCustomerFullDetails({required String custome
           headers: {},
         );
 
-        if(response.statusCode == 200) {
+        if(response.statusCode == 201) {
           return CustomerCreatedResponseModel.fromJson(response.data);
         }else {
           throw NetworkExceptions.getDioException(response.data);
@@ -398,6 +403,30 @@ Future<CustomerFullDetailsModel> getCustomerFullDetails({required String custome
       }
     }else {
       throw const  NetworkExceptions.noInternetConnection();
+    }
+  }
+  
+  @override
+  Future<List<CustomerCodeModel>> getApprovedCustomerList() async {
+    
+    try {
+      final results = await dioClient.get(Endpoints.approvedCustomerUrl,headers: {});
+
+      if(results.statusCode == 200) {
+          final List data = results.data['customers'];
+
+      final List<CustomerCodeModel> approvedCustomerList = data.map((e) => CustomerCodeModel.fromJson(e)).toList();
+      return approvedCustomerList;
+      }else {
+        throw NetworkExceptions.getDioException(results.data);
+
+
+      }
+    
+      
+    } on DioException catch (e) {
+      throw NetworkExceptions.getDioException(e);
+      
     }
   }
 }

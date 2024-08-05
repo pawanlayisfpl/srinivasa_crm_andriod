@@ -74,6 +74,10 @@ mixin _$CustomerCreateState {
   StringField get farmNameField => throw _privateConstructorUsedError;
   NumberField get farmCapacityField => throw _privateConstructorUsedError;
   List<CustomerCodeModel> get customerCodeList =>
+      throw _privateConstructorUsedError;
+  CustomerCodeModel? get selectedCustomerCodeModel =>
+      throw _privateConstructorUsedError;
+  bool get isCustomerCodeLoading =>
       throw _privateConstructorUsedError; // REMOVEE
   CustomerCreateCityField get customerCreateCityField =>
       throw _privateConstructorUsedError;
@@ -146,6 +150,8 @@ abstract class $CustomerCreateStateCopyWith<$Res> {
       StringField farmNameField,
       NumberField farmCapacityField,
       List<CustomerCodeModel> customerCodeList,
+      CustomerCodeModel? selectedCustomerCodeModel,
+      bool isCustomerCodeLoading,
       CustomerCreateCityField customerCreateCityField,
       CustomerCreateLocalityField customerCreateLocalityField,
       bool isSubmitting,
@@ -219,6 +225,8 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
     Object? farmNameField = null,
     Object? farmCapacityField = null,
     Object? customerCodeList = null,
+    Object? selectedCustomerCodeModel = freezed,
+    Object? isCustomerCodeLoading = null,
     Object? customerCreateCityField = null,
     Object? customerCreateLocalityField = null,
     Object? isSubmitting = null,
@@ -395,6 +403,14 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
           ? _value.customerCodeList
           : customerCodeList // ignore: cast_nullable_to_non_nullable
               as List<CustomerCodeModel>,
+      selectedCustomerCodeModel: freezed == selectedCustomerCodeModel
+          ? _value.selectedCustomerCodeModel
+          : selectedCustomerCodeModel // ignore: cast_nullable_to_non_nullable
+              as CustomerCodeModel?,
+      isCustomerCodeLoading: null == isCustomerCodeLoading
+          ? _value.isCustomerCodeLoading
+          : isCustomerCodeLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       customerCreateCityField: null == customerCreateCityField
           ? _value.customerCreateCityField
           : customerCreateCityField // ignore: cast_nullable_to_non_nullable
@@ -527,6 +543,8 @@ abstract class _$$CustomerCreateStateImplCopyWith<$Res>
       StringField farmNameField,
       NumberField farmCapacityField,
       List<CustomerCodeModel> customerCodeList,
+      CustomerCodeModel? selectedCustomerCodeModel,
+      bool isCustomerCodeLoading,
       CustomerCreateCityField customerCreateCityField,
       CustomerCreateLocalityField customerCreateLocalityField,
       bool isSubmitting,
@@ -599,6 +617,8 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
     Object? farmNameField = null,
     Object? farmCapacityField = null,
     Object? customerCodeList = null,
+    Object? selectedCustomerCodeModel = freezed,
+    Object? isCustomerCodeLoading = null,
     Object? customerCreateCityField = null,
     Object? customerCreateLocalityField = null,
     Object? isSubmitting = null,
@@ -775,6 +795,14 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
           ? _value._customerCodeList
           : customerCodeList // ignore: cast_nullable_to_non_nullable
               as List<CustomerCodeModel>,
+      selectedCustomerCodeModel: freezed == selectedCustomerCodeModel
+          ? _value.selectedCustomerCodeModel
+          : selectedCustomerCodeModel // ignore: cast_nullable_to_non_nullable
+              as CustomerCodeModel?,
+      isCustomerCodeLoading: null == isCustomerCodeLoading
+          ? _value.isCustomerCodeLoading
+          : isCustomerCodeLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       customerCreateCityField: null == customerCreateCityField
           ? _value.customerCreateCityField
           : customerCreateCityField // ignore: cast_nullable_to_non_nullable
@@ -892,6 +920,8 @@ class _$CustomerCreateStateImpl
       required this.farmNameField,
       required this.farmCapacityField,
       final List<CustomerCodeModel> customerCodeList = const [],
+      this.selectedCustomerCodeModel = null,
+      this.isCustomerCodeLoading = false,
       required this.customerCreateCityField,
       required this.customerCreateLocalityField,
       required this.isSubmitting,
@@ -1099,6 +1129,12 @@ class _$CustomerCreateStateImpl
     return EqualUnmodifiableListView(_customerCodeList);
   }
 
+  @override
+  @JsonKey()
+  final CustomerCodeModel? selectedCustomerCodeModel;
+  @override
+  @JsonKey()
+  final bool isCustomerCodeLoading;
 // REMOVEE
   @override
   final CustomerCreateCityField customerCreateCityField;
@@ -1156,7 +1192,7 @@ class _$CustomerCreateStateImpl
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CustomerCreateState(customerCreateCustomerNameField: $customerCreateCustomerNameField, customerPhoneField: $customerPhoneField, customerTitleField: $customerTitleField, customerCreateContactPersonField: $customerCreateContactPersonField, customerMobileField: $customerMobileField, customerCreateEmailField: $customerCreateEmailField, customerCreateAddationField: $customerCreateAddationField, primarySourceList: $primarySourceList, selectedPrimarySourceModel: $selectedPrimarySourceModel, zoneList: $zoneList, selectedZoneModel: $selectedZoneModel, customerTypeList: $customerTypeList, selectedCustomerType: $selectedCustomerType, customerCreateCreditLimitField: $customerCreateCreditLimitField, cityList: $cityList, selectedCityModel: $selectedCityModel, customerCreateAddressLineTwoField: $customerCreateAddressLineTwoField, customerCreateMandalField: $customerCreateMandalField, assignedList: $assignedList, selectedAssignedModel: $selectedAssignedModel, districtLoading: $districtLoading, divisionsList: $divisionsList, selectedDivisionsList: $selectedDivisionsList, isDivisionLoading: $isDivisionLoading, selectedDivisionModel: $selectedDivisionModel, countryList: $countryList, stateList: $stateList, selectedStateModel: $selectedStateModel, districtList: $districtList, selectedDistrictModel: $selectedDistrictModel, localityList: $localityList, selectedLocalityModel: $selectedLocalityModel, customerCreateAddressField: $customerCreateAddressField, customerCreatePincodeField: $customerCreatePincodeField, isBusinessPartner: $isBusinessPartner, faxNumberField: $faxNumberField, farmNameField: $farmNameField, farmCapacityField: $farmCapacityField, customerCodeList: $customerCodeList, customerCreateCityField: $customerCreateCityField, customerCreateLocalityField: $customerCreateLocalityField, isSubmitting: $isSubmitting, isSuccess: $isSuccess, apiFailedModel: $apiFailedModel, showInputError: $showInputError, selectedCountryModel: $selectedCountryModel, titlesList: $titlesList, selectedTitleValue: $selectedTitleValue, isLoading: $isLoading, zoneLoading: $zoneLoading, assingedToLaoding: $assingedToLaoding, primarySourceLoading: $primarySourceLoading, countryLoading: $countryLoading, stateLoading: $stateLoading, isCityLoading: $isCityLoading, isLocalityLoading: $isLocalityLoading)';
+    return 'CustomerCreateState(customerCreateCustomerNameField: $customerCreateCustomerNameField, customerPhoneField: $customerPhoneField, customerTitleField: $customerTitleField, customerCreateContactPersonField: $customerCreateContactPersonField, customerMobileField: $customerMobileField, customerCreateEmailField: $customerCreateEmailField, customerCreateAddationField: $customerCreateAddationField, primarySourceList: $primarySourceList, selectedPrimarySourceModel: $selectedPrimarySourceModel, zoneList: $zoneList, selectedZoneModel: $selectedZoneModel, customerTypeList: $customerTypeList, selectedCustomerType: $selectedCustomerType, customerCreateCreditLimitField: $customerCreateCreditLimitField, cityList: $cityList, selectedCityModel: $selectedCityModel, customerCreateAddressLineTwoField: $customerCreateAddressLineTwoField, customerCreateMandalField: $customerCreateMandalField, assignedList: $assignedList, selectedAssignedModel: $selectedAssignedModel, districtLoading: $districtLoading, divisionsList: $divisionsList, selectedDivisionsList: $selectedDivisionsList, isDivisionLoading: $isDivisionLoading, selectedDivisionModel: $selectedDivisionModel, countryList: $countryList, stateList: $stateList, selectedStateModel: $selectedStateModel, districtList: $districtList, selectedDistrictModel: $selectedDistrictModel, localityList: $localityList, selectedLocalityModel: $selectedLocalityModel, customerCreateAddressField: $customerCreateAddressField, customerCreatePincodeField: $customerCreatePincodeField, isBusinessPartner: $isBusinessPartner, faxNumberField: $faxNumberField, farmNameField: $farmNameField, farmCapacityField: $farmCapacityField, customerCodeList: $customerCodeList, selectedCustomerCodeModel: $selectedCustomerCodeModel, isCustomerCodeLoading: $isCustomerCodeLoading, customerCreateCityField: $customerCreateCityField, customerCreateLocalityField: $customerCreateLocalityField, isSubmitting: $isSubmitting, isSuccess: $isSuccess, apiFailedModel: $apiFailedModel, showInputError: $showInputError, selectedCountryModel: $selectedCountryModel, titlesList: $titlesList, selectedTitleValue: $selectedTitleValue, isLoading: $isLoading, zoneLoading: $zoneLoading, assingedToLaoding: $assingedToLaoding, primarySourceLoading: $primarySourceLoading, countryLoading: $countryLoading, stateLoading: $stateLoading, isCityLoading: $isCityLoading, isLocalityLoading: $isLocalityLoading)';
   }
 
   @override
@@ -1213,6 +1249,9 @@ class _$CustomerCreateStateImpl
       ..add(DiagnosticsProperty('farmNameField', farmNameField))
       ..add(DiagnosticsProperty('farmCapacityField', farmCapacityField))
       ..add(DiagnosticsProperty('customerCodeList', customerCodeList))
+      ..add(DiagnosticsProperty(
+          'selectedCustomerCodeModel', selectedCustomerCodeModel))
+      ..add(DiagnosticsProperty('isCustomerCodeLoading', isCustomerCodeLoading))
       ..add(DiagnosticsProperty(
           'customerCreateCityField', customerCreateCityField))
       ..add(DiagnosticsProperty(
@@ -1300,6 +1339,8 @@ class _$CustomerCreateStateImpl
             (identical(other.farmNameField, farmNameField) || other.farmNameField == farmNameField) &&
             (identical(other.farmCapacityField, farmCapacityField) || other.farmCapacityField == farmCapacityField) &&
             const DeepCollectionEquality().equals(other._customerCodeList, _customerCodeList) &&
+            (identical(other.selectedCustomerCodeModel, selectedCustomerCodeModel) || other.selectedCustomerCodeModel == selectedCustomerCodeModel) &&
+            (identical(other.isCustomerCodeLoading, isCustomerCodeLoading) || other.isCustomerCodeLoading == isCustomerCodeLoading) &&
             (identical(other.customerCreateCityField, customerCreateCityField) || other.customerCreateCityField == customerCreateCityField) &&
             (identical(other.customerCreateLocalityField, customerCreateLocalityField) || other.customerCreateLocalityField == customerCreateLocalityField) &&
             (identical(other.isSubmitting, isSubmitting) || other.isSubmitting == isSubmitting) &&
@@ -1361,6 +1402,8 @@ class _$CustomerCreateStateImpl
         farmNameField,
         farmCapacityField,
         const DeepCollectionEquality().hash(_customerCodeList),
+        selectedCustomerCodeModel,
+        isCustomerCodeLoading,
         customerCreateCityField,
         customerCreateLocalityField,
         isSubmitting,
@@ -1434,6 +1477,8 @@ abstract class _CustomerCreateState implements CustomerCreateState {
       required final StringField farmNameField,
       required final NumberField farmCapacityField,
       final List<CustomerCodeModel> customerCodeList,
+      final CustomerCodeModel? selectedCustomerCodeModel,
+      final bool isCustomerCodeLoading,
       required final CustomerCreateCityField customerCreateCityField,
       required final CustomerCreateLocalityField customerCreateLocalityField,
       required final bool isSubmitting,
@@ -1530,6 +1575,10 @@ abstract class _CustomerCreateState implements CustomerCreateState {
   NumberField get farmCapacityField;
   @override
   List<CustomerCodeModel> get customerCodeList;
+  @override
+  CustomerCodeModel? get selectedCustomerCodeModel;
+  @override
+  bool get isCustomerCodeLoading;
   @override // REMOVEE
   CustomerCreateCityField get customerCreateCityField;
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -20,10 +21,13 @@ import '../../domain/dashboard_model.dart';
 
 
 class DashboardBodyWidget extends StatelessWidget {
+
   const DashboardBodyWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+       const platform = MethodChannel('com.example.srinivasa_crm_new');
+
     return RefreshIndicator(
       backgroundColor: AppColors.primaryColor,
       color: Colors.white,

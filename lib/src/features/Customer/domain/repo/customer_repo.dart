@@ -3,6 +3,7 @@ import 'package:srinivasa_crm_new/src/core/model/model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/checkIn_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/checkout_response_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_code_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_created_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_full_details_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/last_checkin_out_respone_model.dart';
@@ -11,6 +12,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checko
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/customer_create_post_model.dart';
 
 import '../../../../../shared/domain/model/zone_model.dart';
+import '../model/get/approved_customer_response_model.dart';
 import '../model/get/customer_model.dart';
 import '../model/get/customer_response_model.dart';
 
@@ -32,4 +34,7 @@ abstract class CustomerRepo {
   Future<Either<NetworkExceptions,CustomerCreatedResponseModel>> createCustomer({required CustomerCreatePostModel customerCreatePostModel});
 
  Future<Either<NetworkExceptions,List<AssignedToModel>>> getAssignedList({required ZoneModel zoneModel});     
+
+
+ Future<Either<NetworkExceptions,List<CustomerCodeModel>> > getApprovedCustomerList();
 }

@@ -81,6 +81,8 @@ const factory CustomerCreateState({
   required StringField farmNameField,
   required NumberField farmCapacityField,
   @Default([]) List<CustomerCodeModel> customerCodeList,
+  @Default(null) CustomerCodeModel? selectedCustomerCodeModel,  
+  @Default(false) bool isCustomerCodeLoading,
 
 
 

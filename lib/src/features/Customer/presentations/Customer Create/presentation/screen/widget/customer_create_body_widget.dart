@@ -11,6 +11,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%2
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_addation_textfield_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_address_linetwo_textfield_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_address_textfield_widget.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_approved_customer_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_assigned_to_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_city_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_city_textfield_widget.dart';
@@ -33,7 +34,6 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%2
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_title_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_zone_dropdown_widget.dart';
 
-import 'cc_customer_locality_textfield.dart';
 import 'cc_locality_dropdown_widget.dart';
 
 class CustomerCreateBodyWidget extends StatelessWidget {
@@ -57,7 +57,12 @@ class CustomerCreateBodyWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // CUSTOMER NAME
-              20.verticalSpace,
+                context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     20.verticalSpace,
+                                context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const CommonTextFieldHeadingWidget(title: "Existing Customer",isRequired: true,) :     SizedBox.shrink(),
+
+                context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const CCApprovedCustomerDropdownWidget() :       SizedBox.shrink(),
+                context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     20.verticalSpace,
+        context.watch<CustomerCreateCubit>().state.isBusinessPartner == true ? const SizedBox.shrink() :       20.verticalSpace,
                             const CommonTextFieldHeadingWidget(title: "Title",isRequired: true,),
 
               const CCTitleDropDownWidget(),

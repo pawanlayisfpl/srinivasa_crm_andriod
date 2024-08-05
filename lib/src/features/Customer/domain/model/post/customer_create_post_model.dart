@@ -6,21 +6,26 @@ class CustomerCreatePostModel {
   String mobile;
   String email;
   String additionalPhone;
-  String primarySourceId;
+  int primarySourceId;
   String zoneId;
   bool customerType;
-  String creditLimit;
+  double creditLimit;
   String addressLine2;
   String mandal;
   String districtId;
-  String assignTo;
-  String divisionId;
-  String countryId;
+  int assignTo;
+  List<int> divisionId;
+  int countryId;
   String stateId;
-  String cityId;
-  String localityId;
+  int cityId;
+  int localityId;
   String address;
   String pincode;
+  bool isOrganization;
+  bool isIndividual;
+  String customerCode;
+  String faxNo;
+  double farmCapacity;
 
   CustomerCreatePostModel(
       {required this.customerName,
@@ -44,7 +49,12 @@ class CustomerCreatePostModel {
       required this.cityId,
       required this.localityId,
       required this.address,
-      required this.pincode});
+      required this.pincode,
+      required this.isOrganization,
+      required this.isIndividual,
+      required this.customerCode,
+      required this.faxNo,
+      required this.farmCapacity});
 
   CustomerCreatePostModel.fromJson(Map<String, dynamic> json)
       : customerName = json['customerName'],
@@ -62,13 +72,18 @@ class CustomerCreatePostModel {
         mandal = json['mandal'],
         districtId = json['districtId'],
         assignTo = json['assignTo'],
-        divisionId = json['divisionId'],
+        divisionId = List<int>.from(json['divisionId']),
         countryId = json['countryId'],
         stateId = json['stateId'],
         cityId = json['cityId'],
         localityId = json['localityId'],
         address = json['address'],
-        pincode = json['pincode'];
+        pincode = json['pincode'],
+        isOrganization = json['isOrganization'],
+        isIndividual = json['isIndividual'],
+        customerCode = json['customerCode'],
+        faxNo = json['faxNo'],
+        farmCapacity = json['farmCapacity'];
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -94,6 +109,11 @@ class CustomerCreatePostModel {
     data['localityId'] = localityId;
     data['address'] = address;
     data['pincode'] = pincode;
+    data['isOrganization'] = isOrganization;
+    data['isIndividual'] = isIndividual;
+    data['customerCode'] = customerCode;
+    data['faxNo'] = faxNo;
+    data['farmCapacity'] = farmCapacity;
     return data;
   }
 }

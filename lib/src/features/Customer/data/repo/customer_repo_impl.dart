@@ -4,9 +4,11 @@ import 'package:injectable/injectable.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/zone_model.dart';
 
 import 'package:srinivasa_crm_new/src/core/model/network%20exception/network_exception.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/approved_customer_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/checkIn_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/checkout_response_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_code_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_created_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_full_details_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
@@ -140,6 +142,17 @@ class CustomerRepoImpl implements CustomerRepo {
     return Left(e);
   }
    
+  }
+
+  @override
+  Future<Either<NetworkExceptions, List<CustomerCodeModel>>> getApprovedCustomerList()  async{
+try {
+    final results = await customerRemoteDataSource.getApprovedCustomerList();
+    return Right(results);
+     
+   } on  NetworkExceptions catch(e) {
+    return Left(e);
+  }
   }
 
 

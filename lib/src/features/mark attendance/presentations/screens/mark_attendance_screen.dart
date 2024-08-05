@@ -73,6 +73,8 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
                 context: context,
                 type: QuickAlertType.success,
                 onConfirmBtnTap:  () async {
+                     const platform = MethodChannel('com.example.srinivasa_crm_new');
+                platform.invokeMethod('stop');
                   Navigator.pop(context);
                   if(context.mounted) {
                     Navigator.pushAndRemoveUntil(context, ScaleRoute(screen: LoginScreen()),(route) => false);

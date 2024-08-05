@@ -51,46 +51,52 @@ class CommonTextfield extends StatelessWidget {
     return ValueListenableBuilder<bool>(
       valueListenable: obscureNotifier,
       builder: (context, value, child) {
-        return TextFormField(
-          autofocus: false,
-          onTap: onTapFunction,
-          onTapOutside: (event) => FocusScope.of(context).unfocus(),
-          readOnly: readOnly ?? false,
-          cursorColor: AppColors.primaryColor,
-          onChanged: onChanged,
-          obscureText: value,
-          inputFormatters: inputFormatters,
-          keyboardType: textInputType ?? TextInputType.text,
-          textInputAction: textInputAction ?? TextInputAction.next,
-          controller: textEditingController,
-          autovalidateMode: autovalidateMode,
-          validator: (value) => validator(value),
-          maxLines: maxLines ?? 1,
-        
-          maxLength: maxLength,
-          decoration: InputDecoration(
-            labelText: labelText,
-            hintText: hintText,
-            suffixIcon: isPasswordField == true
-                ? IconButton(
-                    onPressed: () {
-                      obscureNotifier.value = !value;
-                    },
-                    icon: Icon(
-                      value ? Icons.visibility_off : Icons.visibility,
-                      color: Colors.grey,
-                    ),
-                  )
-                : null,
-            prefixIcon: prefixIcon,
-            border: AppStyles.inputBorder,
-            focusedBorder: AppStyles.focusBorder,
-            fillColor: Colors.grey.shade300,
-            
-            filled: fillColor != null  ? true : false,
-            floatingLabelAlignment: FloatingLabelAlignment.start,
-            alignLabelWithHint: true,
-            labelStyle: AppStyles.labelStyle),
+        return Card(
+          elevation: 0,
+          color: Colors.white,
+          shadowColor: Colors.grey.shade300,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          child: TextFormField(
+            autofocus: false,
+            onTap: onTapFunction,
+            onTapOutside: (event) => FocusScope.of(context).unfocus(),
+            readOnly: readOnly ?? false,
+            cursorColor: AppColors.primaryColor,
+            onChanged: onChanged,
+            obscureText: value,
+            inputFormatters: inputFormatters,
+            keyboardType: textInputType ?? TextInputType.text,
+            textInputAction: textInputAction ?? TextInputAction.next,
+            controller: textEditingController,
+            autovalidateMode: autovalidateMode,
+            validator: (value) => validator(value),
+            maxLines: maxLines ?? 1,
+          
+            maxLength: maxLength,
+            decoration: InputDecoration(
+              labelText: labelText,
+              hintText: hintText,
+              suffixIcon: isPasswordField == true
+                  ? IconButton(
+                      onPressed: () {
+                        obscureNotifier.value = !value;
+                      },
+                      icon: Icon(
+                        value ? Icons.visibility_off : Icons.visibility,
+                        color: Colors.grey,
+                      ),
+                    )
+                  : null,
+              prefixIcon: prefixIcon,
+              border: AppStyles.inputBorder,
+              focusedBorder: AppStyles.focusBorder,
+              fillColor: Colors.grey.shade300,
+              
+              filled: fillColor != null  ? true : false,
+              floatingLabelAlignment: FloatingLabelAlignment.start,
+              alignLabelWithHint: true,
+              labelStyle: AppStyles.labelStyle),
+          ),
         );
       },
     );

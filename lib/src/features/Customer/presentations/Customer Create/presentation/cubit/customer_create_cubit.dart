@@ -42,6 +42,7 @@ import '../../../../domain/model/field/customer_create_addation_phone_field.dart
 import '../../../../domain/model/field/customer_create_contact_person_field.dart';
 import '../../../../domain/model/field/customer_create_mobile_field.dart';
 import '../../../../domain/model/field/customer_create_phone_field.dart';
+import '../../../../domain/model/get/customer_code_model.dart';
 import 'state/customer_create_state.dart';
 
 @injectable
@@ -250,6 +251,10 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
   void setAssignedValue({required AssignedToModel assignedModel}) {
     emit(state.copyWith(selectedAssignedModel: assignedModel));
   }
+
+  void setApprovedCustomerCodeValue({required CustomerCodeModel customerCodeModel}) {
+    emit(state.copyWith(selectedCustomerCodeModel: customerCodeModel));
+  }
   Future<void> getAssignedSRByZoneId({required ZoneModel zoneModel}) async {
     emit(state.copyWith(isLoading: true));
     final results = await customerRepo.getAssignedList(zoneModel: zoneModel);
@@ -348,6 +353,11 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     emit(state.copyWith(selectedAssignedModel: null));
   }
 
+  // CLEAR APPROVED CUSTOMERS
+  void clearApprovedCustomers() {
+    emit(state.copyWith(selectedCustomerCodeModel: null));
+  }
+
   // CLEAR ZONE VALUE
   void clearZoneValue() {
     emit(state.copyWith(selectedZoneModel: null,assignedList: [],selectedAssignedModel: null));
@@ -392,7 +402,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
   
 
     emit(state.copyWith(isSubmitting: true));
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     final customerName = state.customerCreateCustomerNameField.value.getOrElse(() => "");
     final phone = state.customerPhoneField.value.getOrElse(() => '');
     final mobile = state.customerMobileField.value.getOrElse(() => '');
@@ -428,18 +438,34 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     if(isOrganization) {
 
 
-      if(state.selectedTitleValue != null && customerName.isNotEmpty && phone.isNotEmpty && contactPerson.isNotEmpty  && mobile.isNotEmpty && email.isNotEmpty && customerType != null && divisionModel != null && zone != null && mandal.isNotEmpty && assginedTo != null  &&    country != null && stateModel != null && distirctModel != null && selectedCityValue != null && selectedLocalityValue != null && address.isNotEmpty && addressLineTwo.isNotEmpty && pincode.isNotEmpty && faxNumber.isNotEmpty && farmCapacity.isNotEmpty) {
-
+      if(state.selectedTitleValue != null && customerName.isNotEmpty && phone.isNotEmpty && contactPerson.isNotEmpty  && mobile.isNotEmpty && email.isNotEmpty && customerType != null && divisionModel != null && zone != null && mandal.isNotEmpty && assginedTo != null  &&  primarySource != null &&  country != null && stateModel != null && distirctModel != null && mandal.isNotEmpty  && selectedCityValue != null && selectedLocalityValue != null && address.isNotEmpty && addressLineTwo.isNotEmpty && pincode.isNotEmpty && farmCapacity.isNotEmpty) {
+        CustomerCreatePostModel customerCreatePostModel = CustomerCreatePostModel(customerName: customerName, customerPhone: phone, title: state.selectedTitleValue!.toLowerCase().toString(), contactPerson: contactPerson, mobile: mobile, email: email, additionalPhone: addationalPhone, primarySourceId: primarySource.sourceId, zoneId: zone.zoneId!.toString(), customerType: state.selectedCustomerType.toString() == "Commerical" ? true : false, creditLimit: double.parse(creditLimit), addressLine2: addressLineTwo, mandal: mandal, districtId: distirctModel.districtId.toString(), assignTo: assginedTo.id!, divisionId: [state.selectedDivisionModel!.divisionId], countryId: country.countryId, stateId: stateModel.stateId.toString(), cityId: selectedCityValue.cityId!, localityId: selectedLocalityValue.localityId!, address: address, pincode: pincode, isOrganization: true,customerCode: '',farmCapacity: double.parse(farmCapacity.toString()),faxNo: faxNumber.toString(),isIndividual: false);
+        final results = await customerRepo.createCustomer(customerCreatePostModel: customerCreatePostModel);
+        results.fold((l) {
+          emit(state.copyWith(isSubmitting: false,apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
+          
+        }, (r) {
+          emit(state.copyWith(isSubmitting: false,isSuccess: true));
+        });
       }else {
-        Fluttertoast.showToast(msg: 'Please fill all the fields');
         emit(state.copyWith(showInputError: true));
+
+        Fluttertoast.showToast(msg: 'Please fill all the fields');
       }
 
     }else {
       // INDIVIDUAL
 
-      if(state.selectedTitleValue != null && customerName.isNotEmpty && mobile.isNotEmpty && email.isNotEmpty && customerType != null && divisionModel != null && zone != null && mandal.isNotEmpty && assginedTo != null  &&    country != null && stateModel != null && distirctModel != null && selectedCityValue != null && selectedLocalityValue != null && address.isNotEmpty && addressLineTwo.isNotEmpty && pincode.isNotEmpty && faxNumber.isNotEmpty && farmCapacity.isNotEmpty) {
-
+      if(state.selectedCustomerCodeModel != null && state.selectedTitleValue != null && contactPerson.isNotEmpty && mobile.isNotEmpty && email.isNotEmpty && customerType != null && divisionModel != null && zone != null && mandal.isNotEmpty && assginedTo != null  &&  primarySource != null &&   country != null && stateModel != null && distirctModel != null && selectedCityValue != null && selectedLocalityValue != null && address.isNotEmpty && addressLineTwo.isNotEmpty && pincode.isNotEmpty  && farmCapacity.isNotEmpty) {
+          CustomerCreatePostModel customerCreatePostModel = CustomerCreatePostModel(customerName: "", customerPhone: "", title: state.selectedTitleValue!.toLowerCase().toString(), contactPerson: contactPerson, mobile: mobile, email: email, additionalPhone: addationalPhone, primarySourceId: primarySource.sourceId, zoneId: zone.zoneId!.toString(), customerType: state.selectedCustomerType.toString() == "Commerical" ? true : false, creditLimit: double.parse(creditLimit), addressLine2: addressLineTwo, mandal: mandal, districtId: distirctModel.districtId.toString(), assignTo: assginedTo.id!, divisionId: [state.selectedDivisionModel!.divisionId], countryId: country.countryId, stateId: stateModel.stateId.toString(), cityId: selectedCityValue.cityId!, localityId: selectedLocalityValue.localityId!, address: address, pincode: pincode, isOrganization: false,customerCode: state.selectedCustomerCodeModel!.customerCode.toString(),farmCapacity: double.parse(farmCapacity.toString()),faxNo: faxNumber.toString(),isIndividual: true,);
+        final results = await customerRepo.createCustomer(customerCreatePostModel: customerCreatePostModel);
+        results.fold((l) {
+          emit(state.copyWith(isSubmitting: false,apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
+          
+        }, (r) {
+          emit(state.copyWith(isSubmitting: false,isSuccess: true));
+        });
+        
       }else {
         Fluttertoast.showToast(msg: 'Please fill all the fields');
         emit(state.copyWith(showInputError: true));
@@ -584,6 +610,19 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
   }
 
 
+  Future<void> getAllCustomerCodesList() async {
+    emit(state.copyWith(isCustomerCodeLoading: true,selectedCustomerCodeModel: null,customerCodeList: []));
+    final results = await customerRepo.getApprovedCustomerList();
+    results.fold((l) => emit(state.copyWith(isCustomerCodeLoading: false,apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))), (r) {
+      List<CustomerCodeModel> sortedCustomerCodeList = List.from(r);
+      sortedCustomerCodeList.sort((a, b) => a.customerName.toLowerCase().compareTo(b.customerName.toLowerCase()));
+      emit(state.copyWith(customerCodeList: sortedCustomerCodeList,isCustomerCodeLoading: false));
+    });
+  }
+
+
+
+
 
   
 
@@ -600,6 +639,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     await getCountryLists();
     await getAllZoneList();
     await getAllDivisions();
+    await getAllCustomerCodesList();
 
   }
 

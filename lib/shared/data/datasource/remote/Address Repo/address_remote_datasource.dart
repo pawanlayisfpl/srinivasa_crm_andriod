@@ -38,7 +38,7 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
       final response = await dioClient.get(Endpoints.countires,headers:  {});
 
     if(response.statusCode == 200){
-      final List<CountryModel> countries = (response.data as List).map((e) => CountryModel.fromJson(e)).toList();
+      final List<CountryModel> countries = (response.data["data"] as List).map((e) => CountryModel.fromJson(e)).toList();
       return await Future.value(countries);
     }else {
       logger.e('COUNTRY API FAIELD');
@@ -63,7 +63,7 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
         });
   
       if(response.statusCode == 200){
-        final List<DistrictModel> states = (response.data as List).map((e) => DistrictModel.fromJson(e)).toList();
+        final List<DistrictModel> states = (response.data['data'] as List).map((e) => DistrictModel.fromJson(e)).toList();
         return await Future.value(states);
       }else {
         logger.e('DIVISION API FAIELD');
@@ -87,18 +87,18 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
       final response = await dioClient.get(Endpoints.states,headers:  {});
 
     if(response.statusCode == 200){
-      final List<StateModel> states = (response.data as List).map((e) => StateModel.fromJson(e)).toList();
-      return await Future.value(states);
+      final List<StateModel> states = (response.data['data'] as List).map((e) => StateModel.fromJson(e)).toList();
+      return states;
     }else {
       logger.e('STATE API FAIELD');
-      throw Future.error(NetworkExceptions.getDioException(response.data));
+      throw NetworkExceptions.getDioException(response.data);
     }
 
      
    }on DioException catch (e) {
           logger.e('STATE API FAIELD');
 
-    throw Future.error(NetworkExceptions.getDioException(e));
+    throw NetworkExceptions.getDioException(e);
      
    }
   }
@@ -112,7 +112,7 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
         });
   
       if(response.statusCode == 200){
-        final List<CityModel> cities = (response.data as List).map((e) => CityModel.fromJson(e)).toList();
+        final List<CityModel> cities = (response.data['data'] as List).map((e) => CityModel.fromJson(e)).toList();
         return  cities;
       }else {
         logger.e('CITY API FAIELD');
@@ -137,7 +137,7 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
         });
   
       if(response.statusCode == 200){
-        final List<LocalityModel> localities = (response.data['body'] as List).map((e) => LocalityModel.fromJson(e)).toList();
+        final List<LocalityModel> localities = (response.data['data'] as List).map((e) => LocalityModel.fromJson(e)).toList();
         return  localities;
       }else {
         logger.e('LOCALITY API FAIELD');

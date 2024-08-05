@@ -9,7 +9,7 @@ class NumberField extends ValueObject<String> {
 
   factory NumberField(String input) {
     return NumberField._(
-      Validators.validateNotZeroValue(input)
+      Validators.validateStringNotEmpty(input).flatMap((a) => Validators.validateStringMinLength(input: input, minLength: 4))
        );
   }
 

@@ -26,7 +26,7 @@ class CCFarmCapacityTextField extends StatelessWidget {
                   .read<CustomerCreateCubit>()
                   .changeFarmCapacity(value: value);
             },
-            validator: (val) => state.customerCreateCreditLimitField.value.fold(
+            validator: (val) => state.farmCapacityField.value.fold(
                 (l) => l.maybeMap(
                       orElse: () => null,
                       empty: (value) => "Farm capacity is empty",

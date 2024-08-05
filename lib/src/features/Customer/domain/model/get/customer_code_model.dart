@@ -1,19 +1,19 @@
 class CustomerCodeModel {
   final String customerCode;
   final String customerName;
-  final String customerEmail;
+  final String customerLocation;
 
   CustomerCodeModel({
     required this.customerCode,
     required this.customerName,
-    required this.customerEmail,
+    required this.customerLocation,
   });
 
   factory CustomerCodeModel.fromJson(Map<String, dynamic> json) {
     return CustomerCodeModel(
       customerCode: json['customerCode'],
-      customerName: json['customerName'],
-      customerEmail: json['customerEmail'],
+      customerName: json['custName'],
+      customerLocation: json['custLocation'],
     );
   }
 
@@ -21,7 +21,7 @@ class CustomerCodeModel {
     return {
       'customerCode': customerCode,
       'customerName': customerName,
-      'customerEmail': customerEmail,
+      'customerLocation': customerLocation,
     };
   }
 }
