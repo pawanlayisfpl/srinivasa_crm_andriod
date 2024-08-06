@@ -77,6 +77,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
   final TextEditingController cityController = TextEditingController( );
   final TextEditingController faxNumberController = TextEditingController();
   final TextEditingController farmCapacityController = TextEditingController();
+  final TextEditingController farmNameController = TextEditingController();
 
 
   void clearAllController() {
@@ -95,11 +96,17 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     cityController.clear();
     faxNumberController.clear();
     farmCapacityController.clear();
+    farmNameController.clear();
   }
 
   // CHANGE NAME FIELD
   void changeCustomerName({required String customerName}) {
     emit(state.copyWith(customerCreateCustomerNameField: CustomerCreateCustomerNameField(customerName)));
+  }
+
+  // CHANGE FARM NAME FIELD
+  void changeFarmName({required String farmName}) {
+    emit(state.copyWith(farmNameField: StringField(farmName)));
   }
   // CHANGE CONTACT PERSON FIELD
   void changeContactPerson({required String contactPerson}) {
@@ -425,6 +432,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     final customerType = state.selectedCustomerType;
     final assginedTo = state.selectedAssignedModel;
     final divisionModel = state.selectedDivisionModel;
+    final farmName = state.farmNameField.value.getOrElse(() => "");
 
     final selectedCityValue = state.selectedCityModel;
     final selectedLocalityValue = state.selectedLocalityModel;
@@ -456,8 +464,8 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     }else {
       // INDIVIDUAL
 
-      if(state.selectedCustomerCodeModel != null && state.selectedTitleValue != null && contactPerson.isNotEmpty && mobile.isNotEmpty && email.isNotEmpty && customerType != null && divisionModel != null && zone != null && mandal.isNotEmpty && assginedTo != null  &&  primarySource != null &&   country != null && stateModel != null && distirctModel != null && selectedCityValue != null && selectedLocalityValue != null && address.isNotEmpty && addressLineTwo.isNotEmpty && pincode.isNotEmpty  && farmCapacity.isNotEmpty) {
-          CustomerCreatePostModel customerCreatePostModel = CustomerCreatePostModel(customerName: "", customerPhone: "", title: state.selectedTitleValue!.toLowerCase().toString(), contactPerson: contactPerson, mobile: mobile, email: email, additionalPhone: addationalPhone, primarySourceId: primarySource.sourceId, zoneId: zone.zoneId!.toString(), customerType: state.selectedCustomerType.toString() == "Commerical" ? true : false, creditLimit: double.parse(creditLimit), addressLine2: addressLineTwo, mandal: mandal, districtId: distirctModel.districtId.toString(), assignTo: assginedTo.id!, divisionId: [state.selectedDivisionModel!.divisionId], countryId: country.countryId, stateId: stateModel.stateId.toString(), cityId: selectedCityValue.cityId!, localityId: selectedLocalityValue.localityId!, address: address, pincode: pincode, isOrganization: false,customerCode: state.selectedCustomerCodeModel!.customerCode.toString(),farmCapacity: double.parse(farmCapacity.toString()),faxNo: faxNumber.toString(),isIndividual: true,);
+      if(state.selectedCustomerCodeModel != null && state.selectedTitleValue != null && contactPerson.isNotEmpty && mobile.isNotEmpty && email.isNotEmpty && customerType != null && divisionModel != null && zone != null && mandal.isNotEmpty && assginedTo != null  &&  primarySource != null &&   country != null && stateModel != null && distirctModel != null && selectedCityValue != null && selectedLocalityValue != null && address.isNotEmpty && addressLineTwo.isNotEmpty && pincode.isNotEmpty  && farmCapacity.isNotEmpty ) {
+          CustomerCreatePostModel customerCreatePostModel = CustomerCreatePostModel( farmName: farmName,customerName: "", customerPhone: "", title: state.selectedTitleValue!.toLowerCase().toString(), contactPerson: contactPerson, mobile: mobile, email: email, additionalPhone: addationalPhone, primarySourceId: primarySource.sourceId, zoneId: zone.zoneId!.toString(), customerType: state.selectedCustomerType.toString() == "Commerical" ? true : false, creditLimit: double.parse(creditLimit), addressLine2: addressLineTwo, mandal: mandal, districtId: distirctModel.districtId.toString(), assignTo: assginedTo.id!, divisionId: [state.selectedDivisionModel!.divisionId], countryId: country.countryId, stateId: stateModel.stateId.toString(), cityId: selectedCityValue.cityId!, localityId: selectedLocalityValue.localityId!, address: address, pincode: pincode, isOrganization: false,customerCode: state.selectedCustomerCodeModel!.customerCode.toString(),farmCapacity: double.parse(farmCapacity.toString()),faxNo: faxNumber.toString(),isIndividual: true,);
         final results = await customerRepo.createCustomer(customerCreatePostModel: customerCreatePostModel);
         results.fold((l) {
           emit(state.copyWith(isSubmitting: false,apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
@@ -671,6 +679,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     cityController.dispose();
     faxNumberController.dispose();
     farmCapacityController.dispose();
+    farmNameController.dispose();
     
     return super.close();
   }

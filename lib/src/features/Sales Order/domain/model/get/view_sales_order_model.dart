@@ -23,7 +23,7 @@ class ViewSalesOrderModel {
 
 class Orders {
   CustomerDetails? customerDetails;
-  String? orderId;
+  int? orderId;
   String? eRPOrderId;
   String? orderDate;
   String? orderCreator;

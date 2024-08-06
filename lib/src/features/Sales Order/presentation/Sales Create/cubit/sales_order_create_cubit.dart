@@ -13,6 +13,7 @@ import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/core/extensions/string_extension.dart';
 import 'package:srinivasa_crm_new/src/core/model/api%20failed/api%20failed.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_code_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/data/repo/sales_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/uom_model.dart';
@@ -382,17 +383,17 @@ void onDiscountPerPercentageChanged() {
 
 // GET ALL CUSTOMERS
   Future<void> getAllCustomer() async {
-    final results = await customerRepo.getAllCustomerDemo();
+    final results = await customerRepo.getApprovedCustomerList();
     results.fold((l) {
       emit(state.copyWith(apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),customerList: [],selectedCustomerModel: null,));
     }, (r) {
-      emit(state.copyWith(customerList:r.customermodel ?? []));
+      emit(state.copyWith(customerList:r));
     });
     
   }
 
 // SET SELECTED CUSTOMER
-  void setSelectedCustomer(Customermodel value) {
+  void setSelectedCustomer(CustomerCodeModel value) {
     emit(state.copyWith(selectedCustomerModel: value));
   }
 
@@ -854,7 +855,7 @@ orderAmountController.text = (double.tryParse(newOrderAmount.toString()) ?? 0.0 
 void createOrder() async {
 
 
-Customermodel? customerModel = state.selectedCustomerModel;
+CustomerCodeModel? customerModel = state.selectedCustomerModel;
 
 List<ProductFormModel> productFormList = state.productFormList;
 
@@ -883,7 +884,7 @@ if(customerModel == null || productFormList.isEmpty || orderTotalAmountValue.isE
 }else {
 
 SocCreatePostModel socCreatePostModel = SocCreatePostModel(
-  customerCode: customerModel.customerCode!,
+  customerCode: customerModel.customerId,
   productDetails: productFormList.map((e) => ProductDetails(
     divisionId: e.divisionId,
     productId: e.productId,

@@ -12,6 +12,7 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Month
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/screens/view_months_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/sales_order_create_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20View/sales_order_view_screen.dart';
 
 import '../../../../shared/widgets/dashboard_card_widget.dart';
 
@@ -60,7 +61,9 @@ class SalesOrderDashboardScreen extends StatelessWidget {
                        
                           break;
                         case 1:
-                            Fluttertoast.showToast(msg: 'Under development');
+                        if(context.mounted) {
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (c) => SalesOrderViewScreen()));
+                        }
                           break;
 
                        case 3: 

@@ -4,6 +4,8 @@ import 'package:srinivasa_crm_new/src/common/fields/string_field.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 
+import '../../../../../Customer/domain/model/get/approved_customer_response_model.dart';
+import '../../../../../Customer/domain/model/get/customer_code_model.dart';
 import '../../../../domain/model/get/payment_mode_model.dart';
 import '../../../../domain/model/get/product_model.dart';
 import '../../../../domain/model/get/uom_model.dart';
@@ -46,8 +48,8 @@ class SalesOrderCreateState with _$SalesOrderCreateState {
     @Default(false) bool isInitialLoading,
     @Default(null) ApiFailedModel? apiFailedModel,
   @Default(false) bool showInputError,
-  @Default([]) List<Customermodel> customerList,
-  @Default(null) Customermodel? selectedCustomerModel,
+  @Default([]) List<CustomerCodeModel> customerList,
+  @Default(null) CustomerCodeModel? selectedCustomerModel,
   @Default([]) List<ProductFormModel> productFormList,
   @Default([]) List<ProductPendingFormModel> pendingFormList,
   }) = _SalesOrderCreateState;

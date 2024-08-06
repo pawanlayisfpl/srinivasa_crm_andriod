@@ -122,45 +122,7 @@ List<TableRow> buildRows(Map<String, String> mapping, CustomerFullDetailsModel c
          children: buildRows(customerModelMapping, value),
         ),
         20.verticalSpace,
-        // const CustomHeadingTextWidget(title: 'All Contact Detail',textDecoration: TextDecoration.underline,),
-        //             Table(
-        //               border: TableBorder.all(),
-        //               children: _buildRows(allContactsDetailsMappign,value),
-        //             ),
-        //             10.verticalSpace,
-        //             const CustomHeadingTextWidget(
-        //               title: 'History',
-        //               textDecoration: TextDecoration.underline,
-        //             ),
-        //             20.verticalSpace,
-        //             Table(
-        //               border: TableBorder.all(),
-        //               children: _buildRows(historyMapping,value),
-        //             ),
-        //             20.verticalSpace,
-        //             const CustomHeadingTextWidget(
-        //               title: 'All Images',
-        //               textDecoration: TextDecoration.underline ,
-        //             ),
-        //             10.verticalSpace
-                    // Table(
-                    //   border: TableBorder.all(),
-                    //   children: _buildRows(addressDetailsKeys,value),
-                    // ),
-                    // CustomHeadingTextWidget(
-                    //   title: 'Customer Type',
-                    // ),
-                    // Table(
-                    //   border: TableBorder.all(),
-                    //   children: _buildRows(customerTypeKeys,value),
-                    // ),
-                    // CustomHeadingTextWidget(
-                    //   title: 'Individual Details',
-                    // ),
-                    // Table(
-                    //   border: TableBorder.all(),
-                    //   children: _buildRows(inidvidualDetailsKeys,value),
-                    // ),
+       
                   ],
                 ),
               ).withSymetricPadding(horizontalPadding: 15.w);

@@ -9,12 +9,15 @@ import 'package:logger/logger.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/core/extensions/date_extension.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/particular_sales_order_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/payment_mode_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/price_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/product_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/soc_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/uom_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/post/soc_create_post_model.dart';
+
+import '../../domain/model/get/view_sales_order_model.dart';
 
 abstract class SalesRepo {
   Future<Either<NetworkExceptions, List<ProductsModel>>> getAllProducts();
@@ -23,6 +26,8 @@ abstract class SalesRepo {
   Future<Either<NetworkExceptions, List<PaymentModeModel>>> getAllPaymentModes();
   Future<Either<NetworkExceptions, SaleOrderCreateResponseModel>>
       createSaleOrder({required SocCreatePostModel socCreatePostModel});
+  Future<Either<NetworkExceptions, ViewSalesOrderModel>> getAllSalesOrder();
+  Future<Either<NetworkExceptions,ParticularSalesOrderModel>> getParticularSalesOrder(int orderId);   
 
 }
 
@@ -153,7 +158,7 @@ class SaleRepoImpl implements SalesRepo {
 
       var requestBody =     {
     // "customerCode": socCreatePostModel.customerCode,
-    "customerCode": 100039,
+    "customerId": socCreatePostModel.customerCode,
     "productDetails": socCreatePostModel.productDetails.isEmpty ? [] : socCreatePostModel.productDetails.map(((e) =>  {
         "divisionId": e.divisionId,
         "productId": e.productId,
@@ -220,5 +225,43 @@ class SaleRepoImpl implements SalesRepo {
    }else {
     throw const NetworkExceptions.noInternetConnection();
    }
+  }
+  
+  @override
+  Future<Either<NetworkExceptions, ViewSalesOrderModel>> getAllSalesOrder() async {
+    try {
+      final response = await dioClient.get(Endpoints.getAllSalesOrders, headers: {});
+      if (response.statusCode == 200) {
+        final ViewSalesOrderModel viewSalesOrderModel = ViewSalesOrderModel.fromJson(response.data['data']);
+        return Right(viewSalesOrderModel);
+      } else {
+        return Left(NetworkExceptions.getDioException(response.data));
+      }
+    } on DioException catch (e) {
+      return Left(NetworkExceptions.getDioException(e));
+    }
+   
+  }
+  
+  @override
+  Future<Either<NetworkExceptions, ParticularSalesOrderModel>> getParticularSalesOrder(int orderId) async  {
+    try {
+      final response = await dioClient.get(Endpoints.getParticularSaleModel+orderId.toString(),headers: {});
+      if(response.statusCode == 200) {
+       if(response.data['data'] != null) {
+         final ParticularSalesOrderModel particularSalesOrderModel = ParticularSalesOrderModel.fromJson(response.data['data']);
+        return Right(particularSalesOrderModel);
+       }else {
+        return left(NetworkExceptions.badRequest());
+       }
+
+      }else {
+        return left(NetworkExceptions.getDioException(response.data));
+      }
+      
+    } on DioException catch (e) {
+      
+      throw left(NetworkExceptions.getDioException(e));
+    }
   }
 }

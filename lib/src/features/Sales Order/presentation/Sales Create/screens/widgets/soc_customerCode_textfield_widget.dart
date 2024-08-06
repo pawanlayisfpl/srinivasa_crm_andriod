@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Country/country_model.dart';
 import 'package:srinivasa_crm_new/shared/shared.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_code_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/state/customer_create_state.dart';
@@ -22,12 +23,12 @@ class SocCustomerDropDownWidget extends StatelessWidget {
       builder: (context, state,) {
         return ColoredBox(
           color: Colors.grey.shade300,
-          child: DropdownSearch<Customermodel>(
+          child: DropdownSearch<CustomerCodeModel>(
              
                   enabled: true,
                   selectedItem: state.selectedCustomerModel,
           
-                  dropdownBuilder: (context, selectedItems) => state.selectedCustomerModel == null ?  const CommonTextWidget(title: "Select your customer",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedCustomerModel!.custName.toString()) ,
+                  dropdownBuilder: (context, selectedItems) => state.selectedCustomerModel == null ?  const CommonTextWidget(title: "Select your customer",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedCustomerModel!.customerName.toString()) ,
                   
                   
                   dropdownButtonProps:  const DropdownButtonProps(
@@ -37,7 +38,7 @@ class SocCustomerDropDownWidget extends StatelessWidget {
                     
                     
                   ),
-              itemAsString: (item) => item.custName.toString(),
+              itemAsString: (item) => item.customerName.toString(),
                   popupProps: const PopupPropsMultiSelection.modalBottomSheet(
                     
           

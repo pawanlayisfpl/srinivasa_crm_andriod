@@ -23,6 +23,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%2
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_divison_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_email_textfield_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_farm_capacity_textfield.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_farm_name_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_fax_number_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_mandal_textfield_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_mobile_textfield.dart';
@@ -58,20 +59,20 @@ class CustomerCreateBodyWidget extends StatelessWidget {
             children: [
               // CUSTOMER NAME
                 context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     20.verticalSpace,
-                                context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const CommonTextFieldHeadingWidget(title: "Existing Customer",isRequired: true,) :     SizedBox.shrink(),
+                                context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const CommonTextFieldHeadingWidget(title: "Existing Customer",isRequired: true,) :     const SizedBox.shrink(),
 
-                context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const CCApprovedCustomerDropdownWidget() :       SizedBox.shrink(),
+                context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const CCApprovedCustomerDropdownWidget() :       const SizedBox.shrink(),
                 context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     20.verticalSpace,
         context.watch<CustomerCreateCubit>().state.isBusinessPartner == true ? const SizedBox.shrink() :       20.verticalSpace,
                             const CommonTextFieldHeadingWidget(title: "Title",isRequired: true,),
 
               const CCTitleDropDownWidget(),
           context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     20.verticalSpace,
-                    context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     CommonTextFieldHeadingWidget(title: 'Customer Name',isRequired: true,),
+                    context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     const CommonTextFieldHeadingWidget(title: 'Customer Name',isRequired: true,),
 
          context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     const CCNameTextFieldWidget(),
          context.read<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :      20.verticalSpace,
-                             context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     CommonTextFieldHeadingWidget(title: 'Customer Phone',isRequired: true,),
+                             context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     const CommonTextFieldHeadingWidget(title: 'Customer Phone',isRequired: true,),
 
               // CUSTOMER PHONE
           context.read<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     const CCPhoneTextFieldWidget(),
@@ -106,7 +107,7 @@ class CustomerCreateBodyWidget extends StatelessWidget {
               20.verticalSpace,
                                                                       const CommonTextFieldHeadingWidget(title: "Division",isRequired: true,),
 
-              state.isDivisionLoading ? const DropdownLoadingWidget() : CCDivisionDropDownWidget(),
+              state.isDivisionLoading ? const DropdownLoadingWidget() : const CCDivisionDropDownWidget(),
 
               // CUSTOMR ZONE ID
               20.verticalSpace,
@@ -122,7 +123,7 @@ class CustomerCreateBodyWidget extends StatelessWidget {
               20.verticalSpace,
                                                                                     const CommonTextFieldHeadingWidget(title: "Primary Source",isRequired: true,),
 
-             state.primarySourceLoading ? const DropdownLoadingWidget() :  CCPrimarySourceDropDownWidget(),
+             state.primarySourceLoading ? const DropdownLoadingWidget() :  const CCPrimarySourceDropDownWidget(),
               20.verticalSpace,
               // CUSTOMER COUNTRY ID
                                                                                     const CommonTextFieldHeadingWidget(title: "Country",isRequired: true,),
@@ -186,9 +187,13 @@ class CustomerCreateBodyWidget extends StatelessWidget {
                            const CommonTextFieldHeadingWidget(title: "Farm Capacity",isRequired: true,),
 
             const CCFarmCapacityTextField(),
-            
-              20.verticalSpace,
-         state.isSubmitting ? CustomLoadingWidget() :     CommonButton(
+
+
+                context.watch<CustomerCreateCubit>().state.isBusinessPartner == true ? const SizedBox.shrink() :     20.verticalSpace,
+                                context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const CommonTextFieldHeadingWidget(title: "Farm Name",isRequired: true,) :     const SizedBox.shrink(),
+                                   context.watch<CustomerCreateCubit>().state.isBusinessPartner == true ? const SizedBox.shrink() :     const CCFarmNameTextFieldWidget(),
+                context.watch<CustomerCreateCubit>().state.isBusinessPartner == true ? const SizedBox.shrink() :     20.verticalSpace,
+         state.isSubmitting ? const CustomLoadingWidget() :     CommonButton(
                   callback: () async {
                     QuickAlert.show(
                       context: context,

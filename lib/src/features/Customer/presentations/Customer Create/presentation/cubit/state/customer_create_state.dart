@@ -83,6 +83,7 @@ const factory CustomerCreateState({
   @Default([]) List<CustomerCodeModel> customerCodeList,
   @Default(null) CustomerCodeModel? selectedCustomerCodeModel,  
   @Default(false) bool isCustomerCodeLoading,
+  
 
 
 

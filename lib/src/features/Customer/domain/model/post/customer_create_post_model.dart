@@ -1,4 +1,5 @@
 class CustomerCreatePostModel {
+  String? farmName;
   String customerName;
   String customerPhone;
   String title;
@@ -29,6 +30,7 @@ class CustomerCreatePostModel {
 
   CustomerCreatePostModel(
       {required this.customerName,
+      this.farmName,
       required this.customerPhone,
       required this.title,
       required this.contactPerson,
@@ -89,6 +91,7 @@ class CustomerCreatePostModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['customerName'] = customerName;
     data['customerPhone'] = customerPhone;
+    data['farmName'] = farmName;
     data['title'] = title;
     data['contactPerson'] = contactPerson;
     data['mobile'] = mobile;
