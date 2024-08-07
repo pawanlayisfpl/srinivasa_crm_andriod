@@ -67,18 +67,19 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController mobileController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController addationalPhoneController = TextEditingController();
+  final TextEditingController addationalPhoneController =
+      TextEditingController();
   final TextEditingController creditLimitController = TextEditingController();
-  final TextEditingController addressLineTwoController = TextEditingController();
+  final TextEditingController addressLineTwoController =
+      TextEditingController();
   final TextEditingController mandalController = TextEditingController();
   final TextEditingController localityController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
-  final TextEditingController pincodeController = TextEditingController( );
-  final TextEditingController cityController = TextEditingController( );
+  final TextEditingController pincodeController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
   final TextEditingController faxNumberController = TextEditingController();
   final TextEditingController farmCapacityController = TextEditingController();
   final TextEditingController farmNameController = TextEditingController();
-
 
   void clearAllController() {
     customerNameController.clear();
@@ -101,17 +102,23 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
 
   // CHANGE NAME FIELD
   void changeCustomerName({required String customerName}) {
-    emit(state.copyWith(customerCreateCustomerNameField: CustomerCreateCustomerNameField(customerName)));
+    emit(state.copyWith(
+        customerCreateCustomerNameField:
+            CustomerCreateCustomerNameField(customerName)));
   }
 
   // CHANGE FARM NAME FIELD
   void changeFarmName({required String farmName}) {
     emit(state.copyWith(farmNameField: StringField(farmName)));
   }
+
   // CHANGE CONTACT PERSON FIELD
   void changeContactPerson({required String contactPerson}) {
-    emit(state.copyWith(customerCreateContactPersonField: CustomerCreateContactPersonField(contactPerson)));
+    emit(state.copyWith(
+        customerCreateContactPersonField:
+            CustomerCreateContactPersonField(contactPerson)));
   }
+
   // CHANGE PHONE FIELD
   void changePhone({required String phone}) {
     emit(state.copyWith(customerPhoneField: CustomerCreatePhoneField(phone)));
@@ -119,12 +126,14 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
 
   // CHANGE MANDAL FIELD
   void changeMandlField({required String value}) {
-    emit(state.copyWith(customerCreateMandalField: CustomerCreateMandalField(value)));
+    emit(state.copyWith(
+        customerCreateMandalField: CustomerCreateMandalField(value)));
   }
 
   // CHANGE CREDIT LIMIT
   void changeCreditLimit({required String value}) {
-    emit(state.copyWith(customerCreateCreditLimitField: CustomerCreateCreditLimitField(value)));
+    emit(state.copyWith(
+        customerCreateCreditLimitField: CustomerCreateCreditLimitField(value)));
   }
 
   void changeFaxNumber({required String value}) {
@@ -133,10 +142,13 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
 
   void changeFarmCapacity({required String value}) {
     emit(state.copyWith(farmCapacityField: NumberField(value)));
-  } 
+  }
 
   void getTitleLists() {
-    emit(state.copyWith(titlesList: ['Mr', 'Mrs', ]));
+    emit(state.copyWith(titlesList: [
+      'Mr',
+      'Mrs',
+    ]));
   }
 
   // SET TITLE value
@@ -146,41 +158,48 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
 
   // CHANGE MOBILE FIELD
   void changeMobile({required String mobile}) {
-    emit(state.copyWith(customerMobileField: CustomerCreateMobileField(mobile)));
+    emit(
+        state.copyWith(customerMobileField: CustomerCreateMobileField(mobile)));
   }
 
   // CHANGE EMAIL FIELD
   void changeEmail({required String email}) {
-    emit(state.copyWith(customerCreateEmailField: CustomerCreateEmailField(email)));
+    emit(state.copyWith(
+        customerCreateEmailField: CustomerCreateEmailField(email)));
   }
 
   // CHANGE ADDITIONAL PHONE FIELD
   void changeAddationalPhone({required String addationalPhone}) {
-    emit(state.copyWith(customerCreateAddationField: CustomerCreateAddationalPhoneField(addationalPhone)));
+    emit(state.copyWith(
+        customerCreateAddationField:
+            CustomerCreateAddationalPhoneField(addationalPhone)));
   }
 
   // CHANGE ADDRESS LINE TWO FIELD
   void changeAddressLineTwo({required String addressLineTwo}) {
-    emit(state.copyWith(customerCreateAddressLineTwoField: CustomerCreateAddressLineTwoField(addressLineTwo)));
+    emit(state.copyWith(
+        customerCreateAddressLineTwoField:
+            CustomerCreateAddressLineTwoField(addressLineTwo)));
   }
 
   // CHANGE MANDAL FIELD
   void changeMandal({required String mandal}) {
-    emit(state.copyWith(customerCreateMandalField: CustomerCreateMandalField(mandal)));
+    emit(state.copyWith(
+        customerCreateMandalField: CustomerCreateMandalField(mandal)));
   }
-
 
   // GET PRIMARY SOURCE LIST
   Future<void> getPrimarySourceLists() async {
     emit(state.copyWith(isLoading: true));
     final results = await primarySourceRepo.getPrimarySources();
     results.fold((l) {
-      emit(state.copyWith(isLoading: false, apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
+      emit(state.copyWith(
+          isLoading: false,
+          apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
     }, (r) {
       emit(state.copyWith(primarySourceList: r, isLoading: false));
     });
   }
-  
 
   // SET PRIMARY SOURCE VALUE
   void setPrimarySourceValue({required PrimarySourceModel primarySourceModel}) {
@@ -197,7 +216,6 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     //   emit(state.copyWith(zoneList: r, isLoading: false));
     // });
   }
-
 
   // SET ZONE VALUE
   void setZoneValue({required ZoneModel zoneModel}) async {
@@ -221,7 +239,9 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     emit(state.copyWith(isLoading: true));
     final results = await addressRepo.getDistrictByState(stateId: stateId);
     results.fold((l) {
-      emit(state.copyWith(isLoading: false, apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
+      emit(state.copyWith(
+          isLoading: false,
+          apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
     }, (r) {
       emit(state.copyWith(districtList: r, isLoading: false));
     });
@@ -233,16 +253,18 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     emit(state.copyWith(selectedDistrictModel: districtModel));
   }
 
-
   // GET STATE LIST
   Future<void> getStateLists({required String countryId}) async {
     emit(state.copyWith(isLoading: true));
     final results = await addressRepo.getStateByCountry(countryId: countryId);
     results.fold((l) {
-      emit(state.copyWith(isLoading: false, apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
+      emit(state.copyWith(
+          isLoading: false,
+          apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
     }, (r) {
       List<StateModel> sortedStateList = List.from(r);
-      sortedStateList.sort((a, b) => a.stateName.toLowerCase().compareTo(b.stateName.toLowerCase()));
+      sortedStateList.sort((a, b) =>
+          a.stateName.toLowerCase().compareTo(b.stateName.toLowerCase()));
       emit(state.copyWith(stateList: sortedStateList, isLoading: false));
     });
   }
@@ -259,28 +281,34 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     emit(state.copyWith(selectedAssignedModel: assignedModel));
   }
 
-  void setApprovedCustomerCodeValue({required CustomerCodeModel customerCodeModel}) {
+  void setApprovedCustomerCodeValue(
+      {required CustomerCodeModel customerCodeModel}) {
     emit(state.copyWith(selectedCustomerCodeModel: customerCodeModel));
   }
+
   Future<void> getAssignedSRByZoneId({required ZoneModel zoneModel}) async {
     emit(state.copyWith(isLoading: true));
     final results = await customerRepo.getAssignedList(zoneModel: zoneModel);
     results.fold((l) {
-      emit(state.copyWith(isLoading: false, apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),assignedList: []));
+      emit(state.copyWith(
+          isLoading: false,
+          apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),
+          assignedList: []));
     }, (r) {
       List<AssignedToModel> sortedAssignedList = List.from(r);
-      sortedAssignedList.sort((a, b) => a.userName!.toLowerCase().compareTo(b.userName!.toLowerCase()));
+      sortedAssignedList.sort((a, b) =>
+          a.userName!.toLowerCase().compareTo(b.userName!.toLowerCase()));
       emit(state.copyWith(assignedList: sortedAssignedList, isLoading: false));
     });
   }
 
-
   // GET COUNTRY LIST
   Future<void> getCountryLists() async {
     await Future.delayed(const Duration(milliseconds: 800));
-    emit(state.copyWith(isLoading: true,countryList: [
-      CountryModel(countryId: 79, countryName: "India")
-    ],));
+    emit(state.copyWith(
+      isLoading: true,
+      countryList: [CountryModel(countryId: 79, countryName: "India")],
+    ));
 
     // emit(state.copyWith(isLoading: true));
     // final results = await addressRepo.getCountries();
@@ -295,46 +323,51 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
   void setCountryValue({required CountryModel countryModel}) async {
     emit(state.copyWith(selectedCountryModel: countryModel));
     await Future.delayed(const Duration(milliseconds: 800));
-    if(state.selectedCountryModel != null && state.selectedCountryModel!.countryId.toString() == '79') {
-    await getStateLists(countryId: countryModel.countryId.toString()); 
-      
-    }else {
-
-    }
-
+    if (state.selectedCountryModel != null &&
+        state.selectedCountryModel!.countryId.toString() == '79') {
+      await getStateLists(countryId: countryModel.countryId.toString());
+    } else {}
   }
-
-
-
-  
 
   // CHANGE CITY FIELD
   void changeCity({required String city}) {
-    emit(state.copyWith(customerCreateCityField: CustomerCreateCityField(city)));
+    emit(
+        state.copyWith(customerCreateCityField: CustomerCreateCityField(city)));
   }
 
   // CHANGE LOCALITY FIELD
   void changeLocality({required String locality}) {
-    emit(state.copyWith(customerCreateLocalityField: CustomerCreateLocalityField(locality)));
+    emit(state.copyWith(
+        customerCreateLocalityField: CustomerCreateLocalityField(locality)));
   }
-
 
   // CHANGE PINCODE FIELD
   void changePincode({required String pincode}) {
-    emit(state.copyWith(customerCreatePincodeField: CustomerCreatePincodeField(pincode)));
+    emit(state.copyWith(
+        customerCreatePincodeField: CustomerCreatePincodeField(pincode)));
   }
 
   // CHANGE ADDRESS FIELD
   void changeAddress({required String address}) {
-    emit(state.copyWith(customerCreateAddressField: CustomerCreateAddressField(address)));
+    emit(state.copyWith(
+        customerCreateAddressField: CustomerCreateAddressField(address)));
   }
 
   //CLEAR ALL COUNTRIES
   void clearCountiresModel() {
-    emit(state.copyWith(selectedCountryModel: null,selectedStateModel: null,stateList: [],districtList: [],selectedDistrictModel: null,cityList: [],selectedCityModel: null,localityList: [],selectedLocalityModel: null));
+    emit(state.copyWith(
+        selectedCountryModel: null,
+        selectedStateModel: null,
+        stateList: [],
+        districtList: [],
+        selectedDistrictModel: null,
+        cityList: [],
+        selectedCityModel: null,
+        localityList: [],
+        selectedLocalityModel: null));
   }
 
-    //CLEAR ALL PRIMAY SOURCE
+  //CLEAR ALL PRIMAY SOURCE
   void clearPrimarySourceModel() {
     emit(state.copyWith(selectedPrimarySourceModel: null));
   }
@@ -344,10 +377,16 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     emit(state.copyWith(selectedTitleValue: null));
   }
 
-
   // CLEAR STATE VALUE
   void clearStateValue() {
-    emit(state.copyWith(selectedStateModel: null,districtList: [],selectedDistrictModel: null,cityList: [],selectedCityModel: null,localityList: [],selectedLocalityModel: null));
+    emit(state.copyWith(
+        selectedStateModel: null,
+        districtList: [],
+        selectedDistrictModel: null,
+        cityList: [],
+        selectedCityModel: null,
+        localityList: [],
+        selectedLocalityModel: null));
   }
 
 // CLEAR DIVISION VALUE
@@ -367,30 +406,39 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
 
   // CLEAR ZONE VALUE
   void clearZoneValue() {
-    emit(state.copyWith(selectedZoneModel: null,assignedList: [],selectedAssignedModel: null));
+    emit(state.copyWith(
+        selectedZoneModel: null,
+        assignedList: [],
+        selectedAssignedModel: null));
   }
 
-  void clearAssignedModel () {
+  void clearAssignedModel() {
     emit(state.copyWith(selectedAssignedModel: null));
   }
 
-
   Future<void> getAllDivisions() async {
-    emit(state.copyWith(isDivisionLoading: true,selectedDivisionsList: [],divisionsList: []));
+    emit(state.copyWith(
+        isDivisionLoading: true, selectedDivisionsList: [], divisionsList: []));
     final results = await divisionRepo.getDivisions();
-    results.fold((l) => emit(state.copyWith(divisionsList: [],isDivisionLoading: false,apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))), (r) {
+    results.fold(
+        (l) => emit(state.copyWith(
+            divisionsList: [],
+            isDivisionLoading: false,
+            apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))), (r) {
       List<DivisionModel> sortedDivisionList = List.from(r);
-      sortedDivisionList.sort((a, b) => a.divisionName.toLowerCase().compareTo(b.divisionName.toLowerCase()));
-      emit(state.copyWith(apiFailedModel: null,divisionsList: sortedDivisionList,isDivisionLoading: false));
+      sortedDivisionList.sort((a, b) =>
+          a.divisionName.toLowerCase().compareTo(b.divisionName.toLowerCase()));
+      emit(state.copyWith(
+          apiFailedModel: null,
+          divisionsList: sortedDivisionList,
+          isDivisionLoading: false));
     });
-
-    
   }
 
   void clearSelectedDivisionList() {
     emit(state.copyWith(selectedDivisionsList: []));
-
   }
+
   void clearSelectedDivisionModel() {
     emit(state.copyWith(selectedDivisionModel: null));
   }
@@ -399,26 +447,28 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     emit(state.copyWith(selectedDivisionModel: divisionModel));
   }
 
-  void setSelectdDivisionsList({required List<DivisionModel> divisionList}) async {
+  void setSelectdDivisionsList(
+      {required List<DivisionModel> divisionList}) async {
     emit(state.copyWith(selectedDivisionsList: divisionList));
   }
 
-
-
   void formSubmit() async {
-  
-
     emit(state.copyWith(isSubmitting: true));
     await Future.delayed(const Duration(seconds: 1));
-    final customerName = state.customerCreateCustomerNameField.value.getOrElse(() => "");
+    final customerName =
+        state.customerCreateCustomerNameField.value.getOrElse(() => "");
     final phone = state.customerPhoneField.value.getOrElse(() => '');
     final mobile = state.customerMobileField.value.getOrElse(() => '');
     final email = state.customerCreateEmailField.value.getOrElse(() => '');
-    final contactPerson = state.customerCreateContactPersonField.value.getOrElse(() => "");
+    final contactPerson =
+        state.customerCreateContactPersonField.value.getOrElse(() => "");
     // OPTIONAL
-    final addationalPhone = state.customerCreateAddationField.value.getOrElse(() => '');
-    final addressLineTwo = state.customerCreateAddressLineTwoField.value.getOrElse(() => '');
-    final creditLimit = state.customerCreateCreditLimitField.value.getOrElse(() => "");
+    final addationalPhone =
+        state.customerCreateAddationField.value.getOrElse(() => '');
+    final addressLineTwo =
+        state.customerCreateAddressLineTwoField.value.getOrElse(() => '');
+    final creditLimit =
+        state.customerCreateCreditLimitField.value.getOrElse(() => "");
     // ------------------ OPTIONAL FIELDS ENDS HERE ----------
     final country = state.selectedCountryModel;
     final stateModel = state.selectedStateModel;
@@ -437,56 +487,152 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     final selectedCityValue = state.selectedCityModel;
     final selectedLocalityValue = state.selectedLocalityModel;
 
-
     final faxNumber = state.farmNameField.value.getOrElse(() => "");
     final farmCapacity = state.farmCapacityField.value.getOrElse(() => "");
 
-      final bool isOrganization = state.isBusinessPartner;
+    final bool isOrganization = state.isBusinessPartner;
 
-    if(isOrganization) {
-
-
-      if(state.selectedTitleValue != null && customerName.isNotEmpty && phone.isNotEmpty && contactPerson.isNotEmpty  && mobile.isNotEmpty && email.isNotEmpty && customerType != null && divisionModel != null && zone != null && mandal.isNotEmpty && assginedTo != null  &&  primarySource != null &&  country != null && stateModel != null && distirctModel != null && mandal.isNotEmpty  && selectedCityValue != null && selectedLocalityValue != null && address.isNotEmpty && addressLineTwo.isNotEmpty && pincode.isNotEmpty && farmCapacity.isNotEmpty) {
-        CustomerCreatePostModel customerCreatePostModel = CustomerCreatePostModel(customerName: customerName, customerPhone: phone, title: state.selectedTitleValue!.toLowerCase().toString(), contactPerson: contactPerson, mobile: mobile, email: email, additionalPhone: addationalPhone, primarySourceId: primarySource.sourceId, zoneId: zone.zoneId!.toString(), customerType: state.selectedCustomerType.toString() == "Commerical" ? true : false, creditLimit: double.parse(creditLimit), addressLine2: addressLineTwo, mandal: mandal, districtId: distirctModel.districtId.toString(), assignTo: assginedTo.id!, divisionId: [state.selectedDivisionModel!.divisionId], countryId: country.countryId, stateId: stateModel.stateId.toString(), cityId: selectedCityValue.cityId!, localityId: selectedLocalityValue.localityId!, address: address, pincode: pincode, isOrganization: true,customerCode: '',farmCapacity: double.parse(farmCapacity.toString()),faxNo: faxNumber.toString(),isIndividual: false);
-        final results = await customerRepo.createCustomer(customerCreatePostModel: customerCreatePostModel);
+    if (isOrganization) {
+      if (state.selectedTitleValue != null &&
+          customerName.isNotEmpty &&
+          phone.isNotEmpty &&
+          contactPerson.isNotEmpty &&
+          mobile.isNotEmpty &&
+          email.isNotEmpty &&
+          customerType != null &&
+          divisionModel != null &&
+          zone != null &&
+          mandal.isNotEmpty &&
+          assginedTo != null &&
+          primarySource != null &&
+          country != null &&
+          stateModel != null &&
+          distirctModel != null &&
+          mandal.isNotEmpty &&
+          selectedCityValue != null &&
+          selectedLocalityValue != null &&
+          address.isNotEmpty &&
+          addressLineTwo.isNotEmpty &&
+          pincode.isNotEmpty &&
+          farmCapacity.isNotEmpty) {
+        CustomerCreatePostModel customerCreatePostModel =
+            CustomerCreatePostModel(
+                customerName: customerName,
+                customerPhone: phone,
+                title: state.selectedTitleValue!.toLowerCase().toString(),
+                contactPerson: contactPerson,
+                mobile: mobile,
+                email: email,
+                additionalPhone: addationalPhone,
+                primarySourceId: primarySource.sourceId,
+                zoneId: zone.zoneId!.toString(),
+                customerType:
+                    state.selectedCustomerType.toString() == "Commerical"
+                        ? true
+                        : false,
+                creditLimit: double.tryParse(creditLimit) ?? 0.0,
+                addressLine2: addressLineTwo,
+                mandal: mandal,
+                districtId: distirctModel.districtId.toString(),
+                assignTo: assginedTo.id!,
+                divisionId: [state.selectedDivisionModel!.divisionId],
+                countryId: country.countryId,
+                stateId: stateModel.stateId.toString(),
+                cityId: selectedCityValue.cityId!,
+                localityId: selectedLocalityValue.localityId!,
+                address: address,
+                pincode: pincode,
+                isOrganization: true,
+                customerCode: '',
+                farmCapacity: double.tryParse(farmCapacity.toString()) ?? 0.0,
+                faxNo: faxNumber.toString(),
+                isIndividual: false);
+        final results = await customerRepo.createCustomer(
+            customerCreatePostModel: customerCreatePostModel);
         results.fold((l) {
-          emit(state.copyWith(isSubmitting: false,apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
-          
+          emit(state.copyWith(
+              isSubmitting: false,
+              apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
         }, (r) {
-          emit(state.copyWith(isSubmitting: false,isSuccess: true));
+          emit(state.copyWith(isSubmitting: false, isSuccess: true));
         });
-      }else {
+      } else {
         emit(state.copyWith(showInputError: true));
 
         Fluttertoast.showToast(msg: 'Please fill all the fields');
       }
-
-    }else {
+    } else {
       // INDIVIDUAL
 
-      if(state.selectedCustomerCodeModel != null && state.selectedTitleValue != null && contactPerson.isNotEmpty && mobile.isNotEmpty && email.isNotEmpty && customerType != null && divisionModel != null && zone != null && mandal.isNotEmpty && assginedTo != null  &&  primarySource != null &&   country != null && stateModel != null && distirctModel != null && selectedCityValue != null && selectedLocalityValue != null && address.isNotEmpty && addressLineTwo.isNotEmpty && pincode.isNotEmpty  && farmCapacity.isNotEmpty ) {
-          CustomerCreatePostModel customerCreatePostModel = CustomerCreatePostModel( farmName: farmName,customerName: "", customerPhone: "", title: state.selectedTitleValue!.toLowerCase().toString(), contactPerson: contactPerson, mobile: mobile, email: email, additionalPhone: addationalPhone, primarySourceId: primarySource.sourceId, zoneId: zone.zoneId!.toString(), customerType: state.selectedCustomerType.toString() == "Commerical" ? true : false, creditLimit: double.parse(creditLimit), addressLine2: addressLineTwo, mandal: mandal, districtId: distirctModel.districtId.toString(), assignTo: assginedTo.id!, divisionId: [state.selectedDivisionModel!.divisionId], countryId: country.countryId, stateId: stateModel.stateId.toString(), cityId: selectedCityValue.cityId!, localityId: selectedLocalityValue.localityId!, address: address, pincode: pincode, isOrganization: false,customerCode: state.selectedCustomerCodeModel!.customerCode.toString(),farmCapacity: double.parse(farmCapacity.toString()),faxNo: faxNumber.toString(),isIndividual: true,);
-        final results = await customerRepo.createCustomer(customerCreatePostModel: customerCreatePostModel);
+      if (state.selectedCustomerCodeModel != null &&
+          state.selectedTitleValue != null &&
+          contactPerson.isNotEmpty &&
+          mobile.isNotEmpty &&
+          email.isNotEmpty &&
+          customerType != null &&
+          divisionModel != null &&
+          zone != null &&
+          mandal.isNotEmpty &&
+          assginedTo != null &&
+          primarySource != null &&
+          country != null &&
+          stateModel != null &&
+          distirctModel != null &&
+          selectedCityValue != null &&
+          selectedLocalityValue != null &&
+          address.isNotEmpty &&
+          addressLineTwo.isNotEmpty &&
+          pincode.isNotEmpty &&
+          farmCapacity.isNotEmpty) {
+        CustomerCreatePostModel customerCreatePostModel =
+            CustomerCreatePostModel(
+          farmName: farmName,
+          customerName: "",
+          customerPhone: "",
+          title: state.selectedTitleValue!.toLowerCase().toString(),
+          contactPerson: contactPerson,
+          mobile: mobile,
+          email: email,
+          additionalPhone: addationalPhone,
+          primarySourceId: primarySource.sourceId,
+          zoneId: zone.zoneId!.toString(),
+          customerType: state.selectedCustomerType.toString() == "Commerical"
+              ? true
+              : false,
+          creditLimit: double.tryParse(creditLimit) ?? 0.0,
+          addressLine2: addressLineTwo,
+          mandal: mandal,
+          districtId: distirctModel.districtId.toString(),
+          assignTo: assginedTo.id!,
+          divisionId: [state.selectedDivisionModel!.divisionId],
+          countryId: country.countryId,
+          stateId: stateModel.stateId.toString(),
+          cityId: selectedCityValue.cityId!,
+          localityId: selectedLocalityValue.localityId!,
+          address: address,
+          pincode: pincode,
+          isOrganization: false,
+          customerCode:
+              state.selectedCustomerCodeModel!.customerCode.toString(),
+          farmCapacity: double.tryParse(farmCapacity.toString())?? 0.0 ,
+          faxNo: faxNumber.toString(),
+          isIndividual: true,
+        );
+        final results = await customerRepo.createCustomer(
+            customerCreatePostModel: customerCreatePostModel);
         results.fold((l) {
-          emit(state.copyWith(isSubmitting: false,apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
-          
+          emit(state.copyWith(
+              isSubmitting: false,
+              apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
         }, (r) {
-          emit(state.copyWith(isSubmitting: false,isSuccess: true));
+          emit(state.copyWith(isSubmitting: false, isSuccess: true));
         });
-        
-      }else {
+      } else {
         Fluttertoast.showToast(msg: 'Please fill all the fields');
         emit(state.copyWith(showInputError: true));
       }
-      
     }
-  emit(state.copyWith(isSubmitting: false));
-
-
-
-
-   
-
+    emit(state.copyWith(isSubmitting: false));
 
 //     if(state.selectedDivisionModel != null && title != null &&  customerName.isNotEmpty  && phone.isNotEmpty && contactPerson.isNotEmpty && mobile.isNotEmpty && email.isNotEmpty && customerType != null &&  zone != null && assginedTo != null && country != null && stateModel != null && distirctModel != null && mandal.isNotEmpty && selectedCityValue != null && selectedLocalityValue != null && address.isNotEmpty && pincode.isNotEmpty ) {
 //       CustomerCreatePostModel createPostModel = CustomerCreatePostModel(customerName: customerName, customerPhone: phone, title: title.toLowerCase(), contactPerson: contactPerson, mobile: mobile, email: email, additionalPhone: addationalPhone, primarySourceId: primarySource!.sourceId.toString(), zoneId: zone.zoneId ?? "0", customerType: customerType.toString() == "Commercial" ? true : false , creditLimit: creditLimit.toString(), addressLine2: addressLineTwo, mandal: mandal, districtId: distirctModel.districtId ?? "0", assignTo: assginedTo.id.toString(), divisionId: divisionModle!.divisionId.toString(), countryId: country.countryId.toString(), stateId: stateModel.stateId, cityId: selectedCityValue.cityId.toString(), localityId: selectedLocalityValue.localityId.toString(), address: address, pincode: pincode);
@@ -512,80 +658,116 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
 //             Fluttertoast.showToast(msg: 'Form submission faield', backgroundColor: AppColors.redColor, textColor: Colors.white, gravity: ToastGravity.BOTTOM);
 
 //     }
-
-
-    
-  }  
-
-
-
+  }
 
   // GET ALL PRIMARY SOURCES LISTS
   Future<void> getPrimarySourceList() async {
-    emit(state.copyWith(primarySourceList: [],selectedPrimarySourceModel: null,primarySourceLoading: true));
+    emit(state.copyWith(
+        primarySourceList: [],
+        selectedPrimarySourceModel: null,
+        primarySourceLoading: true));
     final results = await primarySourceRepo.getPrimarySources();
-    results.fold((l) => emit(state.copyWith(apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),primarySourceLoading: false)), (r) {
-      emit(state.copyWith(primarySourceList: r,primarySourceLoading: false));
+    results.fold(
+        (l) => emit(state.copyWith(
+            apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),
+            primarySourceLoading: false)), (r) {
+      emit(state.copyWith(primarySourceList: r, primarySourceLoading: false));
     });
   }
-
- 
 
 //  GET ALL COUNTIRES LIST
   Future<void> getAllCountires() async {
     emit(state.copyWith(countryLoading: true));
     final resutls = await addressRepo.getCountries();
-    resutls.fold((l) => emit(state.copyWith(apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),countryLoading: false,countryList: [],stateList: [],districtList: [])), (r) => emit(state.copyWith(countryList: r,countryLoading: false)));
+    resutls.fold(
+        (l) => emit(state.copyWith(
+            apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),
+            countryLoading: false,
+            countryList: [],
+            stateList: [],
+            districtList: [])),
+        (r) => emit(state.copyWith(countryList: r, countryLoading: false)));
   }
 
   // GET ALL STATES LIST
   Future<void> getAllStates({required String countryId}) async {
-    emit(state.copyWith(stateLoading: true,stateList: []));
+    emit(state.copyWith(stateLoading: true, stateList: []));
     final results = await addressRepo.getStateByCountry(countryId: countryId);
-    results.fold((l) => emit(state.copyWith(apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),stateList: [],districtList: [],selectedStateModel: null,selectedDistrictModel: null)), (r) => emit(state.copyWith(stateList: r,stateLoading: false)));
+    results.fold(
+        (l) => emit(state.copyWith(
+            apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),
+            stateList: [],
+            districtList: [],
+            selectedStateModel: null,
+            selectedDistrictModel: null)),
+        (r) => emit(state.copyWith(stateList: r, stateLoading: false)));
   }
 
   // GET ALL DIVISION LIST
-   Future<void> getDistrictByState({required String stateId}) async {
-    emit(state.copyWith(districtList: [],districtLoading: true,selectedDistrictModel: null));
+  Future<void> getDistrictByState({required String stateId}) async {
+    emit(state.copyWith(
+        districtList: [], districtLoading: true, selectedDistrictModel: null));
     await Future.delayed(const Duration(milliseconds: 800));
     final results = await addressRepo.getDistrictByState(stateId: stateId);
-    results.fold((l) => emit(state.copyWith(apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),districtLoading: false)), (r) {
+    results.fold(
+        (l) => emit(state.copyWith(
+            apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),
+            districtLoading: false)), (r) {
       List<DistrictModel> sortedDistrictList = List.from(r);
-      sortedDistrictList.sort((a, b) => a.districtName!.toLowerCase().compareTo(b.districtName!.toLowerCase()));
-      emit(state.copyWith(districtList: sortedDistrictList,districtLoading: false));
+      sortedDistrictList.sort((a, b) => a.districtName!
+          .toLowerCase()
+          .compareTo(b.districtName!.toLowerCase()));
+      emit(state.copyWith(
+          districtList: sortedDistrictList, districtLoading: false));
     });
-   }
+  }
 
   //  GET ALL CITIES
   Future<void> getAllCities({required StateModel stateModel}) async {
-    emit(state.copyWith(isCityLoading:  true,cityList: [],selectedCityModel: null));
+    emit(state.copyWith(
+        isCityLoading: true, cityList: [], selectedCityModel: null));
     final results = await addressRepo.getCityByStateId(statemodel: stateModel);
-    results.fold((l) => emit(state.copyWith(isCityLoading: false,apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))), (r) => emit(state.copyWith(cityList: r,isCityLoading: false)));
+    results.fold(
+        (l) => emit(state.copyWith(
+            isCityLoading: false,
+            apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))),
+        (r) => emit(state.copyWith(cityList: r, isCityLoading: false)));
   }
 
   // SET CITY VALUE
   void setCityValue({required CityModel cityModel}) async {
-    emit(state.copyWith(selectedCityModel: cityModel,localityList: [],selectedLocalityModel: null));
+    emit(state.copyWith(
+        selectedCityModel: cityModel,
+        localityList: [],
+        selectedLocalityModel: null));
     await Future.delayed(const Duration(milliseconds: 800));
     await getAllLocalities(cityModel: cityModel);
   }
 
   void resetCityValue() {
-    emit(state.copyWith(selectedCityModel: null,localityList: [],selectedLocalityModel: null));
-  } 
+    emit(state.copyWith(
+        selectedCityModel: null,
+        localityList: [],
+        selectedLocalityModel: null));
+  }
 
   // GET ALL LOCALITY
   Future<void> getAllLocalities({required CityModel cityModel}) async {
-    emit(state.copyWith(isLocalityLoading: true,localityList: [],selectedLocalityModel: null));
+    emit(state.copyWith(
+        isLocalityLoading: true,
+        localityList: [],
+        selectedLocalityModel: null));
     final results = await addressRepo.getLocalityByCityId(cityModel: cityModel);
-    results.fold((l) => emit(state.copyWith(isLocalityLoading: false,apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))), (r) => emit(state.copyWith(localityList: r,isLocalityLoading: false)));
+    results.fold(
+        (l) => emit(state.copyWith(
+            isLocalityLoading: false,
+            apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))),
+        (r) => emit(state.copyWith(localityList: r, isLocalityLoading: false)));
   }
 
   // SET LOCALITY VALUE
   void setLocalityValue({required LocalityModel localityModel}) {
     emit(state.copyWith(selectedLocalityModel: localityModel));
-    
   }
 
   void resetLocalityValue() {
@@ -594,12 +776,17 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
 
   //  GET ALL ZONE LIST
   Future<void> getAllZoneList() async {
-    emit(state.copyWith(zoneLoading: true,zoneList: [],selectedZoneModel: null));
-   final results = await zoneRepo.getAllZones();
-    results.fold((l) => emit(state.copyWith(apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),zoneLoading: false)), (r) {
+    emit(state.copyWith(
+        zoneLoading: true, zoneList: [], selectedZoneModel: null));
+    final results = await zoneRepo.getAllZones();
+    results.fold(
+        (l) => emit(state.copyWith(
+            apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),
+            zoneLoading: false)), (r) {
       List<ZoneModel> sortedZoneList = List.from(r);
-      sortedZoneList.sort((a, b) => a.zoneName!.toLowerCase().compareTo(b.zoneName!.toLowerCase()));
-      emit(state.copyWith(zoneList: sortedZoneList,zoneLoading: false));
+      sortedZoneList.sort((a, b) =>
+          a.zoneName!.toLowerCase().compareTo(b.zoneName!.toLowerCase()));
+      emit(state.copyWith(zoneList: sortedZoneList, zoneLoading: false));
     });
   }
 
@@ -617,28 +804,29 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     emit(state.copyWith(selectedCustomerType: null));
   }
 
-
   Future<void> getAllCustomerCodesList() async {
-    emit(state.copyWith(isCustomerCodeLoading: true,selectedCustomerCodeModel: null,customerCodeList: []));
+    emit(state.copyWith(
+        isCustomerCodeLoading: true,
+        selectedCustomerCodeModel: null,
+        customerCodeList: []));
     final results = await customerRepo.getApprovedCustomerList();
-    results.fold((l) => emit(state.copyWith(isCustomerCodeLoading: false,apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))), (r) {
+    results.fold(
+        (l) => emit(state.copyWith(
+            isCustomerCodeLoading: false,
+            apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))), (r) {
       List<CustomerCodeModel> sortedCustomerCodeList = List.from(r);
-      sortedCustomerCodeList.sort((a, b) => a.customerName.toLowerCase().compareTo(b.customerName.toLowerCase()));
-      emit(state.copyWith(customerCodeList: sortedCustomerCodeList,isCustomerCodeLoading: false));
+      sortedCustomerCodeList.sort((a, b) =>
+          a.customerName.toLowerCase().compareTo(b.customerName.toLowerCase()));
+      emit(state.copyWith(
+          customerCodeList: sortedCustomerCodeList,
+          isCustomerCodeLoading: false));
     });
   }
-
-
-
-
-
-  
-
 
   // GET ALL INITIAL VALUES
   Future<void> getAllInitialValues() async {
     // emit(CustomerCreateState.initial());
-    emit(state.copyWith(showInputError:  false));
+    emit(state.copyWith(showInputError: false));
     clearAllController();
 
     await getAllTitles();
@@ -648,21 +836,17 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     await getAllZoneList();
     await getAllDivisions();
     await getAllCustomerCodesList();
-
   }
-
 
   void setBusinessPartnerBoolValue(bool value) {
     emit(state.copyWith(isBusinessPartner: value));
     log(value.toString());
   }
 
-
   void clearAllFields() {
     emit(CustomerCreateState.initial());
     clearAllController();
   }
-
 
   @override
   Future<void> close() {
@@ -680,10 +864,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     faxNumberController.dispose();
     farmCapacityController.dispose();
     farmNameController.dispose();
-    
+
     return super.close();
   }
-  
-
 }
-

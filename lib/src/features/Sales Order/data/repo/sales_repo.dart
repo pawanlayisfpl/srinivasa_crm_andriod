@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -11,10 +12,15 @@ import 'package:srinivasa_crm_new/src/core/extensions/date_extension.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/particular_sales_order_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/payment_mode_model.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/pending_order_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/price_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/product_model.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/sales_order_approve_response_model.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/sales_order_reject_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/soc_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/uom_model.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/post/sales_approve_post_model.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/post/sales_reject_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/post/soc_create_post_model.dart';
 
 import '../../domain/model/get/view_sales_order_model.dart';
@@ -28,7 +34,9 @@ abstract class SalesRepo {
       createSaleOrder({required SocCreatePostModel socCreatePostModel});
   Future<Either<NetworkExceptions, ViewSalesOrderModel>> getAllSalesOrder();
   Future<Either<NetworkExceptions,ParticularSalesOrderModel>> getParticularSalesOrder(int orderId);   
-
+  Future<Either<NetworkExceptions, SalesOrderApproveResponseModel>> approveSalesOrder({required SalesApprovePostModel salesApprovePostModel});
+  Future<Either<NetworkExceptions, SalesOrderRejectResponseModel>> rejectSalesOrder({required SalesRejectPostModel salesRejectPostmodel});
+  Future<Either<NetworkExceptions,PendingOrdersModel>> getPendingOrders();
 }
 
 @Injectable(as: SalesRepo)
@@ -252,7 +260,7 @@ class SaleRepoImpl implements SalesRepo {
          final ParticularSalesOrderModel particularSalesOrderModel = ParticularSalesOrderModel.fromJson(response.data['data']);
         return Right(particularSalesOrderModel);
        }else {
-        return left(NetworkExceptions.badRequest());
+        return left(const NetworkExceptions.badRequest());
        }
 
       }else {
@@ -263,5 +271,80 @@ class SaleRepoImpl implements SalesRepo {
       
       throw left(NetworkExceptions.getDioException(e));
     }
+  }
+  
+  @override
+  Future<Either<NetworkExceptions, SalesOrderApproveResponseModel>> approveSalesOrder({required SalesApprovePostModel salesApprovePostModel})  async {
+   try {
+    logger.d(' ORDERS APPROVE API STARTEDDD');
+      final response = await dioClient.put(Endpoints.salesOrderReject,headers: {},data: salesApprovePostModel.toJson());
+
+      if(response.statusCode == HttpStatus.ok) {
+            logger.d(' ORDERS APPROVE API IS SUCCESSFULL');
+
+        final SalesOrderApproveResponseModel salesOrderApproveResponseModel = SalesOrderApproveResponseModel.fromJson(response.data);
+        return right(salesOrderApproveResponseModel);
+      }else {
+            logger.d(' ORDERS APPROVE API FAILEDD');
+        return left(NetworkExceptions.getDioException(response.data));
+      }
+      
+    } on DioException catch (e) {
+            logger.d(' ORDERS APPROVE API FAILED ${e.error.toString()}');
+      throw left(NetworkExceptions.getDioException(e));
+      
+    }
+  }
+  
+  @override
+  Future<Either<NetworkExceptions, SalesOrderRejectResponseModel>> rejectSalesOrder({required SalesRejectPostModel salesRejectPostmodel}) async {
+    try {
+       logger.d(' ORDERS REJECT API STARTEDDD');
+      final response = await dioClient.put(Endpoints.salesOrderReject,headers: {},data: salesRejectPostmodel.toJson());
+
+      if(response.statusCode == HttpStatus.ok) {
+        logger.d(' ORDERS REJECT API IS SUCCESSFULL');
+        final SalesOrderRejectResponseModel salesOrderRejectResponseModel = SalesOrderRejectResponseModel.fromJson(response.data);
+        return right(salesOrderRejectResponseModel);
+      }else {
+        logger.d(' ORDERS REJECT API FAILEDD');
+        return left(NetworkExceptions.getDioException(response.data));
+      }
+      
+    } on DioException catch (e) {
+      logger.d(' ORDERS REJECT API FAILED');
+      throw left(NetworkExceptions.getDioException(e));
+      
+    }
+  }
+  
+  @override
+  Future<Either<NetworkExceptions, PendingOrdersModel>> getPendingOrders()  async {
+    logger.d('PENDING ORDERS API STARTEDDD');
+   final results = await internetChecker.isConnected();
+
+   if(results ) {
+    try {
+      final response = await dioClient.get(Endpoints.getAllPenddingOrders,headers: {});
+
+      if(response.statusCode == HttpStatus.ok) {
+         logger.d('PENDING ORDERS API IS SUCCESSFULL');
+        final PendingOrdersModel pendingOrdersModel = PendingOrdersModel.fromJson(response.data['data']);
+        return right(pendingOrdersModel);
+
+      }else {
+         logger.d('PENDING ORDERS API FAILEDD');
+        return left(NetworkExceptions.getDioException(response.data));
+      }
+      
+    } on DioException catch (e) {
+       logger.d('PENDING ORDERS API FAIELDD');
+      throw left(NetworkExceptions.getDioException(e));
+      
+    }
+
+   }else {
+    throw const NetworkExceptions.noInternetConnection();
+   }
   }
 }

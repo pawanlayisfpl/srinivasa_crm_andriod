@@ -18,7 +18,7 @@ class KycPendingCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.white,
-      margin: EdgeInsets.all(8),
+      margin: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
       
       child: ListTile(
         onTap: () {
@@ -26,7 +26,7 @@ class KycPendingCardWidget extends StatelessWidget {
             Navigator.push(context, SlideRightRoute(screen: KycUploadScreen( customerKycModel: customerKycModel,)));
           }
         },
-        contentPadding: EdgeInsets.all(8),
+        contentPadding: EdgeInsets.symmetric(horizontal: 15.w,vertical: 10.h),
         trailing: const Icon(Icons.arrow_forward_ios),
         title: CommonTextWidget(title: customerKycModel.customerName ?? "N/A",fontWeight: FontWeight.w600,textSize: 20.sp,),
         subtitle: Column(

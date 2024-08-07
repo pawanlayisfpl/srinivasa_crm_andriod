@@ -17,6 +17,7 @@ class SalesOrderViewCubit extends Cubit<SalesOrderViewState> {
   void getSalesOrder() async {
     await Future.delayed(const Duration(seconds: 1));
     emit(state.copyWith(isLoading: true));
+    await salesRepo.getPendingOrders();
     final result = await salesRepo.getAllSalesOrder();
     result.fold(
       (l) => emit(state.copyWith(isLoading: false, apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))),

@@ -29,7 +29,7 @@ class KycRemoteDatasourceImpl implements KycRemoteDataSource {
       });
 
       if(response.statusCode == 200){
-        final List data = response.data;
+        final List data = response.data['body'];
         return await Future.value(data.map((e) => CustomerKycModel.fromJson(e)).toList());
       }else {
         logger.e('KYC API FAILED');

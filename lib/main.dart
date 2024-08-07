@@ -24,6 +24,7 @@ import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 
 import 'src/config/config.dart';
+import 'src/features/Sales Order/presentation/Sales Order Pending/cubit/pending_order_cubit.dart';
 import 'src/features/login/presentation/cubit/login_cubit.dart';
 
 Future<void> main() async {
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => locator.get<SalesOrderCreateCubit>()),
         BlocProvider(create: (_) => locator.get<SalesOrderViewCubit>()),
         BlocProvider(create: (_) => locator.get<SalesOrderParticularCubit>()),
+        BlocProvider(create: (_) => locator.get<PendingOrderCubit>()),
       ],
       child: MaterialApp(
         navigatorKey: AppKeys.globalNavigatorKey,

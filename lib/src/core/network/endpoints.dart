@@ -85,7 +85,9 @@ class Endpoints {
   static const String getProductPriceById = '$basicUrl/se/product-price/';
   static const String getAllSalesOrders = '$basicUrl/se/all-orders';
   static const String getParticularSaleModel = '$basicUrl/se/order/';
-
+  static const String salesOrderReject = '$basicUrl/se/order/approve';
+  static const String salesOrderApprove = '$basicUrl/se/order/reject';
+  static const String getAllPenddingOrders = '$basicUrl/se/order/pending-orders';
   // UOM
   static const String getAllUom = '$basicUrl/se/uom';
 

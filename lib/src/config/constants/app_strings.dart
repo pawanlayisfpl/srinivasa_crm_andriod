@@ -31,4 +31,16 @@ class AppStrings {
   static const String technicalDoctorRole = "78";
   static const String salesRepRole = "79";
   static const String businessHeadRole = "75";
+
+  // NOTIFICATION TYPE
+  static const String salesOrderType = "SALES_ORDER";
+  static const String monthlyPlantype ='MONTHLY_PLAN';
+
+  // NOTIFICATIONS STATUS
+  static const String approved = "APPROVED";
+
+  // types
+  static const String rejected = "REJECTED";
+  static const String created = "CREATED";
+  static const String updated = "UPDATED";
 }

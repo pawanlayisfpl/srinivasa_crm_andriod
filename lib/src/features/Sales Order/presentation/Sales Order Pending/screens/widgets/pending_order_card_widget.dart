@@ -6,16 +6,15 @@ import 'package:intl/intl.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/data/repo/sales_repo.dart';
-
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/view_sales_order_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Particular/screens/paticular_sales_order_screen.dart';
 
-import '../../../../../config/config.dart';
+import '../../../../domain/model/get/pending_order_model.dart';
 
-class SalesOrderViewCardWidget extends StatelessWidget {
+
+
+class PendingOrderCardWidget extends StatelessWidget {
   final Orders orders;
-  const SalesOrderViewCardWidget({
+  const PendingOrderCardWidget({
     Key? key,
     required this.orders,
   }) : super(key: key);
@@ -24,9 +23,10 @@ class SalesOrderViewCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-       if(context.mounted) {
-        Navigator.push(context, ScaleRoute(screen: ParticularSalesOrderScreen(orderId: orders.orderId ?? 0, isApproveOrRejectEnabled: false,)));
-       }
+        if(context.mounted) {
+          Navigator.push(context, ScaleRoute(screen: ParticularSalesOrderScreen(orderId: orders.orderId ?? 0, isApproveOrRejectEnabled: true,)));
+        }
+    
 
       },
       child: Card(
