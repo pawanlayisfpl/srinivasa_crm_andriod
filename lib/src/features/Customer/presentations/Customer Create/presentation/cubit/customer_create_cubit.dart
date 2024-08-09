@@ -816,7 +816,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
             apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))), (r) {
       List<CustomerCodeModel> sortedCustomerCodeList = List.from(r);
       sortedCustomerCodeList.sort((a, b) =>
-          a.customerName.toLowerCase().compareTo(b.customerName.toLowerCase()));
+          a.customerName!.toLowerCase().compareTo(b.customerName!.toLowerCase()));
       emit(state.copyWith(
           customerCodeList: sortedCustomerCodeList,
           isCustomerCodeLoading: false));

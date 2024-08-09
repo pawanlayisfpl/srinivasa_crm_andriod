@@ -884,7 +884,7 @@ if(customerModel == null || productFormList.isEmpty || orderTotalAmountValue.isE
 }else {
 
 SocCreatePostModel socCreatePostModel = SocCreatePostModel(
-  customerCode: customerModel.customerId,
+  customerCode: customerModel.customerId!,
   productDetails: productFormList.map((e) => ProductDetails(
     divisionId: e.divisionId,
     productId: e.productId,

@@ -22,7 +22,9 @@ import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Particular/cubit/sales_order_particular_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20View/cubit/sales_order_view_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
+import 'package:workmanager/workmanager.dart';
 
+import 'shared/data/repo/work_manager_services.dart';
 import 'src/config/config.dart';
 import 'src/features/Sales Order/presentation/Sales Order Pending/cubit/pending_order_cubit.dart';
 import 'src/features/login/presentation/cubit/login_cubit.dart';
@@ -34,6 +36,9 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
   await _initDependencies();
+  Workmanager(
+
+  ).initialize(callbackDispatcher, isInDebugMode: true,);
   runApp(const MyApp());
 }
 

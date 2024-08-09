@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:srinivasa_crm_new/src/common/widgets/loading/common_progress_dialog.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
@@ -22,8 +23,9 @@ class SalesOrderDashboardScreen extends StatelessWidget {
       // 'Create Daily Plan',
       'Create Sales Order',
       'View Sales Orders',
-      'Search Sales Plan',
-      'Sales order\n Pending Requests'
+      // 'Search Sales Plan',
+      'Sales order\n Pending Requests',
+      
 
 
     ];
@@ -60,12 +62,13 @@ class SalesOrderDashboardScreen extends StatelessWidget {
                         }
                           break;
 
-                          case 2:
+                          case 3:
                           Fluttertoast.showToast(msg: "Not discussed yet");
+                          ProgressDialogUtils.showProgressDialog();
                       
                           break;
 
-                       case 3: 
+                       case 2: 
                        if(context.mounted) {
                         Navigator.pushReplacement(context, SlideRightRoute(screen: const  PendingOrderScreen()));
                        }

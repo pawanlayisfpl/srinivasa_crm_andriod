@@ -119,8 +119,8 @@ class DashboardBodyWidget extends StatelessWidget {
                   top: 6,
                   child: CircleAvatar(
                   backgroundColor: AppColors.redColor,
-                  radius: 12.0,
-                  child: CommonTextWidget(title: context.watch<AlertCubit>().alertCount.toString(),textColor: Colors.white,),
+                  radius: 13.0,
+                  child: CommonTextWidget(title: context.watch<AlertCubit>().alertCount.toString(),textColor: Colors.white,textSize: 12.sp,),
                 )) : const SizedBox.shrink(),
               ],
             ),
@@ -178,7 +178,7 @@ class DashboardBodyWidget extends StatelessWidget {
     }
   }
   
-  _buildListWidget(BuildContext context) {
+    _buildListWidget(BuildContext context) {
     return ListView.separated(
       shrinkWrap: true,
       // padding: EdgeInsets.only(top: 10.h),

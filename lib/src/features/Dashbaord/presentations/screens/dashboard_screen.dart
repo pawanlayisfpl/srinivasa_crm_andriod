@@ -12,7 +12,9 @@ import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/widgets/d
 import 'package:srinivasa_crm_new/src/features/Location%20Tracking/presentations/native_screen.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
+import 'package:workmanager/workmanager.dart';
 
+import '../../../../../shared/data/repo/work_manager_services.dart';
 import '../../../../config/config.dart';
 import '../../../../core/core.dart';
 import '../../../mark attendance/domain/domain.dart';
@@ -188,6 +190,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
     await requestPermissions();
        // Request permissions before starting the service
       await platform.invokeMethod('start');
+      }else {
+        await requestPermissions();
+        // / Periodic task registration
+Workmanager().registerPeriodicTask(
+    fetchBackground, 
+   fetchBackground, 
+    // When no frequency is provided the default 15 minutes is set.
+    // Minimum frequency is 15 min. Android will automatically change your frequency to 15 min if you have configured a lower frequency.
+    frequency: Duration(hours: 1),
+);
       }
   
       print('Service started');
