@@ -98,9 +98,9 @@ class CustomerRepoImpl implements CustomerRepo {
   }
 
   @override
-  Future<Either<NetworkExceptions, LastCheckinOutResponseModel>> getLastCheckInCheckoutDetails({required String customerId})  async{
+  Future<Either<NetworkExceptions, LastCheckinOutResponseModel>> getLastCheckInCheckoutDetails({required String customerId,required String farmId})  async{
     try {
-    final results = await customerRemoteDataSource.getLastCheckInCheckoutDetails(customerId: customerId);
+    final results = await customerRemoteDataSource.getLastCheckInCheckoutDetails(customerId: customerId, farmId: farmId);
     return Right(results);
      
    } on  NetworkExceptions catch(e) {

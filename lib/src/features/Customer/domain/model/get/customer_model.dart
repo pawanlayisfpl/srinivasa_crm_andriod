@@ -1,158 +1,109 @@
-
-import '../../../../../../shared/shared.dart';
-
 class Customermodel {
-  int? empId;
-  String? empName;
-  String? customerCode;
-  ZoneModel? zone;
-  String? customerType;
-  String? custName;
-  String? custPhone;
-  String? custAltPhone;
+  String? customerName;
+  Farm? farm;
+
+  Customermodel({this.customerName, this.farm});
+
+  Customermodel.fromJson(Map<String, dynamic> json) {
+    customerName = json['customerName'];
+    farm = json['farm'] != null ? new Farm.fromJson(json['farm']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['customerName'] = this.customerName;
+    if (this.farm != null) {
+      data['farm'] = this.farm!.toJson();
+    }
+    return data;
+  }
+}
+
+class Farm {
+  String? farmName;
+  String? customerId;
+  int? farmId;
   String? custLocation;
-  String? custContactPerson;
-  String? custContPersContactNo;
-  String? custContPersAltContNo;
-  String? custEmail;
-  String? custBirthDate;
+  String? custZone;
+  String? contactPerson;
+  String? contPersContactNo;
+  String? contPersAltContNo;
   String? custCountry;
   String? custStateCode;
   String? custAddress;
   String? custPostal;
-  String? typeOfCompany;
   String? createdDate;
   String? createdBy;
   String? custCity;
   String? custCreditLimit;
   String? custStatus;
-  String? custPrimarySource;
-  String? longitude;
-  String? latitude;
+  bool? isOrganization;
+  bool? isIndividual;
 
-  Customermodel(
-      {this.empId,
-      this.empName,
-      this.customerCode,
-      this.zone,
-      this.customerType,
-      this.custName,
-      this.custPhone,
-      this.custAltPhone,
+  Farm(
+      {this.farmName,
+      this.customerId,
+      this.farmId,
       this.custLocation,
-      this.custContactPerson,
-      this.custContPersContactNo,
-      this.custContPersAltContNo,
-      this.custEmail,
-      this.custBirthDate,
+      this.custZone,
+      this.contactPerson,
+      this.contPersContactNo,
+      this.contPersAltContNo,
       this.custCountry,
       this.custStateCode,
       this.custAddress,
       this.custPostal,
-      this.typeOfCompany,
       this.createdDate,
       this.createdBy,
       this.custCity,
       this.custCreditLimit,
       this.custStatus,
-      this.custPrimarySource,
-      this.longitude,
-      this.latitude});
+      this.isOrganization,
+      this.isIndividual});
 
-  Customermodel.fromJson(Map<String, dynamic> json) {
-    empId = json['empId'];
-    empName = json['empName'];
-    customerCode = json['customerCode'];
-    zone = json['zone'] != null ? new ZoneModel.fromJson(json['zone']) : null;
-    customerType = json['customerType'];
-    custName = json['custName'];
-    custPhone = json['custPhone'];
-    custAltPhone = json['custAltPhone'];
+  Farm.fromJson(Map<String, dynamic> json) {
+    farmName = json['farmName'];
+    customerId = json['customerId'];
+    farmId = json['farmId'];
     custLocation = json['custLocation'];
-    custContactPerson = json['custContactPerson'];
-    custContPersContactNo = json['custContPersContactNo'];
-    custContPersAltContNo = json['custContPersAltContNo'];
-    custEmail = json['custEmail'];
-    custBirthDate = json['custBirthDate'];
+    custZone = json['custZone'];
+    contactPerson = json['contactPerson'];
+    contPersContactNo = json['contPersContactNo'];
+    contPersAltContNo = json['contPersAltContNo'];
     custCountry = json['custCountry'];
     custStateCode = json['custStateCode'];
     custAddress = json['custAddress'];
     custPostal = json['custPostal'];
-    typeOfCompany = json['typeOfCompany'];
     createdDate = json['createdDate'];
     createdBy = json['createdBy'];
     custCity = json['custCity'];
     custCreditLimit = json['custCreditLimit'];
     custStatus = json['custStatus'];
-    custPrimarySource = json['custPrimarySource'];
-    longitude = json['longitude'];
-    latitude = json['latitude'];
+    isOrganization = json['isOrganization'];
+    isIndividual = json['isIndividual'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['empId'] = empId;
-    data['empName'] = empName;
-    data['customerCode'] = customerCode;
-    if (zone != null) {
-      data['zone'] = zone!.toJson();
-    }
-    data['customerType'] = customerType;
-    data['custName'] = custName;
-    data['custPhone'] = custPhone;
-    data['custAltPhone'] = custAltPhone;
-    data['custLocation'] = custLocation;
-    data['custContactPerson'] = custContactPerson;
-    data['custContPersContactNo'] = custContPersContactNo;
-    data['custContPersAltContNo'] = custContPersAltContNo;
-    data['custEmail'] = custEmail;
-    data['custBirthDate'] = custBirthDate;
-    data['custCountry'] = custCountry;
-    data['custStateCode'] = custStateCode;
-    data['custAddress'] = custAddress;
-    data['custPostal'] = custPostal;
-    data['typeOfCompany'] = typeOfCompany;
-    data['createdDate'] = createdDate;
-    data['createdBy'] = createdBy;
-    data['custCity'] = custCity;
-    data['custCreditLimit'] = custCreditLimit;
-    data['custStatus'] = custStatus;
-    data['custPrimarySource'] = custPrimarySource;
-    data['longitude'] = longitude;
-    data['latitude'] = latitude;
-    return data;
-  }
-  Map<String, dynamic> toMap() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['empId'] = empId;
-    data['empName'] = empName;
-    data['customerCode'] = customerCode;
-    if (zone != null) {
-      data['zone'] = zone!.toJson();
-    }
-    data['customerType'] = customerType;
-    data['custName'] = custName;
-    data['custPhone'] = custPhone;
-    data['custAltPhone'] = custAltPhone;
-    data['custLocation'] = custLocation;
-    data['custContactPerson'] = custContactPerson;
-    data['custContPersContactNo'] = custContPersContactNo;
-    data['custContPersAltContNo'] = custContPersAltContNo;
-    data['custEmail'] = custEmail;
-    data['custBirthDate'] = custBirthDate;
-    data['custCountry'] = custCountry;
-    data['custStateCode'] = custStateCode;
-    data['custAddress'] = custAddress;
-    data['custPostal'] = custPostal;
-    data['typeOfCompany'] = typeOfCompany;
-    data['createdDate'] = createdDate;
-    data['createdBy'] = createdBy;
-    data['custCity'] = custCity;
-    data['custCreditLimit'] = custCreditLimit;
-    data['custStatus'] = custStatus;
-    data['custPrimarySource'] = custPrimarySource;
-    data['longitude'] = longitude;
-    data['latitude'] = latitude;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['farmName'] = this.farmName;
+    data['customerId'] = this.customerId;
+    data['farmId'] = this.farmId;
+    data['custLocation'] = this.custLocation;
+    data['custZone'] = this.custZone;
+    data['contactPerson'] = this.contactPerson;
+    data['contPersContactNo'] = this.contPersContactNo;
+    data['contPersAltContNo'] = this.contPersAltContNo;
+    data['custCountry'] = this.custCountry;
+    data['custStateCode'] = this.custStateCode;
+    data['custAddress'] = this.custAddress;
+    data['custPostal'] = this.custPostal;
+    data['createdDate'] = this.createdDate;
+    data['createdBy'] = this.createdBy;
+    data['custCity'] = this.custCity;
+    data['custCreditLimit'] = this.custCreditLimit;
+    data['custStatus'] = this.custStatus;
+    data['isOrganization'] = this.isOrganization;
+    data['isIndividual'] = this.isIndividual;
     return data;
   }
 }

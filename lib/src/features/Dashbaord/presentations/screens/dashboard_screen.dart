@@ -137,16 +137,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
               }
             },
             itemBuilder: (BuildContext context) => [
-              const PopupMenuItem<String>(
-                value: '0',
-                child: Text('App Permission'),
-              ),
-              const PopupMenuDivider(),
-              const PopupMenuItem<String>(
-                value: '1',
-                child: Text('Sync List'),
-              ),
-              const PopupMenuDivider(),
+              // const PopupMenuItem<String>(
+              //   value: '0',
+              //   child: Text('App Permission'),
+              // ),
+              // const PopupMenuDivider(),
+              // const PopupMenuItem<String>(
+              //   value: '1',
+              //   child: Text('Sync List'),
+              // ),
+              // const PopupMenuDivider(),
               const PopupMenuItem<String>(
                 value: '2',
                 child: Text('Signout'),

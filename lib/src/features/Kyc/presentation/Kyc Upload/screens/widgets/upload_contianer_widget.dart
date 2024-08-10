@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,10 +43,10 @@ class UploadContainerWidget extends StatelessWidget {
             children: [
               // front side
               Expanded(
-                  child:  state.panFile != null && isAdharCardContainer == false ? KycImageWidget(file: File(state.panFile!.path!), onTapFunction: () => context.read<KycUploadCubit>().removePanFile()) :
+                  child:  state.panFile != null && isAdharCardContainer == false ? KycImageWidget(bytes: state.panFile!.imageByes, onTapFunction: () => context.read<KycUploadCubit>().removePanFile()) :
                   
                   
-                state.adharFileFront != null && isAdharCardContainer == true ? KycImageWidget(file: File(state.adharFileFront!.path!), onTapFunction: () { context.read<KycUploadCubit>().removeAdharFileFront(); },) :   InkWell(
+                state.adharFileFront != null && isAdharCardContainer == true ? KycImageWidget(bytes: state.adharFileFront!.imageByes, onTapFunction: () { context.read<KycUploadCubit>().removeAdharFileFront(); },) :   InkWell(
                 splashColor: AppColors.primaryColor,
                 onTap: isAdharCardContainer == true
                     ? onAdharCardFrontUpload
@@ -78,7 +79,7 @@ class UploadContainerWidget extends StatelessWidget {
 
               // front side
               isAdharCardContainer == true
-                  ? state.adharFileBack != null && isAdharCardContainer == true ? Expanded(child: KycImageWidget(file: File(state.adharFileBack!.path!), onTapFunction: () { context.read<KycUploadCubit>().removeAdharFileBack(); },))  : Expanded(
+                  ? state.adharFileBack != null && isAdharCardContainer == true ? Expanded(child: KycImageWidget(bytes: state.adharFileBack!.imageByes, onTapFunction: () { context.read<KycUploadCubit>().removeAdharFileBack(); },))  : Expanded(
                       child: InkWell(
                       splashColor: AppColors.primaryColor,
                       onTap: onAdharCardBackUpload,
@@ -110,11 +111,11 @@ class UploadContainerWidget extends StatelessWidget {
 
 
 class KycImageWidget extends StatelessWidget {
-  final File file;
+  final Uint8List bytes;
   final VoidCallback onTapFunction;
   const KycImageWidget({
     Key? key,
-    required this.file,
+    required this.bytes,
     required this.onTapFunction,
   }) : super(key: key);
 
@@ -131,9 +132,9 @@ class KycImageWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.push(context, ScaleRoute(screen: ImageFullScreen(file: file)));
+                                Navigator.push(context, ScaleRoute(screen: ImageFullScreen(bytes: bytes)));
                               },
-                              child: Image.file(File(file.path),fit: BoxFit.fitWidth,))),
+                              child: Image.memory(bytes,fit: BoxFit.fitWidth,))),
             ),
 
                           // POSITION WIDGET 

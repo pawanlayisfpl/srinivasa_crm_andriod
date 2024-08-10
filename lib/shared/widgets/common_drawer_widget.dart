@@ -1,15 +1,21 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/config/constants/app_colors.dart';
+import 'package:srinivasa_crm_new/src/config/locator/locator.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/data/datasource/local/profile_local_datasource.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/domain/model/profile_model.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_state.dart';
+import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/models/punch_out_post_model.dart';
+import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 
 class CommonDrawerWidget extends StatelessWidget {
   const CommonDrawerWidget({super.key});
@@ -51,6 +57,56 @@ class CommonDrawerWidget extends StatelessWidget {
               ListTile(
                 title: const CommonTextWidget(title: "Logout",textColor: AppColors.primaryColor,),
                 onTap: () {
+                   showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: const Text('Are you sure you want to Logout?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // CANCEL button action
+              },
+              child: const Text(
+                'CANCEL',
+                style: TextStyle(color: AppColors.primaryColor),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                       const platform = MethodChannel('com.example.srinivasa_crm_new');
+                platform.invokeMethod('stop');
+                // Handle LOGOUT button action
+                // You can add your logout logic here
+                final localstorge = locator.get<KeyValueStorage>();
+
+                // await Workmanager().cancelAll();
+                // TODO: IMPLEENTED FAKE LAT AND LONG
+                PunchoutPostModel punchoutPostModel = PunchoutPostModel(latitude: 0.0.toString(), longitude: 0.0.toString());
+                await context.read<MarkAttendanceCubit>().punchOutLogic(punchoutPostModel: punchoutPostModel, isLogoutClicked: true);
+              
+                Fluttertoast.showToast(msg: "All Background services stopped");
+              await  localstorge.sharedPreferences.clear();
+
+              if(context.mounted) {
+                Navigator.of(context).pop(); // Close the dialog
+
+              }
+                if(context.mounted) {
+                   Navigator.pushNamedAndRemoveUntil(
+                    context, Routes.loginScreen, (route) => false);
+                }
+              },
+              child: const Text('Yes',
+                  style: TextStyle(
+                      color: AppColors.primaryColor,
+                      fontWeight: FontWeight.bold)),
+            ),
+          ],
+        );
+      },
+    );
                 },
                 trailing: const Icon(Icons.logout),
               ),
@@ -79,6 +135,7 @@ class ReusableListTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+
                 leading: Icon(icon),
                 title: CommonTextWidget(title: title),
                 subtitle:subTitleText != null ? CommonTextWidget(title:  subTitleText ?? ""  ,textColor: Colors.black.withOpacity(0.6),fontWeight: FontWeight.w500,) : null,

@@ -17,9 +17,11 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$KycUploadState {
   bool get isLoading => throw _privateConstructorUsedError;
-  PlatformFile? get adharFileFront => throw _privateConstructorUsedError;
-  PlatformFile? get adharFileBack => throw _privateConstructorUsedError;
-  PlatformFile? get panFile =>
+  ImageModel? get adharFileFront => throw _privateConstructorUsedError;
+  ImageModel? get adharFileBack => throw _privateConstructorUsedError;
+  ImageModel? get panFile =>
+      throw _privateConstructorUsedError; // Already nullable, kept as is
+  ImageModel? get gstFile =>
       throw _privateConstructorUsedError; // Already nullable, kept as is
   KycRemarksField get remarksField => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
@@ -39,9 +41,10 @@ abstract class $KycUploadStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool isLoading,
-      PlatformFile? adharFileFront,
-      PlatformFile? adharFileBack,
-      PlatformFile? panFile,
+      ImageModel? adharFileFront,
+      ImageModel? adharFileBack,
+      ImageModel? panFile,
+      ImageModel? gstFile,
       KycRemarksField remarksField,
       bool isSubmitting,
       bool isSuccess,
@@ -65,6 +68,7 @@ class _$KycUploadStateCopyWithImpl<$Res, $Val extends KycUploadState>
     Object? adharFileFront = freezed,
     Object? adharFileBack = freezed,
     Object? panFile = freezed,
+    Object? gstFile = freezed,
     Object? remarksField = null,
     Object? isSubmitting = null,
     Object? isSuccess = null,
@@ -78,15 +82,19 @@ class _$KycUploadStateCopyWithImpl<$Res, $Val extends KycUploadState>
       adharFileFront: freezed == adharFileFront
           ? _value.adharFileFront
           : adharFileFront // ignore: cast_nullable_to_non_nullable
-              as PlatformFile?,
+              as ImageModel?,
       adharFileBack: freezed == adharFileBack
           ? _value.adharFileBack
           : adharFileBack // ignore: cast_nullable_to_non_nullable
-              as PlatformFile?,
+              as ImageModel?,
       panFile: freezed == panFile
           ? _value.panFile
           : panFile // ignore: cast_nullable_to_non_nullable
-              as PlatformFile?,
+              as ImageModel?,
+      gstFile: freezed == gstFile
+          ? _value.gstFile
+          : gstFile // ignore: cast_nullable_to_non_nullable
+              as ImageModel?,
       remarksField: null == remarksField
           ? _value.remarksField
           : remarksField // ignore: cast_nullable_to_non_nullable
@@ -117,9 +125,10 @@ abstract class _$$KycUploadStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {bool isLoading,
-      PlatformFile? adharFileFront,
-      PlatformFile? adharFileBack,
-      PlatformFile? panFile,
+      ImageModel? adharFileFront,
+      ImageModel? adharFileBack,
+      ImageModel? panFile,
+      ImageModel? gstFile,
       KycRemarksField remarksField,
       bool isSubmitting,
       bool isSuccess,
@@ -141,6 +150,7 @@ class __$$KycUploadStateImplCopyWithImpl<$Res>
     Object? adharFileFront = freezed,
     Object? adharFileBack = freezed,
     Object? panFile = freezed,
+    Object? gstFile = freezed,
     Object? remarksField = null,
     Object? isSubmitting = null,
     Object? isSuccess = null,
@@ -154,15 +164,19 @@ class __$$KycUploadStateImplCopyWithImpl<$Res>
       adharFileFront: freezed == adharFileFront
           ? _value.adharFileFront
           : adharFileFront // ignore: cast_nullable_to_non_nullable
-              as PlatformFile?,
+              as ImageModel?,
       adharFileBack: freezed == adharFileBack
           ? _value.adharFileBack
           : adharFileBack // ignore: cast_nullable_to_non_nullable
-              as PlatformFile?,
+              as ImageModel?,
       panFile: freezed == panFile
           ? _value.panFile
           : panFile // ignore: cast_nullable_to_non_nullable
-              as PlatformFile?,
+              as ImageModel?,
+      gstFile: freezed == gstFile
+          ? _value.gstFile
+          : gstFile // ignore: cast_nullable_to_non_nullable
+              as ImageModel?,
       remarksField: null == remarksField
           ? _value.remarksField
           : remarksField // ignore: cast_nullable_to_non_nullable
@@ -191,6 +205,7 @@ class _$KycUploadStateImpl implements _KycUploadState {
       this.adharFileFront = null,
       this.adharFileBack = null,
       this.panFile = null,
+      this.gstFile = null,
       required this.remarksField,
       this.isSubmitting = false,
       this.isSuccess = false,
@@ -200,13 +215,17 @@ class _$KycUploadStateImpl implements _KycUploadState {
   final bool isLoading;
   @override
   @JsonKey()
-  final PlatformFile? adharFileFront;
+  final ImageModel? adharFileFront;
   @override
   @JsonKey()
-  final PlatformFile? adharFileBack;
+  final ImageModel? adharFileBack;
   @override
   @JsonKey()
-  final PlatformFile? panFile;
+  final ImageModel? panFile;
+// Already nullable, kept as is
+  @override
+  @JsonKey()
+  final ImageModel? gstFile;
 // Already nullable, kept as is
   @override
   final KycRemarksField remarksField;
@@ -222,7 +241,7 @@ class _$KycUploadStateImpl implements _KycUploadState {
 
   @override
   String toString() {
-    return 'KycUploadState(isLoading: $isLoading, adharFileFront: $adharFileFront, adharFileBack: $adharFileBack, panFile: $panFile, remarksField: $remarksField, isSubmitting: $isSubmitting, isSuccess: $isSuccess, errorMessage: $errorMessage)';
+    return 'KycUploadState(isLoading: $isLoading, adharFileFront: $adharFileFront, adharFileBack: $adharFileBack, panFile: $panFile, gstFile: $gstFile, remarksField: $remarksField, isSubmitting: $isSubmitting, isSuccess: $isSuccess, errorMessage: $errorMessage)';
   }
 
   @override
@@ -237,6 +256,7 @@ class _$KycUploadStateImpl implements _KycUploadState {
             (identical(other.adharFileBack, adharFileBack) ||
                 other.adharFileBack == adharFileBack) &&
             (identical(other.panFile, panFile) || other.panFile == panFile) &&
+            (identical(other.gstFile, gstFile) || other.gstFile == gstFile) &&
             (identical(other.remarksField, remarksField) ||
                 other.remarksField == remarksField) &&
             (identical(other.isSubmitting, isSubmitting) ||
@@ -254,6 +274,7 @@ class _$KycUploadStateImpl implements _KycUploadState {
       adharFileFront,
       adharFileBack,
       panFile,
+      gstFile,
       remarksField,
       isSubmitting,
       isSuccess,
@@ -270,9 +291,10 @@ class _$KycUploadStateImpl implements _KycUploadState {
 abstract class _KycUploadState implements KycUploadState {
   const factory _KycUploadState(
       {required final bool isLoading,
-      final PlatformFile? adharFileFront,
-      final PlatformFile? adharFileBack,
-      final PlatformFile? panFile,
+      final ImageModel? adharFileFront,
+      final ImageModel? adharFileBack,
+      final ImageModel? panFile,
+      final ImageModel? gstFile,
       required final KycRemarksField remarksField,
       final bool isSubmitting,
       final bool isSuccess,
@@ -281,11 +303,13 @@ abstract class _KycUploadState implements KycUploadState {
   @override
   bool get isLoading;
   @override
-  PlatformFile? get adharFileFront;
+  ImageModel? get adharFileFront;
   @override
-  PlatformFile? get adharFileBack;
+  ImageModel? get adharFileBack;
   @override
-  PlatformFile? get panFile;
+  ImageModel? get panFile;
+  @override // Already nullable, kept as is
+  ImageModel? get gstFile;
   @override // Already nullable, kept as is
   KycRemarksField get remarksField;
   @override

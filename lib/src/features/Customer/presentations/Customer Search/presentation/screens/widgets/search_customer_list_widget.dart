@@ -36,8 +36,8 @@ class SearchCustomerListWidget extends StatelessWidget {
                 }
               },
               leading: const Icon(Icons.person),
-            title: CommonTextWidget(title: customer.custName.toString()),
-            subtitle: CommonTextWidget(title: customer.zone != null ? customer.zone!.zoneName.toString() : "No Zone Found",fontWeight: FontWeight.w500,textColor: Colors.grey,),
+            title: CommonTextWidget(title: customer.customerName.toString()),
+            subtitle: CommonTextWidget(title: customer.farm != null ? customer.farm!.custLocation ?? 'No Location Found' : "No Location Found",fontWeight: FontWeight.w500,textColor: Colors.grey,),
           );
           },itemCount: state.customers.length, separatorBuilder: (BuildContext context, int index) { 
             return const Divider().withSymetricPadding(horizontalPadding: 20.w);

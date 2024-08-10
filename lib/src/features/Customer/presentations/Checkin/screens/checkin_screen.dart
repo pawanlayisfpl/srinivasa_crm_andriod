@@ -88,7 +88,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
               dense: false,
               contentPadding: EdgeInsets.zero,
               leading: const Icon(Icons.person),
-              title: Text(widget.customermodel.custName ?? 'N/A', maxLines: 1),
+              title: Text(widget.customermodel.customerName ?? 'N/A', maxLines: 1),
             ),
             const Divider(),
             10.verticalSpace,
@@ -125,9 +125,10 @@ log(lastCheckinTimeString ?? 'No last check in time found');
                             .map((e) => e.id!)
                             .toList(),
                         remarks: _remarksController.text,
-                        customerName: widget.customermodel.custName,
-                        customerCode:
-                            int.parse(widget.customermodel.customerCode ?? '0'),
+                        customerName: widget.customermodel.customerName,
+                        farmId: widget.customermodel.farm!.farmId.toString(),
+                        customerid:
+                            int.tryParse(widget.customermodel.farm!.customerId!) ?? 0,
                         latitude: latitude.toString(),
                         langitude: langitude.toString(),
                       );

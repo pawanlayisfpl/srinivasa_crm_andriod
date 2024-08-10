@@ -51,8 +51,8 @@ List<Customermodel> modifiableList = List<Customermodel>.from(data.customerLists
 // Sort the new list.
 modifiableList.sort((a, b) {
   // Handle null custName by treating it as the lowest value (sort to the beginning).
-  var nameA = a.custName?.toLowerCase() ?? '';
-  var nameB = b.custName?.toLowerCase() ?? '';
+  var nameA = a.customerName?.toLowerCase() ?? '';
+  var nameB = b.customerName?.toLowerCase() ?? '';
   return nameA.compareTo(nameB);
 });
 

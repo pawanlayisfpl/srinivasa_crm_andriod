@@ -30,10 +30,10 @@ class AllCustomerLoadedWidget extends StatelessWidget {
             child: AlphabetScrollView(
               isAlphabetsFiltered: true,
               list: customerLists
-                  .map((e) => AlphaModel( e.custName ?? ""))
+                  .map((e) => AlphaModel( e.customerName ?? ""))
                   .toList(),
               alignment: LetterAlignment.right,
-              itemExtent: 0.13.sh, // Set a fixed height for each item
+              itemExtent: 0.14.sh, // Set a fixed height for each item
               unselectedTextStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.normal,
@@ -67,14 +67,7 @@ class AllCustomerLoadedWidget extends StatelessWidget {
               ),
               itemBuilder: (_, k, id) {
                 Customermodel? customerModel = customerLists[k];
-                return Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(6),
-                          child: ListTile(
+                return ListTile(
                             dense: true,
                             tileColor: Colors.white,
                           
@@ -84,16 +77,11 @@ class AllCustomerLoadedWidget extends StatelessWidget {
                                onTap: () async {
                                  await   Navigator.push(context, MaterialPageRoute(builder: (c) => CustomerDetailsScreen(customermodel: customerModel,)));
                 },
-                            isThreeLine: true,
+                            isThreeLine: false,
                 
-                              title: CommonTextWidget(title: customerModel.custName ?? "No Name Found",fontWeight: FontWeight.w500,textColor: Colors.black,),
-                              subtitle: CommonTextWidget(title: customerModel.customerCode ?? "No Code Found",textColor: Colors.black.withOpacity(0.7),fontWeight: FontWeight.w400,),
-                            ),
-                        ),
-                       const  Divider(),
-                        10.verticalSpace,
-                      ],
-                    );
+                              title: CommonTextWidget(title: customerModel.customerName ?? "No Name Found",fontWeight: FontWeight.w500,textColor: Colors.black,),
+                              subtitle: CommonTextWidget(title: customerModel.farm!.custLocation ?? "No Farm Found",textColor: Colors.black.withOpacity(0.7),fontWeight: FontWeight.w400,),
+                            );
               },
             ),
           )

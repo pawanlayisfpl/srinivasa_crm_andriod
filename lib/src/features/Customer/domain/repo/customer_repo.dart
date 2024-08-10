@@ -25,7 +25,7 @@ abstract class CustomerRepo {
   Future<Either<NetworkExceptions, CheckoutResponseModel>> checkOut(
       {required CheckoutPostModel checkoutPostModel});
   Future<Either<NetworkExceptions, LastCheckinOutResponseModel>>
-      getLastCheckInCheckoutDetails({required String customerId});
+      getLastCheckInCheckoutDetails({required String customerId,required String farmId});
   Future<Either<NetworkExceptions, List<Customermodel>>?> searchCustomer(
       {required String searchKey});
   Future<Either<NetworkExceptions, CustomerFullDetailsModel>>

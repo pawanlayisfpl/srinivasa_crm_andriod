@@ -1,12 +1,18 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:srinivasa_crm_new/src/core/core.dart';
 
 class ImageFullScreen extends StatelessWidget {
-  final File file;
-  const ImageFullScreen({super.key, required this.file});
+  final Uint8List bytes;
+  const ImageFullScreen({
+    Key? key,
+    required this.bytes,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +26,7 @@ class ImageFullScreen extends StatelessWidget {
       ),
      
       body: Center(
-        child: InteractiveViewer(child: Image.file(File(file.path),fit: BoxFit.fitWidth,)),
+        child: InteractiveViewer(child: Image.memory(bytes,fit: BoxFit.fitWidth,)),
       ).withSymetricPadding(horizontalPadding: 10.w),
     );
   }

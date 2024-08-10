@@ -57,7 +57,7 @@ class CheckinCubit extends Cubit<CheckinState> {
       },
       (r) {
         emit(state.copyWith(isLoading: false,apiFailedModel: null,checkInResponseModel: r,isCheckIn: true));
-        lastCheckinCheckoutLogic(customerId: checkInPostModel.customerCode.toString());
+        lastCheckinCheckoutLogic(customerId: checkInPostModel.customerid.toString(),farmId: checkInPostModel.farmId.toString());
       },
     );
   }
@@ -79,9 +79,9 @@ class CheckinCubit extends Cubit<CheckinState> {
   }
 
   // LAST CHECKIN CHECKOUT RESPONSE
-  Future<void> lastCheckinCheckoutLogic({required String customerId}) async {
+  Future<void> lastCheckinCheckoutLogic({required String customerId,required String farmId}) async {
     emit(state.copyWith(isLoading: true,apiFailedModel: null,checkInResponseModel: null,checkoutResponseModel: null,isFailed: false,lastCheckinOutResponseModel: null,isCheckIn: false,isCheckOut: false));
-    final result = await customerRepo.getLastCheckInCheckoutDetails(customerId: customerId);
+    final result = await customerRepo.getLastCheckInCheckoutDetails(customerId: customerId, farmId: farmId);
     result.fold(
       (l) {
         ApiFailedModel apiFailedModel = ApiFailedModel(statusCode: NetworkExceptions.getStatusCode(l), message: NetworkExceptions.getErrorTitle(l), errorMessage: NetworkExceptions.getErrorMessage(l));

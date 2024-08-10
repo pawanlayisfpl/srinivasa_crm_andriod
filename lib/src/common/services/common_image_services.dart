@@ -8,6 +8,7 @@ import 'package:srinivasa_crm_new/shared/domain/model/Image/image_model.dart';
 
 abstract class CommonImageServices {
 Future<Either<Exception, PlatformFile?>> pickSingleImage();
+Future<Either<Exception, ImageModel?>> pickSingleImageBytes();
 Future<Either<Exception,List<PlatformFile>>?> pickMultipleImages();
 Future<Either<Exception,List<ImageModel>>> pickMultipleUint8ListImage();
 Future<Either<Exception,List<FileModel>>> pickeMultipleUint8Files();
@@ -155,6 +156,41 @@ class CommomImageServicesImpl implements CommonImageServices {
   } catch (e) {
     return Left(Exception(e.toString()));
   }
+  }
+  
+  @override
+  Future<Either<Exception, ImageModel?>> pickSingleImageBytes() async {
+    
+ try {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      allowCompression: true,
+      allowMultiple: true,
+    );
+
+    if (result == null) {
+      return Left(Exception('No file selected'));
+    }
+      Uint8List? fileData = result.files.first.bytes;
+       try {
+          fileData = await File(result.files.first.path!).readAsBytes();
+           ImageModel imageModel = ImageModel(name: result.files.first.name.toString(), imageByes: fileData);
+
+
+
+    
+
+   
+
+    return Right(imageModel);
+        } catch (e) {
+           return Left(Exception(e.toString()));
+        }
+       
+  } catch (e) {
+    return Left(Exception(e.toString()));
+  }
+   
   }
   
   

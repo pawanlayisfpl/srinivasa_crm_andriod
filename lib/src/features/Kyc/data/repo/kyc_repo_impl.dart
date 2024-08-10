@@ -1,6 +1,9 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:srinivasa_crm_new/src/core/model/network%20exception/network%20exception.dart';
+import 'package:srinivasa_crm_new/src/features/Kyc/domain/model/kyc_upload_response_model.dart';
+import 'package:srinivasa_crm_new/src/features/Kyc/domain/model/post/kyc_upload_post_model.dart';
 
 import '../../domain/model/customer_kyu_model.dart';
 import '../../domain/repo/kyc_repo.dart';
@@ -23,4 +26,16 @@ Future<Either<NetworkExceptions, List<CustomerKycModel>>> getPendingKyuCustomers
     
   }
 }
+
+  @override
+  Future<Either<NetworkExceptions, KycUploadResponseModel>> uploadKycDetails({required KycUploadPostModel kycUploadPostModel}) async {
+    try {
+      final results = await kycRemoteDataSource.uploadKycDetails(kycUploadPostModel: kycUploadPostModel);
+      return Right(results);
+      
+    } on DioException catch (e) {
+      return Left(NetworkExceptions.getDioException(e));
+      
+    }
+  }
 }

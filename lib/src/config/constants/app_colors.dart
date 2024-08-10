@@ -4,6 +4,7 @@ class AppColors {
   
   // static const Color primaryColor = Color(0xff00abe5);
    static const Color primaryColor = Color(0xff00abe5);
+   static  Color scaffoldBgColor = Colors.grey.shade200;
 
   static const Color textFieldBgColor = Color(0xffe8f0fe);
   static const Color topIconColor = Color(0xff44b6ae);

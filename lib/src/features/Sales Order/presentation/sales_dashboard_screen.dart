@@ -43,7 +43,7 @@ class SalesOrderDashboardScreen extends StatelessWidget {
               shrinkWrap: true,
               itemCount: context.watch<ProfileCubit>().state.maybeMap(orElse: () => cardNames.length,loadedLocal: (data) {
                 log(data.profileResponseModel.userModel!.authorities!.first.roleId.toString());
-                return data.profileResponseModel.userModel!.authorities!.first.roleId.toString() ==  AppStrings.salesRepRole ? cardNames.length -2 : cardNames.length;
+                return data.profileResponseModel.userModel!.authorities!.first.roleId.toString() ==  AppStrings.salesRepRole ? cardNames.length -1 : cardNames.length;
               }),
               itemBuilder: (c, i) {
                 return GestureDetector(

@@ -25,7 +25,8 @@ class Endpoints {
   static const String getAllDivisions = "/auth/divisions";
   // CUSTOMERS
   static const String createCustomer = "$basicUrl/se/addcustomer";
-  static const String getAllCustomers = "$basicUrl/se/allcustomers";
+  // static const String getAllCustomers = "$basicUrl/se/allcustomers";
+  static const String getAllCustomers = "$basicUrl/se/allcustomers-icrm";
   static const String lastCheckInCheckOut = "$basicUrl/se/getlastcheckinoutdetails";
   static const String checkin = "$basicUrl/se/checkin";
   static const String checkOut = "$basicUrl/se/checkout";
@@ -78,6 +79,7 @@ class Endpoints {
 
   // KYC 
   static const String getPendingKycCustomers = '$basicUrl/se/kycpendingcustomers';
+  static const String uploadKycUrl = '$basicUrl/se/uploadcustdocfiles';
 
   // SALES ORDER
   static const String createOrder = '$basicUrl/se/order';

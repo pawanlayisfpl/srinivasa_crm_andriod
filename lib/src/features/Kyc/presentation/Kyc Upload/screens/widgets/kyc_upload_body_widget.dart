@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quickalert/quickalert.dart';
 
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/Kyc%20Upload/cubit/kyc_upload_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/Kyc%20Upload/screens/widgets/upload_contianer_widget.dart';
@@ -69,7 +72,7 @@ class KycUploadBodyWidget extends StatelessWidget {
               title: "Name",
               fontWeight: FontWeight.w500,
               textSize: 20.sp,
-            ),
+            ).withSymetricPadding(horizontalPadding: 10.w),
             10.verticalSpace,
             CommonTextfield(
               textEditingController: TextEditingController(text: customerKycModel?.customerName),
@@ -80,13 +83,29 @@ class KycUploadBodyWidget extends StatelessWidget {
               autovalidateMode: AutovalidateMode.disabled,
               readOnly: true,
             ),
-            30.verticalSpace,
+            10.verticalSpace,
+             CommonTextWidget(
+              title: "Adhar Number",
+              fontWeight: FontWeight.w500,
+              textSize: 20.sp,
+            ).withSymetricPadding(horizontalPadding: 10.w),
+            5.verticalSpace,
+            // AADHAR CARD NUMBER
+              CommonTextfield(
+              textEditingController: context.read<KycUploadCubit>().adharCardController,
+              onChanged: (v) => {},
+              validator: (v) => {},
+              hintText: "Enter your adhar card number",
+              autovalidateMode: AutovalidateMode.disabled,
+              readOnly: false,
+            ),
+            10.verticalSpace,
             // ADHAR CARD FILE
             CommonTextWidget(
               title: "Aadhar File",
               fontWeight: FontWeight.w500,
               textSize: 20.sp,
-            ),
+            ).withSymetricPadding(horizontalPadding: 10.w),
             10.verticalSpace,
             UploadContainerWidget(
                 onAdharCardFrontUpload: () async {
@@ -97,13 +116,32 @@ class KycUploadBodyWidget extends StatelessWidget {
                 },
                 onPanCardUpload: () {},
                 isAdharCardContainer: true),
-            20.verticalSpace,
+                  10.verticalSpace,
+            // PAN CARD NUMBER
+            10.verticalSpace,
+            // ADHAR CARD FILE
+            CommonTextWidget(
+              title: "PanCard Number",
+              fontWeight: FontWeight.w500,
+              textSize: 20.sp,
+            ).withSymetricPadding(horizontalPadding: 10.w),
+            5.verticalSpace,
+              CommonTextfield(
+              textEditingController: context.read<KycUploadCubit>().panCardController,
+              onChanged: (v) => {},
+              validator: (v) => {},
+              hintText: "Enter your pan card number",
+              autovalidateMode: AutovalidateMode.disabled,
+              readOnly: false,
+            ),
+            10.verticalSpace,
+            
             // PANDCARD FILE START HERE
             CommonTextWidget(
               title: "PanCard File",
               fontWeight: FontWeight.w500,
               textSize: 20.sp,
-            ),
+            ).withSymetricPadding(horizontalPadding: 10.w),
             10.verticalSpace,
             UploadContainerWidget(
                 onAdharCardFrontUpload: () {},
@@ -113,13 +151,78 @@ class KycUploadBodyWidget extends StatelessWidget {
                 },
                 isAdharCardContainer: false),
             // PANCARD FILE ENDS HERE
-            30.verticalSpace,
+            20.verticalSpace,
+            // GST FILE
+              CommonTextWidget(
+              title: "GST Number",
+              fontWeight: FontWeight.w500,
+              textSize: 20.sp,
+            ).withSymetricPadding(horizontalPadding: 10.w),
+            5.verticalSpace,
+              CommonTextfield(
+              textEditingController: context.read<KycUploadCubit>().gstController,
+              onChanged: (v) => {},
+              validator: (v) => {},
+              hintText: "Enter your GST number",
+              autovalidateMode: AutovalidateMode.disabled,
+              readOnly: false,
+            ),
+            10.verticalSpace,
+               CommonTextWidget(
+              title: "GST File",
+              fontWeight: FontWeight.w500,
+              textSize: 20.sp,
+            ).withSymetricPadding(horizontalPadding: 10.w),
+            5.verticalSpace,
+            Center(
+              child: InkWell(
+                splashColor: AppColors.primaryColor,
+                
+                onTap: context.watch<KycUploadCubit>().state.gstFile == null ? () {
+                  context.read<KycUploadCubit>().getGSTFile();
+                } : null,
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(6),
+                  height: 0.2.sh,
+                  width: 0.9.sw,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(color: Colors.black,width: 1)),
+                  child: context.watch<KycUploadCubit>().state.gstFile != null ? Stack(
+                    children: [
+
+                      Image.memory(context.read<KycUploadCubit>().state.gstFile!.imageByes),
+                      GestureDetector(
+                        onTap: () {
+                          context.read<KycUploadCubit>().removeGstFile();
+                        },
+                        child: Positioned(
+                          top: 0,
+                          right: 0,
+                          child: CircleAvatar(
+                            backgroundColor: Colors.red,
+                            child: Icon(Icons.delete,color: Colors.white,))),
+                      )
+                    ],
+                  ) : Column(crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,children: [
+                    CommonTextWidget(title: 'Upload Gst File',textColor: Colors.grey,),
+                    5.verticalSpace,
+                    Icon(Icons.upload),
+                  ],),
+                ),
+              ),
+            ),
+            20.verticalSpace,
             CommonButton(
               callback: () {
-                context.read<KycUploadCubit>().submitKyc();
+                context.read<KycUploadCubit>().submitKyc(customerid: customerKycModel?.customerId ?? "", successCallback: () { 
+                  Navigator.pop(context);
+                 });
               },
               title: "Submit",
-            )
+            ),
+            30.verticalSpace,
           ],
         ).withSymetricPadding(horizontalPadding: 20.w),
       ),

@@ -32,7 +32,7 @@ abstract class CustomerRemoteDataSource{
   Future<Customermodel> getCustomerById(int id);
   Future<CheckInResponseModel> checkIn({required CheckinPostModel checkinPostModel});
   Future<CheckoutResponseModel> checkOut({required CheckoutPostModel checkoutPostModel});
-  Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails({required String customerId});
+  Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails({required String customerId,required String farmId});
   Future<List<Customermodel>> searchCustomer({required String searchKey});
   Future<CustomerFullDetailsModel> getCustomerFullDetails({required String customerCode});
   Future<List<AssignedToModel>> getAssignedLists({required ZoneModel zoneModel});
@@ -96,6 +96,7 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
         files.add(MultipartFile.fromBytes(file, filename: 'file'));
       }
     }
+    
       List<MultipartFile> imagesList = [];
     if (checkoutPostModel.images != null) {
       for (var file in checkoutPostModel.images!) {
@@ -106,7 +107,8 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
     FormData data = FormData.fromMap({
       'userIds': checkoutPostModel.userIds,
       'outTime': DateTime.now().toString(),
-      'customerCode': checkoutPostModel.customerCode,
+      'customerId': checkoutPostModel.customerId,
+      'farmId': checkoutPostModel.farmId,
       'customerName': checkoutPostModel.customerName,
       'langitude': checkoutPostModel.langitude,
       'latitude': checkoutPostModel.latitude,
@@ -253,20 +255,20 @@ Future<CustomerFullDetailsModel> getCustomerFullDetails({required String custome
   }
   
   @override
-  Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails({required String customerId}) async {
+  Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails({required String customerId,required String farmId}) async {
 
     try {
         final response = await dioClient.post(
           Endpoints.lastCheckInCheckOut,
           headers: {},
-          data: {
-            'custCode': customerId,
-            
-          },
+          data:{
+    "customerId": customerId,
+    "farmId":farmId
+},
         );
 
         if(response.statusCode == 200) {
-          return  await Future.value(LastCheckinOutResponseModel.fromJson(response.data));
+          return  LastCheckinOutResponseModel.fromJson(response.data);
         }else {
           throw NetworkExceptions.getException(response.data);
         }

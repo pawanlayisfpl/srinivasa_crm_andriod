@@ -37,7 +37,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
       if (widget.customermodel != null) {
         // todo: call last checkin checkout api here
         context.read<CheckinCubit>().lastCheckinCheckoutLogic(
-            customerId: widget.customermodel!.customerCode.toString());
+            customerId: widget.customermodel!.farm!.customerId.toString(), farmId: widget.customermodel!.farm!.farmId.toString());
       }
     });
     super.initState();
@@ -63,41 +63,42 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    20.verticalSpace,
                     // View full details
-                    Align(
-                        alignment: Alignment.centerRight,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  if (mounted) {
+    //                 Align(
+    //                     alignment: Alignment.centerRight,
+    //                     child: Row(
+    //                       mainAxisAlignment: MainAxisAlignment.end,
+    //                       children: [
+    //                         TextButton(
+    //                             onPressed: () {
+    //                               Navigator.pop(context);
+    //                               if (mounted) {
                                    
-    
-                                      Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) => CustomerFullDetails2(
-                                          customerCode: widget.customermodel!.customerCode.toString(),
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                },
-                                child: const CommonTextWidget(
-                                  title: 'View full details',
-                                  textColor: AppColors.primaryColor,
-                                  fontWeight: FontWeight.w600,
-                                )),
-                            Icon(
-                              semanticLabel: 'View full details on next page',
-                              Icons.link_sharp,
-                              color: AppColors.primaryColor,
-                              size: 20.sp,
-                            ),
-                          ],
-                        )),
+    // // TODO: DISABLING THE CUSTOMER CODE
+    //                                 //   Navigator.push(
+    //                                 //   context,
+    //                                 //   MaterialPageRoute(
+    //                                 //     builder: (_) => CustomerFullDetails2(
+    //                                 //       customerCode: widget.customermodel!.customerCode.toString(),
+    //                                 //     ),
+    //                                 //   ),
+    //                                 // );
+    //                               }
+    //                             },
+    //                             child: const CommonTextWidget(
+    //                               title: 'View full details',
+    //                               textColor: AppColors.primaryColor,
+    //                               fontWeight: FontWeight.w600,
+    //                             )),
+    //                         Icon(
+    //                           semanticLabel: 'View full details on next page',
+    //                           Icons.link_sharp,
+    //                           color: AppColors.primaryColor,
+    //                           size: 20.sp,
+    //                         ),
+    //                       ],
+    //                     )),
                     Expanded(
                         child: Scrollbar(
                       interactive: true,
@@ -106,100 +107,69 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const CustomerDetailsHeadingWidget(
-                              title: 'Customer Code',
+                              title: 'Customer ID',
                             ),
                             CustomerDetailsTextWidget(
-                              data: widget.customermodel?.customerCode,
+                              data: widget.customermodel?.farm!.customerId.toString(),
                             ),
                             const CustomerDetailsDividerWidget(),
-                            //Customer Details
-                            if (!widget.customermodel!.typeOfCompany
-                                .toString()
-                                .contains('Individual'))
+                            10.verticalSpace,
                               const CustomerDetailsHeadingWidget(
-                                title: 'Customer Name',
-                              ),
-                            if (!widget.customermodel!.typeOfCompany
-                                .toString()
-                                .contains('Individual'))
-                              CustomerDetailsTextWidget(
-                                data: widget.customermodel?.custName,
-                              ),
-                            if (!widget.customermodel!.typeOfCompany
-                                .toString()
-                                .contains('Individual'))
-                              const CustomerDetailsDividerWidget(),
-                            //Customer phone
-                            if (!widget.customermodel!.typeOfCompany
-                                .toString()
-                                .contains('Individual'))
+                              title: 'Customer Name',
+                            ),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel?.farm!.farmName.toString(),
+                            ),
+                            const CustomerDetailsDividerWidget(),
+                              10.verticalSpace,
                               const CustomerDetailsHeadingWidget(
-                                title: 'Customer Number',
-                              ),
-                            if (!widget.customermodel!.typeOfCompany
-                                .toString()
-                                .contains('Individual'))
-                              CustomerDetailsTextWidget(
-                                data: widget.customermodel?.custPhone,
-                              ),
-                            if (!widget.customermodel!.typeOfCompany
-                                .toString()
-                                .contains('Individual'))
-                              const CustomerDetailsDividerWidget(),
-                            // //Customer type
-                            // const CustomerDetailsHeadingWidget(
-                            //   title: 'Customer Type',
-                            // ),
-                            // CustomerDetailsTextWidget(
-                            //   data: widget.customermodel?.customerType,
-                            // ),
-                            // const CustomerDetailsDividerWidget(),
+                              title: 'Customer Zone',
+                            ),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel?.farm!.custZone.toString(),
+                            ),
+                            const CustomerDetailsDividerWidget(),
+                               10.verticalSpace,
+                              const CustomerDetailsHeadingWidget(
+                              title: 'Contact Person',
+                            ),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel?.farm!.contactPerson.toString(),
+                            ),
+                            const CustomerDetailsDividerWidget(),
+                            10.verticalSpace,
+                          
     
-                            const CustomerDetailsHeadingWidget(title: 'Zone'),
+                            const CustomerDetailsHeadingWidget(title: 'Location'),
                             CustomerDetailsTextWidget(
-                              data: widget.customermodel!.zone!.zoneName,
+                              data: widget.customermodel!.farm!.custLocation,
                             ),
+                           
                             const CustomerDetailsDividerWidget(),
-                            // contact number
-                            if (widget.customermodel!.typeOfCompany
-                                .toString()
-                                .contains('Individual'))
-                              const CustomerDetailsHeadingWidget(
-                                  title: 'Contact Name'),
-                            if (widget.customermodel!.typeOfCompany
-                                .toString()
-                                .contains('Individual'))
-                              CustomerDetailsTextWidget(
-                                data: widget.customermodel!.custName,
-                              ),
-                            if (widget.customermodel!.typeOfCompany
-                                .toString()
-                                .contains('Individual'))
-                              const CustomerDetailsDividerWidget(),
-                            // contact number
-                            if (widget.customermodel!.typeOfCompany
-                                .toString()
-                                .contains('Individual'))
-                              const CustomerDetailsHeadingWidget(
-                                  title: 'Contact Number'),
-                            if (widget.customermodel!.typeOfCompany
-                                .toString()
-                                .contains('Individual'))
-                              CustomerDetailsTextWidget(
-                                data: widget.customermodel!.custPhone,
-                              ),
-                            if (widget.customermodel!.typeOfCompany
-                                .toString()
-                                .contains('Individual'))
-                              const CustomerDetailsDividerWidget(),
-                            // contact details
-                            const CustomerDetailsHeadingWidget(
-                                title: 'Customer Details'),
+                            10.verticalSpace,
+                              const CustomerDetailsHeadingWidget(title: 'Contact No'),
                             CustomerDetailsTextWidget(
-                              data: widget.customermodel?.custAddress ?? 'N/A',
-                              maxline: 5,
+                              data: widget.customermodel!.farm!.contPersContactNo,
                             ),
+                           
                             const CustomerDetailsDividerWidget(),
+                            10.verticalSpace,
+                              const CustomerDetailsHeadingWidget(title: 'Alternative No'),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel!.farm!.contPersAltContNo,
+                            ),
+                           
+                            const CustomerDetailsDividerWidget(),
+                            10.verticalSpace,
+                              const CustomerDetailsHeadingWidget(title: 'Address'),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel!.farm!.custAddress,
+                            ),
+                           
+                            const CustomerDetailsDividerWidget(),
+                            10.verticalSpace,
+                            
+
                           ],
                         ),
                       ),

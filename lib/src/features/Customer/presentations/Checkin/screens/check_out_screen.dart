@@ -129,9 +129,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
                         CheckoutPostModel checkoutPostModel = CheckoutPostModel(
                           userIds: userIds,
-                          customerCode: int.parse(
-                              widget.customermodel.customerCode ?? ""),
-                          customerName: widget.customermodel.custName,
+                          customerId: widget.customermodel.farm!.customerId.toString(),
+                          farmId: widget.customermodel.farm!.farmId.toString(),
+                         
+                          customerName: widget.customermodel.customerName,
                           langitude: 0.toString(),
                           latitude: 0.toString(),
                           purposeId: purposeModel.purposeId.toString(),
@@ -201,7 +202,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               TextFormField(
                 enabled: true,
                 readOnly: true,
-                initialValue: widget.customermodel.custName,
+                initialValue: widget.customermodel.customerName,
                 decoration: InputDecoration(
                     labelText: 'Customer Name',
                     labelStyle: AppStyles.labelStyle,
