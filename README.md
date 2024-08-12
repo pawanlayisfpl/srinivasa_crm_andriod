@@ -5,3 +5,10 @@ This is necessary  for ios development
 
 
 change gradle version in settings.gradle
+
+
+
+github email
+ajaysudam.srinivasa@gmail.com
+
+
