@@ -6,6 +6,9 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
+import 'package:srinivasa_crm_new/shared/data/repo/work_manager_services.dart';
+import 'package:srinivasa_crm_new/src/config/locator/locator.dart';
+import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 
 import '../../../domain/domain.dart';
@@ -73,10 +76,12 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
    }, (r) async {
 
     emit(state.copyWith(isSubmitting: false, punchOutSuccess: true, apiFailModel: null,loading: false,loaded: false,));
-        if(isLogoutClicked != null && isLogoutClicked == true) {
+    final keyValueStorage = locator.get<KeyValueStorage>();
+    keyValueStorage.sharedPreferences.clear();
+          if(isLogoutClicked != null && isLogoutClicked == true) {
         return;
         }
-       await getLastPunchInOutData();
+      //  await getLastPunchInOutData();
    });
   } 
 }

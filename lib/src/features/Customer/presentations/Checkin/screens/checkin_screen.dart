@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:quickalert/quickalert.dart';
 
 import 'package:srinivasa_crm_new/src/common/common.dart';
@@ -113,8 +114,11 @@ class _CheckinScreenState extends State<CheckinScreen> {
 String? lastCheckinTimeString = locator.get<KeyValueStorage>().sharedPreferences.getString(KeyValueStrings.checkinTime);
 log(lastCheckinTimeString ?? 'No last check in time found');
  HapticFeedback.mediumImpact();
-                      double langitude = 0.0;
-                      double latitude = 0.0;
+   final locationServicesss = locator.get<CommonLocationServices>();
+                              Position position = await locationServicesss.getUserCurrentPosition();
+                              double lat = position.latitude;
+                              double long = position.longitude;
+                      
 
                       CheckinPostModel checkInPostModel = CheckinPostModel(
                         inTime: DateTime.now().toString(),
@@ -129,11 +133,11 @@ log(lastCheckinTimeString ?? 'No last check in time found');
                         farmId: widget.customermodel.farm!.farmId.toString(),
                         customerid:
                             int.tryParse(widget.customermodel.farm!.customerId!) ?? 0,
-                        latitude: latitude.toString(),
-                        langitude: langitude.toString(),
+                        latitude: lat.toString(),
+                        langitude: long.toString(),
                       );
 
-                      if (mounted) {
+                      if (context.mounted) {
                         await context
                             .read<CheckinCubit>()
                             .checkInLogic(checkInPostModel: checkInPostModel);

@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Purpose/purpose_model.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
@@ -94,6 +95,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 height: 30.h,
                 child: ElevatedButton.icon(
                     onPressed: () async {
+
+                      if(context.mounted) {
+
+                         final locationServicesss = locator.get<CommonLocationServices>();
+                              Position position = await locationServicesss.getUserCurrentPosition();
+                              double lat = position.latitude;
+                              double long = position.longitude;
+                      
                       if (context
                                   .read<CheckinCubit>()
                                   .state
@@ -133,15 +142,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           farmId: widget.customermodel.farm!.farmId.toString(),
                          
                           customerName: widget.customermodel.customerName,
-                          langitude: 0.toString(),
-                          latitude: 0.toString(),
+                          langitude: lat.toString(),
+                          latitude: long.toString(),
                           purposeId: purposeModel.purposeId.toString(),
                           remarks: _descrtiptionController.text.toString(),
                           files: filesList.map((e) => e.fileBytes).toList(),
                           images: imageLists.map((e) => e.imageByes).toList(),
                         );
-                        await context.read<CheckinCubit>().checkoutLogic(
+                      if(context.mounted) {
+                           await context.read<CheckinCubit>().checkoutLogic(
                             checkOutPostModel: checkoutPostModel);
+                      }
                       } else {
                         log('last checkin response model is getting null');
                         Fluttertoast.showToast(
@@ -149,6 +160,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             backgroundColor: Colors.red,
                             textColor: Colors.white,
                             toastLength: Toast.LENGTH_LONG);
+                      }
                       }
                     },
                     icon: const Icon(

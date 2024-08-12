@@ -1,13 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quickalert/quickalert.dart';
 
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
+import 'package:srinivasa_crm_new/src/config/locator/locator.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/screens/dashboard_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
@@ -139,24 +143,40 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
                             if (state.lastPunchInResponseModel!.status ==
                                 true) {
                               // PUNCH IN LOGIC
+                              final locationServicesss = locator.get<CommonLocationServices>();
+                              Position position = await locationServicesss.getUserCurrentPosition();
+                              double lat = position.latitude;
+                              double long = position.longitude;
+                          
+
                               PunchInPostModel punchInPostModel =
                                   PunchInPostModel(
-                                latitude: "0.0",
-                                longitude: "0.0",
+                                latitude: lat.toString(),
+                                longitude: long.toString(),
                               );
-                              await context
+                           if(context.mounted) {
+                               await context
                                   .read<MarkAttendanceCubit>()
                                   .punchInLogic(
                                       punchInPostModel: punchInPostModel);
+                           }
                             } else {
                               // PUNCH OUT LOGICE
+                               final locationServicesss = locator.get<CommonLocationServices>();
+                              Position position = await locationServicesss.getUserCurrentPosition();
+                              double lat = position.latitude;
+                              double long = position.longitude;
+                              log(lat.toString());
+                              log(long.toString());
                               PunchoutPostModel punchoutPostModel =
                                   PunchoutPostModel(
-                                      latitude: "0.0", longitude: "0.0");
-                              await context
+                                      latitude: lat.toString(), longitude:long.toString());
+                              if(context.mounted) {
+                                await context
                                   .read<MarkAttendanceCubit>()
                                   .punchOutLogic(
                                       punchoutPostModel: punchoutPostModel);
+                              }
                             }
                           },
                           title: state.lastPunchInResponseModel != null &&
