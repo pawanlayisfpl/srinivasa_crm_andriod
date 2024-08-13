@@ -32,7 +32,8 @@ public class ApiClass {
 
     private String url = "https://reqres.in/api/login"; // Replace with your actual API URL
     //  private String postUrl = "http://65.109.229.140:8080/crmsfpl/se/locations";
-   private String postUrl = "http://192.168.1.45:8080/crmsfpl/se/locations";
+//    private String postUrl = "http://192.168.1.45:8080/crmsfpl/se/locations";
+   private String postUrl = "http://95.216.201.117:8081/crmsfpl/se/locations";
     private String TAG = "ApiCaller"; // Tag for logging
     private LocationHelperClass locationHelperClass;
 
@@ -70,7 +71,7 @@ public class ApiClass {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 Log.e("api", "API Error: " + error.getMessage(), error);
-                                Toast.makeText(context, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                                // Toast.makeText(context, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }) {
                     @Override
@@ -97,10 +98,10 @@ public class ApiClass {
                 Volley.newRequestQueue(context).add(request);
             } catch (JSONException e) {
                 Log.e("api", "Error preparing API request", e);
-                Toast.makeText(context, "Error occurred while preparing API request", Toast.LENGTH_LONG).show();
+                // Toast.makeText(context, "Error occurred while preparing API request", Toast.LENGTH_LONG).show();
             }
         } else {
-            Log.d("api", "No internet connection available");
+            // Log.d("api", "No internet connection available");
             Toast.makeText(context, "No internet connection available", Toast.LENGTH_LONG).show();
         }
     }
