@@ -1,5 +1,4 @@
 
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,17 +9,14 @@ import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/view_monthly_plan_model.dart';
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/widgets/monthly_plan_custoemer_list_dropdown_widget.dart';
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/widgets/monthly_plan_date_textfield.dart';
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/widgets/monthly_plan_kilometer_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/widgets/update_monthly_plan_date_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/cubit/state/update_monthly_plan_state.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/screen/widget/update_monthly_plan_customer_list_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/screen/widget/update_monthly_plan_kilometer.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../../../domain/model/get/monthly_plan_customer_model.dart';
 import '../../cubit/update_monthly_plan_cubit.dart';
 
 class UpdateMonthlyPlanCalenderWidget extends StatelessWidget {
@@ -40,7 +36,7 @@ class UpdateMonthlyPlanCalenderWidget extends StatelessWidget {
             // const SizedBox(height: 20),
             // const Text('Update your monthly plan'),
             // const SizedBox(height: 20),
-         state.isMonhtlPlanLoaded == false  ? SizedBox.shrink() :   TableCalendar(
+         state.isMonhtlPlanLoaded == false  ? const  SizedBox.shrink() :   TableCalendar(
               weekNumbersVisible: false,
               weekendDays: const [DateTime.sunday],
               availableCalendarFormats: const {
@@ -60,9 +56,9 @@ class UpdateMonthlyPlanCalenderWidget extends StatelessWidget {
                 ),
               ),
               formatAnimationDuration: const Duration(milliseconds: 300),
-              focusedDay: DateTime.now(),
-              firstDay: DateTime.utc(DateTime.parse(state.createdDailyPlanList.first.planDate.toString()).year, DateTime.parse(state.createdDailyPlanList.first.planDate.toString()).month, 1),
-              lastDay: DateTime.utc(DateTime.parse(state.createdDailyPlanList.first.planDate.toString()).year, DateTime.parse(state.createdDailyPlanList.first.planDate.toString()).month + 1, 0),
+              focusedDay:   DateTime.parse(state.viewMonthlyPlanModel!.dailyPlans!.first.planDate.toString()),
+              firstDay: DateTime.parse(state.viewMonthlyPlanModel!.dailyPlans!.first.planDate.toString()),
+              lastDay: DateTime.parse(state.viewMonthlyPlanModel!.dailyPlans!.last.planDate.toString()),
               enabledDayPredicate: (day) => day.weekday != DateTime.sunday,
               headerStyle: const HeaderStyle(
                 formatButtonVisible: false,
@@ -74,24 +70,31 @@ class UpdateMonthlyPlanCalenderWidget extends StatelessWidget {
 
                 if(dateExists) {
                   ViewDailyPlanModel viewDailyPlanModel = state.createdDailyPlanList.where( ( data) => isSameDay(DateTime.parse(data.planDate.toString()), selectedDay)).first;
-                  List<MonthlyPlanCustomerModel> generatedCustomerModelList = [];
-                  for (int i =0; i< viewDailyPlanModel.viewDailyPlanCustomers!.length;i++) {
-                      MonthlyPlanCustomerModel monthlyPlanCustomerModel = MonthlyPlanCustomerModel(
-                        checkinLocation: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.checkinLocation,
-                        checkoutLocation: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.checkoutLocation,
-                        customerAddress: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerAddress,
-                        customerAlternateContactNumber: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerAlternateContactNumber,
-                        customerContactNumber: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerContactNumber,
-                        customerEmail: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerEmail,
-                        customerName: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerName,
-                        customerCity: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerCity,
-                        customerState: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerState,
-                        customerCategory: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerCategory,
-                        customerCode: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerCode,
-                        status: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.status,
+                  List<Customermodel> generatedCustomerModelList = [];
+                  for (int i =0; i< viewDailyPlanModel.customers!.length;i++) {
+                      // MonthlyPlanCustomerModel monthlyPlanCustomerModel = MonthlyPlanCustomerModel(
+                        // checkinLocation: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.checkinLocation,
+                        // checkoutLocation: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.checkoutLocation,
+                        // customerAddress: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerAddress,
+                        // customerAlternateContactNumber: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerAlternateContactNumber,
+                        // customerContactNumber: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerContactNumber,
+                        // customerEmail: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerEmail,
+                        // customerName: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerName,
+                        // customerCity: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerCity,
+                        // customerState: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerState,
+                        // customerCategory: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerCategory,
+                        // customerCode: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerCode,
+                        // status: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.status,
 
+                      // );
+                      Customermodel customermodel = Customermodel(
+                        customerName: viewDailyPlanModel.customers![i].customer!.customerName ?? "",
+                        farm : Farm(
+                          farmId: int.parse(viewDailyPlanModel.customers![i].customer!.farmId.toString())
+                        )
+                        
                       );
-                      generatedCustomerModelList.add(monthlyPlanCustomerModel);
+                      generatedCustomerModelList.add(customermodel);
 
                   }
                   context.read<UpdateMonthlyPlanCubit>().onDateFieldChange(dateField: viewDailyPlanModel.planDate.toString());
@@ -173,7 +176,7 @@ class UpdateMonthlyPlanCalenderWidget extends StatelessWidget {
                                   Expanded(
                                     flex: 6,
                                     child: CommonTextWidget(
-                                      title: " ${viewDailyPlanModel.viewDailyPlanCustomers!
+                                      title: " ${viewDailyPlanModel.customers!
                                               .map((e) => e.customer!.customerName)
                                               .join(",\n")}",
                                       align: TextAlign.start,
@@ -199,6 +202,15 @@ class UpdateMonthlyPlanCalenderWidget extends StatelessWidget {
                   }
 
                 }else {
+                showDialog(context: context, builder: (c) => AlertDialog(
+                  title: const Text('No Plan Found'),
+                  content: const Text('No plan found for this date'),
+                  actions: [
+                    TextButton(onPressed: () {
+                      Navigator.pop(context);
+                    }, child: const Text('Ok'))
+                  ],
+                ));
                   Fluttertoast.showToast(msg: 'No plan for this date');
                 }
               },
@@ -206,7 +218,7 @@ class UpdateMonthlyPlanCalenderWidget extends StatelessWidget {
               calendarBuilders: CalendarBuilders(
                 defaultBuilder: (context, day, focusedDay) {
                   if (state.viewMonthlyPlanModel != null) {
-                    var dateExists = state.viewMonthlyPlanModel?.viewDailyPlanModel?.any((plan) => isSameDay(DateTime.parse(plan.planDate.toString()), day));
+                    var dateExists = state.viewMonthlyPlanModel?.dailyPlans?.any((plan) => isSameDay(DateTime.parse(plan.planDate.toString()), day));
                     return Container(
                       margin: const EdgeInsets.all(2),
                       decoration: BoxDecoration(

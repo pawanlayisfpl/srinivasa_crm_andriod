@@ -1,5 +1,6 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/view_monthly_plan_model.dart';
 
 import '../../../../../../core/model/api failed/api_failed_model.dart';
@@ -18,8 +19,8 @@ class UpdateMonthlyPlanState with _$UpdateMonthlyPlanState {
     @Default(false) bool isMonhtlPlanLoaded,
     @Default(null) ApiFailedModel? apiFailedModel,
     @Default(null) ViewMonthlyPlanModel? viewMonthlyPlanModel,
-    @Default([]) List<MonthlyPlanCustomerModel> customerList,
-    @Default([]) List<MonthlyPlanCustomerModel> selectedCustomersList,
+    @Default([]) List<Customermodel> customerList,
+    @Default([]) List<Customermodel> selectedCustomersList,
     @Default([]) List<ViewDailyPlanModel> createdDailyPlanList,
     required MonthlyPlanApproxKilomenterField monthlyPlanKiloMeterTextField,
     required MonthlyPlanDateField dateField,

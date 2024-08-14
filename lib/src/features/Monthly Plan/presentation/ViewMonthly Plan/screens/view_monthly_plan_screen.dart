@@ -11,10 +11,10 @@ class ViewMonthlyPlanScreen extends StatefulWidget {
   final int? monthlyPlanId;
 
   const ViewMonthlyPlanScreen({
-    Key? key,
+    super.key,
     this.selectedDate,
     this.monthlyPlanId,
-  }) : super(key: key);
+  });
 
   @override
   State<ViewMonthlyPlanScreen> createState() => _ViewMonthlyPlanScreenState();
@@ -40,6 +40,7 @@ class _ViewMonthlyPlanScreenState extends State<ViewMonthlyPlanScreen> {
   Widget build(BuildContext context) {
     
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Monthly Plan'),
       ),

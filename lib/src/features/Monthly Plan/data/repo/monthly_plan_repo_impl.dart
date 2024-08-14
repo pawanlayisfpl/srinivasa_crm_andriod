@@ -71,13 +71,12 @@ class MonthlyPlanRepoImpl implements MonthlyPlanRepo {
 
   @override
   Future<Either<NetworkExceptions, DeleteMonthlyPlanResponseModel>> deleteMonthlyPlanResponseModel({required int monthlyPlanid}) async {
-    // try {
-    //   final isDeleted = await remoteDataSource.deleteMonthlyPlanResponseModel(monthlyPlanid: monthlyPlanid);
-    //   return Right(isDeleted);
-    // }on NetworkExceptions catch(e) {
-    //   return Left(e);
-    // }
-    throw UnimplementedError();
+    try {
+      final isDeleted = await remoteDataSource.deleteMonthlyPlanResponseModel(monthlyPlanid: monthlyPlanid);
+      return Right(isDeleted);
+    }on NetworkExceptions catch(e) {
+      return Left(e);
+    }
   }
 
 

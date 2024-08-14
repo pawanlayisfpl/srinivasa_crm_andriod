@@ -7,6 +7,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:srinivasa_crm_new/src/core/model/api%20failed/api%20failed.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/monthly_plan_date_field.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/update_monthlyplan_postmodel.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/view_monthly_plan_model.dart';
@@ -19,8 +21,9 @@ import '../../../domain/model/monthly_plan_approxkilometer_field.dart';
 @injectable
 class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
   final MonthlyPlanRepo monthlyPlanRepo;
+  final CustomerRepo customerRepo;
 
-  UpdateMonthlyPlanCubit({required this.monthlyPlanRepo})
+  UpdateMonthlyPlanCubit({required this.monthlyPlanRepo,required this.customerRepo})
       : super(UpdateMonthlyPlanState.initial());
 
   // CREATING CONTROLLER FOR HANDLING TEXT INPUT
@@ -39,9 +42,10 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
   // GET ALL INITIAL VALUES
   Future<void> getAllInitialValues({required int id}) async {
     emit(UpdateMonthlyPlanState.initial());
-    final results = await monthlyPlanRepo.getAssignedCustomers();
+    // final results = await monthlyPlanRepo.getAssignedCustomers();
+    final results1 = await customerRepo.getCustomers();
 
-    results.fold(
+    results1.fold(
       (l) {
         emit(state.copyWith(
             isLoading: false,
@@ -49,7 +53,7 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
       },
       (r) {
         emit(
-            state.copyWith(isLoading: false, isSuccess: false, customerList: r));
+            state.copyWith(isLoading: false, isSuccess: false, customerList: r.customermodel ?? []));
         getAllViewMonthlyPlan(id: id);
       },
     );
@@ -72,15 +76,16 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
             viewMonthlyPlanModel: r,
             isMonhtlPlanLoaded: true,
             createdDailyPlanList:
-                r.viewDailyPlanModel == null ? [] : r.viewDailyPlanModel!));
+                r.dailyPlans == null ? [] : r.dailyPlans!));
+
       },
     );
   }
 
   void setSelectedCustomerLists(
-      {required List<MonthlyPlanCustomerModel> selectedCustomers}) {
-    log(selectedCustomers.map((e) => e.customerName).toList().toString());
-    log("selected date  " + dateController.text.toString());
+      {required List<Customermodel> selectedCustomers}) {
+    log(selectedCustomers.map((e) => e.farm!.farmId).toList().toString());
+    log("selected date  ${dateController.text}");
 
     emit(state.copyWith(selectedCustomersList: selectedCustomers));
   }
@@ -139,38 +144,40 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
       if (model != null) {
         int index = dailyPlanList.indexWhere(
             (element) => element.planDate.toString() == initialDate.toString());
-   
-
 
         List<ViewDailyPlanCustomers> viewDailyPlanCustomersList = [];
         for (var i = 0; i < state.selectedCustomersList.length; i++) {
-          ViewDailyPlanCustomers customer = ViewDailyPlanCustomers(
-              dailyPlanCustDetailsId: state.createdDailyPlanList[index]
-                  .viewDailyPlanCustomers!.first.dailyPlanCustDetailsId,
-              customer: Customer(
-                checkinLocation: state.selectedCustomersList[i].checkinLocation,
-                checkoutLocation:
-                    state.selectedCustomersList[i].checkoutLocation,
-                customerName: state.selectedCustomersList[i].customerName,
-                customerAddress: state.selectedCustomersList[i].customerAddress,
-                customerAlternateContactNumber: state
-                    .selectedCustomersList[i].customerAlternateContactNumber,
-                customerContactNumber:
-                    state.selectedCustomersList[i].customerContactNumber,
-                customerCategory:
-                    state.selectedCustomersList[i].customerCategory,
-                customerEmail: state.selectedCustomersList[i].customerEmail,
-                customerCity: state.selectedCustomersList[i].customerCity,
-                customerState: state.selectedCustomersList[i].customerState,
-                customerCode: state.selectedCustomersList[i].customerCode,
-                status: state.selectedCustomersList[i].status,
-              ));
-          viewDailyPlanCustomersList.add(customer);
+          // ViewDailyPlanCustomers customer = ViewDailyPlanCustomers(
+          //     dailyPlanCustDetailsId: state.createdDailyPlanList[index]
+          //         .viewDailyPlanCustomers!.first.dailyPlanCustDetailsId,
+          //     customer: Customer(
+          //       checkinLocation: state.selectedCustomersList[i].checkinLocation,
+          //       checkoutLocation:
+          //           state.selectedCustomersList[i].checkoutLocation,
+          //       customerName: state.selectedCustomersList[i].customerName,
+          //       customerAddress: state.selectedCustomersList[i].customerAddress,
+          //       customerAlternateContactNumber: state
+          //           .selectedCustomersList[i].customerAlternateContactNumber,
+          //       customerContactNumber:
+          //           state.selectedCustomersList[i].customerContactNumber,
+          //       customerCategory:
+          //           state.selectedCustomersList[i].customerCategory,
+          //       customerEmail: state.selectedCustomersList[i].customerEmail,
+          //       customerCity: state.selectedCustomersList[i].customerCity,
+          //       customerState: state.selectedCustomersList[i].customerState,
+          //       customerCode: state.selectedCustomersList[i].customerCode,
+          //       status: state.selectedCustomersList[i].status,
+          //     ));
+
+          // ViewDailyPlanCustomers viewDailyPlanCustomers = ViewDailyPlanCustomers(
+          //   dailyPlanCustDetailsId: 
+          // );
+          // viewDailyPlanCustomersList.add(viewDailyPlanCustomers);
         }
 
        
 
-        state.createdDailyPlanList[index].viewDailyPlanCustomers =
+        state.createdDailyPlanList[index].customers =
             viewDailyPlanCustomersList;
 
  
@@ -199,7 +206,7 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
             .split("T")
             .first
             .toString()),
-        customerCodes: state.createdDailyPlanList[i].viewDailyPlanCustomers!
+        farmIds: state.createdDailyPlanList[i].customers!
             .map((e) => e.customer?.customerCode ?? '')
             .toList(),
       );
@@ -225,5 +232,24 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
         emit(state.copyWith(isSubmitting: false, isSuccess: true,isLoading: false));
       },
     );
+  }
+
+  Future<void> deleteMonthlyPlan(int monthlyPlanId,VoidCallback successCallback,VoidCallback failedCallback) async {
+    emit(state.copyWith(isSubmitting: true,isSuccess: false,apiFailedModel: null,isLoading: false,));
+    await Future.delayed(const Duration(seconds: 1));
+    final results = await monthlyPlanRepo.deleteMonthlyPlanResponseModel(monthlyPlanid: monthlyPlanId.toInt());
+    results.fold(
+      (l) {
+        emit(state.copyWith(
+            isSubmitting: false,
+            apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
+            failedCallback();
+      },
+      (r) {
+        emit(state.copyWith(isSubmitting: false,));
+        successCallback();
+      },
+    );
+   
   }
 }

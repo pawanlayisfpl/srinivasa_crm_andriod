@@ -2,6 +2,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/monthly_plan_customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_state.dart';
@@ -17,7 +18,7 @@ class UpdateMonthlyPlanCustomerListDropDownWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<UpdateMonthlyPlanCubit, UpdateMonthlyPlanState>(
       builder: (context, state,) {
-        return DropdownSearch<MonthlyPlanCustomerModel>.multiSelection(
+        return DropdownSearch<Customermodel>.multiSelection(
 
                 enabled: true,
 
@@ -68,7 +69,7 @@ class UpdateMonthlyPlanCustomerListDropDownWidget extends StatelessWidget {
 
                 
               
-                itemAsString: (item) => item.customerName != null ? "${item.customerName}\n(${item.customerCode != null ? ' (${item.customerCode}))' : ''}" : 'No name found\n${item.customerCode != null ? "("+item.customerCode.toString()+")" : ""}',                // show: (EmployeModel employee) => employee.name,
+                itemAsString: (item) => item.customerName.toString(),                // show: (EmployeModel employee) => employee.name,
                 onChanged: (values) {
                   if(values.isNotEmpty) {
                     context.read<UpdateMonthlyPlanCubit>().setSelectedCustomerLists(selectedCustomers: values);

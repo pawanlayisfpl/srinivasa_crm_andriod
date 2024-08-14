@@ -20,19 +20,19 @@ class CreateMonthlyPlanPostModel {
 
 class DailyPlanPostModel {
     final String createdDate;
-    final List<int> customerCodes;
+    final List<int> farmIds;
     final double approxKms;
 
     DailyPlanPostModel({
         required this.createdDate,
-        required this.customerCodes,
+        required this.farmIds,
         required this.approxKms,
     });
 
     Map<String, dynamic> toJson() {
         return {
             'createdDate': createdDate,
-            'customerCodes': customerCodes,
+            'farmIds': farmIds,
             'approxKms': approxKms,
         };
     }

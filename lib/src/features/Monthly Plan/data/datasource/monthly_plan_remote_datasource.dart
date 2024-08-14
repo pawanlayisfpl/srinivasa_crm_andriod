@@ -106,7 +106,7 @@ class MonthlyPlanRemoteDataSourceImpl implements MonthlyPlanRemoteDataSource {
     List<DailyPlanPostModel> generatedDailyPlanList = [];
     List<DailyPlanPostModel>  list() {
       for(int i =0; i< monthlyPlanPostModel.dailyPlans.length;i++) {
-        DailyPlanPostModel dailyPlanPostModel = DailyPlanPostModel(createdDate: monthlyPlanPostModel.dailyPlans[i].createdDate, customerCodes: monthlyPlanPostModel.dailyPlans[i].customerCodes, approxKms: monthlyPlanPostModel.dailyPlans[i].approxKms);
+        DailyPlanPostModel dailyPlanPostModel = DailyPlanPostModel(createdDate: monthlyPlanPostModel.dailyPlans[i].createdDate, farmIds: monthlyPlanPostModel.dailyPlans[i].farmIds, approxKms: monthlyPlanPostModel.dailyPlans[i].approxKms);
         generatedDailyPlanList.add(dailyPlanPostModel);
       }
       return generatedDailyPlanList;
@@ -220,8 +220,11 @@ class MonthlyPlanRemoteDataSourceImpl implements MonthlyPlanRemoteDataSource {
   
   @override
   Future<DeleteMonthlyPlanResponseModel> deleteMonthlyPlanResponseModel({required int monthlyPlanid})  async {
+    var bodyData = {
+      "monthlyPlanId": monthlyPlanid
+    };
     try {
-      final response = await dioClient.delete(Endpoints.monthlyPlanDelte + monthlyPlanid.toString(),headers: {});
+      final response = await dioClient.delete(Endpoints.monthlyPlanDelte,data: bodyData,headers: {});
       if(response.statusCode == 200) {
         return DeleteMonthlyPlanResponseModel.fromJson(response.data);
       }else {

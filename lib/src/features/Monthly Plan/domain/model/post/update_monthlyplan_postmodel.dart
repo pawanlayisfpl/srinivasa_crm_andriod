@@ -18,13 +18,13 @@ class UpdateMonthlyPlanPostModel {
 class DailyPlan {
   final DateTime createdDate;
   final double approxKms;
-  final List<String> customerCodes;
+  final List<String> farmIds;
   final int? dailyPlanId;
 
   DailyPlan({
     required this.createdDate,
     required this.approxKms,
-    required this.customerCodes,
+    required this.farmIds,
     this.dailyPlanId,
   });
 
@@ -32,7 +32,7 @@ class DailyPlan {
     return {
       'createdDate': createdDate.toIso8601String(),
       'approxKms': approxKms,
-      'customerCodes': customerCodes,
+      'farmIds': farmIds,
       'dailyPlanId': dailyPlanId,
     };
   }

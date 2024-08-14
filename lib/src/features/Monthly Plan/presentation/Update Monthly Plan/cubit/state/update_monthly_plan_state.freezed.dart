@@ -23,9 +23,8 @@ mixin _$UpdateMonthlyPlanState {
   ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
   ViewMonthlyPlanModel? get viewMonthlyPlanModel =>
       throw _privateConstructorUsedError;
-  List<MonthlyPlanCustomerModel> get customerList =>
-      throw _privateConstructorUsedError;
-  List<MonthlyPlanCustomerModel> get selectedCustomersList =>
+  List<Customermodel> get customerList => throw _privateConstructorUsedError;
+  List<Customermodel> get selectedCustomersList =>
       throw _privateConstructorUsedError;
   List<ViewDailyPlanModel> get createdDailyPlanList =>
       throw _privateConstructorUsedError;
@@ -51,8 +50,8 @@ abstract class $UpdateMonthlyPlanStateCopyWith<$Res> {
       bool isMonhtlPlanLoaded,
       ApiFailedModel? apiFailedModel,
       ViewMonthlyPlanModel? viewMonthlyPlanModel,
-      List<MonthlyPlanCustomerModel> customerList,
-      List<MonthlyPlanCustomerModel> selectedCustomersList,
+      List<Customermodel> customerList,
+      List<Customermodel> selectedCustomersList,
       List<ViewDailyPlanModel> createdDailyPlanList,
       MonthlyPlanApproxKilomenterField monthlyPlanKiloMeterTextField,
       MonthlyPlanDateField dateField});
@@ -114,11 +113,11 @@ class _$UpdateMonthlyPlanStateCopyWithImpl<$Res,
       customerList: null == customerList
           ? _value.customerList
           : customerList // ignore: cast_nullable_to_non_nullable
-              as List<MonthlyPlanCustomerModel>,
+              as List<Customermodel>,
       selectedCustomersList: null == selectedCustomersList
           ? _value.selectedCustomersList
           : selectedCustomersList // ignore: cast_nullable_to_non_nullable
-              as List<MonthlyPlanCustomerModel>,
+              as List<Customermodel>,
       createdDailyPlanList: null == createdDailyPlanList
           ? _value.createdDailyPlanList
           : createdDailyPlanList // ignore: cast_nullable_to_non_nullable
@@ -163,8 +162,8 @@ abstract class _$$UpdateMonthlyPlanStateImplCopyWith<$Res>
       bool isMonhtlPlanLoaded,
       ApiFailedModel? apiFailedModel,
       ViewMonthlyPlanModel? viewMonthlyPlanModel,
-      List<MonthlyPlanCustomerModel> customerList,
-      List<MonthlyPlanCustomerModel> selectedCustomersList,
+      List<Customermodel> customerList,
+      List<Customermodel> selectedCustomersList,
       List<ViewDailyPlanModel> createdDailyPlanList,
       MonthlyPlanApproxKilomenterField monthlyPlanKiloMeterTextField,
       MonthlyPlanDateField dateField});
@@ -226,11 +225,11 @@ class __$$UpdateMonthlyPlanStateImplCopyWithImpl<$Res>
       customerList: null == customerList
           ? _value._customerList
           : customerList // ignore: cast_nullable_to_non_nullable
-              as List<MonthlyPlanCustomerModel>,
+              as List<Customermodel>,
       selectedCustomersList: null == selectedCustomersList
           ? _value._selectedCustomersList
           : selectedCustomersList // ignore: cast_nullable_to_non_nullable
-              as List<MonthlyPlanCustomerModel>,
+              as List<Customermodel>,
       createdDailyPlanList: null == createdDailyPlanList
           ? _value._createdDailyPlanList
           : createdDailyPlanList // ignore: cast_nullable_to_non_nullable
@@ -257,8 +256,8 @@ class _$UpdateMonthlyPlanStateImpl implements _UpdateMonthlyPlanState {
       this.isMonhtlPlanLoaded = false,
       this.apiFailedModel = null,
       this.viewMonthlyPlanModel = null,
-      final List<MonthlyPlanCustomerModel> customerList = const [],
-      final List<MonthlyPlanCustomerModel> selectedCustomersList = const [],
+      final List<Customermodel> customerList = const [],
+      final List<Customermodel> selectedCustomersList = const [],
       final List<ViewDailyPlanModel> createdDailyPlanList = const [],
       required this.monthlyPlanKiloMeterTextField,
       required this.dateField})
@@ -284,19 +283,19 @@ class _$UpdateMonthlyPlanStateImpl implements _UpdateMonthlyPlanState {
   @override
   @JsonKey()
   final ViewMonthlyPlanModel? viewMonthlyPlanModel;
-  final List<MonthlyPlanCustomerModel> _customerList;
+  final List<Customermodel> _customerList;
   @override
   @JsonKey()
-  List<MonthlyPlanCustomerModel> get customerList {
+  List<Customermodel> get customerList {
     if (_customerList is EqualUnmodifiableListView) return _customerList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_customerList);
   }
 
-  final List<MonthlyPlanCustomerModel> _selectedCustomersList;
+  final List<Customermodel> _selectedCustomersList;
   @override
   @JsonKey()
-  List<MonthlyPlanCustomerModel> get selectedCustomersList {
+  List<Customermodel> get selectedCustomersList {
     if (_selectedCustomersList is EqualUnmodifiableListView)
       return _selectedCustomersList;
     // ignore: implicit_dynamic_type
@@ -385,8 +384,8 @@ abstract class _UpdateMonthlyPlanState implements UpdateMonthlyPlanState {
           final bool isMonhtlPlanLoaded,
           final ApiFailedModel? apiFailedModel,
           final ViewMonthlyPlanModel? viewMonthlyPlanModel,
-          final List<MonthlyPlanCustomerModel> customerList,
-          final List<MonthlyPlanCustomerModel> selectedCustomersList,
+          final List<Customermodel> customerList,
+          final List<Customermodel> selectedCustomersList,
           final List<ViewDailyPlanModel> createdDailyPlanList,
           required final MonthlyPlanApproxKilomenterField
               monthlyPlanKiloMeterTextField,
@@ -406,9 +405,9 @@ abstract class _UpdateMonthlyPlanState implements UpdateMonthlyPlanState {
   @override
   ViewMonthlyPlanModel? get viewMonthlyPlanModel;
   @override
-  List<MonthlyPlanCustomerModel> get customerList;
+  List<Customermodel> get customerList;
   @override
-  List<MonthlyPlanCustomerModel> get selectedCustomersList;
+  List<Customermodel> get selectedCustomersList;
   @override
   List<ViewDailyPlanModel> get createdDailyPlanList;
   @override

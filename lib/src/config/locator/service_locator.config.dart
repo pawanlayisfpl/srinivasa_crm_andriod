@@ -33,9 +33,9 @@ import 'package:srinivasa_crm_new/shared/data/repo/address_repo_impl.dart'
 import 'package:srinivasa_crm_new/shared/data/repo/divisions_repo_impl.dart'
     as _i51;
 import 'package:srinivasa_crm_new/shared/data/repo/employe_repo_impl.dart'
-    as _i75;
+    as _i76;
 import 'package:srinivasa_crm_new/shared/data/repo/primary_source_repo_impl.dart'
-    as _i73;
+    as _i74;
 import 'package:srinivasa_crm_new/shared/data/repo/purpose_repo_impl.dart'
     as _i48;
 import 'package:srinivasa_crm_new/shared/data/repo/zone_repo_impl.dart' as _i62;
@@ -44,9 +44,9 @@ import 'package:srinivasa_crm_new/shared/domain/repo/Address/address_repo.dart'
 import 'package:srinivasa_crm_new/shared/domain/repo/Divisions/divison_repo.dart'
     as _i50;
 import 'package:srinivasa_crm_new/shared/domain/repo/Employe/employe_repo.dart'
-    as _i74;
+    as _i75;
 import 'package:srinivasa_crm_new/shared/domain/repo/Primary%20Source/primary_source_repo.dart'
-    as _i72;
+    as _i73;
 import 'package:srinivasa_crm_new/shared/domain/repo/Purpose/purpose_repo.dart'
     as _i47;
 import 'package:srinivasa_crm_new/shared/domain/repo/Zone/zone_repo.dart'
@@ -79,7 +79,7 @@ import 'package:srinivasa_crm_new/src/features/Alerts%20/data/repo/alert_repo_im
 import 'package:srinivasa_crm_new/src/features/Alerts%20/domain/repo/alert_repo.dart'
     as _i35;
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart'
-    as _i66;
+    as _i67;
 import 'package:srinivasa_crm_new/src/features/Customer/data/datasource/remote/customer_remote_datasources.dart'
     as _i31;
 import 'package:srinivasa_crm_new/src/features/Customer/data/repo/customer_repo_impl.dart'
@@ -89,9 +89,9 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_rep
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_cubit.dart'
     as _i55;
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_cubit.dart'
-    as _i79;
-import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart'
     as _i80;
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart'
+    as _i81;
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Full%20Details/cubit/customer_full_details_cubit.dart'
     as _i56;
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Search/presentation/cubit/search_customer_cubit.dart'
@@ -117,21 +117,21 @@ import 'package:srinivasa_crm_new/src/features/login/domain/repository/login_rep
 import 'package:srinivasa_crm_new/src/features/login/domain/usecases/login_usecase.dart'
     as _i57;
 import 'package:srinivasa_crm_new/src/features/login/presentation/cubit/login_cubit.dart'
-    as _i81;
+    as _i83;
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/data/datasource/remote/mark_attendance_remote_datasource.dart'
     as _i58;
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/data/repo/mark_attendance_repo_impl.dart'
-    as _i71;
+    as _i72;
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/domain.dart'
     as _i85;
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/repo/mark_attendance_repo.dart'
-    as _i70;
+    as _i71;
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/usecase/last_punch_in_usecase.dart'
-    as _i78;
+    as _i79;
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/usecase/punch_in_usecase.dart'
-    as _i76;
-import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/usecase/punch_out_usecase.dart'
     as _i77;
+import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/usecase/punch_out_usecase.dart'
+    as _i78;
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart'
     as _i84;
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/data/datasource/monthly_plan_remote_datasource.dart'
@@ -141,15 +141,15 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/data/repo/monthly_
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/repo/monthly_plan_repo.dart'
     as _i64;
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_cubit.dart'
-    as _i83;
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20PendingRequests/cubit/monthly_plan_pending_cubit.dart'
-    as _i68;
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20Search/cubit/monthly_plan_search_cubit.dart'
-    as _i69;
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/cubit/update_monthly_plan_cubit.dart'
     as _i82;
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20PendingRequests/cubit/monthly_plan_pending_cubit.dart'
+    as _i69;
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20Search/cubit/monthly_plan_search_cubit.dart'
+    as _i70;
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/cubit/update_monthly_plan_cubit.dart'
+    as _i66;
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/cubit/view_monthly_plan_cubit.dart'
-    as _i67;
+    as _i68;
 import 'package:srinivasa_crm_new/src/features/Profile/data/datasource/local/profile_local_datasource.dart'
     as _i28;
 import 'package:srinivasa_crm_new/src/features/Profile/data/repo/profile_repo_impl.dart'
@@ -345,49 +345,52 @@ extension GetItInjectableX on _i1.GetIt {
         ));
     gh.factory<_i64.MonthlyPlanRepo>(() => _i65.MonthlyPlanRepoImpl(
         remoteDataSource: gh<_i41.MonthlyPlanRemoteDataSource>()));
-    gh.factory<_i66.AlertCubit>(() => _i66.AlertCubit(gh<_i35.AlertRepo>()));
-    gh.factory<_i67.ViewMonthlyPlanCubit>(
-        () => _i67.ViewMonthlyPlanCubit(gh<_i64.MonthlyPlanRepo>()));
-    gh.factory<_i68.MonthlyPlanPendingCubit>(
-        () => _i68.MonthlyPlanPendingCubit(gh<_i64.MonthlyPlanRepo>()));
-    gh.factory<_i69.MonthlyPlanSearchCubit>(
-        () => _i69.MonthlyPlanSearchCubit(gh<_i64.MonthlyPlanRepo>()));
-    gh.factory<_i70.MarkAttendanceRepo>(() => _i71.MarkAttendanceRepoImpl(
+    gh.factory<_i66.UpdateMonthlyPlanCubit>(() => _i66.UpdateMonthlyPlanCubit(
+          monthlyPlanRepo: gh<_i64.MonthlyPlanRepo>(),
+          customerRepo: gh<_i44.CustomerRepo>(),
+        ));
+    gh.factory<_i67.AlertCubit>(() => _i67.AlertCubit(gh<_i35.AlertRepo>()));
+    gh.factory<_i68.ViewMonthlyPlanCubit>(
+        () => _i68.ViewMonthlyPlanCubit(gh<_i64.MonthlyPlanRepo>()));
+    gh.factory<_i69.MonthlyPlanPendingCubit>(
+        () => _i69.MonthlyPlanPendingCubit(gh<_i64.MonthlyPlanRepo>()));
+    gh.factory<_i70.MonthlyPlanSearchCubit>(
+        () => _i70.MonthlyPlanSearchCubit(gh<_i64.MonthlyPlanRepo>()));
+    gh.factory<_i71.MarkAttendanceRepo>(() => _i72.MarkAttendanceRepoImpl(
         markAttendanceRemoteDataSource:
             gh<_i58.MarkAttendanceRemoteDataSource>()));
-    gh.factory<_i72.PrimarySourceRepo>(() => _i73.PrimarySourceRepoImpl(
+    gh.factory<_i73.PrimarySourceRepo>(() => _i74.PrimarySourceRepoImpl(
         primarySourceRemoteDataSource:
             gh<_i43.PrimarySourceRemoteDataSource>()));
-    gh.factory<_i74.EmployeRepo>(() =>
-        _i75.EmployeRepoImpl(employeDataSource: gh<_i53.EmployeDataSource>()));
-    gh.factory<_i76.PunchInUseCase>(() =>
-        _i76.PunchInUseCase(markAttendanceRepo: gh<_i70.MarkAttendanceRepo>()));
-    gh.factory<_i77.PunchOutUsecase>(() => _i77.PunchOutUsecase(
-        markAttendanceRepo: gh<_i70.MarkAttendanceRepo>()));
-    gh.factory<_i78.LastPunchInOutUseCase>(() => _i78.LastPunchInOutUseCase(
-        markAttendanceRepo: gh<_i70.MarkAttendanceRepo>()));
-    gh.factory<_i79.CheckinCubit>(() => _i79.CheckinCubit(
+    gh.factory<_i75.EmployeRepo>(() =>
+        _i76.EmployeRepoImpl(employeDataSource: gh<_i53.EmployeDataSource>()));
+    gh.factory<_i77.PunchInUseCase>(() =>
+        _i77.PunchInUseCase(markAttendanceRepo: gh<_i71.MarkAttendanceRepo>()));
+    gh.factory<_i78.PunchOutUsecase>(() => _i78.PunchOutUsecase(
+        markAttendanceRepo: gh<_i71.MarkAttendanceRepo>()));
+    gh.factory<_i79.LastPunchInOutUseCase>(() => _i79.LastPunchInOutUseCase(
+        markAttendanceRepo: gh<_i71.MarkAttendanceRepo>()));
+    gh.factory<_i80.CheckinCubit>(() => _i80.CheckinCubit(
           customerRepo: gh<_i44.CustomerRepo>(),
-          employeRepo: gh<_i74.EmployeRepo>(),
+          employeRepo: gh<_i75.EmployeRepo>(),
           purposeRepo: gh<_i47.PurposeRepo>(),
           commonImageServices: gh<_i17.CommonImageServices>(),
         ));
-    gh.factory<_i80.CustomerCreateCubit>(() => _i80.CustomerCreateCubit(
-          primarySourceRepo: gh<_i72.PrimarySourceRepo>(),
+    gh.factory<_i81.CustomerCreateCubit>(() => _i81.CustomerCreateCubit(
+          primarySourceRepo: gh<_i73.PrimarySourceRepo>(),
           addressRepo: gh<_i59.AddressRepo>(),
           zoneRepo: gh<_i61.ZoneRepo>(),
           customerRepo: gh<_i44.CustomerRepo>(),
           divisionRepo: gh<_i50.DivisionRepo>(),
         ));
-    gh.factory<_i81.LoginCubit>(() => _i81.LoginCubit(
+    gh.factory<_i82.CreateMonthlyPlanCubit>(() => _i82.CreateMonthlyPlanCubit(
+          monthlyPlanRepo: gh<_i64.MonthlyPlanRepo>(),
+          employeRepo: gh<_i75.EmployeRepo>(),
+          customerRepo: gh<_i44.CustomerRepo>(),
+        ));
+    gh.factory<_i83.LoginCubit>(() => _i83.LoginCubit(
           gh<_i57.LoginUseCase>(),
           gh<_i21.KeyValueStorage>(),
-        ));
-    gh.factory<_i82.UpdateMonthlyPlanCubit>(() => _i82.UpdateMonthlyPlanCubit(
-        monthlyPlanRepo: gh<_i64.MonthlyPlanRepo>()));
-    gh.factory<_i83.CreateMonthlyPlanCubit>(() => _i83.CreateMonthlyPlanCubit(
-          monthlyPlanRepo: gh<_i64.MonthlyPlanRepo>(),
-          employeRepo: gh<_i74.EmployeRepo>(),
         ));
     gh.factory<_i84.MarkAttendanceCubit>(() => _i84.MarkAttendanceCubit(
           gh<_i85.PunchInUseCase>(),

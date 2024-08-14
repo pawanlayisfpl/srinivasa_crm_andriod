@@ -3,39 +3,38 @@ class ViewMonthlyPlanModel {
   User? user;
   String? approvalStatus;
   String? comments;
-  List<ViewDailyPlanModel>? viewDailyPlanModel;
+  List<ViewDailyPlanModel>? dailyPlans;
 
   ViewMonthlyPlanModel(
       {this.monthlyPlanId,
       this.user,
       this.approvalStatus,
       this.comments,
-      this.viewDailyPlanModel});
+      this.dailyPlans});
 
   ViewMonthlyPlanModel.fromJson(Map<String, dynamic> json) {
     monthlyPlanId = json['monthlyPlanId'];
-    user = json['user'] != null ? User.fromJson(json['user']) : null;
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
     approvalStatus = json['approvalStatus'];
     comments = json['comments'];
     if (json['dailyPlans'] != null) {
-      viewDailyPlanModel = <ViewDailyPlanModel>[];
+      dailyPlans = <ViewDailyPlanModel>[];
       json['dailyPlans'].forEach((v) {
-        viewDailyPlanModel!.add(ViewDailyPlanModel.fromJson(v));
+        dailyPlans!.add(new ViewDailyPlanModel.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['monthlyPlanId'] = monthlyPlanId;
-    if (user != null) {
-      data['user'] = user!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['monthlyPlanId'] = this.monthlyPlanId;
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
     }
-    data['approvalStatus'] = approvalStatus;
-    data['comments'] = comments;
-    if (viewDailyPlanModel != null) {
-      data['dailyPlans'] =
-          viewDailyPlanModel!.map((v) => v.toJson()).toList();
+    data['approvalStatus'] = this.approvalStatus;
+    data['comments'] = this.comments;
+    if (this.dailyPlans != null) {
+      data['dailyPlans'] = this.dailyPlans!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -55,10 +54,10 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = id;
-    data['userName'] = userName;
-    data['designation'] = designation;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['userName'] = this.userName;
+    data['designation'] = this.designation;
     return data;
   }
 }
@@ -68,14 +67,14 @@ class ViewDailyPlanModel {
   String? planDate;
   double? approxKms;
   double? actualKms;
-  List<ViewDailyPlanCustomers>? viewDailyPlanCustomers;
+  List<ViewDailyPlanCustomers>? customers;
 
   ViewDailyPlanModel(
       {this.dailyPlanId,
       this.planDate,
       this.approxKms,
       this.actualKms,
-      this.viewDailyPlanCustomers});
+      this.customers});
 
   ViewDailyPlanModel.fromJson(Map<String, dynamic> json) {
     dailyPlanId = json['dailyPlanId'];
@@ -83,22 +82,21 @@ class ViewDailyPlanModel {
     approxKms = json['approxKms'];
     actualKms = json['actualKms'];
     if (json['customers'] != null) {
-      viewDailyPlanCustomers = <ViewDailyPlanCustomers>[];
+      customers = <ViewDailyPlanCustomers>[];
       json['customers'].forEach((v) {
-        viewDailyPlanCustomers!.add(ViewDailyPlanCustomers.fromJson(v));
+        customers!.add(new ViewDailyPlanCustomers.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['dailyPlanId'] = dailyPlanId;
-    data['planDate'] = planDate;
-    data['approxKms'] = approxKms;
-    data['actualKms'] = actualKms;
-    if (viewDailyPlanCustomers != null) {
-      data['customers'] =
-          viewDailyPlanCustomers!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['dailyPlanId'] = this.dailyPlanId;
+    data['planDate'] = this.planDate;
+    data['approxKms'] = this.approxKms;
+    data['actualKms'] = this.actualKms;
+    if (this.customers != null) {
+      data['customers'] = this.customers!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -113,15 +111,15 @@ class ViewDailyPlanCustomers {
   ViewDailyPlanCustomers.fromJson(Map<String, dynamic> json) {
     dailyPlanCustDetailsId = json['dailyPlanCustDetailsId'];
     customer = json['customer'] != null
-        ? Customer.fromJson(json['customer'])
+        ? new Customer.fromJson(json['customer'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['dailyPlanCustDetailsId'] = dailyPlanCustDetailsId;
-    if (customer != null) {
-      data['customer'] = customer!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['dailyPlanCustDetailsId'] = this.dailyPlanCustDetailsId;
+    if (this.customer != null) {
+      data['customer'] = this.customer!.toJson();
     }
     return data;
   }
@@ -129,6 +127,8 @@ class ViewDailyPlanCustomers {
 
 class Customer {
   String? customerCode;
+  String? customerId;
+  String? farmId;
   String? customerName;
   String? customerAddress;
   String? customerCity;
@@ -143,6 +143,8 @@ class Customer {
 
   Customer(
       {this.customerCode,
+      this.customerId,
+      this.farmId,
       this.customerName,
       this.customerAddress,
       this.customerCity,
@@ -157,6 +159,8 @@ class Customer {
 
   Customer.fromJson(Map<String, dynamic> json) {
     customerCode = json['customerCode'];
+    customerId = json['customerId'];
+    farmId = json['farmId'];
     customerName = json['customerName'];
     customerAddress = json['customerAddress'];
     customerCity = json['customerCity'];
@@ -171,20 +175,22 @@ class Customer {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['customerCode'] = customerCode;
-    data['customerName'] = customerName;
-    data['customerAddress'] = customerAddress;
-    data['customerCity'] = customerCity;
-    data['customerContactNumber'] = customerContactNumber;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['customerCode'] = this.customerCode;
+    data['customerId'] = this.customerId;
+    data['farmId'] = this.farmId;
+    data['customerName'] = this.customerName;
+    data['customerAddress'] = this.customerAddress;
+    data['customerCity'] = this.customerCity;
+    data['customerContactNumber'] = this.customerContactNumber;
     data['customerAlternateContactNumber'] =
-        customerAlternateContactNumber;
-    data['customerState'] = customerState;
-    data['customerEmail'] = customerEmail;
-    data['customerCategory'] = customerCategory;
-    data['status'] = status;
-    data['checkinLocation'] = checkinLocation;
-    data['checkoutLocation'] = checkoutLocation;
+        this.customerAlternateContactNumber;
+    data['customerState'] = this.customerState;
+    data['customerEmail'] = this.customerEmail;
+    data['customerCategory'] = this.customerCategory;
+    data['status'] = this.status;
+    data['checkinLocation'] = this.checkinLocation;
+    data['checkoutLocation'] = this.checkoutLocation;
     return data;
   }
 }

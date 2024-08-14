@@ -7,8 +7,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
-import 'package:srinivasa_crm_new/src/core/core.dart';
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/monthly_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/monthly_plan_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/update_monthlyplan_postmodel.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/widgets/monthly_plan_custoemer_list_dropdown_widget.dart';
@@ -143,7 +141,7 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                         dailyPlans: context.read<CreateMonthlyPlanCubit>().state.dailyPlanList.map((e) => DailyPlanPostModel(
                           createdDate: e.createdDate.toString().split(" ").first.toString(),
                           approxKms: double.tryParse(e.approxKms.toString()) ?? 0.0,
-                          customerCodes: e.customerCodes.map((e) => int.parse(e.toString())).toList(),
+                          farmIds: e.farmIds.map((e) => int.parse(e.toString())).toList(),
                         )).toList(),
                       );
 
@@ -275,7 +273,7 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                                   Expanded(
                                     flex: 6,
                                     child: CommonTextWidget(
-                                      title: " ${dailyPlan.customerCodes
+                                      title: " ${dailyPlan.farmIds
                                               .map((e) => e)
                                               .join(",\n")}",
                                       align: TextAlign.start,
@@ -508,6 +506,7 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                       context: context,
                       builder: (c) => AlertDialog(
                           shadowColor: Colors.grey,
+                          backgroundColor: Colors.white,
 
                           // title: Text("Selected Date"),
                           content: SingleChildScrollView(
@@ -602,11 +601,11 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                                             .kilometerTextEditingController
                                             .text
                                             .toString()),
-                                        customerCodes: context
+                                        farmIds: context
                                             .read<CreateMonthlyPlanCubit>()
                                             .state
                                             .selectedCustomersList
-                                            .map((e) => e.customerCode ?? "")
+                                            .map((e) => e.farm!.farmId.toString())
                                             .toList());
 
                                     // adding condition to check whether the CUSTOMER is already present in the list or not

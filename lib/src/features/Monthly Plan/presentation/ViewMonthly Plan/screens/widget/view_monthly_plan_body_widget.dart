@@ -22,7 +22,7 @@ class ViewMonthlyPlanBodyWidget extends StatelessWidget {
       builder: (context, state) {
        
         return state.when(initial: () => const Center(child: Text('View  Monthly plan state screen'),), loading: () => const CustomLoadingWidget(), loaded: (r) {
-          return  r.viewDailyPlanModel == null ? EmptyWidget(title: 'No Plans found', callback: () {}) :
+          return  r.dailyPlans == null ? EmptyWidget(title: 'No Plans found', callback: () {}) :
           //  context.watch<ViewMonthlyPlanCubit>().alertModel != null && r.approvalStatus == "APPROVED" || r.approvalStatus == "REJECTED" ? Center(child: Column(
           //   crossAxisAlignment: CrossAxisAlignment.center,
           //   mainAxisAlignment: MainAxisAlignment.center,
@@ -40,8 +40,8 @@ class ViewMonthlyPlanBodyWidget extends StatelessWidget {
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemBuilder: (c,i) {
-                  return MonthlyPlanCardWidget(model: r.viewDailyPlanModel![i], monthlyPlanModel: r,);
-                },itemCount: r.viewDailyPlanModel!.length,),
+                  return MonthlyPlanCardWidget(model: r.dailyPlans![i], monthlyPlanModel: r,);
+                },itemCount: r.dailyPlans!.length,),
               ),
          context.watch<ViewMonthlyPlanCubit>().isManagarClicked == false ? const SizedBox.shrink() :     10.verticalSpace,
          context.watch<ViewMonthlyPlanCubit>().isManagarClicked == false ? const SizedBox.shrink() :     CommonButton(callback: () => approveBtnClicked(context), title: "Approve",isApproveButton: true,).withSymetricPadding(horizontalPadding: 10.w),

@@ -2,7 +2,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
@@ -10,8 +9,9 @@ import 'package:intl/intl.dart';
 
 import 'package:srinivasa_crm_new/shared/domain/repo/Employe/employe_repo.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/monthly_plan_customer_model.dart';
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/monthly_plan_customer_field.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/repo/monthly_plan_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_state.dart';
 
@@ -24,6 +24,7 @@ import '../../../domain/model/post/update_monthlyplan_postmodel.dart';
 class CreateMonthlyPlanCubit extends Cubit<CreateMonthlyPlanState> {
   final MonthlyPlanRepo monthlyPlanRepo;
   final EmployeRepo employeRepo;
+  final CustomerRepo customerRepo;
 
   final TextEditingController _kilometerTextEditingController = TextEditingController();
   final TextEditingController _dateTextEditingController = TextEditingController();
@@ -36,6 +37,7 @@ class CreateMonthlyPlanCubit extends Cubit<CreateMonthlyPlanState> {
   CreateMonthlyPlanCubit({
     required this.monthlyPlanRepo,
     required this.employeRepo,
+    required this.customerRepo,
   }) : super( CreateMonthlyPlanState.initial());
 
 
@@ -45,10 +47,11 @@ Future<void> getAllInitialValues() async {
   _kilometerTextEditingController.clear();
   emit(state.copyWith(apiFailedModel: null,isSuccess: false,showInputError: false,customerList: [],selectedCustomersList: [],dailyPlanList: []));
  
-  final data = await monthlyPlanRepo.getAssignedCustomers();
+  // final data = await monthlyPlanRepo.getAssignedCustomers();
+  final data1 = await customerRepo.getCustomers();
 
-  data.fold((l) => ApiFailedModel(statusCode: NetworkExceptions.getStatusCode(l), message: NetworkExceptions.getErrorMessage(l), errorMessage: NetworkExceptions.getErrorTitle(l)), (r) {
-    emit(    state.copyWith(customerList: r));
+  data1.fold((l) => ApiFailedModel(statusCode: NetworkExceptions.getStatusCode(l), message: NetworkExceptions.getErrorMessage(l), errorMessage: NetworkExceptions.getErrorTitle(l)), (r) {
+    emit(    state.copyWith(customerList: r.customermodel ?? []));
     });
 
 
@@ -64,7 +67,7 @@ Future<void> getAllMonthsList({required String userId}) async {
   
 
 
-  void setSelectedCustomerLists({required List<MonthlyPlanCustomerModel> selectedCustomers}) {
+  void setSelectedCustomerLists({required List<Customermodel> selectedCustomers}) {
     emit(state.copyWith(selectedCustomersList: selectedCustomers));
   }
 
@@ -172,7 +175,7 @@ bool checkIfAnyCustomerAlreadyExists() {
 final dailyPlanList = state.dailyPlanList;
 
   for (var customer in state.selectedCustomersList) {
-    if (dailyPlanList.any((element) => element.customerCodes.contains(customer.customerCode))) {
+    if (dailyPlanList.any((element) => element.farmIds.contains(customer.farm!.farmId))) {
         return true;
     }
   }
@@ -197,7 +200,7 @@ DailyPlan? findFirstMatchingDailyPlan() {
   for (var customer in state.selectedCustomersList) {
     try {
       return dailyPlanList.firstWhere(
-        (dailyPlan) => dailyPlan.customerCodes.contains(customer.customerCode),
+        (dailyPlan) => dailyPlan.farmIds.contains(customer.farm!.farmId.toString()),
       );
     } catch (e) {
       // If no element is found, continue to the next customer.
@@ -229,7 +232,7 @@ List<DailyPlan> findListOfExistingDailyPlan() {
   for (var customer in state.selectedCustomersList) {
     // Filter all daily plans that contain the customer's code
     var filteredPlans = dailyPlanList.where(
-      (dailyPlan) => dailyPlan.customerCodes.contains(customer.customerCode),
+      (dailyPlan) => dailyPlan.farmIds.contains(customer.farm!.farmId.toString()),
     );
 
     // Add all filtered plans to the matchingDailyPlans list

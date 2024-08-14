@@ -8,6 +8,7 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/month
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/monthly_plan_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/route_model.dart';
 
+import '../../../../Customer/domain/model/get/customer_model.dart';
 import '../../../domain/model/get/monthly_plan_customer_model.dart';
 import '../../../domain/model/post/update_monthlyplan_postmodel.dart';
 
@@ -26,8 +27,8 @@ class CreateMonthlyPlanState with _$CreateMonthlyPlanState {
   //   const factory CreateMonthlyPlanState.showInputError({required bool isValidated}) = _FormValidated;
 
   const factory CreateMonthlyPlanState({
-    required List<MonthlyPlanCustomerModel> customerList,
-    required List<MonthlyPlanCustomerModel> selectedCustomersList,
+    required List<Customermodel> customerList,
+    required List<Customermodel> selectedCustomersList,
     required MonthlyPlanApproxKilomenterField monthlyPlanKiloMeterTextField,
     required MonthlyPlanDateField dateField,
     required ApiFailedModel? apiFailedModel,

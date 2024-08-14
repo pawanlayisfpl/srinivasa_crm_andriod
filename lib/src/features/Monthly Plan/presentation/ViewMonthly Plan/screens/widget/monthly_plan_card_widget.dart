@@ -75,7 +75,7 @@ class MonthlyPlanCardWidget extends StatelessWidget {
                       MonthlyPlanRowWidget(
                           title: "Customers",
                           
-                          value: model.viewDailyPlanCustomers!
+                          value: model.customers!
                               .map((e) => e.customer!.customerName.toString())
                               .join(', ')),
                       5.verticalSpace,

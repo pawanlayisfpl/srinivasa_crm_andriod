@@ -16,9 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CreateMonthlyPlanState {
-  List<MonthlyPlanCustomerModel> get customerList =>
-      throw _privateConstructorUsedError;
-  List<MonthlyPlanCustomerModel> get selectedCustomersList =>
+  List<Customermodel> get customerList => throw _privateConstructorUsedError;
+  List<Customermodel> get selectedCustomersList =>
       throw _privateConstructorUsedError;
   MonthlyPlanApproxKilomenterField get monthlyPlanKiloMeterTextField =>
       throw _privateConstructorUsedError;
@@ -44,8 +43,8 @@ abstract class $CreateMonthlyPlanStateCopyWith<$Res> {
       _$CreateMonthlyPlanStateCopyWithImpl<$Res, CreateMonthlyPlanState>;
   @useResult
   $Res call(
-      {List<MonthlyPlanCustomerModel> customerList,
-      List<MonthlyPlanCustomerModel> selectedCustomersList,
+      {List<Customermodel> customerList,
+      List<Customermodel> selectedCustomersList,
       MonthlyPlanApproxKilomenterField monthlyPlanKiloMeterTextField,
       MonthlyPlanDateField dateField,
       ApiFailedModel? apiFailedModel,
@@ -89,11 +88,11 @@ class _$CreateMonthlyPlanStateCopyWithImpl<$Res,
       customerList: null == customerList
           ? _value.customerList
           : customerList // ignore: cast_nullable_to_non_nullable
-              as List<MonthlyPlanCustomerModel>,
+              as List<Customermodel>,
       selectedCustomersList: null == selectedCustomersList
           ? _value.selectedCustomersList
           : selectedCustomersList // ignore: cast_nullable_to_non_nullable
-              as List<MonthlyPlanCustomerModel>,
+              as List<Customermodel>,
       monthlyPlanKiloMeterTextField: null == monthlyPlanKiloMeterTextField
           ? _value.monthlyPlanKiloMeterTextField
           : monthlyPlanKiloMeterTextField // ignore: cast_nullable_to_non_nullable
@@ -156,8 +155,8 @@ abstract class _$$CreateMonthlyPlanStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<MonthlyPlanCustomerModel> customerList,
-      List<MonthlyPlanCustomerModel> selectedCustomersList,
+      {List<Customermodel> customerList,
+      List<Customermodel> selectedCustomersList,
       MonthlyPlanApproxKilomenterField monthlyPlanKiloMeterTextField,
       MonthlyPlanDateField dateField,
       ApiFailedModel? apiFailedModel,
@@ -201,11 +200,11 @@ class __$$CreateMonthlyPlanStateImplCopyWithImpl<$Res>
       customerList: null == customerList
           ? _value._customerList
           : customerList // ignore: cast_nullable_to_non_nullable
-              as List<MonthlyPlanCustomerModel>,
+              as List<Customermodel>,
       selectedCustomersList: null == selectedCustomersList
           ? _value._selectedCustomersList
           : selectedCustomersList // ignore: cast_nullable_to_non_nullable
-              as List<MonthlyPlanCustomerModel>,
+              as List<Customermodel>,
       monthlyPlanKiloMeterTextField: null == monthlyPlanKiloMeterTextField
           ? _value.monthlyPlanKiloMeterTextField
           : monthlyPlanKiloMeterTextField // ignore: cast_nullable_to_non_nullable
@@ -252,8 +251,8 @@ class _$CreateMonthlyPlanStateImpl
     with DiagnosticableTreeMixin
     implements _CreateMonthlyPlanState {
   const _$CreateMonthlyPlanStateImpl(
-      {required final List<MonthlyPlanCustomerModel> customerList,
-      required final List<MonthlyPlanCustomerModel> selectedCustomersList,
+      {required final List<Customermodel> customerList,
+      required final List<Customermodel> selectedCustomersList,
       required this.monthlyPlanKiloMeterTextField,
       required this.dateField,
       required this.apiFailedModel,
@@ -268,17 +267,17 @@ class _$CreateMonthlyPlanStateImpl
         _monthsList = monthsList,
         _dailyPlanList = dailyPlanList;
 
-  final List<MonthlyPlanCustomerModel> _customerList;
+  final List<Customermodel> _customerList;
   @override
-  List<MonthlyPlanCustomerModel> get customerList {
+  List<Customermodel> get customerList {
     if (_customerList is EqualUnmodifiableListView) return _customerList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_customerList);
   }
 
-  final List<MonthlyPlanCustomerModel> _selectedCustomersList;
+  final List<Customermodel> _selectedCustomersList;
   @override
-  List<MonthlyPlanCustomerModel> get selectedCustomersList {
+  List<Customermodel> get selectedCustomersList {
     if (_selectedCustomersList is EqualUnmodifiableListView)
       return _selectedCustomersList;
     // ignore: implicit_dynamic_type
@@ -399,8 +398,8 @@ class _$CreateMonthlyPlanStateImpl
 
 abstract class _CreateMonthlyPlanState implements CreateMonthlyPlanState {
   const factory _CreateMonthlyPlanState(
-      {required final List<MonthlyPlanCustomerModel> customerList,
-      required final List<MonthlyPlanCustomerModel> selectedCustomersList,
+      {required final List<Customermodel> customerList,
+      required final List<Customermodel> selectedCustomersList,
       required final MonthlyPlanApproxKilomenterField
           monthlyPlanKiloMeterTextField,
       required final MonthlyPlanDateField dateField,
@@ -413,9 +412,9 @@ abstract class _CreateMonthlyPlanState implements CreateMonthlyPlanState {
       final List<DailyPlan> dailyPlanList}) = _$CreateMonthlyPlanStateImpl;
 
   @override
-  List<MonthlyPlanCustomerModel> get customerList;
+  List<Customermodel> get customerList;
   @override
-  List<MonthlyPlanCustomerModel> get selectedCustomersList;
+  List<Customermodel> get selectedCustomersList;
   @override
   MonthlyPlanApproxKilomenterField get monthlyPlanKiloMeterTextField;
   @override

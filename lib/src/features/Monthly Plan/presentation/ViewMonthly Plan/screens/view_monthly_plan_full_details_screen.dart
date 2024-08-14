@@ -20,7 +20,7 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Customers List"),),
-      body: SafeArea(child: viewDailyPlanModel!.viewDailyPlanCustomers!.isEmpty ? EmptyWidget(title: "No Customers Found ", callback: () {}) : AnimationLimiter(child: ListView.separated(
+      body: SafeArea(child: viewDailyPlanModel!.customers!.isEmpty ? EmptyWidget(title: "No Customers Found ", callback: () {}) : AnimationLimiter(child: ListView.separated(
           padding: EdgeInsets.only(top: 10.h),
         itemBuilder: (c,i) {
         return AnimationConfiguration.staggeredList(position: i, child: SlideAnimation(
@@ -31,10 +31,10 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
             
             duration: const Duration(milliseconds: 300),
             // name,code, city,address phone,status
-            child: ViewMOnthlyPlanFullDetailsCardWidget(customerModel: viewDailyPlanModel!.viewDailyPlanCustomers![i].customer )
+            child: ViewMOnthlyPlanFullDetailsCardWidget(customerModel: viewDailyPlanModel!.customers![i].customer )
             ,)
             ,));
-      },itemCount: viewDailyPlanModel!.viewDailyPlanCustomers!.length, separatorBuilder: (BuildContext context, int index) { 
+      },itemCount: viewDailyPlanModel!.customers!.length, separatorBuilder: (BuildContext context, int index) { 
         return           Divider(thickness: 2,color: AppColors.secondaryTextClr,).withSymetricPadding(horizontalPadding: 20.w);
 
        },)),),
@@ -59,8 +59,8 @@ class ViewMOnthlyPlanFullDetailsCardWidget extends StatelessWidget {
       child: Column(
         children: [
          MonthlyPlanRowWidget(title: "Name", value: customerModel!.customerName ?? "No Name found"),
-         5.verticalSpace,
-          MonthlyPlanRowWidget(title: "Code", value: customerModel!.customerCode ?? "No Customer code found"),
+        //  5.verticalSpace,
+        //   MonthlyPlanRowWidget(title: "Code", value: customerModel!.customerCode ?? "No Customer code found"),
           5.verticalSpace,
           MonthlyPlanRowWidget(title: "City", value: customerModel!.customerCity ?? "No City found"),
           5.verticalSpace,
