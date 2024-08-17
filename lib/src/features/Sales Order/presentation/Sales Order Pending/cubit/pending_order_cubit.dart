@@ -19,7 +19,6 @@ class PendingOrderCubit extends Cubit<PendingOrderState> {
   // GET ALL PENDING ORDERS
   Future<void> getAllPendingOrders()  async {
     ProgressDialogUtils.showProgressDialog();
-    await Future.delayed(const Duration(milliseconds: 500));
     
   emit(const PendingOrderState.loading());
   final results = await saleRepo.getPendingOrders();

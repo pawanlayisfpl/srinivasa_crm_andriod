@@ -200,7 +200,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   if (Platform.isIOS) {
     statuses = await [
-      Permission.location,
+      Permission.storage,
       // Permission.locationWhenInUse,
       // Permission.storage,
       // Add other iOS-specific permissions if needed
@@ -220,11 +220,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   } else {
     log("Not all permissions were granted");
     // Handle the case where permissions are not granted
-    Fluttertoast.showToast(msg: 'Platform is iOS');
 
     // Show a dialog to request permissions
     showDialog(
-      barrierDismissible: false,
+      barrierDismissible: true,
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(

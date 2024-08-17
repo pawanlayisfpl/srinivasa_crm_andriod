@@ -95,7 +95,6 @@ class AlertCardWidget extends StatelessWidget {
                   Navigator.push(context, SlideLeftRoute(screen: ViewMonthlyPlanScreen(monthlyPlanId: alertModel.monthlyPlanId, )));
                   break;
                   case AppStrings.updated:
-                                // TODO: CREATE SHOULD NOT WORK FOR SALES REP
                       
                    context.read<ViewMonthlyPlanCubit>().managerClickTrue();
                                 context.read<ViewMonthlyPlanCubit>().setAlertModelValue(alertModel);

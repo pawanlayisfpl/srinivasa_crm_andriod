@@ -74,7 +74,7 @@ const factory CustomerCreateState({
   @Default([]) List<LocalityModel> localityList,
   @Default(null) LocalityModel? selectedLocalityModel,
   required CustomerCreateAddressField customerCreateAddressField,
-  required CustomerCreatePincodeField customerCreatePincodeField,
+required CustomerCreatePincodeField customerCreatePincodeField,
   @Default(true) bool isBusinessPartner,
 
   required StringField faxNumberField,

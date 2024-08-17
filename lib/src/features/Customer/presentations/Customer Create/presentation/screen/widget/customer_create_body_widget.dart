@@ -61,7 +61,7 @@ class CustomerCreateBodyWidget extends StatelessWidget {
                 context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     20.verticalSpace,
                                 context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const CommonTextFieldHeadingWidget(title: "Existing Customer",isRequired: true,) :     const SizedBox.shrink(),
 
-                context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const CCApprovedCustomerDropdownWidget() :       const SizedBox.shrink(),
+                context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? context.watch<CustomerCreateCubit>().state.isCustomerCodeLoading ? const DropdownLoadingWidget() :  const CCApprovedCustomerDropdownWidget() :       const SizedBox.shrink(),
                 context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const SizedBox.shrink() :     20.verticalSpace,
         context.watch<CustomerCreateCubit>().state.isBusinessPartner == true ? const SizedBox.shrink() :       20.verticalSpace,
                             const CommonTextFieldHeadingWidget(title: "Title",isRequired: true,),
@@ -118,7 +118,7 @@ class CustomerCreateBodyWidget extends StatelessWidget {
               // CUSTOMER ASSIGNED TO DROPDOWN
                                                                                     const CommonTextFieldHeadingWidget(title: "Assign To",isRequired: true,),
 
-              const CCAssignedToDropDownWidget(),
+          context.watch<CustomerCreateCubit>().state.isLoading ? const DropdownLoadingWidget() :    const CCAssignedToDropDownWidget(),
 
               20.verticalSpace,
                                                                                     const CommonTextFieldHeadingWidget(title: "Primary Source",isRequired: true,),

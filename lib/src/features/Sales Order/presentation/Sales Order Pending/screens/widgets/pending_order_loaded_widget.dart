@@ -16,7 +16,7 @@ class PendingOrderLoadedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return pendingOrderModel.orders == null
+    return pendingOrderModel.orders == null || pendingOrderModel.orders!.isEmpty
         ? EmptyWidget(
             title: 'No Pending Order Request Found.',
             callback: () {

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Image/image_model.dart';
 
@@ -11,6 +12,7 @@ Future<Either<Exception, PlatformFile?>> pickSingleImage();
 Future<Either<Exception, ImageModel?>> pickSingleImageBytes();
 Future<Either<Exception,List<PlatformFile>>?> pickMultipleImages();
 Future<Either<Exception,List<ImageModel>>> pickMultipleUint8ListImage();
+Future<Either<Exception,List<ImageModel>>> pickMultipleUint8ListImageUsingImagePicker({required bool isFromCamera});
 Future<Either<Exception,List<FileModel>>> pickeMultipleUint8Files();
 Future<Either<Exception,PlatformFile>> pickSingleFile({required FileType fileType});
 Future<Either<Exception,List<PlatformFile>>?> pickMultipleFiles({required FileType fileType , List<String>? allowedExtensions});
@@ -122,6 +124,7 @@ class CommomImageServicesImpl implements CommonImageServices {
   @override
   Future<Either<Exception, List<FileModel>>> pickeMultipleUint8Files()  async {
    try {
+    
    final result = await FilePicker.platform.pickFiles(
   type: FileType.custom,
   allowedExtensions: ['pdf', 'doc', 'docx', 'xls', 'xlsx'],
@@ -192,8 +195,43 @@ class CommomImageServicesImpl implements CommonImageServices {
   }
    
   }
+
+
   
-  
-  
-  
+@override
+Future<Either<Exception, List<ImageModel>>> pickMultipleUint8ListImageUsingImagePicker({required bool isFromCamera}) async {
+  try {
+    final ImagePicker _picker = ImagePicker();
+    List<XFile>? images;
+
+    if (isFromCamera) {
+      final XFile? image = await _picker.pickImage(source: ImageSource.camera);
+      if (image != null) {
+        images = [image];
+      }
+    } else {
+      images = await _picker.pickMultiImage();
+    }
+
+    if (images == null || images.isEmpty) {
+      return Left(Exception('No file selected'));
+    }
+
+    List<ImageModel> files = [];
+    for (var image in images) {
+      Uint8List fileData = await image.readAsBytes();
+      ImageModel imageModel = ImageModel(imageByes: fileData, name: image.name.toString());
+      files.add(imageModel);
+    }
+
+    return Right(files);
+  } catch (e) {
+    return Left(Exception(e.toString()));
+  }
 }
+   
+  }
+  
+  
+  
+  

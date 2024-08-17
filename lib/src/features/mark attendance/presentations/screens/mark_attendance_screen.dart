@@ -78,7 +78,7 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
 
     // Show a dialog to request permissions
     showDialog(
-      barrierDismissible: false,
+      barrierDismissible: true,
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(

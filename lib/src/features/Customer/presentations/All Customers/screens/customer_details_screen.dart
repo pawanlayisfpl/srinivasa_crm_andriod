@@ -75,7 +75,6 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
     //                               Navigator.pop(context);
     //                               if (mounted) {
                                    
-    // // TODO: DISABLING THE CUSTOMER CODE
     //                                 //   Navigator.push(
     //                                 //   context,
     //                                 //   MaterialPageRoute(

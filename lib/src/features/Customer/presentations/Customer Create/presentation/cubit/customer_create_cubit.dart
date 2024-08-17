@@ -792,7 +792,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
 
   // GET ALL TITLES
   Future<void> getAllTitles() async {
-    emit(state.copyWith(titlesList: ['Mr', 'Mrs']));
+    emit(state.copyWith(titlesList: ['Mr','Ms' ,'Mrs']));
   }
 
   // GET ALL CUSTOMER TYPES LIST
@@ -828,6 +828,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     // emit(CustomerCreateState.initial());
     emit(state.copyWith(showInputError: false));
     clearAllController();
+    await getAllCustomerCodesList();
 
     await getAllTitles();
     await getAllCustomerTypes();
@@ -835,7 +836,6 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     await getCountryLists();
     await getAllZoneList();
     await getAllDivisions();
-    await getAllCustomerCodesList();
   }
 
   void setBusinessPartnerBoolValue(bool value) {

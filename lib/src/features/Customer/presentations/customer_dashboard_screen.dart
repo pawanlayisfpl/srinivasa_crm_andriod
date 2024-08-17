@@ -15,9 +15,9 @@ class CustomerDashbaordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> cardNames = [
-      'View Customers List',
+      'View Assigned\nCustomers',
       'Add Customers',
-      'Search Customer ',
+      'Search All Customer ',
     ];
 
     return Scaffold(

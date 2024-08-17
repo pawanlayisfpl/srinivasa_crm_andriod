@@ -33,7 +33,6 @@ class _ParticularSalesOrderScreenState
 
       @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       context.read<SalesOrderParticularCubit>().getParticularSalesOrder(widget.orderId);

@@ -14,7 +14,7 @@ class PendingOrderBodyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PendingOrderCubit, PendingOrderState>(
       builder: (context, state) {
-        return state.when(initial: () => PendingOrderPendingWidget(), loading: () => Container(), loaded: (data) => PendingOrderLoadedWidget(pendingOrderModel: data,), error: (apiFailedModel) => PendingOrderErrorWidget(message: apiFailedModel.errorMessage.toString(),));
+        return state.when(initial: () => PendingOrderPendingWidget(), loading: () => PendingOrderPendingWidget(), loaded: (data) => PendingOrderLoadedWidget(pendingOrderModel: data,), error: (apiFailedModel) => PendingOrderErrorWidget(message: apiFailedModel.errorMessage.toString(),));
       },
     );
   }

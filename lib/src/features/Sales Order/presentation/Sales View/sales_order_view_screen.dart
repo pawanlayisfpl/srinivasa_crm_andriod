@@ -14,7 +14,6 @@ class _SalesOrderViewScreenState extends State<SalesOrderViewScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
        context.read<SalesOrderViewCubit>().getSalesOrder();

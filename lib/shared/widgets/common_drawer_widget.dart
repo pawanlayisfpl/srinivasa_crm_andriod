@@ -80,10 +80,11 @@ class CommonDrawerWidget extends StatelessWidget {
                 // Handle LOGOUT button action
                 // You can add your logout logic here
                 final localstorge = locator.get<KeyValueStorage>();
+                final locationServices = locator.get<CommonLocationServices>();
+                final position = await locationServices.getUserCurrentPosition();
 
                 // await Workmanager().cancelAll();
-                // TODO: IMPLEENTED FAKE LAT AND LONG
-                PunchoutPostModel punchoutPostModel = PunchoutPostModel(latitude: 0.0.toString(), longitude: 0.0.toString());
+                PunchoutPostModel punchoutPostModel = PunchoutPostModel(latitude: position.latitude.toString(), longitude: position.longitude.toString());
                 await context.read<MarkAttendanceCubit>().punchOutLogic(punchoutPostModel: punchoutPostModel, isLogoutClicked: true);
               
                 Fluttertoast.showToast(msg: "All Background services stopped");

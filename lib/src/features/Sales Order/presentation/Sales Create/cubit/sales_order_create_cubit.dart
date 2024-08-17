@@ -168,28 +168,32 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
 
   //on selling rate changed
   void onSellingRateChanged() {
-    if(productQtyController.text.isNotEmpty && productSellingRateController.text.isNotEmpty && productRateController.text.isNotEmpty) {
-      int qty = int.tryParse(productQtyController.text) ?? 0;
+    // LOGIC 1: QTY CAN BE EMPTY
+    // LOGIC 2: WHEN QTY IS NOT EMPTY
+       int qty = int.tryParse(productQtyController.text) ?? 0;
       double price = double.tryParse(productSellingRateController.text) ?? 0.0;
       double givenRate = double.tryParse(productRateController.text) ?? 0.0;
 
-      if(price <= givenRate) {
+      if(productRateController.text.isNotEmpty && productSellingRateController.text.isNotEmpty && productQtyController.text.isNotEmpty) {
+        // QTY IS AVAILABLE, PRICE IS AVAIBLE , JUST SET THE TOTAL AMOUNT QTY * SELLING RATE
+        if(price > givenRate) {
+          Fluttertoast.showToast(msg: 'Sorry,price can\'t be more than actual rate',backgroundColor: Colors.red,textColor: Colors.white);
+          productSellingRateController.text = givenRate.toString();
+          onSellingRateChanged();
+
+        }else {
           double totalAmountValue = (qty * price);
       log(totalAmountValue.toString());
-      producttotalController.text = totalAmountValue.toString();
-      emit(state.copyWith(originalTotalAmountValue: producttotalController.text));
+      producttotalController.text = totalAmountValue.toStringAsFixed(0);
 
-      }else if(productSellingRateController.text.isEmpty) {
-        Fluttertoast.showToast(msg: 'selling rate can\'t be empty',backgroundColor: Colors.red,textColor: Colors.white);
-      }
-      else {
-        // Fluttertoast.showToast(msg: 'Selling price can\'t be more that Actual Rate',backgroundColor: Colors.red,textColor: Colors.white);
+        }
+      }else {
+        producttotalController.clear();
+           producttotalController.text =  "0.0";
+        // QTY IS NOT AVAILABLE, PRICE IS AVAIBLE , JUST SET THE TOTAL AMOUNT QTY * SELLING RATE
+
       }
 
-    
-    }else {
-      producttotalController.text =  "0.0";
-    }
   } 
 
 
@@ -619,6 +623,25 @@ void onDiscountPerPercentageChanged() {
   }
 
   void onQtyChanged() {
+    // LOGIC 1: WHEN SELLING RATE IS NULL
+    // LOGIC 2: WHEN SELLING RATE IS NOT NULL
+
+    if(productRateController.text.isNotEmpty && productQtyController.text.isNotEmpty && productSellingRateController.text.isNotEmpty) {
+          // LOGIC 2: WHEN SELLING RATE IS NOT NULL
+
+      double sellingRate = double.tryParse(productSellingRateController.text) ?? 0.0;
+      int qty = int.tryParse(productQtyController.text) ?? 0;
+
+      double totalAmountValue = (qty * sellingRate);
+      producttotalController.text = totalAmountValue.toStringAsFixed(0);
+    }else {
+          // LOGIC 1: WHEN SELLING RATE IS NULL
+    producttotalController.text = '0.0';
+
+    }
+
+
+
     if(productSellingRateController.text.isNotEmpty && productRateController.text.isNotEmpty) {
       double sellingRate = double.tryParse(productSellingRateController.text) ?? 0.0;
       int qty = int.tryParse(productQtyController.text) ?? 0;

@@ -135,12 +135,29 @@ class CheckinCubit extends Cubit<CheckinState> {
     emit(state.copyWith(selectedPurpose: null,isFailed: false));
   }
 
+  Future<void> pickFromCameraLogic() async {
+    final results = await commonImageServices.pickMultipleUint8ListImageUsingImagePicker(isFromCamera: true);
+    results.fold((l) => {
+      
+    }, (r) {
+      final List<ImageModel>  existingImge = List.from(state.imageLists);
+      existingImge.addAll(r);
+
+      emit(state.copyWith(imageLists: existingImge.reversed.toList()));
+    });
+  }
 
   // PICK ALL IMAGES
   Future<void> pickAllImages() async {
     final result = await commonImageServices.pickMultipleUint8ListImage();
+        // final result = await commonImageServices.pickMultipleUint8ListImageUsingImagePicker(isFromCamera: true);
 
-        result.fold((l) => emit(state.copyWith(imageLists: [])), (r) => emit(state.copyWith(imageLists: r)));
+
+        result.fold((l) => emit(state.copyWith()), (r) {
+           final List<ImageModel>  existingImge = List.from(state.imageLists);
+      existingImge.addAll(r);
+          emit(state.copyWith(imageLists: existingImge.reversed.toList()));
+        });
 
 
   }
