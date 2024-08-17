@@ -10,11 +10,13 @@ import 'package:geolocator/geolocator.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Purpose/purpose_model.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkout_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_state.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/widgets/checkout_purpose_dropdown_widget.dart';
+import 'package:srinivasa_crm_new/src/features/Kyc/presentation/Kyc%20Upload/screens/image_full_screen.dart';
 
 import '../../../../../../shared/domain/model/Image/image_model.dart';
 import '../../../../../config/config.dart';
@@ -302,48 +304,59 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (c, i) {
-                          return Stack(
-                            alignment: Alignment.topRight,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(6.0),
-                                child: Image.memory(
-                                  context
-                                      .watch<CheckinCubit>()
-                                      .state
-                                      .imageLists[i]
-                                      .imageByes,
-                                  height: 0.25.sh,
-                                  width: 0.45.sw,
-                                  fit: BoxFit.cover,
-                                ),
-                              ).withSymetricPadding(horizontalPadding: 8.w),
-                              GestureDetector(
-                                onTap: () {
-                                  context.read<CheckinCubit>().removeImage(
-                                      image: context
-                                          .read<CheckinCubit>()
-                                          .state
-                                          .imageLists[i]);
-                                },
-                                child: Container(
-                                  margin:
-                                      EdgeInsets.only(right: 15.w, top: 10.h),
-                                  height: 30.h,
-                                  width: 30.w,
-                                  decoration: const BoxDecoration(
-                                    color: Colors.white,
-                                    shape: BoxShape.circle,
+                          return InkWell(
+                            splashColor: Colors.grey[200],
+                            onTap: () {
+                              HapticFeedback.lightImpact();
+                              Navigator.push(context, ScaleRoute(screen: ImageFullScreen(bytes: context
+                                        .watch<CheckinCubit>()
+                                        .state
+                                        .imageLists[i]
+                                        .imageByes,)));
+                            },
+                            child: Stack(
+                              alignment: Alignment.topRight,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(6.0),
+                                  child: Image.memory(
+                                    context
+                                        .watch<CheckinCubit>()
+                                        .state
+                                        .imageLists[i]
+                                        .imageByes,
+                                    height: 0.25.sh,
+                                    width: 0.45.sw,
+                                    fit: BoxFit.cover,
                                   ),
-                                  child: Center(
-                                      child: Icon(
-                                    Icons.delete,
-                                    color: Colors.red,
-                                    size: 20.sp,
-                                  )),
+                                ).withSymetricPadding(horizontalPadding: 8.w),
+                                GestureDetector(
+                                  onTap: () {
+                                    context.read<CheckinCubit>().removeImage(
+                                        image: context
+                                            .read<CheckinCubit>()
+                                            .state
+                                            .imageLists[i]);
+                                  },
+                                  child: Container(
+                                    margin:
+                                        EdgeInsets.only(right: 15.w, top: 10.h),
+                                    height: 30.h,
+                                    width: 30.w,
+                                    decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Center(
+                                        child: Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                      size: 20.sp,
+                                    )),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           );
                         },
                         itemCount: context

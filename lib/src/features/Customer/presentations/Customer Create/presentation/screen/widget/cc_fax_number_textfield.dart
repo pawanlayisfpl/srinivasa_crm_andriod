@@ -17,7 +17,7 @@ class CCFaxNumberField extends StatelessWidget {
             // FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
             // LengthLimitingTextInputFormatter(10)
           ],
-          textInputType: TextInputType.numberWithOptions(signed: false, decimal: false),
+          textInputType: TextInputType.text,
           textEditingController: context.read<CustomerCreateCubit>().faxNumberController, onChanged: (value) {
           context.read<CustomerCreateCubit>().changeFaxNumber(value: value);
         

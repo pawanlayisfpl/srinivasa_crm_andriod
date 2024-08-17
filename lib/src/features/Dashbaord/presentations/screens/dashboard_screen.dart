@@ -222,14 +222,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
     // Handle the case where permissions are not granted
 
     // Show a dialog to request permissions
-    showDialog(
+   if(Platform.isAndroid) {
+     showDialog(
       barrierDismissible: true,
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           
-          title: Text('Permissions Required'),
-          content: Text('This app needs location and storage permissions to function properly. Please grant the required permissions.'),
+          title: const Text('Permissions Required'),
+          content: const Text('This app needs location and storage permissions to function properly. Please grant the required permissions.'),
           actions: <Widget>[
             TextButton(
               child: const Text('Grant Permissions'),
@@ -243,6 +244,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       },
     );
   }
+   }
 }
      try {
       if(Platform.isAndroid) {

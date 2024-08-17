@@ -77,14 +77,15 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
     // Handle the case where permissions are not granted
 
     // Show a dialog to request permissions
-    showDialog(
+   if(Platform.isAndroid) {
+     showDialog(
       barrierDismissible: true,
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           
-          title: Text('Permissions Required'),
-          content: Text('This app needs location and storage permissions to function properly. Please grant the required permissions.'),
+          title: const Text('Permissions Required'),
+          content: const Text('This app needs location and storage permissions to function properly. Please grant the required permissions.'),
           actions: <Widget>[
             TextButton(
               child: const Text('Grant Permissions'),
@@ -98,6 +99,7 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
       },
     );
   }
+   }
 }
      try {
       if(Platform.isAndroid) {
@@ -165,7 +167,7 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
                 platform.invokeMethod('stop');
                   Navigator.pop(context);
                   if(context.mounted) {
-                    Navigator.pushAndRemoveUntil(context, ScaleRoute(screen: LoginScreen()),(route) => false);
+                    Navigator.pushAndRemoveUntil(context, ScaleRoute(screen: const LoginScreen()),(route) => false);
                   }
                 
                 },
@@ -192,7 +194,7 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
 
                 if(value  && widget.isCheckedInScreen == true) {
                   if(context.mounted) {
-                    Navigator.pushAndRemoveUntil(context, ScaleRoute(screen: DashboardScreen()),(route) => false);
+                    Navigator.pushAndRemoveUntil(context, ScaleRoute(screen: const DashboardScreen()),(route) => false);
                   }
                 }
             
