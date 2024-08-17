@@ -68,7 +68,7 @@ class AllCustomerLoadedWidget extends StatelessWidget {
               itemBuilder: (_, k, id) {
                 Customermodel? customerModel = customerLists[k];
                 return ListTile(
-                            dense: true,
+                            dense: true, 
                             tileColor: Colors.white,
                           
                             

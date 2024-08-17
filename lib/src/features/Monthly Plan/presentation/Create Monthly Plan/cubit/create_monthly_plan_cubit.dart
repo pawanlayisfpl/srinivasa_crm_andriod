@@ -175,7 +175,7 @@ bool checkIfAnyCustomerAlreadyExists() {
 final dailyPlanList = state.dailyPlanList;
 
   for (var customer in state.selectedCustomersList) {
-    if (dailyPlanList.any((element) => element.farmIds.contains(customer.farm!.farmId))) {
+    if (dailyPlanList.any((element) => element.farmIds.contains(customer.farm!.farmId.toString()))) {
         return true;
     }
   }

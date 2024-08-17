@@ -64,11 +64,10 @@ class CheckinEmployeDropdownWidget extends StatelessWidget {
 
                     items:  state.employeList.isEmpty ? [] : state.employeList.map((e) =>e).toList(),
 
-                
+                  itemAsString: (item) => item.userName != null && item.designation != null ? item.userName.toString()+"-(${item.designation!.join(", ")})" : item.userName != null && item.designation == null ? item.userName.toString() : "No name found",
               
 
-                    itemAsString: (item) => item.userName != null && item.designation == null ? item.userName.toString() :  item.userName != null && item.designation != null ? "${item.userName  }-(${(item.designation)})" :   "No name found"  ,
-                // show: (EmployeModel employee) => employee.name,
+                    // itemAsString: (item) => item.userName != null && item.designation == null ? item.userName.toString() :  item.userName != null && item.designation != null ? "${item.userName  }-(${(item.designation)})" :   "No name found"  ,
                 onChanged: (values) {
                   if(values.isNotEmpty) {
                     context.read<CheckinCubit>().setSelectedEmployeList(values);

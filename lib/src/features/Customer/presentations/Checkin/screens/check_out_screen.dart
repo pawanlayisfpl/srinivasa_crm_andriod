@@ -151,7 +151,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         );
                       if(context.mounted) {
                            await context.read<CheckinCubit>().checkoutLogic(
-                            checkOutPostModel: checkoutPostModel);
+                            checkOutPostModel: checkoutPostModel,context: context);
                       }
                       } else {
                         log('last checkin response model is getting null');

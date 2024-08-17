@@ -2,8 +2,10 @@
 
 
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:quickalert/quickalert.dart';
 
 import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Employe/employe_repo.dart';
@@ -63,15 +65,19 @@ class CheckinCubit extends Cubit<CheckinState> {
   }
 
   // CHECKOUt
-  Future<void> checkoutLogic({required CheckoutPostModel checkOutPostModel}) async {
+  Future<void> checkoutLogic({required CheckoutPostModel checkOutPostModel,required BuildContext context}) async {
+
     emit(state.copyWith(isLoading: true,apiFailedModel: null,checkInResponseModel: null,checkoutResponseModel: null,isCheckOut: false));
+    QuickAlert.show(context: context, type: QuickAlertType.loading, title: 'Checking Out', text: 'Please wait...');
     final result = await customerRepo.checkOut(checkoutPostModel: checkOutPostModel);
     result.fold(
       (l) {
+        Navigator.pop(context);
         ApiFailedModel apiFailedModel = ApiFailedModel(statusCode: NetworkExceptions.getStatusCode(l), message: NetworkExceptions.getErrorTitle(l), errorMessage: NetworkExceptions.getErrorMessage(l));
         emit(state.copyWith(isLoading:  false,apiFailedModel: apiFailedModel,checkInResponseModel: null,checkoutResponseModel: null,isFailed: true,isCheckIn: false));
       },
       (r) {
+         Navigator.pop(context);
         emit(CheckinState.initial());
         emit(state.copyWith(checkoutResponseModel: r,isCheckOut: true,));
       },

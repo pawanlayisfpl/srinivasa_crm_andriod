@@ -13,6 +13,7 @@ import 'package:srinivasa_crm_new/src/features/Kyc/presentation/screens/kyc_pend
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/monthly_plan_dashboard_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/data/repo/sales_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/sales_dashboard_screen.dart';
+import 'package:workmanager/workmanager.dart';
 
 import '../../../../config/animations/routes/all_animate_routes.dart';
 import '../../../../config/config.dart';
@@ -129,7 +130,7 @@ class DashboardBodyWidget extends StatelessWidget {
               dashboardModel.iconName,
               textAlign: TextAlign.center,
               maxLines: 1,
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -165,11 +166,14 @@ class DashboardBodyWidget extends StatelessWidget {
       Navigator.push(context, SlideRightRoute(screen: const KycPendingScreen()));
 
       case 5:
-      // REPORTS
-            Fluttertoast.showToast(msg: 'Backend api not available');
+          Navigator.push(context, SlideRightRoute(screen: SalesOrderDashboardScreen()));
+
+    //  await   Workmanager().registerOneOffTask("2","background" );
+    // await Workmanager().registerPeriodicTask("backgroun", 'background',constraints: Constraints(networkType: NetworkType.connected,requiresBatteryNotLow: false,requiresDeviceIdle: false,requiresStorageNotLow: false,requiresCharging: false),frequency: const Duration(minutes: 15));
+    //   // REPORTS
+    //         Fluttertoast.showToast(msg: 'Backend api not available');
 
       case 6:
-          Navigator.push(context, SlideRightRoute(screen: SalesOrderDashboardScreen()));
 
      
 

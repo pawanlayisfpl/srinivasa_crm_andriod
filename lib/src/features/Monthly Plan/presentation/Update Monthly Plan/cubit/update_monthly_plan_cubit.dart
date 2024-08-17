@@ -207,7 +207,7 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
             .first
             .toString()),
         farmIds: state.createdDailyPlanList[i].customers!
-            .map((e) => e.customer?.customerCode ?? '')
+            .map((e) => e.customer?.farmId ?? '')
             .toList(),
       );
       generatedDailyPlanList.add(dailyPlan);

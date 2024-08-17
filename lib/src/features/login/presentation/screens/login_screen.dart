@@ -41,6 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return  Scaffold(
 
 appBar: AppBar(
+  automaticallyImplyLeading: false,
   title:CommonTextWidget(title: 'SRINIVASA CRM',fontWeight: FontWeight.w600,textColor: Colors.white,textSize: 22.sp,letterSpacing: 2,),
   centerTitle: true,
 ),

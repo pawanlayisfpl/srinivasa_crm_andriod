@@ -193,6 +193,7 @@ class CustomerCreateBodyWidget extends StatelessWidget {
                                 context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const CommonTextFieldHeadingWidget(title: "Farm Name",isRequired: true,) :     const SizedBox.shrink(),
                                    context.watch<CustomerCreateCubit>().state.isBusinessPartner == true ? const SizedBox.shrink() :     const CCFarmNameTextFieldWidget(),
                 context.watch<CustomerCreateCubit>().state.isBusinessPartner == true ? const SizedBox.shrink() :     20.verticalSpace,
+                20.verticalSpace,
          state.isSubmitting ? const CustomLoadingWidget() :     CommonButton(
                   callback: () async {
                     QuickAlert.show(

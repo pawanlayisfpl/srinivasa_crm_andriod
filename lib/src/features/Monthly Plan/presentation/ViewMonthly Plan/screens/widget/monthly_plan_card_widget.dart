@@ -31,7 +31,7 @@ class MonthlyPlanCardWidget extends StatelessWidget {
             )));
       },
       child: Container(
-        height: 0.2.sh,
+        height: 0.15.sh,
         width: 0.9.sw,
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(

@@ -114,10 +114,11 @@ class LoginBodyWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Checkbox.adaptive(
+                      activeColor: AppColors.primaryColor,
                       value: state.isRememberMe, onChanged: (bool? value) {
                         context.read<LoginCubit>().toggleisRememberMe();
                       } ),
-                   const CommonTextWidget(title: 'Remember me',textColor: AppColors.primaryColor,fontWeight: FontWeight.w500,)
+                   const CommonTextWidget(title: 'Remember me',textColor: Colors.black,fontWeight: FontWeight.w500,)
                   ],
                 ),
               ),
