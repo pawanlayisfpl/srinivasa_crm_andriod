@@ -33,6 +33,9 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
   final TextEditingController _approxController = TextEditingController();
   TextEditingController get approxController => _approxController;
 
+  DateTime foucsedDay = DateTime.now();
+
+
   // CLEAR ALL CONTROLLER
   void clearAllController() {
     _dateController.clear();
@@ -77,6 +80,8 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
             isMonhtlPlanLoaded: true,
             createdDailyPlanList:
                 r.dailyPlans == null ? [] : r.dailyPlans!));
+
+       
 
       },
     );

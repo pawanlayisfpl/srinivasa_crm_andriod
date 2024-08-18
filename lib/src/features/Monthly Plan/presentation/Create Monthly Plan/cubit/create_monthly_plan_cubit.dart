@@ -32,6 +32,10 @@ class CreateMonthlyPlanCubit extends Cubit<CreateMonthlyPlanState> {
   TextEditingController get kilometerTextEditingController => _kilometerTextEditingController;
   TextEditingController get dateTextEditingController => _dateTextEditingController;
 
+  DateTime focusedDate = DateTime.utc(DateTime.now().year, DateTime.now().month, 1);
+
+
+
 
 
   CreateMonthlyPlanCubit({
@@ -57,6 +61,13 @@ Future<void> getAllInitialValues() async {
 
 
 }
+
+setFocuedDate(DateTime dateTime) {
+
+  focusedDate = dateTime;
+}
+
+
 // GET ALL MONTHS LIST
 Future<void> getAllMonthsList({required String userId}) async {
   final data = await monthlyPlanRepo.getMonthlyPlanMonths(userId: userId);

@@ -24,10 +24,15 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
-    DateTime firstDayOfNextMonth = DateTime.utc(now.year, now.month + 1, 1);
-    DateTime lastDayOfNextMonth = DateTime.utc(now.year, now.month + 2, 0);
+    // DateTime firstDayOfNextMonth = DateTime.utc(now.year, now.month + 1, 1);
+    // DateTime lastDayOfNextMonth = DateTime.utc(now.year, now.month + 2, 0);
+    // First day of the current month
+    DateTime firstDayOfCurrentMonth = DateTime.utc(now.year, now.month, 1);
+    
+    // Last day of December in the current year
+    DateTime lastDayOfYear = DateTime.utc(now.year, 12, 31);
     DateTime focusedDay =
-        firstDayOfNextMonth; 
+        firstDayOfCurrentMonth; 
 
     return SafeArea(
       child: BlocBuilder<CreateMonthlyPlanCubit, CreateMonthlyPlanState>(
@@ -49,9 +54,10 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                       outsideDaysVisible: false,
                     ),
                     formatAnimationDuration: const Duration(milliseconds: 300),
-                    firstDay: firstDayOfNextMonth,
-                    lastDay: lastDayOfNextMonth,
-                    focusedDay: focusedDay,
+                    firstDay: firstDayOfCurrentMonth,
+                    lastDay: lastDayOfYear,
+                    // focusedDay: focusedDay,
+                    focusedDay: context.watch<CreateMonthlyPlanCubit>().focusedDate,
                     enabledDayPredicate: (day) => day.weekday != DateTime.sunday,
                     headerStyle: const HeaderStyle(
                       formatButtonVisible: false,
@@ -164,6 +170,7 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
     );
   }
     Future<void> handleDaySelection(DateTime selectedDay, BuildContext context) async {
+      context.read<CreateMonthlyPlanCubit>().setFocuedDate(selectedDay);
        context
                   .read<CreateMonthlyPlanCubit>()
                   .onDateFieldChange(dateField: selectedDay.toString());

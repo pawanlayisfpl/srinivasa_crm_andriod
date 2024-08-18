@@ -17,7 +17,7 @@ class LoginPasswordTextfieldWidget extends StatelessWidget {
         return CommonTextfield(
         
 
-          textInputType: TextInputType.visiblePassword,
+          textInputType: TextInputType.text,
           textEditingController: context.watch<LoginCubit>().passwordController, onChanged: (String? value) {
           if(value != null) {
             context.read<LoginCubit>().passwordChanged(value);

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -43,7 +44,7 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
     WidgetsBinding.instance.addPostFrameCallback((c) async {
       context.read<MarkAttendanceCubit>().getLastPunchInOutData();
       context.read<ProfileCubit>().getLocalProfile();
-      checkingPermissions();
+      // checkingPermissions();
   
     });
   }
@@ -59,21 +60,34 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
       // Permission.storage,
       // Add other iOS-specific permissions if needed
     ].request();
-  } else {
-    statuses = await [
-      Permission.location,
+  } else if(Platform.isAndroid) {
+ statuses = await [
       Permission.storage,
+
+      Permission.location,
       Permission.locationWhenInUse,
       Permission.ignoreBatteryOptimizations,
       // Add other Android-specific permissions if needed
     ].request();
   }
+  else {
+    statuses = {};
+   
+  }
+
   // Check if all permissions are granted
   if (statuses.values.every((status) => status.isGranted)) {
     log("All permissions granted");
   } else {
     log("Not all permissions were granted");
-  
+
+
+  // Log which permissions were not granted
+  statuses.forEach((permission, status) {
+    if (!status.isGranted) {
+      log('Permission not granted: $permission');
+    }
+  });
     // Handle the case where permissions are not granted
 
     // Show a dialog to request permissions
@@ -248,14 +262,16 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
                                       punchInPostModel: punchInPostModel);
                            }
                             } else {
-                              // PUNCH OUT LOGICE
-                               final locationServicesss = locator.get<CommonLocationServices>();
+                                  PermissionStatus status = await Permission.location.request();
+
+                                  if(status.isGranted) {
+  final locationServicesss = locator.get<CommonLocationServices>();
                               Position position = await locationServicesss.getUserCurrentPosition();
                               double lat = position.latitude;
                               double long = position.longitude;
                               log(lat.toString());
                               log(long.toString());
-                              PunchoutPostModel punchoutPostModel =
+                               PunchoutPostModel punchoutPostModel =
                                   PunchoutPostModel(
                                       latitude: lat.toString(), longitude:long.toString());
                               if(context.mounted) {
@@ -264,6 +280,15 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
                                   .punchOutLogic(
                                       punchoutPostModel: punchoutPostModel);
                               }
+
+                                  }else {
+                                    await Permission.location.request();
+                                  }
+
+
+
+                             
+                             
                             }
                           },
                           title: state.lastPunchInResponseModel != null &&

@@ -53,7 +53,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Checkin'),
+        title:  const Text('Checkin'),
       ),
       body: BlocListener<CheckinCubit, CheckinState>(
         listener: (context, state) {
@@ -94,7 +94,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
               ),
               const Divider(),
               10.verticalSpace,
-              CheckinEmployeDropdownWidget(),
+             const  CheckinEmployeDropdownWidget(),
               20.verticalSpace,
               CommonTextfield(
                 textEditingController: _remarksController,

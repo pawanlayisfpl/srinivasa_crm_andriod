@@ -6,17 +6,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/shared/widgets/common_drawer_widget.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/widgets/dashboard_body_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Location%20Tracking/presentations/native_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
-import 'package:workmanager/workmanager.dart';
 
-import '../../../../../shared/data/repo/work_manager_services.dart';
 import '../../../../config/config.dart';
 import '../../../../core/core.dart';
 import '../../../mark attendance/domain/domain.dart';
@@ -46,65 +47,130 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     
-  void _showLogoutDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          title: const Text('Are you sure you want to Logout?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // CANCEL button action
-              },
-              child: const Text(
-                'CANCEL',
-                style: TextStyle(color: AppColors.primaryColor),
+//   void showLogoutDialog(BuildContext context) {
+//     showDialog(
+//       context: context,
+//       builder: (BuildContext context) {
+//         return AlertDialog(
+//           backgroundColor: Colors.white,
+//           title: const Text('Are you sure you want to Logout?'),
+//           actions: [
+//             TextButton(
+//               onPressed: () {
+//                 Navigator.of(context).pop(); // CANCEL button action
+//               },
+//               child: const Text(
+//                 'CANCEL',
+//                 style: TextStyle(color: AppColors.primaryColor),
+//               ),
+//             ),
+//             ElevatedButton(
+//               onPressed: () async {
+//                     Navigator.of(context).pop();
+
+
+//                 if(Platform.isAndroid) {
+//                    const platform = MethodChannel('com.example.srinivasa_crm_new');
+//               await  platform.invokeMethod('stop');
+//                 }
+                      
+               
+//                 final localstorge = locator.get<KeyValueStorage>();
+//                 final locationservices = locator.get<CommonLocationServices>();
+//                 final postion = await locationservices.getUserCurrentPosition();
+    
+//                 // await Workmanager().cancelAll();
+//                 PunchoutPostModel punchoutPostModel = PunchoutPostModel(latitude: postion.latitude.toString(), longitude: postion.longitude.toString());
+//          await context.read<MarkAttendanceCubit>().punchOutLogic(punchoutPostModel: punchoutPostModel, isLogoutClicked: true);
+//               await  localstorge.sharedPreferences.clear();
+//            Fluttertoast.showToast(msg: "All Background services stopped");
+//  await Navigator.pushNamedAndRemoveUntil(
+//                     context, Routes.loginScreen, (route) => false);             
+               
+              
+//               },
+//               child: const Text('Yes',
+//                   style: TextStyle(
+//                       color: AppColors.primaryColor,
+//                       fontWeight: FontWeight.bold)),
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
+
+void showLogoutDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: Colors.white,
+        title: const Text('Are you sure you want to Logout?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // CANCEL button action
+            },
+            child: const Text(
+              'CANCEL',
+              style: TextStyle(color: AppColors.primaryColor),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              // Close the dialog immediately
+              Navigator.of(context).pop();
+
+              // Perform logout logic asynchronously
+              if (Platform.isAndroid) {
+                const platform = MethodChannel('com.example.srinivasa_crm_new');
+                await platform.invokeMethod('stop');
+              }
+
+              final localStorage = locator.get<KeyValueStorage>();
+              final locationServices = locator.get<CommonLocationServices>();
+              final position = await locationServices.getUserCurrentPosition();
+
+              PunchoutPostModel punchoutPostModel = PunchoutPostModel(
+                latitude: position.latitude.toString(),
+                longitude: position.longitude.toString(),
+              );
+
+              // Check if the context is still mounted before using it
+              if (context.mounted) {
+                await context.read<MarkAttendanceCubit>().punchOutLogic(
+                  punchoutPostModel: punchoutPostModel,
+                  isLogoutClicked: true,
+                );
+              }
+
+              await localStorage.sharedPreferences.clear();
+              Fluttertoast.showToast(msg: "All Background services stopped");
+
+              // Check again if the context is still mounted before navigating
+              if (context.mounted) {
+                await Navigator.pushNamedAndRemoveUntil(
+                  context, Routes.loginScreen, (route) => false,
+                );
+              }
+            },
+            child: const Text(
+              'Yes',
+              style: TextStyle(
+                color: AppColors.primaryColor,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            ElevatedButton(
-              onPressed: () async {
+          ),
+        ],
+      );
+    },
+  );
+}
 
-                if(Platform.isAndroid) {
-                   const platform = MethodChannel('com.example.srinivasa_crm_new');
-                platform.invokeMethod('stop');
-                }
-                      
-                // Handle LOGOUT button action
-                // You can add your logout logic here
-                final localstorge = locator.get<KeyValueStorage>();
-                final locationservices = locator.get<CommonLocationServices>();
-                final postion = await locationservices.getUserCurrentPosition();
-    
-                // await Workmanager().cancelAll();
-                PunchoutPostModel punchoutPostModel = PunchoutPostModel(latitude: postion.latitude.toString(), longitude: postion.longitude.toString());
-          if(context.mounted) {
-                await context.read<MarkAttendanceCubit>().punchOutLogic(punchoutPostModel: punchoutPostModel, isLogoutClicked: true);
-
-          }              
-                Fluttertoast.showToast(msg: "All Background services stopped");
-              await  localstorge.sharedPreferences.clear();
-
-              if(context.mounted) {
-                Navigator.of(context).pop(); // Close the dialog
-
-              }
-                if(context.mounted) {
-                   Navigator.pushNamedAndRemoveUntil(
-                    context, Routes.loginScreen, (route) => false);
-                }
-              },
-              child: const Text('Yes',
-                  style: TextStyle(
-                      color: AppColors.primaryColor,
-                      fontWeight: FontWeight.bold)),
-            ),
-          ],
-        );
-      },
-    );
-  }
+   
+   
     return PopScope(
       onPopInvoked: (bool? val) async{
         showDialog(
@@ -142,7 +208,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 // Fluttertoast.showToast(msg: "Sync list clicked");
               
               } else if (value == "2") {
-                _showLogoutDialog(context);
+                // showLogoutDialog(context);
+                QuickAlert.show(context: context, type: QuickAlertType.confirm, title: "Logout",text: "Are you sure?",confirmBtnText: "Yes",confirmBtnColor: Colors.black,onConfirmBtnTap: () {
+                  context.read<ProfileCubit>().logout(context: context);
+      
+    });
               }
             },
             itemBuilder: (BuildContext context) => [
@@ -174,27 +244,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
   
   checkingPermissions() async  {
-  //   Future<void> requestPermissions() async {
-  //   Map<Permission, PermissionStatus> statuses = await [
-  //     Permission.location,
-  //     Permission.storage,
-
-  //     Permission.locationWhenInUse,
-  //     Permission.ignoreBatteryOptimizations,
-
-  //     // Add other permissions required by your app
-  //   ].request();
-
-  //   // Check if all permissions are granted
-  //   if (statuses.values.every((status) => status.isGranted)) {
-  //     log("All permissions granted");
-  //   } else {
-  //     log("Not all permissions were granted");
-  //     // Handle the case where permissions are not granted
-  //     // here add the code to ask for persmission for storage and location
-
-  //   }
-  // }
+ 
   Future<void> requestPermissions(BuildContext context) async {
     Map<Permission, PermissionStatus> statuses;
 

@@ -31,7 +31,7 @@ import 'package:srinivasa_crm_new/shared/data/datasource/remote/Zone/zone_remote
 import 'package:srinivasa_crm_new/shared/data/repo/address_repo_impl.dart'
     as _i60;
 import 'package:srinivasa_crm_new/shared/data/repo/divisions_repo_impl.dart'
-    as _i51;
+    as _i52;
 import 'package:srinivasa_crm_new/shared/data/repo/employe_repo_impl.dart'
     as _i76;
 import 'package:srinivasa_crm_new/shared/data/repo/primary_source_repo_impl.dart'
@@ -42,7 +42,7 @@ import 'package:srinivasa_crm_new/shared/data/repo/zone_repo_impl.dart' as _i62;
 import 'package:srinivasa_crm_new/shared/domain/repo/Address/address_repo.dart'
     as _i59;
 import 'package:srinivasa_crm_new/shared/domain/repo/Divisions/divison_repo.dart'
-    as _i50;
+    as _i51;
 import 'package:srinivasa_crm_new/shared/domain/repo/Employe/employe_repo.dart'
     as _i75;
 import 'package:srinivasa_crm_new/shared/domain/repo/Primary%20Source/primary_source_repo.dart'
@@ -105,7 +105,7 @@ import 'package:srinivasa_crm_new/src/features/Kyc/data/repo/kyc_repo_impl.dart'
 import 'package:srinivasa_crm_new/src/features/Kyc/domain/repo/kyc_repo.dart'
     as _i37;
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/cubit/kyc_cubit.dart'
-    as _i49;
+    as _i50;
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/Kyc%20Upload/cubit/kyc_upload_cubit.dart'
     as _i63;
 import 'package:srinivasa_crm_new/src/features/login/data/data%20source/remote/login_remote_datasource.dart'
@@ -157,7 +157,7 @@ import 'package:srinivasa_crm_new/src/features/Profile/data/repo/profile_repo_im
 import 'package:srinivasa_crm_new/src/features/Profile/domain/repo/profile_repo.dart'
     as _i39;
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart'
-    as _i52;
+    as _i49;
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/data/repo/sales_repo.dart'
     as _i22;
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/sales_order_create_cubit.dart'
@@ -307,11 +307,14 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i46.SearchCustomerCubit(gh<_i44.CustomerRepo>()));
     gh.factory<_i47.PurposeRepo>(() => _i48.PurposeRepoImpl(
         purposeRemoteDatasource: gh<_i32.PurposeRemoteDatasource>()));
-    gh.factory<_i49.KycCubit>(() => _i49.KycCubit(gh<_i37.KycRepo>()));
-    gh.factory<_i50.DivisionRepo>(() =>
-        _i51.DivisionRepoimpl(dataSource: gh<_i30.DivisonsRemoteDataSource>()));
-    gh.factory<_i52.ProfileCubit>(
-        () => _i52.ProfileCubit(profileRepo: gh<_i39.ProfileRepo>()));
+    gh.factory<_i49.ProfileCubit>(() => _i49.ProfileCubit(
+          profileRepo: gh<_i39.ProfileRepo>(),
+          commonLocationServices: gh<_i17.CommonLocationServices>(),
+          keyValueStorage: gh<_i21.KeyValueStorage>(),
+        ));
+    gh.factory<_i50.KycCubit>(() => _i50.KycCubit(gh<_i37.KycRepo>()));
+    gh.factory<_i51.DivisionRepo>(() =>
+        _i52.DivisionRepoimpl(dataSource: gh<_i30.DivisonsRemoteDataSource>()));
     gh.factory<_i53.EmployeDataSource>(() => _i53.EmployeRemoteDatasourceImpl(
           dioClient: gh<_i21.DioClient>(),
           keyValueStorage: gh<_i21.KeyValueStorage>(),
@@ -381,7 +384,7 @@ extension GetItInjectableX on _i1.GetIt {
           addressRepo: gh<_i59.AddressRepo>(),
           zoneRepo: gh<_i61.ZoneRepo>(),
           customerRepo: gh<_i44.CustomerRepo>(),
-          divisionRepo: gh<_i50.DivisionRepo>(),
+          divisionRepo: gh<_i51.DivisionRepo>(),
         ));
     gh.factory<_i82.CreateMonthlyPlanCubit>(() => _i82.CreateMonthlyPlanCubit(
           monthlyPlanRepo: gh<_i64.MonthlyPlanRepo>(),
