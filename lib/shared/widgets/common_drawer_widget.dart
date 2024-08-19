@@ -138,7 +138,7 @@ class ReusableListTileWidget extends StatelessWidget {
     return ListTile(
 
                 leading: Icon(icon),
-                title: CommonTextWidget(title: title),
+                title: CommonTextWidget(title: title,maxLines: 2,),
                 subtitle:subTitleText != null ? CommonTextWidget(title:  subTitleText ?? ""  ,textColor: Colors.black.withOpacity(0.6),fontWeight: FontWeight.w500,) : null,
               );
   }

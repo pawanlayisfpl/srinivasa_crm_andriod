@@ -59,7 +59,7 @@ class _SalesProductFormScreenState extends State<SalesProductFormScreen> {
                   20.verticalSpace,
                   const CustomHeadingTextWidget(title: 'Product Name'),
                   2.verticalSpace,
-                  const SocProductDropDown(),
+               context.watch<SalesOrderCreateCubit>().state.isCustomerLoading ? const DropdownLoadingWidget() :   const  SocProductDropDown(),
                   20.verticalSpace,
                         
                   const CustomHeadingTextWidget(title: 'Rate'),

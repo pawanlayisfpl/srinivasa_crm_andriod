@@ -55,6 +55,7 @@ mixin _$SalesOrderCreateState {
       throw _privateConstructorUsedError;
   CustomerCodeModel? get selectedCustomerModel =>
       throw _privateConstructorUsedError;
+  bool get isCustomerLoading => throw _privateConstructorUsedError;
   List<ProductFormModel> get productFormList =>
       throw _privateConstructorUsedError;
   List<ProductPendingFormModel> get pendingFormList =>
@@ -104,6 +105,7 @@ abstract class $SalesOrderCreateStateCopyWith<$Res> {
       bool showInputError,
       List<CustomerCodeModel> customerList,
       CustomerCodeModel? selectedCustomerModel,
+      bool isCustomerLoading,
       List<ProductFormModel> productFormList,
       List<ProductPendingFormModel> pendingFormList});
 
@@ -156,6 +158,7 @@ class _$SalesOrderCreateStateCopyWithImpl<$Res,
     Object? showInputError = null,
     Object? customerList = null,
     Object? selectedCustomerModel = freezed,
+    Object? isCustomerLoading = null,
     Object? productFormList = null,
     Object? pendingFormList = null,
   }) {
@@ -288,6 +291,10 @@ class _$SalesOrderCreateStateCopyWithImpl<$Res,
           ? _value.selectedCustomerModel
           : selectedCustomerModel // ignore: cast_nullable_to_non_nullable
               as CustomerCodeModel?,
+      isCustomerLoading: null == isCustomerLoading
+          ? _value.isCustomerLoading
+          : isCustomerLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       productFormList: null == productFormList
           ? _value.productFormList
           : productFormList // ignore: cast_nullable_to_non_nullable
@@ -354,6 +361,7 @@ abstract class _$$SalesOrderCreateStateImplCopyWith<$Res>
       bool showInputError,
       List<CustomerCodeModel> customerList,
       CustomerCodeModel? selectedCustomerModel,
+      bool isCustomerLoading,
       List<ProductFormModel> productFormList,
       List<ProductPendingFormModel> pendingFormList});
 
@@ -405,6 +413,7 @@ class __$$SalesOrderCreateStateImplCopyWithImpl<$Res>
     Object? showInputError = null,
     Object? customerList = null,
     Object? selectedCustomerModel = freezed,
+    Object? isCustomerLoading = null,
     Object? productFormList = null,
     Object? pendingFormList = null,
   }) {
@@ -537,6 +546,10 @@ class __$$SalesOrderCreateStateImplCopyWithImpl<$Res>
           ? _value.selectedCustomerModel
           : selectedCustomerModel // ignore: cast_nullable_to_non_nullable
               as CustomerCodeModel?,
+      isCustomerLoading: null == isCustomerLoading
+          ? _value.isCustomerLoading
+          : isCustomerLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       productFormList: null == productFormList
           ? _value._productFormList
           : productFormList // ignore: cast_nullable_to_non_nullable
@@ -586,6 +599,7 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
       this.showInputError = false,
       final List<CustomerCodeModel> customerList = const [],
       this.selectedCustomerModel = null,
+      this.isCustomerLoading = false,
       final List<ProductFormModel> productFormList = const [],
       final List<ProductPendingFormModel> pendingFormList = const []})
       : _productsList = productsList,
@@ -726,6 +740,9 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
   @override
   @JsonKey()
   final CustomerCodeModel? selectedCustomerModel;
+  @override
+  @JsonKey()
+  final bool isCustomerLoading;
   final List<ProductFormModel> _productFormList;
   @override
   @JsonKey()
@@ -746,7 +763,7 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
 
   @override
   String toString() {
-    return 'SalesOrderCreateState(originalTotalAmountValue: $originalTotalAmountValue, totalPendingAmountValue: $totalPendingAmountValue, remainingPercentage: $remainingPercentage, productsList: $productsList, selectedProductModel: $selectedProductModel, selectedProductList: $selectedProductList, isProductLoading: $isProductLoading, isUomLoading: $isUomLoading, uomList: $uomList, isSuccess: $isSuccess, selectedUomModel: $selectedUomModel, remarksToAssignedField: $remarksToAssignedField, productDetailsPostModelList: $productDetailsPostModelList, customerCodeField: $customerCodeField, orderAmountField: $orderAmountField, orderGstAmountField: $orderGstAmountField, orderTotalAmountField: $orderTotalAmountField, orderTotalDiscountField: $orderTotalDiscountField, amountPaidField: $amountPaidField, paymentModeList: $paymentModeList, selectedPaymentModeModel: $selectedPaymentModeModel, balanceAmountField: $balanceAmountField, balanceAmountDueDateField: $balanceAmountDueDateField, orderRemarksField: $orderRemarksField, assignedToRemarks: $assignedToRemarks, paymentsDetailsList: $paymentsDetailsList, isSubmitting: $isSubmitting, isInitialLoading: $isInitialLoading, apiFailedModel: $apiFailedModel, showInputError: $showInputError, customerList: $customerList, selectedCustomerModel: $selectedCustomerModel, productFormList: $productFormList, pendingFormList: $pendingFormList)';
+    return 'SalesOrderCreateState(originalTotalAmountValue: $originalTotalAmountValue, totalPendingAmountValue: $totalPendingAmountValue, remainingPercentage: $remainingPercentage, productsList: $productsList, selectedProductModel: $selectedProductModel, selectedProductList: $selectedProductList, isProductLoading: $isProductLoading, isUomLoading: $isUomLoading, uomList: $uomList, isSuccess: $isSuccess, selectedUomModel: $selectedUomModel, remarksToAssignedField: $remarksToAssignedField, productDetailsPostModelList: $productDetailsPostModelList, customerCodeField: $customerCodeField, orderAmountField: $orderAmountField, orderGstAmountField: $orderGstAmountField, orderTotalAmountField: $orderTotalAmountField, orderTotalDiscountField: $orderTotalDiscountField, amountPaidField: $amountPaidField, paymentModeList: $paymentModeList, selectedPaymentModeModel: $selectedPaymentModeModel, balanceAmountField: $balanceAmountField, balanceAmountDueDateField: $balanceAmountDueDateField, orderRemarksField: $orderRemarksField, assignedToRemarks: $assignedToRemarks, paymentsDetailsList: $paymentsDetailsList, isSubmitting: $isSubmitting, isInitialLoading: $isInitialLoading, apiFailedModel: $apiFailedModel, showInputError: $showInputError, customerList: $customerList, selectedCustomerModel: $selectedCustomerModel, isCustomerLoading: $isCustomerLoading, productFormList: $productFormList, pendingFormList: $pendingFormList)';
   }
 
   @override
@@ -811,6 +828,7 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
             (identical(other.showInputError, showInputError) || other.showInputError == showInputError) &&
             const DeepCollectionEquality().equals(other._customerList, _customerList) &&
             (identical(other.selectedCustomerModel, selectedCustomerModel) || other.selectedCustomerModel == selectedCustomerModel) &&
+            (identical(other.isCustomerLoading, isCustomerLoading) || other.isCustomerLoading == isCustomerLoading) &&
             const DeepCollectionEquality().equals(other._productFormList, _productFormList) &&
             const DeepCollectionEquality().equals(other._pendingFormList, _pendingFormList));
   }
@@ -850,6 +868,7 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
         showInputError,
         const DeepCollectionEquality().hash(_customerList),
         selectedCustomerModel,
+        isCustomerLoading,
         const DeepCollectionEquality().hash(_productFormList),
         const DeepCollectionEquality().hash(_pendingFormList)
       ]);
@@ -896,6 +915,7 @@ abstract class _SalesOrderCreateState implements SalesOrderCreateState {
           final bool showInputError,
           final List<CustomerCodeModel> customerList,
           final CustomerCodeModel? selectedCustomerModel,
+          final bool isCustomerLoading,
           final List<ProductFormModel> productFormList,
           final List<ProductPendingFormModel> pendingFormList}) =
       _$SalesOrderCreateStateImpl;
@@ -964,6 +984,8 @@ abstract class _SalesOrderCreateState implements SalesOrderCreateState {
   List<CustomerCodeModel> get customerList;
   @override
   CustomerCodeModel? get selectedCustomerModel;
+  @override
+  bool get isCustomerLoading;
   @override
   List<ProductFormModel> get productFormList;
   @override

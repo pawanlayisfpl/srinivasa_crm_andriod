@@ -387,11 +387,12 @@ void onDiscountPerPercentageChanged() {
 
 // GET ALL CUSTOMERS
   Future<void> getAllCustomer() async {
+    emit(state.copyWith(isCustomerLoading: true));
     final results = await customerRepo.getApprovedCustomerList();
     results.fold((l) {
-      emit(state.copyWith(apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),customerList: [],selectedCustomerModel: null,));
+      emit(state.copyWith(apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),customerList: [],selectedCustomerModel: null,isCustomerLoading: false));
     }, (r) {
-      emit(state.copyWith(customerList:r));
+      emit(state.copyWith(customerList:r,isCustomerLoading: false));
     });
     
   }

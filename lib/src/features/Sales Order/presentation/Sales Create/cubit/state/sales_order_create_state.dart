@@ -50,6 +50,7 @@ class SalesOrderCreateState with _$SalesOrderCreateState {
   @Default(false) bool showInputError,
   @Default([]) List<CustomerCodeModel> customerList,
   @Default(null) CustomerCodeModel? selectedCustomerModel,
+  @Default(false) bool isCustomerLoading,
   @Default([]) List<ProductFormModel> productFormList,
   @Default([]) List<ProductPendingFormModel> pendingFormList,
   }) = _SalesOrderCreateState;
