@@ -14,6 +14,7 @@ import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_state.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/widgets/checkin_employe_dropdown_widget.dart';
@@ -141,7 +142,9 @@ class _CheckinScreenState extends State<CheckinScreen> {
                         if (context.mounted) {
                           await context
                               .read<CheckinCubit>()
-                              .checkInLogic(checkInPostModel: checkInPostModel);
+                              .checkInLogic(checkInPostModel: checkInPostModel,successCallback: () async {
+                                context.read<AllCustomerCubit>().getAllCustomer();
+                              });
                         }
           
           // if (lastCheckinTimeString != null) {

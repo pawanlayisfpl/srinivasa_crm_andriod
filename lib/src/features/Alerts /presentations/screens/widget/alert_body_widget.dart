@@ -17,7 +17,7 @@ class AlertBodyWidget extends StatelessWidget {
       },
       builder: (context, state) {
         return
-        state.isLoading == true ? AlertLoadingWidget() : AlertLoadedWidget(alertsList: state.alertsList);
+        state.isLoading == true ? const AlertLoadingWidget() : AlertLoadedWidget(alertsList: state.alertsList);
         // state.when(initial: () => const AlertLoadingWidget(), loading: () => const AlertLoadingWidget(), loaded: (data) => AlertLoadedWidget(alertsList: data,), error: (error ) => AlertErrorWidget(apiFailedModel: error));
       },
     );

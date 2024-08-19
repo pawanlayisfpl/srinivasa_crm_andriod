@@ -39,6 +39,7 @@ class Farm {
   String? custStatus;
   bool? isOrganization;
   bool? isIndividual;
+  bool? checkInStatus;
 
   Farm(
       {this.farmName,
@@ -59,6 +60,7 @@ class Farm {
       this.custCreditLimit,
       this.custStatus,
       this.isOrganization,
+      this.checkInStatus,
       this.isIndividual});
 
   Farm.fromJson(Map<String, dynamic> json) {
@@ -81,6 +83,7 @@ class Farm {
     custStatus = json['custStatus'];
     isOrganization = json['isOrganization'];
     isIndividual = json['isIndividual'];
+    checkInStatus = json["checkInStatus"];
   }
 
   Map<String, dynamic> toJson() {
@@ -104,6 +107,7 @@ class Farm {
     data['custStatus'] = this.custStatus;
     data['isOrganization'] = this.isOrganization;
     data['isIndividual'] = this.isIndividual;
+    data['checkInStatus'] = this.checkInStatus;
     return data;
   }
 }

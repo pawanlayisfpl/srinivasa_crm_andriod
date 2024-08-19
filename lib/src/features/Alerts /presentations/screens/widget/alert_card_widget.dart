@@ -82,15 +82,19 @@ class AlertCardWidget extends StatelessWidget {
                     id: alertModel.monthlyPlanId,
                   )));
                   break;
-                  case AppStrings.approved:
+                  case AppStrings.approved: 
                   context.read<ViewMonthlyPlanCubit>().managerClickedFalse();
                   context.read<ViewMonthlyPlanCubit>().resetAlertModelValue();
                   Navigator.push(context, SlideLeftRoute(screen: ViewMonthlyPlanScreen(monthlyPlanId: alertModel.monthlyPlanId,)));
                   break;
-                  case AppStrings.created:
-                  context.read<ViewMonthlyPlanCubit>().managerClickTrue();
+                  case AppStrings.created :
+                  if(alertModel.type == "CREATED") {
+                    context.read<ViewMonthlyPlanCubit>().managerClickTrue();
                                 context.read<ViewMonthlyPlanCubit>().setAlertModelValue(alertModel);
-                      
+
+                  }
+                  
+                       
                       
                   Navigator.push(context, SlideLeftRoute(screen: ViewMonthlyPlanScreen(monthlyPlanId: alertModel.monthlyPlanId, )));
                   break;

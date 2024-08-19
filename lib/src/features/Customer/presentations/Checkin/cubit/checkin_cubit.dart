@@ -3,6 +3,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:quickalert/quickalert.dart';
@@ -19,6 +20,7 @@ import '../../../../../../shared/domain/model/Purpose/purpose_model.dart';
 import '../../../../../core/model/model.dart';
 import '../../../domain/model/post/checkin_post_model.dart';
 import '../../../domain/model/post/checkout_post_model.dart';
+import '../../All Customers/cubit/all_customer_cubit.dart';
 
 @injectable
 class CheckinCubit extends Cubit<CheckinState> {
@@ -48,7 +50,7 @@ class CheckinCubit extends Cubit<CheckinState> {
 
   // CHECKIN
 
-  Future<void> checkInLogic({required CheckinPostModel checkInPostModel}) async {
+  Future<void> checkInLogic({required CheckinPostModel checkInPostModel,required VoidCallback successCallback})async {
     emit(state.copyWith(isLoading: true,apiFailedModel: null,checkInResponseModel: null,checkoutResponseModel: null,isFailed: false,isCheckIn: false));
     final result = await customerRepo.checkIn(checkinPostModel: checkInPostModel);
     result.fold(
@@ -57,9 +59,10 @@ class CheckinCubit extends Cubit<CheckinState> {
            emit(state.copyWith(isLoading: false,apiFailedModel: apiFailedModel,checkInResponseModel: null,checkoutResponseModel: null,isFailed: true,isCheckIn: false));
 
       },
-      (r) {
+      (r) async {
         emit(state.copyWith(isLoading: false,apiFailedModel: null,checkInResponseModel: r,isCheckIn: true));
         lastCheckinCheckoutLogic(customerId: checkInPostModel.customerid.toString(),farmId: checkInPostModel.farmId.toString());
+        successCallback();
       },
     );
   }
@@ -76,10 +79,11 @@ class CheckinCubit extends Cubit<CheckinState> {
         ApiFailedModel apiFailedModel = ApiFailedModel(statusCode: NetworkExceptions.getStatusCode(l), message: NetworkExceptions.getErrorTitle(l), errorMessage: NetworkExceptions.getErrorMessage(l));
         emit(state.copyWith(isLoading:  false,apiFailedModel: apiFailedModel,checkInResponseModel: null,checkoutResponseModel: null,isFailed: true,isCheckIn: false));
       },
-      (r) {
+      (r) async {
          Navigator.pop(context);
         emit(CheckinState.initial());
         emit(state.copyWith(checkoutResponseModel: r,isCheckOut: true,));
+         await context.read<AllCustomerCubit>().getAllCustomer();
       },
     );
   }
