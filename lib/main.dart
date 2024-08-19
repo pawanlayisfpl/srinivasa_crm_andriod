@@ -102,7 +102,7 @@ class MyApp extends StatelessWidget {
           ScreenUtil.init(context,
               designSize: const Size(390, 844),
               minTextAdapt: true,
-              splitScreenMode: true);
+              splitScreenMode: true); 
           return MediaQuery(
               data: MediaQuery.of(context)
                   .copyWith(textScaler: TextScaler.linear(1.0.sp)),

@@ -15,6 +15,7 @@ import 'package:srinivasa_crm_new/src/features/Kyc/presentation/Kyc%20Upload/scr
 
 import '../../../../domain/model/customer_kyu_model.dart';
 import '../../cubit/kyc_upload_state.dart';
+import 'pancard_image_widget.dart';
 
 class KycUploadBodyWidget extends StatelessWidget {
   final CustomerKycModel? customerKycModel;
@@ -183,7 +184,7 @@ class KycUploadBodyWidget extends StatelessWidget {
                 } : null,
                 child: Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(6),
+                  padding: const EdgeInsets.all(6),
                   height: 0.2.sh,
                   width: 0.9.sw,
                   decoration: BoxDecoration(
@@ -191,24 +192,25 @@ class KycUploadBodyWidget extends StatelessWidget {
                     border: Border.all(color: Colors.black,width: 1)),
                   child: context.watch<KycUploadCubit>().state.gstFile != null ? Stack(
                     children: [
+                      PancardImageWidget(),
 
-                      Image.memory(context.read<KycUploadCubit>().state.gstFile!.imageByes),
-                      GestureDetector(
-                        onTap: () {
+                      // Image.memory(context.read<KycUploadCubit>().state.gstFile!.imageByes,fit: BoxFit.cover,),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: GestureDetector(
+                            onTap: () {
                           context.read<KycUploadCubit>().removeGstFile();
                         },
-                        child: Positioned(
-                          top: 0,
-                          right: 0,
-                          child: CircleAvatar(
+                          child: const CircleAvatar(
                             backgroundColor: Colors.red,
-                            child: Icon(Icons.delete,color: Colors.white,))),
-                      )
+                            child: Icon(Icons.delete,color: Colors.white,)),
+                        ))
                     ],
                   ) : Column(crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,children: [
-                    CommonTextWidget(title: 'Upload Gst File',textColor: Colors.grey,),
+                    const CommonTextWidget(title: 'Upload Gst File',textColor: Colors.grey,),
                     5.verticalSpace,
-                    Icon(Icons.upload),
+                    const Icon(Icons.upload),
                   ],),
                 ),
               ),

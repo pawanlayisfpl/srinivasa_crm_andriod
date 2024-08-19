@@ -309,7 +309,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             onTap: () {
                               HapticFeedback.lightImpact();
                               Navigator.push(context, ScaleRoute(screen: ImageFullScreen(bytes: context
-                                        .watch<CheckinCubit>()
+                                        .read<CheckinCubit>()
                                         .state
                                         .imageLists[i]
                                         .imageByes,)));

@@ -5,6 +5,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Cust
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/customer_create_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Search/presentation/screens/customer_search_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/customer_dashboard_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Location%20Tracking/test_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/create_monthly_plan_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/sales_dashboard_screen.dart';
 import 'package:srinivasa_crm_new/src/features/login/presentation/screens/login_screen.dart';
@@ -63,6 +64,8 @@ class Routes {
   // MONTHLY PLAN
   static const String monthlyPlanScreen = '/monthlyPlanScreen';
   static const String monthlyPlanCreate = '/monthlyPlanCreate';
+  // kyc screen
+  static const String kycUploadScreen = '/kycUploadScreen';
   // TEST SCREEN
   static const String testScreen = '/testScreen';
 }
@@ -93,6 +96,8 @@ class RouteGenerator {
         // SALES ORDER PLAN
              case Routes.salesOrderDashboardScreen:
         return MaterialPageRoute(builder: (_) =>   SalesOrderDashboardScreen());
+             case Routes.testScreen:
+        return MaterialPageRoute(builder: (_) =>   TestScreen());
 
   
 
