@@ -39,18 +39,17 @@ class ViewMonthlyPlanModel {
     return data;
   }
 }
-
 class User {
   int? id;
   String? userName;
-  String? designation;
+  List<String>? designation;
 
   User({this.id, this.userName, this.designation});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userName = json['userName'];
-    designation = json['designation'];
+    designation = json['designation'] != null ? List<String>.from(json['designation']) : null;
   }
 
   Map<String, dynamic> toJson() {

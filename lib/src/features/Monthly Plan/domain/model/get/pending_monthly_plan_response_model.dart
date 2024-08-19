@@ -44,11 +44,10 @@ class PendingMonthlyPlan {
     };
   }
 }
-
 class UserDTO {
   final int? id;
   final String? userName;
-  final String? designation;
+  final List<String>? designation;
 
   UserDTO({this.id, this.userName, this.designation});
 
@@ -56,7 +55,7 @@ class UserDTO {
     return UserDTO(
       id: json['id'],
       userName: json['userName'],
-      designation: json['designation'],
+      designation: json['designation'] != null ? List<String>.from(json['designation']) : null,
     );
   }
 
@@ -67,4 +66,5 @@ class UserDTO {
       'designation': designation,
     };
   }
+
 }
