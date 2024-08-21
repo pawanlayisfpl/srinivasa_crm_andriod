@@ -30,8 +30,8 @@ class CCEmailTextFieldWidget extends StatelessWidget {
             hintText: "Enter customer email address",
             textInputType: TextInputType.emailAddress,
             autovalidateMode: state.showInputError
-                ? AutovalidateMode.always
-                : AutovalidateMode.onUserInteraction);
+                ? AutovalidateMode.disabled
+                : AutovalidateMode.disabled);
       },
     );
   }

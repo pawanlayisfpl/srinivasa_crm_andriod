@@ -89,7 +89,7 @@ class CustomerCreateBodyWidget extends StatelessWidget {
               const CCMobileTextFieldWidget(),
               20.verticalSpace,
               // CUSTOMER EMAIL
-                                          const CommonTextFieldHeadingWidget(title: "Email",isRequired: true,),
+                                          const CommonTextFieldHeadingWidget(title: "Email",isRequired: false,),
 
               const CCEmailTextFieldWidget(),
                  // CUSTOMER ADDITIONAL FIELD

@@ -39,6 +39,7 @@ class UserModel {
     Currency? currency;
   TimeZone? timeZone;
   int? reportingTo;
+  String? repostingManagerName;
   String? gender;
   bool? enabled;
   String? username;
@@ -59,6 +60,7 @@ class UserModel {
       this.currency,
       this.timeZone,
       this.reportingTo,
+      this.repostingManagerName,
       this.gender,
       this.enabled,
       this.username});
@@ -93,6 +95,7 @@ class UserModel {
         ? TimeZone.fromJson(json['timeZone'])
         : null;
     reportingTo = json['reportingTo'];
+    repostingManagerName = json['repostingManagerName'];
     gender = json['gender'];
     enabled = json['enabled'];
     username = json['username'];
@@ -123,6 +126,7 @@ class UserModel {
       data['timeZone'] = timeZone!.toJson();
     }
     data['reportingTo'] = reportingTo;
+    data['repostingManagerName'] = repostingManagerName;
     data['gender'] = gender;
     data['enabled'] = enabled;
     data['username'] = username;
@@ -132,19 +136,20 @@ class UserModel {
 }
 
 class Authorities {
-  int? roleId;
+  int? roleId;  
   String? authority;
 
   Authorities({this.roleId, this.authority});
 
   Authorities.fromJson(Map<String, dynamic> json) {
-    roleId = json['roleId'];
+    // roleId = json['roleId'];
     authority = json['authority'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['roleId'] = roleId;
+    // TODO: DISABLLING ROLE ID FOR IGNORING ISSUES IN LOGIN RESPONSE
+    // data['roleId'] = roleId;
     data['authority'] = authority;
     return data;
   }
