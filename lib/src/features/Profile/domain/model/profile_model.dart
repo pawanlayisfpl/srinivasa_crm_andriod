@@ -142,14 +142,13 @@ class Authorities {
   Authorities({this.roleId, this.authority});
 
   Authorities.fromJson(Map<String, dynamic> json) {
-    // roleId = json['roleId'];
+    roleId = json['roleId'];
     authority = json['authority'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    // TODO: DISABLLING ROLE ID FOR IGNORING ISSUES IN LOGIN RESPONSE
-    // data['roleId'] = roleId;
+    data['roleId'] = roleId;
     data['authority'] = authority;
     return data;
   }

@@ -9,10 +9,10 @@ import 'package:srinivasa_crm_new/src/features/Kyc/presentation/Kyc%20Upload/scr
 
 class KycPendingCardWidget extends StatelessWidget {
   final CustomerKycModel customerKycModel;
-  const KycPendingCardWidget({
-    Key? key,
+   const KycPendingCardWidget({
+    super.key,
     required this.customerKycModel,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +21,11 @@ class KycPendingCardWidget extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
       
       child: ListTile(
-        onTap: () {
+        onTap: customerKycModel.kycStatus.toString() == "PENDING" ? () {
           if(context.mounted) {
             Navigator.push(context, SlideRightRoute(screen: KycUploadScreen( customerKycModel: customerKycModel,)));
           }
-        },
+        } : null,
         contentPadding: EdgeInsets.symmetric(horizontal: 15.w,vertical: 10.h),
         trailing: const Icon(Icons.arrow_forward_ios),
         title: CommonTextWidget(title: customerKycModel.customerName ?? "N/A",fontWeight: FontWeight.w600,textSize: 20.sp,),
@@ -38,9 +38,9 @@ class KycPendingCardWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-            CommonTextWidget(title: 'Kyc Status : ',)
+            const  CommonTextWidget(title: 'Kyc Status : ',)
       ,5.horizontalSpace,
-            CommonTextWidget(title: "Pending",textColor: Colors.red,fontWeight: FontWeight.w500,)
+            CommonTextWidget(title: customerKycModel.kycStatus ?? "Pending",textColor: customerKycModel.kycStatus.toString() == "PENDING" ? Colors.red :  customerKycModel.kycStatus.toString() == "APPROVED" ? Colors.green : Colors.orange,fontWeight: FontWeight.w500,)
             ],)
           ],
         ),

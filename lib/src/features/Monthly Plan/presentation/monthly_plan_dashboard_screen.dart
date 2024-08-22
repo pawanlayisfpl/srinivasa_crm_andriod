@@ -41,8 +41,12 @@ class MonthlyPlanDashboardScreen extends StatelessWidget {
 
               shrinkWrap: true,
               itemCount: context.watch<ProfileCubit>().state.maybeMap(orElse: () => cardNames.length,loadedLocal: (data) {
-                log(data.profileResponseModel.userModel!.authorities!.first.roleId.toString());
-                return data.profileResponseModel.userModel!.authorities!.first.roleId.toString() ==  AppStrings.salesRepRole ? cardNames.length -2 : cardNames.length;
+for (var authority in data.profileResponseModel.userModel!.authorities!) {
+  log(authority.roleId.toString());
+  log(authority.authority.toString());
+}                return 
+                data.profileResponseModel.userModel!.authorities!.where((e) => e.roleId.toString() == AppStrings.salesRepRole).isNotEmpty ? cardNames.length -2 : cardNames.length;
+                // data.profileResponseModel.userModel!.authorities!.first.roleId.toString() ==  AppStrings.salesRepRole ? cardNames.length -2 : cardNames.length;
               }),
               itemBuilder: (c, i) {
                 return GestureDetector(

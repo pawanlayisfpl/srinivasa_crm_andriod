@@ -39,7 +39,7 @@ class CommonDrawerWidget extends StatelessWidget {
 
               const Divider(),
               // PHONE
-                                  ReusableListTileWidget(title: data.profileResponseModel.userModel!.contactNo.toString(), icon: Icons.phone_android_rounded,),
+                                  ReusableListTileWidget(title: data.profileResponseModel.userModel!.contactNo.toString().trim(), icon: Icons.phone_android_rounded,),
 
               const Divider(),
               // ROLE
@@ -50,7 +50,7 @@ class CommonDrawerWidget extends StatelessWidget {
              ReusableListTileWidget(title: data.profileResponseModel.userModel!.zones!.map((e) => e.zoneName).join(", "), icon: Icons.location_city)
            ,
            const Divider(),
-           ReusableListTileWidget(title: data.profileResponseModel.userModel!.reportingTo.toString(), icon: Icons.dashboard,subTitleText: "(Reporting Manager)" ,), 
+           ReusableListTileWidget(title: data.profileResponseModel.userModel!.repostingManagerName.toString(), icon: Icons.dashboard,subTitleText: "(Reporting Manager)" ,), 
            const Divider(), 
            20.verticalSpace,
               // LOGOUT

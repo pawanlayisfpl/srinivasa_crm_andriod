@@ -13,6 +13,7 @@ import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/dashboard
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/Kyc%20Upload/cubit/kyc_upload_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/cubit/kyc_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/cubit/daily_plan_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20PendingRequests/cubit/monthly_plan_pending_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Monthly%20Plan%20Search/cubit/monthly_plan_search_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/cubit/update_monthly_plan_cubit.dart';
@@ -73,6 +74,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => locator.get<SalesOrderViewCubit>()),
         BlocProvider(create: (_) => locator.get<SalesOrderParticularCubit>()),
         BlocProvider(create: (_) => locator.get<PendingOrderCubit>()),
+        BlocProvider(create: (_) => locator.get<DailyPlanCubit>()),
       ],
       child: MaterialApp(
         navigatorKey: AppKeys.globalNavigatorKey,

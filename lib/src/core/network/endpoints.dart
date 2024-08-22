@@ -97,4 +97,8 @@ class Endpoints {
   // PAYMENT MODES
   static const String getAllPaymentModes = '$basicUrl/se/payment-mode';
 
+
+  // DAILY PLAN
+  static const String createDailyPlan = '$basicUrl/se/daily-plan';
+
 }

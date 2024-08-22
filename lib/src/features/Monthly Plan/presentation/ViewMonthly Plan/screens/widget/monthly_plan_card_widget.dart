@@ -27,6 +27,7 @@ class MonthlyPlanCardWidget extends StatelessWidget {
             context,
             SlideLeftRoute(
                 screen: ViewMonthlyPlanFullDetailsScreen(
+                  monthlyPlanId: monthlyPlanModel.monthlyPlanId!,
               viewDailyPlanModel: model,
             )));
       },
