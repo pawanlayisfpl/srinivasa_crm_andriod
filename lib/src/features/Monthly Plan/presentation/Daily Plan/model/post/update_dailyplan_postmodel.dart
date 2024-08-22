@@ -18,7 +18,7 @@ class UpdateDailyPlanPostModel {
       monthlyPlanId: json['monthlyPlanId'],
       dailyPlanId: json['dailyPlanId'],
       actualKms: json['actualKms'],
-      customerCodes: List<String>.from(json['customerCodes']),
+      customerCodes: List<String>.from(json['farmIds']),
       confirmed: json['confirmed'],
     );
   }
@@ -28,7 +28,7 @@ class UpdateDailyPlanPostModel {
       'monthlyPlanId': monthlyPlanId,
       'dailyPlanId': dailyPlanId,
       'actualKms': actualKms,
-      'customerCodes': customerCodes,
+      'farmIds': customerCodes,
       'confirmed': confirmed,
     };
   }

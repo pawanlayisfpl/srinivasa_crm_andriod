@@ -53,7 +53,6 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
   // PUNCH LOGIC
   Future<void> punchInLogic({required PunchInPostModel punchInPostModel}) async {
     emit(state.copyWith(isSubmitting: true,punchInFailure: false,punchInSuccess: false,punchOutSuccess: false,punchOutFailure: false,loading: false,loaded: false,));
-    await Future.delayed(const Duration(seconds: 1));
     final result = await punchInUseCase.execute(punchInPostModel: punchInPostModel);
    result.fold((l) {
     emit(state.copyWith(isSubmitting: false, punchInFailure: true, apiFailModel: ApiFailedModel(statusCode: NetworkExceptions.getStatusCode(l),  message: NetworkExceptions.getErrorTitle(l), errorMessage: NetworkExceptions.getErrorMessage(l))));

@@ -18,6 +18,7 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/repo/monthl
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/cubit/state/daily_plan_state.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/model/post/daily_plan_postModel.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/model/post/delete_dailyplan_postmodel.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/model/post/update_dailyplan_postmodel.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/repo/daily_plan_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/cubit/view_monthly_plan_cubit.dart';
 
@@ -90,6 +91,20 @@ void getAllInitialValues() async {
     emit(state.copyWith(selectedCustomersList: selectedCustomers));
   }
 
+  void addToExistingCustomers ({required List<Customermodel> custLists}) async {
+  List<Customermodel> mergedList = [...state.customerList, ...custLists];
+Map<String, Customermodel> uniqueMap = {};
+
+for (var customer in mergedList) {
+  uniqueMap[customer.customerName!] = customer;
+}
+
+List<Customermodel> resultList = uniqueMap.values.toList();
+List<Customermodel> sortedList = List.from(resultList);
+sortedList.sort((a, b) => a.customerName!.compareTo(b.customerName!));
+emit(state.copyWith(customerList: sortedList));
+  }
+
 
   void resetState() {
     clearAllController();
@@ -103,7 +118,7 @@ void getAllInitialValues() async {
                  state.customerList.first.farm!.farmId.toString()
 
     ]);
-    DailyPlanCreateModel dailyPlanCreateModel = DailyPlanCreateModel(monthlyPlanId: monthlyPlanId, dailyPlan: dailyPlan, confirmed: isConfirmed);
+    DailyPlanCreateModel dailyPlanCreateModel = DailyPlanCreateModel(monthlyPlanId: monthlyPlanId, dailyPlan: dailyPlan, confirmed: true);
    log(dailyPlanCreateModel.toJson().toString());
     
     ProgressDialogUtils.showProgressDialog(context: context);
@@ -139,25 +154,26 @@ void getAllInitialValues() async {
           kilometerController.text= kilometer;
        }
 
-        void setCustomer(String customer) {
-            emit(state.copyWith(selectedCustomersList: [Customermodel(farm: Farm(farmId: int.tryParse(customer)))]));
-        }
+      
 
         void setCustomers(List<Customermodel> customers) {
             emit(state.copyWith(selectedCustomersList: customers));
         }
 
+        
+
 
 
 // DELETE DAILY PLAN
 Future<void> deleteDailyPlan({required BuildContext ctx,required DailyplanDeletePostModel dailyPlanDeletePostModel,required VoidCallback callback}) async {
-  QuickAlert.show(context: ctx, type: QuickAlertType.loading, title: 'Loading', text: 'Deleting Daily Plan',disableBackBtn: true,barrierDismissible: false,animType: QuickAlertAnimType.scale);
+  QuickAlert.show(context: ctx, type: QuickAlertType.loading, title: 'Loading', text: 'Deleting Daily Plan',disableBackBtn: false ,barrierDismissible: false,animType: QuickAlertAnimType.scale);
   final results = await dailyPlanRepo.deleteDailyPlan(dailyPlanDeletePostModel: dailyPlanDeletePostModel);
   results.fold((l) {
-    emit(state.copyWith(apiFailedModel: ApiFailedModel.fromNetworkExceptions(l)));
+    ApiFailedModel apiFailedModel = ApiFailedModel.fromNetworkExceptions(l);
      Navigator.pop(ctx);
+    
     if(ctx.mounted) {
-    QuickAlert.show(context: ctx, type: QuickAlertType.error, title: 'Error', text: 'Failed to Delete Daily Plan');
+    QuickAlert.show(context: ctx, type: QuickAlertType.error, title: 'Error', text: apiFailedModel.message,confirmBtnColor: Colors.black);
 
 
     }
@@ -171,6 +187,34 @@ Future<void> deleteDailyPlan({required BuildContext ctx,required DailyplanDelete
 
     }
   });
+}
+
+
+Future<void> updateDailyPlan({required int monthlyPlanid,required int dailyPlanId,required BuildContext context})async {
+  UpdateDailyPlanPostModel updateDailyPlanPostModel  = UpdateDailyPlanPostModel(monthlyPlanId: monthlyPlanid, dailyPlanId: dailyPlanId, actualKms: double.tryParse(kilometerController.text)?? 0.0 , customerCodes: state.selectedCustomersList.map((e) => e.farm!.farmId.toString()).toList(), confirmed: false);
+  ProgressDialogUtils.showProgressDialog();
+  await Future.delayed(const Duration(seconds: 1));
+  final resulsts = await dailyPlanRepo.updateDailyPlan(updateDailyPlanPostModel: updateDailyPlanPostModel);
+
+  resulsts.fold((l) {
+    ProgressDialogUtils.hideProgressDialog();
+   var apiFailedModel  =  ApiFailedModel.fromNetworkExceptions(l);
+    QuickAlert.show(context: context, type: QuickAlertType.error, title: 'Error', text:apiFailedModel.message,animType: QuickAlertAnimType.slideInDown );
+  }, (r) {
+    ProgressDialogUtils.hideProgressDialog();
+    Navigator.pop(context);
+    if(context.mounted) {
+      Navigator.pop(context);
+      if(context.mounted) {
+    QuickAlert.show(context: context, type: QuickAlertType.success, title: 'Success', text: 'Daily Plan Updated Successfully',animType: QuickAlertAnimType.slideInUp);
+
+      }
+
+
+    }
+  });
+
+
 }
 
 

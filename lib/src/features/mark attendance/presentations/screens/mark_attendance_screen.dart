@@ -244,7 +244,7 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
                                 true) {
                               // PUNCH IN LOGIC
                               final locationServicesss = locator.get<CommonLocationServices>();
-                              // await locationServicesss.determinePosition();
+                              await locationServicesss.determinePosition();
                               Position position = await locationServicesss.getUserCurrentPosition();
                               double lat = position.latitude;
                               double long = position.longitude;

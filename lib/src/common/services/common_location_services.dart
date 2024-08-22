@@ -156,22 +156,23 @@ class CommonLocationServices {
   }
 
   //! get polylines
-  Future<List<LatLng>> getPolylinePoints(
-      {required PointLatLng origin, required PointLatLng destination}) async {
-    List<LatLng> polylineCoordinates = [];
-    PolylinePoints points = PolylinePoints();
-    PolylineResult results = await points.getRouteBetweenCoordinates(
-        AppStrings.googleApikey, origin, destination,
-        travelMode: TravelMode.driving);
-    if (results.points.isNotEmpty) {
-      results.points.forEach((PointLatLng point) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      });
-    } else {
-      log(results.errorMessage.toString());
-    }
-    return polylineCoordinates;
-  }
+
+  // Future<List<LatLng>> getPolylinePoints(
+  //     {required PointLatLng origin, required PointLatLng destination}) async {
+  //   List<LatLng> polylineCoordinates = [];
+  //   PolylinePoints points = PolylinePoints();
+  //   PolylineResult results = await points.getRouteBetweenCoordinates(
+  //       AppStrings.googleApikey, origin, destination,
+  //       travelMode: TravelMode.driving);
+  //   if (results.points.isNotEmpty) {
+  //     results.points.forEach((PointLatLng point) {
+  //       polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+  //     });
+  //   } else {
+  //     log(results.errorMessage.toString());
+  //   }
+  //   return polylineCoordinates;
+  // }
 
   //! get location from google api
   Future<String?> getUserCurrentLocationFromApi() async {

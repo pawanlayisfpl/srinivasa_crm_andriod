@@ -40,7 +40,18 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
             builder: (context, state) {
               return IconButton(
                 onPressed: () {
-                  List<Customermodel> customers = [];
+
+               
+
+                  context.read<DailyPlanCubit>().resetState();
+                  context.read<DailyPlanCubit>().clearSelectedCustomerLists();
+                  context
+                      .read<DailyPlanCubit>()
+                      .setDate(viewDailyPlanModel!.planDate.toString());
+                  context
+                      .read<DailyPlanCubit>()
+                      .setKilometer(viewDailyPlanModel!.actualKms.toString());
+                         List<Customermodel> customers = [];
                   for (int i = 0;
                       i < viewDailyPlanModel!.customers!.length;
                       i++) {
@@ -57,15 +68,8 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
                                 .toString()));
                     customers.add(customermodel);
                   }
-
-                  context.read<DailyPlanCubit>().resetState();
-                  context
-                      .read<DailyPlanCubit>()
-                      .setDate(viewDailyPlanModel!.planDate.toString());
-                  context
-                      .read<DailyPlanCubit>()
-                      .setKilometer(viewDailyPlanModel!.actualKms.toString());
-                  context.read<DailyPlanCubit>().setCustomers(customers);
+                  context.read<DailyPlanCubit>().addToExistingCustomers(custLists: customers);
+                   context.read<DailyPlanCubit>().setSelectedCustomerLists(selectedCustomers: customers);
                   AlertDialog alertDialog = AlertDialog(
                     backgroundColor: Colors.white,
                     content: Column(
@@ -110,10 +114,7 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
                               // SET DATE
                               // SET KILOMETER
                               // SET CUSTOMER
-
-                              // context.read<DailyPlanCubit>().submit(context: context, monthlyPlanId: monthlyPlanId, isConfirmed: false, voidCallback: () async {
-                              //   await context.read<ViewMonthlyPlanCubit>().getAllMonthlyPlanByMonthlyPlanID(id: monthlyPlanId);
-                              //   });
+                          context.read<DailyPlanCubit>().updateDailyPlan(monthlyPlanid: monthlyPlanId, dailyPlanId: viewDailyPlanModel!.dailyPlanId!, context: context);
                             },
                             title: 'Submit')
                       ],
