@@ -1,12 +1,15 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/update_monthlyplan_postmodel.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/view_monthly_plan_model.dart';
 
 import '../../../../../../core/model/api failed/api_failed_model.dart';
 import '../../../../domain/model/get/monthly_plan_customer_model.dart';
 import '../../../../domain/model/monthly_plan_approxkilometer_field.dart';
 import '../../../../domain/model/monthly_plan_date_field.dart';
+import '../../../../domain/model/monthly_post_model.dart';
+import '../../../Daily Plan/model/post/update_monthly_plan_daily_plan_post_model.dart';
 
 part 'update_monthly_plan_state.freezed.dart';
 
@@ -22,6 +25,7 @@ class UpdateMonthlyPlanState with _$UpdateMonthlyPlanState {
     @Default([]) List<Customermodel> customerList,
     @Default([]) List<Customermodel> selectedCustomersList,
     @Default([]) List<ViewDailyPlanModel> createdDailyPlanList,
+    @Default([]) List<UpdateMonthlyDailyPlanPostModel> existingMonthlyPlanList,
     required MonthlyPlanApproxKilomenterField monthlyPlanKiloMeterTextField,
     required MonthlyPlanDateField dateField,
     
@@ -40,7 +44,8 @@ class UpdateMonthlyPlanState with _$UpdateMonthlyPlanState {
         monthlyPlanKiloMeterTextField: MonthlyPlanApproxKilomenterField(""),
        dateField: MonthlyPlanDateField(""),
        createdDailyPlanList: [],
-       isMonhtlPlanLoaded: false
+       isMonhtlPlanLoaded: false,
+        existingMonthlyPlanList: [],
       );
 
  

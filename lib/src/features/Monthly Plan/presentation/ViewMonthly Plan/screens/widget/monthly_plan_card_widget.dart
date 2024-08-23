@@ -27,12 +27,14 @@ class MonthlyPlanCardWidget extends StatelessWidget {
             context,
             SlideLeftRoute(
                 screen: ViewMonthlyPlanFullDetailsScreen(
+                  approvalStatus: monthlyPlanModel.approvalStatus!,
+                  
                   monthlyPlanId: monthlyPlanModel.monthlyPlanId!,
               viewDailyPlanModel: model,
             )));
       },
       child: Container(
-        height: 0.15.sh,
+        height: 0.18.sh,
         width: 0.9.sw,
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -48,6 +50,7 @@ class MonthlyPlanCardWidget extends StatelessWidget {
           ],
         ),
         child: Stack(
+        clipBehavior: Clip.none,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -55,33 +58,36 @@ class MonthlyPlanCardWidget extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 8,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [  MonthlyPlanRowWidget(
-                        title: "Approval Status",
-                        value: monthlyPlanModel.approvalStatus != null ? monthlyPlanModel.approvalStatus.toString().trim() : "UNKOWN",
-                        isStatusField: true,
-                      ),
-                      5.verticalSpace,
-                      MonthlyPlanRowWidget(
-                          title: "Approx Kilometer",
-                          value: model.approxKms.toString() + " KM"),
-                      5.verticalSpace,
-                       MonthlyPlanRowWidget(
-                          title: "Actual Kilometer",
-                          value: model.actualKms.toString() + " KM"),
-                      5.verticalSpace,
-                    
-                      MonthlyPlanRowWidget(
-                          title: "Customers",
-                          
-                          value: model.customers!
-                              .map((e) => e.customer!.customerName.toString())
-                              .join(', ')),
-                      5.verticalSpace,
-                    ],
-                  ).withPadding(left: 10, top: 10),
+                  child: SingleChildScrollView(
+
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [  MonthlyPlanRowWidget(
+                          title: "Approval Status",
+                          value: monthlyPlanModel.approvalStatus != null ? monthlyPlanModel.approvalStatus.toString().trim() : "UNKOWN",
+                          isStatusField: true,
+                        ),
+                        5.verticalSpace,
+                        MonthlyPlanRowWidget(
+                            title: "Approx Kilometer",
+                            value: model.approxKms.toString() + " KM"),
+                        5.verticalSpace,
+                         MonthlyPlanRowWidget(
+                            title: "Actual Kilometer",
+                            value: model.actualKms.toString() + " KM"),
+                        5.verticalSpace,
+                      
+                        MonthlyPlanRowWidget(
+                            title: "Customers",
+                            
+                            value: model.customers!
+                                .map((e) => e.customer!.customerName.toString())
+                                .join(', ')),
+                        5.verticalSpace,
+                      ],
+                    ).withPadding(left: 10, top: 10),
+                  ),
                 ),
                 // date widget
                 Expanded(
@@ -165,7 +171,7 @@ class MonthlyPlanRowWidget extends StatelessWidget {
                         : AppColors.errorColor
                     : AppColors.blackColor,
                 fontWeight: FontWeight.w500,
-                maxLines: 2,
+                maxLines: 10,
               ))
         ],
       ),

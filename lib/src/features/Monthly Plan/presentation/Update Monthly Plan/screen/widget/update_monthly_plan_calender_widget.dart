@@ -33,9 +33,7 @@ class UpdateMonthlyPlanCalenderWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // const SizedBox(height: 20),
-            // const Text('Update your monthly plan'),
-            // const SizedBox(height: 20),
+         
          state.isMonhtlPlanLoaded == false  ? const  SizedBox.shrink() :   TableCalendar(
               weekNumbersVisible: false,
               weekendDays: const [DateTime.sunday],
@@ -56,183 +54,56 @@ class UpdateMonthlyPlanCalenderWidget extends StatelessWidget {
                 ),
               ),
               formatAnimationDuration: const Duration(milliseconds: 300),
-              focusedDay:   DateTime.parse(state.viewMonthlyPlanModel!.dailyPlans!.first.planDate.toString()),
-              firstDay: DateTime.parse(state.viewMonthlyPlanModel!.dailyPlans!.first.planDate.toString()),
-              lastDay: DateTime.parse(state.viewMonthlyPlanModel!.dailyPlans!.last.planDate.toString()),
+              focusedDay:   DateTime.parse(state.existingMonthlyPlanList.first.createdDate.toString()),
+              firstDay: DateTime.parse(state.existingMonthlyPlanList.first.createdDate.toString()),
+              lastDay: DateTime.parse(state.existingMonthlyPlanList.last.createdDate.toString()),
               enabledDayPredicate: (day) => day.weekday != DateTime.sunday,
               headerStyle: const HeaderStyle(
                 formatButtonVisible: false,
                 titleCentered: true,
               ),
-              currentDay: DateTime.now(),
+              currentDay:DateTime.parse(state.existingMonthlyPlanList.first.createdDate.toString()),
               onDaySelected: (selectedDay, focusedDay) {
-                                    var dateExists = state.createdDailyPlanList.any((plan) => isSameDay(DateTime.parse(plan.planDate.toString()), selectedDay));
+                bool dateExists = state.existingMonthlyPlanList.any((plan) => isSameDay(DateTime.parse(plan.createdDate.toString()), selectedDay));
 
                 if(dateExists) {
-                  ViewDailyPlanModel viewDailyPlanModel = state.createdDailyPlanList.where( ( data) => isSameDay(DateTime.parse(data.planDate.toString()), selectedDay)).first;
-                  List<Customermodel> generatedCustomerModelList = [];
-                  for (int i =0; i< viewDailyPlanModel.customers!.length;i++) {
-                      // MonthlyPlanCustomerModel monthlyPlanCustomerModel = MonthlyPlanCustomerModel(
-                        // checkinLocation: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.checkinLocation,
-                        // checkoutLocation: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.checkoutLocation,
-                        // customerAddress: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerAddress,
-                        // customerAlternateContactNumber: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerAlternateContactNumber,
-                        // customerContactNumber: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerContactNumber,
-                        // customerEmail: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerEmail,
-                        // customerName: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerName,
-                        // customerCity: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerCity,
-                        // customerState: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerState,
-                        // customerCategory: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerCategory,
-                        // customerCode: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.customerCode,
-                        // status: viewDailyPlanModel.viewDailyPlanCustomers![i].customer!.status,
-
-                      // );
-                      Customermodel customermodel = Customermodel(
-                        customerName: viewDailyPlanModel.customers![i].customer!.customerName ?? "",
-                        farm : Farm(
-                          farmId: int.parse(viewDailyPlanModel.customers![i].customer!.farmId.toString())
-                        )
-                        
-                      );
-                      generatedCustomerModelList.add(customermodel);
-
-                  }
-                  context.read<UpdateMonthlyPlanCubit>().onDateFieldChange(dateField: viewDailyPlanModel.planDate.toString());
-                  context.read<UpdateMonthlyPlanCubit>().onKiloMeterChange(value: viewDailyPlanModel.approxKms.toString());
-                  context.read<UpdateMonthlyPlanCubit>().setSelectedCustomerLists(selectedCustomers: generatedCustomerModelList);
-
-                  if(context.mounted) {
-                   AlertDialog alertDialog = AlertDialog(
-                     shadowColor: Colors.grey,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-    content: Column(mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,mainAxisSize: MainAxisSize.min,children: [
-       Row(
-      children: [
-        Expanded(child: Center(child: CommonTextWidget(title: "Update Daily Plan",fontWeight: FontWeight.w400,textSize: 20.sp,))),
-        IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.close),
-        )
-      ],
-    ),
-       10.verticalSpace,
-                              const Divider(
-                                color: AppColors.primaryColor,
-                                height: 4,
-                                thickness: 2,
-                              ),
-                              10.verticalSpace,
-                                Row(
-                                children: [
-                                  const Expanded(
-                                      flex: 4,
-                                      child: CommonTextWidget(
-                                        title: "Date : ",
-                                        align: TextAlign.end,
-                                      )),
-                                  Expanded(
-                                      flex: 6,
-                                      child: CommonTextWidget(
-                                        title: " ${DateFormat('dd-MMMM-yyyy')
-                                                .format(DateTime.parse(viewDailyPlanModel.planDate.toString()))}",
-                                        align: TextAlign.start,
-                                        fontWeight: FontWeight.bold,
-                                      ))
-                                ],
-                              ),
-                              10.verticalSpace,
-                                Row(
-                                children: [
-                                  const Expanded(
-                                      flex: 4,
-                                      child: CommonTextWidget(
-                                        title: "Kilometers : ",
-                                        align: TextAlign.end,
-                                      )),
-                                  Expanded(
-                                      flex: 6,
-                                      child: CommonTextWidget(
-                                        title: " ${double.parse(viewDailyPlanModel.approxKms
-                                                    .toString())} KM",
-                                        align: TextAlign.start,
-                                        fontWeight: FontWeight.bold,
-                                        maxLines: 3,
-                                      ))
-                                ],
-                              ),
-                              10.verticalSpace,
-                               Row(
-                                children: [
-                                  const Expanded(
-                                      flex: 4,
-                                      child: CommonTextWidget(
-                                        title: "Customers : ",
-                                        align: TextAlign.end,
-                                      )),
-                                  Expanded(
-                                    flex: 6,
-                                    child: CommonTextWidget(
-                                      title: " ${viewDailyPlanModel.customers!
-                                              .map((e) => e.customer!.customerName)
-                                              .join(",\n")}",
-                                      align: TextAlign.start,
-                                      fontWeight: FontWeight.bold,
-                                      maxLines: 5,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              10.verticalSpace,
-                              CommonButton(callback: () => showCreateDialog(context,viewDailyPlanModel), title: "Update")
-
-
-    ],), // Assuming CreateDailyScreen is a StatelessWidget or StatefulWidget
-  );
-
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alertDialog;
-    },
-  );
-                  }
+                     showAdaptiveDialog(
+                  barrierDismissible: true, 
+                  
+                  context: context, builder: (c) => AlertDialog.adaptive(title: Text("PLans Exits"),));
 
                 }else {
-                showDialog(context: context, builder: (c) => AlertDialog(
-                  title: const Text('No Plan Found'),
-                  content: const Text('No plan found for this date'),
-                  actions: [
-                    TextButton(onPressed: () {
-                      Navigator.pop(context);
-                    }, child: const Text('Ok'))
-                  ],
-                ));
-                  Fluttertoast.showToast(msg: 'No plan for this date');
+                     showAdaptiveDialog(
+                  barrierDismissible: true, 
+                  
+                  context: context, builder: (c) => AlertDialog.adaptive(title: Text("Creating New Plan"),));
+
                 }
+             
               },
+              
               
               calendarBuilders: CalendarBuilders(
                 defaultBuilder: (context, day, focusedDay) {
-                  if (state.viewMonthlyPlanModel != null) {
-                    var dateExists = state.viewMonthlyPlanModel?.dailyPlans?.any((plan) => isSameDay(DateTime.parse(plan.planDate.toString()), day));
+
+                  if(state.existingMonthlyPlanList.isNotEmpty) {
+                    var dateExists = state.existingMonthlyPlanList.any((plan) => isSameDay(DateTime.parse(plan.createdDate.toString()), day));
                     return Container(
                       margin: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: dateExists != null ? Colors.blueAccent : null,
+                        color: dateExists  ? Colors.blueAccent : Colors.grey,
                       ),
                       child: Center(
                         child: Text(
                           '${day.day}',
-                          style: TextStyle(color: dateExists != null ? Colors.white : Colors.black),
+                          style: TextStyle(color: dateExists  ? Colors.white : Colors.black),
                         ),
                       ),
                     );
                   }
+                  return null;
+                 
                 },
               ),
             ),

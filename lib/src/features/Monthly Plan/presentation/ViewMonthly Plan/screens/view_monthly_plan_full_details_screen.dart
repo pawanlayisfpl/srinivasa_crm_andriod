@@ -23,10 +23,12 @@ import '../../Daily Plan/model/post/delete_dailyplan_postmodel.dart';
 class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
   final ViewDailyPlanModel? viewDailyPlanModel;
   final int monthlyPlanId;
+  final String approvalStatus;
   const ViewMonthlyPlanFullDetailsScreen({
     Key? key,
     this.viewDailyPlanModel,
     required this.monthlyPlanId,
+    required this.approvalStatus,
   }) : super(key: key);
 
   @override
@@ -34,7 +36,7 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Customers List"),
-        actions: [
+        actions:  approvalStatus.toLowerCase().toString() == 'approved' ?   [
           // UPDATE
           BlocBuilder<DailyPlanCubit, DailyPlanState>(
             builder: (context, state) {
@@ -103,7 +105,9 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
                         ),
                         20.verticalSpace,
                         // DateField
-                        const DaiilyPlanDateTextField(),
+                        IgnorePointer(
+                          ignoring: true,
+                          child: const DaiilyPlanDateTextField()),
                         20.verticalSpace,
                         const DailyPlanKilometerTextField(),
                         20.verticalSpace,
@@ -114,7 +118,9 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
                               // SET DATE
                               // SET KILOMETER
                               // SET CUSTOMER
-                          context.read<DailyPlanCubit>().updateDailyPlan(monthlyPlanid: monthlyPlanId, dailyPlanId: viewDailyPlanModel!.dailyPlanId!, context: context);
+                          context.read<DailyPlanCubit>().updateDailyPlan(monthlyPlanid: monthlyPlanId, dailyPlanId: viewDailyPlanModel!.dailyPlanId!, context: context, errorCallback: () async {
+                            Navigator.pop(context);
+                            });
                             },
                             title: 'Submit')
                       ],
@@ -166,7 +172,7 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
               );
             },
           ),
-        ],
+        ] : [],
       ),
       body: SafeArea(
         child: viewDailyPlanModel!.customers!.isEmpty

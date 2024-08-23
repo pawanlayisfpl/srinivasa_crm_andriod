@@ -28,6 +28,8 @@ mixin _$UpdateMonthlyPlanState {
       throw _privateConstructorUsedError;
   List<ViewDailyPlanModel> get createdDailyPlanList =>
       throw _privateConstructorUsedError;
+  List<UpdateMonthlyDailyPlanPostModel> get existingMonthlyPlanList =>
+      throw _privateConstructorUsedError;
   MonthlyPlanApproxKilomenterField get monthlyPlanKiloMeterTextField =>
       throw _privateConstructorUsedError;
   MonthlyPlanDateField get dateField => throw _privateConstructorUsedError;
@@ -53,6 +55,7 @@ abstract class $UpdateMonthlyPlanStateCopyWith<$Res> {
       List<Customermodel> customerList,
       List<Customermodel> selectedCustomersList,
       List<ViewDailyPlanModel> createdDailyPlanList,
+      List<UpdateMonthlyDailyPlanPostModel> existingMonthlyPlanList,
       MonthlyPlanApproxKilomenterField monthlyPlanKiloMeterTextField,
       MonthlyPlanDateField dateField});
 
@@ -82,6 +85,7 @@ class _$UpdateMonthlyPlanStateCopyWithImpl<$Res,
     Object? customerList = null,
     Object? selectedCustomersList = null,
     Object? createdDailyPlanList = null,
+    Object? existingMonthlyPlanList = null,
     Object? monthlyPlanKiloMeterTextField = null,
     Object? dateField = null,
   }) {
@@ -122,6 +126,10 @@ class _$UpdateMonthlyPlanStateCopyWithImpl<$Res,
           ? _value.createdDailyPlanList
           : createdDailyPlanList // ignore: cast_nullable_to_non_nullable
               as List<ViewDailyPlanModel>,
+      existingMonthlyPlanList: null == existingMonthlyPlanList
+          ? _value.existingMonthlyPlanList
+          : existingMonthlyPlanList // ignore: cast_nullable_to_non_nullable
+              as List<UpdateMonthlyDailyPlanPostModel>,
       monthlyPlanKiloMeterTextField: null == monthlyPlanKiloMeterTextField
           ? _value.monthlyPlanKiloMeterTextField
           : monthlyPlanKiloMeterTextField // ignore: cast_nullable_to_non_nullable
@@ -165,6 +173,7 @@ abstract class _$$UpdateMonthlyPlanStateImplCopyWith<$Res>
       List<Customermodel> customerList,
       List<Customermodel> selectedCustomersList,
       List<ViewDailyPlanModel> createdDailyPlanList,
+      List<UpdateMonthlyDailyPlanPostModel> existingMonthlyPlanList,
       MonthlyPlanApproxKilomenterField monthlyPlanKiloMeterTextField,
       MonthlyPlanDateField dateField});
 
@@ -194,6 +203,7 @@ class __$$UpdateMonthlyPlanStateImplCopyWithImpl<$Res>
     Object? customerList = null,
     Object? selectedCustomersList = null,
     Object? createdDailyPlanList = null,
+    Object? existingMonthlyPlanList = null,
     Object? monthlyPlanKiloMeterTextField = null,
     Object? dateField = null,
   }) {
@@ -234,6 +244,10 @@ class __$$UpdateMonthlyPlanStateImplCopyWithImpl<$Res>
           ? _value._createdDailyPlanList
           : createdDailyPlanList // ignore: cast_nullable_to_non_nullable
               as List<ViewDailyPlanModel>,
+      existingMonthlyPlanList: null == existingMonthlyPlanList
+          ? _value._existingMonthlyPlanList
+          : existingMonthlyPlanList // ignore: cast_nullable_to_non_nullable
+              as List<UpdateMonthlyDailyPlanPostModel>,
       monthlyPlanKiloMeterTextField: null == monthlyPlanKiloMeterTextField
           ? _value.monthlyPlanKiloMeterTextField
           : monthlyPlanKiloMeterTextField // ignore: cast_nullable_to_non_nullable
@@ -259,11 +273,14 @@ class _$UpdateMonthlyPlanStateImpl implements _UpdateMonthlyPlanState {
       final List<Customermodel> customerList = const [],
       final List<Customermodel> selectedCustomersList = const [],
       final List<ViewDailyPlanModel> createdDailyPlanList = const [],
+      final List<UpdateMonthlyDailyPlanPostModel> existingMonthlyPlanList =
+          const [],
       required this.monthlyPlanKiloMeterTextField,
       required this.dateField})
       : _customerList = customerList,
         _selectedCustomersList = selectedCustomersList,
-        _createdDailyPlanList = createdDailyPlanList;
+        _createdDailyPlanList = createdDailyPlanList,
+        _existingMonthlyPlanList = existingMonthlyPlanList;
 
   @override
   @JsonKey()
@@ -312,6 +329,16 @@ class _$UpdateMonthlyPlanStateImpl implements _UpdateMonthlyPlanState {
     return EqualUnmodifiableListView(_createdDailyPlanList);
   }
 
+  final List<UpdateMonthlyDailyPlanPostModel> _existingMonthlyPlanList;
+  @override
+  @JsonKey()
+  List<UpdateMonthlyDailyPlanPostModel> get existingMonthlyPlanList {
+    if (_existingMonthlyPlanList is EqualUnmodifiableListView)
+      return _existingMonthlyPlanList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_existingMonthlyPlanList);
+  }
+
   @override
   final MonthlyPlanApproxKilomenterField monthlyPlanKiloMeterTextField;
   @override
@@ -319,7 +346,7 @@ class _$UpdateMonthlyPlanStateImpl implements _UpdateMonthlyPlanState {
 
   @override
   String toString() {
-    return 'UpdateMonthlyPlanState(isLoading: $isLoading, isSubmitting: $isSubmitting, isSuccess: $isSuccess, isMonhtlPlanLoaded: $isMonhtlPlanLoaded, apiFailedModel: $apiFailedModel, viewMonthlyPlanModel: $viewMonthlyPlanModel, customerList: $customerList, selectedCustomersList: $selectedCustomersList, createdDailyPlanList: $createdDailyPlanList, monthlyPlanKiloMeterTextField: $monthlyPlanKiloMeterTextField, dateField: $dateField)';
+    return 'UpdateMonthlyPlanState(isLoading: $isLoading, isSubmitting: $isSubmitting, isSuccess: $isSuccess, isMonhtlPlanLoaded: $isMonhtlPlanLoaded, apiFailedModel: $apiFailedModel, viewMonthlyPlanModel: $viewMonthlyPlanModel, customerList: $customerList, selectedCustomersList: $selectedCustomersList, createdDailyPlanList: $createdDailyPlanList, existingMonthlyPlanList: $existingMonthlyPlanList, monthlyPlanKiloMeterTextField: $monthlyPlanKiloMeterTextField, dateField: $dateField)';
   }
 
   @override
@@ -345,6 +372,8 @@ class _$UpdateMonthlyPlanStateImpl implements _UpdateMonthlyPlanState {
                 .equals(other._selectedCustomersList, _selectedCustomersList) &&
             const DeepCollectionEquality()
                 .equals(other._createdDailyPlanList, _createdDailyPlanList) &&
+            const DeepCollectionEquality().equals(
+                other._existingMonthlyPlanList, _existingMonthlyPlanList) &&
             (identical(other.monthlyPlanKiloMeterTextField,
                     monthlyPlanKiloMeterTextField) ||
                 other.monthlyPlanKiloMeterTextField ==
@@ -365,6 +394,7 @@ class _$UpdateMonthlyPlanStateImpl implements _UpdateMonthlyPlanState {
       const DeepCollectionEquality().hash(_customerList),
       const DeepCollectionEquality().hash(_selectedCustomersList),
       const DeepCollectionEquality().hash(_createdDailyPlanList),
+      const DeepCollectionEquality().hash(_existingMonthlyPlanList),
       monthlyPlanKiloMeterTextField,
       dateField);
 
@@ -387,6 +417,7 @@ abstract class _UpdateMonthlyPlanState implements UpdateMonthlyPlanState {
           final List<Customermodel> customerList,
           final List<Customermodel> selectedCustomersList,
           final List<ViewDailyPlanModel> createdDailyPlanList,
+          final List<UpdateMonthlyDailyPlanPostModel> existingMonthlyPlanList,
           required final MonthlyPlanApproxKilomenterField
               monthlyPlanKiloMeterTextField,
           required final MonthlyPlanDateField dateField}) =
@@ -410,6 +441,8 @@ abstract class _UpdateMonthlyPlanState implements UpdateMonthlyPlanState {
   List<Customermodel> get selectedCustomersList;
   @override
   List<ViewDailyPlanModel> get createdDailyPlanList;
+  @override
+  List<UpdateMonthlyDailyPlanPostModel> get existingMonthlyPlanList;
   @override
   MonthlyPlanApproxKilomenterField get monthlyPlanKiloMeterTextField;
   @override

@@ -30,7 +30,6 @@ class DailyPlanRepoImpl extends DailyPlanRepo {
       final response = await dioClient.post(Endpoints.createDailyPlan,data: dailyPlanPostModel,headers: {});
 
       if(response.statusCode == 201) {
-        DailyPlanResponseModel dailyPlanResponseModel = DailyPlanResponseModel.fromJson(response.data);
         return right(DailyPlanResponseModel.fromJson(response.data));
 
       }else {

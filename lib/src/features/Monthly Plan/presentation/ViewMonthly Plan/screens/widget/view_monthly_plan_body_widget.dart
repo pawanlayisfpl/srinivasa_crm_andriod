@@ -1,9 +1,11 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quickalert/quickalert.dart';
+
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/constants/app_colors.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
@@ -11,10 +13,12 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewM
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/cubit/view_monthly_plan_state.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/screens/widget/monthly_plan_card_widget.dart';
 
-
-
 class ViewMonthlyPlanBodyWidget extends StatelessWidget {
-  const ViewMonthlyPlanBodyWidget({super.key});
+  final int id;
+  const ViewMonthlyPlanBodyWidget({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +55,9 @@ class ViewMonthlyPlanBodyWidget extends StatelessWidget {
 
             ],
           );
-        }, error: (e) => CommonErrorWidget(error: e.errorMessage.toString(), callback: () {}));
+        }, error: (e) => CommonErrorWidget(error: e.errorMessage.toString(), callback: () async  {
+          context.read<ViewMonthlyPlanCubit>().getAllMonthlyPlanByMonthlyPlanID(id: id);
+        }));
       },
     );
   }

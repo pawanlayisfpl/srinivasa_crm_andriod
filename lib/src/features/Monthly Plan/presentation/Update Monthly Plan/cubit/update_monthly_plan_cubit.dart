@@ -10,12 +10,13 @@ import 'package:srinivasa_crm_new/src/core/model/api%20failed/api%20failed.dart'
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/monthly_plan_date_field.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/monthly_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/update_monthlyplan_postmodel.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/view_monthly_plan_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/repo/monthly_plan_repo.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/model/post/update_monthly_plan_daily_plan_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/cubit/state/update_monthly_plan_state.dart';
 
-import '../../../domain/model/get/monthly_plan_customer_model.dart';
 import '../../../domain/model/monthly_plan_approxkilometer_field.dart';
 
 @injectable
@@ -80,10 +81,21 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
             isMonhtlPlanLoaded: true,
             createdDailyPlanList:
                 r.dailyPlans == null ? [] : r.dailyPlans!));
+        List<UpdateMonthlyDailyPlanPostModel> updateMonthlyPlanPostModelList = [];
+        if(r.dailyPlans != null) {
+               for (int i =0; i< r.dailyPlans!.length; i++) {
+        UpdateMonthlyDailyPlanPostModel updateMonthlyDailyPlanPostModel = UpdateMonthlyDailyPlanPostModel(
+          dailyPlanId: r.dailyPlans![i].dailyPlanId,
+          createdDate: DateTime.parse(r.dailyPlans![i].planDate.toString()), approxKms: double.tryParse(r.dailyPlans![i].actualKms.toString() ) ?? 0.0, customerCodes: r.dailyPlans![i].customers!.map((e) => e.customer!.farmId.toString()).toList());
+          updateMonthlyPlanPostModelList.add(updateMonthlyDailyPlanPostModel);
+      }
 
-       
+        }
+
+      emit(state.copyWith(existingMonthlyPlanList: updateMonthlyPlanPostModelList));
 
       },
+  
     );
   }
 

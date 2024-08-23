@@ -58,11 +58,11 @@ class _ViewMonthlyPlanScreenState extends State<ViewMonthlyPlanScreen> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('Monthly Plan'),
+          title: const Text('Monthly Plan'),
           actions: [
-           context.watch<ViewMonthlyPlanCubit>().state.maybeMap(orElse: () => SizedBox.shrink(),loading: (value) => SizedBox.shrink(),loaded: (data) => 
+           context.watch<ViewMonthlyPlanCubit>().state.maybeMap(orElse: () => const SizedBox.shrink(),loading: (value) => const SizedBox.shrink(),loaded: (data) => 
            
-           DateTime.parse(data.monthlyPlanLists.dailyPlans!.first.planDate.toString()).month.toString() == DateTime.now().month.toString() ?
+           DateTime.parse(data.monthlyPlanLists.dailyPlans!.first.planDate.toString()).month.toString() == DateTime.now().month.toString() && data.monthlyPlanLists.approvalStatus!.toLowerCase().toString() != "pending" ?
         
             BlocBuilder<DailyPlanCubit, DailyPlanState>(
               builder: (context, state) {
@@ -127,9 +127,9 @@ class _ViewMonthlyPlanScreenState extends State<ViewMonthlyPlanScreen> {
                   icon: const Icon(Icons.add),
                 );
               },
-            ) : SizedBox.shrink() )
+            ) : const SizedBox.shrink() )
           ],
         ),
-        body: const SafeArea(child: ViewMonthlyPlanBodyWidget()));
+        body:  SafeArea(child: ViewMonthlyPlanBodyWidget(id: widget.monthlyPlanId ?? -1,)));
   }
 }
