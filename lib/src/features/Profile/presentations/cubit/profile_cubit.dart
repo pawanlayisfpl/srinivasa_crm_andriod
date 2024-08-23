@@ -62,7 +62,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
     final postition = await commonLocationServices.getUserCurrentPosition();
     PunchoutPostModel postModel = PunchoutPostModel(latitude: postition.latitude.toString(), longitude: postition.longitude.toString());
-    await context.read<MarkAttendanceCubit>().punchOutLogic(punchoutPostModel: postModel,isLogoutClicked: true);
+    await context.read<MarkAttendanceCubit>().punchOutLogic(isLogoutClicked: true);
     await keyValueStorage.sharedPreferences.clear();
    if(context.mounted) {
     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (c) => const LoginScreen()), (r) => false);

@@ -165,7 +165,7 @@ class MonthlyPlanRowWidget extends StatelessWidget {
                         : AppColors.errorColor
                     : AppColors.blackColor,
                 fontWeight: FontWeight.w500,
-                maxLines: 3,
+                maxLines: 2,
               ))
         ],
       ),

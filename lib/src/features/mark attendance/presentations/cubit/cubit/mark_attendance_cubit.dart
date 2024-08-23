@@ -6,7 +6,9 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
+
 import 'package:srinivasa_crm_new/shared/data/repo/work_manager_services.dart';
+import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/locator/locator.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
@@ -19,11 +21,13 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
   final PunchInUseCase punchInUseCase;
   final PunchOutUsecase punchOutUseCase;
   final LastPunchInOutUseCase getLastPunchInOutDetailsUseCase;
+  final CommonLocationServices commonLocationServices;
 
   MarkAttendanceCubit(
     this.punchInUseCase,
     this.punchOutUseCase,
     this.getLastPunchInOutDetailsUseCase,
+    this.commonLocationServices,
   ) : super( MarkAttendanceState.initial());
 
   // GET LAST PUNCH IN-OUT DATA
@@ -51,9 +55,16 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
      
 
   // PUNCH LOGIC
-  Future<void> punchInLogic({required PunchInPostModel punchInPostModel}) async {
+  Future<void> punchInLogic() async {
     emit(state.copyWith(isSubmitting: true,punchInFailure: false,punchInSuccess: false,punchOutSuccess: false,punchOutFailure: false,loading: false,loaded: false,));
-    final result = await punchInUseCase.execute(punchInPostModel: punchInPostModel);
+     final postion = await commonLocationServices.getUserCurrentPosition();
+
+    PunchInPostModel postModel = PunchInPostModel(
+      latitude: postion.latitude.toString(),
+      longitude: postion.longitude.toString(),
+      
+    );
+    final result = await punchInUseCase.execute(punchInPostModel: postModel);
    result.fold((l) {
     emit(state.copyWith(isSubmitting: false, punchInFailure: true, apiFailModel: ApiFailedModel(statusCode: NetworkExceptions.getStatusCode(l),  message: NetworkExceptions.getErrorTitle(l), errorMessage: NetworkExceptions.getErrorMessage(l))));
    }, (r)  async{
@@ -65,10 +76,17 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
 
 
    // PUNCHOUT LOGIC
-  Future<void> punchOutLogic({required PunchoutPostModel punchoutPostModel,bool? isLogoutClicked}) async {
+  Future<void> punchOutLogic({bool? isLogoutClicked}) async {
     emit(state.copyWith(isSubmitting: true,punchInFailure: false,punchInSuccess: false,punchOutSuccess: false,loading: false,loaded: false));
-    await Future.delayed(const Duration(seconds: 1));
-    final result = await punchOutUseCase.execute(punchoutPostModel: punchoutPostModel);
+
+    final postion = await commonLocationServices.getUserCurrentPosition();
+    PunchoutPostModel postModel = PunchoutPostModel(
+      latitude: postion.latitude.toString(),
+      longitude: postion.longitude.toString(),
+    );
+   
+
+    final result = await punchOutUseCase.execute(punchoutPostModel: postModel);
    result.fold((l) {
 
     emit(state.copyWith( punchOutFailure: true, apiFailModel: ApiFailedModel(statusCode: NetworkExceptions.getStatusCode(l),  message: NetworkExceptions.getErrorTitle(l), errorMessage: NetworkExceptions.getErrorMessage(l))));

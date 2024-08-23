@@ -129,18 +129,12 @@ void showLogoutDialog(BuildContext context) {
               }
 
               final localStorage = locator.get<KeyValueStorage>();
-              final locationServices = locator.get<CommonLocationServices>();
-              final position = await locationServices.getUserCurrentPosition();
-
-              PunchoutPostModel punchoutPostModel = PunchoutPostModel(
-                latitude: position.latitude.toString(),
-                longitude: position.longitude.toString(),
-              );
+             
 
               // Check if the context is still mounted before using it
               if (context.mounted) {
                 await context.read<MarkAttendanceCubit>().punchOutLogic(
-                  punchoutPostModel: punchoutPostModel,
+                 
                   isLogoutClicked: true,
                 );
               }

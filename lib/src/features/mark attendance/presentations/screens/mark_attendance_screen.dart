@@ -233,70 +233,47 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
                 20.verticalSpace,
                 state.isSubmitting == true
                     ? const CustomLoadingWidget()
-                    : GestureDetector(
-                        onDoubleTap: () async {
-                          // await context.read<MarkAttendanceCubit>().getLastPunchInOutData();
-                        },
-                        child: CommonButton(
-                          callback: () async {
-                            await HapticFeedback.mediumImpact();
-                            if (state.lastPunchInResponseModel!.status ==
-                                true) {
-                              // PUNCH IN LOGIC
-                              final locationServicesss = locator.get<CommonLocationServices>();
-                              await locationServicesss.determinePosition();
-                              Position position = await locationServicesss.getUserCurrentPosition();
-                              double lat = position.latitude;
-                              double long = position.longitude;
-                          
+                    : CommonButton(
+                      callback: () async {
+                        await HapticFeedback.mediumImpact();
+                        if (state.lastPunchInResponseModel!.status ==
+                            true) {
+                          // PUNCH IN LOGIC
+                        
+                       if(context.mounted) {
+                           await context
+                              .read<MarkAttendanceCubit>()
+                              .punchInLogic(
+                                );
+                       }
+                        } else {
 
-                              PunchInPostModel punchInPostModel =
-                                  PunchInPostModel(
-                                latitude: lat.toString(),
-                                longitude: long.toString(),
-                              );
-                           if(context.mounted) {
-                               await context
-                                  .read<MarkAttendanceCubit>()
-                                  .punchInLogic(
-                                      punchInPostModel: punchInPostModel);
-                           }
-                            } else {
-                                  PermissionStatus status = await Permission.location.request();
-
-                                  if(status.isGranted) {
-  final locationServicesss = locator.get<CommonLocationServices>();
-                              Position position = await locationServicesss.getUserCurrentPosition();
-                              double lat = position.latitude;
-                              double long = position.longitude;
-                              log(lat.toString());
-                              log(long.toString());
-                               PunchoutPostModel punchoutPostModel =
-                                  PunchoutPostModel(
-                                      latitude: lat.toString(), longitude:long.toString());
-                              if(context.mounted) {
-                                await context
-                                  .read<MarkAttendanceCubit>()
-                                  .punchOutLogic(
-                                      punchoutPostModel: punchoutPostModel);
-                              }
-
-                                  }else {
-                                    await Permission.location.request();
-                                  }
-
-
-
-                             
-                             
-                            }
-                          },
-                          title: state.lastPunchInResponseModel != null &&
-                                  state.lastPunchInResponseModel?.status == true
-                              ? "Punch In"
-                              : "Punch Out",
-                        ).withSymetricPadding(horizontalPadding: 20.w),
-                      ),
+                          if(context.mounted) {
+                            await context
+                              .read<MarkAttendanceCubit>()
+                              .punchOutLogic(
+                                  );
+                          }
+                              // PermissionStatus status = await Permission.location.request();
+                    
+                              // if(status.isGranted) {
+                   
+                    
+                              // }else {
+                              //   await Permission.location.request();
+                              // }
+                    
+                    
+                    
+                         
+                         
+                        }
+                      },
+                      title: state.lastPunchInResponseModel != null &&
+                              state.lastPunchInResponseModel?.status == true
+                          ? "Punch In"
+                          : "Punch Out",
+                    ).withSymetricPadding(horizontalPadding: 20.w),
                 SizedBox(
                   height: 0.1.sh,
                 )

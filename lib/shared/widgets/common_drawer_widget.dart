@@ -85,7 +85,7 @@ class CommonDrawerWidget extends StatelessWidget {
 
                 // await Workmanager().cancelAll();
                 PunchoutPostModel punchoutPostModel = PunchoutPostModel(latitude: position.latitude.toString(), longitude: position.longitude.toString());
-                await context.read<MarkAttendanceCubit>().punchOutLogic(punchoutPostModel: punchoutPostModel, isLogoutClicked: true);
+                await context.read<MarkAttendanceCubit>().punchOutLogic( isLogoutClicked: true);
               
                 Fluttertoast.showToast(msg: "All Background services stopped");
               await  localstorge.sharedPreferences.clear();
