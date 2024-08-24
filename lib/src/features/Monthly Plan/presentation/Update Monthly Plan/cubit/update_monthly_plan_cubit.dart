@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
+import 'package:srinivasa_crm_new/src/core/extensions/date_extension.dart';
 import 'package:srinivasa_crm_new/src/core/model/api%20failed/api%20failed.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
@@ -14,8 +15,10 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/month
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/update_monthlyplan_postmodel.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/view_monthly_plan_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/repo/monthly_plan_repo.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/cubit/daily_plan_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/model/post/update_monthly_plan_daily_plan_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/cubit/state/update_monthly_plan_state.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 import '../../../domain/model/monthly_plan_approxkilometer_field.dart';
 
@@ -268,5 +271,52 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
       },
     );
    
+  }
+
+  void addToExistingPlan(BuildContext context)  {
+
+bool isAlreadyExists = state.existingMonthlyPlanList.any((data) {
+  // Print for debugging
+  print("Checking data: ${data.customerCodes}");
+
+  // Extract all farmIds from selectedCustomersList
+  var selectedFarmIds = state.selectedCustomersList
+      .map((selectedCode) => selectedCode.farm!.farmId)
+      .toSet();  // Use a Set to avoid duplicates
+
+  // Print for debugging
+  print("Selected Farm IDs: $selectedFarmIds");
+
+  // Check if all selectedFarmIds are in customerCodes
+  bool allSelectedPresent = selectedFarmIds.every((farmId) =>
+    data.customerCodes.contains(farmId)
+  );
+
+  // Print for debugging
+  print("All Selected Present: $allSelectedPresent");
+
+  return allSelectedPresent;
+});
+
+    if(isAlreadyExists) {
+      Fluttertoast.showToast(msg: 'Customer already exists in another plan');
+
+    }else {
+      UpdateMonthlyDailyPlanPostModel updateMonthlyDailyPlanPostModel = UpdateMonthlyDailyPlanPostModel(createdDate: DateTime.parse(dateController.text.toString().toFormattedDate()), approxKms: double.tryParse(approxController.text) ?? 0.0, customerCodes: state.selectedCustomersList.map((e) => e.farm!.farmId.toString()).toList());
+    emit(state.copyWith(existingMonthlyPlanList: [...state.existingMonthlyPlanList,updateMonthlyDailyPlanPostModel]));
+    Fluttertoast.showToast(msg: 'Plan created successfully',backgroundColor: Colors.green,textColor: Colors.white);
+    if(context.mounted) {
+      Navigator.pop(context);
+    }
+
+    }
+    
+  }
+
+
+  void reset() {
+    _dateController.clear();
+    _approxController.clear();
+    emit(state.copyWith(selectedCustomersList: [],dateField: MonthlyPlanDateField(''),monthlyPlanKiloMeterTextField: MonthlyPlanApproxKilomenterField('')));
   }
 }

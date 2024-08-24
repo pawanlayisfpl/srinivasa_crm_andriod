@@ -83,7 +83,7 @@ class SalesOrderViewCardWidget extends StatelessWidget {
                 const Expanded(
                   
                   flex : 3,
-                  child: CommonTextWidget(title: "Order Status :")),
+                  child: CommonTextWidget(title: "Status :")),
                 Expanded(
                   flex : 7,
                   child: CommonTextWidget(title: orders.orderStatus!.replaceAll("_", " "),fontWeight: FontWeight.w600,)),

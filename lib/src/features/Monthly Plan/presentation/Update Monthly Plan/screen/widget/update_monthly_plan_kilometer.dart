@@ -36,7 +36,7 @@ class UpdateMonthlyPlanKilometerTextWidget extends StatelessWidget {
               ),
               (r) => null, // No error
             );},
-          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           textInputType: TextInputType.number,
           labelText: "Approx Kilometer",
           hintText: "Enter Approx Kilometer",

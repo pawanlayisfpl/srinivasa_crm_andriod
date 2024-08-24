@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20View/cubit/sales_order_view_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20View/widget/sales_order_view_body_widget.dart';
 
@@ -21,11 +23,49 @@ class _SalesOrderViewScreenState extends State<SalesOrderViewScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sales Order View Screen'),
+    return DefaultTabController(
+       length: 3,
+          //  animationDuration: Duration(milliseconds: 800),
+
+           initialIndex: 0,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Sales Order View Screen'),
+          bottom: TabBar(
+            isScrollable: false,
+
+            indicatorSize: TabBarIndicatorSize.tab,
+            indicatorColor: Colors.white,
+            indicator: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(4),
+              
+            ),
+            enableFeedback: true,
+            unselectedLabelColor: Colors.black,
+            labelColor: AppColors.primaryColor,
+            labelStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.sp),
+            indicatorPadding: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+
+            // labelPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            
+            tabs: [
+          Tab(
+            child: Text('All'),
+          ),
+           Tab(
+            child: Text('To Deliver'),
+          ),
+           Tab(
+            child: Text('To Approve'),
+          ),
+
+          ]),
+        ),
+        
+        
+        body: SafeArea(child: SalesOrderViewBodyWidget(),),
       ),
-      body: SafeArea(child: SalesOrderViewBodyWidget(),),
     );
   }
 }

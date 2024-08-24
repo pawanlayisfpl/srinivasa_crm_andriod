@@ -1,17 +1,20 @@
 
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl/intl.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/view_monthly_plan_model.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/widgets/monthly_plan_custoemer_list_dropdown_widget.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/widgets/monthly_plan_date_textfield.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/widgets/monthly_plan_kilometer_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/widgets/update_monthly_plan_date_textfield.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/model/post/update_monthly_plan_daily_plan_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/cubit/state/update_monthly_plan_state.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/screen/widget/update_monthly_plan_customer_list_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/screen/widget/update_monthly_plan_kilometer.dart';
@@ -34,79 +37,56 @@ class UpdateMonthlyPlanCalenderWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
          
-         state.isMonhtlPlanLoaded == false  ? const  SizedBox.shrink() :   TableCalendar(
-              weekNumbersVisible: false,
-              weekendDays: const [DateTime.sunday],
-              availableCalendarFormats: const {
-                CalendarFormat.month: 'Month',
-              },
-              calendarFormat: CalendarFormat.month,
-              formatAnimationCurve: Curves.easeInOut,
-              headerVisible: true,
-              calendarStyle: const CalendarStyle(
-                outsideDaysVisible: false,
-                // Hide the focused date by setting a transparent decoration
-                selectedDecoration: BoxDecoration(
-                  color: Colors.transparent,
-                ),
-                todayDecoration: BoxDecoration(
-                  color: Colors.transparent,
-                ),
-              ),
-              formatAnimationDuration: const Duration(milliseconds: 300),
-              focusedDay:   DateTime.parse(state.existingMonthlyPlanList.first.createdDate.toString()),
-              firstDay: DateTime.parse(state.existingMonthlyPlanList.first.createdDate.toString()),
-              lastDay: DateTime.parse(state.existingMonthlyPlanList.last.createdDate.toString()),
-              enabledDayPredicate: (day) => day.weekday != DateTime.sunday,
-              headerStyle: const HeaderStyle(
-                formatButtonVisible: false,
-                titleCentered: true,
-              ),
-              currentDay:DateTime.parse(state.existingMonthlyPlanList.first.createdDate.toString()),
-              onDaySelected: (selectedDay, focusedDay) {
-                bool dateExists = state.existingMonthlyPlanList.any((plan) => isSameDay(DateTime.parse(plan.createdDate.toString()), selectedDay));
-
-                if(dateExists) {
-                     showAdaptiveDialog(
-                  barrierDismissible: true, 
-                  
-                  context: context, builder: (c) => AlertDialog.adaptive(title: Text("PLans Exits"),));
-
-                }else {
-                     showAdaptiveDialog(
-                  barrierDismissible: true, 
-                  
-                  context: context, builder: (c) => AlertDialog.adaptive(title: Text("Creating New Plan"),));
-
-                }
-             
-              },
-              
-              
-              calendarBuilders: CalendarBuilders(
-                defaultBuilder: (context, day, focusedDay) {
-
-                  if(state.existingMonthlyPlanList.isNotEmpty) {
-                    var dateExists = state.existingMonthlyPlanList.any((plan) => isSameDay(DateTime.parse(plan.createdDate.toString()), day));
-                    return Container(
-                      margin: const EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: dateExists  ? Colors.blueAccent : Colors.grey,
-                      ),
-                      child: Center(
-                        child: Text(
-                          '${day.day}',
-                          style: TextStyle(color: dateExists  ? Colors.white : Colors.black),
-                        ),
-                      ),
-                    );
-                  }
-                  return null;
-                 
-                },
-              ),
-            ),
+         state.isMonhtlPlanLoaded == false  ? const  SizedBox.shrink() : 
+        TableCalendar(
+  weekNumbersVisible: false,
+  weekendDays: const [DateTime.sunday],
+  availableCalendarFormats: const {
+    CalendarFormat.month: 'Month',
+  },
+  calendarFormat: CalendarFormat.month,
+  formatAnimationCurve: Curves.easeInOut,
+  headerVisible: true,
+  calendarStyle: const CalendarStyle(
+    outsideDaysVisible: false,
+  ),
+  formatAnimationDuration: const Duration(milliseconds: 300),
+  firstDay: DateTime.parse(state.existingMonthlyPlanList.first.createdDate.toString()),
+lastDay: DateTime(
+  DateTime.parse(state.existingMonthlyPlanList.last.createdDate.toString()).year,
+  DateTime.parse(state.existingMonthlyPlanList.last.createdDate.toString()).month + 1,
+  0
+),  focusedDay: DateTime.parse(state.existingMonthlyPlanList.first.createdDate.toString()),
+  enabledDayPredicate: (day) => day.weekday != DateTime.sunday,
+  headerStyle: const HeaderStyle(
+    formatButtonVisible: false,
+    titleCentered: true,
+  ),
+  calendarBuilders: CalendarBuilders(
+    defaultBuilder: (context, day, focusedDay) {
+      var dateExists = state.existingMonthlyPlanList
+          .any((plan) => isSameDay(plan.createdDate, day));
+      return Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: dateExists ? Colors.green : Colors.grey.shade200,
+        ),
+        child: Center(
+          child: Text(
+            '${day.day}',
+            style: TextStyle(
+                color: dateExists ? Colors.white : Colors.black),
+          ),
+        ),
+      );
+    },
+  ),
+  onDaySelected: (selectedDay, focusedDay) async {
+    await handleOnDaySelected(selectedDay, context);
+  },
+),
+           
+         
           
             40.verticalSpace,
             CommonButton(
@@ -189,4 +169,119 @@ class UpdateMonthlyPlanCalenderWidget extends StatelessWidget {
       showDialog(context: context, builder: (ctx) => alertDialog );
     }
   }
+  Future<void> handleOnDaySelected(DateTime selectedDay, BuildContext context) async {
+    bool dateExists = context.read<UpdateMonthlyPlanCubit>().state.existingMonthlyPlanList
+        .any((plan) => isSameDay(DateTime.parse(plan.createdDate.toString()), selectedDay));
+
+    print("Selected Day: $selectedDay");
+    print("Date Exists: $dateExists");
+
+    if (dateExists) {
+      
+        context.read<UpdateMonthlyPlanCubit>().reset();
+      context.read<UpdateMonthlyPlanCubit>().onDateFieldChange(dateField: selectedDay.toString());
+      UpdateMonthlyDailyPlanPostModel updateMonthlyDailyPlanPostModel = context.read<UpdateMonthlyPlanCubit>().state.existingMonthlyPlanList.where((e) => isSameDay(e.createdDate, selectedDay)).toList().first;
+    log(updateMonthlyDailyPlanPostModel.toJson().toString());
+    context.read<UpdateMonthlyPlanCubit>().onKiloMeterChange(value: updateMonthlyDailyPlanPostModel.approxKms.toString());
+
+        showAdaptiveDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (c) => AlertDialog.adaptive(
+              backgroundColor: Colors.white,
+               shadowColor: Colors.grey.shade200,
+               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+              
+             content: SingleChildScrollView(
+               child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 8,
+                        child: CommonTextWidget(title: 'Update plan',textSize: 22.sp,fontWeight: FontWeight.w500,align: TextAlign.left,).withSymetricPadding(horizontalPadding: 5.w)),
+                       10.horizontalSpace,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: CircleAvatar(
+                            backgroundColor: Colors.grey.shade100,
+                            child: const Icon(Icons.close,color: Colors.black,)),
+                        ),
+                        10.horizontalSpace,
+                    ],
+                  ),
+                  const Divider(),
+                  15.verticalSpace,
+                  const UpdateMonthlyPlanDateTextFieldWidget(),
+                  15.verticalSpace,
+                  const UpdateMonthlyPlanKilometerTextWidget(),
+                  15.verticalSpace,
+                  const UpdateMonthlyPlanCustomerListDropDownWidget(),
+                  20.verticalSpace,
+                  CommonButton(callback: ()async  {
+                    context.read<UpdateMonthlyPlanCubit>().addToExistingPlan(context);
+                  }, title: 'Submit'),
+                  10.verticalSpace,
+                
+               
+                ],),
+             ),),
+        );
+    } else {
+      context.read<UpdateMonthlyPlanCubit>().reset();
+      context.read<UpdateMonthlyPlanCubit>().onDateFieldChange(dateField: selectedDay.toString());
+
+
+
+        showAdaptiveDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (c) => AlertDialog.adaptive(
+              backgroundColor: Colors.white,
+               shadowColor: Colors.grey.shade200,
+               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+              
+             content: SingleChildScrollView(
+               child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 8,
+                        child: CommonTextWidget(title: 'Create new plan',textSize: 22.sp,fontWeight: FontWeight.w500,align: TextAlign.left,).withSymetricPadding(horizontalPadding: 5.w)),
+                       10.horizontalSpace,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: CircleAvatar(
+                            backgroundColor: Colors.grey.shade100,
+                            child: const Icon(Icons.close,color: Colors.black,)),
+                        ),
+                        10.horizontalSpace,
+                    ],
+                  ),
+                  const Divider(),
+                  15.verticalSpace,
+                  const UpdateMonthlyPlanDateTextFieldWidget(),
+                  15.verticalSpace,
+                  const UpdateMonthlyPlanKilometerTextWidget(),
+                  15.verticalSpace,
+                  const UpdateMonthlyPlanCustomerListDropDownWidget(),
+                  20.verticalSpace,
+                  CommonButton(callback: ()async  {
+                    context.read<UpdateMonthlyPlanCubit>().addToExistingPlan(context);
+                  }, title: 'Submit'),
+                  10.verticalSpace,
+                
+               
+                ],),
+             ),),
+        );
+    }
+}
 }

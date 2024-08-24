@@ -22,7 +22,7 @@ class UpdateMonthlyPlanCustomerListDropDownWidget extends StatelessWidget {
 
                 enabled: true,
 
-                dropdownBuilder: (context, selectedItems) => CommonTextWidget(title: selectedItems.isEmpty ? 'Select Customers' : selectedItems.map((e) => e.customerName == null ? 'no name found' : e.customerName.toString()).join('\n'),fontWeight: selectedItems.isEmpty ? FontWeight.w400 : FontWeight.w500,) ,
+                dropdownBuilder: (context, selectedItems) => CommonTextWidget(title: selectedItems.isEmpty ? 'Select Customers' : selectedItems.map((e) => e.customerName == null ? 'no name found' : e.customerName.toString()).join('\n'),fontWeight: selectedItems.isEmpty ? FontWeight.w400 : FontWeight.w500,maxLines: 9,) ,
                 
                 
                 dropdownButtonProps:  const DropdownButtonProps(

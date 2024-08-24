@@ -5,7 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Search/presentation/screens/widgets/search_customer_loading_widget.dart';
+import 'package:srinivasa_crm_new/src/features/Kyc/presentation/screens/widget/kyc_pending_approve_list_widget.dart';
+import 'package:srinivasa_crm_new/src/features/Kyc/presentation/screens/widget/kyc_pending_inprocess_list_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/screens/widget/kyc_pending_list_widget.dart';
+import 'package:srinivasa_crm_new/src/features/Kyc/presentation/screens/widget/kyc_pending_pending_list_widget.dart';
 import '../../cubit/kyc_cubit.dart'; // Import your KycCubit
 import '../../cubit/state/kyc_state.dart';
 
@@ -23,7 +26,15 @@ class KycPendingBodyWidget extends StatelessWidget {
             ],
           );
         } else if (state is Loaded) {
-          return KycPendingListWidget(customersList: state.customerKycList);
+          return TabBarView(children: [
+            KycPendingListWidget(customersList: state.customerKycList),
+            KycPendingPendingListWidget(customersList: state.customerKycList),
+            KycPendingInProcessListWidget(customersList: state.customerKycList),
+            KycPendingApproveListWidget(customersList: state.customerKycList),
+
+          ]);
+          
+           
         } else if (state is Initial) {
           return const Text('Please initiate KYC loading.');
         } else {
