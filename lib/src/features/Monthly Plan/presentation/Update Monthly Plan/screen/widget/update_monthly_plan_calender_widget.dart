@@ -101,7 +101,7 @@ lastDay: DateTime(
                 onConfirmBtnTap: () {
                   Navigator.pop(context);
                   if(context.mounted) {
-                    context.read<UpdateMonthlyPlanCubit>().updateMonthlyPlan();
+                    context.read<UpdateMonthlyPlanCubit>().updateMonthlyPlan(context);
                   }
                 },
                 cancelBtnText: 'No',
@@ -177,13 +177,16 @@ lastDay: DateTime(
     print("Date Exists: $dateExists");
 
     if (dateExists) {
+      // UPDATE DAILY PLAN
+        UpdateMonthlyDailyPlanPostModel exisitngModel = context.read<UpdateMonthlyPlanCubit>().state.existingMonthlyPlanList.where((e) => isSameDay(e.createdDate, selectedDay)).first;
+        log(exisitngModel.toJson().toString());
       
         context.read<UpdateMonthlyPlanCubit>().reset();
       context.read<UpdateMonthlyPlanCubit>().onDateFieldChange(dateField: selectedDay.toString());
       UpdateMonthlyDailyPlanPostModel updateMonthlyDailyPlanPostModel = context.read<UpdateMonthlyPlanCubit>().state.existingMonthlyPlanList.where((e) => isSameDay(e.createdDate, selectedDay)).toList().first;
     log(updateMonthlyDailyPlanPostModel.toJson().toString());
     context.read<UpdateMonthlyPlanCubit>().onKiloMeterChange(value: updateMonthlyDailyPlanPostModel.approxKms.toString());
-
+    context.read<UpdateMonthlyPlanCubit>().addToExistingSelectedCustomersList(updateMonthlyDailyPlanPostModel: updateMonthlyDailyPlanPostModel);
         showAdaptiveDialog(
             barrierDismissible: true,
             context: context,
@@ -222,7 +225,7 @@ lastDay: DateTime(
                   const UpdateMonthlyPlanCustomerListDropDownWidget(),
                   20.verticalSpace,
                   CommonButton(callback: ()async  {
-                    context.read<UpdateMonthlyPlanCubit>().addToExistingPlan(context);
+                    context.read<UpdateMonthlyPlanCubit>().updatePlan(context,selectedDay);
                   }, title: 'Submit'),
                   10.verticalSpace,
                 
@@ -231,6 +234,7 @@ lastDay: DateTime(
              ),),
         );
     } else {
+      // CREATE DAILY PLAN
       context.read<UpdateMonthlyPlanCubit>().reset();
       context.read<UpdateMonthlyPlanCubit>().onDateFieldChange(dateField: selectedDay.toString());
 
