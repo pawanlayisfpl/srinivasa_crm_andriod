@@ -549,9 +549,9 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
       Fluttertoast.showToast(msg: 'Customer already exists');
 
       if (context.mounted) {
-        showAdaptiveDialog(
+        showDialog(
             context: context,
-            builder: (alertContext) => AlertDialog.adaptive(
+            builder: (alertContext) => AlertDialog(
                   shadowColor: Colors.grey.shade200,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6)),
@@ -600,7 +600,7 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
                       CommonTextWidget(
                         title: 'Customer already exists',
                         fontWeight: FontWeight.w600,
-                        textSize: 22.sp,
+                        textSize:  20.sp,
                         textColor: AppColors.primaryColor,
                       ),
                       const Divider(), 20.verticalSpace,

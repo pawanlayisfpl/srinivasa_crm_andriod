@@ -33,7 +33,7 @@ class _KycPendingScreenState extends State<KycPendingScreen> {
         appBar: AppBar(
           title: const Text('KYC Pending List'),
            bottom: TabBar(
-            // isScrollable: true,
+            isScrollable: true,
              
 
             indicatorSize: TabBarIndicatorSize.tab,

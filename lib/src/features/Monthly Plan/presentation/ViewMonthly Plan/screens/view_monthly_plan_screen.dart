@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/data/repo/alert_repo_impl.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/widgets/monthly_plan_custoemer_list_dropdown_widget.dart';
@@ -13,6 +15,7 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/screens/widgets/dp_customer_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/screens/widgets/dp_date_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/screens/widgets/dp_kilometer_textfield.dart';
+import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/screen/update_monthly_plan_screen.dart';
 
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/cubit/view_monthly_plan_cubit.dart';
 
@@ -118,16 +121,30 @@ class _ViewMonthlyPlanScreenState extends State<ViewMonthlyPlanScreen> {
                         ],
                       ),
                     );
-                    showAdaptiveDialog(
+                    showDialog(
                         useSafeArea: true,
                         barrierDismissible: false,
                         context: context,
                         builder: (c) => alertDialog);
                   },
-                  icon: const Icon(Icons.add),
+                  icon: const Icon(Icons.create),
                 );
               },
-            ) : const SizedBox.shrink() )
+            ) : 
+            DateTime.parse(data.monthlyPlanLists.dailyPlans!.first.planDate.toString()).month.toString() != DateTime.now().month.toString() && data.monthlyPlanLists.approvalStatus!.toLowerCase().toString() != "approved" ?
+            
+              IconButton(onPressed: () {
+              if(context.mounted) {
+                QuickAlert.show(context: context, type: QuickAlertType.confirm,animType: QuickAlertAnimType.slideInDown,title: 'Update Plan',confirmBtnText: 'Yes',confirmBtnColor: Colors.black,onConfirmBtnTap: () {
+                  if(Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                    if(context.mounted) {
+                      Navigator.push(context, ScaleRoute(screen: UpdateMonthlyPlanScreen(id: widget.monthlyPlanId))); 
+                    }
+                  }
+                },);
+              }
+            }, icon: const Icon(Icons.edit)) : const SizedBox.shrink(),) 
           ],
         ),
         body:  SafeArea(child: ViewMonthlyPlanBodyWidget(id: widget.monthlyPlanId ?? -1,)));
