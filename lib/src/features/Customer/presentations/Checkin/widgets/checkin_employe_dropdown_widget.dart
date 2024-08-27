@@ -18,7 +18,7 @@ class CheckinEmployeDropdownWidget extends StatelessWidget {
         return DropdownSearch<EmployeeModel>.multiSelection(
                 enabled: true,
 
-                dropdownBuilder: (context, selectedItems) => CommonTextWidget(title: selectedItems.isEmpty ? 'Select Employee' : selectedItems.map((e) => e.userName).join(' , '),fontWeight: selectedItems.isEmpty ? FontWeight.w400 : FontWeight.w500,) ,
+                dropdownBuilder: (context, selectedItems) => CommonTextWidget(title: selectedItems.isEmpty ? 'Select Employee' : selectedItems.map((e) => e.userName).join(' , '),fontWeight: selectedItems.isEmpty ? FontWeight.w400 : FontWeight.w500,maxLines: 6,) ,
                 
                 
                 dropdownButtonProps: const DropdownButtonProps(

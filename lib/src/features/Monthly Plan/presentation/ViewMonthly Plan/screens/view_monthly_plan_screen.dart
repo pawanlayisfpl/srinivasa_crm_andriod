@@ -65,7 +65,7 @@ class _ViewMonthlyPlanScreenState extends State<ViewMonthlyPlanScreen> {
           actions: [
            context.watch<ViewMonthlyPlanCubit>().state.maybeMap(orElse: () => const SizedBox.shrink(),loading: (value) => const SizedBox.shrink(),loaded: (data) => 
            
-           DateTime.parse(data.monthlyPlanLists.dailyPlans!.first.planDate.toString()).month.toString() == DateTime.now().month.toString() && data.monthlyPlanLists.approvalStatus!.toLowerCase().toString() != "pending" ?
+          data.monthlyPlanLists.dailyPlans!.isNotEmpty ? DateTime.parse(data.monthlyPlanLists.dailyPlans!.first.planDate.toString()).month.toString() == DateTime.now().month.toString() && data.monthlyPlanLists.approvalStatus!.toLowerCase().toString() != "pending" ?
         
             BlocBuilder<DailyPlanCubit, DailyPlanState>(
               builder: (context, state) {
@@ -144,7 +144,7 @@ class _ViewMonthlyPlanScreenState extends State<ViewMonthlyPlanScreen> {
                   }
                 },);
               }
-            }, icon: const Icon(Icons.edit)) : const SizedBox.shrink(),) 
+            }, icon: const Icon(Icons.edit)) : const SizedBox.shrink() : const SizedBox.shrink(),)
           ],
         ),
         body:  SafeArea(child: ViewMonthlyPlanBodyWidget(id: widget.monthlyPlanId ?? -1,)));

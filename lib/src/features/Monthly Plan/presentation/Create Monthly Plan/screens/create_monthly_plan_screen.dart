@@ -32,18 +32,18 @@ class _CreateMonthlyPlanScreenState extends State<CreateMonthlyPlanScreen> {
       appBar: AppBar(
         title: const Text('Create Monthly Plan'),
            actions: [
-          IconButton(
-            onPressed: () {
-              if(context.mounted) {
-                QuickAlert.show(
-                  context: context, 
-                  type: QuickAlertType.info, 
-                  text: 'Can only possible to create monthly plan for upcoming month only, and that will goes into approval to your reporting manager. Once approval is done, you can check monthly plan in the monthly plan dashboard.'
-                );
-              }
-            },
-            icon: const Icon(Icons.info),
-          )
+          // IconButton(
+          //   onPressed: () {
+          //     if(context.mounted) {
+          //       QuickAlert.show(
+          //         context: context, 
+          //         type: QuickAlertType.info, 
+          //         text: 'Can only possible to create monthly plan for upcoming month only, and that will goes into approval to your reporting manager. Once approval is done, you can check monthly plan in the monthly plan dashboard.'
+          //       );
+          //     }
+          //   },
+          //   icon: const Icon(Icons.info),
+          // )
           
         ],
       ),

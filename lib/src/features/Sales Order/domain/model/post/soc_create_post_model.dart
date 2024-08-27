@@ -33,7 +33,7 @@ class SocCreatePostModel {
 
   factory SocCreatePostModel.fromJson(Map<String, dynamic> json) {
     return SocCreatePostModel(
-      customerCode: json['customerCode'],
+      customerCode: json['customerId'],
       productDetails: List<ProductDetails>.from(json['productDetails'].map((x) => ProductDetails.fromJson(x))),
       orderAmount: json['orderAmount'],
       orderGstAmount: json['orderGstAmount'],
@@ -52,7 +52,7 @@ class SocCreatePostModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'customerCode': customerCode,
+      'customerId': customerCode.toString(),
       'productDetails': List<dynamic>.from(productDetails.map((x) => x.toJson())),
       'orderAmount': orderAmount,
       'orderGstAmount': orderGstAmount,
@@ -61,7 +61,7 @@ class SocCreatePostModel {
       'amountPaid': amountPaid,
       'paymentModeId': paymentModeId,
       'balanceAmount': balanceAmount,
-      'balanceAmountDueDate': balanceAmountDueDate,
+      'balanceAmountDueDate': balanceAmountDueDate.isEmpty || !balanceAmountDueDate.contains('-') ? "" : balanceAmountDueDate,
       'orderRemarks': orderRemarks,
       'assignTo': assignTo,
       'assignToRemarks': assignToRemarks,

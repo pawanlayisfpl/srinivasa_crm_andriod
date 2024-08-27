@@ -88,7 +88,7 @@ class AllCustomerLoadedWidget extends StatelessWidget {
                               isThreeLine: false,
                   
                                 title: CommonTextWidget(title: customerModel.customerName ?? "No Name Found",fontWeight: FontWeight.w500,textColor: Colors.black,),
-                                subtitle: CommonTextWidget(title: customerModel.farm!.farmName.toString() +" - " +  customerModel.farm!.custLocation.toString(),textColor: Colors.black.withOpacity(0.7),fontWeight: FontWeight.w400,maxLines: 2,),
+                                subtitle: CommonTextWidget(title: customerModel.farm!.isIndividual  == true  ? customerModel.farm!.farmName.toString() +" - " +  customerModel.farm!.custLocation.toString() : "Organization",textColor: Colors.black.withOpacity(0.7),fontWeight: FontWeight.w400,maxLines: 2,),
                               ),
                 );
               },

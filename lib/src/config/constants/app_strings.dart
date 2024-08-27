@@ -35,6 +35,7 @@ class AppStrings {
   // NOTIFICATION TYPE
   static const String salesOrderType = "SALES_ORDER";
   static const String monthlyPlantype ='MONTHLY_PLAN';
+  static const String dailyPlanType ='DAILY_PLAN';
 
   // NOTIFICATIONS STATUS
   static const String approved = "APPROVED";

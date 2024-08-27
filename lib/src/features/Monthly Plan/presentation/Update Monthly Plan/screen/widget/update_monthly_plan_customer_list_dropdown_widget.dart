@@ -22,7 +22,7 @@ class UpdateMonthlyPlanCustomerListDropDownWidget extends StatelessWidget {
 
                 enabled: true,
 
-                dropdownBuilder: (context, selectedItems) => CommonTextWidget(title: selectedItems.isEmpty ? 'Select Customers' : selectedItems.map((e) => e.farm!.farmName == null ? 'no name found' : e.farm!.farmName.toString()).join('\n'),fontWeight: selectedItems.isEmpty ? FontWeight.w400 : FontWeight.w500,maxLines: 9,) ,
+                dropdownBuilder: (context, selectedItems) => CommonTextWidget(title: selectedItems.isEmpty ? 'Select Customers' : selectedItems.map((e) => e.farm!.isIndividual == true ?  e.farm!.farmName == null ? 'no name found' : e.farm!.farmName.toString() : e.customerName).join('\n'),fontWeight: selectedItems.isEmpty ? FontWeight.w400 : FontWeight.w500,maxLines: 9,) ,
                 
                 
                 dropdownButtonProps:  const DropdownButtonProps(
@@ -69,7 +69,7 @@ class UpdateMonthlyPlanCustomerListDropDownWidget extends StatelessWidget {
 
                 
               
-                itemAsString: (item) => item.farm!.farmName.toString() + " - "+item.farm!.custLocation.toString()+"\n(${item.customerName.toString()})",                // show: (EmployeModel employee) => employee.name,
+                itemAsString: (item) => item.farm!.isIndividual == true ?  item.farm!.farmName.toString() + " - "+item.farm!.custLocation.toString()+"\n(${item.customerName.toString()} )" : '${item.customerName}',                // show: (EmployeModel employee) => employee.name,
                 onChanged: (values) {
                   if(values.isNotEmpty) {
                     context.read<UpdateMonthlyPlanCubit>().setSelectedCustomerLists(selectedCustomers: values);

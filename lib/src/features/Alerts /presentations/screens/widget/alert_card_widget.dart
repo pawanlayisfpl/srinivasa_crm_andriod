@@ -89,22 +89,33 @@ class AlertCardWidget extends StatelessWidget {
                   break;
                   case AppStrings.created :
                   if(alertModel.type == "CREATED") {
-                    context.read<ViewMonthlyPlanCubit>().managerClickTrue();
+
+                    if(alertModel.notificationType != AppStrings.dailyPlanType) {
+ context.read<ViewMonthlyPlanCubit>().managerClickTrue();
                                 context.read<ViewMonthlyPlanCubit>().setAlertModelValue(alertModel);
+                    }else {
+                                          Navigator.push(context, SlideRightRoute(screen: AlertDetailsScreen(alertModel: alertModel,) ));
+
+                    }
+                   
 
                   }
                   
                        
                       
-                  Navigator.push(context, SlideLeftRoute(screen: ViewMonthlyPlanScreen(monthlyPlanId: alertModel.monthlyPlanId, )));
                   break;
-                  case AppStrings.updated:
+                  case   AppStrings.updated:
                       
-                   context.read<ViewMonthlyPlanCubit>().managerClickTrue();
+                  if(alertModel.notificationType != AppStrings.dailyPlanType) {
+                       context.read<ViewMonthlyPlanCubit>().managerClickTrue();
                                 context.read<ViewMonthlyPlanCubit>().setAlertModelValue(alertModel);
                       
                       
                   Navigator.push(context, SlideLeftRoute(screen: ViewMonthlyPlanScreen(monthlyPlanId: alertModel.monthlyPlanId, )));
+                  }else {
+                    Navigator.push(context, SlideRightRoute(screen: AlertDetailsScreen(alertModel: alertModel,) ));
+
+                  }
                   break;
                   default : 
                   Navigator.push(context, SlideRightRoute(screen: AlertDetailsScreen(alertModel: alertModel,) ));
@@ -121,8 +132,8 @@ class AlertCardWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8.w,vertical: 4.h),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2.0),
-              color: alertModel.notificationType == AppStrings.salesOrderType ? AppColors.primaryColor : AppColors.orangeColor),
-            child: CommonTextWidget(title: alertModel.notificationType == AppStrings.salesOrderType ? "Sales Order" : "Monthly Plan",textColor: Colors.white,fontWeight: FontWeight.w500,)).withPadding(left: 0.w),
+              color: alertModel.notificationType == AppStrings.salesOrderType ? AppColors.primaryColor :  alertModel.notificationType == AppStrings.dailyPlanType ? Colors.brown : AppColors.orangeColor),
+            child: CommonTextWidget(title: alertModel.notificationType == AppStrings.salesOrderType ? "Sales Order" : alertModel.notificationType == AppStrings.dailyPlanType ? "Daily Plan" : "Monthly Plan",textColor: Colors.white,fontWeight: FontWeight.w500,)).withPadding(left: 0.w),
             5.verticalSpace,
                     CommonTextWidget(title: alertModel.message ?? "No message found", maxLines: 3,fontWeight: FontWeight.w500,),
                   ],

@@ -26,7 +26,7 @@ class ViewMonthlyPlanBodyWidget extends StatelessWidget {
       builder: (context, state) {
        
         return state.when(initial: () => const Center(child: Text('View  Monthly plan state screen'),), loading: () => const CustomLoadingWidget(), loaded: (r) {
-          return  r.dailyPlans == null ? EmptyWidget(title: 'No Plans found', callback: () {}) :
+          return  r.dailyPlans == null || r.dailyPlans!.isEmpty ? EmptyWidget(title: 'No Plans found', callback: () {}) :
           //  context.watch<ViewMonthlyPlanCubit>().alertModel != null && r.approvalStatus == "APPROVED" || r.approvalStatus == "REJECTED" ? Center(child: Column(
           //   crossAxisAlignment: CrossAxisAlignment.center,
           //   mainAxisAlignment: MainAxisAlignment.center,

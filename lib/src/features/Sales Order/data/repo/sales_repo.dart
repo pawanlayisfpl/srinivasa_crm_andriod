@@ -206,7 +206,7 @@ class SaleRepoImpl implements SalesRepo {
     "amountPaid": socCreatePostModel.amountPaid,
     "paymentModeId": socCreatePostModel.paymentModeId,
     "balanceAmount": socCreatePostModel.balanceAmount,
-    "balanceAmountDueDate": socCreatePostModel.balanceAmountDueDate.toFormattedDate(),
+    "balanceAmountDueDate": socCreatePostModel.balanceAmountDueDate.isEmpty ?  "" : socCreatePostModel.balanceAmountDueDate.toFormattedDate(),
     "orderRemarks": socCreatePostModel.orderRemarks,
     "assignTo": 0,
     "assignToRemarks": socCreatePostModel.assignToRemarks,
@@ -260,7 +260,7 @@ class SaleRepoImpl implements SalesRepo {
          final ParticularSalesOrderModel particularSalesOrderModel = ParticularSalesOrderModel.fromJson(response.data['data']);
         return Right(particularSalesOrderModel);
        }else {
-        return left(const NetworkExceptions.badRequest());
+        return left( NetworkExceptions.getDioException(response.data));
        }
 
       }else {

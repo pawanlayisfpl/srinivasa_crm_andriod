@@ -240,10 +240,10 @@ lastDay: DateTime(
 
 
 
-        showAdaptiveDialog(
+        showDialog(
             barrierDismissible: true,
             context: context,
-            builder: (c) => AlertDialog.adaptive(
+            builder: (c) => AlertDialog(
               backgroundColor: Colors.white,
                shadowColor: Colors.grey.shade200,
                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),

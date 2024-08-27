@@ -498,7 +498,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
           phone.isNotEmpty &&
           contactPerson.isNotEmpty &&
           mobile.isNotEmpty &&
-          email.isNotEmpty &&
+          // email.isNotEmpty &&
           customerType != null &&
           divisionModel != null &&
           zone != null &&
@@ -568,7 +568,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
           state.selectedTitleValue != null &&
           contactPerson.isNotEmpty &&
           mobile.isNotEmpty &&
-          email.isNotEmpty &&
+          // email.isNotEmpty &&
           customerType != null &&
           divisionModel != null &&
           zone != null &&

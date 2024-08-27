@@ -90,8 +90,8 @@ class _CheckinScreenState extends State<CheckinScreen> {
               ListTile(
                 dense: false,
                 contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.person),
-                title: Text(widget.customermodel.customerName ?? 'N/A', maxLines: 1),
+                leading:  Icon(Icons.person),
+                title: Text(widget.customermodel.farm!.isIndividual == true ?  widget.customermodel.farm!.farmName.toString() : widget.customermodel.customerName ?? 'N/A', maxLines: 1),
               ),
               const Divider(),
               10.verticalSpace,

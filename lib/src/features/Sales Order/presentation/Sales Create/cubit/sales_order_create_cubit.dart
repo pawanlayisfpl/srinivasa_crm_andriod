@@ -275,7 +275,7 @@ if (discountPerQtyValue <= minAllowedAmount) {
     double totalGivenAmountValue = givenPrice * qty;
     productSellingRateController.text = finalAmount.toStringAsFixed(2);
     log('printing final amount value is ${finaltotalAmountValue.toString()}');
-    producttotalController.text = finaltotalAmountValue.toString();
+    producttotalController.text = finaltotalAmountValue.toStringAsFixed(0);
 
 
     log("selling price total amount is ${finaltotalAmountValue.toString()}");
@@ -442,6 +442,7 @@ void onDiscountPerPercentageChanged() {
     log('paid amount value ${paidAmountValue.toString()}');
 
     }else {
+      balanceAmountController.clear();
       Fluttertoast.showToast(msg: 'Paid amount can\'t be more than total order amount',backgroundColor: Colors.red,textColor: Colors.white);
       balanceAmountController.clear();
     }
@@ -467,6 +468,7 @@ void onDiscountPerPercentageChanged() {
       
 
     }else {
+      balanceAmountController.clear();
 
     }
   }
@@ -902,13 +904,13 @@ String? assignedToReamarksValue = assignedToRemarksController.text;
 List<ProductPendingFormModel> pendingFormList = state.pendingFormList;
 
 
-if(customerModel == null || productFormList.isEmpty || orderTotalAmountValue.isEmpty|| orderAmountValue.isEmpty || amountPaidValue.isEmpty || balanceAmountValue.isEmpty || balanceDueDateValue.isEmpty || paymentModeModel == null || orderRemarksValue.isEmpty || assignedToReamarksValue.isEmpty || pendingFormList.isEmpty) {
+if(customerModel == null || productFormList.isEmpty || orderTotalAmountValue.isEmpty|| orderAmountValue.isEmpty || amountPaidValue.isEmpty  || paymentModeModel == null  ) {
   Fluttertoast.showToast(msg: 'Please fill in all required fields',backgroundColor: Colors.red,textColor: Colors.white);
   return;
 }else {
 
 SocCreatePostModel socCreatePostModel = SocCreatePostModel(
-  customerCode: customerModel.customerId!,
+  customerCode: customerModel.customerId!.toString(),
   productDetails: productFormList.map((e) => ProductDetails(
     divisionId: e.divisionId,
     productId: e.productId,
@@ -931,11 +933,14 @@ SocCreatePostModel socCreatePostModel = SocCreatePostModel(
   amountPaid: double.tryParse(amountPaidValue) ?? 0.0,
   paymentModeId: paymentModeModel.paymentModeId!,
   balanceAmount: double.tryParse(balanceAmountValue) ?? 0.0,
-  balanceAmountDueDate: balanceDueDateValue,
+  balanceAmountDueDate: balanceDueDateValue.isEmpty || !balanceDueDateValue.contains("-")
+    ? ""
+    : balanceDueDateValue,
+    
   orderRemarks: orderRemarksValue,
   assignTo: 0,
   assignToRemarks: assignedToReamarksValue,
-  pendingPaymentDetails: pendingFormList.map((e) => PendingPaymentDetails(
+  pendingPaymentDetails: pendingFormList.isEmpty ? [] : pendingFormList.map((e) => PendingPaymentDetails(
     dueDate: e.dueDate,
     amount: e.dueAmount,
     dueAmountPercentage: 100.0,
@@ -945,7 +950,7 @@ SocCreatePostModel socCreatePostModel = SocCreatePostModel(
 
 log(socCreatePostModel.toJson().toString());
 emit(state.copyWith(isSubmitting: true,apiFailedModel: null));
-await Future.delayed(const Duration(seconds: 2)); 
+await Future.delayed(const Duration(seconds: 1)); 
 
 final results = await salesRepo.createSaleOrder(socCreatePostModel: socCreatePostModel);
 
