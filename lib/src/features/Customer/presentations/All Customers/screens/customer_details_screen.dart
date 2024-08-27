@@ -1,13 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_state.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_state.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/screens/check_out_screen.dart';
@@ -16,7 +13,6 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/sc
 import '../../../../../config/config.dart';
 import '../../../domain/model/get/customer_model.dart';
 import '../../Checkin/cubit/checkin_cubit.dart';
-import '../../Customer Full Details/screen/customer_full_details_screen.dart';
 
 class CustomerDetailsScreen extends StatefulWidget {
   final Customermodel? customermodel;
@@ -114,13 +110,22 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                             const CustomerDetailsDividerWidget(),
                             10.verticalSpace,
                               const CustomerDetailsHeadingWidget(
-                              title: 'Customer Name',
+                              title: 'Farm ID',
+                            ),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel?.farm!.farmId.toString(),
+                            ),
+                            const CustomerDetailsDividerWidget(),
+                            10.verticalSpace,
+                              const CustomerDetailsHeadingWidget(
+                              title: 'Farm Name',
                             ),
                             CustomerDetailsTextWidget(
                               data: widget.customermodel?.farm!.farmName.toString(),
                             ),
                             const CustomerDetailsDividerWidget(),
                               10.verticalSpace,
+                              
                               const CustomerDetailsHeadingWidget(
                               title: 'Customer Zone',
                             ),
@@ -138,8 +143,15 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                             const CustomerDetailsDividerWidget(),
                             10.verticalSpace,
                           
+                            const CustomerDetailsHeadingWidget(title: 'City'),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel!.farm!.custCity,
+                            ),
+                           
+                            const CustomerDetailsDividerWidget(),
+                            10.verticalSpace,
     
-                            const CustomerDetailsHeadingWidget(title: 'Location'),
+                            const CustomerDetailsHeadingWidget(title: 'Farm Location'),
                             CustomerDetailsTextWidget(
                               data: widget.customermodel!.farm!.custLocation,
                             ),
@@ -160,6 +172,13 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                            
                             const CustomerDetailsDividerWidget(),
                             10.verticalSpace,
+                              const CustomerDetailsHeadingWidget(title: 'Country'),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel!.farm!.custCountry,
+                            ),
+                           
+                            const CustomerDetailsDividerWidget(),
+                            10.verticalSpace,
                               const CustomerDetailsHeadingWidget(title: 'Address'),
                             CustomerDetailsTextWidget(
                               data: widget.customermodel!.farm!.custAddress,
@@ -167,6 +186,28 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                            
                             const CustomerDetailsDividerWidget(),
                             10.verticalSpace,
+                              const CustomerDetailsHeadingWidget(title: 'State'),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel!.farm!.custStateCode,
+                            ),
+                           
+                            const CustomerDetailsDividerWidget(),
+                            10.verticalSpace,
+                              const CustomerDetailsHeadingWidget(title: 'City'),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel!.farm!.custCity,
+                            ),
+                           
+                            const CustomerDetailsDividerWidget(),
+                            10.verticalSpace,
+                              const CustomerDetailsHeadingWidget(title: 'Postal Code'),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel!.farm!.custPostal,
+                            ),
+                           
+                            const CustomerDetailsDividerWidget(),
+                            10.verticalSpace,
+                            
                             
 
                           ],

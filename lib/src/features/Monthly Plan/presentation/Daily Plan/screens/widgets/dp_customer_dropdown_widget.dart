@@ -21,7 +21,7 @@ class DailyPlanCustomerListDropdownWidget extends StatelessWidget {
         return DropdownSearch<Customermodel>.multiSelection(
                 enabled: true,
 
-                dropdownBuilder: (context, selectedItems) => CommonTextWidget(title: selectedItems.isEmpty ? 'Select Customers' : selectedItems.map((e) => e.customerName == null ? 'no name found' : e.customerName.toString()).join(' , '),fontWeight: selectedItems.isEmpty ? FontWeight.w400 : FontWeight.w500,maxLines: 5,) ,
+                dropdownBuilder: (context, selectedItems) => CommonTextWidget(title: selectedItems.isEmpty ? 'Select Customers' : selectedItems.map((e) => e.farm!.farmName == null ? 'no name found' : e.farm!.farmName.toString()).join(' , '),fontWeight: selectedItems.isEmpty ? FontWeight.w400 : FontWeight.w500,maxLines: 5,) ,
                 
                 
                 dropdownButtonProps: const  DropdownButtonProps(
@@ -67,7 +67,7 @@ class DailyPlanCustomerListDropdownWidget extends StatelessWidget {
 
                 
               
-                itemAsString: (item) => "${item.customerName} \n(${item.farm!.custLocation})",                // show: (EmployeModel employee) => employee.name,
+                itemAsString: (item) => "${item.farm!.farmName} \n(${item.farm!.custLocation})\n(${item.customerName.toString()})§",                // show: (EmployeModel employee) => employee.name,
                 onChanged: (values) {
                   if(values.isNotEmpty) {
                     context.read<DailyPlanCubit>().setSelectedCustomerLists(selectedCustomers: values);
