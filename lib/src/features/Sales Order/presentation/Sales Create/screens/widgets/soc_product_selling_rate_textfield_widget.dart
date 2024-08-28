@@ -16,8 +16,8 @@ class SocProductSellingRateTextField extends StatelessWidget {
         return CommonTextfield(
           readOnly: false,
             fillColor: AppColors.textFieldBgColor,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
+            inputFormatters: const[
+              // FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
             ],
             textInputType: TextInputType.number,
             textEditingController:

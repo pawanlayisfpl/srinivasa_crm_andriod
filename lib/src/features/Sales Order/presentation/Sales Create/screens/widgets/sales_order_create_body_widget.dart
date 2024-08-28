@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/common/widgets/text/common_textfield_heading_widget.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/config/constants/app_colors.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
@@ -74,21 +75,21 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
 
             CustomExpansionTileWidget(heading: 'Customer Details', childrens: [
               // 20.verticalSpace,
-              const CustomHeadingTextWidget(title: 'Customer'),
+              const CommonTextFieldHeadingWidget(title: "Customer",isRequired: true,),
               const SocCustomerDropDownWidget(),
               20.verticalSpace,
             ]),
             20.verticalSpace,
 
-            CustomExpansionTileWidget(heading: 'Product Details:', childrens: [
+            CustomExpansionTileWidget(heading: 'Product Details(required)', childrens: [
               20.verticalSpace,
-              SocProductListWidget(),
+              const SocProductListWidget(),
               20.verticalSpace,
               CommonButton(
                   callback: () {
                     if (context.mounted) {
                       Navigator.push(context,
-                          ScaleRoute(screen: SalesProductFormScreen()));
+                          ScaleRoute(screen: const SalesProductFormScreen()));
                     }
                   },
                   title: context
@@ -112,19 +113,19 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
               const CustomHeadingTextWidget(title: 'Order Amount '),
               const SocOrderAmountTextField(),
               20.verticalSpace,
-              const CustomHeadingTextWidget(title: 'Amount Paid'),
+              CommonTextFieldHeadingWidget(title: 'Amount Paid',isRequired: true,),
               const SocAmountPaidController(),
               20.verticalSpace,
-              const CustomHeadingTextWidget(title: 'Balance Amount'),
+              const CustomHeadingTextWidget(title: 'Balance Amount(optional)'),
               const SocBalanceAmountTextField(),
               20.verticalSpace,
-              const CustomHeadingTextWidget(title: 'Balance Amount Due Date'),
+              const CustomHeadingTextWidget(title: 'Balance Amount Due Date(optional)'),
               const SocBalanceDueDateTextField(),
               20.verticalSpace,
-              const CustomHeadingTextWidget(title: 'Payment Mode'),
-              const SocPaymentModeDropDownWidget(),
+              const CommonTextFieldHeadingWidget(title: 'Payment Mode',isRequired: true,)
+,              const SocPaymentModeDropDownWidget(),
               20.verticalSpace,
-              const CustomHeadingTextWidget(title: 'Order Remarks'),
+              const CustomHeadingTextWidget(title: 'Order Remarks(optional)'),
               const SocOrderRemakrsTextField(),
               20.verticalSpace,
             ]),
@@ -134,21 +135,23 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
               const CustomHeadingTextWidget(title: 'Employee Own ID'),
               const SocAssignedToTextField(),
               20.verticalSpace,
-              const CustomHeadingTextWidget(title: 'Assigned To Remarks'),
+              const CustomHeadingTextWidget(title: 'Employee Remarks(optional)'),
               const SocAssignedToRemarksTextField(),
               20.verticalSpace,
             ]),
             20.verticalSpace,
             BlocBuilder<SalesOrderCreateCubit, SalesOrderCreateState>(
               builder: (context, state) {
-                return CustomExpansionTileWidget(
+                return  state.productFormList.isEmpty
+                          ? const SizedBox.shrink()
+                          :  CustomExpansionTileWidget(
                     heading: 'Pending Payment Details:',
                     childrens: [
                       20.verticalSpace,
                       // ADDING LIST HERE
                       state.productFormList.isEmpty
                           ? const SizedBox.shrink()
-                          : CommonTextWidget(title: 'Pending Payment Details'),
+                          : const CommonTextWidget(title: 'Pending Payment Details'),
                       20.verticalSpace,
                       ListView.separated(
                           shrinkWrap: true,

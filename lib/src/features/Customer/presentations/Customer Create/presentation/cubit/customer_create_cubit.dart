@@ -514,6 +514,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
           address.isNotEmpty &&
           addressLineTwo.isNotEmpty &&
           pincode.isNotEmpty &&
+          farmName.isNotEmpty &&
           farmCapacity.isNotEmpty) {
         CustomerCreatePostModel customerCreatePostModel =
             CustomerCreatePostModel(

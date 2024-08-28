@@ -17,7 +17,7 @@ class CustomerDashbaordScreen extends StatelessWidget {
     List<String> cardNames = [
       'View Assigned\nCustomers',
       'Add Customers',
-      'Search All Customer ',
+      // 'Search All Customer ',
     ];
 
     return Scaffold(
@@ -73,7 +73,7 @@ class CustomerDashbaordScreen extends StatelessWidget {
                                                         },
                                                         child: CommonTextWidget(
                                                           title:
-                                                              'Add Business Partner',
+                                                              'Add Customer',
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           textColor: 

@@ -34,7 +34,7 @@ class MonthlyPlanCardWidget extends StatelessWidget {
             )));
       },
       child: Container(
-        height: 0.18.sh,
+        height: 0.14.sh,
         width: 0.9.sw,
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -69,14 +69,14 @@ class MonthlyPlanCardWidget extends StatelessWidget {
                           isStatusField: true,
                         ),
                         5.verticalSpace,
-                        MonthlyPlanRowWidget(
-                            title: "Approx Kilometer",
-                            value: model.approxKms.toString() + " KM"),
-                        5.verticalSpace,
-                         MonthlyPlanRowWidget(
-                            title: "Actual Kilometer",
-                            value: model.actualKms.toString() + " KM"),
-                        5.verticalSpace,
+                        // MonthlyPlanRowWidget(
+                        //     title: "Approx Kilometer",
+                        //     value: model.approxKms.toString() + " KM"),
+                        // 5.verticalSpace,
+                        //  MonthlyPlanRowWidget(
+                        //     title: "Actual Kilometer",
+                        //     value: model.actualKms.toString() + " KM"),
+                        // 5.verticalSpace,
                       
                         MonthlyPlanRowWidget(
                             title: "Customers",

@@ -38,7 +38,7 @@ class _CustomerCreateScreenState extends State<CustomerCreateScreen> {
             title:
                 context.read<CustomerCreateCubit>().state.isBusinessPartner ==
                         true
-                    ? 'Add Business Partner'
+                    ? 'Add Customer'
                     : "Add Individual",
             textColor: Colors.white,
             textSize: 22.sp,

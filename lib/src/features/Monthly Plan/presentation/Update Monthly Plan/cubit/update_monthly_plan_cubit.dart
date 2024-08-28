@@ -359,9 +359,9 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
 
     if (updateDailyPlanPostLists.isNotEmpty) {
       if (context.mounted) {
-        showAdaptiveDialog(
+        showDialog(
             context: context,
-            builder: (alertCtx) => AlertDialog.adaptive(
+            builder: (alertCtx) => AlertDialog(
                   shadowColor: Colors.grey.shade200,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)),

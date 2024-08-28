@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/common/widgets/text/common_textfield_heading_widget.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/sales_order_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_amount_paid_textfield.dart';
@@ -57,24 +58,25 @@ class _SalesProductFormScreenState extends State<SalesProductFormScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   20.verticalSpace,
-                  const CustomHeadingTextWidget(title: 'Product Name'),
-                  2.verticalSpace,
+                  const CommonTextFieldHeadingWidget(title: 'Product Name',isRequired: true,)
+ ,                 2.verticalSpace,
                context.watch<SalesOrderCreateCubit>().state.isCustomerLoading ? const DropdownLoadingWidget() :   const  SocProductDropDown(),
                   20.verticalSpace,
                         
-                  const CustomHeadingTextWidget(title: 'Rate'),
+                 
+                   const CommonTextFieldHeadingWidget(title: 'Rate',isRequired: true,),
                   2.verticalSpace,
                   const SocProductRateTextField(),
                   20.verticalSpace,
-                  const CustomHeadingTextWidget(title: 'Selling Rate'),
+                   const CommonTextFieldHeadingWidget(title: 'Selling Rate',isRequired: true,),
                   2.verticalSpace,
                   const SocProductSellingRateTextField(),
                   20.verticalSpace,
-                        const CustomHeadingTextWidget(title: 'Quanity'),
+                         const CommonTextFieldHeadingWidget(title: 'Quantity',isRequired: true,),
                   2.verticalSpace,
                   const SocProductQtyTextFieldWidget(),
                   20.verticalSpace,
-                    const CustomHeadingTextWidget(title: 'Total Amount'),
+                    const CommonTextFieldHeadingWidget(title: 'Total Amount',isRequired: false,),
                   2.verticalSpace,
                   const SocProductTotalAmountTextField(),
                   // 20.verticalSpace,
@@ -91,15 +93,18 @@ class _SalesProductFormScreenState extends State<SalesProductFormScreen> {
                   //  2.verticalSpace,
                   //  const SocAmountPaidController(),
                   //   20.verticalSpace,
-                  const CustomHeadingTextWidget(title: 'Uom Type'),
+                                    const CommonTextFieldHeadingWidget(title: 'UOM type',isRequired: true,),
+
                   2.verticalSpace,
                   const SocUomDropDownWidget(),
                   20.verticalSpace,
-                  const CustomHeadingTextWidget(title: 'Shipping Date'),
+                                                    const CommonTextFieldHeadingWidget(title: 'Shipping date',isRequired: true,),
+
                   2.verticalSpace,
                   const SocProductShipmentTextField(),
                   20.verticalSpace,
-                  const CustomHeadingTextWidget(title: 'CH Hatching Date'),
+                                                                     const CommonTextFieldHeadingWidget(title: 'CH Hatching date(optional)',isRequired: false,),
+
                   2.verticalSpace,
                   const SocProductChDateTextField(),
                   20.verticalSpace,

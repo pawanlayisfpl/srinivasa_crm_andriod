@@ -17,7 +17,7 @@ class SocProductQtyTextFieldWidget extends StatelessWidget {
         return CommonTextfield(
             fillColor: AppColors.textFieldBgColor,
             inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
+              // FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,0}'))
             ],
             textInputType: TextInputType.number,
             textEditingController:

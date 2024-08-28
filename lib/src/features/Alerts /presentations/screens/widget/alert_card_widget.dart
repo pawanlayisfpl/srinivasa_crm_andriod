@@ -93,6 +93,7 @@ class AlertCardWidget extends StatelessWidget {
                     if(alertModel.notificationType != AppStrings.dailyPlanType) {
  context.read<ViewMonthlyPlanCubit>().managerClickTrue();
                                 context.read<ViewMonthlyPlanCubit>().setAlertModelValue(alertModel);
+                                Navigator.push(context, ScaleRoute(screen: ViewMonthlyPlanScreen(monthlyPlanId: alertModel.monthlyPlanId,)));
                     }else {
                                           Navigator.push(context, SlideRightRoute(screen: AlertDetailsScreen(alertModel: alertModel,) ));
 

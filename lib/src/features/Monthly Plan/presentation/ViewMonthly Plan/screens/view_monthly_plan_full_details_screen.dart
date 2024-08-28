@@ -127,7 +127,7 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
                     ),
                   );
                   if (context.mounted) {
-                    showAdaptiveDialog(
+                    showDialog(
                         useSafeArea: true,
                         barrierDismissible: false,
                         context: context,

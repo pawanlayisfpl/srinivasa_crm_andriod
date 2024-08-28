@@ -184,7 +184,7 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
         }else {
           double totalAmountValue = (qty * price);
       log(totalAmountValue.toString());
-      producttotalController.text = totalAmountValue.toStringAsFixed(0);
+      producttotalController.text = totalAmountValue.toStringAsFixed(2);
 
         }
       }else {
@@ -637,6 +637,7 @@ void onDiscountPerPercentageChanged() {
 
       double totalAmountValue = (qty * sellingRate);
       producttotalController.text = totalAmountValue.toStringAsFixed(0);
+      log(producttotalController.text.toString());
     }else {
           // LOGIC 1: WHEN SELLING RATE IS NULL
     producttotalController.text = '0.0';

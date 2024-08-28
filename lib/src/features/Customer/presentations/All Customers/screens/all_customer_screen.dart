@@ -31,12 +31,12 @@ class _AllCustomerScreenState extends State<AllCustomerScreen> {
       appBar: AppBar(
         title: const Text('All Customers'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              Navigator.pushNamed(context, Routes.customerSearchScreen);
-            },
-          )
+          // IconButton(
+          //   icon: const Icon(Icons.search),
+          //   onPressed: () {
+          //     Navigator.pushNamed(context, Routes.customerSearchScreen);
+          //   },
+          // )
         ],
       ),
       

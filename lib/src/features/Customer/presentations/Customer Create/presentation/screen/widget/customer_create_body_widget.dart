@@ -89,12 +89,12 @@ class CustomerCreateBodyWidget extends StatelessWidget {
               const CCMobileTextFieldWidget(),
               20.verticalSpace,
               // CUSTOMER EMAIL
-                                          const CommonTextFieldHeadingWidget(title: "Email",isRequired: false,),
+                                          const CommonTextFieldHeadingWidget(title: "Email(optional)",isRequired: false,),
 
               const CCEmailTextFieldWidget(),
                  // CUSTOMER ADDITIONAL FIELD
               20.verticalSpace,
-                                                      const CommonTextFieldHeadingWidget(title: "Additional Phone",isRequired: false,),
+                                                      const CommonTextFieldHeadingWidget(title: "Additional Phone(optional)",isRequired: false,),
 
               const CCAdditionalPhoneTextField(),
 
@@ -187,12 +187,14 @@ class CustomerCreateBodyWidget extends StatelessWidget {
                            const CommonTextFieldHeadingWidget(title: "Farm Capacity",isRequired: true,),
 
             const CCFarmCapacityTextField(),
+             20.verticalSpace,
+             CommonTextFieldHeadingWidget(title: "Farm Name",isRequired: true,),
+             const CCFarmNameTextFieldWidget(),
 
-
-                context.watch<CustomerCreateCubit>().state.isBusinessPartner == true ? const SizedBox.shrink() :     20.verticalSpace,
-                                context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const CommonTextFieldHeadingWidget(title: "Farm Name",isRequired: true,) :     const SizedBox.shrink(),
-                                   context.watch<CustomerCreateCubit>().state.isBusinessPartner == true ? const SizedBox.shrink() :     const CCFarmNameTextFieldWidget(),
-                context.watch<CustomerCreateCubit>().state.isBusinessPartner == true ? const SizedBox.shrink() :     20.verticalSpace,
+                // context.watch<CustomerCreateCubit>().state.isBusinessPartner == true ? const SizedBox.shrink() :     20.verticalSpace,
+                //                 context.watch<CustomerCreateCubit>().state.isBusinessPartner == false ? const CommonTextFieldHeadingWidget(title: "Farm Name",isRequired: true,) :     const SizedBox.shrink(),
+                //                    context.watch<CustomerCreateCubit>().state.isBusinessPartner == true ? const SizedBox.shrink() :     const CCFarmNameTextFieldWidget(),
+                // context.watch<CustomerCreateCubit>().state.isBusinessPartner == true ? const SizedBox.shrink() :     20.verticalSpace,
                 20.verticalSpace,
          state.isSubmitting ? const CustomLoadingWidget() :     CommonButton(
                   callback: () async {

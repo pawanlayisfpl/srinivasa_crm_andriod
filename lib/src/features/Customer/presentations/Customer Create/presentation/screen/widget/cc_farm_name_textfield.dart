@@ -29,8 +29,8 @@ class CCFarmNameTextFieldWidget extends StatelessWidget {
                     (r) => null),
             hintText: "Enter farm name",
             autovalidateMode: state.showInputError
-                ? AutovalidateMode.disabled
-                : AutovalidateMode.disabled);
+                ? AutovalidateMode.always
+                : AutovalidateMode.onUserInteraction);
       },
     );
   }
