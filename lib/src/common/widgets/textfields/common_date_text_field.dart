@@ -19,6 +19,7 @@ class CommonDateTextField extends StatelessWidget {
   final bool? isObscureText;
   final bool? isAutoFoucsEnabled;
   final String? errorText;
+  final VoidCallback onTap;
   CommonDateTextField({
     super.key,
     required this.textEditingController,
@@ -32,6 +33,7 @@ class CommonDateTextField extends StatelessWidget {
     this.maxLines,
     this.inputBorder,
     this.isObscureText,
+    required this.onTap,
     this.isAutoFoucsEnabled,
     this.errorText,
   });
@@ -40,7 +42,7 @@ class CommonDateTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       enabled: false,
-      onTap: () async {},
+      onTap:  onTap,
       autofocus: isAutoFoucsEnabled ?? false,
       controller: textEditingController,
       onChanged: onChanged,
@@ -51,7 +53,7 @@ class CommonDateTextField extends StatelessWidget {
       style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
       decoration: InputDecoration(
         suffixIcon: IconButton(
-          onPressed: () async {},
+          onPressed: () => onTap,
           icon: const Icon(
             Icons.calendar_month,
             color: AppColors.primaryColor,

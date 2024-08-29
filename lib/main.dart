@@ -22,6 +22,7 @@ import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profi
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/sales_order_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Particular/cubit/sales_order_particular_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20View/cubit/sales_order_view_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/cubit/user_activity_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 import 'package:workmanager/workmanager.dart';
 
@@ -75,6 +76,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => locator.get<SalesOrderParticularCubit>()),
         BlocProvider(create: (_) => locator.get<PendingOrderCubit>()),
         BlocProvider(create: (_) => locator.get<DailyPlanCubit>()),
+        BlocProvider(create: (_) => locator.get<UserActivityCubit>()),
       ],
       child: MaterialApp(
         navigatorKey: AppKeys.globalNavigatorKey,

@@ -8,6 +8,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/customer_d
 import 'package:srinivasa_crm_new/src/features/Location%20Tracking/test_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/create_monthly_plan_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/sales_dashboard_screen.dart';
+import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/screens/user_activity_screen.dart';
 import 'package:srinivasa_crm_new/src/features/login/presentation/screens/login_screen.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
 
@@ -68,6 +69,8 @@ class Routes {
   static const String kycUploadScreen = '/kycUploadScreen';
   // TEST SCREEN
   static const String testScreen = '/testScreen';
+  // USER ACTIVITY
+  static const String userActivityScreen = '/userActivityScreen';
 }
 
 
@@ -89,15 +92,18 @@ class RouteGenerator {
             case Routes.customerDetails:
         return MaterialPageRoute(builder: (_) =>   CustomerDetailsScreen());
             case Routes.customerSearchScreen:
-        return MaterialPageRoute(builder: (_) =>   CustomerSearchScreen());
+        return MaterialPageRoute(builder: (_) =>   const CustomerSearchScreen());
         // MONTHLY PLAN
              case Routes.monthlyPlanCreate:
-        return MaterialPageRoute(builder: (_) =>   CreateMonthlyPlanScreen());
+        return MaterialPageRoute(builder: (_) =>   const CreateMonthlyPlanScreen());
         // SALES ORDER PLAN
              case Routes.salesOrderDashboardScreen:
-        return MaterialPageRoute(builder: (_) =>   SalesOrderDashboardScreen());
+        return MaterialPageRoute(builder: (_) =>   const SalesOrderDashboardScreen());
+        // USER ACTIVITY SCREEN
+             case Routes.userActivityScreen:
+        return MaterialPageRoute(builder: (_) =>   const UserActivityScreen());
              case Routes.testScreen:
-        return MaterialPageRoute(builder: (_) =>   TestScreen());
+        return MaterialPageRoute(builder: (_) =>   const TestScreen());
 
   
 

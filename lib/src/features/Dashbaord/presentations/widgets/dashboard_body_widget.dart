@@ -13,6 +13,7 @@ import 'package:srinivasa_crm_new/src/features/Kyc/presentation/screens/kyc_pend
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/monthly_plan_dashboard_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/data/repo/sales_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/sales_dashboard_screen.dart';
+import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/screens/user_activity_screen.dart';
 import 'package:workmanager/workmanager.dart';
 
 import '../../../../config/animations/routes/all_animate_routes.dart';
@@ -174,6 +175,7 @@ class DashboardBodyWidget extends StatelessWidget {
     //         Fluttertoast.showToast(msg: 'Backend api not available');
 
       case 6:
+      Navigator.push(context, ScaleRoute(screen: UserActivityScreen()));
 
      
 

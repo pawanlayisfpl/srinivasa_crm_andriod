@@ -173,6 +173,10 @@ import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%
     as _i956;
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20View/cubit/sales_order_view_cubit.dart'
     as _i237;
+import 'package:srinivasa_crm_new/src/features/User%20Activity/data/repo/user_activity_repo.dart'
+    as _i939;
+import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/cubit/user_activity_cubit.dart'
+    as _i186;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -331,6 +335,12 @@ extension GetItInjectableX on _i174.GetIt {
           internetChecker: gh<_i961.InternetChecker>(),
           logger: gh<_i974.Logger>(),
         ));
+    gh.factory<_i939.UserActivityRepo>(() => _i939.UserActivityRepoImpl(
+          dioClient: gh<_i961.DioClient>(),
+          keyValueStorage: gh<_i961.KeyValueStorage>(),
+          internetChecker: gh<_i961.InternetChecker>(),
+          logger: gh<_i974.Logger>(),
+        ));
     gh.factory<_i812.SalesOrderCreateCubit>(() => _i812.SalesOrderCreateCubit(
           salesRepo: gh<_i133.SalesRepo>(),
           keyValueStorage: gh<_i961.KeyValueStorage>(),
@@ -342,6 +352,8 @@ extension GetItInjectableX on _i174.GetIt {
         _i929.CustomerFullDetailsCubit(customerRepo: gh<_i209.CustomerRepo>()));
     gh.factory<_i204.LoginUseCase>(
         () => _i204.LoginUseCase(loginRepository: gh<_i584.LoginRepository>()));
+    gh.factory<_i186.UserActivityCubit>(
+        () => _i186.UserActivityCubit(gh<_i939.UserActivityRepo>()));
     gh.factory<_i612.MarkAttendanceRemoteDataSource>(
         () => _i612.MarkAttendanceRemoteDatasourceImpl(
               dioClient: gh<_i961.DioClient>(),
