@@ -51,9 +51,8 @@ mixin _$SalesOrderCreateState {
   bool get isInitialLoading => throw _privateConstructorUsedError;
   ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
   bool get showInputError => throw _privateConstructorUsedError;
-  List<CustomerCodeModel> get customerList =>
-      throw _privateConstructorUsedError;
-  CustomerCodeModel? get selectedCustomerModel =>
+  List<Customermodel> get customerList => throw _privateConstructorUsedError;
+  Customermodel? get selectedCustomerModel =>
       throw _privateConstructorUsedError;
   bool get isCustomerLoading => throw _privateConstructorUsedError;
   List<ProductFormModel> get productFormList =>
@@ -103,8 +102,8 @@ abstract class $SalesOrderCreateStateCopyWith<$Res> {
       bool isInitialLoading,
       ApiFailedModel? apiFailedModel,
       bool showInputError,
-      List<CustomerCodeModel> customerList,
-      CustomerCodeModel? selectedCustomerModel,
+      List<Customermodel> customerList,
+      Customermodel? selectedCustomerModel,
       bool isCustomerLoading,
       List<ProductFormModel> productFormList,
       List<ProductPendingFormModel> pendingFormList});
@@ -286,11 +285,11 @@ class _$SalesOrderCreateStateCopyWithImpl<$Res,
       customerList: null == customerList
           ? _value.customerList
           : customerList // ignore: cast_nullable_to_non_nullable
-              as List<CustomerCodeModel>,
+              as List<Customermodel>,
       selectedCustomerModel: freezed == selectedCustomerModel
           ? _value.selectedCustomerModel
           : selectedCustomerModel // ignore: cast_nullable_to_non_nullable
-              as CustomerCodeModel?,
+              as Customermodel?,
       isCustomerLoading: null == isCustomerLoading
           ? _value.isCustomerLoading
           : isCustomerLoading // ignore: cast_nullable_to_non_nullable
@@ -359,8 +358,8 @@ abstract class _$$SalesOrderCreateStateImplCopyWith<$Res>
       bool isInitialLoading,
       ApiFailedModel? apiFailedModel,
       bool showInputError,
-      List<CustomerCodeModel> customerList,
-      CustomerCodeModel? selectedCustomerModel,
+      List<Customermodel> customerList,
+      Customermodel? selectedCustomerModel,
       bool isCustomerLoading,
       List<ProductFormModel> productFormList,
       List<ProductPendingFormModel> pendingFormList});
@@ -541,11 +540,11 @@ class __$$SalesOrderCreateStateImplCopyWithImpl<$Res>
       customerList: null == customerList
           ? _value._customerList
           : customerList // ignore: cast_nullable_to_non_nullable
-              as List<CustomerCodeModel>,
+              as List<Customermodel>,
       selectedCustomerModel: freezed == selectedCustomerModel
           ? _value.selectedCustomerModel
           : selectedCustomerModel // ignore: cast_nullable_to_non_nullable
-              as CustomerCodeModel?,
+              as Customermodel?,
       isCustomerLoading: null == isCustomerLoading
           ? _value.isCustomerLoading
           : isCustomerLoading // ignore: cast_nullable_to_non_nullable
@@ -597,7 +596,7 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
       this.isInitialLoading = false,
       this.apiFailedModel = null,
       this.showInputError = false,
-      final List<CustomerCodeModel> customerList = const [],
+      final List<Customermodel> customerList = const [],
       this.selectedCustomerModel = null,
       this.isCustomerLoading = false,
       final List<ProductFormModel> productFormList = const [],
@@ -728,10 +727,10 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
   @override
   @JsonKey()
   final bool showInputError;
-  final List<CustomerCodeModel> _customerList;
+  final List<Customermodel> _customerList;
   @override
   @JsonKey()
-  List<CustomerCodeModel> get customerList {
+  List<Customermodel> get customerList {
     if (_customerList is EqualUnmodifiableListView) return _customerList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_customerList);
@@ -739,7 +738,7 @@ class _$SalesOrderCreateStateImpl implements _SalesOrderCreateState {
 
   @override
   @JsonKey()
-  final CustomerCodeModel? selectedCustomerModel;
+  final Customermodel? selectedCustomerModel;
   @override
   @JsonKey()
   final bool isCustomerLoading;
@@ -913,8 +912,8 @@ abstract class _SalesOrderCreateState implements SalesOrderCreateState {
           final bool isInitialLoading,
           final ApiFailedModel? apiFailedModel,
           final bool showInputError,
-          final List<CustomerCodeModel> customerList,
-          final CustomerCodeModel? selectedCustomerModel,
+          final List<Customermodel> customerList,
+          final Customermodel? selectedCustomerModel,
           final bool isCustomerLoading,
           final List<ProductFormModel> productFormList,
           final List<ProductPendingFormModel> pendingFormList}) =
@@ -981,9 +980,9 @@ abstract class _SalesOrderCreateState implements SalesOrderCreateState {
   @override
   bool get showInputError;
   @override
-  List<CustomerCodeModel> get customerList;
+  List<Customermodel> get customerList;
   @override
-  CustomerCodeModel? get selectedCustomerModel;
+  Customermodel? get selectedCustomerModel;
   @override
   bool get isCustomerLoading;
   @override

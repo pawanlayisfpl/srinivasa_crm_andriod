@@ -211,7 +211,7 @@ class SaleRepoImpl implements SalesRepo {
     "assignTo": 0,
     "assignToRemarks": socCreatePostModel.assignToRemarks,
     "pendingPaymentDetails": socCreatePostModel.pendingPaymentDetails.isEmpty ? [] : socCreatePostModel.pendingPaymentDetails.map((e) => {
-        "dueDate": e.dueDate.toFormattedDate(),
+        "dueDate": e.dueDate,
         "amount": e.amount,
         "dueAmountPercentage": 100
         }).toList()

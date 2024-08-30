@@ -15,6 +15,7 @@ import '../../../../../shared/domain/model/zone_model.dart';
 import '../model/get/approved_customer_response_model.dart';
 import '../model/get/customer_model.dart';
 import '../model/get/customer_response_model.dart';
+import '../model/get/joint_employe_model.dart';
 
 abstract class CustomerRepo {
   Future<Either<NetworkExceptions, CustomerResponseModel>> getCustomers();
@@ -37,4 +38,6 @@ abstract class CustomerRepo {
 
 
  Future<Either<NetworkExceptions,List<CustomerCodeModel>> > getApprovedCustomerList();
+
+ Future<Either<NetworkExceptions,List<JoinEmployeModel>>> getJointEmployeList();
 }

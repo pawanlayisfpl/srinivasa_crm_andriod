@@ -13,6 +13,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/custome
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_full_details_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_response_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/joint_employe_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/last_checkin_out_respone_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkin_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkout_post_model.dart';
@@ -153,6 +154,17 @@ try {
    } on  NetworkExceptions catch(e) {
     return Left(e);
   }
+  }
+
+  @override
+  Future<Either<NetworkExceptions, List<JoinEmployeModel>>> getJointEmployeList()  async {
+   try{
+    final results = await customerRemoteDataSource.getJointEmployeList();
+    return Right(results);
+
+   }on NetworkExceptions catch(e){
+     return Left(e);
+   }
   }
 
 

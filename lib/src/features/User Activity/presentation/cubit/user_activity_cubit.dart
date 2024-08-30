@@ -4,6 +4,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
+import 'package:srinivasa_crm_new/src/core/extensions/date_extension.dart';
 import 'package:srinivasa_crm_new/src/core/model/api%20failed/api_failed_model.dart';
 
 import 'package:srinivasa_crm_new/src/features/User%20Activity/data/repo/user_activity_repo.dart';
@@ -22,8 +24,9 @@ class UserActivityCubit extends Cubit<UserActivityState> {
 
   Future<void> getUserActivity({required DateTime dateTime}) async {
     
-    await Future.delayed(const Duration(seconds: 1));
     emit(state.copyWith(isLoading: true,apiFailedModel: null,userActivityModel: null));
+    await Future.delayed(const Duration(seconds: 1));
+
     final result = await userActivityRepo.getUserAcitivies(dateTime: dateTime);
     result.fold(
       (l) {
@@ -44,7 +47,7 @@ class UserActivityCubit extends Cubit<UserActivityState> {
       lastDate: DateTime(2101),
     );
     if (picked != null) {
-      dateController.text = picked.toString();
+      dateController.text = DateFormat.MMMMd().format(picked);
       getUserActivity(dateTime: picked);
     }
   }

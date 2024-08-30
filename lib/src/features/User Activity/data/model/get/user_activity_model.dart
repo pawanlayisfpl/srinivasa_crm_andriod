@@ -31,18 +31,18 @@ class UserActivityModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    if (this.repPunchIn != null) {
-      data['repPunchIn'] = this.repPunchIn!.toJson();
+    if (repPunchIn != null) {
+      data['repPunchIn'] = repPunchIn!.toJson();
     }
-    if (this.repPunchOut != null) {
-      data['repPunchOut'] = this.repPunchOut!.toJson();
+    if (repPunchOut != null) {
+      data['repPunchOut'] = repPunchOut!.toJson();
     }
-    if (this.repTravelLogsData != null) {
+    if (repTravelLogsData != null) {
       data['repTravelLogsData'] =
-          this.repTravelLogsData!.map((v) => v.toJson()).toList();
+          repTravelLogsData!.map((v) => v.toJson()).toList();
     }
-    data['punchedIn'] = this.punchedIn;
-    data['punchedOut'] = this.punchedOut;
+    data['punchedIn'] = punchedIn;
+    data['punchedOut'] = punchedOut;
     return data;
   }
 }
@@ -62,9 +62,9 @@ class RepPunchIn {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['punchTime'] = this.punchTime;
-    data['punchLat'] = this.punchLat;
-    data['punchLong'] = this.punchLong;
+    data['punchTime'] = punchTime;
+    data['punchLat'] = punchLat;
+    data['punchLong'] = punchLong;
     return data;
   }
 }
@@ -105,15 +105,15 @@ class RepTravelLogsData {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['customerId'] = this.customerId;
-    data['customerName'] = this.customerName;
-    data['customerAddress'] = this.customerAddress;
-    data['checkInTime'] = this.checkInTime;
-    data['checkOutTime'] = this.checkOutTime;
-    data['checkInLat'] = this.checkInLat;
-    data['checkInLong'] = this.checkInLong;
-    data['checkOutLat'] = this.checkOutLat;
-    data['checkOutLong'] = this.checkOutLong;
+    data['customerId'] = customerId;
+    data['customerName'] = customerName;
+    data['customerAddress'] = customerAddress;
+    data['checkInTime'] = checkInTime;
+    data['checkOutTime'] = checkOutTime;
+    data['checkInLat'] = checkInLat;
+    data['checkInLong'] = checkInLong;
+    data['checkOutLat'] = checkOutLat;
+    data['checkOutLong'] = checkOutLong;
     return data;
   }
 }

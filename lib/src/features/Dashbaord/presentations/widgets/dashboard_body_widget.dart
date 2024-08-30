@@ -131,7 +131,7 @@ class DashboardBodyWidget extends StatelessWidget {
               dashboardModel.iconName,
               textAlign: TextAlign.center,
               maxLines: 1,
-              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
             ),
           ],
         ),

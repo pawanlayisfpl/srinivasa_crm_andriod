@@ -26,7 +26,7 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
       appBar: AppBar(
         title: const Text('User Activity'),
       ),
-      body: const SafeArea(child: Center(child: UserActivityBodyWidget())),
+      body: const SafeArea(child: UserActivityBodyWidget()),
     );
   }
 }

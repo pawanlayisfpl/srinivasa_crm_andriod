@@ -106,7 +106,9 @@ class CommonLocationServices {
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
     if (!serviceEnabled) {
-      throw Exception("Location services are disabled");
+      // throw Exception("Location services are disabled");
+       locationPermission = await Geolocator.checkPermission();
+
     }
 
     locationPermission = await Geolocator.checkPermission();

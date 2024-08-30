@@ -2,6 +2,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/joint_employe_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_state.dart';
 
@@ -15,7 +16,7 @@ class CheckinEmployeDropdownWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CheckinCubit, CheckinState>(
       builder: (context, state,) {
-        return DropdownSearch<EmployeeModel>.multiSelection(
+        return DropdownSearch<JoinEmployeModel>.multiSelection(
                 enabled: true,
 
                 dropdownBuilder: (context, selectedItems) => CommonTextWidget(title: selectedItems.isEmpty ? 'Select Employee' : selectedItems.map((e) => e.userName).join(' , '),fontWeight: selectedItems.isEmpty ? FontWeight.w400 : FontWeight.w500,maxLines: 6,) ,
@@ -64,7 +65,7 @@ class CheckinEmployeDropdownWidget extends StatelessWidget {
 
                     items:  state.employeList.isEmpty ? [] : state.employeList.map((e) =>e).toList(),
 
-                  itemAsString: (item) => item.userName != null && item.designation != null ? item.userName.toString()+"-(${item.designation!.join(", ")})" : item.userName != null && item.designation == null ? item.userName.toString() : "No name found",
+                  itemAsString: (item) => item.userName+" (${item.designation.map((e) => e.toString()+")").join(' , ')}",
               
 
                     // itemAsString: (item) => item.userName != null && item.designation == null ? item.userName.toString() :  item.userName != null && item.designation != null ? "${item.userName  }-(${(item.designation)})" :   "No name found"  ,

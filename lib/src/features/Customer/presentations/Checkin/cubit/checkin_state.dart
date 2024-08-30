@@ -7,6 +7,7 @@ import 'package:srinivasa_crm_new/src/core/model/api%20failed/api%20failed.dart'
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/checkIn_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/checkout_response_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/joint_employe_model.dart';
 
 import '../../../../../../shared/domain/model/Employe/employe_model.dart';
 import '../../../../../../shared/domain/model/Purpose/purpose_model.dart';
@@ -30,8 +31,8 @@ class CheckinState with _$CheckinState {
 
 
   const factory CheckinState({
-    required List<EmployeeModel> employeList,
-    required List<EmployeeModel> selectedEmployeList,
+    required List<JoinEmployeModel> employeList,
+    required List<JoinEmployeModel> selectedEmployeList,
     @Default(null) CheckInResponseModel? checkInResponseModel,
     @Default(null) CheckoutResponseModel? checkoutResponseModel,
     @Default(null) LastCheckinOutResponseModel? lastCheckinOutResponseModel,

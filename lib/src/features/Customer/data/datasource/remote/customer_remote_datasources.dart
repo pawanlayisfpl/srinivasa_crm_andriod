@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/zone_model.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
@@ -14,6 +15,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/approve
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_code_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_full_details_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/joint_employe_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkin_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkout_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/customer_create_post_model.dart';
@@ -38,6 +40,7 @@ abstract class CustomerRemoteDataSource{
   Future<List<AssignedToModel>> getAssignedLists({required ZoneModel zoneModel});
   Future<CustomerCreatedResponseModel> createCustomer({required CustomerCreatePostModel customerCreatePostModel});
   Future<List<CustomerCodeModel>> getApprovedCustomerList();
+  Future<List<JoinEmployeModel>> getJointEmployeList();
   
 }
 
@@ -429,6 +432,23 @@ Future<CustomerFullDetailsModel> getCustomerFullDetails({required String custome
     } on DioException catch (e) {
       throw NetworkExceptions.getDioException(e);
       
+    }
+  }
+  
+  @override
+  Future<List<JoinEmployeModel>> getJointEmployeList() async {
+    try {
+      final response = await dioClient.get(Endpoints.jointemployesUrl,headers: {});
+
+      if(response.statusCode == 200) {
+        final List data = response.data['data'];
+        final List<JoinEmployeModel> employeeList = data.map((e) => JoinEmployeModel.fromJson(e)).toList();
+        return employeeList;
+      }else {
+        throw NetworkExceptions.getDioException(response.data);
+      }
+    } on DioException catch (e) {
+      throw NetworkExceptions.getDioException(e);
     }
   }
 }

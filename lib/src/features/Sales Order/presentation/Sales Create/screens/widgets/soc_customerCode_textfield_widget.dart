@@ -23,12 +23,12 @@ class SocCustomerDropDownWidget extends StatelessWidget {
       builder: (context, state,) {
         return ColoredBox(
           color: Colors.grey.shade300,
-          child: DropdownSearch<CustomerCodeModel>(
+          child: DropdownSearch<Customermodel>(
              
                   enabled: true,
                   selectedItem: state.selectedCustomerModel,
           
-                  dropdownBuilder: (context, selectedItems) => state.selectedCustomerModel == null ?  const CommonTextWidget(title: "Select your customer",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedCustomerModel!.customerName.toString(),maxLines: 4,) ,
+                  dropdownBuilder: (context, selectedItems) => state.selectedCustomerModel == null ?  const CommonTextWidget(title: "Select your customer",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedCustomerModel!.farm!.isIndividual == true ? state.selectedCustomerModel!.farm!.farmName.toString() : state.selectedCustomerModel!.customerName.toString(),maxLines: 4,) ,
                   
                   
                   dropdownButtonProps:  const DropdownButtonProps(
@@ -38,7 +38,7 @@ class SocCustomerDropDownWidget extends StatelessWidget {
                     
                     
                   ),
-              itemAsString: (item) => item.customerName.toString(),
+              itemAsString: (item) =>  item.farm!.isIndividual == true ? item.farm!.farmName.toString()+" \n(${item.customerName})" : item.customerName.toString()+"\n(Organization)",
                   popupProps: const PopupPropsMultiSelection.modalBottomSheet(
                     
           

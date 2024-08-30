@@ -11,16 +11,14 @@ import 'package:intl/intl.dart';
 import 'package:srinivasa_crm_new/src/common/fields/number_field.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
-import 'package:srinivasa_crm_new/src/core/extensions/string_extension.dart';
+import 'package:srinivasa_crm_new/src/core/extensions/date_extension.dart';
 import 'package:srinivasa_crm_new/src/core/model/api%20failed/api%20failed.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_code_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/data/repo/sales_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/uom_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/post/product_pending_form_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/post/soc_create_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/state/sales_order_create_state.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/sales_pending_payment_form_widget.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../../common/fields/string_field.dart';
@@ -178,18 +176,18 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
         // QTY IS AVAILABLE, PRICE IS AVAIBLE , JUST SET THE TOTAL AMOUNT QTY * SELLING RATE
         if(price > givenRate) {
           Fluttertoast.showToast(msg: 'Sorry,price can\'t be more than actual rate',backgroundColor: Colors.red,textColor: Colors.white);
-          productSellingRateController.text = givenRate.toString();
+          productSellingRateController.text = givenRate.toStringAsFixed(0);
           onSellingRateChanged();
 
         }else {
           double totalAmountValue = (qty * price);
       log(totalAmountValue.toString());
-      producttotalController.text = totalAmountValue.toStringAsFixed(2);
+      producttotalController.text = totalAmountValue.toString().split(".").first;
 
         }
       }else {
         producttotalController.clear();
-           producttotalController.text =  "0.0";
+          //  producttotalController.text =  "0";
         // QTY IS NOT AVAILABLE, PRICE IS AVAIBLE , JUST SET THE TOTAL AMOUNT QTY * SELLING RATE
 
       }
@@ -291,7 +289,7 @@ if (discountPerQtyValue <= minAllowedAmount) {
 } else {
   productDiscountPerQty.clear();
   productSellingRateController.text =  givenPrice.toString();
-  producttotalController.text = state.originalTotalAmountValue.toString();
+  producttotalController.text = state.originalTotalAmountValue.toString().split(".").first;
 
    Fluttertoast.showToast(
     msg: 'Final amount should not be greater than \n${minAllowedAmount.toIndianPriceFormat()}',
@@ -388,17 +386,17 @@ void onDiscountPerPercentageChanged() {
 // GET ALL CUSTOMERS
   Future<void> getAllCustomer() async {
     emit(state.copyWith(isCustomerLoading: true));
-    final results = await customerRepo.getApprovedCustomerList();
+    final results = await customerRepo.getCustomers();
     results.fold((l) {
       emit(state.copyWith(apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),customerList: [],selectedCustomerModel: null,isCustomerLoading: false));
     }, (r) {
-      emit(state.copyWith(customerList:r,isCustomerLoading: false));
+      emit(state.copyWith(customerList:r.customermodel ?? [],isCustomerLoading: false));
     });
     
   }
 
 // SET SELECTED CUSTOMER
-  void setSelectedCustomer(CustomerCodeModel value) {
+  void setSelectedCustomer(Customermodel value) {
     emit(state.copyWith(selectedCustomerModel: value));
   }
 
@@ -532,8 +530,8 @@ void onDiscountPerPercentageChanged() {
        
           selectedProductModel: value,
           isProductLoading: false));
-    productRateController.text = r.rate.toString();
-  productSellingRateController.text = r.rate.toString();
+    productRateController.text = r.rate.toStringAsFixed(0);
+  productSellingRateController.text = r.rate.toStringAsFixed(0);
 
     onGstAmountChanged(r.gst.toString());
   // onSellingRateChanged();
@@ -651,7 +649,7 @@ void onDiscountPerPercentageChanged() {
       int qty = int.tryParse(productQtyController.text) ?? 0;
 
       double totalAmountValue = (qty * sellingRate);
-      producttotalController.text = totalAmountValue.toString();
+      producttotalController.text = totalAmountValue.toStringAsFixed(0);
     }
   }
 
@@ -866,9 +864,9 @@ void onDuePercentageChanged() {
  
   log("total gst amount is ${totalGstAmountValue.toString()}");
 
-  orderAmountController.text = newOrderAmount.toString();
-  orderAmountTotalController.text = newOrderAmount.toString();
-orderAmountController.text = (double.tryParse(newOrderAmount.toString()) ?? 0.0 - totalGstAmountValue).toString();  orderGstAmountController.text = totalGstAmountValue.toString();
+  orderAmountController.text = newOrderAmount.toStringAsFixed(0);
+  orderAmountTotalController.text = newOrderAmount.toStringAsFixed(0);
+orderAmountController.text = (double.tryParse(newOrderAmount.toString()) ?? 0.0 - totalGstAmountValue).toStringAsFixed(0);  orderGstAmountController.text = totalGstAmountValue.toStringAsFixed(0);
  }
 
 
@@ -882,7 +880,7 @@ orderAmountController.text = (double.tryParse(newOrderAmount.toString()) ?? 0.0 
 void createOrder() async {
 
 
-CustomerCodeModel? customerModel = state.selectedCustomerModel;
+Customermodel? customerModel = state.selectedCustomerModel;
 
 List<ProductFormModel> productFormList = state.productFormList;
 
@@ -911,7 +909,7 @@ if(customerModel == null || productFormList.isEmpty || orderTotalAmountValue.isE
 }else {
 
 SocCreatePostModel socCreatePostModel = SocCreatePostModel(
-  customerCode: customerModel.customerId!.toString(),
+  customerCode: customerModel.farm!.customerId.toString(),
   productDetails: productFormList.map((e) => ProductDetails(
     divisionId: e.divisionId,
     productId: e.productId,
@@ -942,7 +940,7 @@ SocCreatePostModel socCreatePostModel = SocCreatePostModel(
   assignTo: 0,
   assignToRemarks: assignedToReamarksValue,
   pendingPaymentDetails: pendingFormList.isEmpty ? [] : pendingFormList.map((e) => PendingPaymentDetails(
-    dueDate: e.dueDate,
+    dueDate:e.dueDate.split('T').first.split(" ").first,
     amount: e.dueAmount,
     dueAmountPercentage: 100.0,
   )).toList(),

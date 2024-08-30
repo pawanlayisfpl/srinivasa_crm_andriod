@@ -102,6 +102,9 @@ class Endpoints {
   static const String createDailyPlan = '$basicUrl/se/daily-plan';
 
   // USER ACTIVITY
-  static const String userActivity = '$basicUrl/se/employee-tracker?date=2024-08-27';
+  static const String userActivity = '$basicUrl/se/employee-tracker?date=';
+
+  // JOINT-EMPLOYE
+  static const String jointemployesUrl = '$basicUrl/se/usersfromassignedzones';
 
 }

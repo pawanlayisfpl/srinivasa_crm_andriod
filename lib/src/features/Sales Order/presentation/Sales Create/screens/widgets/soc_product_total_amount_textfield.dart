@@ -17,12 +17,12 @@ class SocProductTotalAmountTextField extends StatelessWidget {
         return CommonTextfield(
           readOnly: true,
             fillColor: AppColors.textFieldBgColor,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
+            inputFormatters: const[
+              // FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
             ],
             textInputType: TextInputType.number,
             textEditingController:
-                context.watch<SalesOrderCreateCubit>().producttotalController,
+                context.read<SalesOrderCreateCubit>().producttotalController,
             onChanged: (String? value) {},
             validator: (v) => null,
             hintText: "Enter products total amount",

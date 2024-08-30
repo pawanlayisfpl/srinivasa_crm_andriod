@@ -12,6 +12,7 @@ import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_model.dart
 import 'package:srinivasa_crm_new/shared/domain/repo/Employe/employe_repo.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Purpose/purpose_repo.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/joint_employe_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_state.dart';
 
@@ -37,7 +38,7 @@ class CheckinCubit extends Cubit<CheckinState> {
   }) : super( CheckinState.initial() );
 
 
-  void setSelectedEmployeList(List<EmployeeModel> values) {
+  void setSelectedEmployeList(List<JoinEmployeModel> values) {
     emit(state.copyWith(selectedEmployeList: values,isFailed: false));
   }
 
@@ -105,7 +106,7 @@ class CheckinCubit extends Cubit<CheckinState> {
   // GET EMPLOYEES LIST
   Future<void> getEmployeListLogic() async {
     emit(state.copyWith(isLoading: true,apiFailedModel: null,checkInResponseModel: null,checkoutResponseModel: null,employeList: [],selectedEmployeList: [],isFailed: false));
-      final results = await employeRepo.getEmployeesList();
+      final results = await customerRepo.getJointEmployeList();
       results.fold((l) => emit(state.copyWith(isLoading:  false,employeList: [],apiFailedModel: ApiFailedModel(statusCode: NetworkExceptions.getStatusCode(l), message: NetworkExceptions.getErrorTitle(l), errorMessage: NetworkExceptions.getErrorMessage(l)))), (r) => emit(state.copyWith(isLoading: false,employeList: r)));
       
   }

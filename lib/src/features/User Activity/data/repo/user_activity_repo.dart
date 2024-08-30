@@ -29,7 +29,8 @@ class UserActivityRepoImpl implements UserActivityRepo {
     final status = await internetChecker.isConnected();
     if(status)  {
       try {
-        final response = await dioClient.get(Endpoints.userActivity,headers:  {});
+        logger.d('Date is ${dateTime.toString()}');
+        final response = await dioClient.get(Endpoints.userActivity+ dateTime.toString(),headers:  {});
 
         if(response.statusCode == 200) {
           logger.d('USER ACTIVITY API IS SUCCESSFUL');

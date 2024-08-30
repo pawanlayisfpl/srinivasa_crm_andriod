@@ -76,7 +76,7 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
             CustomExpansionTileWidget(heading: 'Customer Details', childrens: [
               // 20.verticalSpace,
               const CommonTextFieldHeadingWidget(title: "Customer",isRequired: true,),
-              const SocCustomerDropDownWidget(),
+             context.watch<SalesOrderCreateCubit>().state.isCustomerLoading ? DropdownLoadingWidget() : const SocCustomerDropDownWidget(),
               20.verticalSpace,
             ]),
             20.verticalSpace,

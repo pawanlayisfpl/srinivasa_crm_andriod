@@ -5,8 +5,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/cubit/state/user_activity_state.dart';
 import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/cubit/user_activity_cubit.dart';
-
-import '../../../data/model/get/user_activity_model.dart';
+import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/screens/widget/user_activity_card_widget.dart';
 
 class UserActivityListWidget extends StatelessWidget {
   const UserActivityListWidget({
@@ -17,11 +16,26 @@ class UserActivityListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<UserActivityCubit, UserActivityState>(
       builder: (context, state) {
-        return state.userActivityModel == null? EmptyWidget(title: 'No Activites found', callback: () {})  :  ListView.builder(
-          shrinkWrap: true,
-            itemBuilder: (c,i) {
-          return Text(i.toString());
-        },itemCount: state.userActivityModel == null ? 0  :state.userActivityModel!.repTravelLogsData!.length,);
+        if (state.userActivityModel == null || state.userActivityModel!.repTravelLogsData == null || state.userActivityModel!.repTravelLogsData!.isEmpty) {
+          return const Center(
+            child: CommonTextWidget(
+              title: 'No Data Found',
+              fontWeight: FontWeight.w500,
+            ),
+          );
+        } else {
+          return Expanded(
+            child: ListView.builder(
+              addAutomaticKeepAlives: false,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              shrinkWrap: true,
+              itemCount: state.userActivityModel!.repTravelLogsData!.length,
+              itemBuilder: (context, index) {
+                return UserActivityCardWidget(repTravelLogsData: state.userActivityModel!.repTravelLogsData![index]);
+              },
+            ),
+          );
+        }
       },
     );
   }

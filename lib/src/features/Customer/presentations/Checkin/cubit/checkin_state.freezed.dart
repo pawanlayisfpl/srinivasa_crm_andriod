@@ -16,8 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CheckinState {
-  List<EmployeeModel> get employeList => throw _privateConstructorUsedError;
-  List<EmployeeModel> get selectedEmployeList =>
+  List<JoinEmployeModel> get employeList => throw _privateConstructorUsedError;
+  List<JoinEmployeModel> get selectedEmployeList =>
       throw _privateConstructorUsedError;
   CheckInResponseModel? get checkInResponseModel =>
       throw _privateConstructorUsedError;
@@ -50,8 +50,8 @@ abstract class $CheckinStateCopyWith<$Res> {
       _$CheckinStateCopyWithImpl<$Res, CheckinState>;
   @useResult
   $Res call(
-      {List<EmployeeModel> employeList,
-      List<EmployeeModel> selectedEmployeList,
+      {List<JoinEmployeModel> employeList,
+      List<JoinEmployeModel> selectedEmployeList,
       CheckInResponseModel? checkInResponseModel,
       CheckoutResponseModel? checkoutResponseModel,
       LastCheckinOutResponseModel? lastCheckinOutResponseModel,
@@ -104,11 +104,11 @@ class _$CheckinStateCopyWithImpl<$Res, $Val extends CheckinState>
       employeList: null == employeList
           ? _value.employeList
           : employeList // ignore: cast_nullable_to_non_nullable
-              as List<EmployeeModel>,
+              as List<JoinEmployeModel>,
       selectedEmployeList: null == selectedEmployeList
           ? _value.selectedEmployeList
           : selectedEmployeList // ignore: cast_nullable_to_non_nullable
-              as List<EmployeeModel>,
+              as List<JoinEmployeModel>,
       checkInResponseModel: freezed == checkInResponseModel
           ? _value.checkInResponseModel
           : checkInResponseModel // ignore: cast_nullable_to_non_nullable
@@ -190,8 +190,8 @@ abstract class _$$CheckinStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<EmployeeModel> employeList,
-      List<EmployeeModel> selectedEmployeList,
+      {List<JoinEmployeModel> employeList,
+      List<JoinEmployeModel> selectedEmployeList,
       CheckInResponseModel? checkInResponseModel,
       CheckoutResponseModel? checkoutResponseModel,
       LastCheckinOutResponseModel? lastCheckinOutResponseModel,
@@ -243,11 +243,11 @@ class __$$CheckinStateImplCopyWithImpl<$Res>
       employeList: null == employeList
           ? _value._employeList
           : employeList // ignore: cast_nullable_to_non_nullable
-              as List<EmployeeModel>,
+              as List<JoinEmployeModel>,
       selectedEmployeList: null == selectedEmployeList
           ? _value._selectedEmployeList
           : selectedEmployeList // ignore: cast_nullable_to_non_nullable
-              as List<EmployeeModel>,
+              as List<JoinEmployeModel>,
       checkInResponseModel: freezed == checkInResponseModel
           ? _value.checkInResponseModel
           : checkInResponseModel // ignore: cast_nullable_to_non_nullable
@@ -312,8 +312,8 @@ class __$$CheckinStateImplCopyWithImpl<$Res>
 
 class _$CheckinStateImpl implements _CheckinState {
   const _$CheckinStateImpl(
-      {required final List<EmployeeModel> employeList,
-      required final List<EmployeeModel> selectedEmployeList,
+      {required final List<JoinEmployeModel> employeList,
+      required final List<JoinEmployeModel> selectedEmployeList,
       this.checkInResponseModel = null,
       this.checkoutResponseModel = null,
       this.lastCheckinOutResponseModel = null,
@@ -335,17 +335,17 @@ class _$CheckinStateImpl implements _CheckinState {
         _filesList = filesList,
         _imageLists = imageLists;
 
-  final List<EmployeeModel> _employeList;
+  final List<JoinEmployeModel> _employeList;
   @override
-  List<EmployeeModel> get employeList {
+  List<JoinEmployeModel> get employeList {
     if (_employeList is EqualUnmodifiableListView) return _employeList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_employeList);
   }
 
-  final List<EmployeeModel> _selectedEmployeList;
+  final List<JoinEmployeModel> _selectedEmployeList;
   @override
-  List<EmployeeModel> get selectedEmployeList {
+  List<JoinEmployeModel> get selectedEmployeList {
     if (_selectedEmployeList is EqualUnmodifiableListView)
       return _selectedEmployeList;
     // ignore: implicit_dynamic_type
@@ -493,8 +493,8 @@ class _$CheckinStateImpl implements _CheckinState {
 
 abstract class _CheckinState implements CheckinState {
   const factory _CheckinState(
-      {required final List<EmployeeModel> employeList,
-      required final List<EmployeeModel> selectedEmployeList,
+      {required final List<JoinEmployeModel> employeList,
+      required final List<JoinEmployeModel> selectedEmployeList,
       final CheckInResponseModel? checkInResponseModel,
       final CheckoutResponseModel? checkoutResponseModel,
       final LastCheckinOutResponseModel? lastCheckinOutResponseModel,
@@ -511,9 +511,9 @@ abstract class _CheckinState implements CheckinState {
       final List<ImageModel> imageLists}) = _$CheckinStateImpl;
 
   @override
-  List<EmployeeModel> get employeList;
+  List<JoinEmployeModel> get employeList;
   @override
-  List<EmployeeModel> get selectedEmployeList;
+  List<JoinEmployeModel> get selectedEmployeList;
   @override
   CheckInResponseModel? get checkInResponseModel;
   @override
