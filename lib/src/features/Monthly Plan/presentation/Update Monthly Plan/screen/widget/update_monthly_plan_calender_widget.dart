@@ -5,10 +5,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/view_monthly_plan_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/widgets/monthly_plan_custoemer_list_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/widgets/monthly_plan_date_textfield.dart';
@@ -225,7 +227,14 @@ lastDay: DateTime(
                   const UpdateMonthlyPlanCustomerListDropDownWidget(),
                   20.verticalSpace,
                   CommonButton(callback: ()async  {
+                    List<Customermodel> selectedCustomers = context.read<UpdateMonthlyPlanCubit>().state.selectedCustomersList;
+
+                    if(selectedCustomers.isNotEmpty) {
                     context.read<UpdateMonthlyPlanCubit>().updatePlan(context,selectedDay);
+
+                    }else {
+                      Fluttertoast.showToast(msg: 'Please select customers');
+                    }
                   }, title: 'Submit'),
                   10.verticalSpace,
                 
@@ -278,7 +287,19 @@ lastDay: DateTime(
                   const UpdateMonthlyPlanCustomerListDropDownWidget(),
                   20.verticalSpace,
                   CommonButton(callback: ()async  {
-                    context.read<UpdateMonthlyPlanCubit>().addToExistingPlan(context);
+
+                      List<Customermodel> selectedCustomers = context.read<UpdateMonthlyPlanCubit>().state.selectedCustomersList;
+
+                    if(selectedCustomers.isNotEmpty) {
+                     context.read<UpdateMonthlyPlanCubit>().addToExistingPlan(context);
+
+                    }else {
+                      Fluttertoast.showToast(msg: 'Please select customers');
+                    }
+
+
+
+                 
                   }, title: 'Submit'),
                   10.verticalSpace,
                 

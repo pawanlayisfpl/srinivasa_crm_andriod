@@ -126,7 +126,7 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                   
 
 
-                    if(totalDailyPlanCount < 2) {
+                    if(totalDailyPlanCount < 20) {
                       if(context.mounted) {
                         QuickAlert.show(context: context, type: QuickAlertType.warning,
                         showConfirmBtn: true,
@@ -135,7 +135,7 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                         confirmBtnText: "okay",
                         textColor: Colors.black,
                         
-                      text: "Please fill atleast two day from the remaining $reamaingDays days") ;
+                      text: "Please enter the data for all the days") ;
                       
                       }
                     }else {

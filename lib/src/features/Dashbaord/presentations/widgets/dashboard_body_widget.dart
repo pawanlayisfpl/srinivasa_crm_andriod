@@ -34,7 +34,7 @@ class DashboardBodyWidget extends StatelessWidget {
       backgroundColor: AppColors.primaryColor,
       color: Colors.white,
       onRefresh: () async {
-      // await  context.read<AlertCubit>().getAlerts();
+      await  context.read<AlertCubit>().getAlertCountValue();
       },
       child:
       Column(
