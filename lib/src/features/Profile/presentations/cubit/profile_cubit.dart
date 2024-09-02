@@ -37,8 +37,8 @@ class ProfileCubit extends Cubit<ProfileState> {
     }, (r) {
       if (r != null) {
         emit(ProfileState.loadedLocal(profileResponseModel: r));
-        log('PRINTING LOCAL PROFILE MODLEL');
-        log(r.toJson().toString());
+        debugPrint('PRINTING LOCAL PROFILE MODLEL');
+        debugPrint(r.toJson().toString());
       } else {
         emit(const ProfileState.error(message: 'No data found'));
       }

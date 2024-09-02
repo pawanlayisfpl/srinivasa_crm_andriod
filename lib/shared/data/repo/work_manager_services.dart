@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'dart:developer';
-import 'dart:isolate';
 
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:http/http.dart' as http;
 
@@ -40,11 +38,11 @@ void callbackDispatcher() {
   // break;
 
       case fetchBackground:
-        log("BACKGROUND TASK IS WORKED ON ${DateTime.now().toString()}");
+        debugPrint("BACKGROUND TASK IS WORKED ON ${DateTime.now().toString()}");
 
         Position position = await Geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.best);
-        log(position.toString());
+        debugPrint(position.toString());
             Fluttertoast.showToast(msg: "Location updated successfully");
 
     
@@ -62,18 +60,18 @@ void callbackDispatcher() {
 
           if (postResponse.statusCode == 201) {
             // //! SAVE TO LOCAL STORAGE FEATURE
-            log("Background POST REQUEST IS SUCCESS");
+            debugPrint("Background POST REQUEST IS SUCCESS");
           } else {
-            log("Background task POST request is failed");
+            debugPrint("Background task POST request is failed");
           }
         } catch (e) {
-          log("Error during API request: $e");
+          debugPrint("Error during API request: $e");
         }
 
         break;
 
       case oneshot:
-        log("one shot task is working in background after 30 seconds delay");
+        debugPrint("one shot task is working in background after 30 seconds delay");
     }
 
     return Future.value(true);
@@ -82,12 +80,12 @@ void callbackDispatcher() {
 
 void saveDataToLocalStorage(String data) async {
   // Example: Save data to local storage (use the appropriate package)
-  log("Saving data to local storage: $data");
+  debugPrint("Saving data to local storage: $data");
   // Implement your local storage saving logic here
 
   final pref = await SharedPreferences.getInstance();
   pref.setString("first", data.toString());
-  log(data);
+  debugPrint(data);
 }
 
 // void _trackingIsolate(SendPort sendPort) async {

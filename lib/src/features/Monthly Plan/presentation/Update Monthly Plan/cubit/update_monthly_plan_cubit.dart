@@ -114,8 +114,8 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
 
   void setSelectedCustomerLists(
       {required List<Customermodel> selectedCustomers}) {
-    log(selectedCustomers.map((e) => e.farm!.farmId).toList().toString());
-    log("selected date  ${dateController.text}");
+    debugPrint(selectedCustomers.map((e) => e.farm!.farmId).toList().toString());
+    debugPrint("selected date  ${dateController.text}");
 
     emit(state.copyWith(selectedCustomersList: selectedCustomers));
   }
@@ -213,10 +213,10 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
             backgroundColor: Colors.green,
             textColor: Colors.white);
       } else {
-        log("Model not found");
+        debugPrint("Model not found");
       }
     } catch (e) {
-      log("Error finding model: $e");
+      debugPrint("Error finding model: $e");
     }
   }
 
@@ -266,7 +266,7 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
       DailyPlan(createdDate: e.createdDate, approxKms: e.approxKms, farmIds: e.customerCodes,dailyPlanId: e.dailyPlanId)).toList()
       );
 
-      log(updateMonthlyPlanPostModel.toJson().toString());
+      debugPrint(updateMonthlyPlanPostModel.toJson().toString());
 
     final results = await monthlyPlanRepo.updateMonthlyPlan(
         updateMonthlyPlanPostModel: updateMonthlyPlanPostModel);
@@ -489,41 +489,41 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
       {required UpdateMonthlyDailyPlanPostModel
           updateMonthlyDailyPlanPostModel}) {
     // Log the customer codes in the updateMonthlyDailyPlanPostModel
-    log('Printing updateMonthlyDailyPlanPostModel customerCodes:');
-    log(updateMonthlyDailyPlanPostModel.customerCodes
+    debugPrint('Printing updateMonthlyDailyPlanPostModel customerCodes:');
+    debugPrint(updateMonthlyDailyPlanPostModel.customerCodes
         .map((e) => e.toString())
         .toList()
         .toString());
 
     // Start filtering the customerList
-    log("Starting to filter customerList with customerCodes: ${updateMonthlyDailyPlanPostModel.customerCodes}");
+    debugPrint("Starting to filter customerList with customerCodes: ${updateMonthlyDailyPlanPostModel.customerCodes}");
 
     // Filter the customerList to find matches based on farmId
     List<Customermodel> existingCustomerLists = state.customerList.where((e) {
       // Log the farmId for each customer model
-      log("Checking customer with farmId: ${e.farm!.farmId}");
+      debugPrint("Checking customer with farmId: ${e.farm!.farmId}");
 
       // Check if any customerCode matches the farmId
       bool matches = updateMonthlyDailyPlanPostModel.customerCodes.any((ce) {
         bool isMatch = e.farm!.farmId.toString() == ce.toString();
-        log("Comparing farmId: ${e.farm!.farmId.toString()} with customerCode: $ce - Match: $isMatch");
+        debugPrint("Comparing farmId: ${e.farm!.farmId.toString()} with customerCode: $ce - Match: $isMatch");
         return isMatch;
       });
 
-      log("Customer ${e.farm!.farmId} matches any code: $matches");
+      debugPrint("Customer ${e.farm!.farmId} matches any code: $matches");
       return matches;
     }).toList();
 
     // Log the results after filtering
-    log("Filtered customer list length: ${existingCustomerLists.length}");
+    debugPrint("Filtered customer list length: ${existingCustomerLists.length}");
 
     // Loop through and log each customer in the filtered list
     for (int i = 0; i < existingCustomerLists.length; i++) {
-      log("Existing customer at index $i: ${existingCustomerLists[i].toJson().toString()}");
+      debugPrint("Existing customer at index $i: ${existingCustomerLists[i].toJson().toString()}");
     }
 
     // Log the results after filtering
-    log("Filtered customer list length: ${existingCustomerLists.length}");
+    debugPrint("Filtered customer list length: ${existingCustomerLists.length}");
 
     emit(state.copyWith(selectedCustomersList: existingCustomerLists));
   }
@@ -532,9 +532,9 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
     final DateTime date = DateTime.parse(dateController.text.toFormattedDate());
     final double kilometer = double.tryParse(approxController.text) ?? 0.0;
     final List<Customermodel> customerList = state.selectedCustomersList;
-    log(date.toString());
-    log(kilometer.toString());
-    log(customerList.length.toString());
+    debugPrint(date.toString());
+    debugPrint(kilometer.toString());
+    debugPrint(customerList.length.toString());
 
     List<UpdateMonthlyDailyPlanPostModel> updateDailyPlanPostLists = state
         .existingMonthlyPlanList
@@ -565,7 +565,7 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
                     OutlinedButton(
                         onPressed: () {
                           Navigator.pop(alertContext);
-                          log('Starting update for existing plan');
+                          debugPrint('Starting update for existing plan');
 
                           // Find the existing plan with the matching date
                           UpdateMonthlyDailyPlanPostModel? existingPlan =
@@ -581,14 +581,14 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
                                 .toList();
 
                             // Log the updated plan to verify changes
-                            log('Updated plan: ${existingPlan.toJson().toString()}');
+                            debugPrint('Updated plan: ${existingPlan.toJson().toString()}');
                             Navigator.pop(context);
                             Fluttertoast.showToast(
                                 msg: 'Plan updated successfully',
                                 backgroundColor: Colors.green,
                                 textColor: Colors.white);
                           } else {
-                            log('No existing plan found for the given date');
+                            debugPrint('No existing plan found for the given date');
                           }
                         },
                         child: const CommonTextWidget(title: 'Overwrite')),
@@ -616,7 +616,7 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
       // Show a toast message
 
       // Log the start of the update process
-      log('Starting update for existing plan');
+      debugPrint('Starting update for existing plan');
 
       // Find the existing plan with the matching date
       UpdateMonthlyDailyPlanPostModel? existingPlan = state
@@ -631,14 +631,14 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
             .toList();
 
         // Log the updated plan to verify changes
-        log('Updated plan: ${existingPlan.toJson().toString()}');
+        debugPrint('Updated plan: ${existingPlan.toJson().toString()}');
         Navigator.pop(context);
         Fluttertoast.showToast(
             msg: 'Plan updated successfully',
             backgroundColor: Colors.green,
             textColor: Colors.white);
       } else {
-        log('No existing plan found for the given date');
+        debugPrint('No existing plan found for the given date');
       }
     }
   }

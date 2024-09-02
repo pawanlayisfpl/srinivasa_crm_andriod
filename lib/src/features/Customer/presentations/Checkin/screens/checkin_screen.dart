@@ -114,7 +114,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
                       callback: () async {
                 // Assuming lastCheckinTime is in a valid DateTime format, e.g., ISO 8601
           String? lastCheckinTimeString = locator.get<KeyValueStorage>().sharedPreferences.getString(KeyValueStrings.checkinTime);
-          log(lastCheckinTimeString ?? 'No last check in time found');
+          debugPrint(lastCheckinTimeString ?? 'No last check in time found');
            HapticFeedback.mediumImpact();
              final locationServicesss = locator.get<CommonLocationServices>();
                                 Position position = await locationServicesss.getUserCurrentPosition();
@@ -181,7 +181,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
           //                       }
               
           //   } else {
-          //     log('Less than 5 minutes have passed since the last check-in.');
+          //     debugPrint('Less than 5 minutes have passed since the last check-in.');
           //     // MINUTES PENDING
           //   int minutesPending = 1 - difference.inMinutes;
           //   QuickAlert.show(
@@ -198,7 +198,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
           //   );    // Add your logic here for when less than 5 minutes have passed
           //   }
           // } else {
-          //   log('No last check in time found, possibly first check-in.');
+          //   debugPrint('No last check in time found, possibly first check-in.');
           //   // Handle the case for no last check-in time found
           //    // checkin logic
           //            HapticFeedback.mediumImpact();

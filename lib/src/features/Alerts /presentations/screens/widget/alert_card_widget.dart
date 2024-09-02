@@ -47,7 +47,7 @@ class AlertCardWidget extends StatelessWidget {
               child: ListTile(
                
                 onTap: ()async  {
-                   log(alertModel.toJson().toString());
+                   debugPrint(alertModel.toJson().toString());
                       if(context.mounted) {
                       
                     MarkAlertAsReadPostModel markAlertAsReadPostModel = MarkAlertAsReadPostModel(notificationId: alertModel.notificationId);
@@ -75,7 +75,7 @@ class AlertCardWidget extends StatelessWidget {
                       
                     return;
                   }else {
-                    log('NOT A SALES ORDER');
+                    debugPrint('NOT A SALES ORDER');
                       switch(alertModel.type) {
                   case AppStrings.rejected:
                   Navigator.push(context, SlideLeftRoute(screen: UpdateMonthlyPlanScreen(

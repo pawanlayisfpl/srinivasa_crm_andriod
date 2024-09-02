@@ -41,7 +41,7 @@ class KycPendingBodyWidget extends StatelessWidget {
           return EmptyWidget(title: state.maybeMap(
               orElse: () => '', // Provide a default return value for other states
               error: (value) {
-                log(value.toString());
+                debugPrint(value.toString());
                 return value.apiFailedModel.message.toString();
               },
             ), callback: () {

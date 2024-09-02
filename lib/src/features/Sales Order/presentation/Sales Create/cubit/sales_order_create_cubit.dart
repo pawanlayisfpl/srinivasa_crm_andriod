@@ -181,7 +181,7 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
 
         }else {
           double totalAmountValue = (qty * price);
-      log(totalAmountValue.toString());
+      debugPrint(totalAmountValue.toString());
       producttotalController.text = totalAmountValue.toString().split(".").first;
 
         }
@@ -272,16 +272,16 @@ if (discountPerQtyValue <= minAllowedAmount) {
     double finaltotalAmountValue = finalAmount * qty;
     double totalGivenAmountValue = givenPrice * qty;
     productSellingRateController.text = finalAmount.toStringAsFixed(2);
-    log('printing final amount value is ${finaltotalAmountValue.toString()}');
+    debugPrint('printing final amount value is ${finaltotalAmountValue.toString()}');
     producttotalController.text = finaltotalAmountValue.toStringAsFixed(0);
 
 
-    log("selling price total amount is ${finaltotalAmountValue.toString()}");
-    log('original price total amount is ${totalGivenAmountValue.toString()}');
+    debugPrint("selling price total amount is ${finaltotalAmountValue.toString()}");
+    debugPrint('original price total amount is ${totalGivenAmountValue.toString()}');
 
 
     double discountPercentage = ((totalGivenAmountValue - finaltotalAmountValue) / totalGivenAmountValue) * 100;
-    log('discount percentage is ${discountPercentage.toString()}');
+    debugPrint('discount percentage is ${discountPercentage.toString()}');
     productDiscountPerPercentage.text = discountPercentage.toStringAsFixed(2) + " %";
 
     
@@ -335,7 +335,7 @@ void onDiscountPerPercentageChanged() {
       // Assuming you have a controller to display discount per quantity
       productDiscountPerQty.text = discountPerQty.toStringAsFixed(2);
        double newSellingRateValue =  finalAmount / double.parse(productQtyController.text);
-    log('new selling price is ${newSellingRateValue.toString()}');
+    debugPrint('new selling price is ${newSellingRateValue.toString()}');
     productSellingRateController.text = newSellingRateValue.toStringAsFixed(2);
     } else if (discountPerPercentage == 0.0 || productDiscountPerPercentage.text.isEmpty) {
       producttotalController.text = state.originalTotalAmountValue.toString();
@@ -424,20 +424,20 @@ void onDiscountPerPercentageChanged() {
 
 // AMOUNT PAID FIELD
   void onAmountPaidChanged(String value) {
-    log(amountPaidController.text.toString());
+    debugPrint(amountPaidController.text.toString());
    double newOrderAmount =  state.productFormList.fold(0.0, (acc, element) => acc + element.totalAmount);
     double paidAmountValue = double.tryParse(amountPaidController.text) ?? 0.0;
 
 
     if(paidAmountValue < newOrderAmount) {
-       log('total order amount value ${newOrderAmount.toString()}');
+       debugPrint('total order amount value ${newOrderAmount.toString()}');
        double newBalanceAmountValue = newOrderAmount - paidAmountValue;
         balanceAmountController.text = newBalanceAmountValue.toStringAsFixed(2);
 
         emit(state.copyWith(pendingFormList: []));
         balanceAmountDueDateController.clear();
 
-    log('paid amount value ${paidAmountValue.toString()}');
+    debugPrint('paid amount value ${paidAmountValue.toString()}');
 
     }else {
       balanceAmountController.clear();
@@ -516,7 +516,7 @@ void onDiscountPerPercentageChanged() {
 
   void setSelectedProductModel({required ProductsModel value}) async {
     emit(state.copyWith(apiFailedModel: null, isProductLoading: false));
-    log(value.toJson().toString());
+    debugPrint(value.toJson().toString());
     emit(state.copyWith(selectedProductModel: value,));
     // GETTING PRODUCT PRICE
     final results = await salesRepo.getPriceByProductId(value.productId ?? 0);
@@ -587,7 +587,7 @@ void onDiscountPerPercentageChanged() {
 
     if(pendingPaymentDueDateController.text.isNotEmpty && pendingPaymentAmountController.text.isNotEmpty && pendingPaymentAmountPerentageController.text.isNotEmpty) {
       ProductPendingFormModel pendingFormModel = ProductPendingFormModel(id: const Uuid().v4().toString(), dueDate: DateTime.now().toIso8601String(), dueAmount: double.tryParse(pendingPaymentAmountController.text) ?? 0.0,dueAmountPercentage: double.tryParse(pendingPaymentAmountPerentageController.text) ?? 0.0);
-    log(pendingFormModel.toJson().toString());
+    debugPrint(pendingFormModel.toJson().toString());
     addToProductPendingList(productPendingFormModel: pendingFormModel);
     pendingPaymentAmountController.clear();
     pendingPaymentDueDateController.clear();
@@ -603,7 +603,7 @@ void onDiscountPerPercentageChanged() {
     //     dueAmountPercentage:
     //         double.tryParse(pendingPaymentAmountPerentageController.text) ??
     //             0.0);
-    // log(pendingFormModel.toJson().toString());
+    // debugPrint(pendingFormModel.toJson().toString());
   }
 
 // HANDLING PRODUCT FORM LIST METHODSS
@@ -635,7 +635,7 @@ void onDiscountPerPercentageChanged() {
 
       double totalAmountValue = (qty * sellingRate);
       producttotalController.text = totalAmountValue.toStringAsFixed(0);
-      log(producttotalController.text.toString());
+      debugPrint(producttotalController.text.toString());
     }else {
           // LOGIC 1: WHEN SELLING RATE IS NULL
     producttotalController.text = '0.0';
@@ -686,9 +686,9 @@ double remainingPercentage = 100.0 - totalPendingPercentage;
 
   double totalValue = totalProductsAmount - totalPendingDueAmount;
 
-  log(totalProductsAmount.toString());
-  log('printing total percentage');
-  log(totalPendingPercentage.toString());
+  debugPrint(totalProductsAmount.toString());
+  debugPrint('printing total percentage');
+  debugPrint(totalPendingPercentage.toString());
   emit(state.copyWith(
     totalPendingAmountValue: totalValue.toString(),
     remainingPercentage: remainingPercentage.toString(),
@@ -789,7 +789,7 @@ void onDuePercentageChanged() {
         sellingRate: double.tryParse(productSellingRateController.text) ?? 0.0,
         shipmentDate: productShipmentDateController.text.isEmpty ? "" : productShipmentDateController.text,
         chDate: productChDateController.text.isEmpty ? "" : productChDateController.text);
-    log(productFormModel.toJson().toString());
+    debugPrint(productFormModel.toJson().toString());
     List<ProductFormModel> productList = List.from(state.productFormList);
     productList.add(productFormModel);
     emit(state.copyWith(productFormList: productList,selectedUomModel: null,selectedProductModel: null,));
@@ -858,11 +858,11 @@ void onDuePercentageChanged() {
  void getOrderAmountTotalValues() {
    double newOrderAmount =  state.productFormList.fold(0.0, (acc, element) => acc + element.totalAmount);
 
-  log("total order amount is ${newOrderAmount.toString()}");
+  debugPrint("total order amount is ${newOrderAmount.toString()}");
 
    double totalGstAmountValue = state.productFormList.fold(0.0, (acc,element) => acc + double.parse(element.gstAmount.toString()));
  
-  log("total gst amount is ${totalGstAmountValue.toString()}");
+  debugPrint("total gst amount is ${totalGstAmountValue.toString()}");
 
   orderAmountController.text = newOrderAmount.toStringAsFixed(0);
   orderAmountTotalController.text = newOrderAmount.toStringAsFixed(0);
@@ -947,7 +947,7 @@ SocCreatePostModel socCreatePostModel = SocCreatePostModel(
 );
 
 
-log(socCreatePostModel.toJson().toString());
+debugPrint(socCreatePostModel.toJson().toString());
 emit(state.copyWith(isSubmitting: true,apiFailedModel: null));
 await Future.delayed(const Duration(seconds: 1)); 
 

@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
@@ -389,7 +390,7 @@ Future<CustomerFullDetailsModel> getCustomerFullDetails({required String custome
   Future<CustomerCreatedResponseModel> createCustomer({required CustomerCreatePostModel customerCreatePostModel}) async {
     final result = await connectionChecker.isConnected();
     if(result) {
-      log(customerCreatePostModel.toJson().toString());
+      debugPrint(customerCreatePostModel.toJson().toString());
       try {
         final response = await dioClient.post(
           Endpoints.createCustomer,

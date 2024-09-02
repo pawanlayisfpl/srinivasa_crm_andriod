@@ -62,7 +62,7 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
     ].request();
   } else if(Platform.isAndroid) {
  statuses = await [
-      Permission.storage,
+      // Permission.storage,
 
       Permission.location,
       Permission.locationWhenInUse,
@@ -77,15 +77,15 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
 
   // Check if all permissions are granted
   if (statuses.values.every((status) => status.isGranted)) {
-    log("All permissions granted");
+    debugPrint("All permissions granted");
   } else {
-    log("Not all permissions were granted");
+    debugPrint("Not all permissions were granted");
 
 
   // Log which permissions were not granted
   statuses.forEach((permission, status) {
     if (!status.isGranted) {
-      log('Permission not granted: $permission');
+      debugPrint('Permission not granted: $permission');
     }
   });
     // Handle the case where permissions are not granted

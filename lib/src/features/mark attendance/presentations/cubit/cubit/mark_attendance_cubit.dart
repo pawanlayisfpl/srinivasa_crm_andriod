@@ -4,6 +4,7 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 
@@ -41,13 +42,13 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
     // handle failure
   }, (r) async {
     emit(state.copyWith(loading: false,loaded: true,lastPunchInResponseModel: r));
-    log(state.lastPunchInResponseModel!.toJson().toString());
+    debugPrint(state.lastPunchInResponseModel!.toJson().toString());
 
 
     // handle success
   });
 } catch (e) {
-  log(e.toString());
+  debugPrint(e.toString());
   // handle exception
   emit(state.copyWith(loading: false,));
 }

@@ -34,7 +34,7 @@ class UserActivityCubit extends Cubit<UserActivityState> {
       },
       (r) {
         emit(state.copyWith(isLoading: false,apiFailedModel: null,userActivityModel: r));
-        log(r.repTravelLogsData!.length.toString());
+debugPrint(r.repTravelLogsData!.length.toString());
       }
     );
   }

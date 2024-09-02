@@ -175,18 +175,18 @@ lastDay: DateTime(
     bool dateExists = context.read<UpdateMonthlyPlanCubit>().state.existingMonthlyPlanList
         .any((plan) => isSameDay(DateTime.parse(plan.createdDate.toString()), selectedDay));
 
-    print("Selected Day: $selectedDay");
-    print("Date Exists: $dateExists");
+    debugPrint("Selected Day: $selectedDay");
+    debugPrint("Date Exists: $dateExists");
 
     if (dateExists) {
       // UPDATE DAILY PLAN
         UpdateMonthlyDailyPlanPostModel exisitngModel = context.read<UpdateMonthlyPlanCubit>().state.existingMonthlyPlanList.where((e) => isSameDay(e.createdDate, selectedDay)).first;
-        log(exisitngModel.toJson().toString());
+        debugPrint(exisitngModel.toJson().toString());
       
         context.read<UpdateMonthlyPlanCubit>().reset();
       context.read<UpdateMonthlyPlanCubit>().onDateFieldChange(dateField: selectedDay.toString());
       UpdateMonthlyDailyPlanPostModel updateMonthlyDailyPlanPostModel = context.read<UpdateMonthlyPlanCubit>().state.existingMonthlyPlanList.where((e) => isSameDay(e.createdDate, selectedDay)).toList().first;
-    log(updateMonthlyDailyPlanPostModel.toJson().toString());
+    debugPrint(updateMonthlyDailyPlanPostModel.toJson().toString());
     context.read<UpdateMonthlyPlanCubit>().onKiloMeterChange(value: updateMonthlyDailyPlanPostModel.approxKms.toString());
     context.read<UpdateMonthlyPlanCubit>().addToExistingSelectedCustomersList(updateMonthlyDailyPlanPostModel: updateMonthlyDailyPlanPostModel);
         showDialog(

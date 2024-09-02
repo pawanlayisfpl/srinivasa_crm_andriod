@@ -112,7 +112,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               null &&
                           context.read<CheckinCubit>().state.selectedPurpose !=
                               null) {
-                        log(context
+                        debugPrint(context
                             .read<CheckinCubit>()
                             .state
                             .lastCheckinOutResponseModel!
@@ -156,7 +156,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             checkOutPostModel: checkoutPostModel,context: context);
                       }
                       } else {
-                        log('last checkin response model is getting null');
+                        debugPrint('last checkin response model is getting null');
                         Fluttertoast.showToast(
                             msg: 'Please select purpose',
                             backgroundColor: Colors.red,

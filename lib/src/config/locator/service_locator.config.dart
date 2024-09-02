@@ -224,7 +224,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i720.DioClient>(() => _i720.DioClient(
           gh<_i361.Dio>(),
           gh<_i286.KeyValueStorage>(),
+          gh<_i974.Logger>(),
         ));
+    gh.factory<_i612.MarkAttendanceRemoteDataSource>(
+        () => _i612.MarkAttendanceRemoteDatasourceImpl(
+              dioClient: gh<_i961.DioClient>(),
+              logger: gh<_i974.Logger>(),
+              keyValueStorage: gh<_i961.KeyValueStorage>(),
+            ));
     gh.factory<_i579.LoginRemoteDataSource>(
         () => _i579.LoginRemoteDataSourceImpl(
               dioClient: gh<_i961.DioClient>(),
@@ -307,6 +314,15 @@ extension GetItInjectableX on _i174.GetIt {
           internetChecker: gh<_i961.InternetChecker>(),
           keyValueStorage: gh<_i961.KeyValueStorage>(),
         ));
+    gh.factory<_i492.MarkAttendanceRepo>(() => _i59.MarkAttendanceRepoImpl(
+        markAttendanceRemoteDataSource:
+            gh<_i612.MarkAttendanceRemoteDataSource>()));
+    gh.factory<_i564.PunchInUseCase>(() => _i564.PunchInUseCase(
+        markAttendanceRepo: gh<_i492.MarkAttendanceRepo>()));
+    gh.factory<_i585.PunchOutUsecase>(() => _i585.PunchOutUsecase(
+        markAttendanceRepo: gh<_i492.MarkAttendanceRepo>()));
+    gh.factory<_i483.LastPunchInOutUseCase>(() => _i483.LastPunchInOutUseCase(
+        markAttendanceRepo: gh<_i492.MarkAttendanceRepo>()));
     gh.factory<_i568.PrimarySourceRemoteDataSource>(
         () => _i568.PrimarySourceRemoteDataSourceImpl(
               internetChecker: gh<_i961.InternetChecker>(),
@@ -354,12 +370,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i204.LoginUseCase(loginRepository: gh<_i584.LoginRepository>()));
     gh.factory<_i186.UserActivityCubit>(
         () => _i186.UserActivityCubit(gh<_i939.UserActivityRepo>()));
-    gh.factory<_i612.MarkAttendanceRemoteDataSource>(
-        () => _i612.MarkAttendanceRemoteDatasourceImpl(
-              dioClient: gh<_i961.DioClient>(),
-              logger: gh<_i974.Logger>(),
-              keyValueStorage: gh<_i961.KeyValueStorage>(),
-            ));
     gh.factory<_i311.AddressRepo>(() => _i1057.AddressRepoImpl(
         addressRemoteDataSource: gh<_i566.AddressRemoteDataSource>()));
     gh.factory<_i792.ZoneRepo>(() => _i605.ZoneRepoImpl(
@@ -370,6 +380,12 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i118.MonthlyPlanRepo>(() => _i771.MonthlyPlanRepoImpl(
         remoteDataSource: gh<_i81.MonthlyPlanRemoteDataSource>()));
+    gh.factory<_i796.MarkAttendanceCubit>(() => _i796.MarkAttendanceCubit(
+          gh<_i866.PunchInUseCase>(),
+          gh<_i866.PunchOutUsecase>(),
+          gh<_i866.LastPunchInOutUseCase>(),
+          gh<_i972.CommonLocationServices>(),
+        ));
     gh.factory<_i520.UpdateMonthlyPlanCubit>(() => _i520.UpdateMonthlyPlanCubit(
           monthlyPlanRepo: gh<_i118.MonthlyPlanRepo>(),
           customerRepo: gh<_i209.CustomerRepo>(),
@@ -381,20 +397,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i702.MonthlyPlanPendingCubit(gh<_i118.MonthlyPlanRepo>()));
     gh.factory<_i848.MonthlyPlanSearchCubit>(
         () => _i848.MonthlyPlanSearchCubit(gh<_i118.MonthlyPlanRepo>()));
-    gh.factory<_i492.MarkAttendanceRepo>(() => _i59.MarkAttendanceRepoImpl(
-        markAttendanceRemoteDataSource:
-            gh<_i612.MarkAttendanceRemoteDataSource>()));
     gh.factory<_i466.PrimarySourceRepo>(() => _i531.PrimarySourceRepoImpl(
         primarySourceRemoteDataSource:
             gh<_i568.PrimarySourceRemoteDataSource>()));
     gh.factory<_i981.EmployeRepo>(() => _i544.EmployeRepoImpl(
         employeDataSource: gh<_i102.EmployeDataSource>()));
-    gh.factory<_i564.PunchInUseCase>(() => _i564.PunchInUseCase(
-        markAttendanceRepo: gh<_i492.MarkAttendanceRepo>()));
-    gh.factory<_i585.PunchOutUsecase>(() => _i585.PunchOutUsecase(
-        markAttendanceRepo: gh<_i492.MarkAttendanceRepo>()));
-    gh.factory<_i483.LastPunchInOutUseCase>(() => _i483.LastPunchInOutUseCase(
-        markAttendanceRepo: gh<_i492.MarkAttendanceRepo>()));
     gh.factory<_i455.CheckinCubit>(() => _i455.CheckinCubit(
           customerRepo: gh<_i209.CustomerRepo>(),
           employeRepo: gh<_i981.EmployeRepo>(),
@@ -421,12 +428,6 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i209.CustomerRepo>(),
           gh<_i118.MonthlyPlanRepo>(),
           gh<_i472.DailyPlanRepo>(),
-        ));
-    gh.factory<_i796.MarkAttendanceCubit>(() => _i796.MarkAttendanceCubit(
-          gh<_i866.PunchInUseCase>(),
-          gh<_i866.PunchOutUsecase>(),
-          gh<_i866.LastPunchInOutUseCase>(),
-          gh<_i972.CommonLocationServices>(),
         ));
     return this;
   }

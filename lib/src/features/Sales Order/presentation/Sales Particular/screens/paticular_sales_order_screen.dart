@@ -96,11 +96,11 @@ Map<String, String> paymentDetailsMapping = {
 
 List<TableRow> buildRows(Map<String, String> mapping, ParticularSalesOrderModel customer) {
   final customerJson = customer.toJson();
-  log('Customer JSON: $customerJson');
+  debugPrint('Customer JSON: $customerJson');
   return mapping.entries.map((entry) {
     var displayKey = entry.key;
     var actualKey = entry.value;
-    log('printing display key = ${displayKey} and actual key = ${actualKey}');
+    debugPrint('printing display key = ${displayKey} and actual key = ${actualKey}');
     
     // Split the actualKey to handle nested keys
     var keys = actualKey.split('.');

@@ -1,4 +1,4 @@
-package com.example.srinivasa_crm_new;
+    package com.example.srinivasa_crm_new;
 
 
 import android.content.Context;
@@ -33,7 +33,7 @@ public class ApiClass {
     private String url = "https://reqres.in/api/login"; // Replace with your actual API URL
     //  private String postUrl = "http://65.109.229.140:8080/crmsfpl/se/locations";
 //    private String postUrl = "http://192.168.1.45:8080/crmsfpl/se/locations";
-   private String postUrl = "http://95.216.201.117:8081/crmsfpl/se/locations";
+   private String postUrl = "http://172.168.1.56:8081/crm_sfpl/se/locations";
     private String TAG = "ApiCaller"; // Tag for logging
     private LocationHelperClass locationHelperClass;
 

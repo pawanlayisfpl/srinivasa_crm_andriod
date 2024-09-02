@@ -89,7 +89,7 @@ class LoginCubit extends Cubit<LoginState> {
           emit(state.copyWith(errorMessage: l.toString(),isLoginFailed: true,isLoginSuccess: false,isLoading: false,apiFailedModel: apiFailedModel));
         }, (r) async {
           // LoginResponseModel? loginResponseModel = r;
-          log(r.toJson().toString());
+          debugPrint(r.toJson().toString());
           if(r.user != null && r.jwt != null)  {
           await keyValueStorage.sharedPreferences.setString(KeyValueStrings.token, r.jwt ?? "" );
 

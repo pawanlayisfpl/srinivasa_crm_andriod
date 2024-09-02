@@ -126,7 +126,7 @@ emit(state.copyWith(customerList: sortedList));
 
     ]);
     DailyPlanCreateModel dailyPlanCreateModel = DailyPlanCreateModel(monthlyPlanId: monthlyPlanId, dailyPlan: dailyPlan, confirmed: false);
-   log(dailyPlanCreateModel.toJson().toString());
+   debugPrint(dailyPlanCreateModel.toJson().toString());
     
     ProgressDialogUtils.showProgressDialog(context: context);
     final results = await dailyPlanRepo.createDailyPlan(

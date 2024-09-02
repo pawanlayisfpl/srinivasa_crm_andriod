@@ -70,7 +70,7 @@ if (error.response?.statusCode == 401) {
     );
   } catch (e) {
     // Log error or handle toast failure gracefully
-    log("Error displaying toast: $e");
+    debugPrint("Error displaying toast: $e");
   }
   // Return a specific exception for unauthorized requests
   return const NetworkExceptions.unauthorisedRequest();

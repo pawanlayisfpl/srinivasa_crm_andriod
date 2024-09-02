@@ -252,7 +252,7 @@ void showLogoutDialog(BuildContext context) {
   } else {
     statuses = await [
       Permission.location,
-      Permission.storage,
+      // Permission.storage,
       Permission.locationWhenInUse,
       Permission.ignoreBatteryOptimizations,
       // Add other Android-specific permissions if needed
@@ -260,9 +260,9 @@ void showLogoutDialog(BuildContext context) {
   }
   // Check if all permissions are granted
   if (statuses.values.every((status) => status.isGranted)) {
-    log("All permissions granted");
+    debugPrint("All permissions granted");
   } else {
-    log("Not all permissions were granted");
+    debugPrint("Not all permissions were granted");
     // Handle the case where permissions are not granted
 
     // Show a dialog to request permissions

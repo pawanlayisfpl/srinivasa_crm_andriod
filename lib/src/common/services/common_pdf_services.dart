@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
@@ -35,7 +36,7 @@ await file.writeAsBytes ( await pdf.document.save());
 
       return file;
     } catch (e) {
-      log("Error saving PDF: $e");
+      debugPrint("Error saving PDF: $e");
       Fluttertoast.showToast(
         msg: "Error: $e",
         toastLength: Toast.LENGTH_SHORT,
@@ -62,7 +63,7 @@ static  Future<void> save({required Uint8List byteList}) async {
       final fileName = const Uuid().v1();
       final outputs = await getApplicationDocumentsDirectory();
       final filePath = '${outputs.path}/$fileName.pdf';
-      log('printing file path of pdf ${filePath.toString()}',);
+      debugPrint('printing file path of pdf ${filePath.toString()}',);
       final file = File(filePath);
       await file.writeAsBytes(byteList);
        OpenFile(file.path, true);

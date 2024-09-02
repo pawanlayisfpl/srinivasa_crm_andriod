@@ -15,10 +15,12 @@ import 'endpoints.dart';
 class DioClient {
   final Dio _dio;
   final KeyValueStorage keyValueStorage;
+  final Logger logger;
 
   DioClient(
     this._dio,
     this.keyValueStorage,
+    this.logger,
   ) {
     _dio
       ..options.baseUrl = Endpoints.basicUrl
@@ -31,7 +33,6 @@ class DioClient {
       ..options.responseType = ResponseType.json;
   }
 
-  final logger = Logger();
 
   //! CREATING GET, POST, PUT, DELETE REQUESTS
 
@@ -84,7 +85,7 @@ Future<Response> post(
     "Authorization" : 'Bearer $token'
   } : {};
   
-  log("Headers: $headers");
+  logger.d("Headers: $headers");
 
   try {
     final Response response = await _dio.post(
@@ -124,7 +125,7 @@ rethrow;
     "Authorization" : 'Bearer $token'
   } : {};
   
-  log("Headers: $headers");
+  logger.d("Headers: $headers");
     try {
       final Response response = await _dio.put(
         url,

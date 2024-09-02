@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
@@ -217,7 +218,7 @@ class SaleRepoImpl implements SalesRepo {
         }).toList()
     };
 
-    log(requestBody.toString());
+    debugPrint(requestBody.toString());
 
       final response = await dioClient.post(Endpoints.createOrder, headers: {}, data: jsonEncode(requestBody) );
       if (response.statusCode == 201) {

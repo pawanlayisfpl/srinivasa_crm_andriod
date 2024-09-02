@@ -41,7 +41,7 @@ class CommonLocationServices {
         // Android's shouldShowRequestPermissionRationale
         // returned true. According to Android guidelines
         // your App should show an explanatory UI now.
-        log("location denied successfully");
+        debugPrint("location denied successfully");
         throw "Location permissions are denied. Please enable location permissions.";
         //return Future.error('Location permissions are denied');
       }
@@ -49,7 +49,7 @@ class CommonLocationServices {
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
-      log("location denied forever ");
+      debugPrint("location denied forever ");
 
       throw "Location permissions are denied forever. Please enable location permissions.";
       // return Future.error(
@@ -58,7 +58,7 @@ class CommonLocationServices {
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    log("location permisson requested");
+    debugPrint("location permisson requested");
 
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best,
@@ -130,7 +130,7 @@ class CommonLocationServices {
     }
 
     Position position = await Geolocator.getCurrentPosition();
-    log("printing position in ${position.toString()}");
+    debugPrint("printing position in ${position.toString()}");
     return position;
   }
 
@@ -144,10 +144,10 @@ class CommonLocationServices {
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
-        // log(response.body);
+        // debugPrint(response.body);
         final jsonBody = jsonDecode(response.body);
-        log("printing formateed address");
-        log(jsonBody["results"][0]["formatted_address"]);
+        debugPrint("printing formateed address");
+        debugPrint(jsonBody["results"][0]["formatted_address"]);
         return jsonBody["results"][0]["formatted_address"];
       } else {
         throw "Error in getting location name";
@@ -171,29 +171,29 @@ class CommonLocationServices {
   //       polylineCoordinates.add(LatLng(point.latitude, point.longitude));
   //     });
   //   } else {
-  //     log(results.errorMessage.toString());
+  //     debugPrint(results.errorMessage.toString());
   //   }
   //   return polylineCoordinates;
   // }
 
   //! get location from google api
   Future<String?> getUserCurrentLocationFromApi() async {
-    log("Getting location from Google Api");
+    debugPrint("Getting location from Google Api");
     try {
       String url =
           "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyC1JkQvCmFNAuQ43Csd2mASGkMkRCaCxaY";
       final response = await http.get(Uri.parse(url));
-      log(response.toString());
+      debugPrint(response.toString());
 
       if (response.statusCode == 200) {
         var jsonBody = json.decode(response.body);
-        log(jsonBody.toString());
+        debugPrint(jsonBody.toString());
         return jsonBody.toString();
       } else {
         throw "Server Exception ${response.statusCode.toString()}";
       }
     } catch (e) {
-      log(e.toString());
+      debugPrint(e.toString());
       throw e.toString();
     }
   }
@@ -207,15 +207,15 @@ class CommonLocationServices {
   //     final response = await Dio().get(url);
 
   //     if (response.statusCode == 200) {
-  //       log("Auto Complete Response is Okay");
+  //       debugPrint("Auto Complete Response is Okay");
   //       AutoCompleteModel model = AutoCompleteModel.fromJson(response.data);
-  //       log(model.predictions!.first.toJson().toString());
+  //       debugPrint(model.predictions!.first.toJson().toString());
   //       return model;
   //     } else {
   //       throw "No data found on server";
   //     }
   //   } catch (e) {
-  //     log("Autocomplete Services error ${e.toString()}");
+  //     debugPrint("Autocomplete Services error ${e.toString()}");
   //     throw e.toString();
   //   }
   // }

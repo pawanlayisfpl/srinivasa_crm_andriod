@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -56,7 +57,7 @@ class CommonFileStorageServcies {
     // device and file name with extension
     File file = File('$path/$name.$extension');
 
-    log("Save file");
+    debugPrint("Save file");
 
     // Write the data in the file you have created
     return file.writeAsBytes(bytes, mode: FileMode.writeOnly);

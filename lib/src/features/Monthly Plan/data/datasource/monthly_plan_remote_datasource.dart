@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
@@ -58,7 +59,7 @@ class MonthlyPlanRemoteDataSourceImpl implements MonthlyPlanRemoteDataSource {
   Future<ViewMonthlyPlanModel> getMonthlyPlans({required String selectedDate}) async {
     logger.d('MONTHLY PLAN API STARTED');
     String? userId = keyValueStorage.sharedPreferences.getString(KeyValueStrings.userId);
-    log('printing user id $userId');
+    debugPrint('printing user id $userId');
     String id = userId ?? "";
     try {
             final dummyUrl = 'http://192.168.1.45:8080/crmsfpl/se/monthly-plan?createdDate=${selectedDate}&userId=$id';
@@ -77,8 +78,8 @@ class MonthlyPlanRemoteDataSourceImpl implements MonthlyPlanRemoteDataSource {
       }
       
     } on FormatException catch(e) {
-      log(e.toString());
-      throw FormatException();
+      debugPrint(e.toString());
+      throw const FormatException();
     }
 
 
@@ -112,11 +113,11 @@ class MonthlyPlanRemoteDataSourceImpl implements MonthlyPlanRemoteDataSource {
       return generatedDailyPlanList;
     }
 
-    final bodyData = {
-  "planStartDate": monthlyPlanPostModel.planStartDate,
-  "planEndDate": monthlyPlanPostModel.planEndDate,
-  "dailyPlans": list(),
-};
+//     final bodyData = {
+//   "planStartDate": monthlyPlanPostModel.planStartDate,
+//   "planEndDate": monthlyPlanPostModel.planEndDate,
+//   "dailyPlans": list(),
+// };
 
     
     try {

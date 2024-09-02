@@ -2,7 +2,8 @@ class Endpoints {
   // static const String basicUrl = "http://192.168.1.45:8080/crmsfpl";
   // static const String basicUrl = "http://65.109.229.140:8080/crmsfpl";
   // static const String basicUrl = "http://192.168.64.123:8080/crmsfpl";
-    static const String basicUrl = "http://95.216.201.117:8081/crmsfpl";
+    // static const String basicUrl = "http://95.216.201.117:8081/crmsfpl";
+    static const String basicUrl = "http://172.168.1.56:8081/crm_sfpl";
   static const int connectionTimeout = 10;
   static const int receiveTimeout = 10;
 

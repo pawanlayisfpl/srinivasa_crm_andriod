@@ -15,6 +15,7 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Creat
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../../../common/common.dart';
+import '../../../../../Customer/domain/model/get/customer_model.dart';
 import '../../cubit/create_monthly_plan_cubit.dart';
 import '../../cubit/create_monthly_plan_state.dart';
 
@@ -189,6 +190,50 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                     .where((e) =>
                         e.createdDate.toString() == selectedDay.toString())
                     .first;
+             List<Customermodel> newCustomerList = context
+      .read<CreateMonthlyPlanCubit>()
+      .state
+      .customerList;
+
+  DailyPlan newDailyPlanList = context
+                    .read<CreateMonthlyPlanCubit>()
+                    .state
+                    .dailyPlanList
+                    .where((e) =>
+                        e.createdDate.toString() == selectedDay.toString())
+                    .first;
+
+  //      List<Customermodel> customersInDailyPlan = [];
+
+  //      for (var dailyPlan in newDailyPlanList) {
+  //   for (var farmId in dailyPlan.farmIds) {
+  //     for (var customer in newCustomerList) {
+  //       if (customer.farm!.farmId == int.parse(farmId)) {
+  //         customersInDailyPlan.add(customer);
+  //       }
+  //     }
+  //   }
+  // }
+
+List<Customermodel> customersInDailyPlan = [];
+Set<Customermodel> uniqueCustomers = {};
+
+for (var farmId in newDailyPlanList.farmIds) {
+  for (var customer in newCustomerList) {
+    if (customer.farm!.farmId == int.parse(farmId)) {
+      uniqueCustomers.add(customer);
+    }
+  }
+}
+
+// Convert the Set back to a List if needed
+customersInDailyPlan = uniqueCustomers.toList();
+  
+
+  debugPrint("Customers in Daily Plan: ${customersInDailyPlan.map((e) => e.toJson().toString()).toList()}");
+
+
+               
 
                 await showDialog(
                     context: context,
@@ -241,7 +286,7 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                                   Expanded(
                                       flex: 6,
                                       child: CommonTextWidget(
-                                        title: " ${DateFormat('dd-MMMM-yyyy')
+                                        title: " ${DateFormat('dd-MM-yyyy')
                                                 .format(dailyPlan.createdDate)}",
                                         align: TextAlign.start,
                                         fontWeight: FontWeight.bold,
@@ -280,12 +325,13 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                                   Expanded(
                                     flex: 6,
                                     child: CommonTextWidget(
-                                      title: " ${dailyPlan.farmIds
-                                              .map((e) => e)
-                                              .join(",\n")}",
+                                      title: "${uniqueCustomers.map((e) => e.farm!.isIndividual  == true ? e.farm!.farmName : e.customerName).join(",\n")}",
+                                      //  " ${dailyPlan.farmIds
+                                      //         .map((e) => e)
+                                      //         .join(",\n")}",
                                       align: TextAlign.start,
                                       fontWeight: FontWeight.bold,
-                                      maxLines: 5,
+                                      maxLines: 10,
                                     ),
                                   )
                                 ],

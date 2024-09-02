@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/domain/model/profile_model.dart';
@@ -51,7 +52,7 @@ Future<LoginResponseModel> login({required LoginPostModel loginPostModel}) async
 
       );
     
-      log('printing profile model json in login remote datasource'+ "\n\n"+profileModel.toJson().toString());
+      debugPrint('printing profile model json in login remote datasource'+ "\n\n"+profileModel.toJson().toString());
       await keyValueStorage.sharedPreferences.setString(KeyValueStrings.userId, data['user']['id'].toString());
       await keyValueStorage.sharedPreferences.setString(KeyValueStrings.userName, data['user']['username']);
       await keyValueStorage.sharedPreferences.setString(KeyValueStrings.profileDataModel, jsonEncode(profileModel));

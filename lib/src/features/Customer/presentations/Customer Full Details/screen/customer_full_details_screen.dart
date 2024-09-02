@@ -66,7 +66,7 @@ Map<String, String> customerModelMapping = {
 
 List<TableRow> buildRows(Map<String, String> mapping, CustomerFullDetailsModel customer) {
   final customerJson = customer.toJson();
-  log('Customer JSON: $customerJson');
+  debugPrint('Customer JSON: $customerJson');
   return mapping.entries.map((entry) {
     var displayKey = entry.key;
     var actualKey = entry.value;
