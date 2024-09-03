@@ -80,6 +80,7 @@ class AlertCardWidget extends StatelessWidget {
                   case AppStrings.rejected:
                   Navigator.push(context, SlideLeftRoute(screen: UpdateMonthlyPlanScreen(
                     id: alertModel.monthlyPlanId,
+                    comments: alertModel.message
                   )));
                   break;
                   case AppStrings.approved: 

@@ -57,6 +57,7 @@ debugPrint(r.repTravelLogsData!.length.toString());
   @override
   Future<void> close() {
     dateController.dispose();
+    emit(UserActivityState.initial());
     return super.close();
   }
 

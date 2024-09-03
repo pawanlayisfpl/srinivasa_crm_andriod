@@ -28,7 +28,8 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
     // DateTime firstDayOfNextMonth = DateTime.utc(now.year, now.month + 1, 1);
     // DateTime lastDayOfNextMonth = DateTime.utc(now.year, now.month + 2, 0);
     // First day of the current month
-    DateTime firstDayOfCurrentMonth = DateTime.utc(now.year, now.month, 1);
+    // DateTime firstDayOfCurrentMonth = DateTime.utc(now.year, now.month, 1);
+    DateTime firstDayOfCurrentMonth = DateTime.now();
     
     // Last day of December in the current year
     DateTime lastDayOfYear = DateTime.utc(now.year, 12, 31);
@@ -127,7 +128,7 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                   
 
 
-                    if(totalDailyPlanCount < 20) {
+                    if(totalDailyPlanCount < 5) {
                       if(context.mounted) {
                         QuickAlert.show(context: context, type: QuickAlertType.warning,
                         showConfirmBtn: true,

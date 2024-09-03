@@ -128,7 +128,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
                               .read<CheckinCubit>()
                               .state
                               .selectedEmployeList
-                              .map((e) => e.id!)
+                              .map((e) => e.id)
                               .toList(),
                           remarks: _remarksController.text,
                           customerName: widget.customermodel.customerName,

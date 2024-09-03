@@ -1,14 +1,23 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quickalert/quickalert.dart';
 
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/constants/app_colors.dart';
+import 'package:srinivasa_crm_new/src/config/locator/locator.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/last_checkin_out_respone_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/screens/check_out_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/screens/checkin_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/view_monthly_plan_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/cubit/daily_plan_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/cubit/state/daily_plan_state.dart';
@@ -219,41 +228,101 @@ class ViewMOnthlyPlanFullDetailsCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white,
-      elevation: 8,
-      child: Column(
-        children: [
-          MonthlyPlanRowWidget(
-              title: "Name",
-              value: customerModel!.customerName ?? "No Name found"),
-          //  5.verticalSpace,
-          //   MonthlyPlanRowWidget(title: "Code", value: customerModel!.customerCode ?? "No Customer code found"),
-          5.verticalSpace,
-          MonthlyPlanRowWidget(
-              title: "City",
-              value: customerModel!.customerCity ?? "No City found"),
-          5.verticalSpace,
-          MonthlyPlanRowWidget(
-              title: "Address",
-              value: customerModel!.customerAddress ?? "No Address found"),
-          5.verticalSpace,
-          MonthlyPlanRowWidget(
-              title: "Phone",
-              value: customerModel!.customerContactNumber ?? "No Phone found"),
-          5.verticalSpace,
-          customerModel!.customerAlternateContactNumber == null
-              ? SizedBox.shrink()
-              : MonthlyPlanRowWidget(
-                  title: "Alternative Phone",
-                  value: customerModel!.customerAlternateContactNumber ??
-                      "No Status found"),
-          5.verticalSpace,
-          MonthlyPlanRowWidget(
-              title: "Status",
-              value: customerModel!.status ?? "No Status found"),
-        ],
-      ).withSymetricPadding(horizontalPadding: 10.w, verticalPadding: 10.h),
-    ).withSymetricPadding(horizontalPadding: 10.w, verticalPadding: 5.h);
+    return GestureDetector(
+      onTap: () async {
+        // Fluttertoast.showToast(msg: 'Working');
+  //       String? inTime;
+  // int? customerid;
+  // String? customerName;
+  // String? langitude;
+  // String? latitude;
+  // String? remarks;
+  // String? farmId;
+
+ 
+
+
+
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (c) => 
+        //         CheckinScreen(customermodel: 
+        //         Customermodel(customerName:  customerModel!.customerName,farm: Farm(farmId: int.parse(customerModel!.farmId!),customerId: customerModel!.customerId)))
+        //             )
+        //             );
+      
+      },
+      child: Card(
+        color: Colors.white,
+        elevation: 8,
+        child: Column(
+          children: [
+            MonthlyPlanRowWidget(
+                title: "Name",
+                value: customerModel!.customerName ?? "No Name found"),
+            //  5.verticalSpace,
+            //   MonthlyPlanRowWidget(title: "Code", value: customerModel!.customerCode ?? "No Customer code found"),
+            5.verticalSpace,
+            MonthlyPlanRowWidget(
+                title: "City",
+                value: customerModel!.customerCity ?? "No City found"),
+            5.verticalSpace,
+            MonthlyPlanRowWidget(
+                title: "Address",
+                value: customerModel!.customerAddress ?? "No Address found"),
+            5.verticalSpace,
+            MonthlyPlanRowWidget(
+                title: "Phone",
+                value: customerModel!.customerContactNumber ?? "No Phone found"),
+            5.verticalSpace,
+            customerModel!.customerAlternateContactNumber == null
+                ? SizedBox.shrink()
+                : MonthlyPlanRowWidget(
+                    title: "Alternative Phone",
+                    value: customerModel!.customerAlternateContactNumber ??
+                        "No Status found"),
+            5.verticalSpace,
+            MonthlyPlanRowWidget(
+                title: "Status",
+                value: customerModel!.status ?? "No Status found"),
+                20.verticalSpace,
+                CommonButton(callback: ()async {
+                   final results = await locator.get<CustomerRepo>().getLastCheckInCheckoutDetails(customerId: customerModel!.customerId!, farmId: customerModel!.farmId!);
+    results.fold((l)  {
+      log('left ${l.toString()}');
+    }, (r) {
+      // log(r.toString());
+      LastCheckinOutResponseModel lastCheckinOutResponseModel = r;
+      log(lastCheckinOutResponseModel.toJson().toString());
+
+      if(lastCheckinOutResponseModel.status == true) {
+        // nav to checkin screen
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (c) => 
+                CheckinScreen(customermodel: 
+                Customermodel(customerName:  customerModel!.customerName,farm: Farm(farmId: int.parse(customerModel!.farmId!),customerId: customerModel!.customerId)))
+                    )
+                    );
+
+      }else {
+        // nav to checkout screen
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (c) => 
+                CheckoutScreen(customermodel: 
+                Customermodel(customerName:  customerModel!.customerName,farm: Farm(farmId: int.parse(customerModel!.farmId!),customerId: customerModel!.customerId)))
+                    )
+                    );
+      }
+    });
+                }, title: "Proceed to Checkin/Checkout")
+          ],
+        ).withSymetricPadding(horizontalPadding: 10.w, verticalPadding: 10.h),
+      ).withSymetricPadding(horizontalPadding: 10.w, verticalPadding: 5.h),
+    );
   }
 }
