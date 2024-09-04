@@ -43,7 +43,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       debugPrint('CHECKOUT SCREEN INIT MEHTOD');
-      context.read<CheckinCubit>().resetState();
+      context.read<CheckinCubit>().resetCheckoutState();
       await context.read<CheckinCubit>().getAllPurposeLists();
 
       //  await context.read<CheckinProvider>().getAllInitialValues();

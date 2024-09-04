@@ -52,6 +52,11 @@ debugPrint(r.repTravelLogsData!.length.toString());
     }
   }
 
+  void resetState() {
+    dateController.clear();
+    emit(UserActivityState.initial());
+  }
+
 
 
   @override

@@ -83,6 +83,8 @@ class CheckinCubit extends Cubit<CheckinState> {
       (r) async {
          Navigator.pop(context);
         emit(CheckinState.initial());
+        resetCheckoutState();
+        
         emit(state.copyWith(checkoutResponseModel: r,isCheckOut: true,));
          await context.read<AllCustomerCubit>().getAllCustomer();
       },
@@ -204,5 +206,9 @@ class CheckinCubit extends Cubit<CheckinState> {
 //  REST STATE
 void resetState() {
   // emit(CheckinState.initial());
+}
+
+void resetCheckoutState() {
+  emit(state.copyWith(filesList: [],imageLists: [],selectedPurposeList: [],selectedPurpose: null));
 }
 }

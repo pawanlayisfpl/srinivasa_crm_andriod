@@ -124,8 +124,34 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                               data: widget.customermodel?.farm!.farmName.toString(),
                             ),
                             const CustomerDetailsDividerWidget(),
+                             10.verticalSpace,
+                                const CustomerDetailsHeadingWidget(
+                              title: 'Customer Code',
+                            ),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel?.farm!.customerCode ?? 'N/A',  
+                            ),
+                            const CustomerDetailsDividerWidget(),
+
+                           if (widget.customermodel?.farm?.isOrganization == true) ...[
+      10.verticalSpace,
+      const CustomerDetailsHeadingWidget(
+        title: 'Location Code',
+      ),
+      CustomerDetailsTextWidget(
+        data: widget.customermodel?.farm?.locationCode ?? 'N/A',
+      ),
+      const CustomerDetailsDividerWidget(),
+    ],
                               10.verticalSpace,
-                              
+                                const CustomerDetailsHeadingWidget(
+                              title: 'Customer Name',
+                            ),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel?.customerName.toString(),  
+                            ),
+                            const CustomerDetailsDividerWidget(),
+                              10.verticalSpace,
                               const CustomerDetailsHeadingWidget(
                               title: 'Customer Zone',
                             ),
@@ -167,7 +193,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                             10.verticalSpace,
                               const CustomerDetailsHeadingWidget(title: 'Alternative No'),
                             CustomerDetailsTextWidget(
-                              data: widget.customermodel!.farm!.contPersAltContNo,
+                              data: widget.customermodel!.farm!.contPersAltContNo.toString() == "01234567890" ? "N/A" : widget.customermodel!.farm!.contPersAltContNo.toString(),
                             ),
                            
                             const CustomerDetailsDividerWidget(),

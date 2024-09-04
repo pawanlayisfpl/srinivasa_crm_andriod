@@ -523,8 +523,8 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
                 title: state.selectedTitleValue!.toLowerCase().toString(),
                 contactPerson: contactPerson,
                 mobile: mobile,
-                email: email,
-                additionalPhone: addationalPhone,
+                email: email.isEmpty ? "default@gmail.com" : email,
+                 additionalPhone: addationalPhone.isEmpty ? "0123456789" : addationalPhone,
                 primarySourceId: primarySource.sourceId,
                 zoneId: zone.zoneId!.toString(),
                 customerType:
@@ -593,8 +593,8 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
           title: state.selectedTitleValue!.toLowerCase().toString(),
           contactPerson: contactPerson,
           mobile: mobile,
-          email: email,
-          additionalPhone: addationalPhone,
+        email: email.isEmpty ? "default@gmail.com" : email,
+          additionalPhone: addationalPhone.isEmpty ? "0123456789" : addationalPhone,
           primarySourceId: primarySource.sourceId,
           zoneId: zone.zoneId!.toString(),
           customerType: state.selectedCustomerType.toString() == "Commerical"

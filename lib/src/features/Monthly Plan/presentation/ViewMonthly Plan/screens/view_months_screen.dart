@@ -43,7 +43,7 @@ class _ViewMonthsScreenState extends State<ViewMonthsScreen> {
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
-        title: Text('View Monthly Plans'),
+        title: const Text('View Monthly Plans'),
       ),
       body: SafeArea(
         child: BlocConsumer<CreateMonthlyPlanCubit, CreateMonthlyPlanState>(

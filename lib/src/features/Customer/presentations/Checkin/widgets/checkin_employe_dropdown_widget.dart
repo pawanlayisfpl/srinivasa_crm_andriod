@@ -6,7 +6,6 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/joint_e
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_state.dart';
 
-import '../../../../../../shared/domain/model/Employe/employe_model.dart';
 
 
 class CheckinEmployeDropdownWidget extends StatelessWidget {

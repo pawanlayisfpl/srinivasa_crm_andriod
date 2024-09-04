@@ -43,8 +43,15 @@ class _AllCustomerScreenState extends State<AllCustomerScreen> {
       body: SafeArea(
         child: BlocBuilder<AllCustomerCubit, AllCustomerState>(
           builder: (context, state) {
-            return state.map(initial: (initial) => const Center(child: Text("Initial State"),) , loading: (l) => const CustomLoadingWidget(),
+            return state.map(
+              
+              initial: (initial) => const Center(child: Text("Initial State"),) ,
+              
+               loading: (l) => const CustomLoadingWidget(),
              loaded: (data) {
+              if(data.customerLists.isEmpty) {
+                return EmptyWidget(title: 'No Customers Found', callback: () {});
+              }
            // Create a new, modifiable list from `data.customerLists`.
 List<Customermodel> modifiableList = List<Customermodel>.from(data.customerLists);
 
@@ -59,7 +66,7 @@ modifiableList.sort((a, b) {
 // Use the sorted, modifiable list.
 List<Customermodel> sortedList = modifiableList;
 
-               return AllCustomerLoadedWidget(customerLists:sortedList);
+               return   AllCustomerLoadedWidget(customerLists:sortedList);
              }, error: (error) => CommonErrorWidget(error: error.message.toString(),callback: () {
 
              },), );

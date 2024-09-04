@@ -28,8 +28,8 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
     // DateTime firstDayOfNextMonth = DateTime.utc(now.year, now.month + 1, 1);
     // DateTime lastDayOfNextMonth = DateTime.utc(now.year, now.month + 2, 0);
     // First day of the current month
-    // DateTime firstDayOfCurrentMonth = DateTime.utc(now.year, now.month, 1);
-    DateTime firstDayOfCurrentMonth = DateTime.now();
+    DateTime firstDayOfCurrentMonth = DateTime.utc(now.year, now.month, 1);
+    // DateTime firstDayOfCurrentMonth = DateTime.now();
     
     // Last day of December in the current year
     DateTime lastDayOfYear = DateTime.utc(now.year, 12, 31);
@@ -54,6 +54,7 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                     headerVisible: true,
                     calendarStyle: const CalendarStyle(
                       outsideDaysVisible: false,
+                    isTodayHighlighted: false
                     ),
                     formatAnimationDuration: const Duration(milliseconds: 300),
                     firstDay: firstDayOfCurrentMonth,
