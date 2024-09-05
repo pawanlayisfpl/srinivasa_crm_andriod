@@ -7,6 +7,8 @@ import 'package:srinivasa_crm_new/src/features/Kyc/domain/model/customer_kyu_mod
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/cubit/kyc_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/screens/widget/kyc_pending_card_widget.dart';
 
+import '../../../../../common/common.dart';
+
 class KycPendingInProcessListWidget extends StatelessWidget {
   final List<CustomerKycModel> customersList;
   const KycPendingInProcessListWidget({
@@ -16,7 +18,9 @@ class KycPendingInProcessListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimationLimiter(child: 
+    return context.watch<KycCubit>().inProcessList.isEmpty ? EmptyWidget(title: 'No customers kyc is in process', callback: () {
+      context.read<KycCubit>().getKycListLogic();
+    }) : AnimationLimiter(child: 
     ListView.builder(
       addAutomaticKeepAlives: false,
       padding: EdgeInsets.only(top: 10.h,left: 2.w,right: 2.w),

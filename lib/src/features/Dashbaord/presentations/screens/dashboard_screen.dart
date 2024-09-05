@@ -222,7 +222,7 @@ void showLogoutDialog(BuildContext context) {
               // const PopupMenuDivider(),
               const PopupMenuItem<String>(
                 value: '2',
-                child: Text('Signout'),
+                child: Text('Log Out'),
               ),
             ],
             icon: const Icon(Icons.more_vert),

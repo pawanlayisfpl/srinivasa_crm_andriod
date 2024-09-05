@@ -260,7 +260,7 @@ List<TableRow> buildProductRows(Map<String, String> mapping, Map<String, dynamic
             ),
          
         //  APPROVE AND REJECT BUTTONS
-          widget.isApproveOrRejectEnabled == false ? SizedBox.shrink() :  Positioned(
+          widget.isApproveOrRejectEnabled == false ? const SizedBox.shrink() :  Positioned(
               bottom: 20.h,
               left: 20.w,
               right: 20.w,
@@ -272,7 +272,14 @@ List<TableRow> buildProductRows(Map<String, String> mapping, Map<String, dynamic
                     child: CommonButton(
                       isApproveButton: true,
                       callback: () async  {
-                        AlertDialog alertDialog = AlertDialog.adaptive(
+                      
+                        //  ----------- ALERT DIALOGGG ENDSS HEREEEE---------
+                                                showDialog(context: context,
+                                                barrierDismissible: false,
+                                                barrierColor: Colors.black.withOpacity(0.5),
+                                                
+                                                 builder: (c) => AlertDialog(
+                        
                           
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -318,13 +325,7 @@ List<TableRow> buildProductRows(Map<String, String> mapping, Map<String, dynamic
                              }, title: "Submit")
                             ],
                           ),
-                        );
-                        //  ----------- ALERT DIALOGGG ENDSS HEREEEE---------
-                                                showDialog(context: context,
-                                                barrierDismissible: false,
-                                                barrierColor: Colors.black.withOpacity(0.5),
-                                                
-                                                 builder: (c) => alertDialog);
+                        ));
 
                         },
                       title: "Approve",
@@ -337,7 +338,7 @@ List<TableRow> buildProductRows(Map<String, String> mapping, Map<String, dynamic
                       // isApproveButton: true,
                       isRejectButton: true,
                       callback: () async  {
-                        AlertDialog alertDialog = AlertDialog.adaptive(
+                        AlertDialog alertDialog = AlertDialog(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),

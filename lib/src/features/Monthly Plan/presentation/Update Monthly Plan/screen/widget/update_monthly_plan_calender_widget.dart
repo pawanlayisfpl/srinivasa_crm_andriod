@@ -42,8 +42,12 @@ class UpdateMonthlyPlanCalenderWidget extends StatelessWidget {
          state.isMonhtlPlanLoaded == false  ? const  SizedBox.shrink() : 
         TableCalendar(
   weekNumbersVisible: false,
+
   weekendDays: const [DateTime.sunday],
+
   availableCalendarFormats: const {
+    
+    
     CalendarFormat.month: 'Month',
   },
   calendarFormat: CalendarFormat.month,
@@ -51,6 +55,7 @@ class UpdateMonthlyPlanCalenderWidget extends StatelessWidget {
   headerVisible: true,
   calendarStyle: const CalendarStyle(
     outsideDaysVisible: false,
+    isTodayHighlighted: false
   ),
   formatAnimationDuration: const Duration(milliseconds: 300),
   firstDay: DateTime.parse(state.existingMonthlyPlanList.first.createdDate.toString()),
@@ -65,6 +70,7 @@ lastDay: DateTime(
     titleCentered: true,
   ),
   calendarBuilders: CalendarBuilders(
+  
     defaultBuilder: (context, day, focusedDay) {
       var dateExists = state.existingMonthlyPlanList
           .any((plan) => isSameDay(plan.createdDate, day));

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/domain/model/customer_kyu_model.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/cubit/kyc_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/screens/widget/kyc_pending_card_widget.dart';
@@ -16,7 +17,9 @@ class KycPendingPendingListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimationLimiter(child: 
+    return context.watch<KycCubit>().pendingList.isEmpty ? EmptyWidget(title: 'No pending kyc users found', callback: () {
+      context.read<KycCubit>().getKycListLogic();
+    }) : AnimationLimiter(child: 
     ListView.builder(
       addAutomaticKeepAlives: false,
       padding: EdgeInsets.only(top: 10.h,left: 2.w,right: 2.w),

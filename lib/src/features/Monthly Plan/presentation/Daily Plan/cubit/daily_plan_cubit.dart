@@ -121,10 +121,7 @@ emit(state.copyWith(customerList: sortedList));
   }
 
   Future<void> submit({required BuildContext context,required int monthlyPlanId,required bool isConfirmed,required VoidCallback voidCallback}) async {
-     DailyPlan dailyPlan = DailyPlan(createdDate: dateController.text.toFormattedDate(), approxKms: double.tryParse(kilometerController.text) ?? 0.0 , customerCodes: [
-                 state.selectedCustomersList.first.farm!.farmId.toString()
-
-    ]);
+     DailyPlan dailyPlan = DailyPlan(createdDate: dateController.text.toFormattedDate(), approxKms: double.tryParse(kilometerController.text) ?? 0.0 , customerCodes: state.selectedCustomersList.map((e) => e.farm!.farmId.toString()).toList());  
     DailyPlanCreateModel dailyPlanCreateModel = DailyPlanCreateModel(monthlyPlanId: monthlyPlanId, dailyPlan: dailyPlan, confirmed: false);
    debugPrint(dailyPlanCreateModel.toJson().toString());
     

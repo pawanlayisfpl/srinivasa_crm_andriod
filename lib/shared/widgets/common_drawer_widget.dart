@@ -54,63 +54,63 @@ class CommonDrawerWidget extends StatelessWidget {
            const Divider(), 
            20.verticalSpace,
               // LOGOUT
-              ListTile(
-                title: const CommonTextWidget(title: "Logout",textColor: AppColors.primaryColor,),
-                onTap: () {
-                   showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          title: const Text('Are you sure you want to Logout?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // CANCEL button action
-              },
-              child: const Text(
-                'CANCEL',
-                style: TextStyle(color: AppColors.primaryColor),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                       const platform = MethodChannel('com.example.srinivasa_crm_new');
-                platform.invokeMethod('stop');
-                // Handle LOGOUT button action
-                // You can add your logout logic here
-                final localstorge = locator.get<KeyValueStorage>();
-                final locationServices = locator.get<CommonLocationServices>();
-                final position = await locationServices.getUserCurrentPosition();
+    //           ListTile(
+    //             title: const CommonTextWidget(title: "Logout",textColor: AppColors.primaryColor,),
+    //             onTap: () {
+    //                showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    //     return AlertDialog(
+    //       backgroundColor: Colors.white,
+    //       title: const Text('Are you sure you want to Logout?'),
+    //       actions: [
+    //         TextButton(
+    //           onPressed: () {
+    //             Navigator.of(context).pop(); // CANCEL button action
+    //           },
+    //           child: const Text(
+    //             'CANCEL',
+    //             style: TextStyle(color: AppColors.primaryColor),
+    //           ),
+    //         ),
+    //         ElevatedButton(
+    //           onPressed: () async {
+    //                    const platform = MethodChannel('com.example.srinivasa_crm_new');
+    //             platform.invokeMethod('stop');
+    //             // Handle LOGOUT button action
+    //             // You can add your logout logic here
+    //             final localstorge = locator.get<KeyValueStorage>();
+    //             final locationServices = locator.get<CommonLocationServices>();
+    //             final position = await locationServices.getUserCurrentPosition();
 
-                // await Workmanager().cancelAll();
-                PunchoutPostModel punchoutPostModel = PunchoutPostModel(latitude: position.latitude.toString(), longitude: position.longitude.toString());
-                await context.read<MarkAttendanceCubit>().punchOutLogic( isLogoutClicked: true);
+    //             // await Workmanager().cancelAll();
+    //             PunchoutPostModel punchoutPostModel = PunchoutPostModel(latitude: position.latitude.toString(), longitude: position.longitude.toString());
+    //             await context.read<MarkAttendanceCubit>().punchOutLogic( isLogoutClicked: true);
               
-                Fluttertoast.showToast(msg: "All Background services stopped");
-              await  localstorge.sharedPreferences.clear();
+    //             Fluttertoast.showToast(msg: "All Background services stopped");
+    //           await  localstorge.sharedPreferences.clear();
 
-              if(context.mounted) {
-                Navigator.of(context).pop(); // Close the dialog
+    //           if(context.mounted) {
+    //             Navigator.of(context).pop(); // Close the dialog
 
-              }
-                if(context.mounted) {
-                   Navigator.pushNamedAndRemoveUntil(
-                    context, Routes.loginScreen, (route) => false);
-                }
-              },
-              child: const Text('Yes',
-                  style: TextStyle(
-                      color: AppColors.primaryColor,
-                      fontWeight: FontWeight.bold)),
-            ),
-          ],
-        );
-      },
-    );
-                },
-                trailing: const Icon(Icons.logout),
-              ),
+    //           }
+    //             if(context.mounted) {
+    //                Navigator.pushNamedAndRemoveUntil(
+    //                 context, Routes.loginScreen, (route) => false);
+    //             }
+    //           },
+    //           child: const Text('Yes',
+    //               style: TextStyle(
+    //                   color: AppColors.primaryColor,
+    //                   fontWeight: FontWeight.bold)),
+    //         ),
+    //       ],
+    //     );
+    //   },
+    // );
+    //             },
+    //             trailing: const Icon(Icons.logout),
+    //           ),
             ],
           ).withSymetricPadding(horizontalPadding: 10.w,),
           
