@@ -40,7 +40,7 @@ public class LocationHelperClass {
             @Override
             public void onLocationResult(@NonNull LocationResult locationResult) {
                 if (locationResult == null) {
-                    Log.d("latlng", "LocationResult is null.");
+                    // Log.d("latlng", "LocationResult is null.");
                     return;
                 }
 
@@ -54,7 +54,7 @@ public class LocationHelperClass {
 //                            apiClass.callAPI(latitude, longitude);
 //                        }
                     } else {
-                        Log.d("latlng", "Location is null in LocationResult.");
+                        // Log.d("latlng", "Location is null in LocationResult.");
                     }
                 }
             }
@@ -70,7 +70,7 @@ public class LocationHelperClass {
                 locationRequest.setInterval(5000); // 5 seconds
                 locationRequest.setFastestInterval(5000); // 5 seconds
 
-                Log.d("BACKGROUND_TASKS", "Starting location updates");
+                // Log.d("BACKGROUND_TASKS", "Starting location updates");
 
                 // Request location updates
                 fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
@@ -81,28 +81,28 @@ public class LocationHelperClass {
                             if (location != null) {
                                 double latitude = location.getLatitude();
                                 double longitude = location.getLongitude();
-                                Log.d("latlng", "Last Location Latitude: " + latitude + ", Longitude: " + longitude);
+                                // Log.d("latlng", "Last Location Latitude: " + latitude + ", Longitude: " + longitude);
                                 // Implement API call here
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                     apiClass.callAPI(latitude, longitude);
                                 }
                             } else {
-                                Log.d("latlng", "Location is null from getLastLocation.");
+                                // Log.d("latlng", "Location is null from getLastLocation.");
                             }
                         })
                         .addOnFailureListener(e -> {
-                            Log.d("latlng", "Failed to get location: " + e.getMessage());
+                            // Log.d("latlng", "Failed to get location: " + e.getMessage());
                         });
             } else {
-                Log.d("latlng", "Location services are disabled.");
+                // Log.d("latlng", "Location services are disabled.");
                 promptEnableLocationServices();
             }
         } else {
-            Log.d("latlng", "Location permission not granted");
+            // Log.d("latlng", "Location permission not granted");
             if (context instanceof Activity) {
                 askPermission((Activity) context);
             } else {
-                Log.d("latlng", "Context is not an instance of Activity, cannot request permissions.");
+                // Log.d("latlng", "Context is not an instance of Activity, cannot request permissions.");
             }
         }
     }

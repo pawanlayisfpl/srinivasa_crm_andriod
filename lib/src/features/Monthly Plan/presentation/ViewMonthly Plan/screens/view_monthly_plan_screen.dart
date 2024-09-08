@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
+import 'package:srinivasa_crm_new/src/core/connection/internet_checker.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/data/repo/alert_repo_impl.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/screens/widgets/monthly_plan_custoemer_list_dropdown_widget.dart';
@@ -19,6 +20,7 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Updat
 
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/cubit/view_monthly_plan_cubit.dart';
 
+import '../../../../../config/config.dart';
 import '../../../../../config/constants/app_colors.dart';
 import '../../Daily Plan/cubit/state/daily_plan_state.dart';
 import 'widget/view_monthly_plan_body_widget.dart';
@@ -70,8 +72,11 @@ class _ViewMonthlyPlanScreenState extends State<ViewMonthlyPlanScreen> {
             BlocBuilder<DailyPlanCubit, DailyPlanState>(
               builder: (context, state) {
                 return IconButton(
-                  onPressed: () {
-                    context.read<DailyPlanCubit>().resetState();
+                  onPressed: () async {
+                    final results = await locator.get<InternetChecker>().hasInternet();
+
+                    if(!results) {
+                       context.read<DailyPlanCubit>().resetState();
                     AlertDialog alertDialog = AlertDialog(
                       backgroundColor: Colors.white,
                       content: Column(
@@ -126,6 +131,19 @@ class _ViewMonthlyPlanScreenState extends State<ViewMonthlyPlanScreen> {
                         barrierDismissible: false,
                         context: context,
                         builder: (c) => alertDialog);
+
+                    }else {
+                      // WHEN INTERNET IS NOT AVAILABLE
+
+                    if(context.mounted) {
+                      QuickAlert.show(context: context, type: QuickAlertType.warning,animType: QuickAlertAnimType.slideInDown,
+                      title: 'No Internet',
+                      text: 'Internet is requried to use this feature',
+                      confirmBtnColor: Colors.black
+                      );
+                    }
+                    }
+                   
                   },
                   icon: const Icon(Icons.create),
                 );

@@ -85,6 +85,8 @@ import 'package:srinivasa_crm_new/src/features/Customer/data/datasource/remote/c
     as _i411;
 import 'package:srinivasa_crm_new/src/features/Customer/data/repo/customer_repo_impl.dart'
     as _i113;
+import 'package:srinivasa_crm_new/src/features/Customer/database/customer_database.dart'
+    as _i231;
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart'
     as _i209;
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_cubit.dart'
@@ -205,6 +207,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => thirdPartyDependencies.sharedPreferences,
       preResolve: true,
     );
+    gh.singleton<_i231.CustomerDataBaseHelper>(
+        () => _i231.CustomerDataBaseHelper());
     gh.lazySingleton<_i807.CommonSharePlusServices>(
         () => _i807.CommonSharePlusServices());
     gh.lazySingleton<_i837.CommonFileStorageServcies>(
@@ -226,11 +230,19 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i286.KeyValueStorage>(),
           gh<_i974.Logger>(),
         ));
+    gh.factory<_i81.MonthlyPlanRemoteDataSource>(
+        () => _i81.MonthlyPlanRemoteDataSourceImpl(
+              dioClient: gh<_i961.DioClient>(),
+              keyValueStorage: gh<_i961.KeyValueStorage>(),
+              logger: gh<_i974.Logger>(),
+              internetChecker: gh<_i961.InternetChecker>(),
+            ));
     gh.factory<_i612.MarkAttendanceRemoteDataSource>(
         () => _i612.MarkAttendanceRemoteDatasourceImpl(
               dioClient: gh<_i961.DioClient>(),
               logger: gh<_i974.Logger>(),
               keyValueStorage: gh<_i961.KeyValueStorage>(),
+              internetChecker: gh<_i961.InternetChecker>(),
             ));
     gh.factory<_i579.LoginRemoteDataSource>(
         () => _i579.LoginRemoteDataSourceImpl(
@@ -249,6 +261,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i956.SalesOrderParticularCubit(gh<_i133.SalesRepo>()));
     gh.factory<_i237.SalesOrderViewCubit>(
         () => _i237.SalesOrderViewCubit(gh<_i133.SalesRepo>()));
+    gh.factory<_i118.MonthlyPlanRepo>(() => _i771.MonthlyPlanRepoImpl(
+        remoteDataSource: gh<_i81.MonthlyPlanRemoteDataSource>()));
     gh.factory<_i564.PendingOrderCubit>(
         () => _i564.PendingOrderCubit(saleRepo: gh<_i133.SalesRepo>()));
     gh.lazySingleton<_i501.ExcelServices>(() => _i501.ExcelServices(
@@ -301,14 +315,14 @@ extension GetItInjectableX on _i174.GetIt {
         alertRemoteDataSource: gh<_i637.AlertRemoteDataSource>()));
     gh.factory<_i382.KycRepo>(() => _i238.KycRepoImpl(
         kycRemoteDataSource: gh<_i908.KycRemoteDataSource>()));
+    gh.factory<_i49.ViewMonthlyPlanCubit>(
+        () => _i49.ViewMonthlyPlanCubit(gh<_i118.MonthlyPlanRepo>()));
+    gh.factory<_i702.MonthlyPlanPendingCubit>(
+        () => _i702.MonthlyPlanPendingCubit(gh<_i118.MonthlyPlanRepo>()));
+    gh.factory<_i848.MonthlyPlanSearchCubit>(
+        () => _i848.MonthlyPlanSearchCubit(gh<_i118.MonthlyPlanRepo>()));
     gh.factory<_i208.ProfileRepo>(() =>
         _i390.ProfileRepoImpl(profileLocalRepo: gh<_i346.ProfileLocalRepo>()));
-    gh.factory<_i81.MonthlyPlanRemoteDataSource>(
-        () => _i81.MonthlyPlanRemoteDataSourceImpl(
-              dioClient: gh<_i961.DioClient>(),
-              keyValueStorage: gh<_i961.KeyValueStorage>(),
-              logger: gh<_i974.Logger>(),
-            ));
     gh.factory<_i726.ZoneRemoteDataSource>(() => _i726.ZoneRemoteDatasourceImpl(
           dioClient: gh<_i961.DioClient>(),
           internetChecker: gh<_i961.InternetChecker>(),
@@ -357,6 +371,11 @@ extension GetItInjectableX on _i174.GetIt {
           internetChecker: gh<_i961.InternetChecker>(),
           logger: gh<_i974.Logger>(),
         ));
+    gh.factory<_i42.DailyPlanCubit>(() => _i42.DailyPlanCubit(
+          gh<_i209.CustomerRepo>(),
+          gh<_i118.MonthlyPlanRepo>(),
+          gh<_i472.DailyPlanRepo>(),
+        ));
     gh.factory<_i812.SalesOrderCreateCubit>(() => _i812.SalesOrderCreateCubit(
           salesRepo: gh<_i133.SalesRepo>(),
           keyValueStorage: gh<_i961.KeyValueStorage>(),
@@ -378,8 +397,6 @@ extension GetItInjectableX on _i174.GetIt {
           imageServices: gh<_i972.CommonImageServices>(),
           kycRepo: gh<_i382.KycRepo>(),
         ));
-    gh.factory<_i118.MonthlyPlanRepo>(() => _i771.MonthlyPlanRepoImpl(
-        remoteDataSource: gh<_i81.MonthlyPlanRemoteDataSource>()));
     gh.factory<_i796.MarkAttendanceCubit>(() => _i796.MarkAttendanceCubit(
           gh<_i866.PunchInUseCase>(),
           gh<_i866.PunchOutUsecase>(),
@@ -391,12 +408,6 @@ extension GetItInjectableX on _i174.GetIt {
           customerRepo: gh<_i209.CustomerRepo>(),
         ));
     gh.factory<_i836.AlertCubit>(() => _i836.AlertCubit(gh<_i628.AlertRepo>()));
-    gh.factory<_i49.ViewMonthlyPlanCubit>(
-        () => _i49.ViewMonthlyPlanCubit(gh<_i118.MonthlyPlanRepo>()));
-    gh.factory<_i702.MonthlyPlanPendingCubit>(
-        () => _i702.MonthlyPlanPendingCubit(gh<_i118.MonthlyPlanRepo>()));
-    gh.factory<_i848.MonthlyPlanSearchCubit>(
-        () => _i848.MonthlyPlanSearchCubit(gh<_i118.MonthlyPlanRepo>()));
     gh.factory<_i466.PrimarySourceRepo>(() => _i531.PrimarySourceRepoImpl(
         primarySourceRemoteDataSource:
             gh<_i568.PrimarySourceRemoteDataSource>()));
@@ -423,11 +434,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i898.LoginCubit>(() => _i898.LoginCubit(
           gh<_i204.LoginUseCase>(),
           gh<_i961.KeyValueStorage>(),
-        ));
-    gh.factory<_i42.DailyPlanCubit>(() => _i42.DailyPlanCubit(
-          gh<_i209.CustomerRepo>(),
-          gh<_i118.MonthlyPlanRepo>(),
-          gh<_i472.DailyPlanRepo>(),
         ));
     return this;
   }

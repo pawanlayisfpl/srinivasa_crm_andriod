@@ -44,15 +44,15 @@ public class ApiClass {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void callAPI(double latitude, double longitude) {
-        Log.d(TAG, "api: " + latitude + ", longitude: " + longitude);
+        // Log.d(TAG, "api: " + latitude + ", longitude: " + longitude);
 
         if (isNetworkAvailable()) {
             try {
                 SharedPreferences sharedPreferences = context.getSharedPreferences("FlutterSharedPreferences", Context.MODE_PRIVATE);
                 String tokenValue = sharedPreferences.getString("flutter.token", null);
                 String userIdValue = sharedPreferences.getString("flutter.userId", null);
-                Log.d(TAG, "api printing tokenValue: " + tokenValue);
-                Log.d(TAG, "api printing userIdValue: " + userIdValue);
+                // Log.d(TAG, "api printing tokenValue: " + tokenValue);
+                // Log.d(TAG, "api printing userIdValue: " + userIdValue);
 
                 JSONObject data = new JSONObject();
                 data.put("latitude", latitude);
@@ -63,14 +63,14 @@ public class ApiClass {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                Log.d("api", "API Response: " + response);
+                                // Log.d("api", "API Response: " + response);
                                 // Toast.makeText(context, "Response: " + response, Toast.LENGTH_LONG).show();
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.e("api", "API Error: " + error.getMessage(), error);
+                                // Log.e("api", "API Error: " + error.getMessage(), error);
                                 // Toast.makeText(context, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }) {
@@ -97,7 +97,7 @@ public class ApiClass {
 
                 Volley.newRequestQueue(context).add(request);
             } catch (JSONException e) {
-                Log.e("api", "Error preparing API request", e);
+                // Log.e("api", "Error preparing API request", e);
                 // Toast.makeText(context, "Error occurred while preparing API request", Toast.LENGTH_LONG).show();
             }
         } else {
@@ -117,7 +117,7 @@ public class ApiClass {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d(TAG, "API Response: " + response);
+                        // Log.d(TAG, "API Response: " + response);
                     }
                 },
                 new Response.ErrorListener() {

@@ -101,21 +101,40 @@ class AlertModel {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'notificationId': notificationId,
-      'monthlyPlanId': monthlyPlanId,
-      'dailyPlanId': dailyPlanId,
-      'read': read,
-      'message': message,
-      'createdDate': createdDate?.toIso8601String(),
-      'notifyTo': notifyTo,
-      'createdBy': createdBy,
-      'type': type,
-      'isDailyPlan': isDailyPlan,
-      'monthlyPlanStatus': monthlyPlanStatus,
-      'notificationType': notificationType,
-      'notificationTypeId': notificationTypeId,
-    };
+
+  factory AlertModel.fromSqfliteJson(Map<String, dynamic> json) {
+  return AlertModel(
+    notificationId: json['notificationId'] as int?,
+    monthlyPlanId: json['monthlyPlanId'] as int?,
+    dailyPlanId: json['dailyPlanId'] as int?,
+    read: (json['read'] as int?) == 1 ? true : false,  // Convert 1/0 to true/false
+    message: json['message'] as String?,
+    createdDate: json['createdDate'] != null ? DateTime.parse(json['createdDate']) : null,
+    notifyTo: json['notifyTo'] as int?,
+    createdBy: json['createdBy'] as int?,
+    type: json['type'] as String?,
+    isDailyPlan: (json['isDailyPlan'] as int?) == 1 ? true : false,  // Convert 1/0 to true/false
+    monthlyPlanStatus: json['monthlyPlanStatus'] as String?,
+    notificationType: json['notificationType'] as String?,
+    notificationTypeId: json['notificationTypeId'] as int?,
+  );
   }
+
+ Map<String, dynamic> toJson() {
+  return {
+    'notificationId': notificationId,
+    'monthlyPlanId': monthlyPlanId,
+    'dailyPlanId': dailyPlanId,
+    'read': read != null ? read == true  ? 1 : 0 : 0,  // Convert bool to int
+    'message': message,
+    'createdDate': createdDate?.toIso8601String(),
+    'notifyTo': notifyTo,
+    'createdBy': createdBy,
+    'type': type,
+    'isDailyPlan': isDailyPlan != null ? isDailyPlan == true  ? 1 : 0 : 0,  // Convert bool to int
+    'monthlyPlanStatus': monthlyPlanStatus,
+    'notificationType': notificationType,
+    'notificationTypeId': notificationTypeId,
+  };
+}
 }

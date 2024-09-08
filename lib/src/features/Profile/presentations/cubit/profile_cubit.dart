@@ -10,6 +10,7 @@ import 'package:injectable/injectable.dart';
 import 'package:quickalert/quickalert.dart';
 
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/config/constants/key_value_strings.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_state.dart';
 import 'package:srinivasa_crm_new/src/features/login/presentation/screens/login_screen.dart';
@@ -46,6 +47,8 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   Future<void> logout({required BuildContext context}) async {
+
+    
     Navigator.pop(context);
     QuickAlert.show(
         context: context,
@@ -58,12 +61,14 @@ class ProfileCubit extends Cubit<ProfileState> {
     if (Platform.isAndroid) {
       const platform = MethodChannel('com.example.srinivasa_crm_new');
       await platform.invokeMethod('stop');
+    }else {
+
     }
 
-    final postition = await commonLocationServices.getUserCurrentPosition();
-    PunchoutPostModel postModel = PunchoutPostModel(latitude: postition.latitude.toString(), longitude: postition.longitude.toString());
     await context.read<MarkAttendanceCubit>().punchOutLogic(isLogoutClicked: true);
-    await keyValueStorage.sharedPreferences.clear();
+    // TODO: COMMENTED OUT FOR TESTING
+    // await keyValueStorage.sharedPreferences.clear();
+    await keyValueStorage.clearValue(KeyValueStrings.isLoggedIn);
    if(context.mounted) {
     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (c) => const LoginScreen()), (r) => false);
 

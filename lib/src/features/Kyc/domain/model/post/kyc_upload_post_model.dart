@@ -35,5 +35,20 @@ class KycUploadPostModel {
     };
   }
 
+
+     factory KycUploadPostModel.fromJson(Map<String, dynamic> json) {
+    return KycUploadPostModel(
+      customerId: json['customerId'],
+      aadharid: json['aadharid'],
+      panCardId: json['panCardId'],
+      gstInNo: json['gstInNo'],
+      panCardFile: json['panCardFile'] != null ? ImageModel.fromJson(json['panCardFile']) : null,
+      aadharFile: json['aadharFile'] != null ? ImageModel.fromJson(json['aadharFile']) : null,
+      aadharFileBack: json['aadharFileBack'] != null ? ImageModel.fromJson(json['aadharFileBack']) : null,
+      gstInFile: json['gstInFile'] != null ? ImageModel.fromJson(json['gstInFile']) : null,
+      remarks: json['remarks'],
+    );
+  }
+
   
 }

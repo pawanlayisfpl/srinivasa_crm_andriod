@@ -6,6 +6,22 @@ class ImageModel {
   final Uint8List imageByes;
 
   ImageModel({required this.name, required this.imageByes});
+
+
+
+   Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'imageByes': imageByes,
+    };
+  }
+
+  factory ImageModel.fromJson(Map<String, dynamic> json) {
+    return ImageModel(
+      name: json['name'],
+      imageByes: json['imageByes'],
+    );
+  }
 }
 
 

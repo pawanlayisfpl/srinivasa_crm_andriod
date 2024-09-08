@@ -7,7 +7,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
+import 'package:srinivasa_crm_new/src/features/Profile/data/datasource/local/profile_local_datasource.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/domain/model/profile_model.dart';
+import 'package:srinivasa_crm_new/src/features/login/database/login_database.dart';
 
 
 
@@ -15,10 +17,11 @@ import '../../../../../config/config.dart';
 import '../../../../../core/core.dart';
 import '../../../../../core/model/model.dart';
 import '../../../domain/models/login_post_model.dart';
-import '../../../domain/models/login_response_model.dart';
+import '../../../domain/models/login_response_model.dart' as lm;
+
 
 abstract class LoginRemoteDataSource {
-  Future<LoginResponseModel> login({required LoginPostModel loginPostModel});
+  Future<lm.LoginResponseModel> login({required LoginPostModel loginPostModel});
 }
 @Injectable(as : LoginRemoteDataSource)
 class LoginRemoteDataSourceImpl extends LoginRemoteDataSource {
@@ -33,8 +36,12 @@ class LoginRemoteDataSourceImpl extends LoginRemoteDataSource {
 
   final logger = Logger();
 @override
-Future<LoginResponseModel> login({required LoginPostModel loginPostModel}) async {
-  try {
+Future<lm.LoginResponseModel> login({required LoginPostModel loginPostModel}) async {
+  final database = LoginPostDatabase();
+  final results = await locator.get<InternetChecker>().hasInternet();
+// TODO: REMOVE ! FROM IF CONDITION
+  if(results) {
+     try {
     logger.d('LOGIN API STARTED');
     
     final response = await dioClient.post(
@@ -43,6 +50,7 @@ Future<LoginResponseModel> login({required LoginPostModel loginPostModel}) async
     );
 
     if(response.statusCode == 200){
+      await database.insertLoginPost(loginPostModel);
       logger.d('LOGIN API SUCCESS');
       final data = response.data;
       ProfileModel profileModel = ProfileModel(
@@ -53,11 +61,13 @@ Future<LoginResponseModel> login({required LoginPostModel loginPostModel}) async
       );
     
       debugPrint('printing profile model json in login remote datasource'+ "\n\n"+profileModel.toJson().toString());
+      await keyValueStorage.sharedPreferences.setString(KeyValueStrings.isLoggedIn, "yes");
+      await keyValueStorage.sharedPreferences.setString(KeyValueStrings.password, loginPostModel.password.toString());
       await keyValueStorage.sharedPreferences.setString(KeyValueStrings.userId, data['user']['id'].toString());
       await keyValueStorage.sharedPreferences.setString(KeyValueStrings.userName, data['user']['username']);
       await keyValueStorage.sharedPreferences.setString(KeyValueStrings.profileDataModel, jsonEncode(profileModel));
     await  keyValueStorage.sharedPreferences.setString(KeyValueStrings.loginData, jsonEncode(data));
-      return LoginResponseModel.fromJson(response.data);
+      return lm.LoginResponseModel.fromJson(response.data);
     } else {
       logger.e('LOGIN API FAILED');
       throw ServerException(dioError: DioException(
@@ -72,5 +82,114 @@ Future<LoginResponseModel> login({required LoginPostModel loginPostModel}) async
   } on SocketException  {
     throw const NetworkExceptions.noInternetConnection();
   }
+
+  }else {
+    final profileModel = await locator.get<ProfileLocalRepo>().getLocalUserProfile();
+      log(profileModel!.toJson().toString());
+    // final id = await database.insertLoginPost(loginPostModel);
+    // if(id != 0) {
+     
+
+    //   throw  const NetworkExceptions.noInternetConnection();
+
+    // }else {
+    //   throw const NetworkExceptions.noInternetConnection();
+
+    // }
+
+    String? keyPassowrd = locator.get<KeyValueStorage>().getString(KeyValueStrings.password);
+
+    String localEmail = profileModel.userModel!.email!.toLowerCase().toString();
+    String localPassword = keyPassowrd!.toLowerCase().toString();
+
+    String email = loginPostModel.email!.toLowerCase().toString();
+    String password = loginPostModel.password!.toLowerCase().toString();
+
+    if(localEmail == email && localPassword == password)  {
+      // LOCAL EMAIL AND PASSWORD MATCHESS
+
+      lm.LoginResponseModel loginResponseModel = lm.LoginResponseModel(
+        jwt: profileModel.jwt,
+        user: lm.User(
+          authorities: profileModel.userModel!.authorities!.map((e) => lm.Authorities(
+
+          )).toList(),
+          divisionId: profileModel.userModel!.divisionId,
+          email: profileModel.userModel!.email,
+          id: profileModel.userModel!.id,
+          roleId: profileModel.userModel!.roleId,
+          zones: profileModel.userModel!.zones!.map((e) => lm.Zones(id: e.id,zoneName: e.zoneName)).toList(),
+        
+        )
+      );
+      return loginResponseModel;
+
+    }else if(localEmail != email && localPassword == password) {
+      // EMAIL IS INCORRECT
+      const responseBody = {
+        "message" : "Email is incorrect",
+        "status" : false,
+      };
+        // Creating a response object to pass to DioException
+  final response = Response(
+    requestOptions: RequestOptions(path: ''), // Specify the actual request path
+    data: responseBody,
+    statusCode: 400, // You can use an appropriate status code for "Email incorrect"
+  );
+
+
+      throw NetworkExceptions.getDioException(DioException(
+    requestOptions: RequestOptions(path: ''), // Specify the request path
+    response: response,
+    type: DioExceptionType.unknown // You can specify the type of error
+  ));
+    }else if(localEmail == email && localPassword != password) {
+      // PASSWORD IS INCORRECT
+        // EMAIL IS INCORRECT
+      const responseBody = {
+        "message" : "Password is incorrect",
+        "status" : false,
+      };
+        // Creating a response object to pass to DioException
+  final response = Response(
+    requestOptions: RequestOptions(path: ''), // Specify the actual request path
+    data: responseBody,
+    statusCode: 400, // You can use an appropriate status code for "Email incorrect"
+  );
+
+
+      throw NetworkExceptions.getDioException(DioException(
+    requestOptions: RequestOptions(path: ''), // Specify the request path
+    response: response,
+    type: DioExceptionType.unknown // You can specify the type of error
+  ));
+    }
+    
+    else {
+      // BOTH EMAIL AND PASSWORD IS INCORRECT
+        // EMAIL IS INCORRECT
+      const responseBody = {
+        "message" : "Email and Password incorrect",
+        "status" : false,
+      };
+        // Creating a response object to pass to DioException
+  final response = Response(
+    requestOptions: RequestOptions(path: ''), // Specify the actual request path
+    data: responseBody,
+    statusCode: 400, // You can use an appropriate status code for "Email incorrect"
+  );
+
+
+      throw NetworkExceptions.getDioException(DioException(
+    requestOptions: RequestOptions(path: ''), // Specify the request path
+    response: response,
+    type: DioExceptionType.unknown // You can specify the type of error
+  ));
+
+    }
+    throw const NetworkExceptions.noInternetConnection();
+
+  }
+ 
 }
 }

@@ -85,7 +85,7 @@ Future<Response> post(
     "Authorization" : 'Bearer $token'
   } : {};
   
-  logger.d("Headers: $headers");
+  // logger.d("Headers: $headers");
 
   try {
     final Response response = await _dio.post(
@@ -125,7 +125,7 @@ rethrow;
     "Authorization" : 'Bearer $token'
   } : {};
   
-  logger.d("Headers: $headers");
+  // logger.d("Headers: $headers");
     try {
       final Response response = await _dio.put(
         url,

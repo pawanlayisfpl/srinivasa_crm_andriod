@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
+import 'package:srinivasa_crm_new/src/features/Kyc/database/kyc_database.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/domain/model/customer_kyu_model.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/domain/model/kyc_upload_response_model.dart';
 
@@ -26,13 +27,22 @@ class KycRemoteDatasourceImpl implements KycRemoteDataSource {
   
   @override
   Future<List<CustomerKycModel>> getPendingKyuCustomers() async {
-    logger.d('KYC API STARTED');
+    final results = await internetChecker.hasInternet();
+    final databse = KycDatabase();
+    // TODO: REMOVE (!) FROM RESULTS
+    if(!results) {
+      // INTERNET AVAILABLE
+      logger.d('KYC API STARTED');
     try {
       final response = await dioClient.get(Endpoints.getPendingKycCustomers, headers: {
       });
 
       if(response.statusCode == 200){
         final List data = response.data['data'];
+        for(var i in data){
+          await databse.insertCustomerKyc(CustomerKycModel.fromJson(i));
+        }
+        
         return await Future.value(data.map((e) => CustomerKycModel.fromJson(e)).toList());
       }else {
         logger.e('KYC API FAILED');
@@ -42,9 +52,26 @@ class KycRemoteDatasourceImpl implements KycRemoteDataSource {
       logger.e('KYC API FAILED');
       throw NetworkExceptions.getDioException(e); 
     }
+
+    }else {
+      
+
+      // NO INTERNET
+      List<CustomerKycModel> kycList = await databse.getCustomerKycs();
+      return kycList;
+    }
+    
   }
   @override
 Future<KycUploadResponseModel> uploadKycDetails({required KycUploadPostModel kycUploadPostModel}) async {
+  final results = await internetChecker.hasInternet();
+
+  if (results) {
+    // INTERNET AVAILABLE
+  }else {
+  // NO INTERNET
+    throw const NetworkExceptions.noInternetConnection();
+  }
 
   List<MultipartFile> aadharFiles = []; 
 

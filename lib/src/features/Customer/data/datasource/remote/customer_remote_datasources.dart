@@ -1,18 +1,14 @@
-import 'dart:convert';
-import 'dart:developer';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/zone_model.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/approved_customer_response_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/database/checkin_database.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/database/joint_employe_database.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_code_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_full_details_model.dart';
@@ -22,6 +18,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checko
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/customer_create_post_model.dart';
 
 import '../../../../../core/model/model.dart';
+import '../../../database/customer_database.dart';
 import '../../../domain/model/get/checkIn_response_model.dart';
 import '../../../domain/model/get/checkout_response_model.dart';
 import '../../../domain/model/get/customer_created_response_model.dart';
@@ -54,39 +51,56 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
   final InternetChecker connectionChecker;
 
   CustomerRemoteDatasourcesImpl(this.dioClient, this.keyValueStorage, this.logger, this.connectionChecker);
-  
   @override
-  Future<CheckInResponseModel> checkIn({required CheckinPostModel checkinPostModel}) async {
-    final result = await connectionChecker.isConnected();
+Future<CheckInResponseModel> checkIn({required CheckinPostModel checkinPostModel}) async {
+  logger.d('CHECKIN API STARTED');
+  logger.d('CHECKING INTERNET');
+  final result = await connectionChecker.hasInternet();
+  final database = CheckinPostDatabase();
 
-    if(result) {
-      try {
-        final response = await dioClient.post(Endpoints.checkInPostUrl,data: checkinPostModel.toJson(),headers: {});
+  if (!result) {
+    try {
+      logger.d('INTERNET AVAILABLE, MAKING API CALL');
+      final response = await dioClient.post(Endpoints.checkInPostUrl, data: checkinPostModel.toJson(), headers: {});
 
-        if(response.statusCode == 200)  {
-          CheckInResponseModel checkInResponseModel =  CheckInResponseModel.fromJson(response.data);
+      if (response.statusCode == 200) {
+        logger.d('API CALL SUCCESSFUL, PROCESSING RESPONSE');
+        CheckInResponseModel checkInResponseModel = CheckInResponseModel.fromJson(response.data);
 
-          await keyValueStorage.sharedPreferences.setString(KeyValueStrings.checkinTime,checkInResponseModel.time.toString());
-          return await Future.value(checkInResponseModel);
-        
-        }else {
-          throw  NetworkExceptions.getException(response.data);
-        }
-        
-      } catch (e) {
-        if(e is DioException) {
-          logger.e(e.response!.data.toString());
-          throw NetworkExceptions.getException(e);
-        }else {
-          throw const NetworkExceptions.internalServerError();
-        }
-        
+        logger.d('SAVING CHECKIN TIME TO SHARED PREFERENCES');
+        await keyValueStorage.sharedPreferences.setString(KeyValueStrings.checkinTime, checkInResponseModel.time.toString());
+        logger.d('CHECKIN TIME SAVED SUCCESSFULLY');
+        return await Future.value(checkInResponseModel);
+      } else {
+        logger.e('API CALL FAILED WITH STATUS CODE: ${response.statusCode}');
+        throw NetworkExceptions.getException(response.data);
       }
-    }else {
+    } catch (e) {
+      if (e is DioException) {
+        logger.e('DIO EXCEPTION OCCURRED: ${e.response!.data.toString()}');
+        throw NetworkExceptions.getException(e);
+      } else {
+        logger.e('INTERNAL SERVER ERROR OCCURRED');
+        throw const NetworkExceptions.internalServerError();
+      }
+    }
+  } else {
+    logger.d('NO INTERNET, SAVING CHECKIN LOCALLY');
+    int id = await database.insertCheckinPost(checkinPostModel);
+
+    if (id != 0) {
+      logger.d('CHECKIN SAVED LOCALLY WITH ID: $id');
+      return CheckInResponseModel(
+        status: true,
+        time: DateTime.now().toString(),
+        message: 'Checkin Successful',
+      );
+    } else {
+      logger.e('FAILED TO SAVE CHECKIN LOCALLY');
       throw const NetworkExceptions.noInternetConnection();
-    
     }
-    }
+  }
+}
   
   @override
   Future<CheckoutResponseModel> checkOut({required CheckoutPostModel checkoutPostModel}) async {
@@ -210,53 +224,52 @@ Future<CustomerFullDetailsModel> getCustomerFullDetails({required String custome
     throw const NetworkExceptions.formatException();
   }
 }
-  @override
-  Future<CustomerResponseModel> getCustomers() async {
-     try {
-         final response = await dioClient.get(
-          Endpoints.getAllCustomers,
-          headers: {},
 
-        );
-        if(response.statusCode == 200) {
-          return CustomerResponseModel.fromJson(response.data);
-        }else {
-          throw NetworkExceptions.getDioException(response.data);
-        }
-      } on DioException catch (e) {
-        logger.e(e);
-        throw NetworkExceptions.getDioException(e);
+@override
+Future<CustomerResponseModel> getCustomers() async {
+  logger.d('GET ALL CUSTOMERS API STARTED');
+  logger.d('CHECKING INTERNET');
+  final results = await connectionChecker.hasInternet();
+  final database = CustomerDataBaseHelper();
+// TODO: REMOVE ! FROM RESULTS
+  if (!results) { // Corrected the condition to check for internet availability
+    try {
+      logger.d('INTERNET AVAILABLE, MAKING API CALL');
+      final response = await dioClient.get(
+        Endpoints.getAllCustomers,
+        headers: {},
+      );
+
+      if (response.statusCode == 200) {
+        logger.d('API CALL SUCCESSFUL, PROCESSING RESPONSE');
+        CustomerResponseModel customerResponseModel = CustomerResponseModel.fromJson(response.data);
+
+        logger.d('INSERTING DATA INTO LOCAL DATABASE');
+        await database.insertCustomerResponse(customerResponseModel);
+        logger.d('DATA INSERTED INTO LOCAL DATABASE SUCCESSFULLY');
+
+        return customerResponseModel;
+      } else {
+        logger.e('API CALL FAILED WITH STATUS CODE: ${response.statusCode}');
+        throw NetworkExceptions.getDioException(response.data);
       }
-  //   final results = await connectionChecker.isConnected();
-  //   if(results)  {
-      
-  //     try {
-  //       final response = await dioClient.get(
-  //         Endpoints.getAllCustomers,
-  //         headers: {},
+    } on DioException catch (e) {
+      logger.e('DIO EXCEPTION OCCURRED: ${e.response?.data.toString()}');
+      throw NetworkExceptions.getDioException(e);
+    }
+  } else {
+    logger.d('NO INTERNET, LOADING DATA FROM OFFLINE DATABASE');
+    List<CustomerResponseModel> customerList = await database.getCustomerResponses();
 
-  //       );
-  //       if(response.statusCode == 200) {
-  //         return CustomerResponseModel.fromJson(response.data);
-  //       }else {
-  //         throw NetworkExceptions.getDioException(response.data);
-  //       }
-  //     } on DioException catch (e) {
-  //       logger.e(e);
-  //       throw NetworkExceptions.getDioException(e);
-  //     }
-  //   }else {
-  //     String? data =  keyValueStorage.sharedPreferences.getString(KeyValueStrings.customersData);
-  //     if(data != null) {
-  //       return CustomerResponseModel.fromJson(jsonDecode(data));
-  //     }else {
-  //       throw const NetworkExceptions.noInternetConnection();
-
-
-      
-  //   }
-  // }
+    if (customerList.isNotEmpty) {
+      logger.d('OFFLINE DATA LOADED SUCCESSFULLY');
+      return customerList.first;
+    } else {
+      logger.d('NO OFFLINE DATA AVAILABLE');
+      return CustomerResponseModel(customermodel: []);
+    }
   }
+}
   
   @override
   Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails({required String customerId,required String farmId}) async {
@@ -438,12 +451,23 @@ Future<CustomerFullDetailsModel> getCustomerFullDetails({required String custome
   
   @override
   Future<List<JoinEmployeModel>> getJointEmployeList() async {
-    try {
+    logger.d('JOINT EMPLOYES API STARTED');
+    final results = await connectionChecker.hasInternet();
+    final database = JointEmployeDatabase();
+    logger.d('CHECKING INTERNET');
+    //  TODO: REMOVE ! FROM RESULTS
+    if(!results) {
+      logger.d('INTERNET AVAILABLE');
+      try {
       final response = await dioClient.get(Endpoints.jointemployesUrl,headers: {});
 
       if(response.statusCode == 200) {
         final List data = response.data['data'];
         final List<JoinEmployeModel> employeeList = data.map((e) => JoinEmployeModel.fromJson(e)).toList();
+        
+        for (var employee in employeeList) {
+          await database.insertJoinEmploye(employee);
+        }
         return employeeList;
       }else {
         throw NetworkExceptions.getDioException(response.data);
@@ -451,5 +475,16 @@ Future<CustomerFullDetailsModel> getCustomerFullDetails({required String custome
     } on DioException catch (e) {
       throw NetworkExceptions.getDioException(e);
     }
+
+
+
+    }else {
+      logger.d('NO INTERNET CONNECTION');
+      logger.d('LOADING DATA FROM OFFLINE');
+      List<JoinEmployeModel> employeeList = await database.getJoinEmployes();
+      return employeeList;
+
+    }
+    
   }
 }

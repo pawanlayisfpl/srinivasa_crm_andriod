@@ -50,11 +50,12 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
           BlocBuilder<DailyPlanCubit, DailyPlanState>(
             builder: (context, state) {
               return IconButton(
-                onPressed: () {
+                onPressed: () async {
 
-               
-
-                  context.read<DailyPlanCubit>().resetState();
+                  final results = await locator.get<InternetChecker>().hasInternet();
+                // TODO: for emulator testing added (!)
+                  if(!results) {
+                     context.read<DailyPlanCubit>().resetState();
                   context.read<DailyPlanCubit>().clearSelectedCustomerLists();
                   context
                       .read<DailyPlanCubit>()
@@ -142,6 +143,20 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
                         context: context,
                         builder: (c) => alertDialog);
                   }
+
+                  }else {
+                    if(context.mounted) {
+                      QuickAlert.show(context: context, type: QuickAlertType.warning,animType: QuickAlertAnimType.slideInDown,
+                      title: 'No Internet',
+                      text: 'Internet is requried to use this feature',
+                      confirmBtnColor: Colors.black
+                      );
+                    }
+                  }
+
+               
+
+                 
                 },
                 icon: const Icon(Icons.edit),
               );
@@ -152,9 +167,15 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
             builder: (context, state) {
               return IconButton(
                 tooltip: "Delete",
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                    DailyplanDeletePostModel dailyplanDeletePostModel = DailyplanDeletePostModel(monthlyPlanId: monthlyPlanId.toString(), dailyPlanId: viewDailyPlanModel!.dailyPlanId.toString());
+                icon: const Icon(Icons.delete),
+                onPressed: () async {
+                                    final results = await locator.get<InternetChecker>().hasInternet();
+
+
+// TODO: for testing (! ) added this
+                    if(!results) {
+                      // INTERNET AVAILABLE
+                        DailyplanDeletePostModel dailyplanDeletePostModel = DailyplanDeletePostModel(monthlyPlanId: monthlyPlanId.toString(), dailyPlanId: viewDailyPlanModel!.dailyPlanId.toString());
 
                     if(context.mounted) {
 
@@ -177,7 +198,20 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
                         //     .deletePlan(monthlyPlanId: monthlyPlanId);
                 },
                   );
-                    }}
+                    }
+                    }else {
+                      // NO INTERNET
+                       if(context.mounted) {
+                      QuickAlert.show(context: context, type: QuickAlertType.warning,animType: QuickAlertAnimType.slideInDown,
+                      title: 'No Internet',
+                      text: 'Internet is requried to use this feature',
+                      confirmBtnColor: Colors.black
+                      );
+                    } 
+
+
+                    }
+                    }
               );
             },
           ),

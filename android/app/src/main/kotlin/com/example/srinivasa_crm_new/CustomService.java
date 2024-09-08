@@ -83,7 +83,7 @@ public class CustomService extends Service {
 
 
         locationHelperClass.getLatLongValues();
-        Log.d(TAG, "Bg Task performed at: " + new Date());
+        // Log.d(TAG, "Bg Task performed at: " + new Date());
     }
 
     private void createNotificationChannel() {

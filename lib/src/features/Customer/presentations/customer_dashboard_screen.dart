@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 
 import '../../../../shared/widgets/dashboard_card_widget.dart';
 import '../../../config/config.dart';
+import '../../../core/core.dart';
 import 'Customer Create/presentation/cubit/customer_create_cubit.dart';
 import 'Customer Create/presentation/cubit/state/customer_create_state.dart';
 
@@ -34,12 +36,14 @@ class CustomerDashbaordScreen extends StatelessWidget {
                 return BlocBuilder<CustomerCreateCubit, CustomerCreateState>(
                   builder: (context, state) {
                     return GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           switch (i) {
-                            case 1:
-                              //  Navigator.pushNamed(
-                              //     context, Routes.addCustomerScreen);
+                            
 
+                            case 1:
+                            bool results = await locator.get<InternetChecker>().hasInternet();
+
+                            if(results) {
                               showDialog(
                                   barrierDismissible: false,
                                   useSafeArea: true,
@@ -133,6 +137,25 @@ class CustomerDashbaordScreen extends StatelessWidget {
                                               
                                         ],
                                       ));
+
+                            }else {
+                              if(context.mounted) {
+                                QuickAlert.show(context: context, type: QuickAlertType.error,
+                                animType: QuickAlertAnimType.slideInUp,
+                                barrierDismissible: false,
+                                title: 'No Internet',
+                                text: 'Internet connection is must to access this feature',
+                                confirmBtnColor: Colors.black,
+                                confirmBtnText: 'Okay'
+                                
+                                );
+                              }
+
+                            }
+
+                            
+
+                              
 
                               break;
                             case 0:

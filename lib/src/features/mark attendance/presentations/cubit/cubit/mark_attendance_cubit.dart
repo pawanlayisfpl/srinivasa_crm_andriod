@@ -10,6 +10,7 @@ import 'package:injectable/injectable.dart';
 
 import 'package:srinivasa_crm_new/shared/data/repo/work_manager_services.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/config/constants/key_value_strings.dart';
 import 'package:srinivasa_crm_new/src/config/locator/locator.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
@@ -40,6 +41,7 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
   final results = await getLastPunchInOutDetailsUseCase.execute();
   await results.fold((l) async {
     // handle failure
+    emit(state.copyWith(loading: false,apiFailModel: ApiFailedModel.fromNetworkExceptions(l)));
   }, (r) async {
     emit(state.copyWith(loading: false,loaded: true,lastPunchInResponseModel: r));
     debugPrint(state.lastPunchInResponseModel!.toJson().toString());
@@ -95,10 +97,12 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
 
     emit(state.copyWith(isSubmitting: false, punchOutSuccess: true, apiFailModel: null,loading: false,loaded: false,));
     final keyValueStorage = locator.get<KeyValueStorage>();
-    keyValueStorage.sharedPreferences.clear();
-          if(isLogoutClicked != null && isLogoutClicked == true) {
-        return;
-        }
+    keyValueStorage.sharedPreferences.remove(KeyValueStrings.isLoggedIn);
+    // TODO: COMMENTING THIS FOR TESTING
+    // keyValueStorage.sharedPreferences.clear();
+        //   if(isLogoutClicked != null && isLogoutClicked == true) {
+        // return;
+        // }
       //  await getLastPunchInOutData();
    });
   } 

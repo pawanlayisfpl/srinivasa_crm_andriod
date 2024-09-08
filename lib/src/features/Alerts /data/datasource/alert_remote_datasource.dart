@@ -8,6 +8,7 @@ import 'package:srinivasa_crm_new/src/core/model/model.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/domain/model/get/alert_count_resonse_model.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/domain/model/get/alert_response_model.dart';
 
+import '../../database/alert_database.dart';
 import '../../domain/model/post/mark_alert_as_read_postmodel.dart';
 
 abstract class AlertRemoteDataSource {
@@ -47,12 +48,20 @@ class AlertRemoteDataSourceImpl implements AlertRemoteDataSource {
 
   @override
   Future<List<AlertModel>> getAlerts() async {
+    final results = await internetChecker.isConnected();
+    final database = AlertDatabase();
+    // await database.deleteAllAlerts();
+  // TODO: REMOVE (!) FROM BELOW LINE
+    if(results) {
 
-
-    try {
+      try {
       final response = await dioClient.get(Endpoints.allAlerts, headers: {});
 
       if (response.statusCode == 200) {
+       for(int i=0;i<response.data.length;i++) {
+          await database.insertAlert(AlertModel.fromJson(response.data[i]));
+
+       }
         return response.data.map<AlertModel>((e) => AlertModel.fromJson(e)).toList();
       } else {
         throw NetworkExceptions.getDioException(response.data);
@@ -60,6 +69,18 @@ class AlertRemoteDataSourceImpl implements AlertRemoteDataSource {
     } on DioException catch (e) {
       throw NetworkExceptions.getDioException(e);
     }
+
+
+    }else {
+      List<AlertModel> list = await database.getAllAlerts();
+      if(list.isNotEmpty) {
+        return list;
+      }
+      throw const NetworkExceptions.noInternetConnection();
+    }
+
+
+    
   }
 
   @override

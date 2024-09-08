@@ -25,7 +25,9 @@ class KeyValueStorage {
   Future<List<String>?> getSecureList(String key) async =>
       sharedPreferences.getStringList(key);
 
-  Future<void> clearValue(String key) => sharedPreferences.remove(key);
+  Future<void> clearValue(String key)async => await  sharedPreferences.remove(key);
+
+  Future<void> removeValueByKey(String key) async => await sharedPreferences.remove(key);
 
   Future<bool> clearAllValues() => sharedPreferences.clear();
 

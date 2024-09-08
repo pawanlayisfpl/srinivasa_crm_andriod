@@ -21,7 +21,8 @@ class KycPendingCardWidget extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
       
       child: ListTile(
-        onTap: customerKycModel.kycStatus.toString() == "PENDING" ? () {
+        // TODO: FOR TESTING != ADDED INPLACE OF ==
+        onTap: customerKycModel.kycStatus.toString() != "PENDING" ? () {
           if(context.mounted) {
             Navigator.push(context, SlideRightRoute(screen: KycUploadScreen( customerKycModel: customerKycModel,)));
           }

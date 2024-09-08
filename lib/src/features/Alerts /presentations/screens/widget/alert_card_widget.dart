@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
+import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/config/constants/app_strings.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/screens/alert_details_screen.dart';
@@ -47,7 +48,11 @@ class AlertCardWidget extends StatelessWidget {
               child: ListTile(
                
                 onTap: ()async  {
-                   debugPrint(alertModel.toJson().toString());
+                  
+                  final results = await locator.get<InternetChecker>().hasInternet();
+                //  TODO: FOR EMULATOR TESTING (!) ADDED THIS
+                  if(!results) {
+                     debugPrint(alertModel.toJson().toString());
                       if(context.mounted) {
                       
                     MarkAlertAsReadPostModel markAlertAsReadPostModel = MarkAlertAsReadPostModel(notificationId: alertModel.notificationId);
@@ -124,6 +129,11 @@ class AlertCardWidget extends StatelessWidget {
                       
                 }
                   }
+
+                  }else {
+                    Navigator.push(context, ScaleRoute(screen: AlertDetailsScreen(alertModel: alertModel)));
+                  }
+                  
                  
                 },
                 title: Column(
