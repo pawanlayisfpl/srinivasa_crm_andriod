@@ -40,6 +40,8 @@ class LoginBodyWidget extends StatelessWidget {
  text: 'Login successfull!',
   title: 'Success',
   showConfirmBtn: true,
+  disableBackBtn: true,
+  barrierDismissible: false,
   onConfirmBtnTap: () async {
   //    if(Platform.isAndroid) {
 

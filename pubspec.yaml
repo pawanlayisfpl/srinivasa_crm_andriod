@@ -75,6 +75,7 @@ dependencies:
   lottie: ^3.1.2
   mockito: ^5.4.4
   open_file: ^3.3.2
+  pretty_dio_logger: ^1.4.0
   package_info_plus: ^8.0.0
   page_transition: ^2.1.0
   paged_datatable: ^2.1.0

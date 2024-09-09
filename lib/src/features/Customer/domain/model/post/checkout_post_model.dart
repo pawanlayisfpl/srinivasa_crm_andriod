@@ -12,6 +12,7 @@ class CheckoutPostModel {
   String? remarks;
   String? farmId;
   String? customerId;
+   DateTime? createdAt;
 
 
   CheckoutPostModel({
@@ -25,6 +26,7 @@ class CheckoutPostModel {
     this.remarks,
     this.farmId,
     this.customerId,
+    this.createdAt
   });
 
   Map<String, dynamic> toJson() {
@@ -41,5 +43,23 @@ class CheckoutPostModel {
       "customerId": customerId,
 
     };
+  }
+
+
+  Map<String, dynamic> toDatabasJson() {
+       return {
+      'images': images?.map((e) => Uint8List.fromList(e)).toList(),
+      'files': files?.map((e) => Uint8List.fromList(e)).toList(),
+      'customerName': customerName,
+      'langitude': langitude,
+      'latitude': latitude,
+      'remarks': remarks,
+      'purposeId': purposeId,
+      'userIds': userIds.join(','), // Convert list of integers to a comma-separated string
+      'farmId': farmId,
+      'customerId': customerId,
+      'created_at': DateTime.now().toIso8601String(),
+    };
+  
   }
 }

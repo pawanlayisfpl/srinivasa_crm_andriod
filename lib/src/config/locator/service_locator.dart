@@ -38,6 +38,7 @@ abstract class ThirdPartyDependencies {
 
   @singleton
   Logger get logger => Logger(
+    printer: PrettyPrinter(),
         level: kDebugMode ? Level.debug : Level.debug,
       );
 
