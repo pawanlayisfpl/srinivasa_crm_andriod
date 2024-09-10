@@ -74,51 +74,53 @@ class _ViewMonthlyPlanScreenState extends State<ViewMonthlyPlanScreen> {
                     context.read<DailyPlanCubit>().resetState();
                     AlertDialog alertDialog = AlertDialog(
                       backgroundColor: Colors.white,
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            children: [
-                              CommonTextWidget(
-                                title: 'Create Plan',
-                                fontWeight: FontWeight.bold,
-                                align: TextAlign.center,
-                                textSize: 24.sp,
-                                textColor: AppColors.primaryColor,
-                              ),
-                              const Spacer(),
-                              CircleAvatar(
-                                backgroundColor: AppColors.primaryColor,
-                                child: IconButton(
-                                    onPressed: () {
-                                      
-                                      Navigator.pop(context);
-                                    },
-                                    icon: const Icon(
-                                      Icons.close,
-                                      color: Colors.white,
-                                    )),
-                              )
-                            ],
-                          ),
-                          const Divider(
-                            color: AppColors.primaryColor,
-                          ),
-                          20.verticalSpace,
-                          // DateField
-                          const DaiilyPlanDateTextField(),
-                          20.verticalSpace,
-                          const DailyPlanKilometerTextField(),
-                          20.verticalSpace,
-                          const DailyPlanCustomerListDropdownWidget(),
-                          20.verticalSpace,
-                          CommonButton(callback: () async {
-                            int monthlyPlanId = widget.monthlyPlanId ?? 0;
-                            context.read<DailyPlanCubit>().submit(context: context, monthlyPlanId: monthlyPlanId, isConfirmed: false, voidCallback: () async {
-                              await context.read<ViewMonthlyPlanCubit>().getAllMonthlyPlanByMonthlyPlanID(id: widget.monthlyPlanId ?? 0);
-                              });
-                          }, title: 'Submit')
-                        ],
+                      content: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              children: [
+                                CommonTextWidget(
+                                  title: 'Create Plan',
+                                  fontWeight: FontWeight.bold,
+                                  align: TextAlign.center,
+                                  textSize: 24.sp,
+                                  textColor: AppColors.primaryColor,
+                                ),
+                                const Spacer(),
+                                CircleAvatar(
+                                  backgroundColor: AppColors.primaryColor,
+                                  child: IconButton(
+                                      onPressed: () {
+                                        
+                                        Navigator.pop(context);
+                                      },
+                                      icon: const Icon(
+                                        Icons.close,
+                                        color: Colors.white,
+                                      )),
+                                )
+                              ],
+                            ),
+                            const Divider(
+                              color: AppColors.primaryColor,
+                            ),
+                            20.verticalSpace,
+                            // DateField
+                            const DaiilyPlanDateTextField(),
+                            20.verticalSpace,
+                            const DailyPlanKilometerTextField(),
+                            20.verticalSpace,
+                            const DailyPlanCustomerListDropdownWidget(),
+                            20.verticalSpace,
+                            CommonButton(callback: () async {
+                              int monthlyPlanId = widget.monthlyPlanId ?? 0;
+                              context.read<DailyPlanCubit>().submit(context: context, monthlyPlanId: monthlyPlanId, isConfirmed: false, voidCallback: () async {
+                                await context.read<ViewMonthlyPlanCubit>().getAllMonthlyPlanByMonthlyPlanID(id: widget.monthlyPlanId ?? 0);
+                                });
+                            }, title: 'Submit')
+                          ],
+                        ),
                       ),
                     );
                     showDialog(

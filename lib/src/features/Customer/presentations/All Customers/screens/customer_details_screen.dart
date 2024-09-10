@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +18,7 @@ import '../../Checkin/cubit/checkin_cubit.dart';
 
 class CustomerDetailsScreen extends StatefulWidget {
   final Customermodel? customermodel;
+  
 
   CustomerDetailsScreen({
     Key? key,
@@ -29,6 +32,7 @@ class CustomerDetailsScreen extends StatefulWidget {
 class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
   @override
   void initState() {
+    log(widget.customermodel!.toJson().toString());
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       if (widget.customermodel != null) {
         // todo: call last checkin checkout api here
@@ -132,9 +136,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                               data: widget.customermodel?.farm!.customerCode ?? 'N/A',  
                             ),
                             const CustomerDetailsDividerWidget(),
-
-                           if (widget.customermodel?.farm?.isOrganization == true) ...[
-      10.verticalSpace,
+                              10.verticalSpace,
       const CustomerDetailsHeadingWidget(
         title: 'Location Code',
       ),
@@ -142,7 +144,17 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
         data: widget.customermodel?.farm?.locationCode ?? 'N/A',
       ),
       const CustomerDetailsDividerWidget(),
-    ],
+
+    //                        if (widget.customermodel?.farm?.isOrganization == true) ...[
+    //   10.verticalSpace,
+    //   const CustomerDetailsHeadingWidget(
+    //     title: 'Location Code',
+    //   ),
+    //   CustomerDetailsTextWidget(
+    //     data: widget.customermodel?.farm?.locationCode ?? 'N/A',
+    //   ),
+    //   const CustomerDetailsDividerWidget(),
+    // ],
                               10.verticalSpace,
                                 const CustomerDetailsHeadingWidget(
                               title: 'Customer Name',

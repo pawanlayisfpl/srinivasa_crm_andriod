@@ -185,7 +185,7 @@ class Farm {
     custCreditLimit = json['custCreditLimit'];
     custStatus = json['custStatus'];
     customerCode = json['customerCode'];
-    locationCode = json['LocationCode'];
+    locationCode = json['locationCode'];
     isOrganization = json['isOrganization'];
     isIndividual = json['isIndividual'];
     checkInStatus = json['checkInStatus'];

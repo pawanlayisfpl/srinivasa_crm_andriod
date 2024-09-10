@@ -547,6 +547,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
                 customerCode: '',
                 farmCapacity: double.tryParse(farmCapacity.toString()) ?? 0.0,
                 faxNo: faxNumber.toString(),
+                farmName: farmName,
                 isIndividual: false);
         final results = await customerRepo.createCustomer(
             customerCreatePostModel: customerCreatePostModel);
