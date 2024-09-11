@@ -219,6 +219,8 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                             10.verticalSpace,
                               const CustomerDetailsHeadingWidget(title: 'Address'),
                             CustomerDetailsTextWidget(
+                              maxline: 10,
+                              
                               data: widget.customermodel!.farm!.custAddress,
                             ),
                            

@@ -25,7 +25,7 @@ import '../../../../../core/model/model.dart';
 import '../../../domain/model/get/checkIn_response_model.dart';
 import '../../../domain/model/get/checkout_response_model.dart';
 import '../../../domain/model/get/customer_created_response_model.dart';
-import '../../../domain/model/get/customer_model.dart';
+import '../../../domain/model/get/customer_model.dart'; 
 import '../../../domain/model/get/customer_response_model.dart';
 import '../../../domain/model/get/last_checkin_out_respone_model.dart';
 
