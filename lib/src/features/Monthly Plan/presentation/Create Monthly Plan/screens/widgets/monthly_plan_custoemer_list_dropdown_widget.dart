@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/monthly_plan_customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_state.dart';
 
@@ -22,7 +21,7 @@ class MonthlyPlanCustomerListDropDownWidget extends StatelessWidget {
                 dropdownBuilder: (context, selectedItems) => CommonTextWidget(title: selectedItems.isEmpty ? 'Select Customers' : selectedItems.map((e) => e.farm!.isIndividual == true ?  e.farm!.farmName == null ? 'no farm name found' : e.farm!.farmName.toString() :  "${e.customerName}" ).join(' , '),fontWeight: selectedItems.isEmpty ? FontWeight.w400 : FontWeight.w500,maxLines: 5,) ,
                 
                 
-                dropdownButtonProps:  DropdownButtonProps(
+                dropdownButtonProps:  const DropdownButtonProps(
                    
                   
                   

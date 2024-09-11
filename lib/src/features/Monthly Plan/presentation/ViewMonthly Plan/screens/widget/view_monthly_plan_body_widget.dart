@@ -16,9 +16,9 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewM
 class ViewMonthlyPlanBodyWidget extends StatelessWidget {
   final int id;
   const ViewMonthlyPlanBodyWidget({
-    Key? key,
+    super.key,
     required this.id,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -122,11 +122,11 @@ class ViewMonthlyPlanBodyWidget extends StatelessWidget {
         shadowColor: Colors.grey,
         title: Row(
           children: [
-            Expanded(child: const Text('Reject Reason')),
+            const Expanded(child: Text('Reject Reason')),
             IconButton(onPressed: () {
               Navigator.pop(alertCtx);
 
-            }, icon: Icon(Icons.close))
+            }, icon: const Icon(Icons.close))
           ],
         ),
         content: TextField(

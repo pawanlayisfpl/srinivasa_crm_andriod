@@ -1,18 +1,11 @@
-import 'dart:convert';
-import 'dart:developer';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/zone_model.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/approved_customer_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_code_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_full_details_model.dart';

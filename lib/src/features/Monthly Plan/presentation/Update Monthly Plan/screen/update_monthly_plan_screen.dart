@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quickalert/quickalert.dart';
-import 'package:srinivasa_crm_new/shared/widgets/common_drawer_widget.dart';
 
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/cubit/update_monthly_plan_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/screen/widget/update_monthly_plan_body_widget.dart';
@@ -12,10 +11,10 @@ class UpdateMonthlyPlanScreen extends StatefulWidget {
   final int? id;
   final String? comments;
   const UpdateMonthlyPlanScreen({
-    Key? key,
+    super.key,
     this.id,
     this.comments,
-  }) : super(key: key);
+  });
 
   @override
   State<UpdateMonthlyPlanScreen> createState() => _UpdateMonthlyPlanScreenState();
@@ -35,9 +34,9 @@ class _UpdateMonthlyPlanScreenState extends State<UpdateMonthlyPlanScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Update Monthly Plan'),
+        title:  const Text('Update Monthly Plan'),
         actions: [
-          widget.comments == null ? SizedBox.shrink() : GestureDetector(
+          widget.comments == null ? const SizedBox.shrink() : GestureDetector(
             onTap: () {
               QuickAlert.show(context: context, 
               titleColor: Colors.black,
@@ -50,7 +49,7 @@ class _UpdateMonthlyPlanScreenState extends State<UpdateMonthlyPlanScreen> {
               confirmBtnText: 'Okay',
               barrierDismissible: true);
             },
-            child: Icon(Icons.comment, color: Colors.white)),
+            child: const Icon(Icons.comment, color: Colors.white)),
             10.horizontalSpace,
           // IconButton(onPressed: () {
           //   if(context.mounted) {

@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Image/image_model.dart';
@@ -9,7 +7,6 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/checkIn
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/checkout_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/joint_employe_model.dart';
 
-import '../../../../../../shared/domain/model/Employe/employe_model.dart';
 import '../../../../../../shared/domain/model/Purpose/purpose_model.dart';
 import '../../../domain/model/get/last_checkin_out_respone_model.dart';
 

@@ -1,10 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:logger/logger.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/City/city_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Country/country_model.dart';
-import 'package:srinivasa_crm_new/shared/domain/model/Division/division_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Locality/locality_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/StateModel/state_model.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';

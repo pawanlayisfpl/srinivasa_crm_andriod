@@ -1,10 +1,10 @@
 class KeyValueStrings {
-  static final String loginData = 'loginData';
-  static final String email = 'email';
-  static final String password = 'password';
-  static final String userId = 'userId';
-  static final String userName = 'userName';
-  static final String token = 'token';
+  static const String loginData = 'loginData';
+  static const String email = 'email';
+  static const String password = 'password';
+  static const String userId = 'userId';
+  static const String userName = 'userName';
+  static const String token = 'token';
   static const String profileDataModel = '';
 
 

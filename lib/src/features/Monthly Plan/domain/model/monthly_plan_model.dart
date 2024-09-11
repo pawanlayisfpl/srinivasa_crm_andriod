@@ -22,10 +22,10 @@ class MonthlyPlanModel {
 
   MonthlyPlanModel.fromJson(Map<String, dynamic> json) {
     userDTO =
-        json['userDTO'] != null ? new UserDTO.fromJson(json['userDTO']) : null;
+        json['userDTO'] != null ? UserDTO.fromJson(json['userDTO']) : null;
     date = json['date'];
     customerZoneMap = json['customerZoneMap'] != null
-        ? new CustomerZoneMap.fromJson(json['customerZoneMap'])
+        ? CustomerZoneMap.fromJson(json['customerZoneMap'])
         : null;
     approxKms = json['approxKms'];
     actualKms = json['actualKms'];
@@ -36,7 +36,7 @@ class MonthlyPlanModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (userDTO != null) {
       data['userDTO'] = userDTO!.toJson();
     }
@@ -86,18 +86,18 @@ class CustomerZoneMap {
   CustomerZoneMap.fromJson(Map<String, dynamic> json) {
     zoneDTOZoneNameVIZIANAGARAMZoneIdZ10040 =
         json['ZoneDTO(zoneName=VIZIANAGARAM, zoneId=z10040)'] != null
-            ? new ZoneDTOZoneNameVIZIANAGARAMZoneIdZ10040.fromJson(
+            ? ZoneDTOZoneNameVIZIANAGARAMZoneIdZ10040.fromJson(
                 json['ZoneDTO(zoneName=VIZIANAGARAM, zoneId=z10040)'])
             : null;
     zoneDTOZoneNameUttarPradeshZoneIdZ10002 =
         json['ZoneDTO(zoneName=Uttar Pradesh, zoneId=z10002)'] != null
-            ? new ZoneDTOZoneNameVIZIANAGARAMZoneIdZ10040.fromJson(
+            ? ZoneDTOZoneNameVIZIANAGARAMZoneIdZ10040.fromJson(
                 json['ZoneDTO(zoneName=Uttar Pradesh, zoneId=z10002)'])
             : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (zoneDTOZoneNameVIZIANAGARAMZoneIdZ10040 != null) {
       data['ZoneDTO(zoneName=VIZIANAGARAM, zoneId=z10040)'] =
           zoneDTOZoneNameVIZIANAGARAMZoneIdZ10040!.toJson();
@@ -199,7 +199,7 @@ class ZoneDTOZoneNameVIZIANAGARAMZoneIdZ10040 {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['empId'] = empId;
     data['empName'] = empName;
     data['customerCode'] = customerCode;

@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/payment_mode_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/product_model.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/uom_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/sales_order_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/state/sales_order_create_state.dart';
 
@@ -30,7 +27,7 @@ class SocProductDropDown extends StatelessWidget {
                   
                   
                   dropdownButtonProps:   DropdownButtonProps( 
-                    style: ButtonStyle(),
+                    style: const ButtonStyle(),
                       padding: EdgeInsets.symmetric(vertical: 10.h),
                     
                     icon: const Icon(Icons.arrow_downward),

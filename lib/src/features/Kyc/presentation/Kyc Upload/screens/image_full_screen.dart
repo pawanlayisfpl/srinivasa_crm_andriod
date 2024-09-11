@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -10,9 +9,9 @@ import 'package:srinivasa_crm_new/src/core/core.dart';
 class ImageFullScreen extends StatelessWidget {
   final Uint8List bytes;
   const ImageFullScreen({
-    Key? key,
+    super.key,
     required this.bytes,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -7,7 +6,6 @@ import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 
 import '../../config/config.dart';
-import '../../config/constants/shared_pref_keys.dart';
 import '../storage/key_value_storage.dart';
 import 'endpoints.dart';
 

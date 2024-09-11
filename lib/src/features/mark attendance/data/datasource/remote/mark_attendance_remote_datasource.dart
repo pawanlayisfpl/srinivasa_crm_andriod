@@ -57,7 +57,7 @@ final KeyValueStorage keyValueStorage;
 
     }on DioException catch(e) {
       throw NetworkExceptions.getDioException(e);
-    }on SocketException catch(e) {
+    }on SocketException {
       throw const NetworkExceptions.noInternetConnection();
     }
   }

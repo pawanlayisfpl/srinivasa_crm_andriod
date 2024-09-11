@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/monthly_plan_customer_model.dart';
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_cubit.dart';
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_state.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/cubit/state/update_monthly_plan_state.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/cubit/update_monthly_plan_cubit.dart';
 
@@ -69,7 +66,7 @@ class UpdateMonthlyPlanCustomerListDropDownWidget extends StatelessWidget {
 
                 
               
-                itemAsString: (item) => item.farm!.isIndividual == true ?  item.farm!.farmName.toString() + " - "+item.farm!.custLocation.toString()+"\n(${item.customerName.toString()} )" : '${item.customerName}',                // show: (EmployeModel employee) => employee.name,
+                itemAsString: (item) => item.farm!.isIndividual == true ?  "${item.farm!.farmName} - ${item.farm!.custLocation}\n(${item.customerName.toString()} )" : '${item.customerName}',                // show: (EmployeModel employee) => employee.name,
                 onChanged: (values) {
                   if(values.isNotEmpty) {
                     context.read<UpdateMonthlyPlanCubit>().setSelectedCustomerLists(selectedCustomers: values);

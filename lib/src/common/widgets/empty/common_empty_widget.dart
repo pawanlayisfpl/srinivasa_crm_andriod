@@ -11,10 +11,10 @@ class EmptyWidget extends StatelessWidget {
   final String title;
   final VoidCallback callback;
   const EmptyWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.callback,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

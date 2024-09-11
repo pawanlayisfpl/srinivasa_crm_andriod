@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 
 import '../../../../shared/widgets/dashboard_card_widget.dart';

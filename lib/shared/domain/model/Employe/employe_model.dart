@@ -12,10 +12,10 @@ class EmployeeModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['userName'] = this.userName;
-    data['designation'] = this.designation;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['userName'] = userName;
+    data['designation'] = designation;
     return data;
   }
 }

@@ -30,7 +30,7 @@ class UserActivityModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (repPunchIn != null) {
       data['repPunchIn'] = repPunchIn!.toJson();
     }
@@ -61,7 +61,7 @@ class RepPunchIn {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['punchTime'] = punchTime;
     data['punchLat'] = punchLat;
     data['punchLong'] = punchLong;
@@ -104,7 +104,7 @@ class RepTravelLogsData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['customerId'] = customerId;
     data['customerName'] = customerName;
     data['customerAddress'] = customerAddress;

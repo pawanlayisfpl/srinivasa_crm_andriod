@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_state.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_state.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/screens/check_out_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/screens/checkin_screen.dart';
@@ -20,10 +19,10 @@ class CustomerDetailsScreen extends StatefulWidget {
   final Customermodel? customermodel;
   
 
-  CustomerDetailsScreen({
-    Key? key,
+  const CustomerDetailsScreen({
+    super.key,
     this.customermodel,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomerDetailsScreen> createState() => _CustomerDetailsScreenState();
@@ -49,7 +48,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Customer Details'),
-        actions: [],
+        actions: const [],
       ),
       body: widget.customermodel == null
           ? const Center(
@@ -303,10 +302,10 @@ class CustomerDetailsTextWidget extends StatelessWidget {
   final String? data;
   final int? maxline;
   const CustomerDetailsTextWidget({
-    Key? key,
+    super.key,
     this.data,
     this.maxline,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

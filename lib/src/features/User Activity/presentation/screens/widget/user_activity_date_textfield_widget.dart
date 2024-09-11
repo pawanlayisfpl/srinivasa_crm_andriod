@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:srinivasa_crm_new/src/common/common.dart';
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_cubit.dart';
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Create%20Monthly%20Plan/cubit/create_monthly_plan_state.dart';
 import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/cubit/state/user_activity_state.dart';
 
 import '../../cubit/user_activity_cubit.dart';
@@ -13,9 +11,9 @@ class UserActivityDateTextFieldWidget extends StatelessWidget {
     final bool? isClickEnabled;
 
   const UserActivityDateTextFieldWidget({
-    Key? key,
+    super.key,
     this.isClickEnabled,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

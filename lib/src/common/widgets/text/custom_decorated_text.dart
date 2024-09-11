@@ -14,7 +14,7 @@ class CustomDecoratedText extends StatelessWidget {
   final double wordsSpacing;
   final double letterSpacing;
 
-  CustomDecoratedText({
+  const CustomDecoratedText({super.key, 
     required this.title,
     this.maxLines = 1,
     this.align = TextAlign.start,
@@ -99,7 +99,7 @@ class _TextDecorationPainter extends CustomPainter {
 class CustomDivider extends StatelessWidget {
   final String heading;
 
-  CustomDivider({required this.heading});
+  const CustomDivider({super.key, required this.heading});
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +134,7 @@ class CustomDivider extends StatelessWidget {
             ),
             SizedBox(
               width: textWidth,
-              child: Divider(
+              child: const Divider(
                 color: Colors.black,
               ),
             ),

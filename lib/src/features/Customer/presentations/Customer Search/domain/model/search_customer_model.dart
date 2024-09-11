@@ -51,7 +51,7 @@ class SearchCustomerModel {
     empId = json['empId'];
     empName = json['empName'];
     customerCode = json['customerCode'];
-    zone = json['zone'] != null ? new ZoneModel.fromJson(json['zone']) : null;
+    zone = json['zone'] != null ? ZoneModel.fromJson(json['zone']) : null;
     customerType = json['customerType'];
     custName = json['custName'];
     custPhone = json['custPhone'];
@@ -72,30 +72,30 @@ class SearchCustomerModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['empId'] = this.empId;
-    data['empName'] = this.empName;
-    data['customerCode'] = this.customerCode;
-    if (this.zone != null) {
-      data['zone'] = this.zone!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['empId'] = empId;
+    data['empName'] = empName;
+    data['customerCode'] = customerCode;
+    if (zone != null) {
+      data['zone'] = zone!.toJson();
     }
-    data['customerType'] = this.customerType;
-    data['custName'] = this.custName;
-    data['custPhone'] = this.custPhone;
-    data['custAltPhone'] = this.custAltPhone;
-    data['custLocation'] = this.custLocation;
-    data['custContactPerson'] = this.custContactPerson;
-    data['custContPersContactNo'] = this.custContPersContactNo;
-    data['custContPersAltContNo'] = this.custContPersAltContNo;
-    data['custEmail'] = this.custEmail;
-    data['custBirthDate'] = this.custBirthDate;
-    data['custCountry'] = this.custCountry;
-    data['custStateCode'] = this.custStateCode;
-    data['custAddress'] = this.custAddress;
-    data['custPostal'] = this.custPostal;
-    data['typeOfCompany'] = this.typeOfCompany;
-    data['createdDate'] = this.createdDate;
-    data['createdBy'] = this.createdBy;
+    data['customerType'] = customerType;
+    data['custName'] = custName;
+    data['custPhone'] = custPhone;
+    data['custAltPhone'] = custAltPhone;
+    data['custLocation'] = custLocation;
+    data['custContactPerson'] = custContactPerson;
+    data['custContPersContactNo'] = custContPersContactNo;
+    data['custContPersAltContNo'] = custContPersAltContNo;
+    data['custEmail'] = custEmail;
+    data['custBirthDate'] = custBirthDate;
+    data['custCountry'] = custCountry;
+    data['custStateCode'] = custStateCode;
+    data['custAddress'] = custAddress;
+    data['custPostal'] = custPostal;
+    data['typeOfCompany'] = typeOfCompany;
+    data['createdDate'] = createdDate;
+    data['createdBy'] = createdBy;
     return data;
   }
 }
@@ -112,9 +112,9 @@ class Zone {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['zoneName'] = this.zoneName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['zoneName'] = zoneName;
     return data;
   }
 }

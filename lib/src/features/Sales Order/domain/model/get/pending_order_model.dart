@@ -7,15 +7,15 @@ class PendingOrdersModel {
     if (json['orders'] != null) {
       orders = <Orders>[];
       json['orders'].forEach((v) {
-        orders!.add(new Orders.fromJson(v));
+        orders!.add(Orders.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.orders != null) {
-      data['orders'] = this.orders!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (orders != null) {
+      data['orders'] = orders!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -41,7 +41,7 @@ class Orders {
 
   Orders.fromJson(Map<String, dynamic> json) {
     customerDetails = json['customerDetails'] != null
-        ? new CustomerDetails.fromJson(json['customerDetails'])
+        ? CustomerDetails.fromJson(json['customerDetails'])
         : null;
     orderId = json['orderId'];
     orderDate = json['orderDate'];
@@ -50,26 +50,26 @@ class Orders {
     if (json['productDetails'] != null) {
       productDetails = <ProductDetails>[];
       json['productDetails'].forEach((v) {
-        productDetails!.add(new ProductDetails.fromJson(v));
+        productDetails!.add(ProductDetails.fromJson(v));
       });
     }
     erporderId = json['erporderId'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.customerDetails != null) {
-      data['customerDetails'] = this.customerDetails!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (customerDetails != null) {
+      data['customerDetails'] = customerDetails!.toJson();
     }
-    data['orderId'] = this.orderId;
-    data['orderDate'] = this.orderDate;
-    data['orderCreator'] = this.orderCreator;
-    data['orderStatus'] = this.orderStatus;
-    if (this.productDetails != null) {
+    data['orderId'] = orderId;
+    data['orderDate'] = orderDate;
+    data['orderCreator'] = orderCreator;
+    data['orderStatus'] = orderStatus;
+    if (productDetails != null) {
       data['productDetails'] =
-          this.productDetails!.map((v) => v.toJson()).toList();
+          productDetails!.map((v) => v.toJson()).toList();
     }
-    data['erporderId'] = this.erporderId;
+    data['erporderId'] = erporderId;
     return data;
   }
 }
@@ -88,10 +88,10 @@ class CustomerDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['customerId'] = this.customerId;
-    data['custName'] = this.custName;
-    data['custPhone'] = this.custPhone;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['customerId'] = customerId;
+    data['custName'] = custName;
+    data['custPhone'] = custPhone;
     return data;
   }
 }
@@ -110,10 +110,10 @@ class ProductDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['productName'] = this.productName;
-    data['productId'] = this.productId;
-    data['division'] = this.division;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['productName'] = productName;
+    data['productId'] = productId;
+    data['division'] = division;
     return data;
   }
 }

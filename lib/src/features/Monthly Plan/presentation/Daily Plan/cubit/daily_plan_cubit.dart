@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
@@ -10,13 +8,11 @@ import 'package:intl/intl.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/common/widgets/loading/common_progress_dialog.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
-import 'package:srinivasa_crm_new/src/config/constants/app_keys.dart';
 import 'package:srinivasa_crm_new/src/core/extensions/date_extension.dart';
 
 import 'package:srinivasa_crm_new/src/core/model/api%20failed/api%20failed.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/monthly_plan_approxkilometer_field.dart';
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/post/monthly_plan_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/repo/monthly_plan_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/cubit/state/daily_plan_state.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/model/get/daily_plan_resposne_model.dart';
@@ -24,14 +20,10 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/model/post/delete_dailyplan_postmodel.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/model/post/update_dailyplan_postmodel.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Daily%20Plan/repo/daily_plan_repo.dart';
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/cubit/view_monthly_plan_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/screens/view_monthly_plan_screen.dart';
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/screens/view_months_screen.dart';
 
 import '../../../../Customer/domain/model/get/customer_model.dart';
 import '../../../domain/model/monthly_plan_date_field.dart';
-import '../../../domain/model/view_monthly_plan_model.dart';
-import '../../monthly_plan_dashboard_screen.dart';
 
 @injectable
 class DailyPlanCubit extends Cubit<DailyPlanState> {
@@ -139,12 +131,12 @@ emit(state.copyWith(customerList: sortedList));
           showDialog(
             barrierDismissible: false,
             context: context, builder: (c) => AlertDialog(
-            title: Text('Error'),
+            title: const Text('Error'),
             content: Text(ApiFailedModel.fromNetworkExceptions(l).message),
             actions: [
                TextButton(onPressed: () {
                 Navigator.pop(context);
-              }, child: Text('No')),
+              }, child: const Text('No')),
               TextButton(onPressed: () async {
                 Navigator.pop(context);
                 if(context.mounted) {
@@ -164,7 +156,7 @@ emit(state.copyWith(customerList: sortedList));
     });
 
                 }
-              }, child: Text('Yes')),
+              }, child: const Text('Yes')),
             ],
           ));
         }
@@ -297,11 +289,11 @@ Future<void> updateDailyPlan({
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Error'),
+          title: const Text('Error'),
           content: Text(apiFailedModel.message),
           actions: <Widget>[
             TextButton(
-              child: Text('OK'),
+              child: const Text('OK'),
               onPressed: ()  {
                 Navigator.of(context).pop();
                
@@ -326,17 +318,17 @@ Future<void> updateDailyPlan({
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: Text('Confirm'),
+                  title: const Text('Confirm'),
                   content: Text(dailyPlanResponseModel.message!),
                   actions: <Widget>[
                     TextButton(
-                      child: Text('No'),
+                      child: const Text('No'),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                     ),
                     TextButton(
-                      child: Text('Yes'),
+                      child: const Text('Yes'),
                       onPressed: () async {
                         ProgressDialogUtils.showProgressDialog();
                          UpdateDailyPlanPostModel newupdateDailyPlanPostModel = UpdateDailyPlanPostModel(
@@ -382,11 +374,11 @@ Future<void> updateDailyPlan({
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: Text('Success'),
+                  title: const Text('Success'),
                   content: Text(dailyPlanResponseModel.message!),
                   actions: <Widget>[
                     TextButton(
-                      child: Text('OK'),
+                      child: const Text('OK'),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +29,7 @@ class AlertRemoteDataSourceImpl implements AlertRemoteDataSource {
   @override
   Future<AlertCountModel> getAlertCounts() async {
         final results = await internetChecker.isConnected();
-        debugPrint(results.toString() + "printing bool vaue in alerts counts");
+        debugPrint("${results}printing bool vaue in alerts counts");
 
     try {
       final response = await dioClient.get(Endpoints.getAlertNotificationCount, headers: {});

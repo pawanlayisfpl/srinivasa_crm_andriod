@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/screens/widget/all_customer_loaded_widget.dart';
@@ -30,7 +29,7 @@ class _AllCustomerScreenState extends State<AllCustomerScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('All Customers'),
-        actions: [
+        actions: const [
           // IconButton(
           //   icon: const Icon(Icons.search),
           //   onPressed: () {

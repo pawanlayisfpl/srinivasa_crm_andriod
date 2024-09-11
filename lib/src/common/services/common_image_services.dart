@@ -201,16 +201,16 @@ class CommomImageServicesImpl implements CommonImageServices {
 @override
 Future<Either<Exception, List<ImageModel>>> pickMultipleUint8ListImageUsingImagePicker({required bool isFromCamera}) async {
   try {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
     List<XFile>? images;
 
     if (isFromCamera) {
-      final XFile? image = await _picker.pickImage(source: ImageSource.camera);
+      final XFile? image = await picker.pickImage(source: ImageSource.camera);
       if (image != null) {
         images = [image];
       }
     } else {
-      images = await _picker.pickMultiImage();
+      images = await picker.pickMultiImage();
     }
 
     if (images == null || images.isEmpty) {

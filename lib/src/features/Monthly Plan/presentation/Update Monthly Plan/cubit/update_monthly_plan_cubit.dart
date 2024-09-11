@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -416,12 +415,11 @@ class UpdateMonthlyPlanCubit extends Cubit<UpdateMonthlyPlanState> {
                       10.verticalSpace,
                       CommonTextWidget(
                           maxLines: 10,
-                          title: 'Customers already found for plan ' +
-                              updateDailyPlanPostLists
+                          title: 'Customers already found for plan ${updateDailyPlanPostLists
                                   .map((e) => DateFormat.MMMd()
                                       .format(e.createdDate)
                                       .toString())
-                                  .join(', ')),
+                                  .join(', ')}'),
                     ],
                   ),
                 ));

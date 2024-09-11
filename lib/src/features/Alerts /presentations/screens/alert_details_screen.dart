@@ -7,9 +7,9 @@ class AlertDetailsScreen extends StatelessWidget {
   final AlertModel alertModel;
 
   const AlertDetailsScreen({
-    Key? key,
+    super.key,
     required this.alertModel,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

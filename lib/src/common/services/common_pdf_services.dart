@@ -1,14 +1,4 @@
-import 'dart:developer';
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:path_provider/path_provider.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:printing/printing.dart';
-import 'package:uuid/uuid.dart';
 
 class CommonPdfServices {
 //   static Future<File?> savePdfToMobile({required pw.Widget pdfWidget}) async {

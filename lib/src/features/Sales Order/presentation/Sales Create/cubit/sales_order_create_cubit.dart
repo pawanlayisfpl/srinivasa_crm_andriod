@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +10,6 @@ import 'package:intl/intl.dart';
 import 'package:srinivasa_crm_new/src/common/fields/number_field.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
-import 'package:srinivasa_crm_new/src/core/extensions/date_extension.dart';
 import 'package:srinivasa_crm_new/src/core/model/api%20failed/api%20failed.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/data/repo/sales_repo.dart';
@@ -282,7 +280,7 @@ if (discountPerQtyValue <= minAllowedAmount) {
 
     double discountPercentage = ((totalGivenAmountValue - finaltotalAmountValue) / totalGivenAmountValue) * 100;
     debugPrint('discount percentage is ${discountPercentage.toString()}');
-    productDiscountPerPercentage.text = discountPercentage.toStringAsFixed(2) + " %";
+    productDiscountPerPercentage.text = "${discountPercentage.toStringAsFixed(2)} %";
 
     
  

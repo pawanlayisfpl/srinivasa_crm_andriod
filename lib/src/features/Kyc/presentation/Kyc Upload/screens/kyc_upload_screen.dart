@@ -11,9 +11,9 @@ class KycUploadScreen extends StatefulWidget {
     final CustomerKycModel? customerKycModel;
 
   const KycUploadScreen({
-    Key? key,
+    super.key,
      this.customerKycModel,
-  }) : super(key: key);
+  });
 
   @override
   State<KycUploadScreen> createState() => _KycUploadScreenState();
@@ -40,7 +40,7 @@ class _KycUploadScreenState extends State<KycUploadScreen> {
       child: Scaffold(
         appBar: AppBar(
           leading:    IconButton(
-            icon: Icon(Icons.close),
+            icon: const Icon(Icons.close),
             onPressed: () {
               Navigator.pop(context); // Closes the current screen
             },

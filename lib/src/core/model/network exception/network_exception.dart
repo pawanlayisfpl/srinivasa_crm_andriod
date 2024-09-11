@@ -1,5 +1,3 @@
-import 'dart:developer';
-import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +63,7 @@ if (error.response?.statusCode == 401) {
       final localStorge = locator.get<KeyValueStorage>();
       localStorge..sharedPreferences.clear();
       AppKeys.globalNavigatorKey.currentState!.pop(  );
-      AppKeys.globalNavigatorKey.currentState!.pushAndRemoveUntil(MaterialPageRoute(builder: (c) => LoginScreen()), (route) => true,);
+      AppKeys.globalNavigatorKey.currentState!.pushAndRemoveUntil(MaterialPageRoute(builder: (c) => const LoginScreen()), (route) => true,);
     },
     );
   } catch (e) {

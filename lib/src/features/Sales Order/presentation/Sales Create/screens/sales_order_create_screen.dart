@@ -26,7 +26,7 @@ class _SalesOrderCreateScrenState extends State<SalesOrderCreateScren> {
       appBar: AppBar(
         title: const Text('Sales Order Create'),
       ),
-      body: SafeArea(child: SalesOrderCreateBodyWidget(),),
+      body: const SafeArea(child: SalesOrderCreateBodyWidget(),),
     );
   }
 }

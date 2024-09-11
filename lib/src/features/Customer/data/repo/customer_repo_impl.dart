@@ -4,7 +4,6 @@ import 'package:injectable/injectable.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/zone_model.dart';
 
 import 'package:srinivasa_crm_new/src/core/model/network%20exception/network_exception.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/approved_customer_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/checkIn_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/checkout_response_model.dart';

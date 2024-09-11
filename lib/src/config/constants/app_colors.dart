@@ -12,7 +12,7 @@ class AppColors {
   static const Color orangeColor = Color.fromARGB(255, 193, 51, 12);
   static Color scaffoldBackgroundColor = Colors.white.withOpacity(0.9);
   static Color blackColor = Colors.black;
-  static Color errorColor = Color.fromARGB(255, 181, 33, 33);
+  static Color errorColor = const Color.fromARGB(255, 181, 33, 33);
   static Color secondaryTextClr = Colors.grey;
   static Color redColor = Colors.redAccent;
   // static Color textfieldBgColor = Color(0xffEBEDED);

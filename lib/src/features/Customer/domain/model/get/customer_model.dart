@@ -6,14 +6,14 @@ class Customermodel {
 
   Customermodel.fromJson(Map<String, dynamic> json) {
     customerName = json['customerName'];
-    farm = json['farm'] != null ? new Farm.fromJson(json['farm']) : null;
+    farm = json['farm'] != null ? Farm.fromJson(json['farm']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['customerName'] = this.customerName;
-    if (this.farm != null) {
-      data['farm'] = this.farm!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['customerName'] = customerName;
+    if (farm != null) {
+      data['farm'] = farm!.toJson();
     }
     return data;
   }
@@ -194,31 +194,31 @@ class Farm {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['farmName'] = this.farmName;
-    data['customerId'] = this.customerId;
-    data['farmId'] = this.farmId;
-    data['custLocation'] = this.custLocation;
-    data['custZone'] = this.custZone;
-    data['contactPerson'] = this.contactPerson;
-    data['contPersContactNo'] = this.contPersContactNo;
-    data['contPersAltContNo'] = this.contPersAltContNo;
-    data['custCountry'] = this.custCountry;
-    data['custStateCode'] = this.custStateCode;
-    data['custAddress'] = this.custAddress;
-    data['custPostal'] = this.custPostal;
-    data['createdDate'] = this.createdDate;
-    data['createdBy'] = this.createdBy;
-    data['custCity'] = this.custCity;
-    data['custCreditLimit'] = this.custCreditLimit;
-    data['custStatus'] = this.custStatus;
-    data['customerCode'] = this.customerCode;
-    data['LocationCode'] = this.locationCode;
-    data['isOrganization'] = this.isOrganization;
-    data['isIndividual'] = this.isIndividual;
-    data['checkInStatus'] = this.checkInStatus;
-    data['longitude'] = this.longitude;
-    data['latitude'] = this.latitude;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['farmName'] = farmName;
+    data['customerId'] = customerId;
+    data['farmId'] = farmId;
+    data['custLocation'] = custLocation;
+    data['custZone'] = custZone;
+    data['contactPerson'] = contactPerson;
+    data['contPersContactNo'] = contPersContactNo;
+    data['contPersAltContNo'] = contPersAltContNo;
+    data['custCountry'] = custCountry;
+    data['custStateCode'] = custStateCode;
+    data['custAddress'] = custAddress;
+    data['custPostal'] = custPostal;
+    data['createdDate'] = createdDate;
+    data['createdBy'] = createdBy;
+    data['custCity'] = custCity;
+    data['custCreditLimit'] = custCreditLimit;
+    data['custStatus'] = custStatus;
+    data['customerCode'] = customerCode;
+    data['LocationCode'] = locationCode;
+    data['isOrganization'] = isOrganization;
+    data['isIndividual'] = isIndividual;
+    data['checkInStatus'] = checkInStatus;
+    data['longitude'] = longitude;
+    data['latitude'] = latitude;
     return data;
   }
 }

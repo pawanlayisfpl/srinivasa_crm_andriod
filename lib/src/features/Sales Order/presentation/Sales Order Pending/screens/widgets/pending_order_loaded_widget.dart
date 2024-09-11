@@ -6,9 +6,6 @@ import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/pe
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Order%20Pending/cubit/pending_order_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Order%20Pending/cubit/state/pending_order_state.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Order%20Pending/screens/widgets/pending_order_card_widget.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Particular/cubit/sales_order_particular_cubit.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20View/cubit/state/sales_order_view_state.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20View/widget/sales_order_view_card_widget.dart';
 
 class PendingOrderLoadedWidget extends StatelessWidget {
   final PendingOrdersModel pendingOrderModel;

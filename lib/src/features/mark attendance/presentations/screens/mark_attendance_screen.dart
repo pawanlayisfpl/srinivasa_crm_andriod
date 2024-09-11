@@ -1,25 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:quickalert/quickalert.dart';
 
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
-import 'package:srinivasa_crm_new/src/config/locator/locator.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/screens/dashboard_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/login/presentation/screens/login_screen.dart';
-import 'package:srinivasa_crm_new/src/features/mark%20attendance/domain/domain.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_state.dart';
 
@@ -29,9 +24,9 @@ class MarkAttendanceScreen extends StatefulWidget {
     final bool? isCheckedInScreen;
 
   const MarkAttendanceScreen({
-    Key? key,
+    super.key,
     this.isCheckedInScreen,
-  }) : super(key: key);
+  });
 
   @override
   State<MarkAttendanceScreen> createState() => _MarkAttendanceScreenState();

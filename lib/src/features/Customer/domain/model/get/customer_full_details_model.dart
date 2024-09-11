@@ -60,7 +60,7 @@ class CustomerFullDetailsModel {
     empId = json['empId'];
     empName = json['empName'];
     customerCode = json['customerCode'];
-    zone = json['zone'] != null ? new Zone.fromJson(json['zone']) : null;
+    zone = json['zone'] != null ? Zone.fromJson(json['zone']) : null;
     customerType = json['customerType'];
     custName = json['custName'];
     custPhone = json['custPhone'];

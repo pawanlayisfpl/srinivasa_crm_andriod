@@ -12,7 +12,6 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checko
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/customer_create_post_model.dart';
 
 import '../../../../../shared/domain/model/zone_model.dart';
-import '../model/get/approved_customer_response_model.dart';
 import '../model/get/customer_model.dart';
 import '../model/get/customer_response_model.dart';
 import '../model/get/joint_employe_model.dart';

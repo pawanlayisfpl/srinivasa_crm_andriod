@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:srinivasa_crm_new/src/core/model/model.dart';
 
 import '../model/profile_model.dart';
 

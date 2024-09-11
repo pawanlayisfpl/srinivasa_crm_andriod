@@ -9,9 +9,9 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Month
 class MonthlyPlanPendingErrorWidget extends StatelessWidget {
   final ApiFailedModel apiFailedModel;
   const MonthlyPlanPendingErrorWidget({
-    Key? key,
+    super.key,
     required this.apiFailedModel,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

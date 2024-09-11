@@ -100,7 +100,7 @@ class _MonthlyPlanSearchScreenState extends State<MonthlyPlanSearchScreen> {
             ),
       ),
      
-      body:  SafeArea(child: MonthlyPlanSearchBodyWidget()),
+      body:  const SafeArea(child: MonthlyPlanSearchBodyWidget()),
     );
   }
 }

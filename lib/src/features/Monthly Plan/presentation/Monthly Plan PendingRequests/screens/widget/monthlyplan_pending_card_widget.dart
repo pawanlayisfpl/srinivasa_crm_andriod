@@ -17,9 +17,9 @@ import '../../../../../../common/common.dart';
 class MonthlyPlanPendingCardWidget extends StatelessWidget {
   final PendingMonthlyPlan model;
   const MonthlyPlanPendingCardWidget({
-    Key? key,
+    super.key,
     required this.model,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

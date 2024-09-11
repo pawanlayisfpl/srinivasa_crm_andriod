@@ -10,9 +10,9 @@ class MonthlyPlanDateTextFieldWidget extends StatelessWidget {
     final bool? isClickEnabled;
 
   const MonthlyPlanDateTextFieldWidget({
-    Key? key,
+    super.key,
     this.isClickEnabled,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -6,6 +6,6 @@ class AlertLoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomLoadingWidget();
+    return const CustomLoadingWidget();
   }
 }

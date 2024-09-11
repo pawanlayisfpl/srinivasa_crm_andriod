@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -114,10 +113,10 @@ class KycImageWidget extends StatelessWidget {
   final Uint8List bytes;
   final VoidCallback onTapFunction;
   const KycImageWidget({
-    Key? key,
+    super.key,
     required this.bytes,
     required this.onTapFunction,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -144,8 +143,8 @@ class KycImageWidget extends StatelessWidget {
           child: InkWell(
             onTap: onTapFunction,
             child: Container(
-              padding: EdgeInsets.all(6),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.all(6),
+              decoration: const BoxDecoration(
                 color: Colors.red,
                 shape: BoxShape.circle,
               ),

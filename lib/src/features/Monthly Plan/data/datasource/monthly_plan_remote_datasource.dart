@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -62,9 +61,9 @@ class MonthlyPlanRemoteDataSourceImpl implements MonthlyPlanRemoteDataSource {
     debugPrint('printing user id $userId');
     String id = userId ?? "";
     try {
-            final dummyUrl = 'http://192.168.1.45:8080/crmsfpl/se/monthly-plan?createdDate=${selectedDate}&userId=$id';
+            final dummyUrl = 'http://192.168.1.45:8080/crmsfpl/se/monthly-plan?createdDate=$selectedDate&userId=$id';
 
-      final url = Endpoints.getAllMonthlyPlans + selectedDate+"&userId=$id";
+      final url = "${Endpoints.getAllMonthlyPlans}$selectedDate&userId=$id";
     final response = await dioClient.get(dummyUrl,headers: {},);
       if(response.statusCode == 200) {
             logger.d('MONTHLY PLAN API SUCCESS');
@@ -89,7 +88,7 @@ class MonthlyPlanRemoteDataSourceImpl implements MonthlyPlanRemoteDataSource {
       if(e is DioException) {
       throw  NetworkExceptions.getException(e);
       }else {
-        throw NetworkExceptions.badRequest();
+        throw const NetworkExceptions.badRequest();
       }
      
       

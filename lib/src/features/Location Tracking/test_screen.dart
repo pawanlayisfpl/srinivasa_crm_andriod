@@ -25,7 +25,7 @@ class _TestScreenState extends State<TestScreen> {
             kycStatus: "PENDING"
           ),)));
 
-        }, child: Text('Test Screen')),
+        }, child: const Text('Test Screen')),
       ),
     );
   }
