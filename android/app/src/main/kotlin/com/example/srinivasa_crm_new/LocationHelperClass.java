@@ -81,17 +81,17 @@ public class LocationHelperClass {
                             if (location != null) {
                                 double latitude = location.getLatitude();
                                 double longitude = location.getLongitude();
-                                Log.d("latlng", "Last Location Latitude: " + latitude + ", Longitude: " + longitude);
+                                // Log.d("latlng", "Last Location Latitude: " + latitude + ", Longitude: " + longitude);
                                 // Implement API call here
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                     apiClass.callAPI(latitude, longitude);
                                 }
                             } else {
-                                Log.d("latlng", "Location is null from getLastLocation.");
+                                // Log.d("latlng", "Location is null from getLastLocation.");
                             }
                         })
                         .addOnFailureListener(e -> {
-                            Log.d("latlng", "Failed to get location: " + e.getMessage());
+                            // Log.d("latlng", "Failed to get location: " + e.getMessage());
                         });
             } else {
                 Log.d("latlng", "Location services are disabled.");
