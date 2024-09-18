@@ -91,7 +91,7 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
                     onDaySelected: (selectedDay, focusedDay)  async => await handleDaySelection(selectedDay, context),
                   ),
                   20.verticalSpace,
-                context.watch<CreateMonthlyPlanCubit>().state.isLoading == true  ? CustomLoadingWidget() :   CommonButton(title: 'Submit Plans',callback: () async {
+                context.watch<CreateMonthlyPlanCubit>().state.isLoading == true  ? const CustomLoadingWidget() :   CommonButton(title: 'Submit Plans',callback: () async {
                   int totalDailyPlanCount  = context.read<CreateMonthlyPlanCubit>().state.dailyPlanList.length;
                   int toatlCount = context.read<CreateMonthlyPlanCubit>().countDaysWithoutSundays(DateTime.now().year, DateTime.now().month +1);
                   int reamaingDays = toatlCount - totalDailyPlanCount;
@@ -327,7 +327,7 @@ customersInDailyPlan = uniqueCustomers.toList();
                                   Expanded(
                                     flex: 6,
                                     child: CommonTextWidget(
-                                      title: "${uniqueCustomers.map((e) => e.farm!.isIndividual  == true ? e.farm!.farmName : e.customerName).join(",\n")}",
+                                      title: uniqueCustomers.map((e) => e.farm!.isIndividual  == true ? e.farm!.farmName : e.customerName).join(",\n"),
                                       //  " ${dailyPlan.farmIds
                                       //         .map((e) => e)
                                       //         .join(",\n")}",
@@ -689,14 +689,14 @@ customersInDailyPlan = uniqueCustomers.toList();
                                                         fontSize: 16.0,
                                                       ),
                                                       children: <TextSpan>[
-                                                         TextSpan(
+                                                         const TextSpan(
                                                             text:
                                                                 'Customer already exists in the plan for '),
                                                         TextSpan(
                                                           text: 
-                                                          dailyPlanLists.map( (e) => "( "+ DateFormat(
+                                                          dailyPlanLists.map( (e) => "( ${DateFormat(
                                                                   'dd-MMMM-yyyy')
-                                                              .format(e.createdDate) + ")"
+                                                              .format(e.createdDate)})"
                                                           ).join(", "),
                                                           style:
                                                               const TextStyle(

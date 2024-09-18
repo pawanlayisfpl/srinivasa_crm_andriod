@@ -45,11 +45,11 @@ class _SalesOrderViewScreenState extends State<SalesOrderViewScreen> {
             unselectedLabelColor: Colors.black,
             labelColor: AppColors.primaryColor,
             labelStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.sp),
-            indicatorPadding: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+            indicatorPadding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
 
             // labelPadding: EdgeInsets.symmetric(horizontal: 20.w),
             
-            tabs: [
+            tabs: const [
           Tab(
             child: Text('All'),
           ),
@@ -64,7 +64,7 @@ class _SalesOrderViewScreenState extends State<SalesOrderViewScreen> {
         ),
         
         
-        body: SafeArea(child: SalesOrderViewBodyWidget(),),
+        body: const SafeArea(child: SalesOrderViewBodyWidget(),),
       ),
     );
   }

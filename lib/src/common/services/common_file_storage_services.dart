@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -15,15 +14,15 @@ class CommonFileStorageServcies {
       // If not we will ask for permission first
       await Permission.storage.request();
     }
-    Directory _directory = Directory("");
+    Directory directory = Directory("");
     if (Platform.isAndroid) {
       // Redirects it to download folder in android
-      _directory = Directory("/storage/emulated/0/Download");
+      directory = Directory("/storage/emulated/0/Download");
     } else {
-      _directory = await getApplicationDocumentsDirectory();
+      directory = await getApplicationDocumentsDirectory();
     }
 
-    final exPath = _directory.path;
+    final exPath = directory.path;
     print("Saved Path: $exPath");
     await Directory(exPath).create(recursive: true);
     return exPath;

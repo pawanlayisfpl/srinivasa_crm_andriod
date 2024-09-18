@@ -8,9 +8,9 @@ import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%
 class PendingOrderErrorWidget extends StatelessWidget {
   final String message;
   const PendingOrderErrorWidget({
-    Key? key,
+    super.key,
     required this.message,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

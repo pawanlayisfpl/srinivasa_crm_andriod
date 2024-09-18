@@ -51,7 +51,7 @@ class CustomHeadingTextWidget extends StatelessWidget {
             child: Container(
               height: 1, // This is your underline thickness
               color: textColor ?? Colors.black,
-              margin: EdgeInsets.only(top: 10), // This is your gap
+              margin: const EdgeInsets.only(top: 10), // This is your gap
             ),
           ),
       ],

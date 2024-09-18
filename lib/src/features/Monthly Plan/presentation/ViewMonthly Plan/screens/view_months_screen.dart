@@ -18,10 +18,10 @@ class ViewMonthsScreen extends StatefulWidget {
   final String? id;
   final int? monthlyPlanId;
   const ViewMonthsScreen({
-    Key? key,
+    super.key,
     this.id,
     this.monthlyPlanId,
-  }) : super(key: key);
+  });
 
   @override
   State<ViewMonthsScreen> createState() => _ViewMonthsScreenState();

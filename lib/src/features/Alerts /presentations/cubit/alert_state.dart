@@ -21,7 +21,7 @@ class AlertState with _$AlertState {
   }) = _AlertState;
 
   // factory AlertState.initial() => const AlertState();
-  factory AlertState.initial() => AlertState(
+  factory AlertState.initial() => const AlertState(
     alertsList: [],
     isLoading: false,
     apiFailedModel: null,

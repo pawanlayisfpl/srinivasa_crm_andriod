@@ -64,7 +64,7 @@ class CheckinEmployeDropdownWidget extends StatelessWidget {
 
                     items:  state.employeList.isEmpty ? [] : state.employeList.map((e) =>e).toList(),
 
-                  itemAsString: (item) => item.userName+" (${item.designation.map((e) => e.toString()+")").join(' , ')}",
+                  itemAsString: (item) => "${item.userName} (${item.designation.map((e) => "$e)").join(' , ')}",
               
 
                     // itemAsString: (item) => item.userName != null && item.designation == null ? item.userName.toString() :  item.userName != null && item.designation != null ? "${item.userName  }-(${(item.designation)})" :   "No name found"  ,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart';
@@ -13,7 +12,7 @@ class CCFaxNumberField extends StatelessWidget {
     return BlocBuilder<CustomerCreateCubit, CustomerCreateState>(
       builder: (context, state) {
         return CommonTextfield(
-          inputFormatters: [
+          inputFormatters: const [
             // FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
             // LengthLimitingTextInputFormatter(10)
           ],

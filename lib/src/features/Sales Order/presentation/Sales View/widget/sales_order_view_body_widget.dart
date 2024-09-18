@@ -18,7 +18,7 @@ class SalesOrderViewBodyWidget extends StatelessWidget {
       builder: (context, state) {
         return state.isLoading ? const SearchCustomerLoadingWidget() : state.viewSalesOrderModel.orders != null && state.viewSalesOrderModel.orders!.isEmpty ? EmptyWidget(title: "No orders found", callback: () async {
           context.read<SalesOrderViewCubit>().getSalesOrder();
-        }) :  TabBarView(
+        }) :  const TabBarView(
            
           children: [
           SalesOrderViewListWidget(),

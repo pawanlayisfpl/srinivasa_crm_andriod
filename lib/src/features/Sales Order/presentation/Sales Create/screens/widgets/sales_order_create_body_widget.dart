@@ -6,11 +6,9 @@ import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/common/widgets/text/common_textfield_heading_widget.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
-import 'package:srinivasa_crm_new/src/config/constants/app_colors.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/post/product_pending_form_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/state/sales_order_create_state.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/sales_pending_payment_form_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/sales_product_form_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/custom_expansion_tile_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_amount_paid_textfield.dart';
@@ -19,9 +17,7 @@ import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_balance_amount_due_date_field.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_balance_amount_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_customerCode_textfield_widget.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_discount_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_order_amount_textfield.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_order_gst_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_order_remarks_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_payment_mode_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_product_list_view_widget.dart';
@@ -76,7 +72,7 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
             CustomExpansionTileWidget(heading: 'Customer Details', childrens: [
               // 20.verticalSpace,
               const CommonTextFieldHeadingWidget(title: "Customer",isRequired: true,),
-             context.watch<SalesOrderCreateCubit>().state.isCustomerLoading ? DropdownLoadingWidget() : const SocCustomerDropDownWidget(),
+             context.watch<SalesOrderCreateCubit>().state.isCustomerLoading ? const DropdownLoadingWidget() : const SocCustomerDropDownWidget(),
               20.verticalSpace,
             ]),
             20.verticalSpace,
@@ -113,7 +109,7 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
               const CustomHeadingTextWidget(title: 'Order Amount '),
               const SocOrderAmountTextField(),
               20.verticalSpace,
-              CommonTextFieldHeadingWidget(title: 'Amount Paid',isRequired: true,),
+              const CommonTextFieldHeadingWidget(title: 'Amount Paid',isRequired: true,),
               const SocAmountPaidController(),
               20.verticalSpace,
               const CustomHeadingTextWidget(title: 'Balance Amount(optional)'),
@@ -170,7 +166,7 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   CommonTextWidget(
-                                    title: (i + 1).toString() + ". ",
+                                    title: "${i + 1}. ",
                                     fontWeight: FontWeight.w500,
                                   ),
                                   10.horizontalSpace,
@@ -183,7 +179,7 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
                                       children: [
                                         Row(
                                           children: [
-                                            Expanded(
+                                            const Expanded(
                                               flex: 5,
                                               child: CommonTextWidget(
                                                 title: "Date :",
@@ -205,7 +201,7 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
                                         5.verticalSpace,
                                         Row(
                                           children: [
-                                            Expanded(
+                                            const Expanded(
                                                 flex: 5,
                                                 child: CommonTextWidget(
                                                   title: "Amount :",
@@ -249,7 +245,7 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
                                   ),
                                   Center(
                                     child: IconButton(
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.delete,
                                         color: Colors.black,
                                       ),

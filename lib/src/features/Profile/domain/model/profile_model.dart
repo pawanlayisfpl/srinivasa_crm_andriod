@@ -147,7 +147,7 @@ class Authorities {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['roleId'] = roleId;
     data['authority'] = authority;
     return data;
@@ -166,7 +166,7 @@ class Zones {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['zoneName'] = zoneName;
     return data;
@@ -187,7 +187,7 @@ class Currency {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['currencyId'] = currencyId;
     data['currencyName'] = currencyName;
     return data;
@@ -206,7 +206,7 @@ class TimeZone {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['timeZoneId'] = timeZoneId;
     data['timeZoneName'] = timeZoneName;
     return data;

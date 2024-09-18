@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_state.dart';
-import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/screens/widget/alert_error_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/screens/widget/alert_loaded_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/screens/widget/alert_loading_widget.dart';
 

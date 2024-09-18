@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:srinivasa_crm_new/src/common/widgets/widgets.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
@@ -11,10 +10,8 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/customer_d
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/dashboard_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/screens/kyc_pending_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/monthly_plan_dashboard_screen.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/data/repo/sales_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/sales_dashboard_screen.dart';
 import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/screens/user_activity_screen.dart';
-import 'package:workmanager/workmanager.dart';
 
 import '../../../../config/animations/routes/all_animate_routes.dart';
 import '../../../../config/config.dart';
@@ -167,7 +164,7 @@ class DashboardBodyWidget extends StatelessWidget {
       Navigator.push(context, SlideRightRoute(screen: const KycPendingScreen()));
 
       case 5:
-          Navigator.push(context, SlideRightRoute(screen: SalesOrderDashboardScreen()));
+          Navigator.push(context, SlideRightRoute(screen: const SalesOrderDashboardScreen()));
 
     //  await   Workmanager().registerOneOffTask("2","background" );
     // await Workmanager().registerPeriodicTask("backgroun", 'background',constraints: Constraints(networkType: NetworkType.connected,requiresBatteryNotLow: false,requiresDeviceIdle: false,requiresStorageNotLow: false,requiresCharging: false),frequency: const Duration(minutes: 15));
@@ -175,7 +172,7 @@ class DashboardBodyWidget extends StatelessWidget {
     //         Fluttertoast.showToast(msg: 'Backend api not available');
 
       case 6:
-      Navigator.push(context, ScaleRoute(screen: UserActivityScreen()));
+      Navigator.push(context, ScaleRoute(screen: const UserActivityScreen()));
 
      
 

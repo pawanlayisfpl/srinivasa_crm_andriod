@@ -10,9 +10,9 @@ class ZoneModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['zoneId'] = this.zoneId;
-    data['zoneName'] = this.zoneName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['zoneId'] = zoneId;
+    data['zoneName'] = zoneName;
     return data;
   }
 }

@@ -14,10 +14,10 @@ class MonthlyPlanCardWidget extends StatelessWidget {
   final ViewMonthlyPlanModel monthlyPlanModel;
   final ViewDailyPlanModel model;
   const MonthlyPlanCardWidget({
-    Key? key,
+    super.key,
     required this.monthlyPlanModel,
     required this.model,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -95,9 +95,9 @@ class MonthlyPlanCardWidget extends StatelessWidget {
                   child: Container(
                     alignment: Alignment.center,
                     width: double.infinity,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color:  AppColors.primaryColor,
-                      borderRadius: const BorderRadius.only(
+                      borderRadius: BorderRadius.only(
                         topRight: Radius.circular(10),
                         bottomRight: Radius.circular(10),
                       ),
@@ -140,11 +140,11 @@ class MonthlyPlanRowWidget extends StatelessWidget {
   final String value;
   final bool? isStatusField;
   const MonthlyPlanRowWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.value,
     this.isStatusField,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +154,7 @@ class MonthlyPlanRowWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CommonTextWidget(
-            title: title + " : ",
+            title: "$title : ",
             textSize: 14.sp,
             textColor: Colors.black.withOpacity(0.5),
             fontWeight: FontWeight.w600,

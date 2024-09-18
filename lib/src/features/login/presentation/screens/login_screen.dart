@@ -45,6 +45,6 @@ appBar: AppBar(
   centerTitle: true,
 ),
       
-      body: SafeArea(child: LoginBodyWidget()));
+      body: const SafeArea(child: LoginBodyWidget()));
   }
 }

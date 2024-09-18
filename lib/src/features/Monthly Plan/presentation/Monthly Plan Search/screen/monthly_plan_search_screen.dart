@@ -18,6 +18,16 @@ class MonthlyPlanSearchScreen extends StatefulWidget {
 }
 
 class _MonthlyPlanSearchScreenState extends State<MonthlyPlanSearchScreen> {
+
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((t) {
+      context.read<MonthlyPlanSearchCubit>().searchEmploye(searchKey: " ");
+    });
+    
+  }
     Timer? _debounce;
 
     @override
@@ -90,7 +100,7 @@ class _MonthlyPlanSearchScreenState extends State<MonthlyPlanSearchScreen> {
             ),
       ),
      
-      body:  SafeArea(child: MonthlyPlanSearchBodyWidget()),
+      body:  const SafeArea(child: MonthlyPlanSearchBodyWidget()),
     );
   }
 }

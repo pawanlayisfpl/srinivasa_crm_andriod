@@ -1,8 +1,6 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Search/presentation/screens/widgets/search_customer_loading_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/screens/widget/kyc_pending_approve_list_widget.dart';
@@ -13,7 +11,7 @@ import '../../cubit/kyc_cubit.dart'; // Import your KycCubit
 import '../../cubit/state/kyc_state.dart';
 
 class KycPendingBodyWidget extends StatelessWidget {
-  const KycPendingBodyWidget({Key? key}) : super(key: key);
+  const KycPendingBodyWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

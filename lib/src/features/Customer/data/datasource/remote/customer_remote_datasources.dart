@@ -23,7 +23,7 @@ import '../../../database/customer_database.dart';
 import '../../../domain/model/get/checkIn_response_model.dart';
 import '../../../domain/model/get/checkout_response_model.dart';
 import '../../../domain/model/get/customer_created_response_model.dart';
-import '../../../domain/model/get/customer_model.dart';
+import '../../../domain/model/get/customer_model.dart'; 
 import '../../../domain/model/get/customer_response_model.dart';
 import '../../../domain/model/get/last_checkin_out_respone_model.dart';
 
@@ -259,7 +259,7 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
     final results = await connectionChecker.hasInternet();
     final database = CustomerDataBaseHelper();
 // TODO: REMOVE ! FROM RESULTS
-    if (results) {
+    if (!results) {
       // Corrected the condition to check for internet availability
       try {
         logger.d('INTERNET AVAILABLE, MAKING API CALL');
@@ -269,6 +269,7 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
         );
 
         if (response.statusCode == 200) {
+          await database.deleteAllCustomerResponses();
           logger.d('API CALL SUCCESSFUL, PROCESSING RESPONSE');
           CustomerResponseModel customerResponseModel =
               CustomerResponseModel.fromJson(response.data);
@@ -309,7 +310,7 @@ Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails(
   final checkoutDatabase = CheckoutPostDatabase();
 
   logger.d('Checking internet connection...');
-  if (!results) {
+  if (results) {
     // INTERNET AVAILABLE
     logger.d('Internet available, fetching data from server...');
     try {

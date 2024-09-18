@@ -87,7 +87,7 @@ final InternetChecker internetChecker;
 
     }on DioException catch(e) {
       throw NetworkExceptions.getDioException(e);
-    }on SocketException  {
+    }on SocketException catch(e) {
       throw const NetworkExceptions.noInternetConnection();
     }
 

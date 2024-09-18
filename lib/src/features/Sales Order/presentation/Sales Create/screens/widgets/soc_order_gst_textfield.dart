@@ -5,6 +5,6 @@ class SocOrderGstNumberTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("order gst number field"),);
+    return const Center(child: Text("order gst number field"),);
   }
 }

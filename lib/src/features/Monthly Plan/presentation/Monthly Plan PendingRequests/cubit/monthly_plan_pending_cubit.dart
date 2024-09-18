@@ -30,8 +30,4 @@ class MonthlyPlanPendingCubit extends Cubit<MonthlyPlanPendingRequestState> {
    
   }
 
-  @override
-  Future<void> close() {
-    return super.close();
-  }
 }

@@ -14,7 +14,6 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%2
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_approved_customer_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_assigned_to_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_city_dropdown_widget.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_city_textfield_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_contact_person_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_countires_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/widget/cc_credit_limit_textfield.dart';
@@ -188,7 +187,7 @@ class CustomerCreateBodyWidget extends StatelessWidget {
 
             const CCFarmCapacityTextField(),
              20.verticalSpace,
-             CommonTextFieldHeadingWidget(title: "Farm Name",isRequired: true,),
+             const CommonTextFieldHeadingWidget(title: "Farm Name",isRequired: true,),
              const CCFarmNameTextFieldWidget(),
 
                 // context.watch<CustomerCreateCubit>().state.isBusinessPartner == true ? const SizedBox.shrink() :     20.verticalSpace,

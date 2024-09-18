@@ -17,7 +17,7 @@ class CommonTextFieldHeadingWidget extends StatelessWidget {
   final bool? isRequired;
 
   const CommonTextFieldHeadingWidget({
-    Key? key,
+    super.key,
     required this.title,
     this.textColor,
     this.textSize,
@@ -28,7 +28,7 @@ class CommonTextFieldHeadingWidget extends StatelessWidget {
     this.textDecoration,
     this.align,
     this.isRequired,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class CommonTextFieldHeadingWidget extends StatelessWidget {
             child: Container(
               height: 1, // This is your underline thickness
               color: textColor ?? Colors.black,
-              margin: EdgeInsets.only(top: 10), // This is your gap
+              margin: const EdgeInsets.only(top: 10), // This is your gap
             ),
           ),
       ],

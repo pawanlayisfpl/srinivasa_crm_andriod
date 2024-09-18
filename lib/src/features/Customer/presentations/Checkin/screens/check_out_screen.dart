@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -541,23 +540,23 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 context.read<CheckinCubit>().pickFromCameraLogic();
                 
               },
-              title: CommonTextWidget(title: 'Camera'),
+              title: const CommonTextWidget(title: 'Camera'),
               leading: const Icon(Icons.camera_alt),
             ),
-            Divider(),
-            ListTile(
-              onTap: () {
-                Navigator.pop(context);
-                // context.read<CheckinCubit>().pickSingleImageFromGallery();
-                context.read<CheckinCubit>().pickAllImages();
-              },
-              title: CommonTextWidget(title: 'Gallery'),
-              leading: const Icon(Icons.image),
-            ),
-            Divider(),
-              TextButton(onPressed: () {
-              Navigator.pop(context);
-            }, child: Text("Close"),)
+            const Divider(),
+            // ListTile(
+            //   onTap: () {
+            //     Navigator.pop(context);
+            //     // context.read<CheckinCubit>().pickSingleImageFromGallery();
+            //     context.read<CheckinCubit>().pickAllImages();
+            //   },
+            //   title: CommonTextWidget(title: 'Gallery'),
+            //   leading: const Icon(Icons.image),
+            // ),
+            // Divider(),
+            //   TextButton(onPressed: () {
+            //   Navigator.pop(context);
+            // }, child: Text("Close"),)
           ],
         ),      
       ));

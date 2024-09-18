@@ -1,18 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:quickalert/quickalert.dart';
 
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
-import 'package:srinivasa_crm_new/src/core/model/model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_cubit.dart';
@@ -90,7 +87,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
               ListTile(
                 dense: false,
                 contentPadding: EdgeInsets.zero,
-                leading:  Icon(Icons.person),
+                leading:  const Icon(Icons.person),
                 title: Text(widget.customermodel.farm!.isIndividual == true ?  widget.customermodel.farm!.farmName.toString() : widget.customermodel.customerName ?? 'N/A', maxLines: 1),
               ),
               const Divider(),
@@ -109,7 +106,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
               ),
               20.verticalSpace,
               context.watch<CheckinCubit>().state.isLoading
-                  ? CustomLoadingWidget()
+                  ? const CustomLoadingWidget()
                   : CommonButton(
                       callback: () async {
                 // Assuming lastCheckinTime is in a valid DateTime format, e.g., ISO 8601

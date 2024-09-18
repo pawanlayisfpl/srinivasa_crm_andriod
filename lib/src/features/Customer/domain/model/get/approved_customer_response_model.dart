@@ -12,10 +12,10 @@ class ApprovedCustomerModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['custName'] = this.custName;
-    data['customerCode'] = this.customerCode;
-    data['custLocation'] = this.custLocation;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['custName'] = custName;
+    data['customerCode'] = customerCode;
+    data['custLocation'] = custLocation;
     return data;
   }
 }

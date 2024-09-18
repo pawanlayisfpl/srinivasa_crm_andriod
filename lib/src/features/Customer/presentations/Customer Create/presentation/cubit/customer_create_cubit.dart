@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +17,6 @@ import 'package:srinivasa_crm_new/shared/domain/repo/Divisions/divison_repo.dart
 import 'package:srinivasa_crm_new/shared/domain/repo/Primary%20Source/primary_source_repo.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Zone/zone_repo.dart';
 import 'package:srinivasa_crm_new/src/common/fields/string_field.dart';
-import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_address_field.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/customer_create_addresslinetwo_field.dart';
@@ -32,10 +30,8 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/field/custo
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/customer_create_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/product_model.dart';
 
 import '../../../../../../../shared/domain/model/City/city_model.dart';
-import '../../../../../../../shared/domain/model/Employe/employe_model.dart';
 import '../../../../../../../shared/shared.dart';
 import '../../../../../../common/fields/number_field.dart';
 import '../../../../domain/model/field/customer_create_addation_phone_field.dart';
@@ -547,6 +543,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
                 customerCode: '',
                 farmCapacity: double.tryParse(farmCapacity.toString()) ?? 0.0,
                 faxNo: faxNumber.toString(),
+                farmName: farmName,
                 isIndividual: false);
         final results = await customerRepo.createCustomer(
             customerCreatePostModel: customerCreatePostModel);

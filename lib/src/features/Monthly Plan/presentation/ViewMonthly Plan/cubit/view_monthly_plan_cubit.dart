@@ -23,7 +23,7 @@ class ViewMonthlyPlanCubit extends Cubit<ViewMonthlyPlanState> {
   ) : super(ViewMonthlyPlanState.initial());
 
 
-  TextEditingController _rejectReasonController = TextEditingController();
+  final TextEditingController _rejectReasonController = TextEditingController();
   TextEditingController get rejectReasonController => _rejectReasonController;
 
 

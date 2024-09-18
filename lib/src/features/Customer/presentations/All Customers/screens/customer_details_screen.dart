@@ -1,11 +1,12 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_state.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_state.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/screens/check_out_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/screens/checkin_screen.dart';
@@ -16,11 +17,12 @@ import '../../Checkin/cubit/checkin_cubit.dart';
 
 class CustomerDetailsScreen extends StatefulWidget {
   final Customermodel? customermodel;
+  
 
-  CustomerDetailsScreen({
-    Key? key,
+  const CustomerDetailsScreen({
+    super.key,
     this.customermodel,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomerDetailsScreen> createState() => _CustomerDetailsScreenState();
@@ -29,6 +31,7 @@ class CustomerDetailsScreen extends StatefulWidget {
 class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
   @override
   void initState() {
+    log(widget.customermodel!.toJson().toString());
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       if (widget.customermodel != null) {
         // todo: call last checkin checkout api here
@@ -45,7 +48,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Customer Details'),
-        actions: [],
+        actions: const [],
       ),
       body: widget.customermodel == null
           ? const Center(
@@ -132,9 +135,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                               data: widget.customermodel?.farm!.customerCode ?? 'N/A',  
                             ),
                             const CustomerDetailsDividerWidget(),
-
-                           if (widget.customermodel?.farm?.isOrganization == true) ...[
-      10.verticalSpace,
+                              10.verticalSpace,
       const CustomerDetailsHeadingWidget(
         title: 'Location Code',
       ),
@@ -142,7 +143,17 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
         data: widget.customermodel?.farm?.locationCode ?? 'N/A',
       ),
       const CustomerDetailsDividerWidget(),
-    ],
+
+    //                        if (widget.customermodel?.farm?.isOrganization == true) ...[
+    //   10.verticalSpace,
+    //   const CustomerDetailsHeadingWidget(
+    //     title: 'Location Code',
+    //   ),
+    //   CustomerDetailsTextWidget(
+    //     data: widget.customermodel?.farm?.locationCode ?? 'N/A',
+    //   ),
+    //   const CustomerDetailsDividerWidget(),
+    // ],
                               10.verticalSpace,
                                 const CustomerDetailsHeadingWidget(
                               title: 'Customer Name',
@@ -207,6 +218,8 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                             10.verticalSpace,
                               const CustomerDetailsHeadingWidget(title: 'Address'),
                             CustomerDetailsTextWidget(
+                              maxline: 10,
+                              
                               data: widget.customermodel!.farm!.custAddress,
                             ),
                            
@@ -289,10 +302,10 @@ class CustomerDetailsTextWidget extends StatelessWidget {
   final String? data;
   final int? maxline;
   const CustomerDetailsTextWidget({
-    Key? key,
+    super.key,
     this.data,
     this.maxline,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

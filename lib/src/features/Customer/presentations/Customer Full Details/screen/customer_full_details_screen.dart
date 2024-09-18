@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,7 +73,7 @@ List<TableRow> buildRows(Map<String, String> mapping, CustomerFullDetailsModel c
     var value = customerJson.containsKey(actualKey) && customerJson[actualKey] != null ? customerJson[actualKey] : 'N/A';
     if (actualKey == 'zone' && value != 'N/A') {
       // Ensure value is not null before attempting to cast and access 'zoneName'
-      value = value != null && (value as Map)['zoneName'] != null ? (value as Map)['zoneName'] : 'N/A';
+      value = value != null && (value as Map)['zoneName'] != null ? (value)['zoneName'] : 'N/A';
     }
     return TableRow(
       children: [

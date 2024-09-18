@@ -1,9 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_model.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/assigned_to_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_code_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/state/customer_create_state.dart';
@@ -31,7 +29,7 @@ class CCApprovedCustomerDropdownWidget extends StatelessWidget {
                   
                   
                 ),
-    itemAsString: (item) => item.customerName.toString() + "\n"+ "("+ item.customerLocation.toString()+")"+ "\n"+ "("+item.customerCode.toString()+")",
+    itemAsString: (item) => "${item.customerName}\n(${item.customerLocation})\n(${item.customerCode})",
                 popupProps: const PopupPropsMultiSelection.modalBottomSheet(
                   
 

@@ -8,11 +8,6 @@ import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/pending_payment_amount_controller.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/pending_payment_amount_percentage_controller.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/pending_payment_duedate_textfield.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_amount_paid_textfield.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_balance_amount_textfield.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_customerCode_textfield_widget.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_product_details_dropdown_widget.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_uom_dropdown.dart';
 
 
 class SalesPendingPaymentForm extends StatefulWidget {
@@ -30,6 +25,7 @@ class _SalesPendingPaymentFormState extends State<SalesPendingPaymentForm> {
     super.initState();
     context.read<SalesOrderCreateCubit>().getTotalPendingAmountValue();
   }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -59,17 +55,17 @@ class _SalesPendingPaymentFormState extends State<SalesPendingPaymentForm> {
 //             ]
 //           )),
           20.verticalSpace,
-          CustomHeadingTextWidget(title: 'Due Date'),
+          const CustomHeadingTextWidget(title: 'Due Date'),
            2.verticalSpace,
-           PendingPaymentDueDateTextField(),
+           const PendingPaymentDueDateTextField(),
          20.verticalSpace,
-          CustomHeadingTextWidget(title: 'Due Amount'),
+          const CustomHeadingTextWidget(title: 'Due Amount'),
            2.verticalSpace,
-           PendingPaymentAmountTextfield(),
+           const PendingPaymentAmountTextfield(),
           20.verticalSpace,
-           CustomHeadingTextWidget(title: 'Due Amount Percentage'),
+           const CustomHeadingTextWidget(title: 'Due Amount Percentage'),
            2.verticalSpace,
-           PendingPaymentDuePercentageTextField(),
+           const PendingPaymentDuePercentageTextField(),
           20.verticalSpace,
          
           CommonButton(callback: () {

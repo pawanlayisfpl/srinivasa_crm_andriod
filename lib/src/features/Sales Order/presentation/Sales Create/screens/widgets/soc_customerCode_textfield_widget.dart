@@ -1,16 +1,10 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:srinivasa_crm_new/shared/domain/model/Country/country_model.dart';
-import 'package:srinivasa_crm_new/shared/shared.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_code_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/state/customer_create_state.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/sales_order_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/state/sales_order_create_state.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/sales_order_create_screen.dart';
 
 
 
@@ -38,7 +32,7 @@ class SocCustomerDropDownWidget extends StatelessWidget {
                     
                     
                   ),
-              itemAsString: (item) =>  item.farm!.isIndividual == true ? item.farm!.farmName.toString()+" \n(${item.customerName})" : item.customerName.toString()+"\n(Organization)",
+              itemAsString: (item) =>  item.farm!.isIndividual == true ? "${item.farm!.farmName} \n(${item.customerName})" : "${item.customerName}\n(Organization)",
                   popupProps: const PopupPropsMultiSelection.modalBottomSheet(
                     
           

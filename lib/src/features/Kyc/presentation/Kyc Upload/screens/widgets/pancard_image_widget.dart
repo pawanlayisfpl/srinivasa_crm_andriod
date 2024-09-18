@@ -13,9 +13,9 @@ class PancardImageWidget extends StatelessWidget {
       future: _loadImage(context),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          return Center(child: Text('Error loading image'));
+          return const Center(child: Text('Error loading image'));
         } else {
           return Image.memory(snapshot.data!, fit: BoxFit.cover);
         }
@@ -24,7 +24,7 @@ class PancardImageWidget extends StatelessWidget {
   }
   Future<Uint8List> _loadImage(BuildContext context) async {
     // Simulate a delay for loading the image
-    await Future.delayed(Duration(milliseconds: 800));
+    await Future.delayed(const Duration(milliseconds: 800));
     return context.read<KycUploadCubit>().state.gstFile!.imageByes;
   }
 }

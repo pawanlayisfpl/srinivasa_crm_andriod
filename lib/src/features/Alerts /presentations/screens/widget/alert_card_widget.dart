@@ -1,5 +1,4 @@
 
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,9 +23,9 @@ import '../../cubit/alert_cubit.dart';
 class AlertCardWidget extends StatelessWidget {
  final AlertModel alertModel;
   const AlertCardWidget({
-    Key? key,
+    super.key,
     required this.alertModel,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +149,7 @@ class AlertCardWidget extends StatelessWidget {
                     CommonTextWidget(title: alertModel.message ?? "No message found", maxLines: 3,fontWeight: FontWeight.w500,),
                   ],
                 ),
-                subtitle: Text(alertModel.createdDate == null ? "No date found" : "Created on " + DateFormat('dd/MM/yyyy').format(DateTime.parse(alertModel.createdDate.toString())),style: TextStyle(color: Colors.grey.shade600,fontWeight: FontWeight.w400),),
+                subtitle: Text(alertModel.createdDate == null ? "No date found" : "Created on ${DateFormat('dd/MM/yyyy').format(DateTime.parse(alertModel.createdDate.toString()))}",style: TextStyle(color: Colors.grey.shade600,fontWeight: FontWeight.w400),),
                 trailing: alertModel.read != null && alertModel.read == false ? SizedBox(
                   height: 10,
                   width: 10,

@@ -14,12 +14,12 @@ class CommonButton extends StatelessWidget {
   final bool? isApproveButton;
   final String title;
   const CommonButton({
-    Key? key,
+    super.key,
     required this.callback,
     this.isRejectButton,
     this.isApproveButton,
     required this.title,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

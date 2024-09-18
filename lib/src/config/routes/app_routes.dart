@@ -90,7 +90,7 @@ class RouteGenerator {
             case Routes.customer:
         return MaterialPageRoute(builder: (_) =>  const AllCustomerScreen());
             case Routes.customerDetails:
-        return MaterialPageRoute(builder: (_) =>   CustomerDetailsScreen());
+        return MaterialPageRoute(builder: (_) =>   const CustomerDetailsScreen());
             case Routes.customerSearchScreen:
         return MaterialPageRoute(builder: (_) =>   const CustomerSearchScreen());
         // MONTHLY PLAN

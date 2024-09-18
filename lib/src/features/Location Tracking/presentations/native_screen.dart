@@ -6,6 +6,8 @@ import 'package:permission_handler/permission_handler.dart';
 class NativeScreen extends StatelessWidget {
   static const platform = MethodChannel('com.example.srinivasa_crm_new');
 
+  const NativeScreen({super.key});
+
   // void startService() async {
    
   //   try {

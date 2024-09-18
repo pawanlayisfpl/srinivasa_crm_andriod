@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quickalert/quickalert.dart';
 
 import 'package:srinivasa_crm_new/src/common/common.dart';
@@ -15,7 +14,6 @@ import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/last_checkin_out_respone_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/screens/check_out_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/screens/checkin_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/view_monthly_plan_model.dart';
@@ -34,11 +32,11 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
   final int monthlyPlanId;
   final String approvalStatus;
   const ViewMonthlyPlanFullDetailsScreen({
-    Key? key,
+    super.key,
     this.viewDailyPlanModel,
     required this.monthlyPlanId,
     required this.approvalStatus,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -115,9 +113,9 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
                         ),
                         20.verticalSpace,
                         // DateField
-                        IgnorePointer(
+                        const IgnorePointer(
                           ignoring: true,
-                          child: const DaiilyPlanDateTextField()),
+                          child: DaiilyPlanDateTextField()),
                         20.verticalSpace,
                         const DailyPlanKilometerTextField(),
                         20.verticalSpace,
@@ -311,7 +309,7 @@ class ViewMOnthlyPlanFullDetailsCardWidget extends StatelessWidget {
                 value: customerModel!.customerContactNumber ?? "No Phone found"),
             5.verticalSpace,
             customerModel!.customerAlternateContactNumber == null
-                ? SizedBox.shrink()
+                ? const SizedBox.shrink()
                 : MonthlyPlanRowWidget(
                     title: "Alternative Phone",
                     value: customerModel!.customerAlternateContactNumber ??

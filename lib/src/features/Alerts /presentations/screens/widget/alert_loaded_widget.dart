@@ -12,9 +12,9 @@ import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/screens/w
 class AlertLoadedWidget extends StatelessWidget {
   final List<AlertModel> alertsList;
   const AlertLoadedWidget({
-    Key? key,
+    super.key,
     required this.alertsList,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

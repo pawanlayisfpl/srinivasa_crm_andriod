@@ -26,7 +26,7 @@ class CommonTextfield extends StatelessWidget {
   
 
   CommonTextfield(
-      {Key? key,
+      {super.key,
       required this.textEditingController,
       this.onTapFunction,
       required this.onChanged,
@@ -44,7 +44,7 @@ class CommonTextfield extends StatelessWidget {
       this.maxLines,
       this.prefixIcon,
       this.isPasswordField,
-      this.fillColor})  : obscureNotifier = ValueNotifier<bool>(obscureText ?? false), super(key: key);
+      this.fillColor})  : obscureNotifier = ValueNotifier<bool>(obscureText ?? false);
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
@@ -37,7 +35,7 @@ class SocProductListWidget extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                CommonTextWidget(title: (i + 1).toString()+ ". ",fontWeight: FontWeight.w500, ),
+                                CommonTextWidget(title: "${i + 1}. ",fontWeight: FontWeight.w500, ),
                                 10.horizontalSpace,
                                 Expanded(
                                   child: Column(
@@ -46,7 +44,7 @@ class SocProductListWidget extends StatelessWidget {
                                     children: [
                                       Row(
                                         children: [
-                                          Expanded( 
+                                          const Expanded( 
                                             flex: 5,
                                             child: CommonTextWidget(title: "Product :",align: TextAlign.start,),),
                                                Expanded( 
@@ -59,11 +57,11 @@ class SocProductListWidget extends StatelessWidget {
                                             
                                         ],
                                       ),
-                                      Divider(),
+                                      const Divider(),
                                       5.verticalSpace,
                                        Row(
                                         children: [
-                                          Expanded( 
+                                          const Expanded( 
                                             flex: 5,
                                             child: CommonTextWidget(title: "Qty :",align: TextAlign.start,)),
                                                Expanded( 
@@ -74,11 +72,11 @@ class SocProductListWidget extends StatelessWidget {
                                         ],
                                       ),
                                       // DUE PERCENTAGE
-                                         Divider(),
+                                         const Divider(),
                                         5.verticalSpace,
                                         Row(
                                         children: [
-                                          Expanded( 
+                                          const Expanded( 
                                             flex: 5,
                                             child: CommonTextWidget(title: "Rate :",align: TextAlign.start,)),
                                                Expanded( 
@@ -89,11 +87,11 @@ class SocProductListWidget extends StatelessWidget {
                                         ],
                                       ),
                                        // DISCOUNT PER QTY
-                                          Divider(),
+                                          const Divider(),
                                         5.verticalSpace,
                                         Row(
                                         children: [
-                                          Expanded( 
+                                          const Expanded( 
                                             flex: 5,
                                             child: CommonTextWidget(title: "Selling\nRate :",align: TextAlign.start,)),
                                                Expanded( 
@@ -104,11 +102,11 @@ class SocProductListWidget extends StatelessWidget {
                                         ],
                                       ),
                                        // DISCOUNT PER PERCENTAGE
-                                          Divider(),
+                                          const Divider(),
                                         5.verticalSpace,
                                         Row(
                                         children: [
-                                          Expanded( 
+                                          const Expanded( 
                                             flex: 5,
                                             child: CommonTextWidget(title: "Discount\nQty :",align: TextAlign.start,)),
                                                Expanded( 
@@ -120,25 +118,25 @@ class SocProductListWidget extends StatelessWidget {
                                       ),
 
                                        // TOTAL PERCENTAGE
-                                          Divider(),
+                                          const Divider(),
                                         5.verticalSpace,
                                         Row(
                                         children: [
-                                          Expanded( 
+                                          const Expanded( 
                                             flex: 5,
                                             child: CommonTextWidget(title: "Discount\nPercentage :",align: TextAlign.start,)),
                                                Expanded( 
                                             flex: 6,
-                                            child: CommonTextWidget(title: pendingFormModel.discountPerPercentage.toString() +" %",align: TextAlign.start,),)
+                                            child: CommonTextWidget(title: "${pendingFormModel.discountPerPercentage} %",align: TextAlign.start,),)
                                             
                                             
                                         ],
                                       ),
-                                         Divider(),
+                                         const Divider(),
                                             5.verticalSpace,
                                         Row(
                                         children: [
-                                          Expanded( 
+                                          const Expanded( 
                                             flex: 5,
                                             child: CommonTextWidget(title: "Total value :",align: TextAlign.start,)),
                                                Expanded( 
@@ -148,11 +146,11 @@ class SocProductListWidget extends StatelessWidget {
                                             
                                         ],
                                       ),
-                                         Divider(),
+                                         const Divider(),
                                     ],
                                   ),
                                 ),
-                                    Center(child: IconButton(icon: Icon(Icons.delete,color: Colors.black,),onPressed: () {
+                                    Center(child: IconButton(icon: const Icon(Icons.delete,color: Colors.black,),onPressed: () {
                                       if(context.mounted) {
                                         QuickAlert.show(context: context, type: QuickAlertType.error,text: "Are you sure want to delete it ?",
                                         title: 'Warning',

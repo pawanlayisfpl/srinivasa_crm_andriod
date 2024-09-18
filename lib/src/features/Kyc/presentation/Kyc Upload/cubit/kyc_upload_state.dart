@@ -1,4 +1,3 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/domain/model/kyc_remarks_field.dart';
 

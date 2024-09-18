@@ -82,7 +82,7 @@ class AppStyles {
    static ButtonStyle approveButtonStyle(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return ElevatedButton.styleFrom(
-      backgroundColor: Color.fromARGB(255, 32, 209, 1), // Background color
+      backgroundColor: const Color.fromARGB(255, 32, 209, 1), // Background color
       foregroundColor: Colors.white, // Text color
       elevation: 2, // Elevation (shadow)
       enableFeedback: true,

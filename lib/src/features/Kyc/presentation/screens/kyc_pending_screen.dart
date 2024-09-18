@@ -45,7 +45,7 @@ class _KycPendingScreenState extends State<KycPendingScreen> {
             ),
             tabAlignment: TabAlignment.center,
             enableFeedback: true,
-            indicatorPadding: EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+            indicatorPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
             unselectedLabelColor: Colors.black,
             labelColor: AppColors.primaryColor,
             labelStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.sp),

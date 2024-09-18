@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -6,10 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/shared/widgets/common_drawer_widget.dart';
-import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/widgets/dashboard_body_widget.dart';
@@ -20,7 +17,6 @@ import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/s
 
 import '../../../../config/config.dart';
 import '../../../../core/core.dart';
-import '../../../mark attendance/domain/domain.dart';
 
 
 class DashboardScreen extends StatefulWidget {
@@ -196,7 +192,7 @@ void showLogoutDialog(BuildContext context) {
             onSelected: (value) async {
               if (value == "0") {
                 Fluttertoast.showToast(msg: "App Permission clicked");
-                Navigator.push(context, SlideRightRoute(screen: NativeScreen()));
+                Navigator.push(context, SlideRightRoute(screen: const NativeScreen()));
               } else if (value == "1") {
                 // await Workmanager().cancelAll();
                 // Fluttertoast.showToast(msg: "Sync list clicked");

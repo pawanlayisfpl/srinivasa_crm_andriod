@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,10 +17,10 @@ class ParticularSalesOrderScreen extends StatefulWidget {
   final int orderId;
   final bool isApproveOrRejectEnabled;
   const ParticularSalesOrderScreen({
-    Key? key,
+    super.key,
     required this.orderId,
     required this.isApproveOrRejectEnabled,
-  }) : super(key: key);
+  });
 
   @override
   State<ParticularSalesOrderScreen> createState() =>
@@ -100,7 +99,7 @@ List<TableRow> buildRows(Map<String, String> mapping, ParticularSalesOrderModel 
   return mapping.entries.map((entry) {
     var displayKey = entry.key;
     var actualKey = entry.value;
-    debugPrint('printing display key = ${displayKey} and actual key = ${actualKey}');
+    debugPrint('printing display key = $displayKey and actual key = $actualKey');
     
     // Split the actualKey to handle nested keys
     var keys = actualKey.split('.');
@@ -297,7 +296,7 @@ List<TableRow> buildProductRows(Map<String, String> mapping, Map<String, dynamic
                                   Expanded(
                                     flex: 9,
                                     child: CommonTextWidget(title: 'Are you sure want to Approve ?',fontWeight: FontWeight.w500,textColor: Colors.black,textSize: 18.sp,maxLines: 3,align: TextAlign.start,)),
-                                IconButton(icon: Icon(Icons.close),onPressed: () {
+                                IconButton(icon: const Icon(Icons.close),onPressed: () {
                                 Navigator.pop(context);
                               },)
                                 ],
@@ -355,7 +354,7 @@ List<TableRow> buildProductRows(Map<String, String> mapping, Map<String, dynamic
                                   Expanded(
                                     flex: 9,
                                     child: CommonTextWidget(title: 'Are you sure want to Reject ?',fontWeight: FontWeight.w500,textColor: Colors.black,textSize: 18.sp,maxLines: 3,align: TextAlign.start,)),
-                                IconButton(icon: Icon(Icons.close),onPressed: () {
+                                IconButton(icon: const Icon(Icons.close),onPressed: () {
                                 Navigator.pop(context);
                               },)
                                 ],
