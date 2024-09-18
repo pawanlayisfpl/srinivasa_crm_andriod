@@ -76,6 +76,7 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
 
         if (response.statusCode == 200) {
           await database.insertCheckinPost(checkinPostModel);
+          // await database.deleteAllCheckinPosts();
          
     
           logger.d('API CALL SUCCESSFUL, PROCESSING RESPONSE');
@@ -259,7 +260,7 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
     final results = await connectionChecker.hasInternet();
     final database = CustomerDataBaseHelper();
 // TODO: REMOVE ! FROM RESULTS
-    if (!results) {
+    if (results) {
       // Corrected the condition to check for internet availability
       try {
         logger.d('INTERNET AVAILABLE, MAKING API CALL');
@@ -310,7 +311,7 @@ Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails(
   final checkoutDatabase = CheckoutPostDatabase();
 
   logger.d('Checking internet connection...');
-  if (results) {
+  if (!results) {
     // INTERNET AVAILABLE
     logger.d('Internet available, fetching data from server...');
     try {
@@ -333,90 +334,86 @@ Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails(
       throw NetworkExceptions.getException(e);
     }
   } else {
-    // NO INTERNET
+      // NO INTERNET
     logger.d('No internet connection, loading data from offline database...');
     List<CheckinPostModel> checkinList = await checkinDatabase.getCheckinPosts();
     List<CheckoutPostModel> checkoutLists = await checkoutDatabase.getCheckoutPosts();
-
-   // Assuming inTime is in the format 'yyyy-MM-dd HH:mm:ss'
-final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
-
-checkinList.sort((a, b) {
-  DateTime dateA = dateFormat.parse(a.inTime.toString());
-  DateTime dateB = dateFormat.parse(b.inTime.toString());
-  return dateB.compareTo(dateA); // Sort in descending order
-});
- // Sort checkoutLists by createdAt in descending order
-  checkoutLists.sort((a, b) {
-    DateTime dateA = dateFormat.parse(a.createdAt.toString());
-    DateTime dateB = dateFormat.parse(b.createdAt.toString());
-    return dateB.compareTo(dateA); // Sort in descending order
-  }); 
-
-  // Now you can use the sorted lists
-  debugPrint('Sorted Checkin List first value: ${checkinList.first.toJson().toString()}');
-  debugPrint('Sorted Checkin List Last value: ${checkinList[1].toJson().toString()}\n\n\n');
-    debugPrint('Sorted Checkout List First Value: ${checkoutLists.first.createdAt.toString()}');
-    debugPrint('Sorted Checkout List Last Value: ${checkoutLists[1].createdAt.toString()}');
-
-
-    // TRUE FOR CHECKIN SCREEN
-    if   (checkinList.isNotEmpty && checkoutLists.isNotEmpty) {
-      DateTime checkinFirstInTime = dateFormat.parse(checkinList.first.inTime.toString());
-DateTime checkoutFirstCreatedAt = dateFormat.parse(checkoutLists.first.createdAt.toString());
-      bool sameData = isSameDay(DateTime.parse(checkinList.first.inTime.toString()), DateTime.parse(checkoutLists.first.createdAt.toString()));
-      bool isCheckoutAfterCheckin = checkinFirstInTime.isAfter(checkoutFirstCreatedAt);
-
-      if(sameData) {
-        
-     if(isCheckoutAfterCheckin && checkinList.first.customerid.toString() == customerId) {
-       // Assuming the date format is 'yyyy-MM-dd HH:mm:ss'
-  final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
-
-  // Convert both to DateTime
-  DateTime checkinFirstInTime = dateFormat.parse(checkinList.first.inTime.toString());
-
-  // Compare the DateTime objects
-
-      CheckinPostModel checkinPostModel = checkinList.where((element) => element.farmId == checkoutLists.first.farmId  ).first;
-      debugPrint(checkinPostModel.toJson().toString());
-
-
-      // CheckoutPostModel checkoutPostModel = checkoutLists.where((element) => element.farmId == customerId ).first;
-      // debugPrint(checkoutPostModel.toJson().toString());
-        return LastCheckinOutResponseModel(
-          customerCode: checkinPostModel.customerid.toString(),
-          message: 'Checkin and Checkout found',
-          status: false
-        );
-
-     }else {
-        return LastCheckinOutResponseModel(
-          customerCode: checkinList.first.customerid.toString(),
-          message: 'No Checkin or Checkout found',
-          status: true
-        );
-     }
-      }else {
-        return LastCheckinOutResponseModel(
-          customerCode: checkinList.first.customerid.toString(),
-          message: 'No Checkin or Checkout found',
-          status: true
-        );
-      }
-    }else { 
+    
+    // Assuming inTime is in the format 'yyyy-MM-dd HH:mm:ss'
+    final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
+    
+    if (checkinList.isEmpty && checkoutLists.isEmpty) {
       return LastCheckinOutResponseModel(
         customerCode: "",
         message: 'No Checkin or Checkout found',
-        status: true
+        status: true,
       );
-
     }
-
     
-    //  FALSE FOR CHECKOUT SCREEN
-
-    // throw const NetworkExceptions.noInternetConnection();
+    checkinList.sort((a, b) {
+      DateTime dateA = dateFormat.parse(a.inTime.toString());
+      DateTime dateB = dateFormat.parse(b.inTime.toString());
+      return dateB.compareTo(dateA); // Sort in descending order
+    });
+    
+    // Sort checkoutLists by createdAt in descending order
+    checkoutLists.sort((a, b) {
+      DateTime dateA = dateFormat.parse(a.createdAt.toString());
+      DateTime dateB = dateFormat.parse(b.createdAt.toString());
+      return dateB.compareTo(dateA); // Sort in descending order
+    });
+    
+    // Now you can use the sorted lists
+    debugPrint('Sorted Checkin List first value: ${checkinList.first.toJson().toString()}');
+    debugPrint('Sorted Checkin List Last value: ${checkinList[0].toJson().toString()}\n\n\n');
+    debugPrint('Sorted Checkout List First Value: ${checkoutLists.first.createdAt.toString()}');
+    debugPrint('Sorted Checkout List Last Value: ${checkoutLists[1].createdAt.toString()}');
+    
+    // TRUE FOR CHECKIN SCREEN
+    if (checkinList.isNotEmpty && checkoutLists.isNotEmpty) {
+      DateTime checkinFirstInTime = dateFormat.parse(checkinList.first.inTime.toString());
+      DateTime checkoutFirstCreatedAt = dateFormat.parse(checkoutLists.first.createdAt.toString());
+      bool sameData = isSameDay(DateTime.parse(checkinList.first.inTime.toString()), DateTime.parse(checkoutLists.first.createdAt.toString()));
+      bool isCheckoutAfterCheckin = checkinFirstInTime.isAfter(checkoutFirstCreatedAt);
+    
+      if (sameData) {
+        if (isCheckoutAfterCheckin && checkinList.first.customerid.toString() == customerId) {
+          // Assuming the date format is 'yyyy-MM-dd HH:mm:ss'
+          final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
+    
+          // Convert both to DateTime
+          DateTime checkinFirstInTime = dateFormat.parse(checkinList.first.inTime.toString());
+    
+          // Compare the DateTime objects
+          CheckinPostModel checkinPostModel = checkinList.where((element) => element.farmId == checkoutLists.first.farmId).first;
+          debugPrint(checkinPostModel.toJson().toString());
+    
+          return LastCheckinOutResponseModel(
+            customerCode: checkinPostModel.customerid.toString(),
+            message: 'Checkin and Checkout found',
+            status: false,
+          );
+        } else {
+          return LastCheckinOutResponseModel(
+            customerCode: checkinList.first.customerid.toString(),
+            message: 'No Checkin or Checkout found',
+            status: true,
+          );
+        }
+      } else {
+        return LastCheckinOutResponseModel(
+          customerCode: checkinList.first.customerid.toString(),
+          message: 'No Checkin or Checkout found',
+          status: true,
+        );
+      }
+    } else {
+      return LastCheckinOutResponseModel(
+        customerCode: "",
+        message: 'No Checkin or Checkout found',
+        status: true,
+      );
+    }
   }
 }
 

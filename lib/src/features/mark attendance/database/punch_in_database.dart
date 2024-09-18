@@ -17,10 +17,10 @@ class PunchInPostDatabase {
   }
 
   Future<Database> _initDatabase() async {
-    String path = join(await getDatabasesPath(), 'punch_in_post_database.db');
+    String path = join(await getDatabasesPath(), 'new_punch_in_post_database.db');
     return await openDatabase(
       path,
-      version: 1,
+      version: 1, // Set the version to 1
       onCreate: _onCreate,
     );
   }
@@ -30,7 +30,8 @@ class PunchInPostDatabase {
       CREATE TABLE punch_in_post(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         latitude TEXT,
-        longitude TEXT
+        longitude TEXT,
+        createdAt TEXT
       )
     ''');
   }
@@ -46,15 +47,13 @@ class PunchInPostDatabase {
   }
 
   Future<List<PunchInPostModel>> getAllPunchInPosts() async {
-  final db = await database;
-  final List<Map<String, dynamic>> maps = await db.query('punch_in_post');
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('punch_in_post');
 
-  return List.generate(maps.length, (i) {
-    return PunchInPostModel.fromJson(maps[i]);
-  });
-}
-
-  
+    return List.generate(maps.length, (i) {
+      return PunchInPostModel.fromJson(maps[i]);
+    });
+  }
 
   Future<PunchInPostModel?> getPunchInPost() async {
     final db = await database;

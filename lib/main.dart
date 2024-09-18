@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => locator.get<CustomerFullDetailsCubit>()),
         BlocProvider(create: (_) => locator.get<MonthlyPlanSearchCubit>()),
         BlocProvider(create: (_) => locator.get<MonthlyPlanPendingCubit>()),
-        BlocProvider(create: (_) => locator.get<UpdateMonthlyPlanCubit>()),
+      BlocProvider(create: (_) => locator.get<UpdateMonthlyPlanCubit>()),
         BlocProvider(create: (_) => locator.get<CustomerCreateCubit>()),
         BlocProvider(create: (_) => locator.get<KycCubit>()),
         BlocProvider(create: (_) => locator.get<KycUploadCubit>()),

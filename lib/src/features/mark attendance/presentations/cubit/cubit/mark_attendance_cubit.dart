@@ -62,6 +62,7 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
     PunchInPostModel postModel = PunchInPostModel(
       latitude: postion.latitude.toString(),
       longitude: postion.longitude.toString(),
+      createdAt: DateTime.now().toString(),
       
     );
     final result = await punchInUseCase.execute(punchInPostModel: postModel);
@@ -81,6 +82,7 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
 
     final postion = await commonLocationServices.getUserCurrentPosition();
     PunchoutPostModel postModel = PunchoutPostModel(
+      createdAt: DateTime.now().toString(),
       latitude: postion.latitude.toString(),
       longitude: postion.longitude.toString(),
     );

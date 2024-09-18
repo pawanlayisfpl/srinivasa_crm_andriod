@@ -16,7 +16,7 @@ class PunchoutPostDatabase {
   }
 
   Future<Database> _initDatabase() async {
-    String path = join(await getDatabasesPath(), 'punch_out_post_database.db');
+    String path = join(await getDatabasesPath(), 'punch_out_post_v2_database.db');
     return await openDatabase(
       path,
       version: 1,
@@ -29,7 +29,8 @@ class PunchoutPostDatabase {
       CREATE TABLE punch_out_post(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         latitude TEXT,
-        longitude TEXT
+        longitude TEXT,
+        createdAt TEXT
       )
     ''');
   }

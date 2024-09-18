@@ -111,7 +111,7 @@ class MonthlyPlanRemoteDataSourceImpl implements MonthlyPlanRemoteDataSource {
     final results = await internetChecker.hasInternet();
     final database = CreateMonthlyPlanPostDatabase();
     // TODO: REMOVE (!) FROM BELOW LINE
-    if (!results) {
+    if (results) {
       List<DailyPlanPostModel> generatedDailyPlanList = [];
       List<DailyPlanPostModel> list() {
         for (int i = 0; i < monthlyPlanPostModel.dailyPlans.length; i++) {
@@ -177,7 +177,7 @@ class MonthlyPlanRemoteDataSourceImpl implements MonthlyPlanRemoteDataSource {
     final results = await internetChecker.hasInternet();
     final database = ViewMonthlyPlanDatabase();
 
-    if (!results) {
+    if (results) {
       try {
         final response = await dioClient.get(
             Endpoints.monthlyPlanByMonthlyPlanId + monhtlyPlanId.toString(),

@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/database/punch_in_database.dart';
@@ -35,15 +36,16 @@ final InternetChecker internetChecker;
   @override
   Future<LastPunchInResponseModel> getLastPunchInOutDetails() async {
     final results = await internetChecker.hasInternet();
+  // TODO: REMOVE ! FROM IF CONDITION
 
     if(results) {
       try {
-      logger.d('GET LAST PUNCH IN OUT DETAILS API STARTED');
+      debugPrint('GET LAST PUNCH IN OUT DETAILS API STARTED');
       final response = await dioClient.post(Endpoints.lastPunchInDetails,headers: {});
 
       if(response.statusCode == 200){
-        logger.d('GET LAST PUNCH IN OUT DETAILS API SUCCESS');
-        return await Future.value(LastPunchInResponseModel.fromJson(response.data));
+        debugPrint('GET LAST PUNCH IN OUT DETAILS API SUCCESS');
+        return  LastPunchInResponseModel.fromJson(response.data);
       }else{
         logger.e('GET LAST PUNCH IN OUT DETAILS API FAILED');
         throw NetworkExceptions.getDioException(response.data);
@@ -56,10 +58,49 @@ final InternetChecker internetChecker;
     }
 
     }else {
-        return LastPunchInResponseModel(
-          message: 'No records found',
-          status: true
-        );
+      // HOW TO GET STATUS OF PUNCH IN OUT
+
+//       PUNCHOUT DATA EXISTS
+// LAST PUNCH IN DATA
+// LAST PUNCH OUT DATA
+
+ final punchIndDtabase = PunchInPostDatabase();
+final punchoutDatabase = PunchoutPostDatabase();
+
+// await punchIndDtabase.deletePunchInPost();
+// await punchoutDatabase.deleteAllPunchoutPosts();
+
+List<PunchInPostModel?> punchLIsts = await punchIndDtabase.getAllPunchInPosts();
+List<PunchoutPostModel?> punchOutLists = await punchoutDatabase.getAllPunchoutPosts();
+
+if (punchLIsts.isNotEmpty && punchOutLists.isNotEmpty) {
+  final lastPunchIn = punchLIsts.last;
+  final lastPunchOut = punchOutLists.last;
+
+  if (DateTime.parse(lastPunchIn!.createdAt.toString()).isAfter(DateTime.parse(lastPunchOut!.createdAt))) {
+    return LastPunchInResponseModel(
+      message: 'Punch in is after punch out',
+      status: false,
+    );
+  } else {
+    return LastPunchInResponseModel(
+      message: 'Punch in is not after punch out',
+      status: true,
+    );
+  }
+} else {
+  return LastPunchInResponseModel(
+    message: 'Both lists should not be empty',
+    status: true,
+  );
+}
+
+
+      // final punchInPost = await punchIndDtabase.getPunchInPost();
+      //   return LastPunchInResponseModel(
+      //     message: 'No records found',
+      //     status: true
+      //   );
 
 
       // throw const NetworkExceptions.noInternetConnection();
@@ -87,11 +128,12 @@ final InternetChecker internetChecker;
 
     }on DioException catch(e) {
       throw NetworkExceptions.getDioException(e);
-    }on SocketException catch(e) {
+    }on SocketException  {
       throw const NetworkExceptions.noInternetConnection();
     }
 
     }else {
+      // await database.deletePunchInPost();
       final id = await database.insertPunchInPost(punchInPostModel);
       if(id != 0) {
         return PunchInOutResponseModel(
@@ -128,6 +170,7 @@ final InternetChecker internetChecker;
     }
 
     }else {
+      // await database.deleteAllPunchoutPosts();
       final id = await database.insertPunchoutPost(punchInPostModel);
       if(id != 0) {
         return PunchInOutResponseModel(

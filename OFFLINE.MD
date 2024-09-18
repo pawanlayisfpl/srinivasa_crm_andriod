@@ -25,3 +25,40 @@ OFFLINE RESTRICTED FOR :
 
 <!-- INTERNET AVAILABLE -->
 <!-- NO INTERNET -->
+
+
+ISSUES :
+
+HOW TO GET LAST PUNCH IN AND PUNCH OUT STATUS
+
+PUNCH IN AT 02:00 (LAT,LNG,TIME)
+PUNCH OUT AT 02:10(LAT,LNG ,TIME)
+
+STATUS SHOULD BE TRUE.
+
+variable
+PUNCHOUT DATA EXISTS
+LAST PUNCH IN DATA
+LAST PUNCH OUT DATA
+
+if(punchoutDataExists) {
+
+    if(punchoutDataExits.last.time <  punchinDataExists.latest.time) {
+        status = false
+    }else {
+        status = true;
+    }
+
+
+}else {
+    status = false;
+
+}
+
+
+
+API REQUIREMENTS FOR OFFLINE STORAGE
+
+1. LIST OF PUNCH IN API  (POST)
+2. LIST OF PUNCH OUT API (POST)
+3. 

@@ -131,9 +131,9 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
 // );
       }
   
-      print('Service started');
+      debugPrint('Service started');
     } on PlatformException catch (e) {
-      print('Failed to start service: ${e.message}');
+      debugPrint('Failed to start service: ${e.message}');
     }
   
     
