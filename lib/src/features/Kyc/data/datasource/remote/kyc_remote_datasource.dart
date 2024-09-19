@@ -30,7 +30,7 @@ class KycRemoteDatasourceImpl implements KycRemoteDataSource {
     final results = await internetChecker.hasInternet();
     final databse = KycDatabase();
     // TODO: REMOVE (!) FROM RESULTS
-    if(!results) {
+    if(results) {
       // INTERNET AVAILABLE
       logger.d('KYC API STARTED');
     try {

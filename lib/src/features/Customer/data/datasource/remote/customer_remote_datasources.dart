@@ -67,7 +67,7 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
     final database = CheckinPostDatabase();
     // await database.deleteAllCheckinPosts();
 
-    if (!result) {
+    if (result) {
       // INTERNET AVAILABLE
       try {
         logger.d('INTERNET AVAILABLE, MAKING API CALL');
@@ -129,7 +129,7 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
     final databse =  CheckoutPostDatabase();
     // await databse.deleteAllCheckoutPost();
 
-    if (!result) {
+    if (result) {
       try {
         List<MultipartFile> files = [];
         if (checkoutPostModel.files != null) {
@@ -311,7 +311,7 @@ Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails(
   final checkoutDatabase = CheckoutPostDatabase();
 
   logger.d('Checking internet connection...');
-  if (!results) {
+  if (results) {
     // INTERNET AVAILABLE
     logger.d('Internet available, fetching data from server...');
     try {

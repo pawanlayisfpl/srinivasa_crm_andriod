@@ -50,7 +50,7 @@ class AlertCardWidget extends StatelessWidget {
                   
                   final results = await locator.get<InternetChecker>().hasInternet();
                 //  TODO: FOR EMULATOR TESTING (!) ADDED THIS
-                  if(!results) {
+                  if(results) {
                      debugPrint(alertModel.toJson().toString());
                       if(context.mounted) {
                       

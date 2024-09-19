@@ -52,7 +52,7 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
 
                   final results = await locator.get<InternetChecker>().hasInternet();
                 // TODO: for emulator testing added (!)
-                  if(!results) {
+                  if(results) {
                      context.read<DailyPlanCubit>().resetState();
                   context.read<DailyPlanCubit>().clearSelectedCustomerLists();
                   context
@@ -171,7 +171,7 @@ class ViewMonthlyPlanFullDetailsScreen extends StatelessWidget {
 
 
 // TODO: for testing (! ) added this
-                    if(!results) {
+                    if(results) {
                       // INTERNET AVAILABLE
                         DailyplanDeletePostModel dailyplanDeletePostModel = DailyplanDeletePostModel(monthlyPlanId: monthlyPlanId.toString(), dailyPlanId: viewDailyPlanModel!.dailyPlanId.toString());
 

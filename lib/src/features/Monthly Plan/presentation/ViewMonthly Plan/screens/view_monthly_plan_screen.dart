@@ -74,7 +74,7 @@ class _ViewMonthlyPlanScreenState extends State<ViewMonthlyPlanScreen> {
                   onPressed: () async {
                     final results = await locator.get<InternetChecker>().hasInternet();
 
-                    if(!results) {
+                    if(results) {
                        context.read<DailyPlanCubit>().resetState();
                     AlertDialog alertDialog = AlertDialog(
                       backgroundColor: Colors.white,
