@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class NativeScreen extends StatelessWidget {
-  static const platform = MethodChannel('com.example.srinivasa_crm_new');
+  static const platform = MethodChannel('com.srinivasa.crm');
 
   const NativeScreen({super.key});
 

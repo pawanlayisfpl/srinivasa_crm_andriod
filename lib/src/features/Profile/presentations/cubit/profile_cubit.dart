@@ -57,7 +57,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         text: 'Logging you out, please wait',
         disableBackBtn: true);
     if (Platform.isAndroid) {
-      const platform = MethodChannel('com.example.srinivasa_crm_new');
+      const platform = MethodChannel('com.srinivasa.crm');
       await platform.invokeMethod('stop');
     }else {
 

@@ -17,7 +17,7 @@ import 'login_email_textfield.dart';
 import 'login_pass_textfield.dart';
 
 class LoginBodyWidget extends StatelessWidget {
-    static const platform = MethodChannel('com.example.srinivasa_crm_new');
+    static const platform = MethodChannel('com.srinivasa.crm');
 
   const LoginBodyWidget({super.key});
 

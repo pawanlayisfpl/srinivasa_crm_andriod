@@ -27,7 +27,7 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-    static const platform = MethodChannel('com.example.srinivasa_crm_new');
+    static const platform = MethodChannel('com.srinivasa.crm');
 
 
   @override
@@ -66,7 +66,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
 
 //                 if(Platform.isAndroid) {
-//                    const platform = MethodChannel('com.example.srinivasa_crm_new');
+//                    const platform = MethodChannel('com.srinivasa.crm');
 //               await  platform.invokeMethod('stop');
 //                 }
                       
@@ -120,7 +120,7 @@ void showLogoutDialog(BuildContext context) {
 
               // Perform logout logic asynchronously
               if (Platform.isAndroid) {
-                const platform = MethodChannel('com.example.srinivasa_crm_new');
+                const platform = MethodChannel('com.srinivasa.crm');
                 await platform.invokeMethod('stop');
               }
 

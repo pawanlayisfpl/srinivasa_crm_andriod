@@ -172,7 +172,7 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
                 context: context,
                 type: QuickAlertType.success,
                 onConfirmBtnTap:  () async {
-                     const platform = MethodChannel('com.example.srinivasa_crm_new');
+                     const platform = MethodChannel('com.srinivasa.crm');
                 platform.invokeMethod('stop');
                   Navigator.pop(context);
                   if(context.mounted) {

@@ -25,7 +25,7 @@ class DashboardBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-       const platform = MethodChannel('com.example.srinivasa_crm_new');
+       const platform = MethodChannel('com.srinivasa.crm');
 
     return RefreshIndicator(
       backgroundColor: AppColors.primaryColor,

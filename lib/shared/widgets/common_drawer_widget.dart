@@ -66,7 +66,7 @@ class CommonDrawerWidget extends StatelessWidget {
     //         ),
     //         ElevatedButton(
     //           onPressed: () async {
-    //                    const platform = MethodChannel('com.example.srinivasa_crm_new');
+    //                    const platform = MethodChannel('com.srinivasa.crm');
     //             platform.invokeMethod('stop');
     //             // Handle LOGOUT button action
     //             // You can add your logout logic here

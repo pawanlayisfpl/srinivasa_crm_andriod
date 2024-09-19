@@ -83,7 +83,7 @@ class MyApp extends StatelessWidget {
         scaffoldMessengerKey: AppKeys.scaffoldKey,
         onGenerateRoute: RouteGenerator.getRoute,
         initialRoute: Routes.loginScreen,
-        title: 'SF CRM',
+        title: 'SF Crm',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             fontFamily: 'Poppins',

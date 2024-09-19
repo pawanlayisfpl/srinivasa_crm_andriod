@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/zone_model.dart';
@@ -257,7 +258,8 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
   Future<CustomerResponseModel> getCustomers() async {
     logger.d('GET ALL CUSTOMERS API STARTED');
     logger.d('CHECKING INTERNET');
-    final results = await connectionChecker.hasInternet();
+    // final results = await connectionChecker.isConnected();
+    final results = await InternetConnectionChecker().hasConnection;
     final database = CustomerDataBaseHelper();
 // TODO: REMOVE ! FROM RESULTS
     if (results) {

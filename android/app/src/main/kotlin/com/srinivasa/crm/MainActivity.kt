@@ -1,5 +1,5 @@
 
-package com.example.srinivasa_crm_new
+package com.srinivasa.crm;
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.NonNull
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -17,7 +18,7 @@ import io.flutter.plugin.common.MethodChannel
 
 class MainActivity: FlutterActivity() {
 
-    private val CHANNEL = "com.example.srinivasa_crm_new"
+    private val CHANNEL = "com.srinivasa.crm"
 
     private var serviceIntent: Intent? = null
     private lateinit var locationHelper: LocationHelperClass
@@ -28,7 +29,7 @@ class MainActivity: FlutterActivity() {
         locationHelper = LocationHelperClass(this);
     }
 
-    override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
+    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         Log.d("MainActivity", "Configuring Flutter Engine")
 
@@ -49,7 +50,12 @@ class MainActivity: FlutterActivity() {
 //                    }
 //                    result.success(null)
 
-                    if (checkAndRequestPermissions()) {
+                    if (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            checkAndRequestPermissions()
+                        } else {
+                            TODO("VERSION.SDK_INT < M")
+                        }
+                    ) {
                         startCustomService()
                         result.success("Service started")
                     } else {
@@ -106,6 +112,7 @@ class MainActivity: FlutterActivity() {
 //        }
 //    }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun checkAndRequestPermissions(): Boolean {
         val permissions = arrayOf(
             android.Manifest.permission.ACCESS_COARSE_LOCATION,

@@ -13,6 +13,8 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:internet_connection_checker/internet_connection_checker.dart'
+    as _i973;
 import 'package:logger/logger.dart' as _i974;
 import 'package:package_info_plus/package_info_plus.dart' as _i655;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
@@ -197,6 +199,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i361.Dio>(() => thirdPartyDependencies.dio);
     gh.singleton<_i974.Logger>(() => thirdPartyDependencies.logger);
     gh.singleton<_i895.Connectivity>(() => thirdPartyDependencies.connectivity);
+    gh.singleton<_i973.InternetConnectionChecker>(
+        () => thirdPartyDependencies.internetConnectionChecker);
     gh.singleton<_i558.FlutterSecureStorage>(
         () => thirdPartyDependencies.secureStorage);
     await gh.singletonAsync<_i655.PackageInfo>(
@@ -217,8 +221,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i753.CommonLocationServices());
     gh.lazySingleton<_i918.CommonPermissionService>(
         () => _i918.CommonPermissionService());
-    gh.factory<_i132.InternetChecker>(
-        () => _i132.InternetChecker(gh<_i895.Connectivity>()));
+    gh.factory<_i132.InternetChecker>(() => _i132.InternetChecker(
+          gh<_i895.Connectivity>(),
+          gh<_i973.InternetConnectionChecker>(),
+        ));
     gh.factory<_i286.KeyValueStorage>(() => _i286.KeyValueStorage(
           gh<_i558.FlutterSecureStorage>(),
           gh<_i460.SharedPreferences>(),
