@@ -34,6 +34,7 @@ abstract class ThirdPartyDependencies {
 
   @singleton
   Dio get dio => Dio(
+    
         
   ); // Register Dio
 

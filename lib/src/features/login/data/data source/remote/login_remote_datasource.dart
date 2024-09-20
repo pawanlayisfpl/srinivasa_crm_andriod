@@ -42,7 +42,7 @@ Future<lm.LoginResponseModel> login({required LoginPostModel loginPostModel}) as
 // TODO: REMOVE ! FROM IF CONDITION
   if(results) {
      try {
-    logger.d('LOGIN API STARTED');
+    debugPrint('LOGIN API STARTED');
     
     final response = await dioClient.post(
       Endpoints.logingUrl,
@@ -51,7 +51,7 @@ Future<lm.LoginResponseModel> login({required LoginPostModel loginPostModel}) as
 
     if(response.statusCode == 200){
       await database.insertLoginPost(loginPostModel);
-      logger.d('LOGIN API SUCCESS');
+      debugPrint('LOGIN API SUCCESS');
       final data = response.data;
       ProfileModel profileModel = ProfileModel(
         userModel: UserModel.fromJson(data['user']),
@@ -69,7 +69,7 @@ Future<lm.LoginResponseModel> login({required LoginPostModel loginPostModel}) as
     await  keyValueStorage.sharedPreferences.setString(KeyValueStrings.loginData, jsonEncode(data));
       return lm.LoginResponseModel.fromJson(response.data);
     } else {
-      logger.e('LOGIN API FAILED');
+      debugPrint('LOGIN API FAILED');
       throw ServerException(dioError: DioException(
         requestOptions: response.requestOptions,
         response: response,

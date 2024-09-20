@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 
@@ -30,17 +31,17 @@ class EmployeRemoteDatasourceImpl implements EmployeDataSource {
   
   @override
   Future<List<EmployeeModel>> getEmployesList() async {
-    logger.d('EMPLOYE API STARTED');
+    debugPrint('EMPLOYE API STARTED');
     final results = await internetChecker.isConnected();
 
     if(results) {
 
-logger.d('EMPLOYE API CALL MADE THROUGH INTERNET');
+debugPrint('EMPLOYE API CALL MADE THROUGH INTERNET');
       try {
         final response = await dioClient.get(Endpoints.allEmployess,headers: {},);
 
         if(response.statusCode == 200) {
-          logger.d('EMPLOYE API SUCCESS');
+          debugPrint('EMPLOYE API SUCCESS');
           final List data = response.data;
           
 
@@ -48,14 +49,14 @@ logger.d('EMPLOYE API CALL MADE THROUGH INTERNET');
           return data.map((e) => EmployeeModel.fromJson(e)).toList();
 
         }else {
-          logger.e('EMPLYEE API FAILED');
+          debugPrint('EMPLYEE API FAILED');
           throw NetworkExceptions.getDioException(response.data);
         }
         
       } catch (e) {
-        logger.e('EMPLYEE API FAILED');
+        debugPrint('EMPLYEE API FAILED');
         if(e is DioException) {
-        logger.e(e.response != null ? e.response!.data : e.message);
+        debugPrint(e.response != null ? e.response!.data : e.message);
 
           throw NetworkExceptions.getDioException(e);
         }else {

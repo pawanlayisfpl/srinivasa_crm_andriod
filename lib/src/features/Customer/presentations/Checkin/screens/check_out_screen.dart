@@ -367,12 +367,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     ),
               15.verticalSpace,
               InkWell(
-              onTap:  () {
+              onTap: context.watch<CheckinCubit>().state.filesList.isEmpty ?  () {
                   HapticFeedback.lightImpact();
                   if (mounted) {
                     // TODO: ADD CAMRA IMAGE UPLOAD ALSO
                     context.read<CheckinCubit>().pickAllFiles();
                     // context.read<CheckinProvider>().pickFiles();
+                  }
+                } : () async {
+                  HapticFeedback.lightImpact();
+                  if (mounted) {
+                    context.read<CheckinCubit>().pickOneMoreFile();
                   }
                 },
                 splashColor: Colors.grey[200],
@@ -457,7 +462,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Icon(
-                                        Icons.file_copy,
+                                    context
+                                            .watch<CheckinCubit>()
+                                            .state
+                                            .filesList[i]
+                                            .name.split(".").last.toLowerCase() == "mp4" ? Icons.ondemand_video  :  context
+                                            .watch<CheckinCubit>()
+                                            .state
+                                            .filesList[i]
+                                            .name.split(".").last.toLowerCase() == "pdf" ? Icons.picture_as_pdf_sharp  :    Icons.file_copy,
                                         color: Colors.white,
                                         size: 40.sp,
                                       ),

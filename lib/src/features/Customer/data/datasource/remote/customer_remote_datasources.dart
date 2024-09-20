@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -61,8 +63,8 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
   @override
   Future<CheckInResponseModel> checkIn(
       {required CheckinPostModel checkinPostModel}) async {
-    logger.d('CHECKIN API STARTED');
-    logger.d('CHECKING INTERNET');
+    debugPrint('CHECKIN API STARTED');
+    debugPrint('CHECKING INTERNET');
 
     final result = await connectionChecker.hasInternet();
     final database = CheckinPostDatabase();
@@ -71,7 +73,7 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
     if (result) {
       // INTERNET AVAILABLE
       try {
-        logger.d('INTERNET AVAILABLE, MAKING API CALL');
+        debugPrint('INTERNET AVAILABLE, MAKING API CALL');
         final response = await dioClient.post(Endpoints.checkInPostUrl,
             data: checkinPostModel.toJson(), headers: {});
 
@@ -80,44 +82,44 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
           // await database.deleteAllCheckinPosts();
          
     
-          logger.d('API CALL SUCCESSFUL, PROCESSING RESPONSE');
+          debugPrint('API CALL SUCCESSFUL, PROCESSING RESPONSE');
           CheckInResponseModel checkInResponseModel =
               CheckInResponseModel.fromJson(response.data);
 
-          logger.d('SAVING CHECKIN TIME TO SHARED PREFERENCES');
+          debugPrint('SAVING CHECKIN TIME TO SHARED PREFERENCES');
           await keyValueStorage.sharedPreferences.setString(
               KeyValueStrings.checkinTime,
               checkInResponseModel.time.toString());
-          logger.d('CHECKIN TIME SAVED SUCCESSFULLY');
+          debugPrint('CHECKIN TIME SAVED SUCCESSFULLY');
           return await Future.value(checkInResponseModel);
         } else {
-          logger.e('API CALL FAILED WITH STATUS CODE: ${response.statusCode}');
+          debugPrint('API CALL FAILED WITH STATUS CODE: ${response.statusCode}');
           throw NetworkExceptions.getException(response.data);
         }
       } catch (e) {
         if (e is DioException) {
-          logger.e('DIO EXCEPTION OCCURRED: ${e.response!.data.toString()}');
+          debugPrint('DIO EXCEPTION OCCURRED: ${e.response!.data.toString()}');
           throw NetworkExceptions.getException(e);
         } else {
-          logger.e('INTERNAL SERVER ERROR OCCURRED');
+          debugPrint('INTERNAL SERVER ERROR OCCURRED');
           throw const NetworkExceptions.internalServerError();
         }
       }
     } else {
       // NO INTERNET
 
-      logger.d('NO INTERNET, SAVING CHECKIN LOCALLY');
+      debugPrint('NO INTERNET, SAVING CHECKIN LOCALLY');
       int id = await database.insertCheckinPost(checkinPostModel);
 
       if (id != 0) {
-        logger.d('CHECKIN SAVED LOCALLY WITH ID: $id');
+        debugPrint('CHECKIN SAVED LOCALLY WITH ID: $id');
         return CheckInResponseModel(
           status: true,
           time: DateTime.now().toString(),
           message: 'Checkin Successful',
         );
       } else {
-        logger.e('FAILED TO SAVE CHECKIN LOCALLY');
+        debugPrint('FAILED TO SAVE CHECKIN LOCALLY');
         throw const NetworkExceptions.noInternetConnection();
       }
     }
@@ -169,7 +171,7 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
           throw NetworkExceptions.getException(response.data);
         }
       } on DioException catch (e) {
-        throw NetworkExceptions.getException(e);
+        throw NetworkExceptions.getDioException(e);
       }
     } else {
           await databse.insertCheckoutPost(checkoutPostModel);
@@ -195,10 +197,10 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
           throw NetworkExceptions.getException(response.data);
         }
       } on DioException catch (e) {
-        logger.e(e);
+        debugPrint(e.toString());
         throw NetworkExceptions.getException(e);
       } on FormatException catch (e) {
-        logger.e(e);
+        debugPrint(e.toString());
         throw const NetworkExceptions.formatException();
       }
     } else {
@@ -217,7 +219,7 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
         );
         return Customermodel.fromJson(response.data);
       } on DioException catch (e) {
-        logger.e(e);
+        debugPrint(e.toString());
         throw NetworkExceptions.getException(e);
       }
     } else {
@@ -255,8 +257,8 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
 
   @override
   Future<CustomerResponseModel> getCustomers() async {
-    logger.d('GET ALL CUSTOMERS API STARTED');
-    logger.d('CHECKING INTERNET');
+    debugPrint('GET ALL CUSTOMERS API STARTED');
+    debugPrint('CHECKING INTERNET');
     // final results = await connectionChecker.isConnected();
     final results = await InternetConnectionChecker().hasConnection;
     final database = CustomerDataBaseHelper();
@@ -264,7 +266,7 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
     if (results) {
       // Corrected the condition to check for internet availability
       try {
-        logger.d('INTERNET AVAILABLE, MAKING API CALL');
+        // debugPrint('INTERNET AVAILABLE, MAKING API CALL');
         final response = await dioClient.get(
           Endpoints.getAllCustomers,
           headers: {},
@@ -272,33 +274,33 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
 
         if (response.statusCode == 200) {
           await database.deleteAllCustomerResponses();
-          logger.d('API CALL SUCCESSFUL, PROCESSING RESPONSE');
+          // debugPrint('API CALL SUCCESSFUL, PROCESSING RESPONSE');
           CustomerResponseModel customerResponseModel =
               CustomerResponseModel.fromJson(response.data);
 
-          logger.d('INSERTING DATA INTO LOCAL DATABASE');
+          // debugPrint('INSERTING DATA INTO LOCAL DATABASE');
           await database.insertCustomerResponse(customerResponseModel);
-          logger.d('DATA INSERTED INTO LOCAL DATABASE SUCCESSFULLY');
+          // debugPrint('DATA INSERTED INTO LOCAL DATABASE SUCCESSFULLY');
 
           return customerResponseModel;
         } else {
-          logger.e('API CALL FAILED WITH STATUS CODE: ${response.statusCode}');
+          // debugPrint('API CALL FAILED WITH STATUS CODE: ${response.statusCode}');
           throw NetworkExceptions.getDioException(response.data);
         }
       } on DioException catch (e) {
-        logger.e('DIO EXCEPTION OCCURRED: ${e.response?.data.toString()}');
+        // debugPrint('DIO EXCEPTION OCCURRED: ${e.response?.data.toString()}');
         throw NetworkExceptions.getDioException(e);
       }
     } else {
-      logger.d('NO INTERNET, LOADING DATA FROM OFFLINE DATABASE');
+      // debugPrint('NO INTERNET, LOADING DATA FROM OFFLINE DATABASE');
       List<CustomerResponseModel> customerList =
           await database.getCustomerResponses();
 
       if (customerList.isNotEmpty) {
-        logger.d('OFFLINE DATA LOADED SUCCESSFULLY');
+        // debugPrint('OFFLINE DATA LOADED SUCCESSFULLY');
         return customerList.first;
       } else {
-        logger.d('NO OFFLINE DATA AVAILABLE');
+        // debugPrint('NO OFFLINE DATA AVAILABLE');
         return CustomerResponseModel(customermodel: []);
       }
     }
@@ -310,11 +312,12 @@ Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails(
   final results = await connectionChecker.hasInternet();
   final checkinDatabase = CheckinPostDatabase();
   final checkoutDatabase = CheckoutPostDatabase();
+ 
 
-  logger.d('Checking internet connection...');
+  debugPrint('Checking internet connection...');
   if (results) {
     // INTERNET AVAILABLE
-    logger.d('Internet available, fetching data from server...');
+    debugPrint('Internet available, fetching data from server...');
     try {
       final response = await dioClient.post(
         Endpoints.lastCheckInCheckOut,
@@ -322,99 +325,149 @@ Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails(
         data: {"customerId": customerId, "farmId": farmId},
       );
 
-      logger.d('Server response received with status code: ${response.statusCode}');
+      debugPrint('Server response received with status code: ${response.statusCode}');
       if (response.statusCode == 200) {
-        logger.d('Data fetched successfully from server.');
+        debugPrint('Data fetched successfully from server.');
         return LastCheckinOutResponseModel.fromJson(response.data);
       } else {
-        logger.d('Error fetching data from server: ${response.data}');
+        debugPrint('Error fetching data from server: ${response.data}');
         throw NetworkExceptions.getException(response.data);
       }
     } on DioException catch (e) {
-      logger.e('DioException occurred: $e');
+      debugPrint('DioException occurred: $e');
       throw NetworkExceptions.getException(e);
     }
   } else {
       // NO INTERNET
-    logger.d('No internet connection, loading data from offline database...');
-    List<CheckinPostModel> checkinList = await checkinDatabase.getCheckinPosts();
-    List<CheckoutPostModel> checkoutLists = await checkoutDatabase.getCheckoutPosts();
+    debugPrint('No internet connection, loading data from offline database...');
+    // List<CheckinPostModel> checkinList = await checkinDatabase.getCheckinPosts();
+    // List<CheckoutPostModel> checkoutLists = await checkoutDatabase.getCheckoutPosts();
     
-    // Assuming inTime is in the format 'yyyy-MM-dd HH:mm:ss'
-    final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
+    // // Assuming inTime is in the format 'yyyy-MM-dd HH:mm:ss'
+    // final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
+
+
     
-    if (checkinList.isEmpty && checkoutLists.isEmpty) {
-      return LastCheckinOutResponseModel(
-        customerCode: "",
-        message: 'No Checkin or Checkout found',
-        status: true,
-      );
-    }
     
-    checkinList.sort((a, b) {
-      DateTime dateA = dateFormat.parse(a.inTime.toString());
-      DateTime dateB = dateFormat.parse(b.inTime.toString());
-      return dateB.compareTo(dateA); // Sort in descending order
-    });
+    // if (checkinList.isEmpty && checkoutLists.isEmpty) {
+    //   return LastCheckinOutResponseModel(
+    //     customerCode: "",
+    //     message: 'No Checkin or Checkout found',
+    //     status: true,
+    //   );
+    // }
     
-    // Sort checkoutLists by createdAt in descending order
-    checkoutLists.sort((a, b) {
-      DateTime dateA = dateFormat.parse(a.createdAt.toString());
-      DateTime dateB = dateFormat.parse(b.createdAt.toString());
-      return dateB.compareTo(dateA); // Sort in descending order
-    });
+    // checkinList.sort((a, b) {
+    //   DateTime dateA = dateFormat.parse(a.inTime.toString());
+    //   DateTime dateB = dateFormat.parse(b.inTime.toString());
+    //   return dateB.compareTo(dateA); // Sort in descending order
+    // });
     
-    // Now you can use the sorted lists
-    debugPrint('Sorted Checkin List first value: ${checkinList.first.toJson().toString()}');
-    debugPrint('Sorted Checkin List Last value: ${checkinList[0].toJson().toString()}\n\n\n');
-    debugPrint('Sorted Checkout List First Value: ${checkoutLists.first.createdAt.toString()}');
-    debugPrint('Sorted Checkout List Last Value: ${checkoutLists[1].createdAt.toString()}');
+    // // Sort checkoutLists by createdAt in descending order
+    // checkoutLists.sort((a, b) {
+    //   DateTime dateA = dateFormat.parse(a.createdAt.toString());
+    //   DateTime dateB = dateFormat.parse(b.createdAt.toString());
+    //   return dateB.compareTo(dateA); // Sort in descending order
+    // });
     
-    // TRUE FOR CHECKIN SCREEN
-    if (checkinList.isNotEmpty && checkoutLists.isNotEmpty) {
-      DateTime checkinFirstInTime = dateFormat.parse(checkinList.first.inTime.toString());
-      DateTime checkoutFirstCreatedAt = dateFormat.parse(checkoutLists.first.createdAt.toString());
-      bool sameData = isSameDay(DateTime.parse(checkinList.first.inTime.toString()), DateTime.parse(checkoutLists.first.createdAt.toString()));
-      bool isCheckoutAfterCheckin = checkinFirstInTime.isAfter(checkoutFirstCreatedAt);
+    // // Now you can use the sorted lists
+    // debugPrint('Sorted Checkin List first value: ${checkinList.first.toJson().toString()}');
+    // debugPrint('Sorted Checkin List Last value: ${checkinList[0].toJson().toString()}\n\n\n');
+    // debugPrint('Sorted Checkout List First Value: ${checkoutLists.first.createdAt.toString()}');
+    // debugPrint('Sorted Checkout List Last Value: ${checkoutLists[1].createdAt.toString()}');
     
-      if (sameData) {
-        if (isCheckoutAfterCheckin && checkinList.first.customerid.toString() == customerId) {
-          // Assuming the date format is 'yyyy-MM-dd HH:mm:ss'
-          final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
+    // // TRUE FOR CHECKIN SCREEN
+    // if (checkinList.isNotEmpty && checkoutLists.isNotEmpty) {
+    //   DateTime checkinFirstInTime = dateFormat.parse(checkinList.first.inTime.toString());
+    //   DateTime checkoutFirstCreatedAt = dateFormat.parse(checkoutLists.first.createdAt.toString());
+    //   bool sameData = isSameDay(DateTime.parse(checkinList.first.inTime.toString()), DateTime.parse(checkoutLists.first.createdAt.toString()));
+    //   bool isCheckoutAfterCheckin = checkinFirstInTime.isAfter(checkoutFirstCreatedAt);
     
-          // Convert both to DateTime
-          DateTime checkinFirstInTime = dateFormat.parse(checkinList.first.inTime.toString());
+    //   if (sameData) {
+    //     if (isCheckoutAfterCheckin && checkinList.first.customerid.toString() == customerId) {
+    //       // Assuming the date format is 'yyyy-MM-dd HH:mm:ss'
+    //       final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
     
-          // Compare the DateTime objects
-          CheckinPostModel checkinPostModel = checkinList.where((element) => element.farmId == checkoutLists.first.farmId).first;
-          debugPrint(checkinPostModel.toJson().toString());
+    //       // Convert both to DateTime
+    //       DateTime checkinFirstInTime = dateFormat.parse(checkinList.first.inTime.toString());
     
-          return LastCheckinOutResponseModel(
-            customerCode: checkinPostModel.customerid.toString(),
-            message: 'Checkin and Checkout found',
-            status: false,
-          );
-        } else {
-          return LastCheckinOutResponseModel(
-            customerCode: checkinList.first.customerid.toString(),
-            message: 'No Checkin or Checkout found',
-            status: true,
-          );
-        }
-      } else {
+    //       // Compare the DateTime objects
+    //       CheckinPostModel checkinPostModel = checkinList.where((element) => element.farmId == checkoutLists.first.farmId).first;
+    //       debugPrint(checkinPostModel.toJson().toString());
+    
+    //       return LastCheckinOutResponseModel(
+    //         customerCode: checkinPostModel.customerid.toString(),
+    //         message: 'Checkin and Checkout found',
+    //         status: false,
+    //       );
+    //     } else {
+    //       return LastCheckinOutResponseModel(
+    //         customerCode: checkinList.first.customerid.toString(),
+    //         message: 'No Checkin or Checkout found',
+    //         status: true,
+    //       );
+    //     }
+    //   } else {
+    //     return LastCheckinOutResponseModel(
+    //       customerCode: checkinList.first.customerid.toString(),
+    //       message: 'No Checkin or Checkout found',
+    //       status: true,
+    //     );
+    //   }
+    // } else {
+    //   return LastCheckinOutResponseModel(
+    //     customerCode: "",
+    //     message: 'No Checkin or Checkout found',
+    //     status: true,
+    //   );
+    // }
+
+    // NEW CODE STARTS HERE------------------------
+     List<CheckinPostModel> newCheckinList = await checkinDatabase.getCheckinPosts();
+    List<CheckoutPostModel> newCheckoutList = await checkoutDatabase.getCheckoutPosts();
+
+  
+
+
+    if(newCheckinList.isNotEmpty && newCheckoutList.isNotEmpty) {
+        CheckinPostModel lastCheckinPostModel = newCheckinList.first;
+    CheckoutPostModel lastcheckoutPostModel = newCheckoutList.first;
+log('-------------------- CHECKIN  DATA------------------');
+    log(lastCheckinPostModel.toJson().toString());
+    log('-------------------- CHECKOUT DATA------------------');
+    log(lastcheckoutPostModel.toDatabasJson().toString());
+
+      if(DateTime.parse(newCheckinList.first.inTime.toString()).isAfter(DateTime.parse(newCheckoutList.first.createdAt.toString()))) {
         return LastCheckinOutResponseModel(
-          customerCode: checkinList.first.customerid.toString(),
+          customerCode: newCheckinList.last.customerid.toString(),
+          message: 'Checkin and Checkout found',
+          status: false,
+        );
+      }else {
+        return LastCheckinOutResponseModel(
+          customerCode: newCheckinList.last.customerid.toString(),
           message: 'No Checkin or Checkout found',
           status: true,
         );
       }
-    } else {
+
+    }else if(newCheckoutList.isNotEmpty && newCheckoutList.isEmpty) {
+      // return false here
+      return LastCheckinOutResponseModel(
+        
+        customerCode: "",
+        message: 'Already one checkin is available',
+        status: false,
+      );
+    }else {
+      // RETURN TRUE HERE
       return LastCheckinOutResponseModel(
         customerCode: "",
         message: 'No Checkin or Checkout found',
         status: true,
       );
     }
+    // NEW CODE ENDS HERE---------------------------
   }
 }
 
@@ -432,7 +485,7 @@ Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails(
       customerList = data.map((e) => Customermodel.fromJson(e)).toList();
       return customerList;
     } on DioException catch (e) {
-      logger.e(e);
+      debugPrint(e.toString());
       throw NetworkExceptions.getDioException(e);
     }
     //  final results = await connectionChecker.isConnected();
@@ -453,7 +506,7 @@ Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails(
     //     customerList = data.map((e) => Customermodel.fromJson(e)).toList();
     //     return customerList;
     //   } on DioException catch (e) {
-    //     logger.e(e);
+    //     debugPrint(e);
     //     throw NetworkExceptions.getDioException(e);
     //   }
 
@@ -506,7 +559,7 @@ Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails(
           throw NetworkExceptions.getDioException(response.data);
         }
       } on DioException catch (e) {
-        logger.e(e);
+        debugPrint(e.toString());
         throw NetworkExceptions.getDioException(e);
       }
     } else {
@@ -536,13 +589,13 @@ Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails(
 
   @override
   Future<List<JoinEmployeModel>> getJointEmployeList() async {
-    logger.d('JOINT EMPLOYES API STARTED');
+    debugPrint('JOINT EMPLOYES API STARTED');
     final results = await connectionChecker.hasInternet();
     final database = JointEmployeDatabase();
-    logger.d('CHECKING INTERNET');
+    debugPrint('CHECKING INTERNET');
     //  TODO: REMOVE ! FROM RESULTS
     if (results) {
-      logger.d('INTERNET AVAILABLE');
+      debugPrint('INTERNET AVAILABLE');
       try {
         final response =
             await dioClient.get(Endpoints.jointemployesUrl, headers: {});
@@ -563,8 +616,8 @@ Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails(
         throw NetworkExceptions.getDioException(e);
       }
     } else {
-      logger.d('NO INTERNET CONNECTION');
-      logger.d('LOADING DATA FROM OFFLINE');
+      debugPrint('NO INTERNET CONNECTION');
+      debugPrint('LOADING DATA FROM OFFLINE');
       List<JoinEmployeModel> employeeList = await database.getJoinEmployes();
       return employeeList;
     }

@@ -17,6 +17,7 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // context.read<UserActivityCubit>().getUserActivity(dateTime: DateTime.now()); 
       context.read<UserActivityCubit>().resetState();
+      context.read<UserActivityCubit>().getUserActivity(dateTime: DateTime.now()); 
          });
     super.initState();
   }

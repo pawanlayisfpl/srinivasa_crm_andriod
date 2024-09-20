@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
@@ -32,7 +33,7 @@ class KycRemoteDatasourceImpl implements KycRemoteDataSource {
     // TODO: REMOVE (!) FROM RESULTS
     if(results) {
       // INTERNET AVAILABLE
-      logger.d('KYC API STARTED');
+      debugPrint('KYC API STARTED');
     try {
       final response = await dioClient.get(Endpoints.getPendingKycCustomers, headers: {
       });
@@ -45,11 +46,11 @@ class KycRemoteDatasourceImpl implements KycRemoteDataSource {
         
         return await Future.value(data.map((e) => CustomerKycModel.fromJson(e)).toList());
       }else {
-        logger.e('KYC API FAILED');
+        debugPrint('KYC API FAILED');
         throw NetworkExceptions.getDioException(response.data);
       }
     }on DioException catch (e) {
-      logger.e('KYC API FAILED');
+      debugPrint('KYC API FAILED');
       throw NetworkExceptions.getDioException(e); 
     }
 

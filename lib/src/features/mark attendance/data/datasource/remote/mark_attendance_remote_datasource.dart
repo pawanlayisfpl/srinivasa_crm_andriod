@@ -47,7 +47,7 @@ final InternetChecker internetChecker;
         debugPrint('GET LAST PUNCH IN OUT DETAILS API SUCCESS');
         return  LastPunchInResponseModel.fromJson(response.data);
       }else{
-        logger.e('GET LAST PUNCH IN OUT DETAILS API FAILED');
+        debugPrint('GET LAST PUNCH IN OUT DETAILS API FAILED');
         throw NetworkExceptions.getDioException(response.data);
       }
       

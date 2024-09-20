@@ -70,7 +70,7 @@ class MonthlyPlanRemoteDataSourceImpl implements MonthlyPlanRemoteDataSource {
   @override
   Future<ViewMonthlyPlanModel> getMonthlyPlans(
       {required String selectedDate}) async {
-    logger.d('MONTHLY PLAN API STARTED');
+    debugPrint('MONTHLY PLAN API STARTED');
     String? userId =
         keyValueStorage.sharedPreferences.getString(KeyValueStrings.userId);
     debugPrint('printing user id $userId');
@@ -85,8 +85,8 @@ class MonthlyPlanRemoteDataSourceImpl implements MonthlyPlanRemoteDataSource {
         headers: {},
       );
       if (response.statusCode == 200) {
-        logger.d('MONTHLY PLAN API SUCCESS');
-        logger.d(response.data.toString());
+        debugPrint('MONTHLY PLAN API SUCCESS');
+        debugPrint(response.data.toString());
         ViewMonthlyPlanModel viewMonthlyPlanModel =
             ViewMonthlyPlanModel.fromJson(response.data);
         return viewMonthlyPlanModel;

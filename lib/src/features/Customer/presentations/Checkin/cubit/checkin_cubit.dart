@@ -190,6 +190,16 @@ class CheckinCubit extends Cubit<CheckinState> {
 
   }
 
+  Future<void> pickOneMoreFile() async {
+    final result = await commonImageServices.pickeMultipleUint8Files();
+      
+          result.fold((l) => emit(state.copyWith()), (r) {
+            final List<FileModel>  existingImge = List.from(state.filesList);
+        existingImge.addAll(r);
+            emit(state.copyWith(filesList: existingImge.reversed.toList()));
+          });
+  }
+
   void clearFilesLists() {
     emit(state.copyWith(filesList: []));
   }

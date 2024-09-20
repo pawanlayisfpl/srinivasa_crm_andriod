@@ -54,68 +54,68 @@ class SaleRepoImpl implements SalesRepo {
   @override
   Future<Either<NetworkExceptions, List<ProductsModel>>>
       getAllProducts() async {
-    logger.d('GET ALL PROUDCTS API STARTED');
+    debugPrint('GET ALL PROUDCTS API STARTED');
     var status = await internetChecker.hasInternet();
     if (status) {
-      logger.d('INTERNET CONNECTION IS AVAILABLE');
+      debugPrint('INTERNET CONNECTION IS AVAILABLE');
 
       try {
         final response =
             await dioClient.get(Endpoints.getAllProducts, headers: {});
         if (response.statusCode == 200) {
-          logger.d('GET ALL PROUDCTS API SUCCESSFULL');
+          debugPrint('GET ALL PROUDCTS API SUCCESSFULL');
           final List<ProductsModel> productList = [];
           response.data.forEach((element) {
             productList.add(ProductsModel.fromJson(element));
           });
           return Right(productList);
         } else {
-          logger.d('GET ALL PROUDCTS API FAILED');
+          debugPrint('GET ALL PROUDCTS API FAILED');
           return Left(NetworkExceptions.getDioException(response.data));
         }
       } on DioException catch (e) {
-        logger.d('GET ALL PROUDCTS API FAILED WITH ${e.toString()}');
-        logger.e(e);
+        debugPrint('GET ALL PROUDCTS API FAILED WITH ${e.toString()}');
+        debugPrint(e.toString());
         return Left(NetworkExceptions.getDioException(e));
       }
     } else {
-      logger.d('INTERNET CONNECTION IS DISABLED');
+      debugPrint('INTERNET CONNECTION IS DISABLED');
       return const Left(NetworkExceptions.noInternetConnection());
     }
   }
 
   @override
   Future<Either<NetworkExceptions, List<UOMModel>>> getAllUom() async {
-    logger.d('GET ALL UOM API STARTED');
+    debugPrint('GET ALL UOM API STARTED');
     var status = await internetChecker.hasInternet();
     if (status) {
-      logger.d('INTERNET CONNECTION IS AVAILABLE');
+      debugPrint('INTERNET CONNECTION IS AVAILABLE');
       try {
         final response = await dioClient.get(Endpoints.getAllUom, headers: {});
         if (response.statusCode == 200) {
-          logger.d('GET ALL UOM API SUCCESSSS');
+          debugPrint('GET ALL UOM API SUCCESSSS');
           if (response.statusCode == 200) {
-            logger.d('GET ALL UOM API SUCCESS');
+            debugPrint('GET ALL UOM API SUCCESS');
             final List<UOMModel> uomList = [];
             for (var element in response.data) {
               uomList.add(UOMModel.fromJson(element));
             }
             return Right(uomList);
           } else {
-            logger.d('GET ALL UOM API FAILED');
+            debugPrint('GET ALL UOM API FAILED');
             return Left(NetworkExceptions.getDioException(response.data));
           }
         } else {
-          logger.d('GET ALL UOM API IS FAILEDD');
+          debugPrint('GET ALL UOM API IS FAILEDD');
           return Left(NetworkExceptions.getDioException(response.data));
         }
       } on DioException catch (e) {
-        logger.d('GET ALL UOM API FAILEDD WITH EXCEPTIONNN ${e.toString()}');
-        logger.e(e);
+        debugPrint('GET ALL UOM API FAILEDD WITH EXCEPTIONNN ${e.toString()}');
+        debugPrint(e.toString());
         return Left(NetworkExceptions.getDioException(e));
       }
     } else {
-      logger.d('INTERNET CONNECTION IS DISABLEDÍ');
+      debugPrint('INTERNET CONNECTION IS DISABLEDÍ');
       return const Left(NetworkExceptions.noInternetConnection());
     }
   }
@@ -275,21 +275,21 @@ class SaleRepoImpl implements SalesRepo {
   @override
   Future<Either<NetworkExceptions, SalesOrderApproveResponseModel>> approveSalesOrder({required SalesApprovePostModel salesApprovePostModel})  async {
    try {
-    logger.d(' ORDERS APPROVE API STARTEDDD');
+    debugPrint(' ORDERS APPROVE API STARTEDDD');
       final response = await dioClient.put(Endpoints.salesOrderReject,headers: {},data: salesApprovePostModel.toJson());
 
       if(response.statusCode == HttpStatus.ok) {
-            logger.d(' ORDERS APPROVE API IS SUCCESSFULL');
+            debugPrint(' ORDERS APPROVE API IS SUCCESSFULL');
 
         final SalesOrderApproveResponseModel salesOrderApproveResponseModel = SalesOrderApproveResponseModel.fromJson(response.data);
         return right(salesOrderApproveResponseModel);
       }else {
-            logger.d(' ORDERS APPROVE API FAILEDD');
+            debugPrint(' ORDERS APPROVE API FAILEDD');
         return left(NetworkExceptions.getDioException(response.data));
       }
       
     } on DioException catch (e) {
-            logger.d(' ORDERS APPROVE API FAILED ${e.error.toString()}');
+            debugPrint(' ORDERS APPROVE API FAILED ${e.error.toString()}');
       throw left(NetworkExceptions.getDioException(e));
       
     }
@@ -298,20 +298,20 @@ class SaleRepoImpl implements SalesRepo {
   @override
   Future<Either<NetworkExceptions, SalesOrderRejectResponseModel>> rejectSalesOrder({required SalesRejectPostModel salesRejectPostmodel}) async {
     try {
-       logger.d(' ORDERS REJECT API STARTEDDD');
+       debugPrint(' ORDERS REJECT API STARTEDDD');
       final response = await dioClient.put(Endpoints.salesOrderReject,headers: {},data: salesRejectPostmodel.toJson());
 
       if(response.statusCode == HttpStatus.ok) {
-        logger.d(' ORDERS REJECT API IS SUCCESSFULL');
+        debugPrint(' ORDERS REJECT API IS SUCCESSFULL');
         final SalesOrderRejectResponseModel salesOrderRejectResponseModel = SalesOrderRejectResponseModel.fromJson(response.data);
         return right(salesOrderRejectResponseModel);
       }else {
-        logger.d(' ORDERS REJECT API FAILEDD');
+        debugPrint(' ORDERS REJECT API FAILEDD');
         return left(NetworkExceptions.getDioException(response.data));
       }
       
     } on DioException catch (e) {
-      logger.d(' ORDERS REJECT API FAILED');
+      debugPrint(' ORDERS REJECT API FAILED');
       throw left(NetworkExceptions.getDioException(e));
       
     }
@@ -319,7 +319,7 @@ class SaleRepoImpl implements SalesRepo {
   
   @override
   Future<Either<NetworkExceptions, PendingOrdersModel>> getPendingOrders()  async {
-    logger.d('PENDING ORDERS API STARTEDDD');
+    debugPrint('PENDING ORDERS API STARTEDDD');
    final results = await internetChecker.isConnected();
 
    if(results ) {
@@ -327,17 +327,17 @@ class SaleRepoImpl implements SalesRepo {
       final response = await dioClient.get(Endpoints.getAllPenddingOrders,headers: {});
 
       if(response.statusCode == HttpStatus.ok) {
-         logger.d('PENDING ORDERS API IS SUCCESSFULL');
+         debugPrint('PENDING ORDERS API IS SUCCESSFULL');
         final PendingOrdersModel pendingOrdersModel = PendingOrdersModel.fromJson(response.data['data']);
         return right(pendingOrdersModel);
 
       }else {
-         logger.d('PENDING ORDERS API FAILEDD');
+         debugPrint('PENDING ORDERS API FAILEDD');
         return left(NetworkExceptions.getDioException(response.data));
       }
       
     } on DioException catch (e) {
-       logger.d('PENDING ORDERS API FAIELDD');
+       debugPrint('PENDING ORDERS API FAIELDD');
       throw left(NetworkExceptions.getDioException(e));
       
     }

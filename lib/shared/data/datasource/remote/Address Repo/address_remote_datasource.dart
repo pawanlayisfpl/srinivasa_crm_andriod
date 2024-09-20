@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/City/city_model.dart';
@@ -31,7 +32,7 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
   
   @override
   Future<List<CountryModel>> getCountries() async {
-   logger.d('COUNTIRES API STARTED');
+   debugPrint('COUNTIRES API STARTED');
    try {
       final response = await dioClient.get(Endpoints.countires,headers:  {});
 
@@ -39,13 +40,13 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
       final List<CountryModel> countries = (response.data["data"] as List).map((e) => CountryModel.fromJson(e)).toList();
       return await Future.value(countries);
     }else {
-      logger.e('COUNTRY API FAIELD');
+      debugPrint('COUNTRY API FAIELD');
       throw Future.error(NetworkExceptions.getDioException(response.data));
     }
 
      
    }on DioException catch (e) {
-          logger.e('COUNTRY API FAIELD');
+          debugPrint('COUNTRY API FAIELD');
 
     throw Future.error(NetworkExceptions.getDioException(e));
      
@@ -54,7 +55,7 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
   
   @override
   Future<List<DistrictModel>> getDistrictByStateId({required String stateId}) async {
-    logger.d('DIVISION API STARTED');
+    debugPrint('DIVISION API STARTED');
     try {
         final response = await dioClient.post(Endpoints.districts,headers:  {},data: {
           "stateId" : stateId
@@ -64,13 +65,13 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
         final List<DistrictModel> states = (response.data['data'] as List).map((e) => DistrictModel.fromJson(e)).toList();
         return await Future.value(states);
       }else {
-        logger.e('DIVISION API FAIELD');
+        debugPrint('DIVISION API FAIELD');
         throw Future.error(NetworkExceptions.getDioException(response.data));
       }
   
       
     }on DioException catch (e) {
-            logger.e('DIVISION API FAIELD');
+            debugPrint('DIVISION API FAIELD');
   
       throw Future.error(NetworkExceptions.getDioException(e));
       
@@ -80,7 +81,7 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
   
   @override
   Future<List<StateModel>> getStateByCountry({required String countryId}) async {
-   logger.d('STATE API STARTED');
+   debugPrint('STATE API STARTED');
    try {
       final response = await dioClient.get(Endpoints.states,headers:  {});
 
@@ -88,13 +89,13 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
       final List<StateModel> states = (response.data['data'] as List).map((e) => StateModel.fromJson(e)).toList();
       return states;
     }else {
-      logger.e('STATE API FAIELD');
+      debugPrint('STATE API FAIELD');
       throw NetworkExceptions.getDioException(response.data);
     }
 
      
    }on DioException catch (e) {
-          logger.e('STATE API FAIELD');
+          debugPrint('STATE API FAIELD');
 
     throw NetworkExceptions.getDioException(e);
      
@@ -103,7 +104,7 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
   
   @override
   Future<List<CityModel>> getCityByStateId({required StateModel statemodel}) async {
-    logger.d('CITY API STARTED');
+    debugPrint('CITY API STARTED');
     try {
         final response = await dioClient.post(Endpoints.getCityByStateId,headers:  {},data: {
           "stateId" : statemodel.stateId
@@ -113,13 +114,13 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
         final List<CityModel> cities = (response.data['data'] as List).map((e) => CityModel.fromJson(e)).toList();
         return  cities;
       }else {
-        logger.e('CITY API FAIELD');
+        debugPrint('CITY API FAIELD');
         throw NetworkExceptions.getDioException(response.data);
       }
   
       
     }on DioException catch (e) {
-            logger.e('CITY API FAIELD');
+            debugPrint('CITY API FAIELD');
   
       throw NetworkExceptions.getDioException(e);
       
@@ -128,7 +129,7 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
   
   @override
   Future<List<LocalityModel>> getLocaliltyByCityId({required CityModel cityModel}) async {
-    logger.d('LOCALITY API STARTED');
+    debugPrint('LOCALITY API STARTED');
     try {
         final response = await dioClient.post(Endpoints.getLocalitiesByCity,headers:  {},data: {
           "cityId" : cityModel.cityId
@@ -138,13 +139,13 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
         final List<LocalityModel> localities = (response.data['data'] as List).map((e) => LocalityModel.fromJson(e)).toList();
         return  localities;
       }else {
-        logger.e('LOCALITY API FAIELD');
+        debugPrint('LOCALITY API FAIELD');
         throw NetworkExceptions.getDioException(response.data);
       }
   
       
     }on DioException catch (e) {
-            logger.e('LOCALITY API FAIELD');
+            debugPrint('LOCALITY API FAIELD');
   
       throw NetworkExceptions.getDioException(e);
       

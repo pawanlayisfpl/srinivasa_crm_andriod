@@ -32,46 +32,97 @@ class DioClient {
       ..options.responseType = ResponseType.json;
 
           // Add PrettyDioLogger interceptor
-    _dio.interceptors.add(PrettyDioLogger(
+    // _dio.interceptors.add(PrettyDioLogger(
 
-      requestHeader: true,
-      requestBody: true,
-      responseBody: false,
-      responseHeader: false,
-      error: true,
-      compact: true,
-      maxWidth: 90,
-      filter: (options, args) {
-        // don't print requests with uris containing '/posts'
-        if (options.path.contains('/posts') || options.path.contains('/post')) {
-          return false;
-        }
-        // don't print responses with unit8 list data
-        return !args.isResponse || !args.hasUint8ListData;
-      },
-    ));
+    //   requestHeader: true,
+    //   requestBody: true,
+    //   responseBody: false,
+    //   responseHeader: false,
+    //   error: true,
+    //   compact: true,
+    //   maxWidth: 90,
+    //   filter: (options, args) {
+    //     // don't print requests with uris containing '/posts'
+    //     if (options.path.contains('/posts') || options.path.contains('/post')) {
+    //       return false;
+    //     }
+    //     // don't print responses with unit8 list data
+    //     return !args.isResponse || !args.hasUint8ListData;
+    //   },
+    // ));
+
+
+    // Check if PrettyDioLogger is already added
+    if (!_dio.interceptors.any((i) => i is PrettyDioLogger)) {
+      _dio.interceptors.add(PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: false,
+        responseHeader: false,
+        error: true,
+        compact: true,
+        maxWidth: 90,
+      ));
+    }
 
       
   }
 
 
-  //! CREATING GET, POST, PUT, DELETE REQUESTS
+  // //! CREATING GET, POST, PUT, DELETE REQUESTS
+
+  // //* Get Method:--------------------------------------------------------------------------------------------------------------------
+  // Future<Response> get(String url,
+  //     {Map<String, dynamic>? queryParameters,
+  //     Options? options,
+  //     CancelToken? cancelToken,
+  //       Map<String,dynamic>? headers,
+
+  //     ProgressCallback? progressCallback}) async {
+  //   try {
+  //      final  String? getToken = keyValueStorage.getString(KeyValueStrings.token);
+  // String token = getToken ?? '';
+
+  // headers = headers != null ? {
+  //   "Authorization" : 'Bearer $token'
+  // } : {};
+  //     final Response response = await _dio.get(
+  //       url,
+  //       queryParameters: queryParameters,
+  //       options: Options(
+  //         contentType: ContentType.json.toString(),
+  //         headers: headers,
+  //       ),
+  //       onReceiveProgress: progressCallback,
+  //     );
+
+  //     return  response;
+  //   } on DioException {
+  //     rethrow;
+  //   }catch(e){
+  //     rethrow;
+  //   }
+  // }
+
+
+   //! CREATING GET, POST, PUT, DELETE REQUESTS
 
   //* Get Method:--------------------------------------------------------------------------------------------------------------------
   Future<Response> get(String url,
       {Map<String, dynamic>? queryParameters,
       Options? options,
       CancelToken? cancelToken,
-        Map<String,dynamic>? headers,
-
+      Map<String, dynamic>? headers,
       ProgressCallback? progressCallback}) async {
     try {
-       final  String? getToken = keyValueStorage.getString(KeyValueStrings.token);
-  String token = getToken ?? '';
+      final String? getToken = keyValueStorage.getString(KeyValueStrings.token);
+      String token = getToken ?? '';
 
-  headers = headers != null ? {
-    "Authorization" : 'Bearer $token'
-  } : {};
+      headers = headers != null
+          ? {
+              "Authorization": 'Bearer $token',
+            }
+          : {};
       final Response response = await _dio.get(
         url,
         queryParameters: queryParameters,
@@ -82,13 +133,17 @@ class DioClient {
         onReceiveProgress: progressCallback,
       );
 
-      return  response;
+      return response;
     } on DioException {
       rethrow;
-    }catch(e){
+    } catch (e) {
       rethrow;
     }
   }
+
+
+
+
 Future<Response> post(
   String url, {
   data,
@@ -106,7 +161,7 @@ Future<Response> post(
     "Authorization" : 'Bearer $token'
   } : {};
   
-  // logger.d("Headers: $headers");
+  // debugPrint("Headers: $headers");
 
   try {
     final Response response = await _dio.post(
@@ -146,7 +201,7 @@ rethrow;
     "Authorization" : 'Bearer $token'
   } : {};
   
-  // logger.d("Headers: $headers");
+  // debugPrint("Headers: $headers");
     try {
       final Response response = await _dio.put(
         url,

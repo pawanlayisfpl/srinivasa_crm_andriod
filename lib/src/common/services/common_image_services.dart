@@ -132,7 +132,9 @@ class CommomImageServicesImpl implements CommonImageServices {
     
    final result = await FilePicker.platform.pickFiles(
   type: FileType.custom,
-  allowedExtensions: ['pdf', 'doc', 'docx', 'xls', 'xlsx'],
+  allowedExtensions: [ 'pdf', 'doc', 'docx', 'xls', 'xlsx', 
+    'mp4', 'avi', 'mov', 'wmv', 'flv', 
+    'mkv', 'webm', 'mpeg', '3gp', 'm4v'],
   allowCompression: true,
   allowMultiple: true,
 

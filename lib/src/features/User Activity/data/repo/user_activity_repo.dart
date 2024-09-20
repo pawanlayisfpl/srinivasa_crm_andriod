@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
@@ -24,25 +25,25 @@ class UserActivityRepoImpl implements UserActivityRepo {
   
   @override
   Future<Either<NetworkExceptions, UserActivityModel>> getUserAcitivies({required DateTime dateTime}) async {
-    logger.d('USER ACTIVITY API STARTED');
+    debugPrint('USER ACTIVITY API STARTED');
     final status = await internetChecker.isConnected();
     if(status)  {
       try {
-        logger.d('Date is ${dateTime.toString()}');
+        debugPrint('Date is ${dateTime.toString()}');
         final response = await dioClient.get(Endpoints.userActivity+ dateTime.toString(),headers:  {});
 
         if(response.statusCode == 200) {
-          logger.d('USER ACTIVITY API IS SUCCESSFUL');
+          debugPrint('USER ACTIVITY API IS SUCCESSFUL');
           final data = response.data;
-          logger.d(data.toString());
+          debugPrint(data.toString());
           return Right(UserActivityModel.fromJson(data));
         }else {
-          logger.e('USER ACTIVITY API FAILED');
+          debugPrint('USER ACTIVITY API FAILED');
           return Left(NetworkExceptions.getDioException(response.data));
         }
         
       }on DioException catch (e) {
-        logger.e('USER ACTIVITY API FAILED');
+        debugPrint('USER ACTIVITY API FAILED');
         return Left(NetworkExceptions.getDioException(e));
         
       }
