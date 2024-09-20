@@ -7,8 +7,8 @@ class Endpoints {
     // static const String basicUrl = "http://172.168.1.56:8081/crm_sfpl";
     // static const String basicUrl = "http://crmapi.srinivasa.co:8081/crm_sfpl";
     static const String basicUrl = "http://180.149.244.56:8081/crm_sfpl";
-  static const int connectionTimeout = 20;
-  static const int receiveTimeout = 20;
+  static const int connectionTimeout = 30;
+  static const int receiveTimeout = 60;
 
   // AUTH
   static const String singupUrl = "$basicUrl/auth/register";

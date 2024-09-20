@@ -161,10 +161,9 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
         });
 
         final response =
-            await dioClient.post(Endpoints.checkOut, data: data, headers: {});
+            await dioClient.post(Endpoints.checkOut, data: data, headers: {},);
 
         if (response.statusCode == 200) {
-          await databse.insertCheckoutPost(checkoutPostModel);
           return CheckoutResponseModel.fromJson(response.data);
         } else {
           throw NetworkExceptions.getException(response.data);
