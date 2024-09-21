@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
+import 'package:srinivasa_crm_new/src/config/constants/appconfig.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/database/punch_in_database.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/database/punch_out_database.dart';
 
@@ -64,6 +65,8 @@ final InternetChecker internetChecker;
 // LAST PUNCH IN DATA
 // LAST PUNCH OUT DATA
 
+  if(AppConfig.isOfflineEnabled) {
+
  final punchIndDtabase = PunchInPostDatabase();
 final punchoutDatabase = PunchoutPostDatabase();
 
@@ -95,15 +98,11 @@ if (punchLIsts.isNotEmpty && punchOutLists.isNotEmpty) {
   );
 }
 
-
-      // final punchInPost = await punchIndDtabase.getPunchInPost();
-      //   return LastPunchInResponseModel(
-      //     message: 'No records found',
-      //     status: true
-      //   );
+  }else {
+    throw const NetworkExceptions.noInternetConnection();
+  }
 
 
-      // throw const NetworkExceptions.noInternetConnection();
 
     }
 
@@ -133,7 +132,9 @@ if (punchLIsts.isNotEmpty && punchOutLists.isNotEmpty) {
     }
 
     }else {
-      // await database.deletePunchInPost();
+     
+      if(AppConfig.isOfflineEnabled) {
+         // await database.deletePunchInPost();
       final id = await database.insertPunchInPost(punchInPostModel);
       if(id != 0) {
         return PunchInOutResponseModel(
@@ -142,6 +143,11 @@ if (punchLIsts.isNotEmpty && punchOutLists.isNotEmpty) {
         );
       }else {
         throw const NetworkExceptions.noInternetConnection();
+      }
+
+      }else {
+        throw const NetworkExceptions.noInternetConnection();
+        
       }
 
     }
@@ -170,7 +176,8 @@ if (punchLIsts.isNotEmpty && punchOutLists.isNotEmpty) {
     }
 
     }else {
-      // await database.deleteAllPunchoutPosts();
+     if(AppConfig.isOfflineEnabled) {
+       // await database.deleteAllPunchoutPosts();
       final id = await database.insertPunchoutPost(punchInPostModel);
       if(id != 0) {
         return PunchInOutResponseModel(
@@ -182,6 +189,10 @@ if (punchLIsts.isNotEmpty && punchOutLists.isNotEmpty) {
 
 
       }
+
+     }else{
+        throw const NetworkExceptions.noInternetConnection();
+     }
 
     }
     

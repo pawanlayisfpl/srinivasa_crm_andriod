@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
+import 'package:srinivasa_crm_new/src/config/constants/appconfig.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/database/kyc_database.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/domain/model/customer_kyu_model.dart';
@@ -55,11 +56,17 @@ class KycRemoteDatasourceImpl implements KycRemoteDataSource {
     }
 
     }else {
-      
+      if(AppConfig.isOfflineEnabled) {
+          
 
       // NO INTERNET
       List<CustomerKycModel> kycList = await databse.getCustomerKycs();
       return kycList;
+
+      }else {
+        // NO INTERNET
+        throw const NetworkExceptions.noInternetConnection();
+      }
     }
     
   }

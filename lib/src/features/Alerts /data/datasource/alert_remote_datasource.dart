@@ -2,6 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:srinivasa_crm_new/src/config/constants/appconfig.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/domain/model/get/alert_count_resonse_model.dart';
@@ -71,11 +72,16 @@ class AlertRemoteDataSourceImpl implements AlertRemoteDataSource {
 
 
     }else {
-      List<AlertModel> list = await database.getAllAlerts();
+     if(AppConfig.isOfflineEnabled) {
+       List<AlertModel> list = await database.getAllAlerts();
       if(list.isNotEmpty) {
         return list;
       }
       throw const NetworkExceptions.noInternetConnection();
+
+     }else {
+        throw const NetworkExceptions.noInternetConnection();
+     }
     }
 
 

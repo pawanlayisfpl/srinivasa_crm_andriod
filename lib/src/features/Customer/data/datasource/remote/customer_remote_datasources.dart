@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/zone_model.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
+import 'package:srinivasa_crm_new/src/config/constants/appconfig.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/database/checkin_database.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/database/checkout_database.dart';
@@ -106,6 +107,9 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
         }
       }
     } else {
+
+      if(AppConfig.isOfflineEnabled) {
+
       // NO INTERNET
 
       debugPrint('NO INTERNET, SAVING CHECKIN LOCALLY');
@@ -121,6 +125,11 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
       } else {
         debugPrint('FAILED TO SAVE CHECKIN LOCALLY');
         throw const NetworkExceptions.noInternetConnection();
+      }
+
+      }else {
+        throw const NetworkExceptions.noInternetConnection();
+        
       }
     }
   }
@@ -168,17 +177,22 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
         if (response.statusCode == 200) {
           return CheckoutResponseModel.fromJson(response.data);
         } else {
-          throw NetworkExceptions.getException(response.data);
+          throw NetworkExceptions.getDioException(response.data);
         }
       } on DioException catch (e) {
         throw NetworkExceptions.getDioException(e);
       }
     } else {
-          await databse.insertCheckoutPost(checkoutPostModel);
+       if(AppConfig.isOfflineEnabled) {
+           await databse.insertCheckoutPost(checkoutPostModel);
           return CheckoutResponseModel(
             status: true,
             message: 'Checkout Successful',
           );
+
+       }else {
+          throw const NetworkExceptions.noInternetConnection();
+       }
       // throw const NetworkExceptions.noInternetConnection();
     }
   }
@@ -204,7 +218,13 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
         throw const NetworkExceptions.formatException();
       }
     } else {
-      throw const NetworkExceptions.noInternetConnection();
+
+        if(AppConfig.isOfflineEnabled) {
+          throw const NetworkExceptions.noInternetConnection();
+
+        }else {
+          throw const NetworkExceptions.noInternetConnection();
+        }
     }
   }
 
@@ -292,7 +312,8 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
         throw NetworkExceptions.getDioException(e);
       }
     } else {
-      // debugPrint('NO INTERNET, LOADING DATA FROM OFFLINE DATABASE');
+     if(AppConfig.isOfflineEnabled) {
+       // debugPrint('NO INTERNET, LOADING DATA FROM OFFLINE DATABASE');
       List<CustomerResponseModel> customerList =
           await database.getCustomerResponses();
 
@@ -303,6 +324,10 @@ class CustomerRemoteDatasourcesImpl implements CustomerRemoteDataSource {
         // debugPrint('NO OFFLINE DATA AVAILABLE');
         return CustomerResponseModel(customermodel: []);
       }
+
+     }else {
+        throw const NetworkExceptions.noInternetConnection();
+     }
     }
   }
   
@@ -338,89 +363,10 @@ Future<LastCheckinOutResponseModel> getLastCheckInCheckoutDetails(
       throw NetworkExceptions.getException(e);
     }
   } else {
+
       // NO INTERNET
     debugPrint('No internet connection, loading data from offline database...');
-    // List<CheckinPostModel> checkinList = await checkinDatabase.getCheckinPosts();
-    // List<CheckoutPostModel> checkoutLists = await checkoutDatabase.getCheckoutPosts();
-    
-    // // Assuming inTime is in the format 'yyyy-MM-dd HH:mm:ss'
-    // final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
-
-
-    
-    
-    // if (checkinList.isEmpty && checkoutLists.isEmpty) {
-    //   return LastCheckinOutResponseModel(
-    //     customerCode: "",
-    //     message: 'No Checkin or Checkout found',
-    //     status: true,
-    //   );
-    // }
-    
-    // checkinList.sort((a, b) {
-    //   DateTime dateA = dateFormat.parse(a.inTime.toString());
-    //   DateTime dateB = dateFormat.parse(b.inTime.toString());
-    //   return dateB.compareTo(dateA); // Sort in descending order
-    // });
-    
-    // // Sort checkoutLists by createdAt in descending order
-    // checkoutLists.sort((a, b) {
-    //   DateTime dateA = dateFormat.parse(a.createdAt.toString());
-    //   DateTime dateB = dateFormat.parse(b.createdAt.toString());
-    //   return dateB.compareTo(dateA); // Sort in descending order
-    // });
-    
-    // // Now you can use the sorted lists
-    // debugPrint('Sorted Checkin List first value: ${checkinList.first.toJson().toString()}');
-    // debugPrint('Sorted Checkin List Last value: ${checkinList[0].toJson().toString()}\n\n\n');
-    // debugPrint('Sorted Checkout List First Value: ${checkoutLists.first.createdAt.toString()}');
-    // debugPrint('Sorted Checkout List Last Value: ${checkoutLists[1].createdAt.toString()}');
-    
-    // // TRUE FOR CHECKIN SCREEN
-    // if (checkinList.isNotEmpty && checkoutLists.isNotEmpty) {
-    //   DateTime checkinFirstInTime = dateFormat.parse(checkinList.first.inTime.toString());
-    //   DateTime checkoutFirstCreatedAt = dateFormat.parse(checkoutLists.first.createdAt.toString());
-    //   bool sameData = isSameDay(DateTime.parse(checkinList.first.inTime.toString()), DateTime.parse(checkoutLists.first.createdAt.toString()));
-    //   bool isCheckoutAfterCheckin = checkinFirstInTime.isAfter(checkoutFirstCreatedAt);
-    
-    //   if (sameData) {
-    //     if (isCheckoutAfterCheckin && checkinList.first.customerid.toString() == customerId) {
-    //       // Assuming the date format is 'yyyy-MM-dd HH:mm:ss'
-    //       final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
-    
-    //       // Convert both to DateTime
-    //       DateTime checkinFirstInTime = dateFormat.parse(checkinList.first.inTime.toString());
-    
-    //       // Compare the DateTime objects
-    //       CheckinPostModel checkinPostModel = checkinList.where((element) => element.farmId == checkoutLists.first.farmId).first;
-    //       debugPrint(checkinPostModel.toJson().toString());
-    
-    //       return LastCheckinOutResponseModel(
-    //         customerCode: checkinPostModel.customerid.toString(),
-    //         message: 'Checkin and Checkout found',
-    //         status: false,
-    //       );
-    //     } else {
-    //       return LastCheckinOutResponseModel(
-    //         customerCode: checkinList.first.customerid.toString(),
-    //         message: 'No Checkin or Checkout found',
-    //         status: true,
-    //       );
-    //     }
-    //   } else {
-    //     return LastCheckinOutResponseModel(
-    //       customerCode: checkinList.first.customerid.toString(),
-    //       message: 'No Checkin or Checkout found',
-    //       status: true,
-    //     );
-    //   }
-    // } else {
-    //   return LastCheckinOutResponseModel(
-    //     customerCode: "",
-    //     message: 'No Checkin or Checkout found',
-    //     status: true,
-    //   );
-    // }
+   
 
     // NEW CODE STARTS HERE------------------------
      List<CheckinPostModel> newCheckinList = await checkinDatabase.getCheckinPosts();
@@ -593,7 +539,6 @@ log('-------------------- CHECKIN  DATA------------------');
     final results = await connectionChecker.hasInternet();
     final database = JointEmployeDatabase();
     debugPrint('CHECKING INTERNET');
-    //  TODO: REMOVE ! FROM RESULTS
     if (results) {
       debugPrint('INTERNET AVAILABLE');
       try {
@@ -616,10 +561,16 @@ log('-------------------- CHECKIN  DATA------------------');
         throw NetworkExceptions.getDioException(e);
       }
     } else {
+      if(AppConfig.isOfflineEnabled) {
+
       debugPrint('NO INTERNET CONNECTION');
       debugPrint('LOADING DATA FROM OFFLINE');
       List<JoinEmployeModel> employeeList = await database.getJoinEmployes();
       return employeeList;
+
+      }else {
+        throw const NetworkExceptions.noInternetConnection();
+      }
     }
   }
 }

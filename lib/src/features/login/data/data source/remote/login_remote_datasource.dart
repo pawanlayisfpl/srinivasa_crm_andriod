@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
+import 'package:srinivasa_crm_new/src/config/constants/appconfig.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/data/datasource/local/profile_local_datasource.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/domain/model/profile_model.dart';
 import 'package:srinivasa_crm_new/src/features/login/database/login_database.dart';
@@ -41,6 +43,23 @@ Future<lm.LoginResponseModel> login({required LoginPostModel loginPostModel}) as
   final results = await locator.get<InternetChecker>().hasInternet();
 // TODO: REMOVE ! FROM IF CONDITION
   if(results) {
+
+  DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+
+  if(Platform.isAndroid) {
+    AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
+    log('Running on ${androidInfo.model}');
+  }
+
+  if(Platform.isIOS) {
+    IosDeviceInfo iosDeviceInfo = await deviceInfoPlugin.iosInfo;
+  log('Running on ${iosDeviceInfo.model.toString()}');  // e.g. "iPod7,1"
+
+  }
+  
+
+
+
      try {
     debugPrint('LOGIN API STARTED');
     
@@ -84,18 +103,12 @@ Future<lm.LoginResponseModel> login({required LoginPostModel loginPostModel}) as
   }
 
   }else {
+
+    if(AppConfig.isOfflineEnabled) {
+
     final profileModel = await locator.get<ProfileLocalRepo>().getLocalUserProfile();
       log(profileModel!.toJson().toString());
-    // final id = await database.insertLoginPost(loginPostModel);
-    // if(id != 0) {
-     
-
-    //   throw  const NetworkExceptions.noInternetConnection();
-
-    // }else {
-    //   throw const NetworkExceptions.noInternetConnection();
-
-    // }
+ 
 
     String? keyPassowrd = locator.get<KeyValueStorage>().getString(KeyValueStrings.password);
 
@@ -187,7 +200,11 @@ Future<lm.LoginResponseModel> login({required LoginPostModel loginPostModel}) as
   ));
 
     }
-    throw const NetworkExceptions.noInternetConnection();
+
+    }else {
+      throw const NetworkExceptions.noInternetConnection();
+    }
+    
 
   }
  
