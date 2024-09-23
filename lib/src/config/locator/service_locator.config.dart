@@ -10,6 +10,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:connectivity_plus/connectivity_plus.dart' as _i895;
 import 'package:dio/dio.dart' as _i361;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart'
+    as _i163;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
@@ -67,6 +69,8 @@ import 'package:srinivasa_crm_new/src/common/services/common_permission_services
     as _i918;
 import 'package:srinivasa_crm_new/src/common/services/common_shareplus_services.dart'
     as _i807;
+import 'package:srinivasa_crm_new/src/common/services/notifications/common_notifications.dart'
+    as _i1051;
 import 'package:srinivasa_crm_new/src/config/locator/service_locator.dart'
     as _i639;
 import 'package:srinivasa_crm_new/src/core/connection/internet_checker.dart'
@@ -197,6 +201,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<DateTime>(() => thirdPartyDependencies.defaultDateTime);
     gh.factory<_i66.DashboardCubit>(() => _i66.DashboardCubit());
     gh.singleton<_i361.Dio>(() => thirdPartyDependencies.dio);
+    gh.singleton<_i163.FlutterLocalNotificationsPlugin>(
+        () => thirdPartyDependencies.flutterLocalNotificationsPlugin);
     gh.singleton<_i974.Logger>(() => thirdPartyDependencies.logger);
     gh.singleton<_i895.Connectivity>(() => thirdPartyDependencies.connectivity);
     gh.singleton<_i973.InternetConnectionChecker>(
@@ -329,6 +335,9 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i848.MonthlyPlanSearchCubit(gh<_i118.MonthlyPlanRepo>()));
     gh.factory<_i208.ProfileRepo>(() =>
         _i390.ProfileRepoImpl(profileLocalRepo: gh<_i346.ProfileLocalRepo>()));
+    gh.factory<_i1051.CommonNotifications>(() => _i1051.CommonNotificationsImpl(
+        flutterLocalNotificationsPlugin:
+            gh<_i163.FlutterLocalNotificationsPlugin>()));
     gh.factory<_i726.ZoneRemoteDataSource>(() => _i726.ZoneRemoteDatasourceImpl(
           dioClient: gh<_i961.DioClient>(),
           internetChecker: gh<_i961.InternetChecker>(),

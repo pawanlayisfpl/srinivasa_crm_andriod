@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/shared/widgets/common_drawer_widget.dart';
+import 'package:srinivasa_crm_new/src/common/services/notifications/common_notifications.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/widgets/dashboard_body_widget.dart';
@@ -234,7 +235,9 @@ void showLogoutDialog(BuildContext context) {
   }
   
   checkingPermissions() async  {
- 
+   await locator.get<CommonNotifications>().initNotifications();
+   await locator.get<CommonNotifications>().requestNotificationPermission();
+
   Future<void> requestPermissions(BuildContext context) async {
     Map<Permission, PermissionStatus> statuses;
 

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:injectable/injectable.dart';
+import 'package:srinivasa_crm_new/src/common/services/notifications/common_notifications.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_cubit.dart';
@@ -38,6 +39,7 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
   await _initDependencies();
+  
   Workmanager(
 
   ).initialize(callbackDispatcher, isInDebugMode: true,);
@@ -82,7 +84,7 @@ class MyApp extends StatelessWidget {
         navigatorKey: AppKeys.globalNavigatorKey,
         scaffoldMessengerKey: AppKeys.scaffoldKey,
         onGenerateRoute: RouteGenerator.getRoute,
-        initialRoute: Routes.testScreen,
+        initialRoute: Routes.loginScreen,
         title: 'SF Crm',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

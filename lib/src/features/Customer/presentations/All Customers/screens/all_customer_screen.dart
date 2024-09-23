@@ -61,22 +61,23 @@ class _AllCustomerScreenState extends State<AllCustomerScreen> {
                 return EmptyWidget(title: 'No Customers Found', callback: () {});
               }
            // Create a new, modifiable list from `data.customerLists`.
-List<Customermodel> modifiableList = List<Customermodel>.from(data.customerLists);
+// List<Customermodel> modifiableList = List<Customermodel>.from(data.customerLists);
 
-// Sort the new list.
-modifiableList.sort((a, b) {
-  // Handle null custName by treating it as the lowest value (sort to the beginning).
-  var nameA = a.customerName?.toLowerCase() ?? '';
-  var nameB = b.customerName?.toLowerCase() ?? '';
-  return nameA.compareTo(nameB);
-});
+// // Sort the new list.
+// modifiableList.sort((a, b) {
+//   // Handle null custName by treating it as the lowest value (sort to the beginning).
+//   var nameA = a.customerName?.toLowerCase() ?? '';
+//   var nameB = b.customerName?.toLowerCase() ?? '';
+//   return nameA.compareTo(nameB);
+// });
 
-// Use the sorted, modifiable list.
-List<Customermodel> sortedList = modifiableList;
+// // Use the sorted, modifiable list.
+// List<Customermodel> sortedList = modifiableList;
 
-               return    CustomerScrollableListWidget();
+               return    const CustomerScrollableListWidget();
               //  AllCustomerLoadedWidget(customerLists:sortedList);
-             }, error: (error) => CommonErrorWidget(error: error.message.toString(),callback: () {
+             }, error: (error) => CommonErrorWidget(error: error.message.errorMessage.toString(),callback: () {
+              context.read<AllCustomerCubit>().getAllCustomer();
 
              },), );
           },
