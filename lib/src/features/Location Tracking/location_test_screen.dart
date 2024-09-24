@@ -1,3 +1,4 @@
+
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -40,9 +41,14 @@ class _TestScreenState extends State<TestScreen> {
     _odometer = '0';
 
     // 1.  Listen to events (See docs for all 12 available events).
+        // Fired whenever a location is recorded
+
     bg.BackgroundGeolocation.onLocation(_onLocation);
+
+    // Fired whenever the plugin changes motion-state (stationary->moving and vice-versa)
     bg.BackgroundGeolocation.onMotionChange(_onMotionChange);
     bg.BackgroundGeolocation.onActivityChange(_onActivityChange);
+    // Fired whenever the state of location-services changes.  Always fired at boot
     bg.BackgroundGeolocation.onProviderChange(_onProviderChange);
     bg.BackgroundGeolocation.onConnectivityChange(_onConnectivityChange);
 
@@ -141,6 +147,7 @@ void _onClickChangePace() {
 
   void _onMotionChange(bg.Location location) {
     log('[motionchange] - $location');
+
   }
 
   void _onActivityChange(bg.ActivityChangeEvent event) {
@@ -163,25 +170,7 @@ void _onClickChangePace() {
   }
 
 
-    Future<void> _pickTimeAndScheduleNotification() async {
-    final TimeOfDay? pickedTime = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    );
-
-    if (pickedTime != null) {
-      final now = DateTime.now();
-      final scheduledTime = DateTime(
-        now.year,
-        now.month,
-        now.day,
-        pickedTime.hour,
-        pickedTime.minute,
-      );
-      log(scheduledTime.toString());
-      await locator.get<CommonNotifications>().showNotificationAtSpecificTime(scheduledTime);
-    }
-  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -192,38 +181,7 @@ void _onClickChangePace() {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: ElevatedButton(onPressed: () async {
-          
-              CommonNotificationModel commonNotificationModel = CommonNotificationModel(title: 'Ajay', descrption: "test description");
-              await locator.get<CommonNotifications>().showNotification(commonNotificationModel: commonNotificationModel);
-          
-          
-            }, child: const Text('Test Screen')),
-            
-          ),
-          30.verticalSpace,
-          Center(
-            child: ElevatedButton(onPressed: () async {
-
-              CommonPeriodicNotificationModel commonPeriodicNotificationModel = CommonPeriodicNotificationModel(title: 'Ajay', descrption: "test description", repeatInterval: RepeatInterval.everyMinute);
-              await locator.get<CommonNotifications>().showPeriodicallyNotification(commonPeriodicNotificationModel: commonPeriodicNotificationModel);
-
-            }, child: const Text('Perodic Notificaiton')),
-          ),
-           30.verticalSpace,
-           Center(
-            child: ElevatedButton(
-              onPressed: _pickTimeAndScheduleNotification,
-              child: const Text('Pick Time and Schedule Notification'),
-            ),
-          ),
-          30.verticalSpace,
-          Center(
-            child: ElevatedButton(onPressed: () async =>
-             await backgroundFetchFunction()
-            , child: const Text('Test Background fetch')),
-          ),
+        
 
           // ROW 
           // LOCATION TRACKING BUTTON
@@ -275,47 +233,3 @@ BackgroundFetch.configure(BackgroundFetchConfig(
 }
 
 
-
-  // bool isEmulator = false;
-  // String deviceModel = "";
-  // String deviceName = "";
-  // String deviceId = "";
-  // String deviceVersion = "";
-  // bool isLowRamDevice = false;
-  // bool isAndroid = false;
-
-
-
-  // DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-
-  // if(Platform.isAndroid) {
-  //   isAndroid = true;
-  //   AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
-  //   isEmulator = !androidInfo.isPhysicalDevice;
-  //   deviceModel = androidInfo.model;
-  //   deviceName = androidInfo.brand;
-  //   deviceId = androidInfo.id;
-  //   deviceVersion = androidInfo.version.release;
-  //   isLowRamDevice = androidInfo.isLowRamDevice;
-
-
-  // }
-
-  // if(Platform.isIOS) {
-  //   IosDeviceInfo iosDeviceInfo = await deviceInfoPlugin.iosInfo;
-
-  // isAndroid = false;
-  // isEmulator = !iosDeviceInfo.isPhysicalDevice;
-  // deviceModel = iosDeviceInfo.model;
-  // deviceName = iosDeviceInfo.name;
-  // deviceId = iosDeviceInfo.identifierForVendor.toString();
-  // deviceVersion = iosDeviceInfo.systemVersion;
-  // }
-
-  // log("isAndroid\n$isAndroid");
-  // log("isEmulator\n$isEmulator");
-  // log("deviceModel\n$deviceModel");
-  // log("deviceName\n$deviceName");
-  // log("deviceId\n$deviceId");
-  // log("deviceVersion\n$deviceVersion");
-  // log("isLowRamDevice\n$isLowRamDevice");
