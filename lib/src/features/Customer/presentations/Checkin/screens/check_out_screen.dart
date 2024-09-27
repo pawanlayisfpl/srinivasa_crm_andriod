@@ -557,19 +557,19 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               leading: const Icon(Icons.camera_alt),
             ),
             const Divider(),
-            // ListTile(
-            //   onTap: () {
-            //     Navigator.pop(context);
-            //     // context.read<CheckinCubit>().pickSingleImageFromGallery();
-            //     context.read<CheckinCubit>().pickAllImages();
-            //   },
-            //   title: CommonTextWidget(title: 'Gallery'),
-            //   leading: const Icon(Icons.image),
-            // ),
-            // Divider(),
-            //   TextButton(onPressed: () {
-            //   Navigator.pop(context);
-            // }, child: Text("Close"),)
+            ListTile(
+              onTap: () {
+                Navigator.pop(context);
+                // context.read<CheckinCubit>().pickSingleImageFromGallery();
+                context.read<CheckinCubit>().pickAllImages();
+              },
+              title: CommonTextWidget(title: 'Gallery'),
+              leading: const Icon(Icons.image),
+            ),
+            Divider(),
+              TextButton(onPressed: () {
+              Navigator.pop(context);
+            }, child: Text("Close"),)
           ],
         ),      
       ));
