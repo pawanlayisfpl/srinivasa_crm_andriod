@@ -1,3 +1,4 @@
+import 'package:double_tap_to_exit/double_tap_to_exit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,14 +38,19 @@ class _LoginScreenState extends State<LoginScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-
-appBar: AppBar(
-  automaticallyImplyLeading: false,
-  title:CommonTextWidget(title: 'SRINIVASA CRM',fontWeight: FontWeight.w600,textColor: Colors.white,textSize: 22.sp,letterSpacing: 2,),
-  centerTitle: true,
-),
+    return  DoubleTapToExit(
+       snackBar: const SnackBar(
+        content: Text('Tap again to exit !'),
+      ),
+      child: Scaffold(
       
-      body: const SafeArea(child: LoginBodyWidget()));
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title:CommonTextWidget(title: 'SRINIVASA CRM',fontWeight: FontWeight.w600,textColor: Colors.white,textSize: 22.sp,letterSpacing: 2,),
+        centerTitle: true,
+      ),
+        
+        body: const SafeArea(child: LoginBodyWidget())),
+    );
   }
 }
