@@ -1,8 +1,13 @@
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:injectable/injectable.dart';
+import 'package:srinivasa_crm_new/firebase_options.dart';
 import 'package:srinivasa_crm_new/src/common/services/notifications/common_notifications.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_cubit.dart';
@@ -39,6 +44,25 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
   await _initDependencies();
+  await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);
+
+
+
+  // In debug mode, use the Firebase local emulator.
+  if (kDebugMode) {
+    const String devMachineIP = '192.168.x.x';
+    // FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
+    // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+    // FirebaseFunctions.instance.useFunctionsEmulator('localhost', 5001);
+
+    debugPrint('Using Firebase emulator suite');
+
+    // FirebaseFirestfirore.instance.useFirestoreEmulator(devMachineIP, 8080);
+    await FirebaseAuth.instance.useAuthEmulator(devMachineIP, 9099);
+    FirebaseFunctions.instance.useFunctionsEmulator(devMachineIP, 5001);
+  }
   
   Workmanager(
 
@@ -47,7 +71,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key}); 
 
   @override
   Widget build(BuildContext context) {

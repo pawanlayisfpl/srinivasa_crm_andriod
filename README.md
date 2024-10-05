@@ -11,3 +11,10 @@ change gradle version in settings.gradle
 github email
 ajaysudam.srinivasa@gmail.com
 
+
+
+
+EMULATORS::
+firebase emulators:start
+
+

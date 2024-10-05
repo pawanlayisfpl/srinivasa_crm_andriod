@@ -71,6 +71,8 @@ import 'package:srinivasa_crm_new/src/common/services/common_shareplus_services.
     as _i807;
 import 'package:srinivasa_crm_new/src/common/services/notifications/common_notifications.dart'
     as _i1051;
+import 'package:srinivasa_crm_new/src/common/services/notifications/common_push_notifications_services.dart'
+    as _i125;
 import 'package:srinivasa_crm_new/src/config/locator/service_locator.dart'
     as _i639;
 import 'package:srinivasa_crm_new/src/core/connection/internet_checker.dart'
@@ -231,6 +233,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i895.Connectivity>(),
           gh<_i973.InternetConnectionChecker>(),
         ));
+    gh.factory<_i125.CommonPushNotificationsServices>(
+        () => _i125.CommonPushNotificationsServicesImpl());
     gh.factory<_i286.KeyValueStorage>(() => _i286.KeyValueStorage(
           gh<_i558.FlutterSecureStorage>(),
           gh<_i460.SharedPreferences>(),

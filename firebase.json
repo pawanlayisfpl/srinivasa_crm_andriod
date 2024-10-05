@@ -1,0 +1,33 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "crm-app-7f354",
+          "appId": "1:504485681431:android:7cc8e28280cc71a7e57f52",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "crm-app-7f354",
+          "appId": "1:504485681431:ios:0085f7e32c1b0e50e57f52",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "crm-app-7f354",
+          "configurations": {
+            "android": "1:504485681431:android:7cc8e28280cc71a7e57f52",
+            "ios": "1:504485681431:ios:0085f7e32c1b0e50e57f52"
+          }
+        }
+      }
+    }
+  },
+  "emulators": {
+    "singleProjectMode": true
+  }
+}
