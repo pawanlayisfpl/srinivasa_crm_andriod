@@ -408,6 +408,13 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i204.LoginUseCase(loginRepository: gh<_i584.LoginRepository>()));
     gh.factory<_i186.UserActivityCubit>(
         () => _i186.UserActivityCubit(gh<_i939.UserActivityRepo>()));
+    gh.factory<_i796.MarkAttendanceCubit>(() => _i796.MarkAttendanceCubit(
+          gh<_i866.PunchInUseCase>(),
+          gh<_i866.PunchOutUsecase>(),
+          gh<_i866.LastPunchInOutUseCase>(),
+          gh<_i972.CommonLocationServices>(),
+          gh<_i1051.CommonNotifications>(),
+        ));
     gh.factory<_i311.AddressRepo>(() => _i1057.AddressRepoImpl(
         addressRemoteDataSource: gh<_i566.AddressRemoteDataSource>()));
     gh.factory<_i792.ZoneRepo>(() => _i605.ZoneRepoImpl(
@@ -415,12 +422,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i192.KycUploadCubit>(() => _i192.KycUploadCubit(
           imageServices: gh<_i972.CommonImageServices>(),
           kycRepo: gh<_i382.KycRepo>(),
-        ));
-    gh.factory<_i796.MarkAttendanceCubit>(() => _i796.MarkAttendanceCubit(
-          gh<_i866.PunchInUseCase>(),
-          gh<_i866.PunchOutUsecase>(),
-          gh<_i866.LastPunchInOutUseCase>(),
-          gh<_i972.CommonLocationServices>(),
         ));
     gh.factory<_i520.UpdateMonthlyPlanCubit>(() => _i520.UpdateMonthlyPlanCubit(
           monthlyPlanRepo: gh<_i118.MonthlyPlanRepo>(),

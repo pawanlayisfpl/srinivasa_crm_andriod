@@ -5,6 +5,8 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/common/services/notifications/common_push_notifications_services.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/domain/model/customer_kyu_model.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/Kyc%20Upload/screens/kyc_upload_screen.dart';
@@ -20,6 +22,15 @@ class TestScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<TestScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+       final pushNotifcationsServices = locator.get<CommonPushNotificationsServices>();
+    await pushNotifcationsServices.initializePushNotifications();
+    });
+  }
 
     Future<void> _pickTimeAndScheduleNotification() async {
     final TimeOfDay? pickedTime = await showTimePicker(
@@ -37,7 +48,7 @@ class _TestScreenState extends State<TestScreen> {
         pickedTime.minute,
       );
       log(scheduledTime.toString());
-      await locator.get<CommonNotifications>().showNotificationAtSpecificTime(scheduledTime);
+      // await locator.get<CommonNotifications>().showNotificationAtSpecificTime(scheduledTime);
     }
   }
   @override
@@ -76,9 +87,18 @@ class _TestScreenState extends State<TestScreen> {
               child: const Text('Pick Time and Schedule Notification'),
             ),
           ),
+          30.verticalSpace,
+          CommonButton(callback: () => _checkPushNotificationPermissions(), title: "Check Permissions"),
+          30.verticalSpace,
+          
         ],
       ),
     );
+  }
+  
+  _checkPushNotificationPermissions() async {
+    final pushNotification = locator.get<CommonPushNotificationsServices>();
+    await pushNotification.generateToken();
   }
 }
 

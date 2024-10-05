@@ -12,6 +12,7 @@ import 'package:srinivasa_crm_new/src/config/locator/locator.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 
+import '../../../../../common/services/notifications/common_notifications.dart';
 import '../../../domain/domain.dart';
 import 'mark_attendance_state.dart';
 
@@ -21,12 +22,15 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
   final PunchOutUsecase punchOutUseCase;
   final LastPunchInOutUseCase getLastPunchInOutDetailsUseCase;
   final CommonLocationServices commonLocationServices;
+   final CommonNotifications commonNotifications;
 
   MarkAttendanceCubit(
     this.punchInUseCase,
     this.punchOutUseCase,
     this.getLastPunchInOutDetailsUseCase,
     this.commonLocationServices,
+    this.commonNotifications
+    
   ) : super( MarkAttendanceState.initial());
 
   // GET LAST PUNCH IN-OUT DATA

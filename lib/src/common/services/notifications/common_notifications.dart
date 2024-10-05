@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
+import 'package:srinivasa_crm_new/src/common/services/notifications/common_notification_channel.dart';
 import 'package:srinivasa_crm_new/src/config/constants/constants.dart';
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/screens/dashboard_screen.dart';
 
@@ -38,7 +39,7 @@ abstract class CommonNotifications {
   Future<void> showNotification({required CommonNotificationModel commonNotificationModel});
   Future showPeriodicallyNotification({required CommonPeriodicNotificationModel commonPeriodicNotificationModel });
   Future<void> cancelPeriodicallyNotification(int id);
-    Future<void> showNotificationAtSpecificTime(DateTime scheduledTime);
+    Future<void> showNotificationAtSpecificTime(DateTime scheduledTime,CommonNotificationModel commonNotificationModel);
 
 }
 
@@ -76,8 +77,9 @@ class CommonNotificationsImpl extends CommonNotifications {
 
   @override
   Future<void> requestNotificationPermission() async {
-    // Implementation for requesting notification permission
-    final result = await flutterLocalNotificationsPlugin
+
+    if(Platform.isIOS) {
+      final result = await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             IOSFlutterLocalNotificationsPlugin>()
         ?.requestPermissions(
@@ -85,6 +87,18 @@ class CommonNotificationsImpl extends CommonNotifications {
           badge: true,
           sound: true,
         );
+
+    }
+
+
+    if(Platform.isAndroid) {
+      await flutterLocalNotificationsPlugin
+  .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+  ?.createNotificationChannel(CommonNotificationChannel.channel);
+
+    }
+    // Implementation for requesting notification permission
+    
     // Handle the result if needed
     
 
@@ -127,6 +141,7 @@ class CommonNotificationsImpl extends CommonNotifications {
   
   @override
   Future<void> initNotifications() async {
+    tz.initializeTimeZones();
     // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
 const AndroidInitializationSettings initializationSettingsAndroid =
     AndroidInitializationSettings('ic_launcher');
@@ -216,11 +231,11 @@ final List<PendingNotificationRequest> pendingNotificationRequests =
   // }
 
     @override
-  Future<void> showNotificationAtSpecificTime(DateTime scheduledTime) async {
+  Future<void> showNotificationAtSpecificTime(DateTime scheduledTime,CommonNotificationModel commonNotificationModel) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
       DateTime.now().millisecondsSinceEpoch.remainder(100000), // Unique notification ID
-      'Scheduled Title',
-      'Scheduled Body',
+      commonNotificationModel.title,
+      commonNotificationModel.descrption,
       tz.TZDateTime.from(scheduledTime, tz.local),
       const NotificationDetails(
         android: AndroidNotificationDetails(

@@ -8,6 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/shared/widgets/common_drawer_widget.dart';
 import 'package:srinivasa_crm_new/src/common/services/notifications/common_notifications.dart';
+import 'package:srinivasa_crm_new/src/common/services/notifications/common_push_notifications_services.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/widgets/dashboard_body_widget.dart';
@@ -18,6 +19,10 @@ import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/s
 
 import '../../../../config/config.dart';
 import '../../../../core/core.dart';
+
+
+ import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 
 class DashboardScreen extends StatefulWidget {
@@ -37,6 +42,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     WidgetsBinding.instance.addPostFrameCallback( (time) async {
       context.read<AlertCubit>().getAlerts();
       await checkingPermissions();
+      await _handleScheduleNotificationsSetup();
+      await initializePushNotificationServices();
 
      
     });
@@ -316,5 +323,70 @@ void showLogoutDialog(BuildContext context) {
     }
   
     
+  }
+  
+  
+  _handleScheduleNotificationsSetup() async  {
+
+    final keyValueStorage = locator.get<KeyValueStorage>();
+
+
+    final notifications = locator.get<CommonNotifications>();
+    await keyValueStorage.clearValue(KeyValueStrings.isNotificationScheduled);
+
+
+    bool? isCreated =  keyValueStorage.sharedPreferences.getBool(KeyValueStrings.isNotificationScheduled);
+
+
+
+    if(isCreated != null) {
+
+// Helper function to get the next instance of a specific time (hours, minutes)
+tz.TZDateTime nextInstanceOfTime(int hour, int minute) {
+  tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+  tz.TZDateTime scheduledTime = tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
+  
+  // If the scheduled time is already past today, schedule it for tomorrow
+  if (scheduledTime.isBefore(now)) {
+    scheduledTime = scheduledTime.add(const Duration(days: 1));
+  }
+
+  return scheduledTime;
+}
+
+    CommonNotificationModel punchInNotificationModel = CommonNotificationModel(title: 'Reminder: Daily Punch-in', descrption: '''Please punch out if you're done for the day. If already done, you can ignore this message.''');
+    CommonNotificationModel punchoutNotificationModel = CommonNotificationModel(title: 'Reminder: Daily Punch-out', descrption: '''Please punch out if you're done for the day. If already done, you can ignore this message.''');
+
+  // Time for 9:00 AM
+  final tz.TZDateTime morningTime = nextInstanceOfTime(9, 0);
+  
+  // Time for 7:45 PM
+  // final tz.TZDateTime eveningTime = _nextInstanceOfTime(19, 45);
+  final tz.TZDateTime eveningTime = nextInstanceOfTime(15, 05);
+
+
+  // Schedule 9:00 AM notification
+  await notifications.showNotificationAtSpecificTime(morningTime,punchInNotificationModel);
+
+  // Schedule 7:45 PM notification
+  await notifications.showNotificationAtSpecificTime(eveningTime,punchoutNotificationModel);
+  keyValueStorage.sharedPreferences.setBool(KeyValueStrings.isNotificationScheduled, true);
+
+
+
+    }else {
+      return;
+
+    }
+
+
+  // await notifications.showNotification(commonNotificationModel: CommonNotificationModel(title: 'test schedule notification', descrption: 'test scheduled  description'));
+
+
+  }
+  
+  initializePushNotificationServices() async {
+    final pushNotifcationsServices = locator.get<CommonPushNotificationsServices>();
+    await pushNotifcationsServices.initializePushNotifications();
   }
 }

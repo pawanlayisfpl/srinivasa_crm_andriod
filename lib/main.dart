@@ -1,6 +1,7 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,6 +38,11 @@ import 'src/config/config.dart';
 import 'src/features/Sales Order/presentation/Sales Order Pending/cubit/pending_order_cubit.dart';
 import 'src/features/login/presentation/cubit/login_cubit.dart';
 
+Future<void> backgroundHandler(RemoteMessage message) async {
+  print('Handling a background message ${message.messageId}');
+}
+
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
@@ -47,6 +53,8 @@ Future<void> main() async {
   await Firebase.initializeApp(
   options: DefaultFirebaseOptions.currentPlatform,
 );
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+
 
 
 
@@ -108,7 +116,7 @@ class MyApp extends StatelessWidget {
         navigatorKey: AppKeys.globalNavigatorKey,
         scaffoldMessengerKey: AppKeys.scaffoldKey,
         onGenerateRoute: RouteGenerator.getRoute,
-        initialRoute: Routes.loginScreen,
+        initialRoute: Routes.testScreen,
         title: 'SF Crm',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

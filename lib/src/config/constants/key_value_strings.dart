@@ -13,4 +13,7 @@ class KeyValueStrings {
   static const String sigleCustomerData = 'singleCustomerData';
   static const String customersData = 'customersData';
   static const String checkinTime = 'checkinTIme';
+
+    static const String isNotificationScheduled = 'notificatonScheduled';
+
 }
