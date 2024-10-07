@@ -83,6 +83,8 @@ debugPrint('User granted permission: ${settings.authorizationStatus}');
   
   @override
   Future<String?> generateToken() async {
+  await  FirebaseMessaging.instance.subscribeToTopic('news');
+   await  FirebaseMessaging.instance.subscribeToTopic('general');
        String? token = await FirebaseMessaging.instance.getToken();
        log(token.toString());
   return token;
@@ -130,7 +132,7 @@ debugPrint('User granted permission: ${settings.authorizationStatus}');
     }
 
 
-    FirebaseMessaging.instance.requestPermission();
+    // FirebaseMessaging.instance.requestPermission();
         FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       debugPrint('Got a message whilst in the foreground!');
       debugPrint('Message data: ${message.data}');

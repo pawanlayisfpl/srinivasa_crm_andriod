@@ -12,6 +12,8 @@ import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/scre
 import 'package:srinivasa_crm_new/src/features/login/presentation/screens/login_screen.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
 
+import '../../features/Dashbaord/presentations/screens/dashboard_screen.dart';
+
 class Routes {
   // AUTH
   static const String locationScreen = "/locationScreen";
@@ -104,6 +106,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) =>   const UserActivityScreen());
              case Routes.testScreen:
         return MaterialPageRoute(builder: (_) =>   const TestScreen());
+             case Routes.dashbaordScreen:
+        return MaterialPageRoute(builder: (_) =>   const DashboardScreen());
 
   
 

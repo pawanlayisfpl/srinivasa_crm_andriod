@@ -14,6 +14,10 @@ import 'package:srinivasa_crm_new/src/features/Kyc/presentation/Kyc%20Upload/scr
 import '../../common/services/notifications/common_notifications.dart';
 import '../../config/locator/locator.dart';
 
+
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
 
@@ -39,6 +43,7 @@ class _TestScreenState extends State<TestScreen> {
     );
 
     if (pickedTime != null) {
+      
       final now = DateTime.now();
       final scheduledTime = DateTime(
         now.year,
@@ -48,7 +53,9 @@ class _TestScreenState extends State<TestScreen> {
         pickedTime.minute,
       );
       log(scheduledTime.toString());
-      // await locator.get<CommonNotifications>().showNotificationAtSpecificTime(scheduledTime);
+      tz.initializeTimeZones();
+      CommonNotificationModel commonNotificationModel = CommonNotificationModel(title: 'Schedule Notification', description: "Schedule notification testing");
+      await locator.get<CommonNotifications>().showNotificationAtSpecificTime(scheduledTime,commonNotificationModel);
     }
   }
   @override
@@ -64,7 +71,7 @@ class _TestScreenState extends State<TestScreen> {
           Center(
             child: ElevatedButton(onPressed: () async {
           
-              CommonNotificationModel commonNotificationModel = CommonNotificationModel(title: 'Ajay', descrption: "test description");
+              CommonNotificationModel commonNotificationModel = CommonNotificationModel(title: 'Ajay', description: "test description");
               await locator.get<CommonNotifications>().showNotification(commonNotificationModel: commonNotificationModel);
           
           
@@ -75,7 +82,7 @@ class _TestScreenState extends State<TestScreen> {
           Center(
             child: ElevatedButton(onPressed: () async {
 
-              CommonPeriodicNotificationModel commonPeriodicNotificationModel = CommonPeriodicNotificationModel(title: 'Ajay', descrption: "test description", repeatInterval: RepeatInterval.everyMinute);
+              CommonPeriodicNotificationModel commonPeriodicNotificationModel = CommonPeriodicNotificationModel(title: 'Ajay', description: "test description", repeatInterval: RepeatInterval.everyMinute);
               await locator.get<CommonNotifications>().showPeriodicallyNotification(commonPeriodicNotificationModel: commonPeriodicNotificationModel);
 
             }, child: const Text('Perodic Notificaiton')),

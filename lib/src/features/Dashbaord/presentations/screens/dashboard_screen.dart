@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:quickalert/quickalert.dart';
@@ -44,6 +45,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       await checkingPermissions();
       await _handleScheduleNotificationsSetup();
       await initializePushNotificationServices();
+      
 
      
     });
@@ -331,7 +333,8 @@ void showLogoutDialog(BuildContext context) {
     final keyValueStorage = locator.get<KeyValueStorage>();
 
 
-    final notifications = locator.get<CommonNotifications>();
+    // final notifications = locator.get<CommonNotifications>();
+    CommonNotifications notifications = CommonNotifications(flutterLocalNotificationsPlugin: FlutterLocalNotificationsPlugin());
     await keyValueStorage.clearValue(KeyValueStrings.isNotificationScheduled);
 
 
@@ -354,24 +357,27 @@ tz.TZDateTime nextInstanceOfTime(int hour, int minute) {
   return scheduledTime;
 }
 
-    CommonNotificationModel punchInNotificationModel = CommonNotificationModel(title: 'Reminder: Daily Punch-in', descrption: '''Please punch out if you're done for the day. If already done, you can ignore this message.''');
-    CommonNotificationModel punchoutNotificationModel = CommonNotificationModel(title: 'Reminder: Daily Punch-out', descrption: '''Please punch out if you're done for the day. If already done, you can ignore this message.''');
+   
+    CommonNotificationModel punchInNotificationModel = CommonNotificationModel(title: 'Reminder: Daily Punch-in', description: '''Please punch out if you're done for the day. If already done, you can ignore this message.''');
 
   // Time for 9:00 AM
   final tz.TZDateTime morningTime = nextInstanceOfTime(9, 0);
   
   // Time for 7:45 PM
   // final tz.TZDateTime eveningTime = _nextInstanceOfTime(19, 45);
-  final tz.TZDateTime eveningTime = nextInstanceOfTime(15, 05);
+  final tz.TZDateTime eveningTime = nextInstanceOfTime(15, 58);
 
 
   // Schedule 9:00 AM notification
   await notifications.showNotificationAtSpecificTime(morningTime,punchInNotificationModel);
 
   // Schedule 7:45 PM notification
-  await notifications.showNotificationAtSpecificTime(eveningTime,punchoutNotificationModel);
-  keyValueStorage.sharedPreferences.setBool(KeyValueStrings.isNotificationScheduled, true);
+    DateTime dateTime = DateTime.now().copyWith(hour: 14, minute: 59, second: 0, millisecond: 0);
 
+  await notifications.showNotificationAtSpecificTime(eveningTime,punchInNotificationModel);
+  await notifications.showNotification(commonNotificationModel: CommonNotificationModel(title: 'normal notification', description: "normal notification description"));
+
+  keyValueStorage.sharedPreferences.setBool(KeyValueStrings.isNotificationScheduled, true);
 
 
     }else {
@@ -387,6 +393,7 @@ tz.TZDateTime nextInstanceOfTime(int hour, int minute) {
   
   initializePushNotificationServices() async {
     final pushNotifcationsServices = locator.get<CommonPushNotificationsServices>();
+    await pushNotifcationsServices.requestNotification();
     await pushNotifcationsServices.initializePushNotifications();
   }
 }

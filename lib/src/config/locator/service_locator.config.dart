@@ -290,6 +290,9 @@ extension GetItInjectableX on _i174.GetIt {
           keyValueStorage: gh<_i961.KeyValueStorage>(),
           logger: gh<_i974.Logger>(),
         ));
+    gh.factory<_i1051.CommonNotifications>(() => _i1051.CommonNotifications(
+        flutterLocalNotificationsPlugin:
+            gh<_i163.FlutterLocalNotificationsPlugin>()));
     gh.factory<_i637.AlertRemoteDataSource>(
         () => _i637.AlertRemoteDataSourceImpl(
               dioClient: gh<_i961.DioClient>(),
@@ -339,9 +342,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i848.MonthlyPlanSearchCubit(gh<_i118.MonthlyPlanRepo>()));
     gh.factory<_i208.ProfileRepo>(() =>
         _i390.ProfileRepoImpl(profileLocalRepo: gh<_i346.ProfileLocalRepo>()));
-    gh.factory<_i1051.CommonNotifications>(() => _i1051.CommonNotificationsImpl(
-        flutterLocalNotificationsPlugin:
-            gh<_i163.FlutterLocalNotificationsPlugin>()));
     gh.factory<_i726.ZoneRemoteDataSource>(() => _i726.ZoneRemoteDatasourceImpl(
           dioClient: gh<_i961.DioClient>(),
           internetChecker: gh<_i961.InternetChecker>(),
