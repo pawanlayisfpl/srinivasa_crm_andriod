@@ -37,9 +37,9 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((c) async {
-      context.read<MarkAttendanceCubit>().getLastPunchInOutData();
-      context.read<ProfileCubit>().getLocalProfile();
-      checkingPermissions();
+     await context.read<MarkAttendanceCubit>().getLastPunchInOutData();
+     await context.read<ProfileCubit>().getLocalProfile();
+    await  checkingPermissions();
   
     });
   }
@@ -141,143 +141,146 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const CustomAppBarTitleWidget(title: 'Mark Attendance',),
-      ),
-      backgroundColor: Colors.white,
-      body: BlocConsumer<MarkAttendanceCubit, MarkAttendanceState>(
-        listener: (context, state) {
-          if (state.punchInSuccess) {
-            QuickAlert.show(
-                context: context,
-                type: QuickAlertType.success,
-                title: "Punch In Success",
-                showConfirmBtn: true,
-                confirmBtnText: "Go to Dashboard",
-                onConfirmBtnTap: () {
-                  Navigator.pop(context);
-                   HapticFeedback.vibrate();
-                
-                  Navigator.pushAndRemoveUntil(
-                    context, 
-                    MaterialPageRoute(builder: (c) => const DashboardScreen()), 
-                    (route) => false,
-                  );                },
-                text: "You have successfully punched in");
-
-          } else if (state.punchOutSuccess) {
-            QuickAlert.show(
-                context: context,
-                type: QuickAlertType.success,
-                onConfirmBtnTap:  () async {
-                     const platform = MethodChannel('com.srinivasa.crm');
-                platform.invokeMethod('stop');
-                  Navigator.pop(context);
-                  if(context.mounted) {
-                    Navigator.pushAndRemoveUntil(context, ScaleRoute(screen: const LoginScreen()),(route) => false);
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const CustomAppBarTitleWidget(title: 'Mark Attendance',),
+        ),
+        backgroundColor: Colors.white,
+        body: BlocConsumer<MarkAttendanceCubit, MarkAttendanceState>(
+          listener: (context, state) {
+            if (state.punchInSuccess) {
+              QuickAlert.show(
+                  context: context,
+                  type: QuickAlertType.success,
+                  title: "Punch In Success",
+                  showConfirmBtn: true,
+                  confirmBtnText: "Go to Dashboard",
+                  onConfirmBtnTap: () {
+                    Navigator.pop(context);
+                     HapticFeedback.vibrate();
+                  
+                    Navigator.pushAndRemoveUntil(
+                      context, 
+                      MaterialPageRoute(builder: (c) => const DashboardScreen()), 
+                      (route) => false,
+                    );                },
+                  text: "You have successfully punched in");
+      
+            } else if (state.punchOutSuccess) {
+              QuickAlert.show(
+                  context: context,
+                  type: QuickAlertType.success,
+                  onConfirmBtnTap:  () async {
+                       const platform = MethodChannel('com.srinivasa.crm');
+                  platform.invokeMethod('stop');
+                    Navigator.pop(context);
+                    if(context.mounted) {
+                      Navigator.pushAndRemoveUntil(context, ScaleRoute(screen: const LoginScreen()),(route) => false);
+                    }
+                  
+                  },
+                  title: "Punch Out Success",
+                  text: "You have successfully punched out");
+            } else if (state.loading) {
+              // Handle loading state
+            } else if (state.punchInFailure) {
+              QuickAlert.show(
+                  context: context,
+                  type: QuickAlertType.error,
+                  title: "${state.apiFailModel!.statusCode} ${state.apiFailModel!.message}",
+                  text: state.apiFailModel!.errorMessage.toString());
+            } else if (state.punchOutFailure) {
+              QuickAlert.show(
+                  context: context,
+                  type: QuickAlertType.error,
+                  title: "${state.apiFailModel!.statusCode} ${state.apiFailModel!.message}",
+                  text: state.apiFailModel!.errorMessage.toString());
+            }else if(state.loaded) {
+              // Handle loaded state
+              bool value = state.lastPunchInResponseModel != null &&
+                  state.lastPunchInResponseModel!.status == false;
+      
+                  if(value  && widget.isCheckedInScreen == true) {
+                    if(context.mounted) {
+                      Navigator.pushAndRemoveUntil(context, ScaleRoute(screen: const DashboardScreen()),(route) => false);
+                    }
                   }
-                
-                },
-                title: "Punch Out Success",
-                text: "You have successfully punched out");
-          } else if (state.loading) {
-            // Handle loading state
-          } else if (state.punchInFailure) {
-            QuickAlert.show(
-                context: context,
-                type: QuickAlertType.error,
-                title: "${state.apiFailModel!.statusCode} ${state.apiFailModel!.message}",
-                text: state.apiFailModel!.errorMessage.toString());
-          } else if (state.punchOutFailure) {
-            QuickAlert.show(
-                context: context,
-                type: QuickAlertType.error,
-                title: "${state.apiFailModel!.statusCode} ${state.apiFailModel!.message}",
-                text: state.apiFailModel!.errorMessage.toString());
-          }else if(state.loaded) {
-            // Handle loaded state
-            bool value = state.lastPunchInResponseModel != null &&
-                state.lastPunchInResponseModel!.status == false;
-
-                if(value  && widget.isCheckedInScreen == true) {
-                  if(context.mounted) {
-                    Navigator.pushAndRemoveUntil(context, ScaleRoute(screen: const DashboardScreen()),(route) => false);
-                  }
-                }
-            
-          }
-        },
-        builder: (context, state) {
-          if (state.loading) {
-            // Show loading indicator
-            return const CustomLoadingWidget();
-          } else {
-            // Show other widgets
-            return Column(
-              children: [
-                Expanded(
-                  child: Center(
-                    child: Lottie.asset(
-                      'assets/lottie/map1.json',
-                      fit: BoxFit.fitHeight,
+              
+            }
+          },
+          builder: (context, state) {
+            if (state.loading) {
+              // Show loading indicator
+              return const CustomLoadingWidget();
+            } else {
+              // Show other widgets
+              return Column(
+                children: [
+                  Expanded(
+                    child: Center(
+                      child: Lottie.asset(
+                        'assets/lottie/map1.json',
+                        fit: BoxFit.fitHeight,
+                      ),
                     ),
                   ),
-                ),
-                20.verticalSpace,
-                state.isSubmitting == true
-                    ? const CustomLoadingWidget()
-                    : CommonButton(
-                      callback: () async {
-                        await HapticFeedback.mediumImpact();
-                        if (state.lastPunchInResponseModel!.status ==
-                            true) {
-                          // PUNCH IN LOGIC
-                        
-                       if(context.mounted) {
-                           await context
-                              .read<MarkAttendanceCubit>()
-                              .punchInLogic(
-                                );
-                       }
-                        } else {
-
-                          if(context.mounted) {
-                            await context
-                              .read<MarkAttendanceCubit>()
-                              .punchOutLogic(
+                  20.verticalSpace,
+                  state.isSubmitting == true
+                      ? const CustomLoadingWidget()
+                      : CommonButton(
+                        callback: () async {
+                          await HapticFeedback.mediumImpact();
+                          if (state.lastPunchInResponseModel!.status ==
+                              true) {
+                            // PUNCH IN LOGIC
+                          
+                         if(context.mounted) {
+                             await context
+                                .read<MarkAttendanceCubit>()
+                                .punchInLogic(
                                   );
+                         }
+                          } else {
+      
+                            if(context.mounted) {
+                              await context
+                                .read<MarkAttendanceCubit>()
+                                .punchOutLogic(
+                                    );
+                            }
+                                // PermissionStatus status = await Permission.location.request();
+                      
+                                // if(status.isGranted) {
+                     
+                      
+                                // }else {
+                                //   await Permission.location.request();
+                                // }
+                      
+                      
+                      
+                           
+                           
                           }
-                              // PermissionStatus status = await Permission.location.request();
-                    
-                              // if(status.isGranted) {
-                   
-                    
-                              // }else {
-                              //   await Permission.location.request();
-                              // }
-                    
-                    
-                    
-                         
-                         
-                        }
-                      },
-                      title: state.lastPunchInResponseModel != null &&
-                              state.lastPunchInResponseModel?.status == true
-                          ? "Punch In"
-                          : "Punch Out",
-                    ).withSymetricPadding(horizontalPadding: 20.w),
-                SizedBox(
-                  height: 0.1.sh,
-                )
-              ],
-            );
-          }
-          // Build your UI based on the state.
-//    return  state.loading == true ? CustomLoadingWidget() :
-        },
+                        },
+                        title: state.lastPunchInResponseModel != null &&
+                                state.lastPunchInResponseModel?.status == true
+                            ? "Punch In"
+                            : "Punch Out",
+                      ).withSymetricPadding(horizontalPadding: 20.w),
+                  SizedBox(
+                    height: 0.1.sh,
+                  )
+                ],
+              );
+            }
+            // Build your UI based on the state.
+      //    return  state.loading == true ? CustomLoadingWidget() :
+          },
+        ),
       ),
     );
   }

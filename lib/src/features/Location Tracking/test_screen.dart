@@ -87,6 +87,13 @@ class _TestScreenState extends State<TestScreen> {
 
             }, child: const Text('Perodic Notificaiton')),
           ),
+              30.verticalSpace,
+           Center(
+            child: ElevatedButton(
+              onPressed: () async => await _generateToken(),
+              child: const Text('Generate TOken'),
+            ),
+          ),
            30.verticalSpace,
            Center(
             child: ElevatedButton(
@@ -104,8 +111,21 @@ class _TestScreenState extends State<TestScreen> {
   }
   
   _checkPushNotificationPermissions() async {
+    // final pushNotification = locator.get<CommonPushNotificationsServices>();
+    // await pushNotification.generateToken();
+  final notifications = CommonNotifications(flutterLocalNotificationsPlugin: FlutterLocalNotificationsPlugin());
+     DateTime dateTime = DateTime.now().copyWith(hour: 17, minute: 46, second: 0, millisecond: 0);
+
+         CommonNotificationModel punchInNotificationModel = CommonNotificationModel(title: 'Reminder: Daily Punch-in', description: '''Please punch out if you're done for the day. If already done, you can ignore this message.''');
+
+  tz.initializeTimeZones();
+  await notifications.showNotificationAtSpecificTime(dateTime,punchInNotificationModel);
+  }
+  
+  _generateToken() async {
     final pushNotification = locator.get<CommonPushNotificationsServices>();
     await pushNotification.generateToken();
+
   }
 }
 

@@ -37,7 +37,7 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
   Future<void> getLastPunchInOutData() async {
     emit(MarkAttendanceState.initial());
     emit(state.copyWith(loading: true));
-    await Future.delayed(const Duration(seconds: 1));
+    // await Future.delayed(const Duration(seconds: 1));
    try {
   final results = await getLastPunchInOutDetailsUseCase.execute();
   await results.fold((l) async {

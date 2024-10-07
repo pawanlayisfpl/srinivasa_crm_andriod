@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
+import 'package:srinivasa_crm_new/src/common/services/notifications/common_notifications.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/screens/dashboard_screen.dart';
@@ -105,22 +106,24 @@ debugPrint('User granted permission: ${settings.authorizationStatus}');
     // HANDLING NOTIFICATIONS PAYLOAD
 
 
-    void handleMessage(RemoteMessage? remoteMessage) {
+    Future<void> handleMessage(RemoteMessage? remoteMessage)  async{
 
       if(remoteMessage == null) return;
+  print('notification data  received ${remoteMessage.data['screen'] }');
+
 
       switch(remoteMessage.data['screen']) {
         case  "dashboard" : 
-                AppKeys.globalNavigatorKey.currentState!.push(ScaleRoute(screen: const DashboardScreen()));
+               await AppKeys.globalNavigatorKey.currentState!.push(ScaleRoute(screen: const DashboardScreen()));
                 break;
                 case 'punchin' :
-                                AppKeys.globalNavigatorKey.currentState!.push(ScaleRoute(screen: const MarkAttendanceScreen()));
+                              await  AppKeys.globalNavigatorKey.currentState!.push(ScaleRoute(screen: const MarkAttendanceScreen()));
                                 break;
 
 
 
                 default: 
-                 AppKeys.globalNavigatorKey.currentState!.push(ScaleRoute(screen: const DashboardScreen()));
+                await  AppKeys.globalNavigatorKey.currentState!.push(ScaleRoute(screen: const DashboardScreen()));
 
       }
 
@@ -133,12 +136,30 @@ debugPrint('User granted permission: ${settings.authorizationStatus}');
 
 
     // FirebaseMessaging.instance.requestPermission();
-        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+        FirebaseMessaging.onMessage.listen((RemoteMessage message)  async {
       debugPrint('Got a message whilst in the foreground!');
       debugPrint('Message data: ${message.data}');
 
       if (message.notification != null) {
         debugPrint('Message also contained a notification: ${message.notification}');
+
+     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+   int generateDateTimeId() {
+  return DateTime.now().millisecondsSinceEpoch % 2147483647; // Ensures the ID fits within 32-bit signed integer range
+}
+await flutterLocalNotificationsPlugin.show(
+  generateDateTimeId(), // Use the adjusted ID
+  message.data['title'],
+  message.data['description'],
+  const NotificationDetails(
+    android: AndroidNotificationDetails(
+      "high_importance_channel",
+      "Importance notifications for CRM",
+    ),
+  ),
+);
+
       }
     });
 
@@ -146,25 +167,25 @@ debugPrint('User granted permission: ${settings.authorizationStatus}');
     Future<void> backgroundHandler(RemoteMessage message) async {
   print('Handling a background message ${message.messageId}');
 
-    FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+  await handleMessage(message);
+
+
+  
+  
+}
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
     FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
     FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
     FirebaseMessaging.onMessage.listen((message) async {
 
-     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-     flutterLocalNotificationsPlugin.show(DateTime.now().millisecondsSinceEpoch, message.data['title'], message.data['description'], const NotificationDetails(
-      android: const AndroidNotificationDetails("high_importance_channel","Importance notifications for crm ")
-     ));
 
 
 
-      // final localNotification = locator.get<CommonNotifications>();
-      // CommonNotificationModel commonNotificationModel = CommonNotificationModel(title: message.data['title'], descrption: message.data['description']);
-      // await localNotification.showNotification(commonNotificationModel: commonNotificationModel);
+      final localNotification = locator.get<CommonNotifications>();
+      CommonNotificationModel commonNotificationModel = CommonNotificationModel(title: message.data['title'], description: message.data['description']);
+      await localNotification.showNotification(commonNotificationModel: commonNotificationModel);
     });
-   await generateToken();
-}
+ await generateToken();
 
 
     
