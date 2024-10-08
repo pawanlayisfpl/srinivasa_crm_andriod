@@ -29,7 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
       String? token =   locator.get<KeyValueStorage>().sharedPreferences.getString(KeyValueStrings.isLoggedIn);
 
       if(token != null) {
-     await   Navigator.pushReplacement(context, MaterialPageRoute(builder: (c) => const MarkAttendanceScreen(isCheckedInScreen: true,)));
+    //  await   Navigator.pushReplacement(context, MaterialPageRoute(builder: (c) => const MarkAttendanceScreen(isCheckedInScreen: true,)));
+     await Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (c) =>  MarkAttendanceScreen(isCheckedInScreen: true,)), (val) => false);
       }else {
      await context.read<LoginCubit>().getInitialValues();
 

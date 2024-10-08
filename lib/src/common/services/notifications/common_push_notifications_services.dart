@@ -84,10 +84,14 @@ debugPrint('User granted permission: ${settings.authorizationStatus}');
   
   @override
   Future<String?> generateToken() async {
-  await  FirebaseMessaging.instance.subscribeToTopic('news');
-   await  FirebaseMessaging.instance.subscribeToTopic('general');
+    FirebaseMessaging.instance.subscribeToTopic('news').then((_) {
+  print('Subscribed to your_topic_name');
+}).catchError((error) {
+  print('Failed to subscribe: $error');
+});
+  
        String? token = await FirebaseMessaging.instance.getToken();
-       log(token.toString());
+       print(token.toString());
   return token;
   }
   
@@ -150,12 +154,15 @@ debugPrint('User granted permission: ${settings.authorizationStatus}');
 }
 await flutterLocalNotificationsPlugin.show(
   generateDateTimeId(), // Use the adjusted ID
-  message.data['title'],
-  message.data['description'],
+  message.notification!.title.toString(),
+message.notification!.title.toString(),
   const NotificationDetails(
     android: AndroidNotificationDetails(
-      "high_importance_channel",
-      "Importance notifications for CRM",
+       'high_importance_channel',
+          'your channel name',
+          channelDescription: 'your channel description',
+          icon: '@mipmap/ic_launcher',
+
     ),
   ),
 );
@@ -182,7 +189,7 @@ await flutterLocalNotificationsPlugin.show(
 
 
       final localNotification = locator.get<CommonNotifications>();
-      CommonNotificationModel commonNotificationModel = CommonNotificationModel(title: message.data['title'], description: message.data['description']);
+      CommonNotificationModel commonNotificationModel = CommonNotificationModel(title: message.notification!.title.toString(), description: message.notification!.body.toString());
       await localNotification.showNotification(commonNotificationModel: commonNotificationModel);
     });
  await generateToken();

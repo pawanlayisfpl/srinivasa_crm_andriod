@@ -2,9 +2,11 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/common/services/notifications/common_push_notifications_services.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
@@ -125,6 +127,10 @@ class _TestScreenState extends State<TestScreen> {
   _generateToken() async {
     final pushNotification = locator.get<CommonPushNotificationsServices>();
     await pushNotification.generateToken();
+    await FirebaseMessaging.instance.subscribeToTopic('news');
+  await FirebaseMessaging.instance.subscribeToTopic('general');
+  Fluttertoast.showToast(msg: 'Subscribed to topics successfully');
+  print('Subscribed to topics: news, general');
 
   }
 }

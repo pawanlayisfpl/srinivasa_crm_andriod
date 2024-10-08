@@ -344,7 +344,8 @@ class CommonNotifications {
       commonNotificationModel.title,
       commonNotificationModel.description,
       platformChannelSpecifics,
-      payload: 'item x',
+   
+         
     );
   }
 

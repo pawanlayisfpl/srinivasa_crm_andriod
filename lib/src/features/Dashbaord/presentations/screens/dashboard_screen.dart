@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:double_tap_to_exit/double_tap_to_exit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -171,26 +172,10 @@ void showLogoutDialog(BuildContext context) {
 
    
    
-    return PopScope(
-      onPopInvoked: (bool? val) async{
-        showDialog(
-            context: context,
-            builder: (_) => AlertDialog(
-                  title: const Text("Do you want to exit?"),
-                  actions: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text("NO")),
-                    TextButton(
-                        onPressed: () {
-                          exit(0);
-                        },
-                        child: const Text("YES"))
-                  ],
-                ));
-      },
+    return  DoubleTapToExit(
+       snackBar: const SnackBar(
+        content: Text('Tap again to exit !'),
+      ),
       child: Scaffold(
         drawer: const CommonDrawerWidget(),
         appBar: AppBar(
