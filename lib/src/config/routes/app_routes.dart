@@ -13,6 +13,7 @@ import 'package:srinivasa_crm_new/src/features/login/presentation/screens/login_
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
 
 import '../../features/Dashbaord/presentations/screens/dashboard_screen.dart';
+import '../../features/Permisions/LocationPermissions/presentations/LocationPermissionScreen.dart';
 
 class Routes {
   // AUTH
@@ -73,6 +74,8 @@ class Routes {
   static const String testScreen = '/testScreen';
   // USER ACTIVITY
   static const String userActivityScreen = '/userActivityScreen';
+  // LOCATION PERMISSION
+  static const String locationPermissionScreen = 'locationPerrmisionScreen';
 }
 
 
@@ -108,6 +111,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) =>   const TestScreen());
              case Routes.dashbaordScreen:
         return MaterialPageRoute(builder: (_) =>   const DashboardScreen());
+
+           case Routes.locationPermissionScreen:
+        return MaterialPageRoute(builder: (_) =>    LocationPermissionsPage());
 
   
 

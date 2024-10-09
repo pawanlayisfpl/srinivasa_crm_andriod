@@ -23,3 +23,11 @@ eqGsuK8yTiCcVuH7b1CIkS:APA91bF2jbFIiOYUm4LMvLLMp0MOdQhoHkp5RKBFxfc-MAyTVbZ96wHwN
 
 subba reddy token
 fUYCG3RASzu14ngaPslZ5t:APA91bH-Iz2Mx9uNydVM7RHwi9O5ZQ-Q_qu9Oe3IhT7_Dt-lknr-4XeGU4SHjtttKGoD8yuKifCtOl0wHXAbPZN1FgWec7rXOzcVMuwNRVCF2s3GavgJxQajTCRDsFtHVnhJdKJ2-rBN
+
+
+<!-- TOTAL PERSMISSION IN APP -->
+
+1. location permissions
+2. storage permissions
+3. push notifications permissions
+4. 

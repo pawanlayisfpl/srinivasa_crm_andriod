@@ -138,7 +138,7 @@ class _TestScreenState extends State<TestScreen> {
 
 
   // bool isEmulator = false;
-  // String deviceModel = "";
+  // String deviceModel = "";main.dart
   // String deviceName = "";
   // String deviceId = "";
   // String deviceVersion = "";

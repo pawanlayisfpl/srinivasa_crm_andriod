@@ -116,7 +116,7 @@ class MyApp extends StatelessWidget {
         navigatorKey: AppKeys.globalNavigatorKey,
         scaffoldMessengerKey: AppKeys.scaffoldKey,
         onGenerateRoute: RouteGenerator.getRoute,
-        initialRoute: Routes.dashbaordScreen,
+        initialRoute: Routes.locationPermissionScreen,
         title: 'SF Crm',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

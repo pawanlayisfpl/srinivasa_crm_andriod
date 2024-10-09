@@ -285,7 +285,7 @@ void showLogoutDialog(BuildContext context) {
 }
      try {
       if(Platform.isAndroid) {
-    await requestPermissions(context);
+    // await requestPermissions(context);
        // Request permissions before starting the service
       await platform.invokeMethod('start');
       }else if(Platform.isIOS) {

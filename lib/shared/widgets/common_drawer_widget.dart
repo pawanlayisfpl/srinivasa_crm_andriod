@@ -44,6 +44,9 @@ class CommonDrawerWidget extends StatelessWidget {
            ReusableListTileWidget(title: data.profileResponseModel.userModel!.repostingManagerName.toString(), icon: Icons.dashboard,subTitleText: "(Reporting Manager)" ,), 
            const Divider(), 
            20.verticalSpace,
+            ReusableListTileWidget(title: "App version no", icon: Icons.dashboard,subTitleText: "1.0.0" ,), 
+           const Divider(), 
+           20.verticalSpace,
               // LOGOUT
     //           ListTile(
     //             title: const CommonTextWidget(title: "Logout",textColor: AppColors.primaryColor,),
