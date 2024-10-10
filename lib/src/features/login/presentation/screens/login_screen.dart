@@ -31,8 +31,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if(token != null) {
     //  await   Navigator.pushReplacement(context, MaterialPageRoute(builder: (c) => const MarkAttendanceScreen(isCheckedInScreen: true,)));
-    //  await Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (c) =>  MarkAttendanceScreen(isCheckedInScreen: true,)), (val) => false);
-     await Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (c) => LocationPermissionsPage()), (val) => false);
+     await Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (c) =>  MarkAttendanceScreen(isCheckedInScreen: true,)), (val) => false);
+    //  await Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (c) => LocationPermissionsPage()), (val) => false);
       }else {
      await context.read<LoginCubit>().getInitialValues();
 

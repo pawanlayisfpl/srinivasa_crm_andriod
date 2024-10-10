@@ -1,61 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // For icons
 import 'package:srinivasa_crm_new/src/common/widgets/widgets.dart';
-import 'package:srinivasa_crm_new/src/features/Permisions/BatteryPermissions/presentations/battery_permission_page.dart';
-import '../../../../config/constants/app_colors.dart';
-import '../../../Dashbaord/presentations/screens/dashboard_screen.dart';
+import 'package:srinivasa_crm_new/src/features/login/presentation/screens/login_screen.dart';
 
-class NotificationPermissionsPage extends StatefulWidget {
+import '../../../../config/constants/app_colors.dart';
+import '../../../Dashbaord/presentations/screens/dashboard_screen.dart'; // Dashboard screen import
+
+class BatteryOptimizationPermissionsPage extends StatefulWidget {
   @override
-  _NotificationPermissionsPageState createState() => _NotificationPermissionsPageState();
+  _BatteryOptimizationPermissionsPageState createState() =>
+      _BatteryOptimizationPermissionsPageState();
 }
 
-class _NotificationPermissionsPageState extends State<NotificationPermissionsPage> {
-  bool notificationsGranted = false;
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+class _BatteryOptimizationPermissionsPageState
+    extends State<BatteryOptimizationPermissionsPage> {
+  bool batteryOptimizationGranted = false;
 
   @override
   void initState() {
     super.initState();
-    _initializeNotifications();
-    _checkPermissions(); // Check if permissions are already granted
+    _checkBatteryOptimizationPermissions(); // Check if battery optimization is already granted
   }
 
-  // Initialize the notification plugin
-  Future<void> _initializeNotifications() async {
-    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
-    const InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-  }
-
-  // Method to request notification permission
-  Future<void> _requestNotificationPermission() async {
-    PermissionStatus status = await Permission.notification.request();
+  // Method to check if battery optimization permissions are already granted
+  Future<void> _checkBatteryOptimizationPermissions() async {
+    PermissionStatus status = await Permission.ignoreBatteryOptimizations.status;
 
     if (status.isGranted) {
-      setState(() {
-        notificationsGranted = true;
-      });
-      _showTopSnackBar('Push notification permission granted!');
-    } else if (status.isDenied) {
-      _showPermissionDialog('Push notification permission is required to receive important alerts.', Permission.notification);
-    } else if (status.isPermanentlyDenied) {
-      _showSettingsDialog();
+      // If battery optimization permission is granted, navigate to LoginScreen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
     }
   }
 
-  // Method to check if permissions are already granted
-  Future<void> _checkPermissions() async {
-    PermissionStatus status = await Permission.notification.status;
+  // Request Battery Optimization Permission
+  Future<void> _requestBatteryOptimizationPermission() async {
+    PermissionStatus status = await Permission.ignoreBatteryOptimizations.request();
 
     if (status.isGranted) {
-      // If notification permissions are granted, navigate to Battery Optimization Permissions
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => BatteryOptimizationPermissionsPage()),
-      );
+      setState(() {
+        batteryOptimizationGranted = true;
+      });
+      _showSnackBar('Battery optimization permission granted!');
+    } else if (status.isDenied) {
+      _showPermissionDialog(
+          'Battery optimization permission is required to ensure the app runs in the background without interruption.',
+          Permission.ignoreBatteryOptimizations);
+    } else if (status.isPermanentlyDenied) {
+      _showSettingsDialog();
     }
   }
 
@@ -75,11 +70,11 @@ class _NotificationPermissionsPageState extends State<NotificationPermissionsPag
 
                 if (status.isGranted) {
                   setState(() {
-                    notificationsGranted = true;
+                    batteryOptimizationGranted = true;
                   });
-                  _showTopSnackBar('Permission granted!');
+                  _showSnackBar('Permission granted!');
                 } else if (status.isDenied) {
-                  _showTopSnackBar('Permission denied again.');
+                  _showSnackBar('Permission denied again.');
                 } else if (status.isPermanentlyDenied) {
                   _showSettingsDialog();
                 }
@@ -105,7 +100,8 @@ class _NotificationPermissionsPageState extends State<NotificationPermissionsPag
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Permission Permanently Denied'),
-          content: Text('You have permanently denied the permission. Please enable it from the app settings.'),
+          content: Text(
+              'You have permanently denied the permission. Please enable it from the app settings.'),
           actions: [
             TextButton(
               onPressed: () {
@@ -126,14 +122,13 @@ class _NotificationPermissionsPageState extends State<NotificationPermissionsPag
     );
   }
 
-  // Method to show a custom SnackBar at the top of the screen
-  void _showTopSnackBar(String message) {
+  // Method to show SnackBar at the top
+  void _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
         behavior: SnackBarBehavior.floating,
-        margin: EdgeInsets.fromLTRB(20, 40, 20, 0),
-        backgroundColor: Colors.green,
+        margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height - 150), // Adjust the margin for top placement
       ),
     );
   }
@@ -147,9 +142,9 @@ class _NotificationPermissionsPageState extends State<NotificationPermissionsPag
       appBar: AppBar(
         title: Row(
           children: [
-            Icon(Icons.notifications_active_outlined),
+            Icon(Icons.battery_alert),
             SizedBox(width: 8),
-            Text('Push Notifications Permission'),
+            Text('Battery Optimization Permission'),
           ],
         ),
         backgroundColor: AppColors.primaryColor,
@@ -161,9 +156,9 @@ class _NotificationPermissionsPageState extends State<NotificationPermissionsPag
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: screenHeight * 0.05),
+              SizedBox(height: screenHeight * 0.03),
               Text(
-                'Enable Notifications',
+                'Allow Battery Optimization',
                 style: TextStyle(
                   fontSize: screenWidth * 0.07,
                   fontWeight: FontWeight.bold,
@@ -173,7 +168,7 @@ class _NotificationPermissionsPageState extends State<NotificationPermissionsPag
               ),
               SizedBox(height: screenHeight * 0.03),
               Text(
-                'This app requires access to send you notifications for important updates and alerts. Please grant the necessary permissions.',
+                'To improve performance and prevent interruptions, please exclude the app from battery optimizations.',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.grey[700]),
               ),
@@ -192,23 +187,23 @@ class _NotificationPermissionsPageState extends State<NotificationPermissionsPag
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _buildPermissionPoint(
-                        'Receive important alerts and updates.',
-                        FontAwesomeIcons.bell,
+                        'Ensure the app runs smoothly in the background.',
+                        FontAwesomeIcons.batteryFull,
                         screenWidth,
                       ),
                       _buildPermissionPoint(
-                        'Stay informed about your tasks.',
-                        FontAwesomeIcons.tasks,
+                        'Prevent background task interruptions.',
+                        FontAwesomeIcons.sync,
                         screenWidth,
                       ),
                       _buildPermissionPoint(
-                        'Get real-time notifications for attendance or order status.',
+                        'Receive timely notifications and updates.',
                         FontAwesomeIcons.clock,
                         screenWidth,
                       ),
                       _buildPermissionPoint(
-                        'Never miss important notifications.',
-                        FontAwesomeIcons.exclamationCircle,
+                        'Avoid missing important data syncs.',
+                        FontAwesomeIcons.database,
                         screenWidth,
                       ),
                     ],
@@ -217,16 +212,33 @@ class _NotificationPermissionsPageState extends State<NotificationPermissionsPag
               ),
 
               SizedBox(height: screenHeight * 0.04),
-              CommonButton(callback: _requestNotificationPermission, title: "Grant Notification Permission"),
-              
+              ElevatedButton.icon(
+                onPressed: _requestBatteryOptimizationPermission,
+                icon: Icon(Icons.battery_saver, size: screenWidth * 0.06),
+                label: Text(
+                  'Grant Battery Optimization Permission',
+                  style: TextStyle(fontSize: screenWidth * 0.045),
+                ),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.1, vertical: screenHeight * 0.02),
+                  backgroundColor: AppColors.primaryColor,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                ),
+              ),
               SizedBox(height: screenHeight * 0.02),
-              if (notificationsGranted)
-               CommonButton(callback: () {
-                  Navigator.pushReplacement(
+              if (batteryOptimizationGranted)
+                CommonButton(
+                  callback: () {
+                    Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => BatteryOptimizationPermissionsPage()),
+                      MaterialPageRoute(builder: (context) => const LoginScreen()),
                     );
-               }, title: "Next"),
+                  },
+                  title: "Next",
+                ),
             ],
           ),
         ),

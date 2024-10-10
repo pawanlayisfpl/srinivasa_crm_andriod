@@ -1,5 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:srinivasa_crm_new/src/common/widgets/widgets.dart';
+import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
+import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/screens/all_customer_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/screens/customer_details_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/customer_create_screen.dart';
@@ -126,7 +129,9 @@ class RouteGenerator {
 Route<dynamic> unDefinedRoute() {
   return MaterialPageRoute(
       builder: (_) => Scaffold(
-            appBar: AppBar(title: const Text("Undefined Route")),
-            body: const Center(child: Text("No Route Found")),
-          ));
+            appBar: AppBar(title: const Text("Something went wrong")),
+            body:  Center(child: CommonButton(callback: () async {
+              AppKeys.globalNavigatorKey.currentState!.pushAndRemoveUntil(ScaleRoute(screen: const DashboardScreen()), (v) => true);
+            }, title: 'Go to Dashboard'))),
+          );
 }
