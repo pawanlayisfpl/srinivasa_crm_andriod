@@ -43,9 +43,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback( (time) async {
      await context.read<AlertCubit>().getAlerts();
-      await checkingPermissions();
-      await _handleScheduleNotificationsSetup();
-      await initializePushNotificationServices();
+      // await checkingPermissions();
+      // await _handleScheduleNotificationsSetup();
+      // await initializePushNotificationServices();
       
 
      

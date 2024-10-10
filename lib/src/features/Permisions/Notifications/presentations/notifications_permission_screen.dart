@@ -3,7 +3,9 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:srinivasa_crm_new/src/common/widgets/widgets.dart';
+import 'package:srinivasa_crm_new/src/config/locator/locator.dart';
 import 'package:srinivasa_crm_new/src/features/Permisions/BatteryPermissions/presentations/battery_permission_page.dart';
+import '../../../../common/services/notifications/common_push_notifications_services.dart';
 import '../../../../config/constants/app_colors.dart';
 import '../../../Dashbaord/presentations/screens/dashboard_screen.dart';
 
@@ -28,6 +30,10 @@ class _NotificationPermissionsPageState extends State<NotificationPermissionsPag
     const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
     const InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+    final pushNotifcationsServices = locator.get<CommonPushNotificationsServices>();
+    await pushNotifcationsServices.requestNotification();
+    await pushNotifcationsServices.initializePushNotifications();
   }
 
   // Method to request notification permission
