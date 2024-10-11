@@ -56,6 +56,7 @@ await _checkPermissions();
       setState(() {
         notificationsGranted = true;
       });
+
       CommonSnackbar.show(context, 'Push notification permission granted!');
     } else if (status.isDenied) {
       _showPermissionDialog('Push notification permission is required to receive important alerts.', Permission.notification);
@@ -230,7 +231,9 @@ await _checkPermissions();
               
               SizedBox(height: screenHeight * 0.02),
               if (notificationsGranted)
-               CommonButton(callback: () {
+               CommonButton(callback: () async {
+                await _initializeNotifications();
+await _initializePushNotifications();
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => BatteryOptimizationPermissionsPage()),

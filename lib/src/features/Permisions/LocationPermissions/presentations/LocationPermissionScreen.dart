@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:srinivasa_crm_new/src/common/snackbar/common_snackbar.dart';
@@ -315,22 +316,24 @@ void _showLocationPermissionDialog(BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog(
         title: const Text('Location Permission Required'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset('assets/png/locationalways.png', height: MediaQuery.of(context).size.height * 0.25), // Adjust the height as needed
-            const SizedBox(height: 10),
-            const Text(
-              'Please Allow all the time from the settings.',
-              textAlign: TextAlign.center,
-            ),
-          ],
+        content: SingleChildScrollView(
+          child: Column(
+            children: [
+              Image.asset('assets/png/locationalways.png', height: MediaQuery.of(context).size.height * 0.25), // Adjust the height as needed
+              const SizedBox(height: 10),
+              const Text(
+                'Please Allow all the time from the settings.',
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
         actions: [
           CommonButton(callback: () {
                Navigator.of(context).pop(); // Close the dialog
               _requestLocationPermissions(); 
           }, title: "Allow Permission"),
+          10.verticalSpace,
         
           CommonButton(
             callback: () {
