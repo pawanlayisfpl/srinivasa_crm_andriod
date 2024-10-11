@@ -23,8 +23,6 @@ import '../../../../config/config.dart';
 import '../../../../core/core.dart';
 
 
- import 'package:timezone/data/latest_all.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 
 
 class DashboardScreen extends StatefulWidget {
@@ -43,6 +41,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback( (time) async {
      await context.read<AlertCubit>().getAlerts();
+     await startTracking();
       // await checkingPermissions();
       // await _handleScheduleNotificationsSetup();
       // await initializePushNotificationServices();
@@ -312,76 +311,12 @@ void showLogoutDialog(BuildContext context) {
     
   }
   
+ Future<void> startTracking() async {
+     if (Platform.isAndroid) {
+                const platform = MethodChannel('com.srinivasa.crm');
+                await platform.invokeMethod('start');
+              }
+ }
   
-  _handleScheduleNotificationsSetup() async  {
-
-    final keyValueStorage = locator.get<KeyValueStorage>();
-
-
-    // final notifications = locator.get<CommonNotifications>();
-    CommonNotifications notifications = CommonNotifications(flutterLocalNotificationsPlugin: FlutterLocalNotificationsPlugin());
-    await keyValueStorage.clearValue(KeyValueStrings.isNotificationScheduled);
-    await notifications.initNotifications();
-    
-
-
-    bool? isCreated =  keyValueStorage.sharedPreferences.getBool(KeyValueStrings.isNotificationScheduled);
-
-
-
-    if(isCreated != null) {
-
-// Helper function to get the next instance of a specific time (hours, minutes)
-tz.TZDateTime nextInstanceOfTime(int hour, int minute) {
-  tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-  tz.TZDateTime scheduledTime = tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
   
-  // If the scheduled time is already past today, schedule it for tomorrow
-  if (scheduledTime.isBefore(now)) {
-    scheduledTime = scheduledTime.add(const Duration(days: 1));
-  }
-
-  return scheduledTime;
-}
-   final notifications = CommonNotifications(flutterLocalNotificationsPlugin: FlutterLocalNotificationsPlugin());
-
-   
-    CommonNotificationModel punchInNotificationModel = CommonNotificationModel(title: 'Reminder: Daily Punch-in', description: '''Please punch out,If already done, you can ignore this message.''');
-
-  // Time for 9:00 AM
-  final tz.TZDateTime morningTime = nextInstanceOfTime(9, 0);
-
-      CommonNotificationModel punchOutNotifications = CommonNotificationModel(title: 'Reminder: Daily Punch-Out', description: '''Please punch out if you're done for the day. If already done, you can ignore this message.''');
-
-  tz.initializeTimeZones();
-  await notifications.showNotificationAtSpecificTime(morningTime, punchOutNotifications);
-  // Time for 7:45 PM
-  // final tz.TZDateTime eveningTime = _nextInstanceOfTime(19, 45);
-  final tz.TZDateTime eveningTime = nextInstanceOfTime(15, 58);
-
-
-  // Schedule 9:00 AM notification
-  // await notifications.showNotificationAtSpecificTime(morningTime,punchInNotificationModel);
-     DateTime dateTime = DateTime.now().copyWith(hour: 06, minute: 50, second: 0, millisecond: 0);
-  tz.initializeTimeZones();
-  await notifications.showNotificationAtSpecificTime(dateTime,punchInNotificationModel);
-  keyValueStorage.sharedPreferences.setBool(KeyValueStrings.isNotificationScheduled, true);
-
-
-    }else {
-      return;
-
-    }
-
-
-  // await notifications.showNotification(commonNotificationModel: CommonNotificationModel(title: 'test schedule notification', descrption: 'test scheduled  description'));
-
-
-  }
-  
-  initializePushNotificationServices() async {
-    final pushNotifcationsServices = locator.get<CommonPushNotificationsServices>();
-    await pushNotifcationsServices.requestNotification();
-    await pushNotifcationsServices.initializePushNotifications();
-  }
 }

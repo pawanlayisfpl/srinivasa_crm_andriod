@@ -47,7 +47,7 @@ public class CustomService extends Service {
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("CRM Provider Service")
                 .setContentText("Running background tasks")
-                .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark) // Replace with your own icon
+                .setSmallIcon(R.drawable.notificationss) // Replace with your own icon
                 .build();
         startForeground(1, notification);
 

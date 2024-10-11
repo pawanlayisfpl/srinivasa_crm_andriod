@@ -1,15 +1,20 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:srinivasa_crm_new/src/common/snackbar/common_snackbar.dart';
 import 'package:srinivasa_crm_new/src/common/widgets/widgets.dart';
 import 'package:srinivasa_crm_new/src/config/locator/locator.dart';
 import 'package:srinivasa_crm_new/src/features/Permisions/BatteryPermissions/presentations/battery_permission_page.dart';
+import '../../../../common/services/notifications/common_notifications.dart';
 import '../../../../common/services/notifications/common_push_notifications_services.dart';
 import '../../../../config/constants/app_colors.dart';
-import '../../../Dashbaord/presentations/screens/dashboard_screen.dart';
 
 class NotificationPermissionsPage extends StatefulWidget {
+  const NotificationPermissionsPage({super.key});
+
   @override
   _NotificationPermissionsPageState createState() => _NotificationPermissionsPageState();
 }
@@ -21,19 +26,26 @@ class _NotificationPermissionsPageState extends State<NotificationPermissionsPag
   @override
   void initState() {
     super.initState();
-    _initializeNotifications();
-    _checkPermissions(); // Check if permissions are already granted
+    // _initializeNotifications();
+    // _initializePushNotifications();
+    // _checkPermissions(); 
+    WidgetsBinding.instance.addPostFrameCallback((t) async {
+await _initializeNotifications();
+await _initializePushNotifications();
+await _checkPermissions();
+
+
+    });
   }
 
   // Initialize the notification plugin
   Future<void> _initializeNotifications() async {
-    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
-    const InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    final localNotifications = locator.get<CommonNotifications>();
+    await localNotifications.requestNotificationPermission();
+    await localNotifications.initNotifications();
+    
 
-    final pushNotifcationsServices = locator.get<CommonPushNotificationsServices>();
-    await pushNotifcationsServices.requestNotification();
-    await pushNotifcationsServices.initializePushNotifications();
+   
   }
 
   // Method to request notification permission
@@ -44,7 +56,7 @@ class _NotificationPermissionsPageState extends State<NotificationPermissionsPag
       setState(() {
         notificationsGranted = true;
       });
-      _showTopSnackBar('Push notification permission granted!');
+      CommonSnackbar.show(context, 'Push notification permission granted!');
     } else if (status.isDenied) {
       _showPermissionDialog('Push notification permission is required to receive important alerts.', Permission.notification);
     } else if (status.isPermanentlyDenied) {
@@ -71,7 +83,7 @@ class _NotificationPermissionsPageState extends State<NotificationPermissionsPag
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Permission Required'),
+          title: const Text('Permission Required'),
           content: Text(message),
           actions: [
             TextButton(
@@ -83,20 +95,21 @@ class _NotificationPermissionsPageState extends State<NotificationPermissionsPag
                   setState(() {
                     notificationsGranted = true;
                   });
-                  _showTopSnackBar('Permission granted!');
+                  CommonSnackbar.show(context, 'Permission granted!');
                 } else if (status.isDenied) {
-                  _showTopSnackBar('Permission denied again.');
+                  CommonSnackbar.show(context, 'Permission denied again.',color: Colors.red);
+
                 } else if (status.isPermanentlyDenied) {
                   _showSettingsDialog();
                 }
               },
-              child: Text('Allow'),
+              child: const Text('Allow'),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Deny'),
+              child: const Text('Deny'),
             ),
           ],
         );
@@ -110,21 +123,21 @@ class _NotificationPermissionsPageState extends State<NotificationPermissionsPag
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Permission Permanently Denied'),
-          content: Text('You have permanently denied the permission. Please enable it from the app settings.'),
+          title: const Text('Permission Permanently Denied'),
+          content: const Text('You have permanently denied the permission. Please enable it from the app settings.'),
           actions: [
             TextButton(
               onPressed: () {
                 openAppSettings();
                 Navigator.of(context).pop();
               },
-              child: Text('Open Settings'),
+              child: const Text('Open Settings'),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
           ],
         );
@@ -133,16 +146,6 @@ class _NotificationPermissionsPageState extends State<NotificationPermissionsPag
   }
 
   // Method to show a custom SnackBar at the top of the screen
-  void _showTopSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        behavior: SnackBarBehavior.floating,
-        margin: EdgeInsets.fromLTRB(20, 40, 20, 0),
-        backgroundColor: Colors.green,
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +154,7 @@ class _NotificationPermissionsPageState extends State<NotificationPermissionsPag
 
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           children: [
             Icon(Icons.notifications_active_outlined),
             SizedBox(width: 8),
@@ -256,5 +259,11 @@ class _NotificationPermissionsPageState extends State<NotificationPermissionsPag
         ],
       ),
     );
+  }
+  
+  Future<void> _initializePushNotifications() async {
+     final pushNotifcationsServices = locator.get<CommonPushNotificationsServices>();
+    await pushNotifcationsServices.requestNotification();
+    await pushNotifcationsServices.initializePushNotifications();
   }
 }

@@ -352,7 +352,7 @@ class CommonNotifications {
   Future<void> initNotifications() async {
     tz.initializeTimeZones();
 
-    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher',);
     final DarwinInitializationSettings initializationSettingsDarwin = DarwinInitializationSettings(
       onDidReceiveLocalNotification: (id, title, body, payload) {},
     );

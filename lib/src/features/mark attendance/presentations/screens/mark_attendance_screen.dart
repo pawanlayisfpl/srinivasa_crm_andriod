@@ -39,7 +39,7 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
     WidgetsBinding.instance.addPostFrameCallback((c) async {
      await context.read<MarkAttendanceCubit>().getLastPunchInOutData();
      await context.read<ProfileCubit>().getLocalProfile();
-    await  checkingPermissions();
+    // await  checkingPermissions();
   
     });
   }
