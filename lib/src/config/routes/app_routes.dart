@@ -15,6 +15,7 @@ import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/scre
 import 'package:srinivasa_crm_new/src/features/login/presentation/screens/login_screen.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
 
+import '../../../shared/presentations/Forget Password/presentations/forget_password_screen.dart';
 import '../../features/Dashbaord/presentations/screens/dashboard_screen.dart';
 import '../../features/Permisions/LocationPermissions/presentations/LocationPermissionScreen.dart';
 
@@ -79,6 +80,8 @@ class Routes {
   static const String userActivityScreen = '/userActivityScreen';
   // LOCATION PERMISSION
   static const String locationPermissionScreen = 'locationPerrmisionScreen';
+  // FORGET SCREEN
+  static const String forgetPasswordScreen = "/forgetPasswordScreen";
 }
 
 
@@ -117,6 +120,8 @@ class RouteGenerator {
 
            case Routes.locationPermissionScreen:
         return MaterialPageRoute(builder: (_) =>    LocationPermissionsPage());
+           case Routes.forgetPasswordScreen:
+        return MaterialPageRoute(builder: (_) =>    ForgetPasswordScreen());
 
   
 
