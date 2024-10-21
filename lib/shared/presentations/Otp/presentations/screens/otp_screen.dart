@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:srinivasa_crm_new/src/core/core.dart';
+
+import '../../../../../src/common/common.dart';
+
+
+
+class OtpScreen extends StatefulWidget {
+  const OtpScreen({super.key});
+
+  @override
+  State<OtpScreen> createState() => _OtpScreenState();
+}
+
+class _OtpScreenState extends State<OtpScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title : const Text("Otp ")),
+      
+      body: SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center
+        ,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          
+          20.verticalSpace,
+          CommonTextWidget(title: "Otp",fontWeight: FontWeight.bold,textSize: 28.sp,),
+          20.verticalSpace,
+            CommonTextWidget(title: "Enter the otp which you received on your offical email naddress. ",maxLines: 5,textColor: Colors.grey,textSize: 14.sp,),
+          30.verticalSpace,
+            CustomHeadingTextWidget(title: 'Otp',),
+            CommonTextFormFieldWidget(textEditingController: TextEditingController(), hintText: 'Enter otp', onChanged: (String? value) {}),
+            15.verticalSpace,
+            
+            CommonButton(callback: () {}, title: 'Update Password'),
+
+
+
+
+
+        ],
+      ).withSymetricPadding(horizontalPadding: 20.w),
+    ),);
+  }
+}
