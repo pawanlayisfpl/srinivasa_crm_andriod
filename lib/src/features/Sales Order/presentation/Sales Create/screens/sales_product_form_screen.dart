@@ -15,6 +15,7 @@ import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_product_total_amount_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_uom_dropdown.dart';
 
+import '../../../../../config/constants/app_colors.dart';
 import '../cubit/state/sales_order_create_state.dart';
 import 'widgets/soc_product_qty_textfield.dart';
 
@@ -52,6 +53,12 @@ class _SalesProductFormScreenState extends State<SalesProductFormScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  if(context.watch<SalesOrderCreateCubit>().state.selectedProductModel != null)...[
+                    20.verticalSpace,
+                    CommonTextWidget(title: "Division : "+ context.watch<SalesOrderCreateCubit>().state.selectedProductModel!.division!.divisionName.toString(),fontWeight: FontWeight.w600,textColor: AppColors.primaryColor,textSize: 
+                    26.sp,),
+                    20.verticalSpace, 
+                  ],
                   20.verticalSpace,
                   const CommonTextFieldHeadingWidget(title: 'Product Name',isRequired: true,)
  ,                 2.verticalSpace,
