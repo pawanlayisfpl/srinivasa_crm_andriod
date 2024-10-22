@@ -13,8 +13,8 @@ class ForgetPasswordScreen extends StatefulWidget {
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("Forget Password"),),
-    body: SafeArea(child: const  ForgetPasswordBodyWidget(),),
+    return Scaffold(appBar: AppBar(title: const Text("Forget Password"),),
+    body: const SafeArea(child: ForgetPasswordBodyWidget(),),
     );
   }
 }

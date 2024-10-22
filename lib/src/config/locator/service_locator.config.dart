@@ -56,6 +56,12 @@ import 'package:srinivasa_crm_new/shared/domain/repo/Purpose/purpose_repo.dart'
     as _i490;
 import 'package:srinivasa_crm_new/shared/domain/repo/Zone/zone_repo.dart'
     as _i792;
+import 'package:srinivasa_crm_new/shared/presentations/cubit/forget_cubit.dart'
+    as _i417;
+import 'package:srinivasa_crm_new/shared/presentations/Otp/presentations/cubit/otp_cubit.dart'
+    as _i758;
+import 'package:srinivasa_crm_new/shared/presentations/Update%20Password/presentations/cubit/update_cubit.dart'
+    as _i660;
 import 'package:srinivasa_crm_new/src/common/common.dart' as _i972;
 import 'package:srinivasa_crm_new/src/common/services/common_excel_services.dart'
     as _i501;
@@ -200,8 +206,11 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final thirdPartyDependencies = _$ThirdPartyDependencies();
+    gh.factory<_i417.ForgetPasswordCubit>(() => _i417.ForgetPasswordCubit());
     gh.factory<DateTime>(() => thirdPartyDependencies.defaultDateTime);
     gh.factory<_i66.DashboardCubit>(() => _i66.DashboardCubit());
+    gh.factory<_i758.OtpCubit>(() => _i758.OtpCubit());
+    gh.factory<_i660.UpdateCubit>(() => _i660.UpdateCubit());
     gh.singleton<_i361.Dio>(() => thirdPartyDependencies.dio);
     gh.singleton<_i163.FlutterLocalNotificationsPlugin>(
         () => thirdPartyDependencies.flutterLocalNotificationsPlugin);

@@ -17,4 +17,6 @@ class AppColors {
   static Color redColor = Colors.redAccent;
   // static Color textfieldBgColor = Color(0xffEBEDED);
   static Color textfieldBgColor = Colors.red;
+  static Color hintHeadingColor = Colors.grey.shade500;
+  static Color hintHeadingDarkColor = Colors.grey.shade700;
 }

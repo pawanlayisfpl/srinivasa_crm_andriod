@@ -14,9 +14,9 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Update Password"),
+        title: const Text("Update Password"),
       ),
-      body: SafeArea(child: UpdatePasswordBodyWidget(),),
+      body: const SafeArea(child: UpdatePasswordBodyWidget(),),
 
     );
   }

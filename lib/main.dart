@@ -3,13 +3,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+// import 'package:background_fetch/background_fetch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:injectable/injectable.dart';
 import 'package:srinivasa_crm_new/firebase_options.dart';
-import 'package:srinivasa_crm_new/src/common/services/notifications/common_notifications.dart';
+import 'package:srinivasa_crm_new/shared/presentations/Otp/presentations/cubit/otp_cubit.dart';
+import 'package:srinivasa_crm_new/shared/presentations/Update%20Password/presentations/cubit/update_cubit.dart';
+import 'package:srinivasa_crm_new/shared/presentations/cubit/forget_cubit.dart';
+// import 'package:srinivasa_crm_new/ENV.dart';
+
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_cubit.dart';
@@ -37,10 +42,154 @@ import 'shared/data/repo/work_manager_services.dart';
 import 'src/config/config.dart';
 import 'src/features/Sales Order/presentation/Sales Order Pending/cubit/pending_order_cubit.dart';
 import 'src/features/login/presentation/cubit/login_cubit.dart';
-
+// import 'package:flutter_background_geolocation/flutter_background_geolocation.dart'
+//     as bg;
 Future<void> backgroundHandler(RemoteMessage message) async {
   print('Handling a background message ${message.messageId}');
 }
+
+
+
+
+// /// Receive events from BackgroundGeolocation in Headless state.
+// @pragma('vm:entry-point')
+// void backgroundGeolocationHeadlessTask(bg.HeadlessEvent headlessEvent) async {
+//   debugPrint('📬 --> $headlessEvent');
+
+//   switch (headlessEvent.name) {
+//     case bg.Event.BOOT:
+//       bg.State state = await bg.BackgroundGeolocation.state;
+//       debugPrint("📬 didDeviceReboot: ${state.didDeviceReboot}");
+//       break;
+//     case bg.Event.TERMINATE:
+//       bg.State state = await bg.BackgroundGeolocation.state;
+//       if (state.stopOnTerminate!) {
+//         Fluttertoast.showToast(msg: "stopOnTerminate: true");
+//         // Don't request getCurrentPosition when stopOnTerminate: true
+//         return;
+//       }
+//       try {
+//         bg.Location location =
+//             await bg.BackgroundGeolocation.getCurrentPosition(
+//                 samples: 1,
+//                 persist: true,
+//                 extras: {
+//                   "event": "terminate",
+//                   "headless": true
+//                 }
+//             );
+//         debugPrint("[getCurrentPosition] Headless: $location");
+//       } catch (error) {
+//         debugPrint("[getCurrentPosition] Headless ERROR: $error");
+//       }
+
+//       break;
+//     case bg.Event.HEARTBEAT:
+//       try {
+//         bg.Location location = await bg.BackgroundGeolocation.getCurrentPosition(
+//           samples: 2,
+//           timeout: 10,
+//           extras: {
+//             "event": "heartbeat",
+//             "headless": true
+//           }
+//         );
+
+//         debugPrint('[getCurrentPosition] Headless: $location');
+//       } catch (error) {
+//         debugPrint('[getCurrentPosition] Headless ERROR: $error');
+//       }
+//       break;
+//     case bg.Event.LOCATION:
+//       bg.Location location = headlessEvent.event;
+//       debugPrint(location.toString());
+//       break;
+//     case bg.Event.MOTIONCHANGE:
+//       bg.Location location = headlessEvent.event;
+//       debugPrint(location.toString());
+//       break;
+//     case bg.Event.GEOFENCE:
+//       bg.GeofenceEvent geofenceEvent = headlessEvent.event;
+//       debugPrint(geofenceEvent.toString());
+//       break;
+//     case bg.Event.GEOFENCESCHANGE:
+//       bg.GeofencesChangeEvent event = headlessEvent.event;
+//       debugPrint(event.toString());
+//       break;
+//     case bg.Event.SCHEDULE:
+//       bg.State state = headlessEvent.event;
+//       debugPrint(state.toString());
+//       break;
+//     case bg.Event.ACTIVITYCHANGE:
+//       bg.ActivityChangeEvent event = headlessEvent.event;
+//       debugPrint(event.toString());
+//       break;
+//     case bg.Event.HTTP:
+//       bg.HttpEvent response = headlessEvent.event;
+//       debugPrint(response.toString());
+//       break;
+//     case bg.Event.POWERSAVECHANGE:
+//       bool enabled = headlessEvent.event;
+//       debugPrint(enabled.toString());
+//       break;
+//     case bg.Event.CONNECTIVITYCHANGE:
+//       bg.ConnectivityChangeEvent event = headlessEvent.event;
+//       debugPrint(event.toString());
+//       break;
+//     case bg.Event.ENABLEDCHANGE:
+//       bool enabled = headlessEvent.event;
+//       debugPrint(enabled.toString());
+//       break;
+//     case bg.Event.AUTHORIZATION:
+//       bg.AuthorizationEvent event = headlessEvent.event;
+//       debugPrint(event.toString());
+//       bg.BackgroundGeolocation.setConfig(
+//           bg.Config(url: "${ENV.TRACKER_HOST}/api/locations"));
+//       break;
+//   }
+// }
+
+
+// /// Receive events from BackgroundFetch in Headless state.
+// @pragma('vm:entry-point')
+// void backgroundFetchHeadlessTask(HeadlessTask task) async {
+//   String taskId = task.taskId;
+
+//   // Is this a background_fetch timeout event?  If so, simply #finish and bail-out.
+//   if (task.timeout) {
+//     debugPrint("[BackgroundFetch] HeadlessTask TIMEOUT: $taskId");
+//     BackgroundFetch.finish(taskId);
+//     return;
+//   }
+
+//   debugPrint("[BackgroundFetch] HeadlessTask: $taskId");
+
+//   try {
+//     var location = await bg.BackgroundGeolocation.getCurrentPosition(
+// 	    samples: 2,
+//       extras: {
+//         "event": "background-fetch",
+//         "headless": true
+//       }
+//     );
+//     debugPrint("[location] $location");
+//   } catch(error) {
+//     debugPrint("[location] ERROR: $error");
+//   }
+
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//   int count = 0;
+//   if (prefs.get("fetch-count") != null) {
+//     count = prefs.getInt("fetch-count")!;
+//   }
+//   prefs.setInt("fetch-count", ++count);
+//   Fluttertoast.showToast(msg: 'BackgroundFetch HeadlessTask: $taskId, count: $count');
+//   debugPrint('[BackgroundFetch] count: $count');
+
+//   BackgroundFetch.finish(taskId);
+// }
+
+
 
 
 Future<void> main() async {
@@ -75,6 +224,17 @@ Future<void> main() async {
   Workmanager(
 
   ).initialize(callbackDispatcher, isInDebugMode: true,);
+
+    // TransistorAuth.registerErrorHandler();
+
+  /// Register BackgroundGeolocation headless-task.
+  // bg.BackgroundGeolocation.registerHeadlessTask(
+  //     backgroundGeolocationHeadlessTask);
+
+  /// Register BackgroundFetch headless-task.
+  // BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
+   
+
   runApp(const MyApp());
 }
 
@@ -111,6 +271,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => locator.get<PendingOrderCubit>()),
         BlocProvider(create: (_) => locator.get<DailyPlanCubit>()),
         BlocProvider(create: (_) => locator.get<UserActivityCubit>()),
+        BlocProvider(create: (_) => locator.get<ForgetPasswordCubit>()),
+        BlocProvider(create: (_) => locator.get<OtpCubit>()),
+        BlocProvider(create: (_) => locator.get<UpdateCubit>()),
       ],
       child: MaterialApp(
         navigatorKey: AppKeys.globalNavigatorKey,
