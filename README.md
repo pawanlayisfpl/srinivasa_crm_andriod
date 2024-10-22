@@ -31,3 +31,12 @@ fUYCG3RASzu14ngaPslZ5t:APA91bH-Iz2Mx9uNydVM7RHwi9O5ZQ-Q_qu9Oe3IhT7_Dt-lknr-4XeGU
 2. storage permissions
 3. push notifications permissions
 4. 
+
+
+
+
+<!-- SETPS TO CLEAN -->
+
+<!-- cd ios
+xcodebuild clean
+rm -rf build/ -->

@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quickalert/quickalert.dart';
+import 'package:srinivasa_crm_new/shared/presentations/Forget%20Password/presentations/forget_password_screen.dart';
+import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
 
@@ -108,20 +110,33 @@ class LoginBodyWidget extends StatelessWidget {
               20.verticalSpace,
               const LoginPasswordTextfieldWidget(),
                 10.verticalSpace,
-             SizedBox(
-                width: 1.sw,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Checkbox.adaptive(
-                      activeColor: AppColors.primaryColor,
-                      value: state.isRememberMe, onChanged: (bool? value) {
-                        context.read<LoginCubit>().toggleisRememberMe();
-                      } ),
-                   const CommonTextWidget(title: 'Remember me',textColor: Colors.black,fontWeight: FontWeight.w500,)
-                  ],
+             IntrinsicHeight(
+               child: SizedBox(
+                  width: 1.sw,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Checkbox.adaptive(
+                              activeColor: AppColors.primaryColor,
+                              value: state.isRememberMe, onChanged: (bool? value) {
+                                context.read<LoginCubit>().toggleisRememberMe();
+                              } ),
+                           const CommonTextWidget(title: 'Remember me',textColor: Colors.black,fontWeight: FontWeight.w500,)
+                          ],
+                        ),
+                      ),
+                            GestureDetector(
+                              onTap: () => Navigator.push(context,SlideLeftRoute(screen: ForgetPasswordScreen())),
+                              child: CommonTextWidget(title: 'Forget Password ?',textSize: 14.sp,fontWeight: FontWeight.w600,textColor: AppColors.primaryColor,))
+               
+                    ],
+                  ),
                 ),
-              ),
+             ),
               20.verticalSpace,
               CommonButton(callback: () async {
                     HapticFeedback.lightImpact();
