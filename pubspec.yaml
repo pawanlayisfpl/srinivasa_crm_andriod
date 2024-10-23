@@ -99,6 +99,7 @@ dependencies:
   shared_preferences: ^2.2.1
   shimmer: ^3.0.0
   table_calendar: ^3.0.9
+  upgrader: ^10.3.0
   uuid: ^4.4.0
   workmanager: ^0.5.2
 

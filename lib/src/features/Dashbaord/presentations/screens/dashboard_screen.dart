@@ -18,6 +18,7 @@ import 'package:srinivasa_crm_new/src/features/Location%20Tracking/presentations
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
+import 'package:upgrader/upgrader.dart';
 
 import '../../../../config/config.dart';
 import '../../../../core/core.dart';
@@ -196,7 +197,7 @@ void showLogoutDialog(BuildContext context) {
                 QuickAlert.show(context: context, type: QuickAlertType.confirm, title: "Logout",text: "Are you sure?",confirmBtnText: "Yes",confirmBtnColor: Colors.black,onConfirmBtnTap: () {
                   context.read<ProfileCubit>().logout(context: context);
       
-    });
+          });
               }
             },
             itemBuilder: (BuildContext context) => [
@@ -219,7 +220,7 @@ void showLogoutDialog(BuildContext context) {
           ),
           ],
         ),
-
+      
         body: const DashboardBodyWidget(),
       ),
       
