@@ -5,9 +5,11 @@ import 'package:srinivasa_crm_new/src/common/widgets/widgets.dart';
 import 'package:srinivasa_crm_new/src/features/login/presentation/screens/login_screen.dart';
 
 import '../../../../config/constants/app_colors.dart';
-import '../../../Dashbaord/presentations/screens/dashboard_screen.dart'; // Dashboard screen import
+// Dashboard screen import
 
 class BatteryOptimizationPermissionsPage extends StatefulWidget {
+  const BatteryOptimizationPermissionsPage({super.key});
+
   @override
   _BatteryOptimizationPermissionsPageState createState() =>
       _BatteryOptimizationPermissionsPageState();
@@ -31,7 +33,7 @@ class _BatteryOptimizationPermissionsPageState
       // If battery optimization permission is granted, navigate to LoginScreen
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
       );
     }
   }
@@ -60,7 +62,7 @@ class _BatteryOptimizationPermissionsPageState
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Permission Required'),
+          title: const Text('Permission Required'),
           content: Text(message),
           actions: [
             TextButton(
@@ -79,13 +81,13 @@ class _BatteryOptimizationPermissionsPageState
                   _showSettingsDialog();
                 }
               },
-              child: Text('Allow'),
+              child: const Text('Allow'),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Deny'),
+              child: const Text('Deny'),
             ),
           ],
         );
@@ -99,8 +101,8 @@ class _BatteryOptimizationPermissionsPageState
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Permission Permanently Denied'),
-          content: Text(
+          title: const Text('Permission Permanently Denied'),
+          content: const Text(
               'You have permanently denied the permission. Please enable it from the app settings.'),
           actions: [
             TextButton(
@@ -108,13 +110,13 @@ class _BatteryOptimizationPermissionsPageState
                 openAppSettings();
                 Navigator.of(context).pop();
               },
-              child: Text('Open Settings'),
+              child: const Text('Open Settings'),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
           ],
         );
@@ -140,7 +142,7 @@ class _BatteryOptimizationPermissionsPageState
 
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           children: [
             Icon(Icons.battery_alert),
             SizedBox(width: 8),

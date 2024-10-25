@@ -79,7 +79,7 @@ Future<lm.LoginResponseModel> login({required LoginPostModel loginPostModel}) as
 
       );
     
-      debugPrint('printing profile model json in login remote datasource'+ "\n\n"+profileModel.toJson().toString());
+      debugPrint('printing profile model json in login remote datasource'"\n\n"+profileModel.toJson().toString());
       await keyValueStorage.sharedPreferences.setString(KeyValueStrings.isLoggedIn, "yes");
       await keyValueStorage.sharedPreferences.setString(KeyValueStrings.password, loginPostModel.password.toString());
       await keyValueStorage.sharedPreferences.setString(KeyValueStrings.userId, data['user']['id'].toString());

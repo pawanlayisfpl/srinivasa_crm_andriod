@@ -11,7 +11,7 @@ import 'all_customer_state.dart';
 @injectable
 class AllCustomerCubit extends Cubit<AllCustomerState> {
   final CustomerRepo customerRepo;
-  List<Customermodel> _originalList = []; 
+  final List<Customermodel> _originalList = []; 
   List<Customermodel> customerList = []; 
 
   final ItemScrollController itemScrollController = ItemScrollController();

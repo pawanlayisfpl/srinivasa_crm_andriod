@@ -22,6 +22,7 @@ class LoginState with _$LoginState {
     @Default(false) bool isLoginFailed,
     @Default(false) bool showError,
     @Default(false) bool isRememberMe,
+    @Default(true) bool hidePassword,
     @Default(null) ApiFailedModel? apiFailedModel
     
   }) = _LoginState;
@@ -37,6 +38,8 @@ class LoginState with _$LoginState {
   errorMessage: null,
   isRememberMe: false,
   apiFailedModel: null,
+  hidePassword: true
+  
   
   
   

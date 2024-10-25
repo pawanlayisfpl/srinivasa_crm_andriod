@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
@@ -266,7 +265,7 @@ log('Image size in MB: ${sizeInMB.toStringAsFixed(2)} MB');
         // Compress the image
         List<int>? compressedImageBytes = await FlutterImageCompress.compressWithList(imageBytes,quality: 60);
 
-        if (compressedImageBytes != null && compressedImageBytes.isNotEmpty) {
+        if (compressedImageBytes.isNotEmpty) {
           Uint8List compressedImageData = Uint8List.fromList(compressedImageBytes);
           
           // Print compressed image size
@@ -285,33 +284,31 @@ log('Compressed image size in MB: ${compressedSizeInMB.toStringAsFixed(2)} MB');
       }
     } else {
       images = await picker.pickMultiImage();
-      if (images != null) {
-        List<XFile> compressedImages = [];
-        for (var image in images) {
-          // Read the bytes of the original image
-          Uint8List imageBytes = await image.readAsBytes();
+      List<XFile> compressedImages = [];
+      for (var image in images) {
+        // Read the bytes of the original image
+        Uint8List imageBytes = await image.readAsBytes();
+        
+        // Print original image size and extension
+        print('Original image size: ${imageBytes.lengthInBytes} bytes');
+        print('Original image extension: ${image.name.split('.').last}');
+
+        // Compress the image
+        List<int>? compressedImageBytes = await FlutterImageCompress.compressWithList(imageBytes);
+
+        if (compressedImageBytes.isNotEmpty) {
+          Uint8List compressedImageData = Uint8List.fromList(compressedImageBytes);
           
-          // Print original image size and extension
-          print('Original image size: ${imageBytes.lengthInBytes} bytes');
-          print('Original image extension: ${image.name.split('.').last}');
-
-          // Compress the image
-          List<int>? compressedImageBytes = await FlutterImageCompress.compressWithList(imageBytes);
-
-          if (compressedImageBytes.isNotEmpty) {
-            Uint8List compressedImageData = Uint8List.fromList(compressedImageBytes);
-            
-            // Print compressed image size
-            print('Compressed image size: ${compressedImageData.lengthInBytes} bytes');
-            
-            compressedImages.add(XFile.fromData(compressedImageData, name: image.name));
-          } else {
-            return Left(Exception('Image compression failed'));
-          }
+          // Print compressed image size
+          print('Compressed image size: ${compressedImageData.lengthInBytes} bytes');
+          
+          compressedImages.add(XFile.fromData(compressedImageData, name: image.name));
+        } else {
+          return Left(Exception('Image compression failed'));
         }
-        images = compressedImages;
       }
-    }
+      images = compressedImages;
+        }
 
     if (images == null || images.isEmpty) {
       return Left(Exception('No file selected'));

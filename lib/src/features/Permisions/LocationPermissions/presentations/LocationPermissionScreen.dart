@@ -10,6 +10,8 @@ import 'package:srinivasa_crm_new/src/features/Permisions/Notifications/presenta
 import '../../../login/presentation/screens/login_screen.dart';
 
 class LocationPermissionsPage extends StatefulWidget {
+  const LocationPermissionsPage({super.key});
+
   @override
   _LocationPermissionsPageState createState() => _LocationPermissionsPageState();
 }
@@ -52,7 +54,7 @@ class _LocationPermissionsPageState extends State<LocationPermissionsPage> {
   else if (locationGranted && backgroundGranted && !notificationGranted) {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => NotificationPermissionsPage()),
+      MaterialPageRoute(builder: (context) => const NotificationPermissionsPage()),
     );
   } 
   // If location permission is not granted, request location permissions
@@ -86,7 +88,7 @@ class _LocationPermissionsPageState extends State<LocationPermissionsPage> {
    
     await  Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => NotificationPermissionsPage()),
+        MaterialPageRoute(builder: (context) => const NotificationPermissionsPage()),
       );
     } else {
       PermissionStatus backgroundStatus = await Permission.locationAlways.request();
@@ -99,7 +101,7 @@ class _LocationPermissionsPageState extends State<LocationPermissionsPage> {
     
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => NotificationPermissionsPage()),
+          MaterialPageRoute(builder: (context) => const NotificationPermissionsPage()),
         );
       } else if (backgroundStatus.isDenied) {
         _showPermissionDialog('Background location permission is required for app functionality.', Permission.locationAlways);
@@ -277,14 +279,14 @@ class _LocationPermissionsPageState extends State<LocationPermissionsPage> {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => NotificationPermissionsPage()),
+                      MaterialPageRoute(builder: (context) => const NotificationPermissionsPage()),
                     );
                   },
-                  child: const Text('Next'),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                     textStyle: const TextStyle(fontSize: 18),
                   ),
+                  child: const Text('Next'),
                 ),
             ],
           ),

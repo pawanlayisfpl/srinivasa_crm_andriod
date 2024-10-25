@@ -160,7 +160,7 @@ class ViewMonthlyPlanBodyWidget extends StatelessWidget {
 
               }
             }else {
-              Fluttertoast.showToast(msg: "Please selefc reason for rejecting the monthly plan");
+              Fluttertoast.showToast(msg: "Please enter reason for rejecting the monthly plan",toastLength: Toast.LENGTH_LONG,textColor: Colors.white,backgroundColor: Colors.red);
             }
           }
         }, title: "Submit")

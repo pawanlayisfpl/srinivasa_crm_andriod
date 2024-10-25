@@ -20,7 +20,7 @@
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     
     <application
-        android:label="SF Crm"
+        android:label="Sfpl Crm"
         android:name="${applicationName}"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"

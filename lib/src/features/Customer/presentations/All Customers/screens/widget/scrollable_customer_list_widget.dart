@@ -15,8 +15,8 @@ import '../../../../domain/model/get/customer_model.dart';
 
 class CustomerScrollableListWidget extends StatelessWidget {
   const CustomerScrollableListWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

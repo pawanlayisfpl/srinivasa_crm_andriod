@@ -563,13 +563,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 // context.read<CheckinCubit>().pickSingleImageFromGallery();
                 context.read<CheckinCubit>().pickAllImages();
               },
-              title: CommonTextWidget(title: 'Gallery'),
+              title: const CommonTextWidget(title: 'Gallery'),
               leading: const Icon(Icons.image),
             ),
-            Divider(),
+            const Divider(),
               TextButton(onPressed: () {
               Navigator.pop(context);
-            }, child: Text("Close"),)
+            }, child: const Text("Close"),)
           ],
         ),      
       ));

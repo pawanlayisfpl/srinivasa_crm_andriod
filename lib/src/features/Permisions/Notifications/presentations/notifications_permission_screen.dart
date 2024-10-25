@@ -73,7 +73,7 @@ await _checkPermissions();
       // If notification permissions are granted, navigate to Battery Optimization Permissions
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => BatteryOptimizationPermissionsPage()),
+        MaterialPageRoute(builder: (context) => const BatteryOptimizationPermissionsPage()),
       );
     }
   }
@@ -236,7 +236,7 @@ await _checkPermissions();
 await _initializePushNotifications();
                   Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => BatteryOptimizationPermissionsPage()),
+                      MaterialPageRoute(builder: (context) => const BatteryOptimizationPermissionsPage()),
                     );
                }, title: "Next"),
             ],

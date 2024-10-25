@@ -207,10 +207,10 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final thirdPartyDependencies = _$ThirdPartyDependencies();
     gh.factory<_i417.ForgetPasswordCubit>(() => _i417.ForgetPasswordCubit());
-    gh.factory<DateTime>(() => thirdPartyDependencies.defaultDateTime);
-    gh.factory<_i66.DashboardCubit>(() => _i66.DashboardCubit());
     gh.factory<_i758.OtpCubit>(() => _i758.OtpCubit());
     gh.factory<_i660.UpdateCubit>(() => _i660.UpdateCubit());
+    gh.factory<DateTime>(() => thirdPartyDependencies.defaultDateTime);
+    gh.factory<_i66.DashboardCubit>(() => _i66.DashboardCubit());
     gh.singleton<_i361.Dio>(() => thirdPartyDependencies.dio);
     gh.singleton<_i163.FlutterLocalNotificationsPlugin>(
         () => thirdPartyDependencies.flutterLocalNotificationsPlugin);

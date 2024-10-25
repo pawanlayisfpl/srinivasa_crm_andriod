@@ -3,6 +3,8 @@
 
 
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -46,6 +48,11 @@ class LoginCubit extends Cubit<LoginState> {
 
     void toggleisRememberMe() {
       emit(state.copyWith(isRememberMe: !state.isRememberMe,showError: false,isLoginSuccess: false,isLoginFailed: false));
+    }
+
+    void toggleHidePassword() {
+      log('pasword toogeld ${state.hidePassword.toString()}');
+      emit(state.copyWith(hidePassword: !state.hidePassword,apiFailedModel: null),);
     }
 
 

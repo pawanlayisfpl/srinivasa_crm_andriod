@@ -25,13 +25,12 @@ class DashboardBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-       const platform = MethodChannel('com.srinivasa.crm');
 
     return RefreshIndicator(
       backgroundColor: AppColors.primaryColor,
       color: Colors.white,
       onRefresh: () async {
-      await  context.read<AlertCubit>().getAlertCountValue();
+        await context.read<AlertCubit>().getAlerts();
       },
       child:
       Column(

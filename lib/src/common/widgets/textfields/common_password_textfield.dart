@@ -23,7 +23,7 @@ class CommonPasswordTextField extends StatelessWidget {
   final int? maxLength;
   final VoidCallback onToggleObscure;
 
-  CommonPasswordTextField({
+  const CommonPasswordTextField({
     super.key,
     required this.textEditingController,
     this.onTapFunction,

@@ -26,6 +26,7 @@ mixin _$LoginState {
   bool get isLoginFailed => throw _privateConstructorUsedError;
   bool get showError => throw _privateConstructorUsedError;
   bool get isRememberMe => throw _privateConstructorUsedError;
+  bool get hidePassword => throw _privateConstructorUsedError;
   ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -50,6 +51,7 @@ abstract class $LoginStateCopyWith<$Res> {
       bool isLoginFailed,
       bool showError,
       bool isRememberMe,
+      bool hidePassword,
       ApiFailedModel? apiFailedModel});
 
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel;
@@ -78,6 +80,7 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
     Object? isLoginFailed = null,
     Object? showError = null,
     Object? isRememberMe = null,
+    Object? hidePassword = null,
     Object? apiFailedModel = freezed,
   }) {
     return _then(_value.copyWith(
@@ -121,6 +124,10 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
           ? _value.isRememberMe
           : isRememberMe // ignore: cast_nullable_to_non_nullable
               as bool,
+      hidePassword: null == hidePassword
+          ? _value.hidePassword
+          : hidePassword // ignore: cast_nullable_to_non_nullable
+              as bool,
       apiFailedModel: freezed == apiFailedModel
           ? _value.apiFailedModel
           : apiFailedModel // ignore: cast_nullable_to_non_nullable
@@ -160,6 +167,7 @@ abstract class _$$LoginStateImplCopyWith<$Res>
       bool isLoginFailed,
       bool showError,
       bool isRememberMe,
+      bool hidePassword,
       ApiFailedModel? apiFailedModel});
 
   @override
@@ -187,6 +195,7 @@ class __$$LoginStateImplCopyWithImpl<$Res>
     Object? isLoginFailed = null,
     Object? showError = null,
     Object? isRememberMe = null,
+    Object? hidePassword = null,
     Object? apiFailedModel = freezed,
   }) {
     return _then(_$LoginStateImpl(
@@ -230,6 +239,10 @@ class __$$LoginStateImplCopyWithImpl<$Res>
           ? _value.isRememberMe
           : isRememberMe // ignore: cast_nullable_to_non_nullable
               as bool,
+      hidePassword: null == hidePassword
+          ? _value.hidePassword
+          : hidePassword // ignore: cast_nullable_to_non_nullable
+              as bool,
       apiFailedModel: freezed == apiFailedModel
           ? _value.apiFailedModel
           : apiFailedModel // ignore: cast_nullable_to_non_nullable
@@ -252,6 +265,7 @@ class _$LoginStateImpl implements _LoginState {
       this.isLoginFailed = false,
       this.showError = false,
       this.isRememberMe = false,
+      this.hidePassword = true,
       this.apiFailedModel = null});
 
   @override
@@ -284,11 +298,14 @@ class _$LoginStateImpl implements _LoginState {
   final bool isRememberMe;
   @override
   @JsonKey()
+  final bool hidePassword;
+  @override
+  @JsonKey()
   final ApiFailedModel? apiFailedModel;
 
   @override
   String toString() {
-    return 'LoginState(emailField: $emailField, passwordField: $passwordField, errorMessage: $errorMessage, isLoading: $isLoading, showPassword: $showPassword, isLoginValidated: $isLoginValidated, isLoginSuccess: $isLoginSuccess, isLoginFailed: $isLoginFailed, showError: $showError, isRememberMe: $isRememberMe, apiFailedModel: $apiFailedModel)';
+    return 'LoginState(emailField: $emailField, passwordField: $passwordField, errorMessage: $errorMessage, isLoading: $isLoading, showPassword: $showPassword, isLoginValidated: $isLoginValidated, isLoginSuccess: $isLoginSuccess, isLoginFailed: $isLoginFailed, showError: $showError, isRememberMe: $isRememberMe, hidePassword: $hidePassword, apiFailedModel: $apiFailedModel)';
   }
 
   @override
@@ -316,6 +333,8 @@ class _$LoginStateImpl implements _LoginState {
                 other.showError == showError) &&
             (identical(other.isRememberMe, isRememberMe) ||
                 other.isRememberMe == isRememberMe) &&
+            (identical(other.hidePassword, hidePassword) ||
+                other.hidePassword == hidePassword) &&
             (identical(other.apiFailedModel, apiFailedModel) ||
                 other.apiFailedModel == apiFailedModel));
   }
@@ -333,6 +352,7 @@ class _$LoginStateImpl implements _LoginState {
       isLoginFailed,
       showError,
       isRememberMe,
+      hidePassword,
       apiFailedModel);
 
   @JsonKey(ignore: true)
@@ -354,6 +374,7 @@ abstract class _LoginState implements LoginState {
       final bool isLoginFailed,
       final bool showError,
       final bool isRememberMe,
+      final bool hidePassword,
       final ApiFailedModel? apiFailedModel}) = _$LoginStateImpl;
 
   @override
@@ -376,6 +397,8 @@ abstract class _LoginState implements LoginState {
   bool get showError;
   @override
   bool get isRememberMe;
+  @override
+  bool get hidePassword;
   @override
   ApiFailedModel? get apiFailedModel;
   @override

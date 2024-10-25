@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
-import 'package:srinivasa_crm_new/src/config/constants/app_strings.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/screens/alert_details_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/Update%20Monthly%20Plan/screen/update_monthly_plan_screen.dart';
@@ -15,7 +14,6 @@ import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewM
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/ViewMonthly%20Plan/screens/view_monthly_plan_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Particular/screens/paticular_sales_order_screen.dart';
 
-import '../../../../../config/constants/app_colors.dart';
 import '../../../domain/model/get/alert_response_model.dart';
 import '../../../domain/model/post/mark_alert_as_read_postmodel.dart';
 import '../../cubit/alert_cubit.dart';

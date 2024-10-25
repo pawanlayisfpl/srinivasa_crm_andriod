@@ -4,6 +4,8 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../Notifications/presentations/notifications_permission_screen.dart';
 
 class StoragePermissionsPage extends StatefulWidget {
+  const StoragePermissionsPage({super.key});
+
   @override
   _StoragePermissionsPageState createState() => _StoragePermissionsPageState();
 }
@@ -183,11 +185,11 @@ class _StoragePermissionsPageState extends State<StoragePermissionsPage> {
             const SizedBox(height: 40),
             ElevatedButton(
               onPressed: _requestStoragePermissions,
-              child: const Text('Grant Storage Permissions'),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 textStyle: const TextStyle(fontSize: 18),
               ),
+              child: const Text('Grant Storage Permissions'),
             ),
             const SizedBox(height: 20),
             if (storagePermissionsGranted) // Show next button if permissions are granted
@@ -196,13 +198,13 @@ class _StoragePermissionsPageState extends State<StoragePermissionsPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => NotificationPermissionsPage()));
+                          builder: (context) => const NotificationPermissionsPage()));
                 },
-                child: const Text('Next'),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   textStyle: const TextStyle(fontSize: 18),
                 ),
+                child: const Text('Next'),
               ),
           ],
         ),

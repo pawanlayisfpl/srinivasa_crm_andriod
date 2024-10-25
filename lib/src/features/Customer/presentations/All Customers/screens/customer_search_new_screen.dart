@@ -61,7 +61,7 @@ class _CustomerSearchNewScreenState extends State<CustomerSearchNewScreen> {
         ),
         actions: [
           IconButton(
-            icon: Icon( Icons.close),
+            icon: const Icon( Icons.close),
             onPressed: () {
               setState(() {
                 if (isSearching) {

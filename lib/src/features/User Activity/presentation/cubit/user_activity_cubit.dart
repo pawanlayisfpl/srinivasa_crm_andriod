@@ -21,6 +21,8 @@ class UserActivityCubit extends Cubit<UserActivityState> {
 
 
   Future<void> getUserActivity({required DateTime dateTime}) async {
+                  dateController.text = DateFormat.MMMMd().format(dateTime);
+
     
     emit(state.copyWith(isLoading: true,apiFailedModel: null,userActivityModel: null));
     await Future.delayed(const Duration(seconds: 1));
@@ -31,6 +33,7 @@ class UserActivityCubit extends Cubit<UserActivityState> {
         emit(state.copyWith(isLoading: false,apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),userActivityModel: null));
       },
       (r) {
+
         emit(state.copyWith(isLoading: false,apiFailedModel: null,userActivityModel: r));
 debugPrint(r.repTravelLogsData!.length.toString());
       }

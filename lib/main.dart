@@ -221,9 +221,9 @@ Future<void> main() async {
     FirebaseFunctions.instance.useFunctionsEmulator(devMachineIP, 5001);
   }
   
-  Workmanager(
+  // Workmanager(
 
-  ).initialize(callbackDispatcher, isInDebugMode: true,);
+  // ).initialize(callbackDispatcher, isInDebugMode: true,);
 
     // TransistorAuth.registerErrorHandler();
 

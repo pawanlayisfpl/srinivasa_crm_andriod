@@ -119,9 +119,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) =>   const DashboardScreen());
 
            case Routes.locationPermissionScreen:
-        return MaterialPageRoute(builder: (_) =>    LocationPermissionsPage());
+        return MaterialPageRoute(builder: (_) =>    const LocationPermissionsPage());
            case Routes.forgetPasswordScreen:
-        return MaterialPageRoute(builder: (_) =>    ForgetPasswordScreen());
+        return MaterialPageRoute(builder: (_) =>    const ForgetPasswordScreen());
 
   
 

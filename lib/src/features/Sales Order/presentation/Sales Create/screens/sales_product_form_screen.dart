@@ -55,9 +55,10 @@ class _SalesProductFormScreenState extends State<SalesProductFormScreen> {
                 children: [
                   if(context.watch<SalesOrderCreateCubit>().state.selectedProductModel != null)...[
                     20.verticalSpace,
-                    CommonTextWidget(title: "Division : "+ context.watch<SalesOrderCreateCubit>().state.selectedProductModel!.division!.divisionName.toString(),fontWeight: FontWeight.w600,textColor: AppColors.primaryColor,textSize: 
-                    26.sp,),
-                    20.verticalSpace, 
+                    const CommonTextFieldHeadingWidget(title: 'Product Division',isRequired: true,),
+                    CommonTextfield(
+                      fillColor: AppColors.textFieldBgColor,
+                      readOnly: true,textEditingController: TextEditingController(text: context.watch<SalesOrderCreateCubit>().state.selectedProductModel!.division!.divisionName),  hintText: '', onChanged: (v) {}, validator: (String? val ) { }, autovalidateMode: AutovalidateMode.disabled,),
                   ],
                   20.verticalSpace,
                   const CommonTextFieldHeadingWidget(title: 'Product Name',isRequired: true,)

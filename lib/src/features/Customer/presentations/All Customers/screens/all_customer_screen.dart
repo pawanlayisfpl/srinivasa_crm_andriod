@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/screens/customer_search_new_screen.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/screens/widget/all_customer_loaded_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/screens/widget/scrollable_customer_list_widget.dart';
 
 import '../../../../../common/common.dart';
@@ -35,16 +33,16 @@ class _AllCustomerScreenState extends State<AllCustomerScreen> {
         actions:  [
           // SEARCH NEEDS TO BE IMPLEMENTED
           IconButton(
-            icon:  Icon(Icons.search),
+            icon:  const Icon(Icons.search),
             onPressed: () {
-              Navigator.push(context, ScaleRoute(screen: CustomerSearchNewScreen()));
+              Navigator.push(context, ScaleRoute(screen: const CustomerSearchNewScreen()));
             },
           ),
           10.horizontalSpace,
 
       context.watch<AllCustomerCubit>().selectedIndex != -1 ?     IconButton(onPressed: () {
             context.read<AllCustomerCubit>().jumpToIndex();
-          }, icon: Icon(Icons.pin_drop_sharp,color: Colors.redAccent,)) : const SizedBox.shrink(),
+          }, icon: const Icon(Icons.pin_drop_sharp,color: Colors.redAccent,)) : const SizedBox.shrink(),
         ],
       ),
       

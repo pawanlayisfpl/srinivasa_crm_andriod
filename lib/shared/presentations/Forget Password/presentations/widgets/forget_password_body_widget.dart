@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:srinivasa_crm_new/shared/presentations/Otp/presentations/screens/otp_screen.dart';
 import 'package:srinivasa_crm_new/shared/presentations/cubit/forget_cubit.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
-import 'package:srinivasa_crm_new/src/config/constants/app_colors.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 
 import '../../../../../src/common/common.dart';
@@ -36,7 +35,7 @@ class ForgetPasswordBodyWidget extends StatelessWidget {
             20.verticalSpace,
             CommonTextWidget(
               title:
-                  "Enter the email associated with your account and we\'ll send an email otp to reset your password. ",
+                  "Enter the email associated with your account and we'll send an email otp to reset your password. ",
               maxLines: 5,
               textColor: AppColors.hintHeadingColor,
               textSize: 14.sp,

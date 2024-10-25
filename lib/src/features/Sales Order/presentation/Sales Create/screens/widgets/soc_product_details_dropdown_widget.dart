@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/product_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/sales_order_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/state/sales_order_create_state.dart';
@@ -23,7 +24,7 @@ class SocProductDropDown extends StatelessWidget {
                   enabled: true,
                   selectedItem: state.selectedProductModel,
           
-                  dropdownBuilder: (context, selectedItems) => state.selectedProductModel == null ?  const CommonTextWidget(title: "Select your product",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedProductModel!.productName.toString()) ,
+                  dropdownBuilder: (context, selectedItems) => state.selectedProductModel == null ?  const CommonTextWidget(title: "Select your product",fontWeight: FontWeight.w500,textColor: Colors.grey,maxLines: 3,) : CommonTextWidget(title: state.selectedProductModel!.productName.toString()) ,
                   
                   
                   dropdownButtonProps:   DropdownButtonProps( 
@@ -36,7 +37,7 @@ class SocProductDropDown extends StatelessWidget {
                     
                     
                   ),
-              itemAsString: (item) => item.productName.toString(),
+              itemAsString: (item) => "${item.division!.divisionName!.toCapitalize()} - ${item.productName}",
                   popupProps: const PopupPropsMultiSelection.modalBottomSheet(
                     
           
