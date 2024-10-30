@@ -1,8 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:srinivasa_crm_new/src/common/widgets/widgets.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
+import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/screens/all_customer_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/screens/customer_details_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/screen/customer_create_screen.dart';
@@ -136,7 +138,7 @@ Route<dynamic> unDefinedRoute() {
       builder: (_) => Scaffold(
             appBar: AppBar(title: const Text("Something went wrong")),
             body:  Center(child: CommonButton(callback: () async {
-              AppKeys.globalNavigatorKey.currentState!.pushAndRemoveUntil(ScaleRoute(screen: const DashboardScreen()), (v) => true);
-            }, title: 'Go to Dashboard'))),
+              AppKeys.globalNavigatorKey.currentState!.pushAndRemoveUntil(ScaleRoute(screen: const LoginScreen()), (v) => true);
+            }, title: 'Go to Dashboard')).withSymetricPadding(horizontalPadding: 20.w)),
           );
 }

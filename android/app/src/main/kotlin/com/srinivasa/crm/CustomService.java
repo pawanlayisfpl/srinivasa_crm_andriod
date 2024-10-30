@@ -24,7 +24,7 @@ public class CustomService extends Service {
     private static final String TAG = "BACKGROUND_TASKS";
     //    private static final long INTERVAL = 5 * 1000; // Run task every 5 seconds
     // private static final long INTERVAL = 60 * 1000; 
-    private static final long INTERVAL = 2 * 60 * 1000; // Run task every 2 minutes
+    private static final long INTERVAL = 15 * 60 * 1000; // Run task every 2 minutes
 
     // Run task every 5 seconds
     private static final String CHANNEL_ID = "ForegroundServiceChannel";
