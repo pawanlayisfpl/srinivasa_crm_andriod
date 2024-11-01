@@ -19,7 +19,7 @@ mixin _$ForgetPasswordState {
   EmailField get emailField => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   bool get showValidationError => throw _privateConstructorUsedError;
-  ApiResponseModel? get apiResponseModel => throw _privateConstructorUsedError;
+  ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ForgetPasswordStateCopyWith<ForgetPasswordState> get copyWith =>
@@ -36,7 +36,9 @@ abstract class $ForgetPasswordStateCopyWith<$Res> {
       {EmailField emailField,
       bool isSubmitting,
       bool showValidationError,
-      ApiResponseModel? apiResponseModel});
+      ApiFailedModel? apiFailedModel});
+
+  $ApiFailedModelCopyWith<$Res>? get apiFailedModel;
 }
 
 /// @nodoc
@@ -55,7 +57,7 @@ class _$ForgetPasswordStateCopyWithImpl<$Res, $Val extends ForgetPasswordState>
     Object? emailField = null,
     Object? isSubmitting = null,
     Object? showValidationError = null,
-    Object? apiResponseModel = freezed,
+    Object? apiFailedModel = freezed,
   }) {
     return _then(_value.copyWith(
       emailField: null == emailField
@@ -70,11 +72,23 @@ class _$ForgetPasswordStateCopyWithImpl<$Res, $Val extends ForgetPasswordState>
           ? _value.showValidationError
           : showValidationError // ignore: cast_nullable_to_non_nullable
               as bool,
-      apiResponseModel: freezed == apiResponseModel
-          ? _value.apiResponseModel
-          : apiResponseModel // ignore: cast_nullable_to_non_nullable
-              as ApiResponseModel?,
+      apiFailedModel: freezed == apiFailedModel
+          ? _value.apiFailedModel
+          : apiFailedModel // ignore: cast_nullable_to_non_nullable
+              as ApiFailedModel?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ApiFailedModelCopyWith<$Res>? get apiFailedModel {
+    if (_value.apiFailedModel == null) {
+      return null;
+    }
+
+    return $ApiFailedModelCopyWith<$Res>(_value.apiFailedModel!, (value) {
+      return _then(_value.copyWith(apiFailedModel: value) as $Val);
+    });
   }
 }
 
@@ -90,7 +104,10 @@ abstract class _$$ForgetPasswordStateImplCopyWith<$Res>
       {EmailField emailField,
       bool isSubmitting,
       bool showValidationError,
-      ApiResponseModel? apiResponseModel});
+      ApiFailedModel? apiFailedModel});
+
+  @override
+  $ApiFailedModelCopyWith<$Res>? get apiFailedModel;
 }
 
 /// @nodoc
@@ -107,7 +124,7 @@ class __$$ForgetPasswordStateImplCopyWithImpl<$Res>
     Object? emailField = null,
     Object? isSubmitting = null,
     Object? showValidationError = null,
-    Object? apiResponseModel = freezed,
+    Object? apiFailedModel = freezed,
   }) {
     return _then(_$ForgetPasswordStateImpl(
       emailField: null == emailField
@@ -122,10 +139,10 @@ class __$$ForgetPasswordStateImplCopyWithImpl<$Res>
           ? _value.showValidationError
           : showValidationError // ignore: cast_nullable_to_non_nullable
               as bool,
-      apiResponseModel: freezed == apiResponseModel
-          ? _value.apiResponseModel
-          : apiResponseModel // ignore: cast_nullable_to_non_nullable
-              as ApiResponseModel?,
+      apiFailedModel: freezed == apiFailedModel
+          ? _value.apiFailedModel
+          : apiFailedModel // ignore: cast_nullable_to_non_nullable
+              as ApiFailedModel?,
     ));
   }
 }
@@ -137,7 +154,7 @@ class _$ForgetPasswordStateImpl implements _ForgetPasswordState {
       {required this.emailField,
       required this.isSubmitting,
       this.showValidationError = false,
-      this.apiResponseModel = null});
+      this.apiFailedModel = null});
 
   @override
   final EmailField emailField;
@@ -148,11 +165,11 @@ class _$ForgetPasswordStateImpl implements _ForgetPasswordState {
   final bool showValidationError;
   @override
   @JsonKey()
-  final ApiResponseModel? apiResponseModel;
+  final ApiFailedModel? apiFailedModel;
 
   @override
   String toString() {
-    return 'ForgetPasswordState(emailField: $emailField, isSubmitting: $isSubmitting, showValidationError: $showValidationError, apiResponseModel: $apiResponseModel)';
+    return 'ForgetPasswordState(emailField: $emailField, isSubmitting: $isSubmitting, showValidationError: $showValidationError, apiFailedModel: $apiFailedModel)';
   }
 
   @override
@@ -166,13 +183,13 @@ class _$ForgetPasswordStateImpl implements _ForgetPasswordState {
                 other.isSubmitting == isSubmitting) &&
             (identical(other.showValidationError, showValidationError) ||
                 other.showValidationError == showValidationError) &&
-            (identical(other.apiResponseModel, apiResponseModel) ||
-                other.apiResponseModel == apiResponseModel));
+            (identical(other.apiFailedModel, apiFailedModel) ||
+                other.apiFailedModel == apiFailedModel));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, emailField, isSubmitting,
-      showValidationError, apiResponseModel);
+      showValidationError, apiFailedModel);
 
   @JsonKey(ignore: true)
   @override
@@ -187,7 +204,7 @@ abstract class _ForgetPasswordState implements ForgetPasswordState {
       {required final EmailField emailField,
       required final bool isSubmitting,
       final bool showValidationError,
-      final ApiResponseModel? apiResponseModel}) = _$ForgetPasswordStateImpl;
+      final ApiFailedModel? apiFailedModel}) = _$ForgetPasswordStateImpl;
 
   @override
   EmailField get emailField;
@@ -196,7 +213,7 @@ abstract class _ForgetPasswordState implements ForgetPasswordState {
   @override
   bool get showValidationError;
   @override
-  ApiResponseModel? get apiResponseModel;
+  ApiFailedModel? get apiFailedModel;
   @override
   @JsonKey(ignore: true)
   _$$ForgetPasswordStateImplCopyWith<_$ForgetPasswordStateImpl> get copyWith =>

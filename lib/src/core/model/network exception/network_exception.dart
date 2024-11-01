@@ -54,7 +54,7 @@ if (error.response?.statusCode == 401) {
   try {
     // Display a toast message for unauthorized request
     // Fluttertoast.showToast(msg: "Unauthorized request. Please login again.");
-    QuickAlert.show(context: AppKeys.globalNavigatorKey.currentState!.context, type: QuickAlertType.error, title: "Unauthorized request", text: "Please login again",
+    QuickAlert.show(context: AppKeys.globalNavigatorKey.currentState!.context, type: QuickAlertType.error, title: "Token Expired", text: "Please login again",
     confirmBtnColor: Colors.black,
     confirmBtnText: "Okay",
     barrierDismissible: false,

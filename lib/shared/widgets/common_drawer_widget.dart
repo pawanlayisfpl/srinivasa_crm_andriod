@@ -23,7 +23,7 @@ class CommonDrawerWidget extends StatelessWidget {
             children: [
               SizedBox(height: 0.1.sh,),
             // NAME
-            ReusableListTileWidget(title: data.profileResponseModel.userModel!.username.toString(), icon: Icons.person,),
+            ReusableListTileWidget(title: "${data.profileResponseModel.userModel!.username}\n(${(data.profileResponseModel.userModel!.id.toString())})", icon: Icons.person,),
               const Divider(),
               // EMAIL
                      ReusableListTileWidget(title: data.profileResponseModel.userModel!.email.toString(), icon: Icons.email_outlined,),

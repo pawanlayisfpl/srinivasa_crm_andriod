@@ -10,16 +10,31 @@ import '../../../../../src/common/common.dart';
 import '../../../../../src/config/config.dart';
 import '../../../cubit/state/forget_password_state.dart';
 
-class ForgetPasswordBodyWidget extends StatelessWidget {
+class ForgetPasswordBodyWidget extends StatefulWidget {
   const ForgetPasswordBodyWidget({super.key});
+
+  @override
+  State<ForgetPasswordBodyWidget> createState() => _ForgetPasswordBodyWidgetState();
+}
+
+class _ForgetPasswordBodyWidgetState extends State<ForgetPasswordBodyWidget> {
+
+
+@override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((t) async {
+      context.read<ForgetPasswordCubit>().getExistingEmail();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
       onPopInvoked: ( v) async {
-        locator.get<ForgetPasswordCubit>().resetState();
+         context.read<ForgetPasswordCubit>().resetState();
       },
-      child: SingleChildScrollView(
+      child: context.watch<ForgetPasswordCubit>().state.isSubmitting ? const Center(child: CircularProgressIndicator(color: AppColors.primaryColor,strokeWidth: 2,),) : SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,

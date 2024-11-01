@@ -7,7 +7,7 @@ class KeyValueStrings {
   static const String token = 'token';
   static const String profileDataModel = '';
   static const String isLoggedIn = "login";
-
+  static const String forgetEmail = "forgetEmail";
 
   // CUSTOMERSS
   static const String sigleCustomerData = 'singleCustomerData';

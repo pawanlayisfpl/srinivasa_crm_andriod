@@ -17,9 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$OtpState {
   NumberField get numberField => throw _privateConstructorUsedError;
+  StringField get passwordField => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   bool get showInputError => throw _privateConstructorUsedError;
-  ApiResponseModel? get apiResponseModel => throw _privateConstructorUsedError;
+  ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $OtpStateCopyWith<OtpState> get copyWith =>
@@ -33,9 +34,12 @@ abstract class $OtpStateCopyWith<$Res> {
   @useResult
   $Res call(
       {NumberField numberField,
+      StringField passwordField,
       bool isSubmitting,
       bool showInputError,
-      ApiResponseModel? apiResponseModel});
+      ApiFailedModel? apiFailedModel});
+
+  $ApiFailedModelCopyWith<$Res>? get apiFailedModel;
 }
 
 /// @nodoc
@@ -52,15 +56,20 @@ class _$OtpStateCopyWithImpl<$Res, $Val extends OtpState>
   @override
   $Res call({
     Object? numberField = null,
+    Object? passwordField = null,
     Object? isSubmitting = null,
     Object? showInputError = null,
-    Object? apiResponseModel = freezed,
+    Object? apiFailedModel = freezed,
   }) {
     return _then(_value.copyWith(
       numberField: null == numberField
           ? _value.numberField
           : numberField // ignore: cast_nullable_to_non_nullable
               as NumberField,
+      passwordField: null == passwordField
+          ? _value.passwordField
+          : passwordField // ignore: cast_nullable_to_non_nullable
+              as StringField,
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -69,11 +78,23 @@ class _$OtpStateCopyWithImpl<$Res, $Val extends OtpState>
           ? _value.showInputError
           : showInputError // ignore: cast_nullable_to_non_nullable
               as bool,
-      apiResponseModel: freezed == apiResponseModel
-          ? _value.apiResponseModel
-          : apiResponseModel // ignore: cast_nullable_to_non_nullable
-              as ApiResponseModel?,
+      apiFailedModel: freezed == apiFailedModel
+          ? _value.apiFailedModel
+          : apiFailedModel // ignore: cast_nullable_to_non_nullable
+              as ApiFailedModel?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ApiFailedModelCopyWith<$Res>? get apiFailedModel {
+    if (_value.apiFailedModel == null) {
+      return null;
+    }
+
+    return $ApiFailedModelCopyWith<$Res>(_value.apiFailedModel!, (value) {
+      return _then(_value.copyWith(apiFailedModel: value) as $Val);
+    });
   }
 }
 
@@ -87,9 +108,13 @@ abstract class _$$OtpStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {NumberField numberField,
+      StringField passwordField,
       bool isSubmitting,
       bool showInputError,
-      ApiResponseModel? apiResponseModel});
+      ApiFailedModel? apiFailedModel});
+
+  @override
+  $ApiFailedModelCopyWith<$Res>? get apiFailedModel;
 }
 
 /// @nodoc
@@ -104,15 +129,20 @@ class __$$OtpStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? numberField = null,
+    Object? passwordField = null,
     Object? isSubmitting = null,
     Object? showInputError = null,
-    Object? apiResponseModel = freezed,
+    Object? apiFailedModel = freezed,
   }) {
     return _then(_$OtpStateImpl(
       numberField: null == numberField
           ? _value.numberField
           : numberField // ignore: cast_nullable_to_non_nullable
               as NumberField,
+      passwordField: null == passwordField
+          ? _value.passwordField
+          : passwordField // ignore: cast_nullable_to_non_nullable
+              as StringField,
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -121,10 +151,10 @@ class __$$OtpStateImplCopyWithImpl<$Res>
           ? _value.showInputError
           : showInputError // ignore: cast_nullable_to_non_nullable
               as bool,
-      apiResponseModel: freezed == apiResponseModel
-          ? _value.apiResponseModel
-          : apiResponseModel // ignore: cast_nullable_to_non_nullable
-              as ApiResponseModel?,
+      apiFailedModel: freezed == apiFailedModel
+          ? _value.apiFailedModel
+          : apiFailedModel // ignore: cast_nullable_to_non_nullable
+              as ApiFailedModel?,
     ));
   }
 }
@@ -134,12 +164,15 @@ class __$$OtpStateImplCopyWithImpl<$Res>
 class _$OtpStateImpl implements _OtpState {
   const _$OtpStateImpl(
       {required this.numberField,
+      required this.passwordField,
       required this.isSubmitting,
       this.showInputError = false,
-      this.apiResponseModel = null});
+      this.apiFailedModel = null});
 
   @override
   final NumberField numberField;
+  @override
+  final StringField passwordField;
   @override
   final bool isSubmitting;
   @override
@@ -147,11 +180,11 @@ class _$OtpStateImpl implements _OtpState {
   final bool showInputError;
   @override
   @JsonKey()
-  final ApiResponseModel? apiResponseModel;
+  final ApiFailedModel? apiFailedModel;
 
   @override
   String toString() {
-    return 'OtpState(numberField: $numberField, isSubmitting: $isSubmitting, showInputError: $showInputError, apiResponseModel: $apiResponseModel)';
+    return 'OtpState(numberField: $numberField, passwordField: $passwordField, isSubmitting: $isSubmitting, showInputError: $showInputError, apiFailedModel: $apiFailedModel)';
   }
 
   @override
@@ -161,17 +194,19 @@ class _$OtpStateImpl implements _OtpState {
             other is _$OtpStateImpl &&
             (identical(other.numberField, numberField) ||
                 other.numberField == numberField) &&
+            (identical(other.passwordField, passwordField) ||
+                other.passwordField == passwordField) &&
             (identical(other.isSubmitting, isSubmitting) ||
                 other.isSubmitting == isSubmitting) &&
             (identical(other.showInputError, showInputError) ||
                 other.showInputError == showInputError) &&
-            (identical(other.apiResponseModel, apiResponseModel) ||
-                other.apiResponseModel == apiResponseModel));
+            (identical(other.apiFailedModel, apiFailedModel) ||
+                other.apiFailedModel == apiFailedModel));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, numberField, isSubmitting, showInputError, apiResponseModel);
+  int get hashCode => Object.hash(runtimeType, numberField, passwordField,
+      isSubmitting, showInputError, apiFailedModel);
 
   @JsonKey(ignore: true)
   @override
@@ -183,18 +218,21 @@ class _$OtpStateImpl implements _OtpState {
 abstract class _OtpState implements OtpState {
   const factory _OtpState(
       {required final NumberField numberField,
+      required final StringField passwordField,
       required final bool isSubmitting,
       final bool showInputError,
-      final ApiResponseModel? apiResponseModel}) = _$OtpStateImpl;
+      final ApiFailedModel? apiFailedModel}) = _$OtpStateImpl;
 
   @override
   NumberField get numberField;
+  @override
+  StringField get passwordField;
   @override
   bool get isSubmitting;
   @override
   bool get showInputError;
   @override
-  ApiResponseModel? get apiResponseModel;
+  ApiFailedModel? get apiFailedModel;
   @override
   @JsonKey(ignore: true)
   _$$OtpStateImplCopyWith<_$OtpStateImpl> get copyWith =>

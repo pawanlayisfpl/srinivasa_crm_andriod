@@ -1,3 +1,5 @@
+import 'package:injectable/injectable.dart';
+
 class Endpoints {
   // static const String basicUrl = "http://192.168.1.45:8080/crmsfpl";
   // static const String basicUrl = "http://65.109.229.140:8080/crmsfpl";
@@ -7,6 +9,7 @@ class Endpoints {
     // static const String basicUrl = "http://172.168.1.56:8081/crm_sfpl";
     // static const String basicUrl = "http://crmapi.srinivasa.co:8081/crm_sfpl";
     static const String basicUrl = "http://180.149.244.56:8081/crm_sfpl";
+    static const String testUrl = " http://95.216.201.117:8081/crm_sfpl";
   static const int connectionTimeout = 30;
   static const int receiveTimeout = 60;
 
@@ -17,6 +20,9 @@ class Endpoints {
   static const String punchIn = "$basicUrl/se/punchin";
   static const String punchOut = "$basicUrl/se/punchout";
   static const String lastPunchInDetails = "$basicUrl/se/getlastpunchdetails";
+
+  static const String findEmail = "$testUrl/auth/forgot-password";
+  static const String resetPassword = "$testUrl/auth/reset-password";
 
   // CHECK IN
   static const String checkInPostUrl = "$basicUrl/se/checkin";

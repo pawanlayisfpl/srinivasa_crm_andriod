@@ -20,12 +20,16 @@ import 'package:internet_connection_checker/internet_connection_checker.dart'
 import 'package:logger/logger.dart' as _i974;
 import 'package:package_info_plus/package_info_plus.dart' as _i655;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
+import 'package:srinivasa_crm_new/shared/data/datasource/DeliveryTypes/delivery_types_repo_impl.dart'
+    as _i976;
 import 'package:srinivasa_crm_new/shared/data/datasource/remote/Address%20Repo/address_remote_datasource.dart'
     as _i566;
 import 'package:srinivasa_crm_new/shared/data/datasource/remote/Divisions/divisions_remote_datasource.dart'
     as _i203;
 import 'package:srinivasa_crm_new/shared/data/datasource/remote/Employe/employe_remote_datasource.dart'
     as _i102;
+import 'package:srinivasa_crm_new/shared/data/datasource/remote/ForgetPassword/forget_pass_repo_impl.dart'
+    as _i41;
 import 'package:srinivasa_crm_new/shared/data/datasource/remote/Primary%20Source/primary_source_remote_datasource.dart'
     as _i568;
 import 'package:srinivasa_crm_new/shared/data/datasource/remote/Purpose/purpose_remote_datasource.dart'
@@ -50,6 +54,8 @@ import 'package:srinivasa_crm_new/shared/domain/repo/Divisions/divison_repo.dart
     as _i389;
 import 'package:srinivasa_crm_new/shared/domain/repo/Employe/employe_repo.dart'
     as _i981;
+import 'package:srinivasa_crm_new/shared/domain/repo/Forget%20Password/forget_password_repo.dart'
+    as _i537;
 import 'package:srinivasa_crm_new/shared/domain/repo/Primary%20Source/primary_source_repo.dart'
     as _i466;
 import 'package:srinivasa_crm_new/shared/domain/repo/Purpose/purpose_repo.dart'
@@ -206,8 +212,6 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final thirdPartyDependencies = _$ThirdPartyDependencies();
-    gh.factory<_i417.ForgetPasswordCubit>(() => _i417.ForgetPasswordCubit());
-    gh.factory<_i758.OtpCubit>(() => _i758.OtpCubit());
     gh.factory<_i660.UpdateCubit>(() => _i660.UpdateCubit());
     gh.factory<DateTime>(() => thirdPartyDependencies.defaultDateTime);
     gh.factory<_i66.DashboardCubit>(() => _i66.DashboardCubit());
@@ -269,6 +273,11 @@ extension GetItInjectableX on _i174.GetIt {
               keyValueStorage: gh<_i961.KeyValueStorage>(),
               internetChecker: gh<_i961.InternetChecker>(),
             ));
+    gh.factory<_i976.DeliveryTypesRepo>(() => _i976.DeliveryTypesRepoImpl(
+          keyValueStorage: gh<_i961.KeyValueStorage>(),
+          dioClient: gh<_i961.DioClient>(),
+          internetChecker: gh<_i961.InternetChecker>(),
+        ));
     gh.factory<_i579.LoginRemoteDataSource>(
         () => _i579.LoginRemoteDataSourceImpl(
               dioClient: gh<_i961.DioClient>(),
@@ -351,6 +360,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i848.MonthlyPlanSearchCubit(gh<_i118.MonthlyPlanRepo>()));
     gh.factory<_i208.ProfileRepo>(() =>
         _i390.ProfileRepoImpl(profileLocalRepo: gh<_i346.ProfileLocalRepo>()));
+    gh.factory<_i537.ForgetPasswordRepo>(() => _i41.ForgetPassRepoImpl(
+          dioClient: gh<_i961.DioClient>(),
+          keyValueStorage: gh<_i961.KeyValueStorage>(),
+          internetChecker: gh<_i961.InternetChecker>(),
+        ));
     gh.factory<_i726.ZoneRemoteDataSource>(() => _i726.ZoneRemoteDatasourceImpl(
           dioClient: gh<_i961.DioClient>(),
           internetChecker: gh<_i961.InternetChecker>(),
@@ -417,6 +431,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i204.LoginUseCase(loginRepository: gh<_i584.LoginRepository>()));
     gh.factory<_i186.UserActivityCubit>(
         () => _i186.UserActivityCubit(gh<_i939.UserActivityRepo>()));
+    gh.factory<_i417.ForgetPasswordCubit>(() => _i417.ForgetPasswordCubit(
+          gh<_i537.ForgetPasswordRepo>(),
+          gh<_i961.KeyValueStorage>(),
+        ));
+    gh.factory<_i758.OtpCubit>(() => _i758.OtpCubit(
+          gh<_i537.ForgetPasswordRepo>(),
+          gh<_i961.KeyValueStorage>(),
+        ));
     gh.factory<_i796.MarkAttendanceCubit>(() => _i796.MarkAttendanceCubit(
           gh<_i866.PunchInUseCase>(),
           gh<_i866.PunchOutUsecase>(),
