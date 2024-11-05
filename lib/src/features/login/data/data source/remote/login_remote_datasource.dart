@@ -97,7 +97,7 @@ Future<lm.LoginResponseModel> login({required LoginPostModel loginPostModel}) as
     }
   
   } on DioException catch (e) {
-    throw NetworkExceptions.getException(e);
+    throw NetworkExceptions.getDioException(e);
   } on SocketException  {
     throw const NetworkExceptions.noInternetConnection();
   }

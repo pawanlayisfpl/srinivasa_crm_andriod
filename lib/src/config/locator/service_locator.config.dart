@@ -101,6 +101,10 @@ import 'package:srinivasa_crm_new/src/features/Alerts%20/domain/repo/alert_repo.
     as _i628;
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart'
     as _i836;
+import 'package:srinivasa_crm_new/src/features/Comments/data/repo/comments_repo.dart'
+    as _i802;
+import 'package:srinivasa_crm_new/src/features/Comments/presentations/Add%20Comment/cubit/add_comment_cubit.dart'
+    as _i40;
 import 'package:srinivasa_crm_new/src/features/Customer/data/datasource/remote/customer_remote_datasources.dart'
     as _i411;
 import 'package:srinivasa_crm_new/src/features/Customer/data/repo/customer_repo_impl.dart'
@@ -195,6 +199,14 @@ import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%
     as _i956;
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20View/cubit/sales_order_view_cubit.dart'
     as _i237;
+import 'package:srinivasa_crm_new/src/features/Tickets/data/repo/tickers_repo_impl.dart'
+    as _i232;
+import 'package:srinivasa_crm_new/src/features/Tickets/presentations/cubit/add_ticket_cubit.dart'
+    as _i263;
+import 'package:srinivasa_crm_new/src/features/Tickets/presentations/View%20Particular%20Ticket/cubit/view_particular_ticket_cubit.dart'
+    as _i493;
+import 'package:srinivasa_crm_new/src/features/Tickets/presentations/View%20Ticket/cubit/view_ticket_cubit.dart'
+    as _i560;
 import 'package:srinivasa_crm_new/src/features/User%20Activity/data/repo/user_activity_repo.dart'
     as _i939;
 import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/cubit/user_activity_cubit.dart'
@@ -330,6 +342,11 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i974.Logger>(),
               gh<_i961.InternetChecker>(),
             ));
+    gh.factory<_i232.TicketsRepo>(() => _i232.TicketsRepoImpl(
+          dioClient: gh<_i961.DioClient>(),
+          keyValueStorage: gh<_i961.KeyValueStorage>(),
+          internetChecker: gh<_i961.InternetChecker>(),
+        ));
     gh.factory<_i355.PurposeRemoteDatasource>(
         () => _i355.PurposeRemoteDatasourceImpl(
               dioClient: gh<_i961.DioClient>(),
@@ -370,6 +387,11 @@ extension GetItInjectableX on _i174.GetIt {
           internetChecker: gh<_i961.InternetChecker>(),
           keyValueStorage: gh<_i961.KeyValueStorage>(),
         ));
+    gh.factory<_i802.CommentsRepo>(() => _i802.CommentsRepoImpl(
+          dioClient: gh<_i720.DioClient>(),
+          keyValueStorage: gh<_i286.KeyValueStorage>(),
+          internetChecker: gh<_i961.InternetChecker>(),
+        ));
     gh.factory<_i492.MarkAttendanceRepo>(() => _i59.MarkAttendanceRepoImpl(
         markAttendanceRemoteDataSource:
             gh<_i612.MarkAttendanceRemoteDataSource>()));
@@ -398,6 +420,12 @@ extension GetItInjectableX on _i174.GetIt {
           commonLocationServices: gh<_i972.CommonLocationServices>(),
           keyValueStorage: gh<_i961.KeyValueStorage>(),
         ));
+    gh.factory<_i263.AddTicketCubit>(
+        () => _i263.AddTicketCubit(gh<_i232.TicketsRepo>()));
+    gh.factory<_i560.ViewTicketCubit>(
+        () => _i560.ViewTicketCubit(gh<_i232.TicketsRepo>()));
+    gh.factory<_i493.ViewParticularTicketCubit>(
+        () => _i493.ViewParticularTicketCubit(gh<_i232.TicketsRepo>()));
     gh.factory<_i403.KycCubit>(() => _i403.KycCubit(gh<_i382.KycRepo>()));
     gh.factory<_i389.DivisionRepo>(() => _i186.DivisionRepoimpl(
         dataSource: gh<_i203.DivisonsRemoteDataSource>()));
@@ -454,6 +482,8 @@ extension GetItInjectableX on _i174.GetIt {
           imageServices: gh<_i972.CommonImageServices>(),
           kycRepo: gh<_i382.KycRepo>(),
         ));
+    gh.factory<_i40.AddCommentCubit>(
+        () => _i40.AddCommentCubit(gh<_i802.CommentsRepo>()));
     gh.factory<_i520.UpdateMonthlyPlanCubit>(() => _i520.UpdateMonthlyPlanCubit(
           monthlyPlanRepo: gh<_i118.MonthlyPlanRepo>(),
           customerRepo: gh<_i209.CustomerRepo>(),

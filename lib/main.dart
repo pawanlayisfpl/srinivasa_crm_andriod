@@ -16,6 +16,7 @@ import 'package:srinivasa_crm_new/shared/presentations/cubit/forget_cubit.dart';
 // import 'package:srinivasa_crm_new/ENV.dart';
 
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Comments/presentations/Add%20Comment/cubit/add_comment_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart';
@@ -34,6 +35,9 @@ import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profi
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/sales_order_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Particular/cubit/sales_order_particular_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20View/cubit/sales_order_view_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Tickets/presentations/View%20Particular%20Ticket/cubit/view_particular_ticket_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Tickets/presentations/View%20Ticket/cubit/view_ticket_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Tickets/presentations/cubit/add_ticket_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/cubit/user_activity_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 import 'package:workmanager/workmanager.dart';
@@ -191,6 +195,13 @@ Future<void> backgroundHandler(RemoteMessage message) async {
 
 
 
+// TODO: CHANGE URL OF FIND EMAIL AND RESET PASSWORD FROM TEST TO LIVE URL , ONCE TESTING IS DONE FROM SHASHI REKHA
+// TODO: ADD BATTERY STATUS FEILD IN PUNCH IN , PUNCHOUT, CHECK-IN, CHECKOUT
+// TODO: MODIFY SALES ORDER BODY REQUEST API
+// TODO: START WORK ON TICKET FEEDBACK UI AND API IMPLEMENTATION
+// TODO: WORK ON SYNC PAGE AND OFFLINE BATTERY FIELD IN MULTIPLE LOCAITON ADDING API
+// TODO: CRM APP DEPLOYEMENT IN IOS AND ANDROID PLAYSTORE ALSO....
+// 
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -274,6 +285,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => locator.get<ForgetPasswordCubit>()),
         BlocProvider(create: (_) => locator.get<OtpCubit>()),
         BlocProvider(create: (_) => locator.get<UpdateCubit>()),
+        BlocProvider(create: (_) => locator.get<AddTicketCubit>()),
+        BlocProvider(create: (_) => locator.get<ViewTicketCubit>()),
+        BlocProvider(create: (_) => locator.get<ViewParticularTicketCubit>()),
+        BlocProvider(create: (_) => locator.get<AddCommentCubit>()),
       ],
       child: MaterialApp(
         navigatorKey: AppKeys.globalNavigatorKey,

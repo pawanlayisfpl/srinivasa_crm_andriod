@@ -20,6 +20,7 @@ List<DashboardModel> dashboardIconLists = [
   // DashboardModel(iconPath: 'assets/png/reports.png', iconName: 'Reports'),
   DashboardModel(iconPath: 'assets/png/order.png', iconName: 'Sales Order'),
   DashboardModel(iconPath: 'assets/png/activity.png', iconName: 'Activity'),
+  // DashboardModel(iconPath: 'assets/png/activity.png', iconName: 'Tickets'),
   // DashboardModel(iconPath: "assets/png/enquiry.png", iconName: 'ENQUIRY'),
   // DashboardModel(iconPath: "assets/png/enquiry.png", iconName: 'SALES ORDER'),
 ];

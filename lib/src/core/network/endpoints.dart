@@ -6,9 +6,9 @@ class Endpoints {
   // static const String basicUrl = "http://192.168.64.123:8080/crmsfpl";
     // static const String basicUrl = "http://95.216.201.117:8081/crmsfpl";
     
-    // static const String basicUrl = "http://172.168.1.56:8081/crm_sfpl";
-    // static const String basicUrl = "http://crmapi.srinivasa.co:8081/crm_sfpl";
     static const String basicUrl = "http://180.149.244.56:8081/crm_sfpl";
+    // static const String basicUrl = "http://crmapi.srinivasa.co:8081/crm_sfpl";
+    // static const String basicUrl = "http://95.216.201.117:8081/crm_sfpl";
     static const String testUrl = " http://95.216.201.117:8081/crm_sfpl";
   static const int connectionTimeout = 30;
   static const int receiveTimeout = 60;
@@ -116,5 +116,9 @@ class Endpoints {
 
   // JOINT-EMPLOYE
   static const String jointemployesUrl = '$basicUrl/se/usersfromassignedzones';
+
+  // TICKETS
+  static const String createTicket = "$testUrl/user/ticket";
+  static const String getUserTickets = "$testUrl/user/ticket";
 
 }

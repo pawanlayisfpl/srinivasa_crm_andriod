@@ -11,6 +11,7 @@ import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/dashboard
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/screens/kyc_pending_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/monthly_plan_dashboard_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/sales_dashboard_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Tickets/presentations/screens/tickets_dashboard.dart';
 import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/screens/user_activity_screen.dart';
 
 import '../../../../config/animations/routes/all_animate_routes.dart';
@@ -172,6 +173,10 @@ class DashboardBodyWidget extends StatelessWidget {
 
       case 6:
       Navigator.push(context, ScaleRoute(screen: const UserActivityScreen()));
+      break;
+      case 7:
+      Navigator.push(context, ScaleRoute(screen: const TicketDashbaordScreen()));
+      break;
 
      
 
