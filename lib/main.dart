@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+
 // import 'package:background_fetch/background_fetch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -294,7 +297,8 @@ class MyApp extends StatelessWidget {
         navigatorKey: AppKeys.globalNavigatorKey,
         scaffoldMessengerKey: AppKeys.scaffoldKey,
         onGenerateRoute: RouteGenerator.getRoute,
-        initialRoute: Routes.locationPermissionScreen,
+        
+        initialRoute: Platform.isAndroid ?  Routes.locationPermissionScreen : Routes.loginScreen,
         title: 'SF Crm',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
