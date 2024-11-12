@@ -9,6 +9,7 @@ import 'package:quickalert/quickalert.dart';
 
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
+import 'package:srinivasa_crm_new/src/core/battery/common_battery.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_cubit.dart';
@@ -118,7 +119,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
                                 double lat = position.latitude;
                                 double long = position.longitude;
                         
-          
+                      int batterylevel = await locator.get<CommonBattery>().getBatteryLevel();
                         CheckinPostModel checkInPostModel = CheckinPostModel(
                           inTime: DateTime.now().toString(),
                           userIds: context
@@ -134,6 +135,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
                               int.tryParse(widget.customermodel.farm!.customerId!) ?? 0,
                           latitude: lat.toString(),
                           langitude: long.toString(),
+                          batteryStatus: batterylevel.toString(),
                         );
           
                         if (context.mounted) {

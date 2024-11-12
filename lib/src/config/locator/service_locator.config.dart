@@ -87,6 +87,8 @@ import 'package:srinivasa_crm_new/src/common/services/notifications/common_push_
     as _i125;
 import 'package:srinivasa_crm_new/src/config/locator/service_locator.dart'
     as _i639;
+import 'package:srinivasa_crm_new/src/core/battery/common_battery.dart'
+    as _i221;
 import 'package:srinivasa_crm_new/src/core/connection/internet_checker.dart'
     as _i132;
 import 'package:srinivasa_crm_new/src/core/core.dart' as _i961;
@@ -227,6 +229,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final thirdPartyDependencies = _$ThirdPartyDependencies();
     gh.factory<_i660.UpdateCubit>(() => _i660.UpdateCubit());
+    gh.factory<_i221.CommonBattery>(() => _i221.CommonBattery());
     gh.factory<DateTime>(() => thirdPartyDependencies.defaultDateTime);
     gh.factory<_i66.DashboardCubit>(() => _i66.DashboardCubit());
     gh.singleton<_i361.Dio>(() => thirdPartyDependencies.dio);
@@ -479,10 +482,10 @@ extension GetItInjectableX on _i174.GetIt {
           imageServices: gh<_i972.CommonImageServices>(),
           kycRepo: gh<_i382.KycRepo>(),
         ));
-    gh.factory<_i40.AddCommentCubit>(
-        () => _i40.AddCommentCubit(gh<_i802.CommentsRepo>()));
     gh.factory<_i10.ViewCommentsCubit>(
         () => _i10.ViewCommentsCubit(gh<_i802.CommentsRepo>()));
+    gh.factory<_i40.AddCommentCubit>(
+        () => _i40.AddCommentCubit(gh<_i802.CommentsRepo>()));
     gh.factory<_i520.UpdateMonthlyPlanCubit>(() => _i520.UpdateMonthlyPlanCubit(
           monthlyPlanRepo: gh<_i118.MonthlyPlanRepo>(),
           customerRepo: gh<_i209.CustomerRepo>(),

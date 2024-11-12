@@ -9,6 +9,7 @@ import 'package:injectable/injectable.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/constants/key_value_strings.dart';
 import 'package:srinivasa_crm_new/src/config/locator/locator.dart';
+import 'package:srinivasa_crm_new/src/core/battery/common_battery.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 
@@ -63,12 +64,14 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
     emit(state.copyWith(isSubmitting: true,punchInFailure: false,punchInSuccess: false,punchOutSuccess: false,punchOutFailure: false,loading: false,loaded: false,));
      final postion = await commonLocationServices.getUserCurrentPosition();
 
-      
+    int batterylevl = await locator.get<CommonBattery>().getBatteryLevel();
+    
 
     PunchInPostModel postModel = PunchInPostModel(
       latitude: postion.latitude.toString(),
       longitude: postion.longitude.toString(),
       createdAt: DateTime.now().toString(),
+      batteryStatus: batterylevl.toString(),
 
       
     );
@@ -88,10 +91,13 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
     emit(state.copyWith(isSubmitting: true,punchInFailure: false,punchInSuccess: false,punchOutSuccess: false,loading: false,loaded: false));
 
     final postion = await commonLocationServices.getUserCurrentPosition();
+        int batterylevl = await locator.get<CommonBattery>().getBatteryLevel();
+
     PunchoutPostModel postModel = PunchoutPostModel(
       createdAt: DateTime.now().toString(),
       latitude: postion.latitude.toString(),
       longitude: postion.longitude.toString(),
+      batteryStatus: batterylevl.toString(),  
     );
    
 
