@@ -28,7 +28,9 @@ mixin _$AddTicketState {
   ServiceRequestModel? get selectedServiceRequestModel =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AddTicketState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AddTicketStateCopyWith<AddTicketState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -62,6 +64,8 @@ class _$AddTicketStateCopyWithImpl<$Res, $Val extends AddTicketState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AddTicketState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -110,6 +114,8 @@ class _$AddTicketStateCopyWithImpl<$Res, $Val extends AddTicketState>
     ) as $Val);
   }
 
+  /// Create a copy of AddTicketState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel {
@@ -153,6 +159,8 @@ class __$$AddTicketStateImplCopyWithImpl<$Res>
       _$AddTicketStateImpl _value, $Res Function(_$AddTicketStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AddTicketState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -278,7 +286,9 @@ class _$AddTicketStateImpl implements _AddTicketState {
       selectedPriorityModel,
       selectedServiceRequestModel);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AddTicketState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AddTicketStateImplCopyWith<_$AddTicketStateImpl> get copyWith =>
@@ -314,8 +324,11 @@ abstract class _AddTicketState implements AddTicketState {
   PriorityModel? get selectedPriorityModel;
   @override
   ServiceRequestModel? get selectedServiceRequestModel;
+
+  /// Create a copy of AddTicketState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AddTicketStateImplCopyWith<_$AddTicketStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -56,7 +56,7 @@ class ViewTicketLoadedWidget extends StatelessWidget {
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () {
                     if(context.mounted) {
-                // Navigator.push(context, ScaleRoute(screen: ViewParticularTicketScreen(ticketId: ticket.ticketId.toString())));
+                Navigator.push(context, ScaleRoute(screen: ViewParticularTicketScreen(ticketId: ticket.ticketId.toString())));
 
                     }
                   // Handle ticket tap

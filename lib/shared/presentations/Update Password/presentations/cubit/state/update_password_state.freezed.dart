@@ -24,7 +24,9 @@ mixin _$UpdatePasswordState {
   bool get showPassword => throw _privateConstructorUsedError;
   bool get showConfirmPassword => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UpdatePasswordState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UpdatePasswordStateCopyWith<UpdatePasswordState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -55,6 +57,8 @@ class _$UpdatePasswordStateCopyWithImpl<$Res, $Val extends UpdatePasswordState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UpdatePasswordState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -125,6 +129,8 @@ class __$$UpdatePasswordStateImplCopyWithImpl<$Res>
       $Res Function(_$UpdatePasswordStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UpdatePasswordState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -237,7 +243,9 @@ class _$UpdatePasswordStateImpl implements _UpdatePasswordState {
       showPassword,
       showConfirmPassword);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UpdatePasswordState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdatePasswordStateImplCopyWith<_$UpdatePasswordStateImpl> get copyWith =>
@@ -269,8 +277,11 @@ abstract class _UpdatePasswordState implements UpdatePasswordState {
   bool get showPassword;
   @override
   bool get showConfirmPassword;
+
+  /// Create a copy of UpdatePasswordState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UpdatePasswordStateImplCopyWith<_$UpdatePasswordStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

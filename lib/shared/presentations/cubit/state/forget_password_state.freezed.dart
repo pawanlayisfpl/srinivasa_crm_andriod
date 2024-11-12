@@ -21,7 +21,9 @@ mixin _$ForgetPasswordState {
   bool get showValidationError => throw _privateConstructorUsedError;
   ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ForgetPasswordState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ForgetPasswordStateCopyWith<ForgetPasswordState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -51,6 +53,8 @@ class _$ForgetPasswordStateCopyWithImpl<$Res, $Val extends ForgetPasswordState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ForgetPasswordState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -79,6 +83,8 @@ class _$ForgetPasswordStateCopyWithImpl<$Res, $Val extends ForgetPasswordState>
     ) as $Val);
   }
 
+  /// Create a copy of ForgetPasswordState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel {
@@ -118,6 +124,8 @@ class __$$ForgetPasswordStateImplCopyWithImpl<$Res>
       $Res Function(_$ForgetPasswordStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ForgetPasswordState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -191,7 +199,9 @@ class _$ForgetPasswordStateImpl implements _ForgetPasswordState {
   int get hashCode => Object.hash(runtimeType, emailField, isSubmitting,
       showValidationError, apiFailedModel);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ForgetPasswordState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ForgetPasswordStateImplCopyWith<_$ForgetPasswordStateImpl> get copyWith =>
@@ -214,8 +224,11 @@ abstract class _ForgetPasswordState implements ForgetPasswordState {
   bool get showValidationError;
   @override
   ApiFailedModel? get apiFailedModel;
+
+  /// Create a copy of ForgetPasswordState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ForgetPasswordStateImplCopyWith<_$ForgetPasswordStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

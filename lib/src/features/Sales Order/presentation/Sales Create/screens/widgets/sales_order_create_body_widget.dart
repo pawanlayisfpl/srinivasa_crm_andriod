@@ -17,6 +17,8 @@ import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_balance_amount_due_date_field.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_balance_amount_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_customerCode_textfield_widget.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_delivery_location_textfield.dart';
+import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_delivery_types_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_order_amount_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_order_remarks_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_payment_mode_dropdown_widget.dart';
@@ -296,6 +298,14 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
                     ]);
               },
             ),
+            CustomExpansionTileWidget(heading: "Delivery", childrens: [
+              const CommonTextFieldHeadingWidget(title: 'Delivery Location',isRequired: true,),
+              const SocDeliveryLocationField(),
+              20.verticalSpace,
+              const CommonTextFieldHeadingWidget(title: 'Delivery Type',isRequired: true,),
+              const SocDeliveryTypesDropDownWidget(),
+              20.verticalSpace,
+            ]),
             20.verticalSpace,
             20.verticalSpace,
             CommonButton(

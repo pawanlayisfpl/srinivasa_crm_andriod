@@ -105,6 +105,8 @@ import 'package:srinivasa_crm_new/src/features/Comments/data/repo/comments_repo.
     as _i802;
 import 'package:srinivasa_crm_new/src/features/Comments/presentations/Add%20Comment/cubit/add_comment_cubit.dart'
     as _i40;
+import 'package:srinivasa_crm_new/src/features/Comments/presentations/View%20Comment/cubit/view_comment_cubit.dart'
+    as _i10;
 import 'package:srinivasa_crm_new/src/features/Customer/data/datasource/remote/customer_remote_datasources.dart'
     as _i411;
 import 'package:srinivasa_crm_new/src/features/Customer/data/repo/customer_repo_impl.dart'
@@ -420,12 +422,12 @@ extension GetItInjectableX on _i174.GetIt {
           commonLocationServices: gh<_i972.CommonLocationServices>(),
           keyValueStorage: gh<_i961.KeyValueStorage>(),
         ));
+    gh.factory<_i493.ViewParticularTicketCubit>(
+        () => _i493.ViewParticularTicketCubit(gh<_i232.TicketsRepo>()));
     gh.factory<_i263.AddTicketCubit>(
         () => _i263.AddTicketCubit(gh<_i232.TicketsRepo>()));
     gh.factory<_i560.ViewTicketCubit>(
         () => _i560.ViewTicketCubit(gh<_i232.TicketsRepo>()));
-    gh.factory<_i493.ViewParticularTicketCubit>(
-        () => _i493.ViewParticularTicketCubit(gh<_i232.TicketsRepo>()));
     gh.factory<_i403.KycCubit>(() => _i403.KycCubit(gh<_i382.KycRepo>()));
     gh.factory<_i389.DivisionRepo>(() => _i186.DivisionRepoimpl(
         dataSource: gh<_i203.DivisonsRemoteDataSource>()));
@@ -445,11 +447,6 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i209.CustomerRepo>(),
           gh<_i118.MonthlyPlanRepo>(),
           gh<_i472.DailyPlanRepo>(),
-        ));
-    gh.factory<_i812.SalesOrderCreateCubit>(() => _i812.SalesOrderCreateCubit(
-          salesRepo: gh<_i133.SalesRepo>(),
-          keyValueStorage: gh<_i961.KeyValueStorage>(),
-          customerRepo: gh<_i209.CustomerRepo>(),
         ));
     gh.factory<_i320.AllCustomerCubit>(
         () => _i320.AllCustomerCubit(customerRepo: gh<_i209.CustomerRepo>()));
@@ -484,6 +481,8 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i40.AddCommentCubit>(
         () => _i40.AddCommentCubit(gh<_i802.CommentsRepo>()));
+    gh.factory<_i10.ViewCommentsCubit>(
+        () => _i10.ViewCommentsCubit(gh<_i802.CommentsRepo>()));
     gh.factory<_i520.UpdateMonthlyPlanCubit>(() => _i520.UpdateMonthlyPlanCubit(
           monthlyPlanRepo: gh<_i118.MonthlyPlanRepo>(),
           customerRepo: gh<_i209.CustomerRepo>(),
@@ -511,6 +510,12 @@ extension GetItInjectableX on _i174.GetIt {
           monthlyPlanRepo: gh<_i118.MonthlyPlanRepo>(),
           employeRepo: gh<_i981.EmployeRepo>(),
           customerRepo: gh<_i209.CustomerRepo>(),
+        ));
+    gh.factory<_i812.SalesOrderCreateCubit>(() => _i812.SalesOrderCreateCubit(
+          salesRepo: gh<_i133.SalesRepo>(),
+          keyValueStorage: gh<_i961.KeyValueStorage>(),
+          customerRepo: gh<_i209.CustomerRepo>(),
+          deliveryTypesRepo: gh<_i976.DeliveryTypesRepo>(),
         ));
     gh.factory<_i898.LoginCubit>(() => _i898.LoginCubit(
           gh<_i204.LoginUseCase>(),

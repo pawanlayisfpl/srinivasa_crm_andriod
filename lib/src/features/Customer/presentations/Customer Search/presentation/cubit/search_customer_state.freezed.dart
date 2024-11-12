@@ -22,7 +22,9 @@ mixin _$SearchCustomerState {
   bool get isSearchingAgain => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchCustomerState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SearchCustomerStateCopyWith<SearchCustomerState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -51,6 +53,8 @@ class _$SearchCustomerStateCopyWithImpl<$Res, $Val extends SearchCustomerState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SearchCustomerState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -109,6 +113,8 @@ class __$$SearchCustomerStateImplCopyWithImpl<$Res>
       $Res Function(_$SearchCustomerStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchCustomerState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -207,7 +213,9 @@ class _$SearchCustomerStateImpl implements _SearchCustomerState {
       isSearchingAgain,
       hasError);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchCustomerState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SearchCustomerStateImplCopyWith<_$SearchCustomerStateImpl> get copyWith =>
@@ -233,8 +241,11 @@ abstract class _SearchCustomerState implements SearchCustomerState {
   bool get isSearchingAgain;
   @override
   bool get hasError;
+
+  /// Create a copy of SearchCustomerState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SearchCustomerStateImplCopyWith<_$SearchCustomerStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

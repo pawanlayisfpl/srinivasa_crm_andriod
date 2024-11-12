@@ -20,6 +20,7 @@ import 'package:srinivasa_crm_new/shared/presentations/cubit/forget_cubit.dart';
 
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Comments/presentations/Add%20Comment/cubit/add_comment_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Comments/presentations/View%20Comment/cubit/view_comment_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart';
@@ -292,6 +293,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => locator.get<ViewTicketCubit>()),
         BlocProvider(create: (_) => locator.get<ViewParticularTicketCubit>()),
         BlocProvider(create: (_) => locator.get<AddCommentCubit>()),
+        BlocProvider(create: (_) => locator.get<ViewCommentsCubit>()),
       ],
       child: MaterialApp(
         navigatorKey: AppKeys.globalNavigatorKey,
@@ -345,3 +347,7 @@ Future<void> _initDependencies() async {
   // static const String testUrl = "http://65.109.229.140:8080/crmsfpl";
   // static const String testUrl2 = "http://95.216.201.117:8081/crmsfpl/";
   //  NEW VERSION WITH 15 MINUTES INTERVAL (1.0.2) - NOV -DEPLOYEMENT
+
+      // static const String basicUrl = "http://180.149.244.56:8081/crm_sfpl";
+
+      // PUNCH IN, PUNCH OUT , CHEKCIN , CHECK OUT,

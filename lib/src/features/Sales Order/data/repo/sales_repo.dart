@@ -22,15 +22,16 @@ import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/post/s
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/post/sales_reject_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/post/soc_create_post_model.dart';
 
+import '../../../../../shared/data/datasource/DeliveryTypes/delivery_type_model.dart';
 import '../../domain/model/get/view_sales_order_model.dart';
 
 abstract class SalesRepo {
   Future<Either<NetworkExceptions, List<ProductsModel>>> getAllProducts();
   Future<Either<NetworkExceptions, List<UOMModel>>> getAllUom();
-  Future<Either<NetworkExceptions,PriceModel>> getPriceByProductId(int productId);
+  Future<Either<NetworkExceptions,PriceModel>> getPriceByProductId(int productId,String customerId);
   Future<Either<NetworkExceptions, List<PaymentModeModel>>> getAllPaymentModes();
   Future<Either<NetworkExceptions, SaleOrderCreateResponseModel>>
-      createSaleOrder({required SocCreatePostModel socCreatePostModel});
+      createSaleOrder({required SocCreatePostModel socCreatePostModel,required String deliveryText,required DeliveryTypeModel deliveryTypeModel});
   Future<Either<NetworkExceptions, ViewSalesOrderModel>> getAllSalesOrder();
   Future<Either<NetworkExceptions,ParticularSalesOrderModel>> getParticularSalesOrder(int orderId);   
   Future<Either<NetworkExceptions, SalesOrderApproveResponseModel>> approveSalesOrder({required SalesApprovePostModel salesApprovePostModel});
@@ -121,9 +122,12 @@ class SaleRepoImpl implements SalesRepo {
   }
   
   @override
-  Future<Either<NetworkExceptions, PriceModel>> getPriceByProductId(int productId) async {
+  Future<Either<NetworkExceptions, PriceModel>> getPriceByProductId(int productId,String customerId) async {
    try {
-    final response = await dioClient.get(Endpoints.getProductPriceById+productId.toString(), headers: {});
+    final response = await dioClient.post(Endpoints.getProductPriceById,data: {
+      "customerId" : customerId,
+      "productId" : productId
+    }, headers: {});
     if (response.statusCode == 200) {
       final PriceModel priceModel = PriceModel.fromJson(response.data);
       return Right(priceModel);
@@ -158,63 +162,66 @@ class SaleRepoImpl implements SalesRepo {
   }
   
   @override
-  Future<Either<NetworkExceptions, SaleOrderCreateResponseModel>> createSaleOrder({required SocCreatePostModel socCreatePostModel})  async {
+  Future<Either<NetworkExceptions, SaleOrderCreateResponseModel>> createSaleOrder({required SocCreatePostModel socCreatePostModel,required String deliveryText,required DeliveryTypeModel deliveryTypeModel})  async {
    final results = await internetChecker.isConnected();
    if(results) {
     try{
 
-      var requestBody =     {
-    // "customerCode": socCreatePostModel.customerCode,
-    "customerId": socCreatePostModel.customerCode,
-    "productDetails": socCreatePostModel.productDetails.isEmpty ? [] : socCreatePostModel.productDetails.map(((e) =>  {
-        "divisionId": e.divisionId,
-        "productId": e.productId,
-        "quantity": e.quantity,
-        "rate": e.rate,
-        "discountPerQuantity": e.discountPerQuantity,
-        "getDiscountPerQuantityInPercent": e.discountPerQuantity,
-        "totalAmount": e.totalAmount,
-        "gstAmount": 0.00,
-        "sellingRate": e.sellingRate,
-        "uomId": e.uomId,
-        "quantityToDeliver": e.quantity,
-        "shipmentDate": e.shipmentDate.toFormattedDate(),
-        "ceHatchDate": e.ceHatchDate.toFormattedDate(),
-        })).toList(),  
-    // "productDetails": [
-    //     {
-    //     "divisionId": 4,
-    //     "productId": 1,
-    //     "quantity": 10,
-    //     "rate": 52.38,
-    //     "discountPerQuantity": 5.00,
-    //     "getDiscountPerQuantityInPercent": 10.00,
-    //     "totalAmount": 471.40,
-    //     "gstAmount": 0.00,
-    //     "sellingRate": 47.14,
-    //     "uomId": 1,
-    //     "quantityToDeliver": 10,
-    //     "shipmentDate": "2024-07-20T10:00:00",
-    //     "ceHatchDate": "2024-07-25T10:00:00"
-    //     }
-    // ],  
-    "orderAmount": socCreatePostModel.orderAmount,
-    "orderGstAmount": 0.0,
-    "orderTotalAmount": socCreatePostModel.orderTotalAmount,
-    "orderDiscountAmount": 0.0,
-    "amountPaid": socCreatePostModel.amountPaid,
-    "paymentModeId": socCreatePostModel.paymentModeId,
-    "balanceAmount": socCreatePostModel.balanceAmount,
-    "balanceAmountDueDate": socCreatePostModel.balanceAmountDueDate.isEmpty ?  "" : socCreatePostModel.balanceAmountDueDate.toFormattedDate(),
-    "orderRemarks": socCreatePostModel.orderRemarks,
-    "assignTo": 0,
-    "assignToRemarks": socCreatePostModel.assignToRemarks,
-    "pendingPaymentDetails": socCreatePostModel.pendingPaymentDetails.isEmpty ? [] : socCreatePostModel.pendingPaymentDetails.map((e) => {
-        "dueDate": e.dueDate,
-        "amount": e.amount,
-        "dueAmountPercentage": 100
-        }).toList()
-    };
+        var requestBody =     {
+      // "customerCode": socCreatePostModel.customerCode,
+      "customerId": socCreatePostModel.customerCode,
+       "deliveryLocation" : deliveryText,
+          "deliveryTypeId" : deliveryTypeModel.deliveryTypeId,
+      "productDetails": socCreatePostModel.productDetails.isEmpty ? [] : socCreatePostModel.productDetails.map(((e) =>  {
+          // "divisionId": e.divisionId,
+          "productId": e.productId,
+          "quantity": e.quantity,
+          "rate": e.rate,
+          "discountPerQuantity": e.discountPerQuantity,
+          "getDiscountPerQuantityInPercent": e.discountPerQuantity,
+          "totalAmount": e.totalAmount,
+          "gstAmount": 0.00,
+          "sellingRate": e.sellingRate,
+          "uomId": e.uomId,
+          "quantityToDeliver": e.quantity,
+          "shipmentDate": e.shipmentDate.toFormattedDate(),
+          // "ceHatchDate": e.ceHatchDate.toFormattedDate(),
+         
+          })).toList(),  
+      // "productDetails": [
+      //     {
+      //     "divisionId": 4,
+      //     "productId": 1,
+      //     "quantity": 10,
+      //     "rate": 52.38,
+      //     "discountPerQuantity": 5.00,
+      //     "getDiscountPerQuantityInPercent": 10.00,
+      //     "totalAmount": 471.40,
+      //     "gstAmount": 0.00,
+      //     "sellingRate": 47.14,
+      //     "uomId": 1,
+      //     "quantityToDeliver": 10,
+      //     "shipmentDate": "2024-07-20T10:00:00",
+      //     "ceHatchDate": "2024-07-25T10:00:00"
+      //     }
+      // ],  
+      "orderAmount": socCreatePostModel.orderAmount,
+      "orderGstAmount": 0.0,
+      "orderTotalAmount": socCreatePostModel.orderTotalAmount,
+      "orderDiscountAmount": 0.0,
+      "amountPaid": socCreatePostModel.amountPaid,
+      "paymentModeId": socCreatePostModel.paymentModeId,
+      "balanceAmount": socCreatePostModel.balanceAmount,
+      "balanceAmountDueDate": socCreatePostModel.balanceAmountDueDate.isEmpty ?  "" : socCreatePostModel.balanceAmountDueDate.toFormattedDate(),
+      "orderRemarks": socCreatePostModel.orderRemarks,
+      // "assignTo": 0,
+      "assignToRemarks": socCreatePostModel.assignToRemarks,
+      "pendingPaymentDetails": socCreatePostModel.pendingPaymentDetails.isEmpty ? [] : socCreatePostModel.pendingPaymentDetails.map((e) => {
+          "dueDate": e.dueDate,
+          "amount": e.amount,
+          "dueAmountPercentage": 100
+          }).toList()
+      };
 
     debugPrint(requestBody.toString());
 

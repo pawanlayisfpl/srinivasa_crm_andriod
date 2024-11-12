@@ -21,7 +21,9 @@ mixin _$UserActivityState {
   UserActivityModel? get userActivityModel =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserActivityState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserActivityStateCopyWith<UserActivityState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +52,8 @@ class _$UserActivityStateCopyWithImpl<$Res, $Val extends UserActivityState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserActivityState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -73,6 +77,8 @@ class _$UserActivityStateCopyWithImpl<$Res, $Val extends UserActivityState>
     ) as $Val);
   }
 
+  /// Create a copy of UserActivityState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel {
@@ -111,6 +117,8 @@ class __$$UserActivityStateImplCopyWithImpl<$Res>
       $Res Function(_$UserActivityStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserActivityState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -175,7 +183,9 @@ class _$UserActivityStateImpl implements _UserActivityState {
   int get hashCode =>
       Object.hash(runtimeType, isLoading, apiFailedModel, userActivityModel);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserActivityState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserActivityStateImplCopyWith<_$UserActivityStateImpl> get copyWith =>
@@ -195,8 +205,11 @@ abstract class _UserActivityState implements UserActivityState {
   ApiFailedModel? get apiFailedModel;
   @override
   UserActivityModel? get userActivityModel;
+
+  /// Create a copy of UserActivityState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserActivityStateImplCopyWith<_$UserActivityStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

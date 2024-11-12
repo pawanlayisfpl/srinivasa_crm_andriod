@@ -27,7 +27,9 @@ mixin _$MarkAttendanceState {
   ApiFailedModel? get apiFailModel => throw _privateConstructorUsedError;
   bool get loaded => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MarkAttendanceState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MarkAttendanceStateCopyWith<MarkAttendanceState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -62,6 +64,8 @@ class _$MarkAttendanceStateCopyWithImpl<$Res, $Val extends MarkAttendanceState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MarkAttendanceState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -115,6 +119,8 @@ class _$MarkAttendanceStateCopyWithImpl<$Res, $Val extends MarkAttendanceState>
     ) as $Val);
   }
 
+  /// Create a copy of MarkAttendanceState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ApiFailedModelCopyWith<$Res>? get apiFailModel {
@@ -159,6 +165,8 @@ class __$$MarkAttendanceStateImplCopyWithImpl<$Res>
       $Res Function(_$MarkAttendanceStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MarkAttendanceState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -297,7 +305,9 @@ class _$MarkAttendanceStateImpl implements _MarkAttendanceState {
       apiFailModel,
       loaded);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MarkAttendanceState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MarkAttendanceStateImplCopyWith<_$MarkAttendanceStateImpl> get copyWith =>
@@ -335,8 +345,11 @@ abstract class _MarkAttendanceState implements MarkAttendanceState {
   ApiFailedModel? get apiFailModel;
   @override
   bool get loaded;
+
+  /// Create a copy of MarkAttendanceState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MarkAttendanceStateImplCopyWith<_$MarkAttendanceStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

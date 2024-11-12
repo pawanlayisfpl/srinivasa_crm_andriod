@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:srinivasa_crm_new/shared/data/datasource/DeliveryTypes/delivery_type_model.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 
@@ -59,7 +59,7 @@ class Data {
 
 
 abstract class DeliveryTypesRepo {
-   Future<Either<NetworkExceptions,DeliveryTypesResponseModel>> getAllDeliveryTypes();
+   Future<Either<NetworkExceptions,List<DeliveryTypeModel>>> getAllDeliveryTypes();
 
 
 
@@ -74,16 +74,16 @@ class DeliveryTypesRepoImpl implements DeliveryTypesRepo {
 
   DeliveryTypesRepoImpl({required this.keyValueStorage, required this.dioClient, required this.internetChecker});
   @override
-  Future<Either<NetworkExceptions, DeliveryTypesResponseModel>> getAllDeliveryTypes() async {
+  Future<Either<NetworkExceptions, List<DeliveryTypeModel>>> getAllDeliveryTypes() async {
    final status = await internetChecker.hasInternet();
 
 
    if(status) {
-    final response = await dioClient.get(Endpoints.alertMarkAsRead);
+    final response = await dioClient.get(Endpoints.getAllDeliveryTypes,headers: {});
 
     // ignore: deprecated_member_use
     if(response.statusCode == HttpStatus.OK) {
-      return right(DeliveryTypesResponseModel.fromJson(response.data));
+      return right((response.data['data'] as List).map((e) => DeliveryTypeModel.fromJson(e)).toList());
     }else {
       return left(NetworkExceptions.defaultError(response.data));
     }

@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:srinivasa_crm_new/shared/data/datasource/DeliveryTypes/delivery_types_repo_impl.dart';
+import 'package:srinivasa_crm_new/shared/data/datasource/DeliveryTypes/delivery_types_repo_impl.dart' as dd;
 class SocCreatePostModel {
   String customerCode;
   List<ProductDetails> productDetails;
@@ -12,6 +15,7 @@ class SocCreatePostModel {
   String orderRemarks;
   int assignTo;
   String assignToRemarks;
+  String? deliveryLocation;
   List<PendingPaymentDetails> pendingPaymentDetails;
 
   SocCreatePostModel({
@@ -28,6 +32,7 @@ class SocCreatePostModel {
     required this.orderRemarks,
     required this.assignTo,
     required this.assignToRemarks,
+    this.deliveryLocation,
     required this.pendingPaymentDetails,
   });
 

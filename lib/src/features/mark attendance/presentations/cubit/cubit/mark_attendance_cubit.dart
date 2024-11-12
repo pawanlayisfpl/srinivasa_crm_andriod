@@ -63,10 +63,13 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
     emit(state.copyWith(isSubmitting: true,punchInFailure: false,punchInSuccess: false,punchOutSuccess: false,punchOutFailure: false,loading: false,loaded: false,));
      final postion = await commonLocationServices.getUserCurrentPosition();
 
+      
+
     PunchInPostModel postModel = PunchInPostModel(
       latitude: postion.latitude.toString(),
       longitude: postion.longitude.toString(),
       createdAt: DateTime.now().toString(),
+
       
     );
     final result = await punchInUseCase.execute(punchInPostModel: postModel);

@@ -13,6 +13,7 @@ class CheckoutPostModel {
   String? farmId;
   String? customerId;
    DateTime? createdAt;
+   String? batteryStatus;
 
 
   CheckoutPostModel({
@@ -27,6 +28,8 @@ class CheckoutPostModel {
     this.farmId,
     this.customerId,
     this.createdAt
+,
+    this.batteryStatus
   });
 
   Map<String, dynamic> toJson() {
@@ -41,6 +44,7 @@ class CheckoutPostModel {
       "userIds": userIds,
       "farmId": farmId,
       "customerId": customerId,
+      "batteryStatus" : batteryStatus,
 
     };
   }

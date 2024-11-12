@@ -29,11 +29,13 @@ class PunchoutPostModel {
   String latitude;
   String longitude;
   String createdAt;
+  String? batteryStatus;
 
   PunchoutPostModel({
     required this.latitude,
     required this.longitude,
     required this.createdAt,
+    this.batteryStatus,
   });
 
   // Factory constructor for creating a new instance from a map
@@ -51,6 +53,7 @@ class PunchoutPostModel {
       'latitude': latitude,
       'longitude': longitude,
       'createdAt': createdAt,
+      'batteryStatus': batteryStatus,
     };
   }
 }

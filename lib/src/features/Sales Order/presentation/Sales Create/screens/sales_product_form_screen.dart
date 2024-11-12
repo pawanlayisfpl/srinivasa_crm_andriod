@@ -109,8 +109,8 @@ class _SalesProductFormScreenState extends State<SalesProductFormScreen> {
                                                                      const CommonTextFieldHeadingWidget(title: 'CH Hatching date(optional)',isRequired: false,),
 
                   2.verticalSpace,
-                  const SocProductChDateTextField(),
-                  20.verticalSpace,
+                  // const SocProductChDateTextField(),
+                  // 20.verticalSpace,
                   CommonButton(
                       callback: () async {
                         context.read<SalesOrderCreateCubit>().submitProductForm(

@@ -6,7 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
+import 'package:srinivasa_crm_new/shared/data/datasource/DeliveryTypes/delivery_type_model.dart';
+import 'package:uuid/uuid.dart';
 
+import 'package:srinivasa_crm_new/shared/data/datasource/DeliveryTypes/delivery_types_repo_impl.dart';
 import 'package:srinivasa_crm_new/src/common/fields/number_field.dart';
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
@@ -17,7 +20,6 @@ import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/get/uo
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/post/product_pending_form_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/domain/model/post/soc_create_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/state/sales_order_create_state.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../../../../common/fields/string_field.dart';
 import '../../../../Customer/domain/model/get/customer_model.dart';
@@ -30,11 +32,13 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
   final SalesRepo salesRepo;
   final KeyValueStorage keyValueStorage;
   final CustomerRepo customerRepo;
+  final DeliveryTypesRepo deliveryTypesRepo;
 
   SalesOrderCreateCubit({
     required this.salesRepo,
     required this.keyValueStorage,
     required this.customerRepo,
+    required this.deliveryTypesRepo,
   }) : super(SalesOrderCreateState.initial());
 
 // INITIALLING CONTROLLERS
@@ -65,6 +69,7 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
   TextEditingController producttotalController = TextEditingController();
   TextEditingController productShipmentDateController = TextEditingController();
   TextEditingController productChDateController = TextEditingController();
+  TextEditingController deliveryTextController = TextEditingController();
 // TextEditingController productQtyController = TextEditingController();
 // TextEditingController productQtyController = TextEditingController();
 // TextEditingController productQtyController = TextEditingController();
@@ -78,6 +83,7 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
     amountPaidController.clear();
     balanceAmountController.clear();
     orderRemarksController.clear();
+    deliveryTextController.clear();
     // employeeIdController.clear();
     assignedToRemarksController.clear();
     discountController.clear();
@@ -114,6 +120,7 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
       getEmployeIdValue(),
       getAllCustomer(),
       getAllPaymentMode(),
+      getAllDeliveryTypesList(),
     ]);
     emit(state.copyWith(isInitialLoading: false));
   }
@@ -161,6 +168,23 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
     });
   }
 
+
+
+  Future<void> getAllDeliveryTypesList() async {
+    emit(state.copyWith(selectedDeliveryTypeModel: null));
+    final results = await deliveryTypesRepo.getAllDeliveryTypes();
+    results.fold((l) {
+      emit(state.copyWith(
+          apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),
+          deliveryTypesList: [],
+          isDeliveryLoading: false));
+    }, (r) {
+      emit(state.copyWith(deliveryTypesList: r, isDeliveryLoading: false));
+    });
+
+    
+    
+  }
 
   //on selling rate changed
   void onSellingRateChanged() {
@@ -502,6 +526,10 @@ void onDiscountPerPercentageChanged() {
     emit(state.copyWith(selectedUomModel: null));
   }
 
+   void resetDeliveryType() {
+    emit(state.copyWith(selectedDeliveryTypeModel: null));
+  }
+
   void resetProductModel() {
     emit(state.copyWith(selectedProductModel: null,totalPendingAmountValue: ""));
     productQtyController.clear();
@@ -517,7 +545,10 @@ void onDiscountPerPercentageChanged() {
     debugPrint(value.toJson().toString());
     emit(state.copyWith(selectedProductModel: value,));
     // GETTING PRODUCT PRICE
-    final results = await salesRepo.getPriceByProductId(value.productId ?? 0);
+    Customermodel? customer = state.selectedCustomerModel;
+    if(state.selectedCustomerModel != null) {
+
+ final results = await salesRepo.getPriceByProductId(value.productId ?? 0, customer?.farm?.customerId ??  "0");
     results.fold((l) {
       emit(state.copyWith(
           apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),
@@ -535,10 +566,18 @@ void onDiscountPerPercentageChanged() {
   // onSellingRateChanged();
 
     });
+    }else {
+      Fluttertoast.showToast(msg: 'Please select customer first',backgroundColor: Colors.red,textColor: Colors.white);
+
+    }
   }
 
   void setUomType(UOMModel value) {
     emit(state.copyWith(selectedUomModel: value));
+  }
+
+  void setDeliveryType(DeliveryTypeModel value) {
+    emit(state.copyWith(selectedDeliveryTypeModel: value));
   }
 
 // HANDLING PENDING PAYMENT FORM METHODS
@@ -753,6 +792,10 @@ void onDuePercentageChanged() {
   }
 }
 
+  void onChangeDeliveryTypeText(String value) {
+    emit(state.copyWith(deliveryText: StringField(value)));
+  }
+
 
   void onPickPendingDueDate({required BuildContext context}) async {
    final DateTime now = DateTime.now();
@@ -813,6 +856,7 @@ void onDuePercentageChanged() {
   @override
   Future<void> close() {
     customerCodeController.dispose();
+    deliveryTextController.dispose();
 
     orderAmountController.dispose();
     orderGstAmountController.dispose();
@@ -901,7 +945,7 @@ String? assignedToReamarksValue = assignedToRemarksController.text;
 List<ProductPendingFormModel> pendingFormList = state.pendingFormList;
 
 
-if(customerModel == null || productFormList.isEmpty || orderTotalAmountValue.isEmpty|| orderAmountValue.isEmpty || amountPaidValue.isEmpty  || paymentModeModel == null  ) {
+if(customerModel == null || productFormList.isEmpty || orderTotalAmountValue.isEmpty|| orderAmountValue.isEmpty || amountPaidValue.isEmpty  || paymentModeModel == null || state.selectedDeliveryTypeModel == null || deliveryTextController.text.isEmpty  ) {
   Fluttertoast.showToast(msg: 'Please fill in all required fields',backgroundColor: Colors.red,textColor: Colors.white);
   return;
 }else {
@@ -949,7 +993,7 @@ debugPrint(socCreatePostModel.toJson().toString());
 emit(state.copyWith(isSubmitting: true,apiFailedModel: null));
 await Future.delayed(const Duration(seconds: 1)); 
 
-final results = await salesRepo.createSaleOrder(socCreatePostModel: socCreatePostModel);
+final results = await salesRepo.createSaleOrder(socCreatePostModel: socCreatePostModel,deliveryText: deliveryTextController.text,deliveryTypeModel: state.selectedDeliveryTypeModel!);
 
 results.fold((l) {
   emit(state.copyWith(isSubmitting: false, apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),),);

@@ -6,10 +6,10 @@ class Endpoints {
   // static const String basicUrl = "http://192.168.64.123:8080/crmsfpl";
     // static const String basicUrl = "http://95.216.201.117:8081/crmsfpl";
     
-    static const String basicUrl = "http://180.149.244.56:8081/crm_sfpl";
+    static const String basicUrl = "http://95.216.201.117:8081/crm_sfpl";
     // static const String basicUrl = "http://crmapi.srinivasa.co:8081/crm_sfpl";
     // static const String basicUrl = "http://95.216.201.117:8081/crm_sfpl";
-    static const String testUrl = " http://95.216.201.117:8081/crm_sfpl";
+    static const String testUrl = "http://95.216.201.117:8081/crm_sfpl";
   static const int connectionTimeout = 30;
   static const int receiveTimeout = 60;
 
@@ -95,7 +95,7 @@ class Endpoints {
   // SALES ORDER
   static const String createOrder = '$basicUrl/se/order';
   static const String getAllProducts = '$basicUrl/se/product';
-  static const String getProductPriceById = '$basicUrl/se/product-price/';
+  static const String getProductPriceById = '$basicUrl/se/product-price';
   static const String getAllSalesOrders = '$basicUrl/se/all-orders';
   static const String getParticularSaleModel = '$basicUrl/se/order/';
   static const String salesOrderReject = '$basicUrl/se/order/approve';
@@ -120,5 +120,15 @@ class Endpoints {
   // TICKETS
   static const String createTicket = "$testUrl/user/ticket";
   static const String getUserTickets = "$testUrl/user/ticket";
+
+  // COMMETNS
+  static const String getAllCommentsByTicketId = "$testUrl/user/ticket/";
+  static const String createComment = "$testUrl/user/tickets/";
+  static const String deleteComment = "$testUrl/user/comment/";
+  static const String updateComment = "$testUrl/user/comment/";
+
+  // DELIVERY TYPES 
+  static const String getAllDeliveryTypes = '$testUrl/se/delivery-type';
+
 
 }
