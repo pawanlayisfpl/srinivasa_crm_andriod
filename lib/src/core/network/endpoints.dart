@@ -23,6 +23,7 @@ class Endpoints {
 
   static const String findEmail = "$testUrl/auth/forgot-password";
   static const String resetPassword = "$testUrl/auth/reset-password";
+  static const String updatePassword = "$testUrl/user/update-password";
 
   // CHECK IN
   static const String checkInPostUrl = "$basicUrl/se/checkin";

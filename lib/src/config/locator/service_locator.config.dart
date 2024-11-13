@@ -228,7 +228,6 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final thirdPartyDependencies = _$ThirdPartyDependencies();
-    gh.factory<_i660.UpdateCubit>(() => _i660.UpdateCubit());
     gh.factory<_i221.CommonBattery>(() => _i221.CommonBattery());
     gh.factory<DateTime>(() => thirdPartyDependencies.defaultDateTime);
     gh.factory<_i66.DashboardCubit>(() => _i66.DashboardCubit());
@@ -464,6 +463,10 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i961.KeyValueStorage>(),
         ));
     gh.factory<_i758.OtpCubit>(() => _i758.OtpCubit(
+          gh<_i537.ForgetPasswordRepo>(),
+          gh<_i961.KeyValueStorage>(),
+        ));
+    gh.factory<_i660.UpdateCubit>(() => _i660.UpdateCubit(
           gh<_i537.ForgetPasswordRepo>(),
           gh<_i961.KeyValueStorage>(),
         ));

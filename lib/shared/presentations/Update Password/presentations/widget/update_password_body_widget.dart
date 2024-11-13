@@ -43,7 +43,7 @@ class UpdatePasswordBodyWidget extends StatelessWidget {
                 ),
                 30.verticalSpace,
                 CustomHeadingTextWidget(
-                  title: 'Password',
+                  title: 'Old Password',
                   textColor: AppColors.hintHeadingDarkColor,
                 ),
                
@@ -54,7 +54,7 @@ class UpdatePasswordBodyWidget extends StatelessWidget {
                   validator: (c) => state.passwordField.value.fold((l) => l.maybeMap(orElse: () {},empty: (c) => "Password is empty"), (r) => null),
                   autovalidateMode: state.showInputError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction,
                     textEditingController: context.watch<UpdateCubit>().passController,
-                    hintText: 'Enter password',
+                    hintText: 'Enter old password',
                     onChanged: (String? value) {
                       context.read<UpdateCubit>().onChangePassword(value: value);
                     }, obscureText: state.showPassword,  onToggleObscure: () { 
@@ -62,27 +62,27 @@ class UpdatePasswordBodyWidget extends StatelessWidget {
                      },),
                 15.verticalSpace,
                 CustomHeadingTextWidget(
-                  title: 'Confirm Password',
+                  title: 'New Password',
                   textColor: AppColors.hintHeadingDarkColor,
                 ),
                // password
                        CommonPasswordTextField(
                         
                       
-                  validator: (c) => state.confirmField.value.fold((l) => l.maybeMap(orElse: () {},empty: (c) => "Confirm password is empty"), (r) => null),
+                  validator: (c) => state.confirmField.value.fold((l) => l.maybeMap(orElse: () {},empty: (c) => "Confirm password is empty",), (r) => null),
                   autovalidateMode: state.showInputError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction,
                     textEditingController: context.watch<UpdateCubit>().confirmPassController,
-                    hintText: 'Re-enter password',
+                    hintText: 'Enter new password',
                     onChanged: (String? value) {
                       context.read<UpdateCubit>().onChangeConfirmPassword(value: value);
                     }, obscureText: state.showConfirmPassword,  onToggleObscure: () { 
                       context.read<UpdateCubit>().onChangedConfirmPasswordtoggle();
                      },),
-                     if(context.watch<UpdateCubit>().state.passwordField.value.isRight() && context.watch<UpdateCubit>().passController.text.toString() != context.watch<UpdateCubit>().confirmPassController.text.toString() && context.watch<UpdateCubit>().confirmPassController.text.isNotEmpty)...[
-                      5.verticalSpace,
-                      CommonTextWidget(title: 'Both password are not matching',textSize: 12.sp,textColor: Colors.red.shade700,fontWeight: FontWeight.w400,).withPadding(left: 16.w),
-                      5.verticalSpace,
-                     ],
+                    //  if(context.watch<UpdateCubit>().state.passwordField.value.isRight() && context.watch<UpdateCubit>().passController.text.toString() != context.watch<UpdateCubit>().confirmPassController.text.toString() && context.watch<UpdateCubit>().confirmPassController.text.isNotEmpty)...[
+                      // 5.verticalSpace,
+                      // CommonTextWidget(title: 'Both password are not matching',textSize: 12.sp,textColor: Colors.red.shade700,fontWeight: FontWeight.w400,).withPadding(left: 16.w),
+                      // 5.verticalSpace,
+                    //  ],
                 20.verticalSpace,
                 CommonButton(
                     callback: () {

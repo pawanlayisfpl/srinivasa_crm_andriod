@@ -17,6 +17,7 @@ import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profi
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
 
+import '../../../../../shared/presentations/Update Password/presentations/screens/update_password_screen.dart';
 import '../../../../config/config.dart';
 import '../../../../core/core.dart';
 
@@ -185,9 +186,10 @@ void showLogoutDialog(BuildContext context) {
               if (value == "0") {
                 Fluttertoast.showToast(msg: "App Permission clicked");
                 Navigator.push(context, SlideRightRoute(screen: const NativeScreen()));
-              } else if (value == "1") {
+              } else if (value == "3") {
                 // await Workmanager().cancelAll();
                 // Fluttertoast.showToast(msg: "Sync list clicked");
+                Navigator.push(context, SlideRightRoute(screen: const UpdatePasswordScreen()));
               
               } else if (value == "2") {
                 // showLogoutDialog(context);
@@ -211,6 +213,11 @@ void showLogoutDialog(BuildContext context) {
               const PopupMenuItem<String>(
                 value: '2',
                 child: Text('Log Out'),
+              ),
+                 const PopupMenuDivider(),
+                 const PopupMenuItem<String>(
+                value: '3',
+                child: Text('Update Password'),
               ),
             ],
             icon: const Icon(Icons.more_vert),

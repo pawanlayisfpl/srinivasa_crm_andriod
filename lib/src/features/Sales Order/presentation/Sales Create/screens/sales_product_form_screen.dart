@@ -106,9 +106,9 @@ class _SalesProductFormScreenState extends State<SalesProductFormScreen> {
                   2.verticalSpace,
                   const SocProductShipmentTextField(),
                   20.verticalSpace,
-                                                                     const CommonTextFieldHeadingWidget(title: 'CH Hatching date(optional)',isRequired: false,),
+                  //                                                    const CommonTextFieldHeadingWidget(title: 'CH Hatching date(optional)',isRequired: false,),
 
-                  2.verticalSpace,
+                  // 2.verticalSpace,
                   // const SocProductChDateTextField(),
                   // 20.verticalSpace,
                   CommonButton(

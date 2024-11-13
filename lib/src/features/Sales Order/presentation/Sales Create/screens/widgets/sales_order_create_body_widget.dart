@@ -298,6 +298,7 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
                     ]);
               },
             ),
+            20.verticalSpace,
             CustomExpansionTileWidget(heading: "Delivery", childrens: [
               const CommonTextFieldHeadingWidget(title: 'Delivery Location',isRequired: true,),
               const SocDeliveryLocationField(),

@@ -23,7 +23,7 @@ class _TicketDashbaordScreenState extends State<TicketDashbaordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Tickets Dashboard Screen"),),
+      appBar: AppBar(title: const Text("Tickets Dashboard"),),
       body: SafeArea(child: Center(
         child: ListView.builder(
           shrinkWrap: true,
@@ -34,7 +34,7 @@ class _TicketDashbaordScreenState extends State<TicketDashbaordScreen> {
             onTap: () {
               switch(i) {
                 case 0:
-                Fluttertoast.showToast(msg: 'Add ticket clicked');
+                // Fluttertoast.showToast(msg: 'Add ticket clicked');
                 Navigator.push(context, SlideLeftRoute(screen: const AddTicketScreen()));
                 break;
                 case 1:
