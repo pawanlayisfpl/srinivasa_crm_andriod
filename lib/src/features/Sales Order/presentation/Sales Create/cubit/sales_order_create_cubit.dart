@@ -77,6 +77,7 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
 // clear all controller
 
   void cleaAllController() {
+    orderAmountTotalController.clear();
     customerCodeController.clear();
     orderAmountController.clear();
     orderGstAmountController.clear();
@@ -88,7 +89,6 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
     assignedToRemarksController.clear();
     discountController.clear();
     balanceAmountDueDateController.clear();
-    orderAmountTotalController.clear();
     pendingPaymentDueDateController.clear();
     pendingPaymentAmountController.clear();
     pendingPaymentAmountPerentageController.clear();
@@ -462,7 +462,7 @@ void onDiscountPerPercentageChanged() {
     debugPrint('paid amount value ${paidAmountValue.toString()}');
 
     }else {
-      balanceAmountController.clear();
+      amountPaidController.clear();
       Fluttertoast.showToast(msg: 'Paid amount can\'t be more than total order amount',backgroundColor: Colors.red,textColor: Colors.white);
       balanceAmountController.clear();
     }
@@ -653,11 +653,33 @@ void onDiscountPerPercentageChanged() {
   }
 
   void removeFromProductFormList({required ProductFormModel productFormModel}) {
-    String id = productFormModel.id;
+    if(state.productFormList.isNotEmpty) {
+       String id = productFormModel.id;
     List<ProductFormModel> productsLists = List.from(state.productFormList);
     productsLists.removeWhere((item) => item.id == id);
     emit(state.copyWith(
         productFormList: productsLists, selectedProductModel: null));
+
+        //  TODO: UPDATE THE PRODUCT PRICE 
+        double newOrderAmount = double.tryParse(orderAmountTotalController.text) ?? 0.0;
+        double deletedAmount = double.tryParse(productFormModel.totalAmount.toString()) ?? 0.0;
+        double finalAmount = newOrderAmount - deletedAmount;
+        orderAmountController.text = finalAmount.toStringAsFixed(0);
+        orderAmountTotalController.text = finalAmount.toStringAsFixed(0);
+        onAmountChanged(finalAmount.toString());
+        amountPaidController.clear();
+        balanceAmountController.clear();
+        balanceAmountDueDateController.clear();
+        
+    }else {
+      orderAmountController.text = 0.0.toString();
+      orderAmountTotalController.text = 0.0.toString();
+      productSellingRateController.clear();
+        amountPaidController.clear();
+        balanceAmountController.clear();
+        balanceAmountDueDateController.clear();
+
+    }
   }
 
   void onQtyChanged() {
@@ -841,6 +863,7 @@ void onDuePercentageChanged() {
     productDiscountPerQty.clear();
     productShipmentDateController.clear(); 
     productChDateController.clear();
+    productSellingRateController.clear();
     // CALLING TOTAL ORDER AMOUNT VALUES HERE
     getOrderAmountTotalValues();
     successCallback();
@@ -860,6 +883,7 @@ void onDuePercentageChanged() {
 
     orderAmountController.dispose();
     orderGstAmountController.dispose();
+    orderAmountTotalController.dispose();
     amountPaidController.dispose();
     balanceAmountController.dispose();
     orderRemarksController.dispose();
@@ -867,7 +891,6 @@ void onDuePercentageChanged() {
     assignedToRemarksController.dispose();
     discountController.dispose();
     balanceAmountDueDateController.dispose();
-    orderAmountTotalController.dispose();
     pendingPaymentDueDateController.dispose();
     pendingPaymentAmountController.dispose();
     pendingPaymentAmountPerentageController.dispose();
@@ -1012,6 +1035,7 @@ results.fold((l) {
 
 
 }
+
 
 
  

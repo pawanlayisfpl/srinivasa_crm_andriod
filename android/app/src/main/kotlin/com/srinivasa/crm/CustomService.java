@@ -48,7 +48,7 @@ public class CustomService extends Service {
 
         // Start the service in the foreground with a notification
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("CRM Provider Service")
+                .setContentTitle("Crm App Services")
                 .setContentText("Running background tasks")
                 .setSmallIcon(R.drawable.notificationss) // Replace with your own icon
                 .build();

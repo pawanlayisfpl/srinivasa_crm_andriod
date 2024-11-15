@@ -18,6 +18,7 @@ class SocProductListWidget extends StatelessWidget {
   return  BlocBuilder<SalesOrderCreateCubit, SalesOrderCreateState>(
     builder: (context, state) {
       return ListView.separated(
+        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         
                         itemBuilder: (c,i) {

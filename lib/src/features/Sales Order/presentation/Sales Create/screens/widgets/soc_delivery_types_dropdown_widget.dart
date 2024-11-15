@@ -17,7 +17,7 @@ class SocDeliveryTypesDropDownWidget extends StatelessWidget {
     return BlocBuilder<SalesOrderCreateCubit, SalesOrderCreateState>(
       builder: (context, state,) {
         return ColoredBox(
-          color: Colors.grey.shade300,
+          color: Colors.grey.shade100,
           child: DropdownSearch<DeliveryTypeModel>(
             
                   enabled: true,

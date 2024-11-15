@@ -39,7 +39,7 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
            if(Navigator.canPop(context)) {
               Navigator.pop(context);
             }
-          QuickAlert.show(context: context, type: QuickAlertType.error, text: state.apiFailedModel!.errorMessage, title: 'Error', showCancelBtn: false, barrierDismissible: false, confirmBtnText: 'Ok', confirmBtnColor: Colors.black, onConfirmBtnTap: () {
+          QuickAlert.show(context: context, type: QuickAlertType.error, text: state.apiFailedModel!.errorMessage, title: state.apiFailedModel!.message.toString(), showCancelBtn: false, barrierDismissible: false, confirmBtnText: 'Ok', confirmBtnColor: Colors.black, onConfirmBtnTap: () {
             if(Navigator.canPop(context)) {
               Navigator.pop(context);
             }

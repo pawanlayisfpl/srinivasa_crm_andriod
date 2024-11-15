@@ -90,7 +90,7 @@ class CommonTextfield extends StatelessWidget {
               prefixIcon: prefixIcon,
               border: AppStyles.inputBorder,
               focusedBorder: AppStyles.focusBorder,
-              fillColor: Colors.grey.shade300,
+              fillColor: Colors.grey.shade100,
               
               filled: fillColor != null  ? true : false,
               floatingLabelAlignment: FloatingLabelAlignment.start,
