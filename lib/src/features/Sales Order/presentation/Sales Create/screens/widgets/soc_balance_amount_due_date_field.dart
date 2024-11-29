@@ -19,6 +19,6 @@ class SocBalanceDueDateTextField extends StatelessWidget {
           inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))],
           textInputType: TextInputType.number,
           
-          textEditingController: context.read<SalesOrderCreateCubit>().balanceAmountDueDateController , onChanged: (String? value) { }, validator: (v) => null,  hintText: "Enter balance due date", autovalidateMode: AutovalidateMode.disabled);
+          textEditingController: context.read<SalesOrderCreateCubit>().balanceAmountDueDateController , onChanged: (String? value) { }, validator: (v) => null,  hintText: "Enter Balance Due Date", autovalidateMode: AutovalidateMode.disabled);
   }
 }

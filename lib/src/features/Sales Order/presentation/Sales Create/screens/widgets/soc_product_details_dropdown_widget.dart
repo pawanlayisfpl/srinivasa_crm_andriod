@@ -24,7 +24,7 @@ class SocProductDropDown extends StatelessWidget {
                   enabled: true,
                   selectedItem: state.selectedProductModel,
           
-                  dropdownBuilder: (context, selectedItems) => state.selectedProductModel == null ?  const CommonTextWidget(title: "Select your product",fontWeight: FontWeight.w500,textColor: Colors.grey,maxLines: 3,) : CommonTextWidget(title: state.selectedProductModel!.productName.toString()) ,
+                  dropdownBuilder: (context, selectedItems) => state.selectedProductModel == null ?  const CommonTextWidget(title: "Select Your Product",fontWeight: FontWeight.w500,textColor: Colors.grey,maxLines: 3,) : CommonTextWidget(title: state.selectedProductModel!.productName.toString()) ,
                   
                   
                   dropdownButtonProps:   DropdownButtonProps( 

@@ -1,6 +1,9 @@
 
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:quickalert/quickalert.dart';
@@ -59,9 +62,14 @@ if (error.response?.statusCode == 401) {
     confirmBtnText: "Okay",
     barrierDismissible: false,
     animType: QuickAlertAnimType.slideInUp,
-    onConfirmBtnTap: () {
+    onConfirmBtnTap: () async  {
+        if (Platform.isAndroid) {
+                const platform = MethodChannel('com.srinivasa.crm');
+                await platform.invokeMethod('stop');
+              }
       final localStorge = locator.get<KeyValueStorage>();
-      localStorge..sharedPreferences.clear();
+      
+      localStorge.sharedPreferences.clear();
       AppKeys.globalNavigatorKey.currentState!.pop(  );
       AppKeys.globalNavigatorKey.currentState!.pushAndRemoveUntil(MaterialPageRoute(builder: (c) => const LoginScreen()), (route) => true,);
     },

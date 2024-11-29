@@ -6,7 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/shared/data/datasource/DeliveryTypes/delivery_type_model.dart';
+import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:srinivasa_crm_new/shared/data/datasource/DeliveryTypes/delivery_types_repo_impl.dart';
@@ -26,6 +28,7 @@ import '../../../../Customer/domain/model/get/customer_model.dart';
 import '../../../domain/model/get/payment_mode_model.dart';
 import '../../../domain/model/get/product_model.dart';
 import '../../../domain/model/post/product_form_model.dart';
+import '../../Sales View/sales_order_view_screen.dart';
 
 @injectable
 class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
@@ -85,6 +88,8 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
     balanceAmountController.clear();
     orderRemarksController.clear();
     deliveryTextController.clear();
+    productRateController.clear();
+    productSellingRateController.clear();
     // employeeIdController.clear();
     assignedToRemarksController.clear();
     discountController.clear();
@@ -93,6 +98,7 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
     pendingPaymentAmountController.clear();
     pendingPaymentAmountPerentageController.clear();
 
+    deliveryTextController.clear();
     // product
     productRateController.clear();
     productDiscountPerPercentage.clear();
@@ -123,6 +129,18 @@ class SalesOrderCreateCubit extends Cubit<SalesOrderCreateState> {
       getAllDeliveryTypesList(),
     ]);
     emit(state.copyWith(isInitialLoading: false));
+  }
+
+  void resetProductStatesss() {
+    productRateController.clear();
+    productQtyController.clear();
+    productSellingRateController.clear();
+    productDiscountPerQty.clear();
+    productDiscountPerPercentage.clear();
+    producttotalController.clear();
+    productShipmentDateController.clear();
+    productChDateController.clear();
+    emit(state.copyWith(selectedProductModel: null,selectedUomModel: null,));
   }
 
   Future<void> getEmployeIdValue() async {
@@ -444,6 +462,8 @@ void onDiscountPerPercentageChanged() {
     emit(state.copyWith(orderTotalDiscountField: NumberField(value)));
   }
 
+  bool showDueDateField = false;
+
 // AMOUNT PAID FIELD
   void onAmountPaidChanged(String value) {
     debugPrint(amountPaidController.text.toString());
@@ -451,10 +471,11 @@ void onDiscountPerPercentageChanged() {
     double paidAmountValue = double.tryParse(amountPaidController.text) ?? 0.0;
 
 
-    if(paidAmountValue < newOrderAmount) {
+    if(paidAmountValue <= newOrderAmount) {
        debugPrint('total order amount value ${newOrderAmount.toString()}');
        double newBalanceAmountValue = newOrderAmount - paidAmountValue;
-        balanceAmountController.text = newBalanceAmountValue.toStringAsFixed(2);
+        balanceAmountController.text = newBalanceAmountValue.toString().split('.').first.toString();
+        showDueDateField = true;
 
         emit(state.copyWith(pendingFormList: []));
         balanceAmountDueDateController.clear();
@@ -462,6 +483,7 @@ void onDiscountPerPercentageChanged() {
     debugPrint('paid amount value ${paidAmountValue.toString()}');
 
     }else {
+         showDueDateField = false;
       amountPaidController.clear();
       Fluttertoast.showToast(msg: 'Paid amount can\'t be more than total order amount',backgroundColor: Colors.red,textColor: Colors.white);
       balanceAmountController.clear();
@@ -488,7 +510,7 @@ void onDiscountPerPercentageChanged() {
       
 
     }else {
-      balanceAmountController.clear();
+      // balanceAmountController.clear();
 
     }
   }
@@ -936,13 +958,14 @@ orderAmountController.text = (double.tryParse(newOrderAmount.toString()) ?? 0.0 
 
 
  void resetForm() {
-  emit(state.copyWith(selectedCustomerModel: null,selectedProductList: [],pendingFormList: [],productFormList: []));
+   // remove selected customer,paymentmode,deliveerytype,uom type,
+  emit(state.copyWith(selectedCustomerModel: null,selectedProductList: [],pendingFormList: [],productFormList: [],selectedPaymentModeModel: null,selectedUomModel: null,selectedDeliveryTypeModel: null,));
     cleaAllController();
     Fluttertoast.showToast(msg: 'Form reset successfully',backgroundColor: Colors.green,textColor: Colors.white);
  }
 
 
-void createOrder() async {
+void createOrder(BuildContext context) async {
 
 
 Customermodel? customerModel = state.selectedCustomerModel;
@@ -967,11 +990,18 @@ String? assignedToReamarksValue = assignedToRemarksController.text;
 
 List<ProductPendingFormModel> pendingFormList = state.pendingFormList;
 
+if(balanceAmountValue.toString() != "0" &&  balanceDueDateValue.isEmpty) {
+  Fluttertoast.showToast(msg: 'Please select balance due date',backgroundColor: Colors.red,textColor: Colors.white);
+  return;
+}
 
 if(customerModel == null || productFormList.isEmpty || orderTotalAmountValue.isEmpty|| orderAmountValue.isEmpty || amountPaidValue.isEmpty  || paymentModeModel == null || state.selectedDeliveryTypeModel == null || deliveryTextController.text.isEmpty  ) {
   Fluttertoast.showToast(msg: 'Please fill in all required fields',backgroundColor: Colors.red,textColor: Colors.white);
   return;
 }else {
+  if(context.mounted) {
+    QuickAlert.show(context: context, type: QuickAlertType.loading, title: 'Creating order', disableBackBtn: true,barrierDismissible: false);
+  }
 
 SocCreatePostModel socCreatePostModel = SocCreatePostModel(
   customerCode: customerModel.farm!.customerId.toString(),
@@ -1011,6 +1041,7 @@ SocCreatePostModel socCreatePostModel = SocCreatePostModel(
   )).toList(),
 );
 
+  
 
 debugPrint(socCreatePostModel.toJson().toString());
 emit(state.copyWith(isSubmitting: true,apiFailedModel: null));
@@ -1020,10 +1051,33 @@ final results = await salesRepo.createSaleOrder(socCreatePostModel: socCreatePos
 
 results.fold((l) {
   emit(state.copyWith(isSubmitting: false, apiFailedModel: ApiFailedModel.fromNetworkExceptions(l),),);
+  if(context.mounted) {
+    Navigator.of(context).pop();
+    if(context.mounted) {
+    QuickAlert.show(context: context, type: QuickAlertType.error, title: 'Failed to create order',barrierDismissible: true,disableBackBtn: false);
+
+      
+    }
+  }
 }, (r) {
-  emit(state.copyWith(apiFailedModel: null,isSubmitting: false,isSuccess: true ));
+  // CLAER ALL CONTROLLERS
+ 
+  emit(state.copyWith(apiFailedModel: null,isSubmitting: false,isSuccess: true ,));
   Fluttertoast.showToast(msg: 'Order created successfully',backgroundColor: Colors.green,textColor: Colors.white);
   resetForm();
+  if(context.mounted) {
+    Navigator.of(context).pop();
+    if(context.mounted) {
+    QuickAlert.show(context: context, type: QuickAlertType.success, title: 'Order created successfully',barrierDismissible: false,disableBackBtn: false,confirmBtnText: "Okay",confirmBtnColor: Colors.black,onConfirmBtnTap: () {
+      if(context.mounted) {
+        Navigator.of(context).pop();
+        Navigator.pushReplacement(context, ScaleRoute(screen:  const SalesOrderViewScreen()));
+      }
+    });
+
+      
+    }
+  }
 });
 
 }

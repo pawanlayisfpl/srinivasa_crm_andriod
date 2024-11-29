@@ -27,6 +27,13 @@ class SalesProductFormScreen extends StatefulWidget {
 }
 
 class _SalesProductFormScreenState extends State<SalesProductFormScreen> {
+
+@override 
+  initState() {
+    super.initState();
+    context.read<SalesOrderCreateCubit>().resetProductStatesss();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +82,7 @@ class _SalesProductFormScreenState extends State<SalesProductFormScreen> {
                   2.verticalSpace,
                   const SocProductSellingRateTextField(),
                   20.verticalSpace,
-                         const CommonTextFieldHeadingWidget(title: 'Quantity',isRequired: true,),
+                         const CommonTextFieldHeadingWidget(title: 'Qty',isRequired: true,),
                   2.verticalSpace,
                   const SocProductQtyTextFieldWidget(),
                   20.verticalSpace,
@@ -116,13 +123,13 @@ class _SalesProductFormScreenState extends State<SalesProductFormScreen> {
                         context.read<SalesOrderCreateCubit>().submitProductForm(
                             successCallback: () {
                           Fluttertoast.showToast(
-                              msg: 'Product saved',
+                              msg: 'Product Saved',
                               backgroundColor: Colors.green,
                               textColor: Colors.white);
                           Navigator.pop(context);
                         }, failedCallback: () {
                           Fluttertoast.showToast(
-                              msg: 'Please fill all the details',
+                              msg: 'All fields are required',
                               backgroundColor: Colors.red,
                               textColor: Colors.white);
                         });

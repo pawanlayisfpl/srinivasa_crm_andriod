@@ -45,13 +45,13 @@ class SocProductListWidget extends StatelessWidget {
                                     children: [
                                       Row(
                                         children: [
-                                          const Expanded( 
+                                           Expanded( 
                                             flex: 5,
-                                            child: CommonTextWidget(title: "Product :",align: TextAlign.start,),),
+                                            child: CommonTextWidget(title: "Product :",align: TextAlign.start,textSize: 14.sp,),),
                                                Expanded( 
                                             flex: 6,
                                             child: 
-                                            CommonTextWidget(title: pendingFormModel.productsModel == null ? 'No Product found' : pendingFormModel.productsModel!.productName.toString(),align: TextAlign.left,maxLines: 3,)
+                                            CommonTextWidget(title: pendingFormModel.productsModel == null ? 'No Product found' : pendingFormModel.productsModel!.productName.toString(),align: TextAlign.left,maxLines: 3,textSize: 14.sp,)
                                             
                                             ),
                                             
@@ -62,12 +62,12 @@ class SocProductListWidget extends StatelessWidget {
                                       5.verticalSpace,
                                        Row(
                                         children: [
-                                          const Expanded( 
+                                           Expanded( 
                                             flex: 5,
-                                            child: CommonTextWidget(title: "Qty :",align: TextAlign.start,)),
+                                            child: CommonTextWidget(title: "Qty :",align: TextAlign.start,textSize: 14.sp,)),
                                                Expanded( 
                                             flex: 6,
-                                            child: CommonTextWidget(title: pendingFormModel.quanity.toString(),align: TextAlign.start,),)
+                                            child: CommonTextWidget(title: pendingFormModel.quanity.toString(),align: TextAlign.start,textSize: 14.sp,),)
                                             
                                             
                                         ],
@@ -77,12 +77,12 @@ class SocProductListWidget extends StatelessWidget {
                                         5.verticalSpace,
                                         Row(
                                         children: [
-                                          const Expanded( 
+                                           Expanded( 
                                             flex: 5,
-                                            child: CommonTextWidget(title: "Rate :",align: TextAlign.start,)),
+                                            child: CommonTextWidget(title: "Rate :",align: TextAlign.start,textSize: 14.sp,)),
                                                Expanded( 
                                             flex: 6,
-                                            child: CommonTextWidget(title: pendingFormModel.rate.toIndianPriceFormat(),align: TextAlign.start,),)
+                                            child: CommonTextWidget(title: pendingFormModel.rate.toIndianPriceFormat(),align: TextAlign.start,textSize: 14.sp,),)
                                             
                                             
                                         ],
@@ -92,57 +92,57 @@ class SocProductListWidget extends StatelessWidget {
                                         5.verticalSpace,
                                         Row(
                                         children: [
-                                          const Expanded( 
+                                           Expanded( 
                                             flex: 5,
-                                            child: CommonTextWidget(title: "Selling\nRate :",align: TextAlign.start,)),
+                                            child: CommonTextWidget(title: "Selling\nRate :",align: TextAlign.start,textSize: 14.sp,)),
                                                Expanded( 
                                             flex: 6,
-                                            child: CommonTextWidget(title: pendingFormModel.sellingRate!.toIndianPriceFormat(),align: TextAlign.start,),)
+                                            child: CommonTextWidget(title: pendingFormModel.sellingRate!.toIndianPriceFormat(),align: TextAlign.start,textSize: 14.sp,),)
                                             
                                             
                                         ],
                                       ),
                                        // DISCOUNT PER PERCENTAGE
                                           const Divider(),
-                                        5.verticalSpace,
-                                        Row(
-                                        children: [
-                                          const Expanded( 
-                                            flex: 5,
-                                            child: CommonTextWidget(title: "Discount\nQty :",align: TextAlign.start,)),
-                                               Expanded( 
-                                            flex: 6,
-                                            child: CommonTextWidget(title: pendingFormModel.discountPerQty.toString(),align: TextAlign.start,),)
+                                      //   5.verticalSpace,
+                                      //   Row(
+                                      //   children: [
+                                      //     const Expanded( 
+                                      //       flex: 5,
+                                      //       child: CommonTextWidget(title: "Discount\nQty :",align: TextAlign.start,)),
+                                      //          Expanded( 
+                                      //       flex: 6,
+                                      //       child: CommonTextWidget(title: pendingFormModel.discountPerQty.toString(),align: TextAlign.start,),)
                                             
                                             
-                                        ],
-                                      ),
+                                      //   ],
+                                      // ),
 
-                                       // TOTAL PERCENTAGE
-                                          const Divider(),
-                                        5.verticalSpace,
-                                        Row(
-                                        children: [
-                                          const Expanded( 
-                                            flex: 5,
-                                            child: CommonTextWidget(title: "Discount\nPercentage :",align: TextAlign.start,)),
-                                               Expanded( 
-                                            flex: 6,
-                                            child: CommonTextWidget(title: "${pendingFormModel.discountPerPercentage} %",align: TextAlign.start,),)
+                                      //  // TOTAL PERCENTAGE
+                                      //     const Divider(),
+                                      //   5.verticalSpace,
+                                      //   Row(
+                                      //   children: [
+                                      //     const Expanded( 
+                                      //       flex: 5,
+                                      //       child: CommonTextWidget(title: "Discount\nPercentage :",align: TextAlign.start,)),
+                                      //          Expanded( 
+                                      //       flex: 6,
+                                      //       child: CommonTextWidget(title: "${pendingFormModel.discountPerPercentage} %",align: TextAlign.start,),)
                                             
                                             
-                                        ],
-                                      ),
+                                      //   ],
+                                      // ),
                                          const Divider(),
                                             5.verticalSpace,
                                         Row(
                                         children: [
-                                          const Expanded( 
+                                           Expanded( 
                                             flex: 5,
-                                            child: CommonTextWidget(title: "Total value :",align: TextAlign.start,)),
+                                            child: CommonTextWidget(title: "Total value :",align: TextAlign.start,textSize: 14.sp,)),
                                                Expanded( 
                                             flex: 6,
-                                            child: CommonTextWidget(title: pendingFormModel.totalAmount.toIndianPriceFormat(),align: TextAlign.start,),)
+                                            child: CommonTextWidget(title: pendingFormModel.totalAmount.toIndianPriceFormat(),align: TextAlign.start,textSize: 14.sp),)
                                             
                                             
                                         ],

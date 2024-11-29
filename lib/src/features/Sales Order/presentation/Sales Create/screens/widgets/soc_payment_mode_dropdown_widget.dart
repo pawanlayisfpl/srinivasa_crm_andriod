@@ -21,7 +21,7 @@ class SocPaymentModeDropDownWidget extends StatelessWidget {
                   enabled: true,
                   selectedItem: state.selectedPaymentModeModel,
           
-                  dropdownBuilder: (context, selectedItems) => state.selectedPaymentModeModel == null ?  const CommonTextWidget(title: "Select your payment mode",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedPaymentModeModel!.paymentModeName.toString()) ,
+                  dropdownBuilder: (context, selectedItems) => state.selectedPaymentModeModel == null ?  const CommonTextWidget(title: "Select Your Payment Mode",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedPaymentModeModel!.paymentModeName.toString()) ,
                   
                   
                   dropdownButtonProps:  const DropdownButtonProps(

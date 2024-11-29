@@ -22,7 +22,7 @@ class SocCustomerDropDownWidget extends StatelessWidget {
                   enabled: true,
                   selectedItem: state.selectedCustomerModel,
           
-                  dropdownBuilder: (context, selectedItems) => state.selectedCustomerModel == null ?  const CommonTextWidget(title: "Select your customer",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedCustomerModel!.farm!.isIndividual == true ? state.selectedCustomerModel!.farm!.farmName.toString() : state.selectedCustomerModel!.customerName.toString(),maxLines: 4,) ,
+                  dropdownBuilder: (context, selectedItems) => state.selectedCustomerModel == null ?  const CommonTextWidget(title: "Select Your Customer",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedCustomerModel!.farm!.isIndividual == true ? state.selectedCustomerModel!.farm!.farmName.toString() : state.selectedCustomerModel!.customerName.toString(),maxLines: 4,) ,
                   
                   
                   dropdownButtonProps:  const DropdownButtonProps(

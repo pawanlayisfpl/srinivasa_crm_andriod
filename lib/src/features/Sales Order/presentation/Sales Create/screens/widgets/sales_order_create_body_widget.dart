@@ -25,7 +25,6 @@ import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_product_list_view_widget.dart';
 
 import '../../cubit/sales_order_create_cubit.dart';
-import 'soc_order_amount_total_textfield.dart';
 
 class SalesOrderCreateBodyWidget extends StatelessWidget {
   const SalesOrderCreateBodyWidget({super.key});
@@ -35,32 +34,33 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
     return BlocListener<SalesOrderCreateCubit, SalesOrderCreateState>(
       listenWhen: (previous, current) => previous.apiFailedModel != current.apiFailedModel || previous.isSubmitting != current.isSubmitting || previous.isSuccess != current.isSuccess,
       listener: (context, state) {
-        if(state.apiFailedModel != null) {
-           if(Navigator.canPop(context)) {
-              Navigator.pop(context);
-            }
-          QuickAlert.show(context: context, type: QuickAlertType.error, text: state.apiFailedModel!.errorMessage, title: state.apiFailedModel!.message.toString(), showCancelBtn: false, barrierDismissible: false, confirmBtnText: 'Ok', confirmBtnColor: Colors.black, onConfirmBtnTap: () {
-            if(Navigator.canPop(context)) {
-              Navigator.pop(context);
-            }
-          });
-        }
 
-        if(state.isSubmitting) {
-          QuickAlert.show(context: context, type: QuickAlertType.loading, text: "Please wait...", title: 'Loading', showCancelBtn: false, barrierDismissible: false);
+        // if(state.apiFailedModel != null) {
+        //    if(Navigator.canPop(context)) {
+        //       Navigator.pop(context);
+        //     }
+        //   QuickAlert.show(context: context, type: QuickAlertType.error, text: state.apiFailedModel!.errorMessage, title: state.apiFailedModel!.message.toString(), showCancelBtn: false, barrierDismissible: false, confirmBtnText: 'Ok', confirmBtnColor: Colors.black, onConfirmBtnTap: () {
+        //     if(Navigator.canPop(context)) {
+        //       Navigator.pop(context);
+        //     }
+        //   });
+        // }
 
-        }
+        // if(state.isSubmitting) {
+        //   QuickAlert.show(context: context, type: QuickAlertType.loading, text: "Please wait...", title: 'Loading', showCancelBtn: false, barrierDismissible: false);
 
-        if(state.isSuccess) {
-            Navigator.pop(context);
+        // }
 
-          // if(Navigator.canPop(context)) {
-          // }
-          QuickAlert.show(context: context, type: QuickAlertType.success, text: "Order created successfully", title: 'Success',confirmBtnText: 'Ok', confirmBtnColor: Colors.black, onConfirmBtnTap: () {
-                         Navigator.pop(context);
+        // if(state.isSuccess) {
+        //     Navigator.pop(context);
 
-          });
-        }
+        //   // if(Navigator.canPop(context)) {
+        //   // }
+        //   QuickAlert.show(context: context, type: QuickAlertType.success, text: "Order created successfully", title: 'Success',confirmBtnText: 'Ok', confirmBtnColor: Colors.black, onConfirmBtnTap: () {
+        //                  Navigator.pop(context);
+
+        //   });
+        // }
 
 
       },
@@ -104,10 +104,10 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
             // ORDER DETAILS EXPANSION TILE
             CustomExpansionTileWidget(heading: 'Order Details:', childrens: [
               10.verticalSpace,
-              const CustomHeadingTextWidget(
-                  title: 'Order Total Amount(with GST)'),
-              const SocTotalOrderAmountTextField(),
-              20.verticalSpace,
+              // const CustomHeadingTextWidget(
+              //     title: 'Order Total Amount(with GST)'),
+              // const SocTotalOrderAmountTextField(),
+              // 20.verticalSpace,
               const CustomHeadingTextWidget(title: 'Order Amount '),
               const SocOrderAmountTextField(),
               20.verticalSpace,
@@ -117,9 +117,11 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
               const CustomHeadingTextWidget(title: 'Balance Amount(optional)'),
               const SocBalanceAmountTextField(),
               20.verticalSpace,
-              const CustomHeadingTextWidget(title: 'Balance Amount Due Date(optional)'),
+
+              const CommonTextFieldHeadingWidget(title: 'Balance Amount Due Date',isRequired:  false,),
               const SocBalanceDueDateTextField(),
               20.verticalSpace,
+               
               const CommonTextFieldHeadingWidget(title: 'Payment Mode',isRequired: true,)
 ,              const SocPaymentModeDropDownWidget(),
               20.verticalSpace,
@@ -138,7 +140,7 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
               20.verticalSpace,
             ]),
             20.verticalSpace,
-            BlocBuilder<SalesOrderCreateCubit, SalesOrderCreateState>(
+            context.watch<SalesOrderCreateCubit>().balanceAmountController.text == "0"  ? const SizedBox.shrink() : BlocBuilder<SalesOrderCreateCubit, SalesOrderCreateState>(
               builder: (context, state) {
                 return  state.productFormList.isEmpty
                           ? const SizedBox.shrink()
@@ -335,7 +337,7 @@ class SalesOrderCreateBodyWidget extends StatelessWidget {
 
   void createOrderFun(BuildContext context) {
     if (context.mounted) {
-      context.read<SalesOrderCreateCubit>().createOrder();
+      context.read<SalesOrderCreateCubit>().createOrder(context);
     }
   }
 }
