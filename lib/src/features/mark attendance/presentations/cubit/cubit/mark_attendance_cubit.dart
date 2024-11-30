@@ -2,6 +2,7 @@
 
 
 
+import 'package:battery_plus/battery_plus.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -109,7 +110,32 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
 
     emit(state.copyWith(isSubmitting: false, punchOutSuccess: true, apiFailModel: null,loading: false,loaded: false,));
     final keyValueStorage = locator.get<KeyValueStorage>();
+    final dioclinet = locator.get<DioClient>();
+     int batteryValue = 0;
+
+
+    var battery = Battery();
+        final postion = await commonLocationServices.getUserCurrentPosition();
+
+    batteryValue = await battery.batteryLevel;
+      String userDateTime = DateTime.now().toIso8601String();
+    final response = await dioclinet.post("http://95.216.201.117:8081/crm_sfpl/se/locations",
+   
+    data:  {
+    "latitude": postion.latitude.toString(),
+    "longitude": postion.longitude.toString(),
+    "userDateTime": userDateTime,
+    "batteryStatus" : batteryValue.toString(),
+  },headers: {});
+
+
+  if(response.statusCode == 200 || response.statusCode == 201) {
     keyValueStorage.sharedPreferences.remove(KeyValueStrings.isLoggedIn);
+
+
+  }else {
+
+  }
     // TODO: COMMENTING THIS FOR TESTING
     // keyValueStorage.sharedPreferences.clear();
         //   if(isLogoutClicked != null && isLogoutClicked == true) {

@@ -51,6 +51,10 @@ class _LoginScreenState extends State<LoginScreen> {
         title:CommonTextWidget(title: 'SRINIVASA CRM',fontWeight: FontWeight.w600,textColor: Colors.white,textSize: 22.sp,letterSpacing: 2,),
         centerTitle: true,
       ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: CommonTextWidget(title: 'App version : 1.0.3',align: TextAlign.center,textSize: 14.sp,fontWeight: FontWeight.w400,),
+      ),
         
         body: const SafeArea(child: LoginBodyWidget())),
     );

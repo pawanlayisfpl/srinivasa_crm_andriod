@@ -45,7 +45,7 @@ class CommonDrawerWidget extends StatelessWidget {
            const Divider(), 
            20.verticalSpace,
           //  NEW VERSION WITH 15 MINUTES INTERVAL
-            const ReusableListTileWidget(title: "App version no", icon: Icons.dashboard,subTitleText: "1.0.2" ,), 
+            const ReusableListTileWidget(title: "App version no", icon: Icons.dashboard,subTitleText: "1.0.3" ,), 
            const Divider(), 
            20.verticalSpace,
               // LOGOUT
