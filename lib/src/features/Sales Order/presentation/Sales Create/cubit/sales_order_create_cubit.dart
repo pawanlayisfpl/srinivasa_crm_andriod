@@ -809,19 +809,42 @@ void onDuePercentageChanged() {
 }
 
 
+  // void onPickShipmentDate({required BuildContext context}) async {
+  //  final DateTime now = DateTime.now();
+  // final DateTime? picked = await showDatePicker(
+  //   context: context,
+  //   initialDate: now,
+  //   firstDate: now,
+  //   lastDate: DateTime(2101),
+  // );
+  //   if (picked != null) {
+  //     productShipmentDateController.text = DateFormat('dd-MM-yyyy').format(picked);
+      
+  //   }
+  // }
+
   void onPickShipmentDate({required BuildContext context}) async {
-   final DateTime now = DateTime.now();
+  final DateTime now = DateTime.now();
   final DateTime? picked = await showDatePicker(
     context: context,
     initialDate: now,
     firstDate: now,
     lastDate: DateTime(2101),
   );
-    if (picked != null) {
+
+  if (picked != null) {
+    // Check if the picked date is within 15 days of the current date
+    if (picked.isBefore(now.add(const Duration(days: 15)))) {
+      Fluttertoast.showToast(
+        msg: "Please select a date at least 15 days from today.",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
+    } else {
       productShipmentDateController.text = DateFormat('dd-MM-yyyy').format(picked);
-      
     }
   }
+}
 
   void onPickChDate({required BuildContext context}) async {
   final DateTime now = DateTime.now();

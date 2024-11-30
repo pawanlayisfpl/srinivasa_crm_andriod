@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:srinivasa_crm_new/src/core/model/network%20exception/network%20exception.dart';
-import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/domain/model/get/update_monthly_plan_response_model.dart';
 
 import '../../../../src/features/login/domain/models/update_password_post_model.dart';
 import '../../../../src/features/login/domain/models/update_password_resposne_model.dart';
@@ -23,7 +22,7 @@ class FindEmailResponseModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     data['message'] = message;
     return data;
@@ -44,7 +43,7 @@ class ResetPassPostModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['email'] = email;
     data['otp'] = otp;
     data['newPassword'] = newPassword;

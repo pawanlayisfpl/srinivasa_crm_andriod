@@ -44,9 +44,7 @@ import 'package:srinivasa_crm_new/src/features/Tickets/presentations/View%20Tick
 import 'package:srinivasa_crm_new/src/features/Tickets/presentations/cubit/add_ticket_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/cubit/user_activity_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
-import 'package:workmanager/workmanager.dart';
 
-import 'shared/data/repo/work_manager_services.dart';
 import 'src/config/config.dart';
 import 'src/features/Sales Order/presentation/Sales Order Pending/cubit/pending_order_cubit.dart';
 import 'src/features/login/presentation/cubit/login_cubit.dart';

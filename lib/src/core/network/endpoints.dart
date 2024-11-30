@@ -1,4 +1,3 @@
-import 'package:injectable/injectable.dart';
 
 class Endpoints {
   // static const String basicUrl = "http://192.168.1.45:8080/crmsfpl";

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:srinivasa_crm_new/shared/presentations/Update%20Password/presentations/cubit/update_cubit.dart';
 import 'package:srinivasa_crm_new/shared/presentations/Update%20Password/presentations/widget/update_password_body_widget.dart';
-import 'package:srinivasa_crm_new/src/features/login/presentation/screens/widgets/login_body_widget.dart';
 
 
 class UpdatePasswordScreen extends StatefulWidget {

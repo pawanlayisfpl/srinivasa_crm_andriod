@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 import 'package:srinivasa_crm_new/src/common/widgets/widgets.dart';
@@ -14,10 +13,10 @@ import '../../../../data/model/get/view_ticket_resposne_model.dart';
 class ViewTicketLoadedWidget extends StatelessWidget {
   final List<ViewTicketModel> viewTicketsList;
 
-  ViewTicketLoadedWidget({
-    Key? key,
+  const ViewTicketLoadedWidget({
+    super.key,
     required this.viewTicketsList,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,7 @@ class ViewTicketLoadedWidget extends StatelessWidget {
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('ID : ' + ticket.ticketId.toString()),
+                    Text('ID : ${ticket.ticketId}'),
                     Text('Created Date: ${DateFormat.yMMMd().format(DateTime.parse(ticket.createdDate.toString()))}'),
                     Text('Priority: ${ticket.priority?.priorityName ?? 'N/A'}'),
                     Text('Status: ${ticket.statusDTO?.statusName ?? 'N/A'}'),

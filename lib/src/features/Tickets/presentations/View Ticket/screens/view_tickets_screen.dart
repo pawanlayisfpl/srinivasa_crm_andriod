@@ -27,7 +27,7 @@ class _ViewTicketsScreenState extends State<ViewTicketsScreen> {
   Widget build(BuildContext context) {
     return  Scaffold(
       backgroundColor: Colors.grey.shade100,
-      appBar: AppBar(title: const Text('View Tickets'),actions: [],),
+      appBar: AppBar(title: const Text('View Tickets'),actions: const [],),
       body:  SafeArea(
         child:   Visibility(
           visible: !context.watch<ViewTicketCubit>().state.isLoading,

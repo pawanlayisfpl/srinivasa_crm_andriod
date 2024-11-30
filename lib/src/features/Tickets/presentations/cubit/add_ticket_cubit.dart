@@ -2,10 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/common/fields/string_field.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
-import 'package:srinivasa_crm_new/src/features/Tickets/data/model/get/ticket_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Tickets/data/model/post/ticket_create_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Tickets/data/model/static/priority_model.dart';
 import 'package:srinivasa_crm_new/src/features/Tickets/data/model/static/service_request_model.dart';

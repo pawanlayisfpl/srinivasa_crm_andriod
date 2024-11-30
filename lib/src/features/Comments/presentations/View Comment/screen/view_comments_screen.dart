@@ -122,9 +122,9 @@ import '../../../../../config/config.dart';
 class ViewCommentsScreen extends StatefulWidget {
   final ViewParticularTicketModel? viewParticularTicketModel;
   const ViewCommentsScreen({
-    Key? key,
+    super.key,
     required this.viewParticularTicketModel,
-  }) : super(key: key);
+  });
 
   @override
   State<ViewCommentsScreen> createState() => _ViewCommentsScreenState();

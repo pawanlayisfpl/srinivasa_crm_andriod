@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:srinivasa_crm_new/shared/data/datasource/DeliveryTypes/delivery_types_repo_impl.dart';
 import 'package:srinivasa_crm_new/src/common/fields/number_field.dart';
 import 'package:srinivasa_crm_new/src/common/fields/string_field.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
