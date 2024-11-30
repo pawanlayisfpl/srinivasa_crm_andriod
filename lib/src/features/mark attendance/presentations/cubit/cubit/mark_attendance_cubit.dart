@@ -4,6 +4,7 @@
 
 import 'package:battery_plus/battery_plus.dart';
 import 'package:bloc/bloc.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
@@ -131,6 +132,8 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
 
   if(response.statusCode == 200 || response.statusCode == 201) {
     keyValueStorage.sharedPreferences.remove(KeyValueStrings.isLoggedIn);
+
+    await FirebaseMessaging.instance.unsubscribeFromTopic('news');
 
 
   }else {
