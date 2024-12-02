@@ -70,6 +70,7 @@ class SalesOrderCreateState with _$SalesOrderCreateState {
     orderRemarksField: StringField(''),
     assignedToRemarks: StringField(''),
     customerCodeField: StringField(''),
+    
     showInputError: false,
     customerList: [],
     selectedCustomerModel: null,

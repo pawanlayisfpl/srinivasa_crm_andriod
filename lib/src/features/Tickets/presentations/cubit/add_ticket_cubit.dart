@@ -2,13 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/common/fields/string_field.dart';
+import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 import 'package:srinivasa_crm_new/src/features/Tickets/data/model/post/ticket_create_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Tickets/data/model/static/priority_model.dart';
 import 'package:srinivasa_crm_new/src/features/Tickets/data/model/static/service_request_model.dart';
 
 import 'package:srinivasa_crm_new/src/features/Tickets/data/repo/tickers_repo_impl.dart';
+import 'package:srinivasa_crm_new/src/features/Tickets/presentations/View%20Ticket/screens/view_tickets_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Tickets/presentations/cubit/state/add_ticket_state.dart';
 
 @injectable
@@ -49,6 +52,9 @@ class AddTicketCubit extends Cubit<AddTicketState> {
 
   void resetState() {
     emit(AddTicketState.initial());
+    _descriptioncontroller.clear();
+  
+    
   }
 Future<void> onSubmit(BuildContext context) async {
   final description = state.descriptionField.value.isRight();
@@ -58,14 +64,14 @@ Future<void> onSubmit(BuildContext context) async {
 
     if (context.mounted) {
       // Show a loading indicator (customize as needed)
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return const Center(child: CircularProgressIndicator());
-        },
-      );
-
+      // showDialog(
+      //   context: context,
+      //   barrierDismissible: false,
+      //   builder: (BuildContext context) {
+      //     return const Center(child: CircularProgressIndicator());
+      //   },
+      // );
+      QuickAlert.show(context: context, type: QuickAlertType.loading, title: "Loading", text: "Please wait...");
       TicketCreatePostModel ticketCreatePostModel = TicketCreatePostModel(
         description: _descriptioncontroller.text.toString(),
         priorityId: state.selectedPriorityModel!.id,
@@ -81,6 +87,7 @@ Future<void> onSubmit(BuildContext context) async {
 
         if (context.mounted) {
           // Show an error dialog
+          Navigator.pop(context); // Close the loading indicator
           showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -105,6 +112,7 @@ Future<void> onSubmit(BuildContext context) async {
         _descriptioncontroller.clear();
 
         if (context.mounted) {
+          Navigator.pop(context); // Close the loading indicator
           // Show a success dialog
           showDialog(
             context: context,
@@ -116,7 +124,9 @@ Future<void> onSubmit(BuildContext context) async {
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.pop(context); // Dismiss the current screen if needed
+                      if(context.mounted) {}
+                      Navigator.push(context, ScaleRoute(screen: const ViewTicketsScreen()));
+
                     },
                     child: const Text('OK'),
                   ),

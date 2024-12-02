@@ -16,6 +16,7 @@ class _SalesOrderCreateScrenState extends State<SalesOrderCreateScren> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((t) async  {
+       context.read<SalesOrderCreateCubit>().resetForm();
     await  context.read<SalesOrderCreateCubit>().getAllInitialValues();
     });
     super.initState();

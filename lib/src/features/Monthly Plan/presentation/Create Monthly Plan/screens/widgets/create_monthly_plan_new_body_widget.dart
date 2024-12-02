@@ -32,7 +32,7 @@ class CreateMonthlyPlanNewBodyWidget extends StatelessWidget {
     // DateTime firstDayOfCurrentMonth = DateTime.now();
     
     // Last day of December in the current year
-    DateTime lastDayOfYear = DateTime.utc(now.year, 12, 31);
+    DateTime lastDayOfYear = DateTime.utc(now.year +1, 12, 31);
     DateTime focusedDay =
         firstDayOfCurrentMonth; 
 

@@ -23,7 +23,7 @@ class _AddTicketScreenState extends State<AddTicketScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Ticket Scree"),
+        title: const Text("Add Ticket Screen"),
       ),
       body: PopScope(
         onPopInvoked: (c) {

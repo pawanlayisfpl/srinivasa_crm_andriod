@@ -299,7 +299,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: RouteGenerator.getRoute,
         
         initialRoute: Platform.isAndroid ?  Routes.locationPermissionScreen : Routes.loginScreen,
-        title: 'SF Crm',
+        title: 'SFPL CRM',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             fontFamily: 'Poppins',

@@ -133,8 +133,8 @@ class SocProductListWidget extends StatelessWidget {
                                             
                                       //   ],
                                       // ),
-                                         const Divider(),
-                                            5.verticalSpace,
+                                        //  const Divider(),
+                                            // 5.verticalSpace,
                                         Row(
                                         children: [
                                            Expanded( 
