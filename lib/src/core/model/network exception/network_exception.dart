@@ -92,7 +92,6 @@ if (error.response?.statusCode == 401) {
       //   break;
       case DioExceptionType.unknown:
         if (error.response?.statusCode == 401) {
-          Fluttertoast.showToast(msg: "Unauthorised request");
           networkExceptions = const NetworkExceptions.unauthorisedRequest();
         } else {
           
@@ -173,6 +172,7 @@ notImplemented: () => "Not Implemented",
     unableToProcess: () => "Unable to process the data",
     formatException: () => "Unexpected error occurred",
     notAcceptable: () => "Not acceptable",
+    
   );
 }
 

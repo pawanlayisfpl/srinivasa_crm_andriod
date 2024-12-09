@@ -212,6 +212,8 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+   HttpOverrides.global = MyHttpOverrides();
+
   await _initDependencies();
   await Firebase.initializeApp(
   options: DefaultFirebaseOptions.currentPlatform,
@@ -339,9 +341,22 @@ Future<void> _initDependencies() async {
       () => const Environment(Environment.prod));
 }
 
+
+ class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
+}
+
+
+
 // OFFLINE WORKING FOR LOGIN, ALL CUSTOMERS, CHECKIN AND CHECKOUT ,SALES ORDER AND ALERTS,
 // urls
   // static const String basicUrl = "http://192.168.1.45:8080/crmsfpl";
   // static const String testUrl = "http://65.109.229.140:8080/crmsfpl";
   // static const String testUrl2 = "http://95.216.201.117:8081/crmsfpl/";
+      // static const String basicUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl";
+
   //  NEW VERSION WITH 15 MINUTES INTERVAL (1.0.2) - NOV -DEPLOYEMENT
