@@ -77,7 +77,7 @@ class MonthlyPlanRemoteDataSourceImpl implements MonthlyPlanRemoteDataSource {
     String id = userId ?? "";
     try {
       final dummyUrl =
-          'http://192.168.1.45:8080/crmsfpl/se/monthly-plan?createdDate=$selectedDate&userId=$id';
+          'https://crmapitest.srinivasa.co:8446/crm_sfpl/se/monthly-plan?createdDate=$selectedDate&userId=$id';
 
       final url = "${Endpoints.getAllMonthlyPlans}$selectedDate&userId=$id";
       final response = await dioClient.get(
