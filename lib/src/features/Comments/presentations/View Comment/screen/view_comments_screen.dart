@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:srinivasa_crm_new/src/core/storage/key_value_storage.dart';
 
 import 'package:srinivasa_crm_new/src/features/Tickets/data/model/get/ticket_particular_model.dart';
-import 'package:srinivasa_crm_new/src/features/Tickets/presentations/View%20Particular%20Ticket/cubit/view_particular_ticket_cubit.dart';
 
 import '../../../../../config/config.dart';
 
@@ -116,9 +115,9 @@ import '../../../../../config/config.dart';
 class ViewCommentsScreen extends StatefulWidget {
   final ViewParticularTicketModel? viewParticularTicketModel;
   const ViewCommentsScreen({
-    Key? key,
+    super.key,
     required this.viewParticularTicketModel,
-  }) : super(key: key);
+  });
 
   @override
   State<ViewCommentsScreen> createState() => _ViewCommentsScreenState();
@@ -222,12 +221,12 @@ class _ViewCommentsScreenState extends State<ViewCommentsScreen> {
                       decoration: InputDecoration(
                         hintText: 'Add a comment...',
                         focusedBorder:OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.primaryColor),
+                          borderSide: const BorderSide(color: AppColors.primaryColor),
                           borderRadius: BorderRadius.circular(20),
                         ) ,
                         
                         border: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.primaryColor),
+                          borderSide: const BorderSide(color: AppColors.primaryColor),
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),

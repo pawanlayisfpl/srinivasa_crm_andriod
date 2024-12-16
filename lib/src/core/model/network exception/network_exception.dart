@@ -1,7 +1,6 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/config/locator/locator.dart';

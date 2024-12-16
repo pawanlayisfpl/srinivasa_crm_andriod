@@ -46,7 +46,7 @@ class _BatteryOptimizationPermissionsPageState
       setState(() {
         batteryOptimizationGranted = true;
       });
-      _showSnackBar('Battery optimization permission granted!');
+      // _showSnackBar('Battery optimization permission granted!');
     } else if (status.isDenied) {
       _showPermissionDialog(
           'Battery optimization permission is required to ensure the app runs in the background without interruption.',
@@ -216,7 +216,7 @@ class _BatteryOptimizationPermissionsPageState
               SizedBox(height: screenHeight * 0.04),
               ElevatedButton.icon(
                 onPressed: _requestBatteryOptimizationPermission,
-                icon: Icon(Icons.battery_saver, size: screenWidth * 0.06),
+                icon: Icon(Icons.battery_saver, size: screenWidth * 0.06,color: Colors.white,),
                 label: Text(
                   'Grant Battery Optimization Permission',
                   style: TextStyle(fontSize: screenWidth * 0.045),

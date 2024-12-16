@@ -38,7 +38,7 @@ class _AddTicketScreenState extends State<AddTicketScreen> {
                 children: [
                   20.verticalSpace,
                   const CommonTextFieldHeadingWidget(title: 'Description',isRequired: true,),
-                  TicketDespTextFieldWidget(),
+                  const TicketDespTextFieldWidget(),
                  
                    10.verticalSpace,
                   const CommonTextFieldHeadingWidget(title: 'Priority',isRequired: true,),

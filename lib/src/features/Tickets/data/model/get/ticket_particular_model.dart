@@ -25,49 +25,49 @@ class ViewParticularTicketModel {
     description = json['description'];
     createdDate = json['createdDate'];
     priority = json['priority'] != null
-        ? new Priority.fromJson(json['priority'])
+        ? Priority.fromJson(json['priority'])
         : null;
     statusDTO = json['statusDTO'] != null
-        ? new StatusDTO.fromJson(json['statusDTO'])
+        ? StatusDTO.fromJson(json['statusDTO'])
         : null;
     serviceRequestTypeDTO = json['serviceRequestTypeDTO'] != null
-        ? new ServiceRequestTypeDTO.fromJson(json['serviceRequestTypeDTO'])
+        ? ServiceRequestTypeDTO.fromJson(json['serviceRequestTypeDTO'])
         : null;
     if (json['comments'] != null) {
       comments = <Comments>[];
       json['comments'].forEach((v) {
-        comments!.add(new Comments.fromJson(v));
+        comments!.add(Comments.fromJson(v));
       });
     }
     createdBy =
-        json['createdBy'] != null ? new User.fromJson(json['createdBy']) : null;
+        json['createdBy'] != null ? User.fromJson(json['createdBy']) : null;
     assignedTo = json['assignedTo'] != null
-        ? new AssignedTo.fromJson(json['assignedTo'])
+        ? AssignedTo.fromJson(json['assignedTo'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ticketId'] = this.ticketId;
-    data['description'] = this.description;
-    data['createdDate'] = this.createdDate;
-    if (this.priority != null) {
-      data['priority'] = this.priority!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ticketId'] = ticketId;
+    data['description'] = description;
+    data['createdDate'] = createdDate;
+    if (priority != null) {
+      data['priority'] = priority!.toJson();
     }
-    if (this.statusDTO != null) {
-      data['statusDTO'] = this.statusDTO!.toJson();
+    if (statusDTO != null) {
+      data['statusDTO'] = statusDTO!.toJson();
     }
-    if (this.serviceRequestTypeDTO != null) {
-      data['serviceRequestTypeDTO'] = this.serviceRequestTypeDTO!.toJson();
+    if (serviceRequestTypeDTO != null) {
+      data['serviceRequestTypeDTO'] = serviceRequestTypeDTO!.toJson();
     }
-    if (this.comments != null) {
-      data['comments'] = this.comments!.map((v) => v.toJson()).toList();
+    if (comments != null) {
+      data['comments'] = comments!.map((v) => v.toJson()).toList();
     }
-    if (this.createdBy != null) {
-      data['createdBy'] = this.createdBy!.toJson();
+    if (createdBy != null) {
+      data['createdBy'] = createdBy!.toJson();
     }
-    if (this.assignedTo != null) {
-      data['assignedTo'] = this.assignedTo!.toJson();
+    if (assignedTo != null) {
+      data['assignedTo'] = assignedTo!.toJson();
     }
     return data;
   }
@@ -85,9 +85,9 @@ class Priority {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['priorityId'] = this.priorityId;
-    data['priorityName'] = this.priorityName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['priorityId'] = priorityId;
+    data['priorityName'] = priorityName;
     return data;
   }
 }
@@ -104,9 +104,9 @@ class StatusDTO {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['statusId'] = this.statusId;
-    data['statusName'] = this.statusName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['statusId'] = statusId;
+    data['statusName'] = statusName;
     return data;
   }
 }
@@ -124,9 +124,9 @@ class ServiceRequestTypeDTO {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['serviceRequestTypeId'] = this.serviceRequestTypeId;
-    data['serviceRequestTypeName'] = this.serviceRequestTypeName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['serviceRequestTypeId'] = serviceRequestTypeId;
+    data['serviceRequestTypeName'] = serviceRequestTypeName;
     return data;
   }
 }
@@ -143,16 +143,16 @@ class Comments {
     commentId = json['commentId'];
     commentText = json['commentText'];
     created = json['created'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['commentId'] = this.commentId;
-    data['commentText'] = this.commentText;
-    data['created'] = this.created;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['commentId'] = commentId;
+    data['commentText'] = commentText;
+    data['created'] = created;
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
     return data;
   }
@@ -170,9 +170,9 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userId'] = this.userId;
-    data['userName'] = this.userName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['userId'] = userId;
+    data['userName'] = userName;
     return data;
   }
 }
@@ -189,9 +189,9 @@ class AssignedTo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['assignedToUserId'] = this.assignedToUserId;
-    data['assignedToUserName'] = this.assignedToUserName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['assignedToUserId'] = assignedToUserId;
+    data['assignedToUserName'] = assignedToUserName;
     return data;
   }
 }

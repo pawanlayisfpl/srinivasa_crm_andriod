@@ -1,8 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:srinivasa_crm_new/src/core/network/dio_client.dart';
-import 'package:srinivasa_crm_new/src/core/storage/key_value_storage.dart';
 import 'package:srinivasa_crm_new/src/features/Comments/domain/model/get/comments_response_model.dart';
 import 'package:srinivasa_crm_new/src/features/Comments/domain/model/post/comment_post_model.dart';
 

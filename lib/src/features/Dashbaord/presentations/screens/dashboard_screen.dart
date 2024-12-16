@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:double_tap_to_exit/double_tap_to_exit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,6 +15,8 @@ import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_route
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/widgets/dashboard_body_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Location%20Tracking/presentations/native_screen.dart';
+import 'package:srinivasa_crm_new/src/features/No%20Internet/helper/connectivity_helper.dart';
+import 'package:srinivasa_crm_new/src/features/No%20Internet/views/no_internet_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
@@ -32,11 +36,23 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
     static const platform = MethodChannel('com.srinivasa.crm');
+     final ConnectivityHelper _connectivityHelper = ConnectivityHelper();
+  late StreamSubscription<ConnectivityResult> _subscription;
+
+
 
 
   @override
   void initState() {
     super.initState();
+      _subscription = _connectivityHelper.onConnectivityChanged.listen((status) {
+      if (status == ConnectivityResult.none) {
+        if(context.mounted) {
+        Navigator.pushAndRemoveUntil(context, ScaleRoute(screen:  const NoInternetScreen(offlinePage: OfflinePages.dashboard,)), (r) => false);
+
+        }
+      }
+    });
     WidgetsBinding.instance.addPostFrameCallback( (time) async {
      await context.read<AlertCubit>().getAlerts();
      await startTracking();
@@ -48,6 +64,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
      
     });
   }
+
+   @override
+  void dispose() {
+    _subscription.cancel();
+    _connectivityHelper.dispose();
+    super.dispose();
+  }
+
+
+  
   @override
   Widget build(BuildContext context) {
     

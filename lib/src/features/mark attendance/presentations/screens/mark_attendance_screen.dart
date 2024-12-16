@@ -1,10 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
 import 'dart:io';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:quickalert/quickalert.dart';
@@ -13,6 +16,8 @@ import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/screens/dashboard_screen.dart';
+import 'package:srinivasa_crm_new/src/features/No%20Internet/helper/connectivity_helper.dart';
+import 'package:srinivasa_crm_new/src/features/No%20Internet/views/no_internet_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/login/presentation/screens/login_screen.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
@@ -33,9 +38,22 @@ class MarkAttendanceScreen extends StatefulWidget {
 }
 
 class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
+
+     final ConnectivityHelper _connectivityHelper = ConnectivityHelper();
+  late StreamSubscription<ConnectivityResult> _subscription;
+
   @override
   void initState() {
     super.initState();
+
+       _subscription = _connectivityHelper.onConnectivityChanged.listen((status) {
+      if (status == ConnectivityResult.none) {
+        if(context.mounted) {
+        Navigator.pushAndRemoveUntil(context, ScaleRoute(screen:  const NoInternetScreen(offlinePage: OfflinePages.markattendance,)), (r) => false);
+
+        }
+      }
+    });
     WidgetsBinding.instance.addPostFrameCallback((c) async {
      await context.read<MarkAttendanceCubit>().getLastPunchInOutData();
      await context.read<ProfileCubit>().getLocalProfile();
@@ -43,6 +61,30 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
   
     });
   }
+
+
+     @override
+  void dispose() {
+    _subscription.cancel();
+    _connectivityHelper.dispose();
+    super.dispose();
+  }
+
+
+  @override
+  void didUpdateWidget(covariant  oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Add your custom logic here
+
+    if(widget != oldWidget) {
+      Fluttertoast.showToast(msg: 'New Widget');
+    }
+  }
+
+  
+
+
+
    checkingPermissions() async  {
   
   Future<void> requestPermissions(BuildContext context) async {

@@ -1,5 +1,4 @@
 
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
-import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Comments/presentations/View%20Comment/screen/view_comments_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Tickets/presentations/View%20Particular%20Ticket/cubit/view_particular_ticket_cubit.dart';
 
@@ -17,7 +15,7 @@ import '../../../data/model/get/ticket_particular_model.dart';
 class TicketDetailsScreen extends StatefulWidget {
   final ViewParticularTicketModel ticket;
 
-  TicketDetailsScreen({required this.ticket});
+  const TicketDetailsScreen({super.key, required this.ticket});
 
   @override
   State<TicketDetailsScreen> createState() => _TicketDetailsScreenState();

@@ -2,9 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:srinivasa_crm_new/src/common/widgets/widgets.dart';
-import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
-import 'package:srinivasa_crm_new/src/core/model/model.dart';
-import 'package:srinivasa_crm_new/src/features/Tickets/data/model/get/ticket_particular_model.dart';
 
 import 'package:srinivasa_crm_new/src/features/Tickets/presentations/View%20Particular%20Ticket/cubit/view_particular_ticket_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Tickets/presentations/View%20Particular%20Ticket/cubit/view_particular_ticket_state.dart';
@@ -13,9 +10,9 @@ import 'package:srinivasa_crm_new/src/features/Tickets/presentations/View%20Part
 class ViewParticularTicketScreen extends StatefulWidget {
   final String ticketId;
   const ViewParticularTicketScreen({
-    Key? key,
+    super.key,
     required this.ticketId,
-  }) : super(key: key);
+  });
 
   @override
   State<ViewParticularTicketScreen> createState() =>

@@ -9,9 +9,7 @@ import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
 
 
-import '../../../../../../shared/presentations/Forget Password/presentations/forget_password_screen.dart';
 import '../../../../../common/common.dart';
-import '../../../../../config/animations/routes/all_animate_routes.dart';
 import '../../../../../config/constants/app_colors.dart';
 import '../../cubit/login_cubit.dart';
 import '../../cubit/login_state.dart';

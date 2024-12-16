@@ -82,7 +82,7 @@ class TicketsRepoImpl implements TicketsRepo {
 
     if(status) {
       try {
-        final response = await dioClient.get("http://95.216.201.117:8081/crm_sfpl/user/ticket/${ticketId}",headers: {});
+        final response = await dioClient.get("http://95.216.201.117:8081/crm_sfpl/user/ticket/$ticketId",headers: {});
 
         if(response.statusCode == 200) {
           ViewParticularTicketModel viewParticularTicketModel = ViewParticularTicketModel.fromJson(response.data['data']);
