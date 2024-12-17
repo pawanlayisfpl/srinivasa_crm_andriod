@@ -5,8 +5,8 @@ class Endpoints {
   // static const String basicUrl = "http://192.168.64.123:8080/crmsfpl";
     // static const String basicUrl = "http://95.216.201.117:8081/crmsfpl";
     
-    static const String basicUrl = "http://192.168.1.183:8081/crm_sfpl";
-    static const String testUrl = "http://192.168.1.183:8081/crm_sfpl";
+    static const String basicUrl = "http://180.149.244.56:8081/crm_sfpl";
+    static const String testUrl = "http://180.149.244.56:8081/crm_sfpl";
     // static const String basicUrl = "http://crmapi.srinivasa.co:8081/crm_sfpl";
     // static const String basicUrl = "http://95.216.201.117:8081/crm_sfpl";
     // static const String testUrl = "http://95.216.201.117:8081/crm_sfpl";
@@ -21,9 +21,9 @@ class Endpoints {
   static const String punchOut = "$basicUrl/se/punchout";
   static const String lastPunchInDetails = "$basicUrl/se/getlastpunchdetails";
 
-  static const String findEmail = "$testUrl/auth/forgot-password";
-  static const String resetPassword = "$testUrl/auth/reset-password";
-  static const String updatePassword = "$testUrl/user/update-password";
+  static const String findEmail = "$basicUrl/auth/forgot-password";
+  static const String resetPassword = "$basicUrl/auth/reset-password";
+  static const String updatePassword = "$basicUrl/user/update-password";
 
   // CHECK IN
   static const String checkInPostUrl = "$basicUrl/se/checkin";
@@ -119,8 +119,8 @@ class Endpoints {
   static const String jointemployesUrl = '$basicUrl/se/usersfromassignedzones';
 
   // TICKETS
-  static const String createTicket = "$testUrl/user/ticket";
-  static const String getUserTickets = "$testUrl/user/ticket";
+  static const String createTicket = "$basicUrl/user/ticket";
+  static const String getUserTickets = "$basicUrl/user/ticket";
 
   // COMMETNS
   static const String getAllCommentsByTicketId = "$basicUrl/user/ticket/";

@@ -346,6 +346,6 @@ Future<void> _initDependencies() async {
   // static const String testUrl2 = "http://95.216.201.117:8081/crmsfpl/";
   //  NEW VERSION WITH 15 MINUTES INTERVAL (1.0.2) - NOV -DEPLOYEMENT
 
-      // static const String basicUrl = "http://180.149.244.56:8081/crm_sfpl";
+      // static const String new-live-url = "http://180.149.244.56:8081/crm_sfpl";
 
       // PUNCH IN, PUNCH OUT , CHEKCIN , CHECK OUT,

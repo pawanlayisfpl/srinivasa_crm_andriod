@@ -216,7 +216,7 @@ class _BatteryOptimizationPermissionsPageState
               SizedBox(height: screenHeight * 0.04),
               ElevatedButton.icon(
                 onPressed: _requestBatteryOptimizationPermission,
-                icon: Icon(Icons.battery_saver, size: screenWidth * 0.06),
+                icon: Icon(Icons.battery_saver, size: screenWidth * 0.06,color: Colors.white,),
                 label: Text(
                   'Grant Battery Optimization Permission',
                   style: TextStyle(fontSize: screenWidth * 0.045),

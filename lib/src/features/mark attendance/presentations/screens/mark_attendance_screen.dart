@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
 import 'dart:io';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,11 +15,13 @@ import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/screens/dashboard_screen.dart';
+import 'package:srinivasa_crm_new/src/features/No%20Internet/helper/connectivity_helper.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/login/presentation/screens/login_screen.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_state.dart';
 
+import '../../../No Internet/screens/no_internet_screen.dart';
 import '../../../Profile/presentations/cubit/profile_state.dart';
 
 class MarkAttendanceScreen extends StatefulWidget {
@@ -33,9 +37,20 @@ class MarkAttendanceScreen extends StatefulWidget {
 }
 
 class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
+  late StreamSubscription<ConnectivityResult> _subscription;
+       final ConnectivityHelper _connectivityHelper = ConnectivityHelper();
+
   @override
   void initState() {
     super.initState();
+       _subscription = _connectivityHelper.onConnectivityChanged.listen((status) {
+      if (status == ConnectivityResult.none) {
+        if(context.mounted) {
+        Navigator.pushAndRemoveUntil(context, ScaleRoute(screen: const  NoInternetScreen(offlinePage: OfflinePages.markattendance,)), (r) => false);
+
+        }
+      }
+    });
     WidgetsBinding.instance.addPostFrameCallback((c) async {
      await context.read<MarkAttendanceCubit>().getLastPunchInOutData();
      await context.read<ProfileCubit>().getLocalProfile();

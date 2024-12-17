@@ -264,7 +264,7 @@ class _LocationPermissionsPageState extends State<LocationPermissionsPage> {
               const SizedBox(height: 10),
               ElevatedButton.icon(
                 onPressed: () => _showLocationPermissionDialog(context),
-                icon: const Icon(Icons.location_on_outlined, size: 28),
+                icon: const Icon(Icons.location_on_outlined, size: 28,color: Colors.white,),
                 label: const Text('Grant Location Permissions', style: TextStyle(fontSize: 18)),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
