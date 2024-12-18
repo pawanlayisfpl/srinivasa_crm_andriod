@@ -23,7 +23,7 @@ class SocProductSellingRateTextField extends StatelessWidget {
                 context.read<SalesOrderCreateCubit>().productSellingRateController,
             onChanged: (String? value) => context.read<SalesOrderCreateCubit>().onSellingRateChanged(),
             validator: (v) => null,
-            hintText: "Enter product selling rate",
+            hintText: "Enter Product Selling Rate",
             autovalidateMode: AutovalidateMode.disabled);
       },
     );

@@ -6,7 +6,7 @@ import 'package:srinivasa_crm_new/src/common/fields/string_field.dart';
 
 import 'package:srinivasa_crm_new/src/features/Comments/data/repo/comments_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Comments/domain/model/post/comment_post_model.dart';
-import 'package:srinivasa_crm_new/src/features/Comments/presentations/Add%20Comment/screen/add_comment_state.dart';
+import 'package:srinivasa_crm_new/src/features/Comments/presentations/Add%20Comment/cubit/add_comment_state.dart';
 
 import '../../../../../core/model/model.dart';
 
@@ -21,12 +21,15 @@ class AddCommentCubit extends Cubit<AddCommentState> {
 
 
 
-  Future<void> addComment(CommentPostModel commentPostModel) async {
+  Future<void> addComment(CommentPostModel commentPostModel,VoidCallback callback) async {
     emit(state.copyWith(isSubmitting: true, apiFailedModel: null, commentsResponseModel: null));
     final results = await commentsRepo.createComments(commentPostModel: commentPostModel);
     results.fold(
       (l) => emit(state.copyWith(isSubmitting: false, apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))),
-      (r) => emit(state.copyWith(isSubmitting: false, commentsResponseModel: r)),
+      (r) {
+        emit(state.copyWith(isSubmitting: false, commentsResponseModel: r));
+        callback();
+      },
     );
   }
 

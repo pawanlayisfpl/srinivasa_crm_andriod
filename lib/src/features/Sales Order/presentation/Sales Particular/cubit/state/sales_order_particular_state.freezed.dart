@@ -21,7 +21,9 @@ mixin _$SalesOrderParticularState {
   bool get isLoading => throw _privateConstructorUsedError;
   ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SalesOrderParticularState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SalesOrderParticularStateCopyWith<SalesOrderParticularState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -51,6 +53,8 @@ class _$SalesOrderParticularStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SalesOrderParticularState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -74,6 +78,8 @@ class _$SalesOrderParticularStateCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of SalesOrderParticularState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel {
@@ -115,6 +121,8 @@ class __$$SalesOrderViewScreenStateImplCopyWithImpl<$Res>
       $Res Function(_$SalesOrderViewScreenStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SalesOrderParticularState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -179,7 +187,9 @@ class _$SalesOrderViewScreenStateImpl implements _SalesOrderViewScreenState {
   int get hashCode =>
       Object.hash(runtimeType, particularSalesModel, isLoading, apiFailedModel);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SalesOrderParticularState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SalesOrderViewScreenStateImplCopyWith<_$SalesOrderViewScreenStateImpl>
@@ -199,8 +209,11 @@ abstract class _SalesOrderViewScreenState implements SalesOrderParticularState {
   bool get isLoading;
   @override
   ApiFailedModel? get apiFailedModel;
+
+  /// Create a copy of SalesOrderParticularState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SalesOrderViewScreenStateImplCopyWith<_$SalesOrderViewScreenStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

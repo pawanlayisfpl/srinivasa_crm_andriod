@@ -7,6 +7,7 @@ class CheckinPostModel {
   String? latitude;
   String? remarks;
   String? farmId;
+  String? batteryStatus;
 
   CheckinPostModel(
       {this.userIds,
@@ -16,6 +17,7 @@ class CheckinPostModel {
       this.langitude,
       this.latitude,
       this.farmId,
+      this.batteryStatus,
       this.remarks});
 
  
@@ -30,6 +32,7 @@ class CheckinPostModel {
     data['latitude'] = latitude;
     data['remarks'] = remarks;
     data['farmId'] = farmId;
+    data["batteryStatus"]= batteryStatus;
     return data;
   }
 }

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of '../screen/add_comment_state.dart';
+part of 'add_comment_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -22,7 +22,9 @@ mixin _$AddCommentState {
   ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
   StringField get commentField => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AddCommentState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AddCommentStateCopyWith<AddCommentState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -52,6 +54,8 @@ class _$AddCommentStateCopyWithImpl<$Res, $Val extends AddCommentState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AddCommentState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -80,6 +84,8 @@ class _$AddCommentStateCopyWithImpl<$Res, $Val extends AddCommentState>
     ) as $Val);
   }
 
+  /// Create a copy of AddCommentState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel {
@@ -119,6 +125,8 @@ class __$$$_AddCommentStateImplCopyWithImpl<$Res>
       $Res Function(_$$_AddCommentStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AddCommentState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -193,7 +201,9 @@ class _$$_AddCommentStateImpl implements _$_AddCommentState {
   int get hashCode => Object.hash(runtimeType, isSubmitting,
       commentsResponseModel, apiFailedModel, commentField);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AddCommentState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$$_AddCommentStateImplCopyWith<_$$_AddCommentStateImpl> get copyWith =>
@@ -216,8 +226,11 @@ abstract class _$_AddCommentState implements AddCommentState {
   ApiFailedModel? get apiFailedModel;
   @override
   StringField get commentField;
+
+  /// Create a copy of AddCommentState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$$_AddCommentStateImplCopyWith<_$$_AddCommentStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

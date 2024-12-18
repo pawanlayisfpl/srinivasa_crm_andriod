@@ -6,7 +6,8 @@ class AppColors {
    static const Color primaryColor = Color(0xff00abe5);
    static  Color scaffoldBgColor = Colors.grey.shade200;
 
-  static const Color textFieldBgColor = Color(0xffe8f0fe);
+  // static const Color textFieldBgColor = Color(0xffe8f0fe);
+  static  Color textFieldBgColor = Colors.grey.shade100;
   static const Color topIconColor = Color(0xff44b6ae);
   static const Color greenColor = Color.fromARGB(255, 29, 230, 15);
   static const Color orangeColor = Color.fromARGB(255, 193, 51, 12);

@@ -24,8 +24,12 @@ mixin _$ApiFailedModel {
   String get message => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
 
+  /// Serializes this ApiFailedModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ApiFailedModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ApiFailedModelCopyWith<ApiFailedModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$ApiFailedModelCopyWithImpl<$Res, $Val extends ApiFailedModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ApiFailedModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,6 +98,8 @@ class __$$ApiFailedModelImplCopyWithImpl<$Res>
       _$ApiFailedModelImpl _value, $Res Function(_$ApiFailedModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ApiFailedModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -151,12 +159,14 @@ class _$ApiFailedModelImpl implements _ApiFailedModel {
                 other.errorMessage == errorMessage));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, statusCode, message, errorMessage);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ApiFailedModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ApiFailedModelImplCopyWith<_$ApiFailedModelImpl> get copyWith =>
@@ -186,8 +196,11 @@ abstract class _ApiFailedModel implements ApiFailedModel {
   String get message;
   @override
   String get errorMessage;
+
+  /// Create a copy of ApiFailedModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ApiFailedModelImplCopyWith<_$ApiFailedModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

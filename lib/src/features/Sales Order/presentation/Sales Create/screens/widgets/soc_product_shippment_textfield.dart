@@ -27,7 +27,7 @@ class SocProductShipmentTextField extends StatelessWidget {
                 context.watch<SalesOrderCreateCubit>().productShipmentDateController,
             onChanged: (String? value) {},
             validator: (v) => null,
-            hintText: "Enter product shipment date ",
+            hintText: "Enter Product Shipment Date ",
             autovalidateMode: AutovalidateMode.disabled);
       },
     );

@@ -23,7 +23,7 @@ class SocBalanceAmountTextField extends StatelessWidget {
           inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))],
           textInputType: TextInputType.number,
           
-          textEditingController: context.read<SalesOrderCreateCubit>().balanceAmountController , onChanged: (String? value) { }, validator: (v) => null,  hintText: "Enter balance amount", autovalidateMode: AutovalidateMode.always);
+          textEditingController: context.watch<SalesOrderCreateCubit>().balanceAmountController , onChanged: (String? value) { }, validator: (v) => null,  hintText: "Enter Balance Amount", autovalidateMode: AutovalidateMode.always);
       },
     );
   }

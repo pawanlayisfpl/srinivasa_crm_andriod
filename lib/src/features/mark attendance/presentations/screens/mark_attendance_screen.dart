@@ -17,12 +17,12 @@ import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_route
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/screens/dashboard_screen.dart';
 import 'package:srinivasa_crm_new/src/features/No%20Internet/helper/connectivity_helper.dart';
-import 'package:srinivasa_crm_new/src/features/No%20Internet/views/no_internet_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/login/presentation/screens/login_screen.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_state.dart';
 
+import '../../../No Internet/screens/no_internet_screen.dart';
 import '../../../Profile/presentations/cubit/profile_state.dart';
 
 class MarkAttendanceScreen extends StatefulWidget {
@@ -38,18 +38,16 @@ class MarkAttendanceScreen extends StatefulWidget {
 }
 
 class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
-
-     final ConnectivityHelper _connectivityHelper = ConnectivityHelper();
   late StreamSubscription<ConnectivityResult> _subscription;
+       final ConnectivityHelper _connectivityHelper = ConnectivityHelper();
 
   @override
   void initState() {
     super.initState();
-
        _subscription = _connectivityHelper.onConnectivityChanged.listen((status) {
       if (status == ConnectivityResult.none) {
         if(context.mounted) {
-        Navigator.pushAndRemoveUntil(context, ScaleRoute(screen:  const NoInternetScreen(offlinePage: OfflinePages.markattendance,)), (r) => false);
+        Navigator.pushAndRemoveUntil(context, ScaleRoute(screen: const  NoInternetScreen(offlinePage: OfflinePages.markattendance,)), (r) => false);
 
         }
       }

@@ -25,7 +25,9 @@ mixin _$MonthlyPlanSearchState {
   bool get hasError => throw _privateConstructorUsedError;
   ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MonthlyPlanSearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MonthlyPlanSearchStateCopyWith<MonthlyPlanSearchState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -59,6 +61,8 @@ class _$MonthlyPlanSearchStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MonthlyPlanSearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -102,6 +106,8 @@ class _$MonthlyPlanSearchStateCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of MonthlyPlanSearchState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel {
@@ -147,6 +153,8 @@ class __$$MonthlyPlanSearchStateImplCopyWithImpl<$Res>
       $Res Function(_$MonthlyPlanSearchStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MonthlyPlanSearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -271,7 +279,9 @@ class _$MonthlyPlanSearchStateImpl implements _MonthlyPlanSearchState {
       hasError,
       apiFailedModel);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MonthlyPlanSearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MonthlyPlanSearchStateImplCopyWith<_$MonthlyPlanSearchStateImpl>
@@ -303,8 +313,11 @@ abstract class _MonthlyPlanSearchState implements MonthlyPlanSearchState {
   bool get hasError;
   @override
   ApiFailedModel? get apiFailedModel;
+
+  /// Create a copy of MonthlyPlanSearchState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MonthlyPlanSearchStateImplCopyWith<_$MonthlyPlanSearchStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

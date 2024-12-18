@@ -23,7 +23,7 @@ class SocProductTotalAmountTextField extends StatelessWidget {
                 context.read<SalesOrderCreateCubit>().producttotalController,
             onChanged: (String? value) {},
             validator: (v) => null,
-            hintText: "Enter products total amount",
+            hintText: "Enter Products Total Amount",
             autovalidateMode: AutovalidateMode.disabled);
       },
     );

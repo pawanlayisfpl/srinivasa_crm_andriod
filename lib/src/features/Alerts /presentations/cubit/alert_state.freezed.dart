@@ -20,7 +20,9 @@ mixin _$AlertState {
   bool get isLoading => throw _privateConstructorUsedError;
   ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AlertState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AlertStateCopyWith<AlertState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +51,8 @@ class _$AlertStateCopyWithImpl<$Res, $Val extends AlertState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AlertState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -72,6 +76,8 @@ class _$AlertStateCopyWithImpl<$Res, $Val extends AlertState>
     ) as $Val);
   }
 
+  /// Create a copy of AlertState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel {
@@ -110,6 +116,8 @@ class __$$AlertStateImplCopyWithImpl<$Res>
       _$AlertStateImpl _value, $Res Function(_$AlertStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AlertState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -184,7 +192,9 @@ class _$AlertStateImpl implements _AlertState {
       isLoading,
       apiFailedModel);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AlertState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AlertStateImplCopyWith<_$AlertStateImpl> get copyWith =>
@@ -203,8 +213,11 @@ abstract class _AlertState implements AlertState {
   bool get isLoading;
   @override
   ApiFailedModel? get apiFailedModel;
+
+  /// Create a copy of AlertState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AlertStateImplCopyWith<_$AlertStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

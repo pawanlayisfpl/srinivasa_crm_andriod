@@ -28,7 +28,9 @@ mixin _$KycUploadState {
   bool get isSuccess => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of KycUploadState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $KycUploadStateCopyWith<KycUploadState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -61,6 +63,8 @@ class _$KycUploadStateCopyWithImpl<$Res, $Val extends KycUploadState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of KycUploadState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -143,6 +147,8 @@ class __$$KycUploadStateImplCopyWithImpl<$Res>
       _$KycUploadStateImpl _value, $Res Function(_$KycUploadStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of KycUploadState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -280,7 +286,9 @@ class _$KycUploadStateImpl implements _KycUploadState {
       isSuccess,
       errorMessage);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of KycUploadState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$KycUploadStateImplCopyWith<_$KycUploadStateImpl> get copyWith =>
@@ -307,10 +315,10 @@ abstract class _KycUploadState implements KycUploadState {
   @override
   ImageModel? get adharFileBack;
   @override
-  ImageModel? get panFile;
-  @override // Already nullable, kept as is
-  ImageModel? get gstFile;
-  @override // Already nullable, kept as is
+  ImageModel? get panFile; // Already nullable, kept as is
+  @override
+  ImageModel? get gstFile; // Already nullable, kept as is
+  @override
   KycRemarksField get remarksField;
   @override
   bool get isSubmitting;
@@ -318,8 +326,11 @@ abstract class _KycUploadState implements KycUploadState {
   bool get isSuccess;
   @override
   String? get errorMessage;
+
+  /// Create a copy of KycUploadState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$KycUploadStateImplCopyWith<_$KycUploadStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

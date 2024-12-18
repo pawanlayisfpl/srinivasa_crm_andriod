@@ -16,7 +16,7 @@ class SocAssignedToTextField extends StatelessWidget {
         return CommonTextfield(
           fillColor: AppColors.textFieldBgColor,
           
-          textEditingController: context.read<SalesOrderCreateCubit>().employeeIdController, onChanged: (String? value) => null, validator: (c) => null ,readOnly: true,  hintText: "Enter your employe id",maxLines: 1, autovalidateMode: AutovalidateMode.disabled,);
+          textEditingController: context.read<SalesOrderCreateCubit>().employeeIdController, onChanged: (String? value) => null, validator: (c) => null ,readOnly: true,  hintText: "Enter Your Employe Id",maxLines: 1, autovalidateMode: AutovalidateMode.disabled,);
       },
     );
   }

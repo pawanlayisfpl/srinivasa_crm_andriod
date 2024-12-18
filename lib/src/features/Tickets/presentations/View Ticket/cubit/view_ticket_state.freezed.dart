@@ -21,7 +21,9 @@ mixin _$ViewTicketState {
   List<ViewTicketModel> get viewTicketsList =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ViewTicketState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ViewTicketStateCopyWith<ViewTicketState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +52,8 @@ class _$ViewTicketStateCopyWithImpl<$Res, $Val extends ViewTicketState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ViewTicketState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -73,6 +77,8 @@ class _$ViewTicketStateCopyWithImpl<$Res, $Val extends ViewTicketState>
     ) as $Val);
   }
 
+  /// Create a copy of ViewTicketState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel {
@@ -111,6 +117,8 @@ class __$$ViewTicketStateImplCopyWithImpl<$Res>
       _$ViewTicketStateImpl _value, $Res Function(_$ViewTicketStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ViewTicketState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -181,7 +189,9 @@ class _$ViewTicketStateImpl implements _ViewTicketState {
   int get hashCode => Object.hash(runtimeType, isLoading, apiFailedModel,
       const DeepCollectionEquality().hash(_viewTicketsList));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ViewTicketState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ViewTicketStateImplCopyWith<_$ViewTicketStateImpl> get copyWith =>
@@ -201,8 +211,11 @@ abstract class _ViewTicketState implements ViewTicketState {
   ApiFailedModel? get apiFailedModel;
   @override
   List<ViewTicketModel> get viewTicketsList;
+
+  /// Create a copy of ViewTicketState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ViewTicketStateImplCopyWith<_$ViewTicketStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

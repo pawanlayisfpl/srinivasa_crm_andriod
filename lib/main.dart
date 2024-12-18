@@ -20,6 +20,7 @@ import 'package:srinivasa_crm_new/shared/presentations/cubit/forget_cubit.dart';
 
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Comments/presentations/Add%20Comment/cubit/add_comment_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Comments/presentations/View%20Comment/cubit/view_comment_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/All%20Customers/cubit/all_customer_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart';
@@ -43,9 +44,7 @@ import 'package:srinivasa_crm_new/src/features/Tickets/presentations/View%20Tick
 import 'package:srinivasa_crm_new/src/features/Tickets/presentations/cubit/add_ticket_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/cubit/user_activity_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
-import 'package:workmanager/workmanager.dart';
 
-import 'shared/data/repo/work_manager_services.dart';
 import 'src/config/config.dart';
 import 'src/features/Sales Order/presentation/Sales Order Pending/cubit/pending_order_cubit.dart';
 import 'src/features/login/presentation/cubit/login_cubit.dart';
@@ -294,6 +293,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => locator.get<ViewTicketCubit>()),
         BlocProvider(create: (_) => locator.get<ViewParticularTicketCubit>()),
         BlocProvider(create: (_) => locator.get<AddCommentCubit>()),
+        BlocProvider(create: (_) => locator.get<ViewCommentsCubit>()),
       ],
       child: MaterialApp(
         navigatorKey: AppKeys.globalNavigatorKey,
@@ -301,7 +301,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: RouteGenerator.getRoute,
         
         initialRoute: Platform.isAndroid ?  Routes.locationPermissionScreen : Routes.loginScreen,
-        title: 'SF Crm',
+        title: 'SFPL CRM',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             fontFamily: 'Poppins',
@@ -360,3 +360,7 @@ Future<void> _initDependencies() async {
       // static const String basicUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl";
 
   //  NEW VERSION WITH 15 MINUTES INTERVAL (1.0.2) - NOV -DEPLOYEMENT
+
+      // static const String new-live-url = "http://180.149.244.56:8081/crm_sfpl";
+
+      // PUNCH IN, PUNCH OUT , CHEKCIN , CHECK OUT,

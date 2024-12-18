@@ -10,6 +10,11 @@ class AppStyles {
       borderRadius: BorderRadius.circular(8),
       gapPadding: 10);
 
+      static InputBorder filledBorder = OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.grey, width: 1),
+      borderRadius: BorderRadius.circular(8),
+      gapPadding: 10);
+
   static InputBorder focusBorder = OutlineInputBorder(
       borderSide: const BorderSide(color: AppColors.primaryColor, width: 2),
       borderRadius: BorderRadius.circular(8),

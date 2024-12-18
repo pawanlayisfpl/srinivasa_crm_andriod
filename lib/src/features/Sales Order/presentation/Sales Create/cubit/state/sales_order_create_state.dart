@@ -4,6 +4,7 @@ import 'package:srinivasa_crm_new/src/common/fields/string_field.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/customer_model.dart';
 
+import '../../../../../../../shared/data/datasource/DeliveryTypes/delivery_type_model.dart';
 import '../../../../domain/model/get/payment_mode_model.dart';
 import '../../../../domain/model/get/product_model.dart';
 import '../../../../domain/model/get/uom_model.dart';
@@ -51,6 +52,10 @@ class SalesOrderCreateState with _$SalesOrderCreateState {
   @Default(false) bool isCustomerLoading,
   @Default([]) List<ProductFormModel> productFormList,
   @Default([]) List<ProductPendingFormModel> pendingFormList,
+  @Default([]) List<DeliveryTypeModel> deliveryTypesList,
+  @Default(null) DeliveryTypeModel? selectedDeliveryTypeModel, 
+  required StringField deliveryText,
+  @Default(false) bool? isDeliveryLoading,
   }) = _SalesOrderCreateState;
 
    factory SalesOrderCreateState.initial() => SalesOrderCreateState(
@@ -65,6 +70,7 @@ class SalesOrderCreateState with _$SalesOrderCreateState {
     orderRemarksField: StringField(''),
     assignedToRemarks: StringField(''),
     customerCodeField: StringField(''),
+    
     showInputError: false,
     customerList: [],
     selectedCustomerModel: null,
@@ -86,7 +92,12 @@ class SalesOrderCreateState with _$SalesOrderCreateState {
     originalTotalAmountValue : '',
     totalPendingAmountValue: '',
     remainingPercentage: '',
-    isSuccess: false
+    isSuccess: false,
+    deliveryTypesList: [],
+    selectedDeliveryTypeModel: null,
+    deliveryText: StringField(''),
+    isCustomerLoading: false,
+    isDeliveryLoading: false
 
 
   );

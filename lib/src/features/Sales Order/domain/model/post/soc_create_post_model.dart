@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class SocCreatePostModel {
   String customerCode;
   List<ProductDetails> productDetails;
@@ -12,6 +13,7 @@ class SocCreatePostModel {
   String orderRemarks;
   int assignTo;
   String assignToRemarks;
+  String? deliveryLocation;
   List<PendingPaymentDetails> pendingPaymentDetails;
 
   SocCreatePostModel({
@@ -28,6 +30,7 @@ class SocCreatePostModel {
     required this.orderRemarks,
     required this.assignTo,
     required this.assignToRemarks,
+    this.deliveryLocation,
     required this.pendingPaymentDetails,
   });
 

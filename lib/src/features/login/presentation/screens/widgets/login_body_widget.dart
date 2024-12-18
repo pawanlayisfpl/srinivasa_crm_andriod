@@ -127,9 +127,9 @@ class LoginBodyWidget extends StatelessWidget {
                           ],
                         ),
                       ),
-                            // GestureDetector(
-                            //   onTap: () => Navigator.push(context,SlideLeftRoute(screen: ForgetPasswordScreen())),
-                            //   child: CommonTextWidget(title: 'Forget Password ?',textSize: 14.sp,fontWeight: FontWeight.w600,textColor: AppColors.primaryColor,))
+                            GestureDetector(
+                              onTap: () => Navigator.push(context,SlideLeftRoute(screen: const ForgetPasswordScreen())),
+                              child: CommonTextWidget(title: 'Forget Password ?',textSize: 14.sp,fontWeight: FontWeight.w600,textColor: AppColors.primaryColor,))
                
                     ],
                   ),

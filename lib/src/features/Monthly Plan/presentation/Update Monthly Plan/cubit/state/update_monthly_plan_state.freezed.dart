@@ -34,7 +34,9 @@ mixin _$UpdateMonthlyPlanState {
       throw _privateConstructorUsedError;
   MonthlyPlanDateField get dateField => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UpdateMonthlyPlanState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UpdateMonthlyPlanStateCopyWith<UpdateMonthlyPlanState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -73,6 +75,8 @@ class _$UpdateMonthlyPlanStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UpdateMonthlyPlanState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -141,6 +145,8 @@ class _$UpdateMonthlyPlanStateCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of UpdateMonthlyPlanState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel {
@@ -191,6 +197,8 @@ class __$$UpdateMonthlyPlanStateImplCopyWithImpl<$Res>
       $Res Function(_$UpdateMonthlyPlanStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UpdateMonthlyPlanState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -398,7 +406,9 @@ class _$UpdateMonthlyPlanStateImpl implements _UpdateMonthlyPlanState {
       monthlyPlanKiloMeterTextField,
       dateField);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UpdateMonthlyPlanState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdateMonthlyPlanStateImplCopyWith<_$UpdateMonthlyPlanStateImpl>
@@ -447,8 +457,11 @@ abstract class _UpdateMonthlyPlanState implements UpdateMonthlyPlanState {
   MonthlyPlanApproxKilomenterField get monthlyPlanKiloMeterTextField;
   @override
   MonthlyPlanDateField get dateField;
+
+  /// Create a copy of UpdateMonthlyPlanState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UpdateMonthlyPlanStateImplCopyWith<_$UpdateMonthlyPlanStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

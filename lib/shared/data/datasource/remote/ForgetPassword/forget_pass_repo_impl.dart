@@ -5,6 +5,8 @@ import 'package:srinivasa_crm_new/shared/domain/repo/Forget%20Password/forget_pa
 import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/core/model/network%20exception/network_exception.dart';
+import 'package:srinivasa_crm_new/src/features/login/domain/models/update_password_post_model.dart';
+import 'package:srinivasa_crm_new/src/features/login/domain/models/update_password_resposne_model.dart';
 
 @Injectable(as: ForgetPasswordRepo)
 class ForgetPassRepoImpl implements ForgetPasswordRepo {
@@ -52,6 +54,26 @@ class ForgetPassRepoImpl implements ForgetPasswordRepo {
     return Left(NetworkExceptions.getDioException(e));
      
    }
+  }
+
+  @override
+  Future<Either<NetworkExceptions, UpdatePasswordResponseModel>> updatePassword({required UpdatePassPostModel updatePassPostModel}) async {
+    final status = await internetChecker.hasInternet();
+    if(status) {
+      try {
+        final response = await dioClient.put(Endpoints.updatePassword,data: updatePassPostModel,headers: {});
+        if(response.statusCode == 200) {
+          UpdatePasswordResponseModel updatePasswordResponseModel = UpdatePasswordResponseModel.fromJson(response.data);
+          return right(updatePasswordResponseModel);
+        }else {
+          return left(NetworkExceptions.getDioException(response.data));
+        }
+      }on DioException catch (e) {
+        return left(NetworkExceptions.getDioException(e));
+      }
+  }else {
+    return left(const NetworkExceptions.noInternetConnection());
+  }
   }
 
 

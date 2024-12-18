@@ -21,7 +21,9 @@ mixin _$SalesOrderViewState {
   ViewSalesOrderModel get viewSalesOrderModel =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SalesOrderViewState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SalesOrderViewStateCopyWith<SalesOrderViewState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +52,8 @@ class _$SalesOrderViewStateCopyWithImpl<$Res, $Val extends SalesOrderViewState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SalesOrderViewState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -73,6 +77,8 @@ class _$SalesOrderViewStateCopyWithImpl<$Res, $Val extends SalesOrderViewState>
     ) as $Val);
   }
 
+  /// Create a copy of SalesOrderViewState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel {
@@ -111,6 +117,8 @@ class __$$SalesOrderViewStateImplCopyWithImpl<$Res>
       $Res Function(_$SalesOrderViewStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SalesOrderViewState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -172,7 +180,9 @@ class _$SalesOrderViewStateImpl implements _SalesOrderViewState {
   int get hashCode =>
       Object.hash(runtimeType, isLoading, apiFailedModel, viewSalesOrderModel);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SalesOrderViewState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SalesOrderViewStateImplCopyWith<_$SalesOrderViewStateImpl> get copyWith =>
@@ -193,8 +203,11 @@ abstract class _SalesOrderViewState implements SalesOrderViewState {
   ApiFailedModel? get apiFailedModel;
   @override
   ViewSalesOrderModel get viewSalesOrderModel;
+
+  /// Create a copy of SalesOrderViewState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SalesOrderViewStateImplCopyWith<_$SalesOrderViewStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

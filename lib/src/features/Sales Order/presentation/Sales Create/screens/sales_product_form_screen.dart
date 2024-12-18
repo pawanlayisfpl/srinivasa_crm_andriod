@@ -7,7 +7,6 @@ import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/common/widgets/text/common_textfield_heading_widget.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/cubit/sales_order_create_cubit.dart';
-import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_product_chdate_textfield.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_product_details_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_product_rate_textfield_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%20Create/screens/widgets/soc_product_selling_rate_textfield_widget.dart';
@@ -27,6 +26,13 @@ class SalesProductFormScreen extends StatefulWidget {
 }
 
 class _SalesProductFormScreenState extends State<SalesProductFormScreen> {
+
+@override 
+  initState() {
+    super.initState();
+    context.read<SalesOrderCreateCubit>().resetProductStatesss();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +81,7 @@ class _SalesProductFormScreenState extends State<SalesProductFormScreen> {
                   2.verticalSpace,
                   const SocProductSellingRateTextField(),
                   20.verticalSpace,
-                         const CommonTextFieldHeadingWidget(title: 'Quantity',isRequired: true,),
+                         const CommonTextFieldHeadingWidget(title: 'Qty',isRequired: true,),
                   2.verticalSpace,
                   const SocProductQtyTextFieldWidget(),
                   20.verticalSpace,
@@ -106,23 +112,23 @@ class _SalesProductFormScreenState extends State<SalesProductFormScreen> {
                   2.verticalSpace,
                   const SocProductShipmentTextField(),
                   20.verticalSpace,
-                                                                     const CommonTextFieldHeadingWidget(title: 'CH Hatching date(optional)',isRequired: false,),
+                  //                                                    const CommonTextFieldHeadingWidget(title: 'CH Hatching date(optional)',isRequired: false,),
 
-                  2.verticalSpace,
-                  const SocProductChDateTextField(),
-                  20.verticalSpace,
+                  // 2.verticalSpace,
+                  // const SocProductChDateTextField(),
+                  // 20.verticalSpace,
                   CommonButton(
                       callback: () async {
                         context.read<SalesOrderCreateCubit>().submitProductForm(
                             successCallback: () {
                           Fluttertoast.showToast(
-                              msg: 'Product saved',
+                              msg: 'Product Saved',
                               backgroundColor: Colors.green,
                               textColor: Colors.white);
                           Navigator.pop(context);
                         }, failedCallback: () {
                           Fluttertoast.showToast(
-                              msg: 'Please fill all the details',
+                              msg: 'All fields are required',
                               backgroundColor: Colors.red,
                               textColor: Colors.white);
                         });

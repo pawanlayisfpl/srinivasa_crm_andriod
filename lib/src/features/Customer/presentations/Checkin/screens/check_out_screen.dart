@@ -19,6 +19,7 @@ import 'package:srinivasa_crm_new/src/features/Kyc/presentation/Kyc%20Upload/scr
 
 import '../../../../../../shared/domain/model/Image/image_model.dart';
 import '../../../../../config/config.dart';
+import '../../../../../core/battery/common_battery.dart';
 import '../../../domain/model/get/customer_model.dart';
 
 class CheckoutScreen extends StatefulWidget {
@@ -137,6 +138,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         List<FileModel> filesList =
                             context.read<CheckinCubit>().state.filesList;
 
+                                              int batterylevel = await locator.get<CommonBattery>().getBatteryLevel();
+
+
                         CheckoutPostModel checkoutPostModel = CheckoutPostModel(
                           userIds: userIds,
                           customerId: widget.customermodel.farm!.customerId.toString(),
@@ -149,6 +153,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           remarks: _descrtiptionController.text.toString(),
                           files: filesList.map((e) => e.fileBytes).toList(),
                           images: imageLists.map((e) => e.imageByes).toList(),
+                          batteryStatus: batterylevel.toString(),
                         );
                       if(context.mounted) {
                            await context.read<CheckinCubit>().checkoutLogic(

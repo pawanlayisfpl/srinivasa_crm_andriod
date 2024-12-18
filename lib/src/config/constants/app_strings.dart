@@ -44,4 +44,6 @@ class AppStrings {
   static const String rejected = "REJECTED";
   static const String created = "CREATED";
   static const String updated = "UPDATED";
+
+  static const String appVersion = "1.0.4";
 }

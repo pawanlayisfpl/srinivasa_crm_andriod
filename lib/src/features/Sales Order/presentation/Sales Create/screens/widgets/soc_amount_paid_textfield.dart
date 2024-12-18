@@ -15,6 +15,6 @@ class SocAmountPaidController extends StatelessWidget {
           inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))],
           textInputType: TextInputType.number,
           
-          textEditingController: context.read<SalesOrderCreateCubit>().amountPaidController , onChanged: (String? value) => context.read<SalesOrderCreateCubit>().onAmountPaidChanged("") ,validator: (v) => null,  hintText: "Enter paid amount", autovalidateMode: AutovalidateMode.disabled);
+          textEditingController: context.watch<SalesOrderCreateCubit>().amountPaidController , onChanged: (String? value) => context.read<SalesOrderCreateCubit>().onAmountPaidChanged("") ,validator: (v) => null,  hintText: "Enter Paid Amount", autovalidateMode: AutovalidateMode.disabled);
   }
 }

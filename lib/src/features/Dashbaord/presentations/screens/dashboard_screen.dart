@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:double_tap_to_exit/double_tap_to_exit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,8 +22,11 @@ import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profi
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
 
+import '../../../../../shared/presentations/Update Password/presentations/screens/update_password_screen.dart';
 import '../../../../config/config.dart';
 import '../../../../core/core.dart';
+import '../../../No Internet/helper/connectivity_helper.dart';
+import '../../../No Internet/screens/no_internet_screen.dart';
 
 
 
@@ -42,10 +46,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
 
 
+
+
+
+
+
+
   @override
   void initState() {
     super.initState();
-      _subscription = _connectivityHelper.onConnectivityChanged.listen((status) {
+       _subscription = _connectivityHelper.onConnectivityChanged.listen((status) {
       if (status == ConnectivityResult.none) {
         if(context.mounted) {
         Navigator.pushAndRemoveUntil(context, ScaleRoute(screen:  const NoInternetScreen(offlinePage: OfflinePages.dashboard,)), (r) => false);
@@ -65,15 +75,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
     });
   }
 
-   @override
+  @override
   void dispose() {
     _subscription.cancel();
-    _connectivityHelper.dispose();
     super.dispose();
   }
 
-
-  
   @override
   Widget build(BuildContext context) {
     
@@ -211,9 +218,10 @@ void showLogoutDialog(BuildContext context) {
               if (value == "0") {
                 Fluttertoast.showToast(msg: "App Permission clicked");
                 Navigator.push(context, SlideRightRoute(screen: const NativeScreen()));
-              } else if (value == "1") {
+              } else if (value == "3") {
                 // await Workmanager().cancelAll();
                 // Fluttertoast.showToast(msg: "Sync list clicked");
+                Navigator.push(context, SlideRightRoute(screen: const UpdatePasswordScreen()));
               
               } else if (value == "2") {
                 // showLogoutDialog(context);
@@ -237,6 +245,11 @@ void showLogoutDialog(BuildContext context) {
               const PopupMenuItem<String>(
                 value: '2',
                 child: Text('Log Out'),
+              ),
+                 const PopupMenuDivider(),
+                 const PopupMenuItem<String>(
+                value: '3',
+                child: Text('Update Password'),
               ),
             ],
             icon: const Icon(Icons.more_vert),

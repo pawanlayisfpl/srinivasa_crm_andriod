@@ -16,12 +16,12 @@ class SocPaymentModeDropDownWidget extends StatelessWidget {
     return BlocBuilder<SalesOrderCreateCubit, SalesOrderCreateState>(
       builder: (context, state,) {
         return ColoredBox(
-          color: Colors.grey.shade300,
+          color: Colors.grey.shade100,
           child: DropdownSearch<PaymentModeModel>(
                   enabled: true,
                   selectedItem: state.selectedPaymentModeModel,
           
-                  dropdownBuilder: (context, selectedItems) => state.selectedPaymentModeModel == null ?  const CommonTextWidget(title: "Select your payment mode",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedPaymentModeModel!.paymentModeName.toString()) ,
+                  dropdownBuilder: (context, selectedItems) => state.selectedPaymentModeModel == null ?  const CommonTextWidget(title: "Select Your Payment Mode",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedPaymentModeModel!.paymentModeName.toString()) ,
                   
                   
                   dropdownButtonProps:  const DropdownButtonProps(

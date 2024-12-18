@@ -99,7 +99,9 @@ mixin _$CustomerCreateState {
   bool get isCityLoading => throw _privateConstructorUsedError;
   bool get isLocalityLoading => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CustomerCreateState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CustomerCreateStateCopyWith<CustomerCreateState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -183,6 +185,8 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CustomerCreateState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -482,6 +486,8 @@ class _$CustomerCreateStateCopyWithImpl<$Res, $Val extends CustomerCreateState>
     ) as $Val);
   }
 
+  /// Create a copy of CustomerCreateState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel {
@@ -575,6 +581,8 @@ class __$$CustomerCreateStateImplCopyWithImpl<$Res>
       $Res Function(_$CustomerCreateStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CustomerCreateState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1423,7 +1431,9 @@ class _$CustomerCreateStateImpl
         isLocalityLoading
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CustomerCreateState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CustomerCreateStateImplCopyWith<_$CustomerCreateStateImpl> get copyWith =>
@@ -1500,8 +1510,8 @@ abstract class _CustomerCreateState implements CustomerCreateState {
   @override
   CustomerCreateCustomerNameField get customerCreateCustomerNameField;
   @override
-  CustomerCreatePhoneField get customerPhoneField;
-  @override // REMOVE THIS FIELD
+  CustomerCreatePhoneField get customerPhoneField; // REMOVE THIS FIELD
+  @override
   CustomreCreateTitleField get customerTitleField;
   @override
   CustomerCreateContactPersonField get customerCreateContactPersonField;
@@ -1578,8 +1588,8 @@ abstract class _CustomerCreateState implements CustomerCreateState {
   @override
   CustomerCodeModel? get selectedCustomerCodeModel;
   @override
-  bool get isCustomerCodeLoading;
-  @override // REMOVEE
+  bool get isCustomerCodeLoading; // REMOVEE
+  @override
   CustomerCreateCityField get customerCreateCityField;
   @override
   CustomerCreateLocalityField get customerCreateLocalityField;
@@ -1613,8 +1623,11 @@ abstract class _CustomerCreateState implements CustomerCreateState {
   bool get isCityLoading;
   @override
   bool get isLocalityLoading;
+
+  /// Create a copy of CustomerCreateState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CustomerCreateStateImplCopyWith<_$CustomerCreateStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -31,7 +31,9 @@ mixin _$CreateMonthlyPlanState {
   bool? get isInitialLoading => throw _privateConstructorUsedError;
   List<DailyPlan> get dailyPlanList => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CreateMonthlyPlanState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CreateMonthlyPlanStateCopyWith<CreateMonthlyPlanState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -69,6 +71,8 @@ class _$CreateMonthlyPlanStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CreateMonthlyPlanState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -132,6 +136,8 @@ class _$CreateMonthlyPlanStateCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of CreateMonthlyPlanState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel {
@@ -181,6 +187,8 @@ class __$$CreateMonthlyPlanStateImplCopyWithImpl<$Res>
       $Res Function(_$CreateMonthlyPlanStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CreateMonthlyPlanState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -388,7 +396,9 @@ class _$CreateMonthlyPlanStateImpl
       isInitialLoading,
       const DeepCollectionEquality().hash(_dailyPlanList));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CreateMonthlyPlanState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CreateMonthlyPlanStateImplCopyWith<_$CreateMonthlyPlanStateImpl>
@@ -433,8 +443,11 @@ abstract class _CreateMonthlyPlanState implements CreateMonthlyPlanState {
   bool? get isInitialLoading;
   @override
   List<DailyPlan> get dailyPlanList;
+
+  /// Create a copy of CreateMonthlyPlanState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CreateMonthlyPlanStateImplCopyWith<_$CreateMonthlyPlanStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

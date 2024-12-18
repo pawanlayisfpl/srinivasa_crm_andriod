@@ -22,7 +22,9 @@ mixin _$OtpState {
   bool get showInputError => throw _privateConstructorUsedError;
   ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OtpState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $OtpStateCopyWith<OtpState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -52,6 +54,8 @@ class _$OtpStateCopyWithImpl<$Res, $Val extends OtpState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of OtpState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -85,6 +89,8 @@ class _$OtpStateCopyWithImpl<$Res, $Val extends OtpState>
     ) as $Val);
   }
 
+  /// Create a copy of OtpState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel {
@@ -125,6 +131,8 @@ class __$$OtpStateImplCopyWithImpl<$Res>
       _$OtpStateImpl _value, $Res Function(_$OtpStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of OtpState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -208,7 +216,9 @@ class _$OtpStateImpl implements _OtpState {
   int get hashCode => Object.hash(runtimeType, numberField, passwordField,
       isSubmitting, showInputError, apiFailedModel);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OtpState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$OtpStateImplCopyWith<_$OtpStateImpl> get copyWith =>
@@ -233,8 +243,11 @@ abstract class _OtpState implements OtpState {
   bool get showInputError;
   @override
   ApiFailedModel? get apiFailedModel;
+
+  /// Create a copy of OtpState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$OtpStateImplCopyWith<_$OtpStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

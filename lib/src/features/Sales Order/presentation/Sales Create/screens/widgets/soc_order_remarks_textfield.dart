@@ -16,7 +16,7 @@ class SocOrderRemakrsTextField extends StatelessWidget {
         return CommonTextfield(
           fillColor: AppColors.textFieldBgColor,
           
-          textEditingController: context.read<SalesOrderCreateCubit>().orderRemarksController, onChanged: (String? value) => value == null ? null : context.read<SalesOrderCreateCubit>().onOrderRemarksChanged(value), validator: (c) => null ,  hintText: "Enter your remarks",maxLines: 4, autovalidateMode: AutovalidateMode.disabled,);
+          textEditingController: context.read<SalesOrderCreateCubit>().orderRemarksController, onChanged: (String? value) => value == null ? null : context.read<SalesOrderCreateCubit>().onOrderRemarksChanged(value), validator: (c) => null ,  hintText: "Enter Your Remarks",maxLines: 4, autovalidateMode: AutovalidateMode.disabled,);
       },
     );
   }

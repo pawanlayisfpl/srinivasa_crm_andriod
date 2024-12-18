@@ -17,13 +17,13 @@ class SocUomDropDownWidget extends StatelessWidget {
     return BlocBuilder<SalesOrderCreateCubit, SalesOrderCreateState>(
       builder: (context, state,) {
         return ColoredBox(
-          color: Colors.grey.shade300,
+          color: Colors.grey.shade100,
           child: DropdownSearch<UOMModel>(
             
                   enabled: true,
                   selectedItem: state.selectedUomModel,
           
-                  dropdownBuilder: (context, selectedItems) => state.selectedUomModel == null ?  const CommonTextWidget(title: "Select your uom type",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedUomModel!.uomName.toString()) ,
+                  dropdownBuilder: (context, selectedItems) => state.selectedUomModel == null ?  const CommonTextWidget(title: "Select Your UOM Type",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedUomModel!.uomName.toString()) ,
                   
                   
                   dropdownButtonProps:   DropdownButtonProps( 
@@ -51,7 +51,7 @@ class SocUomDropDownWidget extends StatelessWidget {
                   showSearchBox: true,
                   searchFieldProps: TextFieldProps(
                     decoration: InputDecoration(
-                      hintText: 'Search uom type',
+                      hintText: 'Search UOM Type',
                       prefixIcon: Icon(Icons.search), 
                   ),
                   ),

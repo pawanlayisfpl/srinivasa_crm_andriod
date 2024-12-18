@@ -2,13 +2,16 @@
 
 
 
+import 'package:battery_plus/battery_plus.dart';
 import 'package:bloc/bloc.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/constants/key_value_strings.dart';
 import 'package:srinivasa_crm_new/src/config/locator/locator.dart';
+import 'package:srinivasa_crm_new/src/core/battery/common_battery.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 
@@ -63,10 +66,15 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
     emit(state.copyWith(isSubmitting: true,punchInFailure: false,punchInSuccess: false,punchOutSuccess: false,punchOutFailure: false,loading: false,loaded: false,));
      final postion = await commonLocationServices.getUserCurrentPosition();
 
+    int batterylevl = await locator.get<CommonBattery>().getBatteryLevel();
+    
+
     PunchInPostModel postModel = PunchInPostModel(
       latitude: postion.latitude.toString(),
       longitude: postion.longitude.toString(),
       createdAt: DateTime.now().toString(),
+      batteryStatus: batterylevl.toString(),
+
       
     );
     final result = await punchInUseCase.execute(punchInPostModel: postModel);
@@ -85,10 +93,13 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
     emit(state.copyWith(isSubmitting: true,punchInFailure: false,punchInSuccess: false,punchOutSuccess: false,loading: false,loaded: false));
 
     final postion = await commonLocationServices.getUserCurrentPosition();
+        int batterylevl = await locator.get<CommonBattery>().getBatteryLevel();
+
     PunchoutPostModel postModel = PunchoutPostModel(
       createdAt: DateTime.now().toString(),
       latitude: postion.latitude.toString(),
       longitude: postion.longitude.toString(),
+      batteryStatus: batterylevl.toString(),  
     );
    
 
@@ -100,7 +111,34 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
 
     emit(state.copyWith(isSubmitting: false, punchOutSuccess: true, apiFailModel: null,loading: false,loaded: false,));
     final keyValueStorage = locator.get<KeyValueStorage>();
+    final dioclinet = locator.get<DioClient>();
+     int batteryValue = 0;
+
+
+    var battery = Battery();
+        final postion = await commonLocationServices.getUserCurrentPosition();
+
+    batteryValue = await battery.batteryLevel;
+      String userDateTime = DateTime.now().toIso8601String();
+    final response = await dioclinet.post("http://180.149.244.56:8081/crm_sfpl/se/locations",
+   
+    data:  {
+    "latitude": postion.latitude.toString(),
+    "longitude": postion.longitude.toString(),
+    "userDateTime": userDateTime,
+    "batteryStatus" : batteryValue.toString(),
+  },headers: {});
+
+
+  if(response.statusCode == 200 || response.statusCode == 201) {
     keyValueStorage.sharedPreferences.remove(KeyValueStrings.isLoggedIn);
+
+    await FirebaseMessaging.instance.unsubscribeFromTopic('news');
+
+
+  }else {
+
+  }
     // TODO: COMMENTING THIS FOR TESTING
     // keyValueStorage.sharedPreferences.clear();
         //   if(isLogoutClicked != null && isLogoutClicked == true) {

@@ -38,7 +38,9 @@ mixin _$CheckinState {
   List<FileModel> get filesList => throw _privateConstructorUsedError;
   List<ImageModel> get imageLists => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CheckinState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CheckinStateCopyWith<CheckinState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -80,6 +82,8 @@ class _$CheckinStateCopyWithImpl<$Res, $Val extends CheckinState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CheckinState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -168,6 +172,8 @@ class _$CheckinStateCopyWithImpl<$Res, $Val extends CheckinState>
     ) as $Val);
   }
 
+  /// Create a copy of CheckinState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel {
@@ -219,6 +225,8 @@ class __$$CheckinStateImplCopyWithImpl<$Res>
       _$CheckinStateImpl _value, $Res Function(_$CheckinStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CheckinState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -484,7 +492,9 @@ class _$CheckinStateImpl implements _CheckinState {
       const DeepCollectionEquality().hash(_filesList),
       const DeepCollectionEquality().hash(_imageLists));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CheckinState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CheckinStateImplCopyWith<_$CheckinStateImpl> get copyWith =>
@@ -542,8 +552,11 @@ abstract class _CheckinState implements CheckinState {
   List<FileModel> get filesList;
   @override
   List<ImageModel> get imageLists;
+
+  /// Create a copy of CheckinState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CheckinStateImplCopyWith<_$CheckinStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

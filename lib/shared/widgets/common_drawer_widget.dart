@@ -8,6 +8,12 @@ import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_state.dart';
 
+import '../../src/features/Policies/contact_us_scren.dart';
+import '../../src/features/Policies/faq_screen.dart';
+import '../../src/features/Policies/privacy_pollicy_screen.dart';
+import '../../src/features/Policies/terms_and_conditions_screen.dart';
+
+
 class CommonDrawerWidget extends StatelessWidget {
   const CommonDrawerWidget({super.key});
 
@@ -43,11 +49,48 @@ class CommonDrawerWidget extends StatelessWidget {
            const Divider(),
            ReusableListTileWidget(title: data.profileResponseModel.userModel!.repostingManagerName.toString(), icon: Icons.dashboard,subTitleText: "(Reporting Manager)" ,), 
            const Divider(), 
-           20.verticalSpace,
+          //  20.verticalSpace,
           //  NEW VERSION WITH 15 MINUTES INTERVAL
-            const ReusableListTileWidget(title: "App version no", icon: Icons.dashboard,subTitleText: "1.0.2" ,), 
+            const ReusableListTileWidget(title: "App version no", icon: Icons.dashboard,subTitleText: "1.0.4" ,), 
+             const Divider(), 
+                       GestureDetector(
+                        onTap: () {
+                          if(Navigator.canPop(context)) {
+                            Navigator.pop(context);
+                          }
+                          Navigator.push(context, MaterialPageRoute(builder: (c) =>  const ContactUsScreen()));
+                        },
+                        child: const ReusableListTileWidget(title: "Contact Us", icon: Icons.contact_emergency ,)),
            const Divider(), 
-           20.verticalSpace,
+                       GestureDetector(
+                        onTap: () {
+                          if(Navigator.canPop(context)) {
+                            Navigator.pop(context);
+                          }
+                          Navigator.push(context, MaterialPageRoute(builder: (c) =>  const PrivacyPolicyScreen()));
+                        },
+                        child: const ReusableListTileWidget(title: "Privacy Policy", icon: Icons.shield_outlined ,)), 
+
+         const Divider(), 
+                       GestureDetector(
+                           onTap: () {
+                          if(Navigator.canPop(context)) {
+                            Navigator.pop(context);
+                          }
+                          Navigator.push(context, MaterialPageRoute(builder: (c) =>   const TermsAndConditionsScreen()));
+                        },
+                        child: const ReusableListTileWidget(title: "Terms & Conditions", icon: Icons.contact_page_rounded ,)), 
+
+             const Divider(), 
+                       GestureDetector(
+                           onTap: () {
+                          if(Navigator.canPop(context)) {
+                            Navigator.pop(context);
+                          }
+                          Navigator.push(context, MaterialPageRoute(builder: (c) =>  const FaqScreen()));
+                        },
+                        child: const ReusableListTileWidget(title: "FAQ'S", icon: Icons.question_answer,)),
+
               // LOGOUT
     //           ListTile(
     //             title: const CommonTextWidget(title: "Logout",textColor: AppColors.primaryColor,),
@@ -133,8 +176,8 @@ class ReusableListTileWidget extends StatelessWidget {
     return ListTile(
 
                 leading: Icon(icon),
-                title: CommonTextWidget(title: title,maxLines: 2,),
-                subtitle:subTitleText != null ? CommonTextWidget(title:  subTitleText ?? ""  ,textColor: Colors.black.withOpacity(0.6),fontWeight: FontWeight.w500,) : null,
+                title: CommonTextWidget(title: title,maxLines: 2,textSize: 12.sp,),
+                subtitle:subTitleText != null ? CommonTextWidget(title:  subTitleText ?? ""  ,textColor: Colors.black.withOpacity(0.6),fontWeight: FontWeight.w500,textSize: 12.sp,) : null,
               );
   }
 }

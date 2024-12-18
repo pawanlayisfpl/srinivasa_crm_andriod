@@ -7,7 +7,8 @@ import '../../../../../common/fields/string_field.dart';
 // import 'package:srinivasa_crm_new/src/features/Comments/domain/model/post/comment_post_model.dart';
 
 
-part '../cubit/add_comment_state.freezed.dart';
+// part '../cubit/add_comment_state.freezed.dart';
+part 'add_comment_state.freezed.dart';
 
 @freezed
 class AddCommentState with _$AddCommentState {

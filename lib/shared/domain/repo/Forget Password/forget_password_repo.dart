@@ -1,6 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:srinivasa_crm_new/src/core/model/network%20exception/network%20exception.dart';
 
+import '../../../../src/features/login/domain/models/update_password_post_model.dart';
+import '../../../../src/features/login/domain/models/update_password_resposne_model.dart';
+
 class FindEmailPostModel {
   final String email;
 
@@ -74,6 +77,7 @@ abstract class ForgetPasswordRepo {
 
   Future<Either<NetworkExceptions,FindEmailResponseModel>> findEmail({required FindEmailPostModel findEmailPostModel});
   Future<Either<NetworkExceptions,ResetPassResponseModel>> resetPass({required ResetPassPostModel resetPassPostModel});  
+  Future<Either<NetworkExceptions,UpdatePasswordResponseModel>> updatePassword({required UpdatePassPostModel updatePassPostModel});
  
 
   
