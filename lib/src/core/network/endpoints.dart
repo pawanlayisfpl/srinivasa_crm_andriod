@@ -5,8 +5,8 @@ class Endpoints {
   // static const String basicUrl = "http://192.168.64.123:8080/crmsfpl";
     // static const String basicUrl = "http://95.216.201.117:8081/crmsfpl";
     
-    static const String basicUrl = "http://180.149.244.56:8081/crm_sfpl";
-    static const String testUrl = "http://180.149.244.56:8081/crm_sfpl";
+    static const String basicUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl";
+    static const String testUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl";
     // static const String basicUrl = "http://crmapi.srinivasa.co:8081/crm_sfpl";
     // static const String basicUrl = "http://95.216.201.117:8081/crm_sfpl";
     // static const String testUrl = "http://95.216.201.117:8081/crm_sfpl";
@@ -131,5 +131,7 @@ class Endpoints {
   // DELIVERY TYPES 
   static const String getAllDeliveryTypes = '$basicUrl/se/delivery-type';
 
+
+  static const String locationUrl = '$basicUrl/se/locations';
 
 }

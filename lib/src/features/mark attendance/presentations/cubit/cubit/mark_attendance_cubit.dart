@@ -120,7 +120,7 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
 
     batteryValue = await battery.batteryLevel;
       String userDateTime = DateTime.now().toIso8601String();
-    final response = await dioclinet.post("http://180.149.244.56:8081/crm_sfpl/se/locations",
+    final response = await dioclinet.post(Endpoints.locationUrl,
    
     data:  {
     "latitude": postion.latitude.toString(),

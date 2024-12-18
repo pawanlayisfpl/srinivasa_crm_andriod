@@ -211,6 +211,8 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+     HttpOverrides.global = MyHttpOverrides();
+
   await _initDependencies();
   await Firebase.initializeApp(
   options: DefaultFirebaseOptions.currentPlatform,
@@ -338,6 +340,17 @@ Future<void> _initDependencies() async {
   locator.registerLazySingleton<Environment>(
       () => const Environment(Environment.prod));
 }
+
+
+ class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
+}
+
+
 
 // OFFLINE WORKING FOR LOGIN, ALL CUSTOMERS, CHECKIN AND CHECKOUT ,SALES ORDER AND ALERTS,
 // urls

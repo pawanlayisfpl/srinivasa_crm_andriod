@@ -30,7 +30,7 @@ class TicketsRepoImpl implements TicketsRepo {
    final status = await internetChecker.hasInternet();
 
    if(status) {
-    final response = await dioClient.post("http://180.149.244.56:8081/crm_sfpl/user/ticket",data: ticketCreatePostModel.toJson(),headers: {});
+    final response = await dioClient.post(Endpoints.createTicket,data: ticketCreatePostModel.toJson(),headers: {});
 
     if(response.statusCode == 200 || response.statusCode == 201) {
       TicketResponseModel ticketResponseModel = TicketResponseModel.fromJson(response.data);
@@ -52,7 +52,7 @@ class TicketsRepoImpl implements TicketsRepo {
     if(status) {
       try {
         // TODO: CHANGE ENDPOINT TO LIVE ENDPOINT GET TICKETS
-        final response = await dioClient.get("http://180.149.244.56:8081/crm_sfpl/user/ticket",headers: {});
+        final response = await dioClient.get(Endpoints.createTicket,headers: {});
 
         if(response.statusCode == 200) {
           ViewTicketResponseModel viewTicketResponseModel = ViewTicketResponseModel.fromJson(response.data);
@@ -82,7 +82,7 @@ class TicketsRepoImpl implements TicketsRepo {
 
     if(status) {
       try {
-        final response = await dioClient.get("http://180.149.244.56:8081/crm_sfpl/user/ticket/$ticketId",headers: {});
+        final response = await dioClient.get(Endpoints.createTicket + '${ticketId.toString()}',headers: {});
 
         if(response.statusCode == 200) {
           ViewParticularTicketModel viewParticularTicketModel = ViewParticularTicketModel.fromJson(response.data['data']);
