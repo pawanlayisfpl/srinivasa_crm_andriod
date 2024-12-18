@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import 'package:srinivasa_crm_new/src/common/widgets/widgets.dart';
+import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
 import 'package:srinivasa_crm_new/src/features/Tickets/presentations/View%20Ticket/cubit/view_ticket_cubit.dart';
 
 import '../../../../data/model/get/view_ticket_resposne_model.dart';
+import '../../../View Particular Ticket/screen/view_particular_ticket_screen.dart';
 
 class ViewTicketLoadedWidget extends StatelessWidget {
   final List<ViewTicketModel> viewTicketsList;

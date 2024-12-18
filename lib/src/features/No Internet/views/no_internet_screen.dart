@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:srinivasa_crm_new/src/core/connection/internet_checker.dart';
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/screens/dashboard_screen.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
@@ -76,13 +75,13 @@ final OfflinePages offlinePage;
                   case OfflinePages.dashboard:
                     Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => DashboardScreen()),
+                        MaterialPageRoute(builder: (context) => const DashboardScreen()),
                         (route) => false);
                     break;
                   case OfflinePages.markattendance:
                     Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => MarkAttendanceScreen(isCheckedInScreen: true,)),
+                        MaterialPageRoute(builder: (context) => const MarkAttendanceScreen(isCheckedInScreen: true,)),
                         (route) => false);
                     break;
                 }

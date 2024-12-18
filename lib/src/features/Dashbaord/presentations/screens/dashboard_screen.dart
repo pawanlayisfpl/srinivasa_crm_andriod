@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:double_tap_to_exit/double_tap_to_exit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,8 +24,6 @@ import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/s
 import '../../../../../shared/presentations/Update Password/presentations/screens/update_password_screen.dart';
 import '../../../../config/config.dart';
 import '../../../../core/core.dart';
-import '../../../No Internet/helper/connectivity_helper.dart';
-import '../../../No Internet/screens/no_internet_screen.dart';
 
 
 

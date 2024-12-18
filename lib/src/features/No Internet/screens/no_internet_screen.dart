@@ -75,13 +75,13 @@ final OfflinePages offlinePage;
                   case OfflinePages.dashboard:
                     Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => DashboardScreen()),
+                        MaterialPageRoute(builder: (context) => const DashboardScreen()),
                         (route) => false);
                     break;
                   case OfflinePages.markattendance:
                     Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => MarkAttendanceScreen(isCheckedInScreen: true,)),
+                        MaterialPageRoute(builder: (context) => const MarkAttendanceScreen(isCheckedInScreen: true,)),
                         (route) => false);
                     break;
                 }
