@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/src/config/locator/locator.dart';
@@ -100,7 +99,6 @@ if (error.response?.statusCode == 401) {
       //   break;
       case DioExceptionType.unknown:
         if (error.response?.statusCode == 401) {
-          Fluttertoast.showToast(msg: "Unauthorised request");
           networkExceptions = const NetworkExceptions.unauthorisedRequest();
         } else {
           
@@ -181,6 +179,7 @@ notImplemented: () => "Not Implemented",
     unableToProcess: () => "Unable to process the data",
     formatException: () => "Unexpected error occurred",
     notAcceptable: () => "Not acceptable",
+    
   );
 }
 

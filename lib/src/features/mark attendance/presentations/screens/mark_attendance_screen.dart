@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:quickalert/quickalert.dart';
@@ -58,6 +59,30 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
   
     });
   }
+
+
+     @override
+  void dispose() {
+    _subscription.cancel();
+    _connectivityHelper.dispose();
+    super.dispose();
+  }
+
+
+  @override
+  void didUpdateWidget(covariant  oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Add your custom logic here
+
+    if(widget != oldWidget) {
+      Fluttertoast.showToast(msg: 'New Widget');
+    }
+  }
+
+  
+
+
+
    checkingPermissions() async  {
   
   Future<void> requestPermissions(BuildContext context) async {

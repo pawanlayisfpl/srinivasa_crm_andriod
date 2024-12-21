@@ -211,7 +211,7 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-     HttpOverrides.global = MyHttpOverrides();
+   HttpOverrides.global = MyHttpOverrides();
 
   await _initDependencies();
   await Firebase.initializeApp(
@@ -357,6 +357,8 @@ Future<void> _initDependencies() async {
   // static const String basicUrl = "http://192.168.1.45:8080/crmsfpl";
   // static const String testUrl = "http://65.109.229.140:8080/crmsfpl";
   // static const String testUrl2 = "http://95.216.201.117:8081/crmsfpl/";
+      // static const String basicUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl";
+
   //  NEW VERSION WITH 15 MINUTES INTERVAL (1.0.2) - NOV -DEPLOYEMENT
 
       // static const String new-live-url = "http://180.149.244.56:8081/crm_sfpl";
