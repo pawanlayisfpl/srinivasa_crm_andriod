@@ -35,12 +35,11 @@ import java.util.Map;
 public class ApiClass {
     private  Context context;
 
-    private String url = "https://reqres.in/api/login"; // Replace with your actual API URL
     //  private String postUrl = "http://65.109.229.140:8080/crmsfpl/se/locations";
-//    private String postUrl = "http://192.168.1.45:8080/crmsfpl/se/locations";
-   private String postUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl/se/locations";
+    // private String postUrl = "http://192.168.1.45:8080/crmsfpl/se/locations";
+//   private String postUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl/se/locations";
 //    private String postUrl = "http://192.168.1.183:8081/crm_sfpl/se/locations";
-//    private String postUrl = "http://95.216.201.117:8081/crm_sfpl/se/locations";
+   private String postUrl = "https://95.216.201.117:8446/crm_sfpl/se/locations";
     private String TAG = "ApiCaller"; // Tag for logging
     private LocationHelperClass locationHelperClass;
 
@@ -83,6 +82,7 @@ public class ApiClass {
 
 //
         if (isNetworkAvailable()) {
+
             Log.d(TAG, "api: " + "NETWORK IS AVAILABLE");
 
             try {
@@ -97,49 +97,152 @@ public class ApiClass {
                 data.put("longitude", longitude);
                 data.put("userDateTime", LocalDateTime.now().toString());
                 data.put("batteryStatus", String.valueOf(batteryLevel));
-                StringRequest request = new StringRequest(
-                        Request.Method.POST, postUrl,  // Replace with your actual endpoint
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                Log.d("api", "API Response: " + response);
-                                // Toast.makeText(context, "Response: " + response, Toast.LENGTH_LONG).show();
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.e("api", "API Error: " + error.getMessage(), error);
-                                // Toast.makeText(context, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        }) {
-                    @Override
-                    public String getBodyContentType() {
-                        return "application/json; charset=utf-8";
-                    }
 
-                    @Override
-                    public byte[] getBody() {
-                        return data.toString().getBytes();
-                    }
+                try {
+                    DatabaseHelper dbHelper = new DatabaseHelper(context);
 
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String, String> headers = new HashMap<>();
-                        headers.put("Content-Type", "application/json; charset=utf-8");
-                        if (tokenValue != null) {
-                            headers.put("Authorization", "Bearer " + tokenValue);
-                        }
-                        return headers;
-                    }
-                };
+                    // Save data to SQLite
+                    long result = dbHelper.insertLocationData(
+                            String.valueOf(latitude),
+                            String.valueOf(longitude),
+                            LocalDateTime.now().toString(),
+                            String.valueOf(batteryLevel)
+                    );
 
-                Volley.newRequestQueue(context).add(request);
+                    if (result != -1) {
+                        Log.d("Database", "Data inserted successfully");
+                    } else {
+                        Log.e("Database", "Failed to insert data");
+                    }
+                } catch (Exception e) {
+                    Log.e("DatabaseError", "An error occurred while inserting data: " + e.getMessage(), e);
+                }
+
+
+                // StringRequest request = new StringRequest(
+                //         Request.Method.POST, postUrl,  // Replace with your actual endpoint
+                //         new Response.Listener<String>() {
+                //             @Override
+                //             public void onResponse(String response) {
+                //                 Log.d("api", "API Response: " + response);
+                //                 // Toast.makeText(context, "Response: " + response, Toast.LENGTH_LONG).show();
+                //             }
+                //         },
+                //         new Response.ErrorListener() {
+                //             @Override
+                //             public void onErrorResponse(VolleyError error) {
+                //                 Log.e("api", "API Error: " + error.getMessage(), error);
+                //                 // Toast.makeText(context, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                //             }
+                //         }) {
+                //     @Override
+                //     public String getBodyContentType() {
+                //         return "application/json; charset=utf-8";
+                //     }
+
+                //     @Override
+                //     public byte[] getBody() {
+                //         return data.toString().getBytes();
+                //     }
+
+                //     @Override
+                //     public Map<String, String> getHeaders() throws AuthFailureError {
+                //         Map<String, String> headers = new HashMap<>();
+                //         headers.put("Content-Type", "application/json; charset=utf-8");
+                //         if (tokenValue != null) {
+                //             headers.put("Authorization", "Bearer " + tokenValue);
+                //         }
+                //         return headers;
+                //     }
+                // };
+
+                // Volley.newRequestQueue(context).add(request);
             } catch (JSONException e) {
                 // Log.e("api", "Error preparing API request", e);
                 // Toast.makeText(context, "Error occurred while preparing API request", Toast.LENGTH_LONG).show();
             }
         } else {
+
+//             WHEN NETWORK IS NOT AVAILABLE
+            Log.d(TAG, "api: " + "NETWORK IS AVAILABLE");
+
+            try {
+                SharedPreferences sharedPreferences = context.getSharedPreferences("FlutterSharedPreferences", Context.MODE_PRIVATE);
+                String tokenValue = sharedPreferences.getString("flutter.token", null);
+                String userIdValue = sharedPreferences.getString("flutter.userId", null);
+                // Log.d(TAG, "api printing tokenValue: " + tokenValue);
+                // Log.d(TAG, "api printing userIdValue: " + userIdValue);
+
+                JSONObject data = new JSONObject();
+                data.put("latitude", latitude);
+                data.put("longitude", longitude);
+                data.put("userDateTime", LocalDateTime.now().toString());
+                data.put("batteryStatus", String.valueOf(batteryLevel));
+
+                try {
+                    DatabaseHelper dbHelper = new DatabaseHelper(context);
+
+                    // Save data to SQLite
+                    long result = dbHelper.insertLocationData(
+                            String.valueOf(latitude),
+                            String.valueOf(longitude),
+                            LocalDateTime.now().toString(),
+                            String.valueOf(batteryLevel)
+                    );
+
+                    if (result != -1) {
+                        Log.d("Database", "Data inserted successfully");
+                    } else {
+                        Log.e("Database", "Failed to insert data");
+                    }
+                } catch (Exception e) {
+                    Log.e("DatabaseError", "An error occurred while inserting data: " + e.getMessage(), e);
+                }
+
+
+                // StringRequest request = new StringRequest(
+                //         Request.Method.POST, postUrl,  // Replace with your actual endpoint
+                //         new Response.Listener<String>() {
+                //             @Override
+                //             public void onResponse(String response) {
+                //                 Log.d("api", "API Response: " + response);
+                //                 // Toast.makeText(context, "Response: " + response, Toast.LENGTH_LONG).show();
+                //             }
+                //         },
+                //         new Response.ErrorListener() {
+                //             @Override
+                //             public void onErrorResponse(VolleyError error) {
+                //                 Log.e("api", "API Error: " + error.getMessage(), error);
+                //                 // Toast.makeText(context, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                //             }
+                //         }) {
+                //     @Override
+                //     public String getBodyContentType() {
+                //         return "application/json; charset=utf-8";
+                //     }
+
+                //     @Override
+                //     public byte[] getBody() {
+                //         return data.toString().getBytes();
+                //     }
+
+                //     @Override
+                //     public Map<String, String> getHeaders() throws AuthFailureError {
+                //         Map<String, String> headers = new HashMap<>();
+                //         headers.put("Content-Type", "application/json; charset=utf-8");
+                //         if (tokenValue != null) {
+                //             headers.put("Authorization", "Bearer " + tokenValue);
+                //         }
+                //         return headers;
+                //     }
+                // };
+
+                // Volley.newRequestQueue(context).add(request);
+            } catch (JSONException e) {
+                // Log.e("api", "Error preparing API request", e);
+                // Toast.makeText(context, "Error occurred while preparing API request", Toast.LENGTH_LONG).show();
+            }
+
 
 //            Toast.makeText(context, "No internet connection available", Toast.LENGTH_LONG).show();
         }

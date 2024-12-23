@@ -82,7 +82,7 @@ class TicketsRepoImpl implements TicketsRepo {
 
     if(status) {
       try {
-        final response = await dioClient.get(Endpoints.createTicket + '${ticketId.toString()}',headers: {});
+        final response = await dioClient.get('${Endpoints.createTicket}${ticketId.toString()}',headers: {});
 
         if(response.statusCode == 200) {
           ViewParticularTicketModel viewParticularTicketModel = ViewParticularTicketModel.fromJson(response.data['data']);
