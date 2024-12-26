@@ -36,6 +36,9 @@ class ViewTicketModel {
   Priority? priority;
   StatusDTO? statusDTO;
   ServiceRequestTypeDTO? serviceRequestTypeDTO;
+  String? assginedUserName;
+  String? assignedUserId;
+  List<String>? images;
 
   ViewTicketModel(
       {this.ticketId,
@@ -43,7 +46,11 @@ class ViewTicketModel {
       this.createdDate,
       this.priority,
       this.statusDTO,
-      this.serviceRequestTypeDTO});
+      this.serviceRequestTypeDTO,
+      this.assginedUserName,
+      this.assignedUserId,
+      this.images,
+      });
 
   ViewTicketModel.fromJson(Map<String, dynamic> json) {
     ticketId = json['ticketId'];
@@ -58,6 +65,13 @@ class ViewTicketModel {
     serviceRequestTypeDTO = json['serviceRequestTypeDTO'] != null
         ? new ServiceRequestTypeDTO.fromJson(json['serviceRequestTypeDTO'])
         : null;
+
+      assginedUserName = json["assignedTo"] != null ? json['assignedTo']['assignedToUserName']  : null;
+      assignedUserId = json["assignedTo"] != null ? json['assignedTo']['assignedToUserId']  : null;
+
+ images = json['imageLinks'] != null 
+    ? List<String>.from(json['imageLinks']) 
+    : [];
   }
 
   Map<String, dynamic> toJson() {
@@ -74,6 +88,16 @@ class ViewTicketModel {
     if (serviceRequestTypeDTO != null) {
       data['serviceRequestTypeDTO'] = serviceRequestTypeDTO!.toJson();
     }
+
+    if(data['assignedTo'] != null) {
+      data['assignedTo']['assignedToUserName'] = assginedUserName;
+      data['assignedTo']['assignedToUserId'] = assginedUserName;
+
+    }
+
+   
+
+
     return data;
   }
 }

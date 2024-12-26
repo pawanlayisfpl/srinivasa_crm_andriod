@@ -111,6 +111,7 @@ public class ApiClass {
 
                     if (result != -1) {
                         Log.d("Database", "Data inserted successfully");
+                        // dbHelper.logLocationData();
                     } else {
                         Log.e("Database", "Failed to insert data");
                     }
@@ -192,6 +193,7 @@ public class ApiClass {
 
                     if (result != -1) {
                         Log.d("Database", "Data inserted successfully");
+                        // dbHelper.logLocationData();
                     } else {
                         Log.e("Database", "Failed to insert data");
                     }

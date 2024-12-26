@@ -22,6 +22,8 @@ mixin _$AddTicketState {
   bool get isSubmiting => throw _privateConstructorUsedError;
   bool get showInputError => throw _privateConstructorUsedError;
   ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
+  ImageModel? get imageModel => throw _privateConstructorUsedError;
+  List<ImageModel> get imageList => throw _privateConstructorUsedError;
   StringField get descriptionField => throw _privateConstructorUsedError;
   PriorityModel? get selectedPriorityModel =>
       throw _privateConstructorUsedError;
@@ -47,6 +49,8 @@ abstract class $AddTicketStateCopyWith<$Res> {
       bool isSubmiting,
       bool showInputError,
       ApiFailedModel? apiFailedModel,
+      ImageModel? imageModel,
+      List<ImageModel> imageList,
       StringField descriptionField,
       PriorityModel? selectedPriorityModel,
       ServiceRequestModel? selectedServiceRequestModel});
@@ -74,6 +78,8 @@ class _$AddTicketStateCopyWithImpl<$Res, $Val extends AddTicketState>
     Object? isSubmiting = null,
     Object? showInputError = null,
     Object? apiFailedModel = freezed,
+    Object? imageModel = freezed,
+    Object? imageList = null,
     Object? descriptionField = null,
     Object? selectedPriorityModel = freezed,
     Object? selectedServiceRequestModel = freezed,
@@ -99,6 +105,14 @@ class _$AddTicketStateCopyWithImpl<$Res, $Val extends AddTicketState>
           ? _value.apiFailedModel
           : apiFailedModel // ignore: cast_nullable_to_non_nullable
               as ApiFailedModel?,
+      imageModel: freezed == imageModel
+          ? _value.imageModel
+          : imageModel // ignore: cast_nullable_to_non_nullable
+              as ImageModel?,
+      imageList: null == imageList
+          ? _value.imageList
+          : imageList // ignore: cast_nullable_to_non_nullable
+              as List<ImageModel>,
       descriptionField: null == descriptionField
           ? _value.descriptionField
           : descriptionField // ignore: cast_nullable_to_non_nullable
@@ -143,6 +157,8 @@ abstract class _$$AddTicketStateImplCopyWith<$Res>
       bool isSubmiting,
       bool showInputError,
       ApiFailedModel? apiFailedModel,
+      ImageModel? imageModel,
+      List<ImageModel> imageList,
       StringField descriptionField,
       PriorityModel? selectedPriorityModel,
       ServiceRequestModel? selectedServiceRequestModel});
@@ -169,6 +185,8 @@ class __$$AddTicketStateImplCopyWithImpl<$Res>
     Object? isSubmiting = null,
     Object? showInputError = null,
     Object? apiFailedModel = freezed,
+    Object? imageModel = freezed,
+    Object? imageList = null,
     Object? descriptionField = null,
     Object? selectedPriorityModel = freezed,
     Object? selectedServiceRequestModel = freezed,
@@ -194,6 +212,14 @@ class __$$AddTicketStateImplCopyWithImpl<$Res>
           ? _value.apiFailedModel
           : apiFailedModel // ignore: cast_nullable_to_non_nullable
               as ApiFailedModel?,
+      imageModel: freezed == imageModel
+          ? _value.imageModel
+          : imageModel // ignore: cast_nullable_to_non_nullable
+              as ImageModel?,
+      imageList: null == imageList
+          ? _value._imageList
+          : imageList // ignore: cast_nullable_to_non_nullable
+              as List<ImageModel>,
       descriptionField: null == descriptionField
           ? _value.descriptionField
           : descriptionField // ignore: cast_nullable_to_non_nullable
@@ -219,9 +245,12 @@ class _$AddTicketStateImpl implements _AddTicketState {
       this.isSubmiting = false,
       this.showInputError = false,
       this.apiFailedModel = null,
+      this.imageModel = null,
+      final List<ImageModel> imageList = const [],
       required this.descriptionField,
       this.selectedPriorityModel,
-      this.selectedServiceRequestModel});
+      this.selectedServiceRequestModel})
+      : _imageList = imageList;
 
   @override
   final TicketResponseModel? ticketResponseModel;
@@ -238,6 +267,18 @@ class _$AddTicketStateImpl implements _AddTicketState {
   @JsonKey()
   final ApiFailedModel? apiFailedModel;
   @override
+  @JsonKey()
+  final ImageModel? imageModel;
+  final List<ImageModel> _imageList;
+  @override
+  @JsonKey()
+  List<ImageModel> get imageList {
+    if (_imageList is EqualUnmodifiableListView) return _imageList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_imageList);
+  }
+
+  @override
   final StringField descriptionField;
   @override
   final PriorityModel? selectedPriorityModel;
@@ -246,7 +287,7 @@ class _$AddTicketStateImpl implements _AddTicketState {
 
   @override
   String toString() {
-    return 'AddTicketState(ticketResponseModel: $ticketResponseModel, isLoading: $isLoading, isSubmiting: $isSubmiting, showInputError: $showInputError, apiFailedModel: $apiFailedModel, descriptionField: $descriptionField, selectedPriorityModel: $selectedPriorityModel, selectedServiceRequestModel: $selectedServiceRequestModel)';
+    return 'AddTicketState(ticketResponseModel: $ticketResponseModel, isLoading: $isLoading, isSubmiting: $isSubmiting, showInputError: $showInputError, apiFailedModel: $apiFailedModel, imageModel: $imageModel, imageList: $imageList, descriptionField: $descriptionField, selectedPriorityModel: $selectedPriorityModel, selectedServiceRequestModel: $selectedServiceRequestModel)';
   }
 
   @override
@@ -264,6 +305,10 @@ class _$AddTicketStateImpl implements _AddTicketState {
                 other.showInputError == showInputError) &&
             (identical(other.apiFailedModel, apiFailedModel) ||
                 other.apiFailedModel == apiFailedModel) &&
+            (identical(other.imageModel, imageModel) ||
+                other.imageModel == imageModel) &&
+            const DeepCollectionEquality()
+                .equals(other._imageList, _imageList) &&
             (identical(other.descriptionField, descriptionField) ||
                 other.descriptionField == descriptionField) &&
             (identical(other.selectedPriorityModel, selectedPriorityModel) ||
@@ -282,6 +327,8 @@ class _$AddTicketStateImpl implements _AddTicketState {
       isSubmiting,
       showInputError,
       apiFailedModel,
+      imageModel,
+      const DeepCollectionEquality().hash(_imageList),
       descriptionField,
       selectedPriorityModel,
       selectedServiceRequestModel);
@@ -303,6 +350,8 @@ abstract class _AddTicketState implements AddTicketState {
           final bool isSubmiting,
           final bool showInputError,
           final ApiFailedModel? apiFailedModel,
+          final ImageModel? imageModel,
+          final List<ImageModel> imageList,
           required final StringField descriptionField,
           final PriorityModel? selectedPriorityModel,
           final ServiceRequestModel? selectedServiceRequestModel}) =
@@ -318,6 +367,10 @@ abstract class _AddTicketState implements AddTicketState {
   bool get showInputError;
   @override
   ApiFailedModel? get apiFailedModel;
+  @override
+  ImageModel? get imageModel;
+  @override
+  List<ImageModel> get imageList;
   @override
   StringField get descriptionField;
   @override

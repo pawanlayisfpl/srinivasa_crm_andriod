@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
@@ -46,30 +47,56 @@ Future<lm.LoginResponseModel> login({required LoginPostModel loginPostModel}) as
 
   DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
 
-  if(Platform.isAndroid) {
-    AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
-    log('Running on ${androidInfo.model}');
-  }
-
-  if(Platform.isIOS) {
-    IosDeviceInfo iosDeviceInfo = await deviceInfoPlugin.iosInfo;
-  log('Running on ${iosDeviceInfo.model.toString()}');  // e.g. "iPod7,1"
-
-  }
+  
   
 
 
 
      try {
     debugPrint('LOGIN API STARTED');
+
+    var body =   {};
+    
+    if(Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
+    log('Running on ${androidInfo.model}');
+    body =     {
+ "email":  loginPostModel.email,
+ "password": loginPostModel.password,
+ "manufacturer" : androidInfo.brand,
+  "model": androidInfo.model,
+  "os": 'Android',
+  "osVersion": androidInfo.version.sdkInt,
+  "isPhysicalDevice": true,
+  "fcmToken": await FirebaseMessaging.instance.getToken(),
+  "isWebLogin": false
+    };
+    }else {
+         IosDeviceInfo iosDeviceInfo = await deviceInfoPlugin.iosInfo;
+  log('Running on ${iosDeviceInfo.model.toString()}');  // e.g. "iPod7,1"
+
+    body =     {
+      
+ "email":  loginPostModel.email,
+ "password": loginPostModel.password,
+ "manufacturer" :iosDeviceInfo.model,
+  "model": iosDeviceInfo.name,
+  "os": "Iphone",
+  "osVersion": iosDeviceInfo.systemVersion.toString(),
+  "isPhysicalDevice": true,
+  "fcmToken": await FirebaseMessaging.instance.getToken(),
+  "isWebLogin": false
+    };
+    }
     
     final response = await dioClient.post(
       Endpoints.logingUrl,
-      data: loginPostModel.toJson(),
+      // data: loginPostModel.toJson(),
+      data: body
     );
 
     if(response.statusCode == 200){
-      await database.insertLoginPost(loginPostModel);
+      // await database.insertLoginPost(loginPostModel);
       debugPrint('LOGIN API SUCCESS');
       final data = response.data;
       ProfileModel profileModel = ProfileModel(

@@ -8,6 +8,9 @@ class ViewParticularTicketModel {
   List<Comments>? comments;
   User? createdBy;
   AssignedTo? assignedTo;
+   String? assginedUserName;
+  String? assignedUserId;
+  List<String>? images;
 
   ViewParticularTicketModel(
       {this.ticketId,
@@ -18,7 +21,12 @@ class ViewParticularTicketModel {
       this.serviceRequestTypeDTO,
       this.comments,
       this.createdBy,
-      this.assignedTo});
+      this.assignedTo,
+            this.assginedUserName,
+      this.assignedUserId,
+      this.images,
+      
+      });
 
   ViewParticularTicketModel.fromJson(Map<String, dynamic> json) {
     ticketId = json['ticketId'];
@@ -44,6 +52,13 @@ class ViewParticularTicketModel {
     assignedTo = json['assignedTo'] != null
         ? AssignedTo.fromJson(json['assignedTo'])
         : null;
+
+      assginedUserName = json["assignedTo"] != null ? json['assignedTo']['assignedToUserName']  : null;
+      assignedUserId = json["assignedTo"] != null ? json['assignedTo']['assignedToUserId'].toString()  : null;
+
+ images = json['imageLinks'] != null 
+    ? List<String>.from(json['imageLinks']) 
+    : [];
   }
 
   Map<String, dynamic> toJson() {

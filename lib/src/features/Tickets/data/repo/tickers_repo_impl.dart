@@ -27,10 +27,26 @@ class TicketsRepoImpl implements TicketsRepo {
   
   @override
   Future<Either<NetworkExceptions, TicketResponseModel>> createTickets({required TicketCreatePostModel ticketCreatePostModel}) async {
+
+      List<MultipartFile> imagesList = [];
+    if (ticketCreatePostModel.images != null) {
+      for (var file in ticketCreatePostModel.images!) {
+        imagesList.add(MultipartFile.fromBytes(file, filename: 'images'));
+      }
+    }
+
+    FormData data = FormData.fromMap({
+      "description" : ticketCreatePostModel.description,
+      "priorityId" : ticketCreatePostModel.priorityId,
+      "serviceRequestTypeId" : ticketCreatePostModel.serviceRequestTypeId,
+      'images': imagesList,
+      
+    });
+
    final status = await internetChecker.hasInternet();
 
    if(status) {
-    final response = await dioClient.post(Endpoints.createTicket,data: ticketCreatePostModel.toJson(),headers: {});
+    final response = await dioClient.formData(Endpoints.createTicket,data: data,);
 
     if(response.statusCode == 200 || response.statusCode == 201) {
       TicketResponseModel ticketResponseModel = TicketResponseModel.fromJson(response.data);
@@ -47,6 +63,9 @@ class TicketsRepoImpl implements TicketsRepo {
   
   @override
   Future<Either<NetworkExceptions, ViewTicketResponseModel>> getTickets() async  {
+
+    
+
     final status = await internetChecker.hasInternet();
 
     if(status) {
@@ -82,7 +101,7 @@ class TicketsRepoImpl implements TicketsRepo {
 
     if(status) {
       try {
-        final response = await dioClient.get('${Endpoints.createTicket}${ticketId.toString()}',headers: {});
+        final response = await dioClient.get('${Endpoints.createTicket}/${ticketId.toString()}',headers: {});
 
         if(response.statusCode == 200) {
           ViewParticularTicketModel viewParticularTicketModel = ViewParticularTicketModel.fromJson(response.data['data']);
@@ -98,6 +117,7 @@ class TicketsRepoImpl implements TicketsRepo {
       }
       
     }else {
+      
       return left(const NetworkExceptions.noInternetConnection());
     }
   }

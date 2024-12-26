@@ -392,8 +392,8 @@ extension GetItInjectableX on _i174.GetIt {
           keyValueStorage: gh<_i961.KeyValueStorage>(),
         ));
     gh.factory<_i802.CommentsRepo>(() => _i802.CommentsRepoImpl(
-          dioClient: gh<_i720.DioClient>(),
-          keyValueStorage: gh<_i286.KeyValueStorage>(),
+          dioClient: gh<_i961.DioClient>(),
+          keyValueStorage: gh<_i961.KeyValueStorage>(),
           internetChecker: gh<_i961.InternetChecker>(),
         ));
     gh.factory<_i492.MarkAttendanceRepo>(() => _i59.MarkAttendanceRepoImpl(
@@ -415,6 +415,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i472.DailyPlanRepoImpl(dioClient: gh<_i961.DioClient>()));
     gh.factory<_i209.CustomerRepo>(() => _i113.CustomerRepoImpl(
         customerRemoteDataSource: gh<_i411.CustomerRemoteDataSource>()));
+    gh.factory<_i263.AddTicketCubit>(() => _i263.AddTicketCubit(
+          gh<_i232.TicketsRepo>(),
+          gh<_i972.CommonImageServices>(),
+        ));
     gh.factory<_i86.SearchCustomerCubit>(
         () => _i86.SearchCustomerCubit(gh<_i209.CustomerRepo>()));
     gh.factory<_i490.PurposeRepo>(() => _i725.PurposeRepoImpl(
@@ -426,8 +430,6 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i493.ViewParticularTicketCubit>(
         () => _i493.ViewParticularTicketCubit(gh<_i232.TicketsRepo>()));
-    gh.factory<_i263.AddTicketCubit>(
-        () => _i263.AddTicketCubit(gh<_i232.TicketsRepo>()));
     gh.factory<_i560.ViewTicketCubit>(
         () => _i560.ViewTicketCubit(gh<_i232.TicketsRepo>()));
     gh.factory<_i403.KycCubit>(() => _i403.KycCubit(gh<_i382.KycRepo>()));

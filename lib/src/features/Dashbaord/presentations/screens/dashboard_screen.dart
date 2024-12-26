@@ -20,6 +20,7 @@ import 'package:srinivasa_crm_new/src/features/No%20Internet/views/no_internet_s
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
+import 'package:srinivasa_crm_new/src/features/offline_location_screen.dart';
 
 import '../../../../../shared/presentations/Update Password/presentations/screens/update_password_screen.dart';
 import '../../../../config/config.dart';
@@ -207,7 +208,11 @@ void showLogoutDialog(BuildContext context) {
         drawer: const CommonDrawerWidget(),
         appBar: AppBar(
       
-          title: const CustomAppBarTitleWidget(title: "Dashboard",),
+          title: GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (c) => OfflineLocationScreen()));
+            },
+            child: const CustomAppBarTitleWidget(title: "Dashboard",)),
           actions: [
              PopupMenuButton<String>(
             color: Colors.white,
@@ -222,10 +227,19 @@ void showLogoutDialog(BuildContext context) {
               
               } else if (value == "2") {
                 // showLogoutDialog(context);
-                QuickAlert.show(context: context, type: QuickAlertType.confirm, title: "Logout",text: "Are you sure?",confirmBtnText: "Yes",confirmBtnColor: Colors.black,onConfirmBtnTap: () {
+
+                bool isAvailable = await  locator.get<InternetChecker>().hasInternet();
+
+                if(isAvailable) {
+                    QuickAlert.show(context: context, type: QuickAlertType.confirm, title: "Logout",text: "Are you sure?",confirmBtnText: "Yes",confirmBtnColor: Colors.black,onConfirmBtnTap: () {
                   context.read<ProfileCubit>().logout(context: context);
       
           });
+                  
+                }else {
+                  Fluttertoast.showToast(msg: 'Network is low, please try again later');
+                }
+              
               }
             },
             itemBuilder: (BuildContext context) => [

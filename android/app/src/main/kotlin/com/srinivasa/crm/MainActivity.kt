@@ -7,7 +7,6 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -15,6 +14,9 @@ import androidx.core.content.ContextCompat
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
+import org.json.JSONArray
+import org.json.JSONObject
+
 
 class MainActivity: FlutterActivity() {
 
@@ -72,6 +74,37 @@ class MainActivity: FlutterActivity() {
                 "location" -> {
                     getLocation()
                     result.success(null)
+                }
+
+                "deleteSpecificLocationData" -> {
+                    val column = call.argument<String>("conditionColumn")
+                    val value = call.argument<String>("conditionValue")
+                    if (column != null && value != null) {
+                        val dbHelper = DatabaseHelper(this)
+
+                        val rowsDeleted = dbHelper.deleteLocationData(column, value)
+                        result.success(rowsDeleted) // Return the number of rows deleted
+                    } else {
+                        result.error("INVALID_ARGUMENTS", "Invalid arguments for deleting specific location data", null)
+                    }
+                }
+                "deleteAllLocationData" -> {
+                    val dbHelper = DatabaseHelper(this)
+
+                    dbHelper.deleteAllLocationData()
+                    result.success("All location data deleted successfully")
+                }
+
+                "location-data" -> {
+                    val dbHelper = DatabaseHelper(this)
+                    try {
+                        val jsonArray = dbHelper.getLocationDataFromDatabase() // Call Java method
+                        Log.d("MainActivity", "Location Data: $jsonArray")
+                        result.success(jsonArray.toString()) // Return the data as a JSON string
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        result.error("DB_ERROR", "Error fetching location data", e.localizedMessage)
+                    }
                 }
 
                 "api" -> {

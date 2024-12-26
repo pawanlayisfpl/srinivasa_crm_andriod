@@ -1,12 +1,16 @@
+import 'dart:typed_data';
+
 class TicketCreatePostModel {
   final String description;
   final int priorityId;
   final int serviceRequestTypeId;
+    List<Uint8List>? images;
 
   TicketCreatePostModel({
     required this.description,
     required this.priorityId,
     required this.serviceRequestTypeId,
+    this.images,
   });
 
   // Convert a TicketCreatePostModel instance to JSON

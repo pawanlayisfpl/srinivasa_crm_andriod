@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>SF CRM</string>
+	<string>SFPL CRM</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -29,9 +29,13 @@
 	<key>NSCameraUsageDescription</key>
 	<string>We need access to your camera to take pictures.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>We need your location to provide better services even when the app is in the background.</string>
+	<!-- <string>We need your location to provide better services even when the app is in the background.</string> -->
+	<string>We collect your location in the background to optimize employee routes, minimize travel time, and enhance route management. For example, location data helps create efficient travel plans, reducing delays and improving customer service.</string>
+
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need your location to provide better services.</string>
+	<!-- <string>We need your location to provide better services.</string> -->
+	<string>We collect your location to track employee visits and ensure accurate customer management by logging check-in and check-out times. For example, location data helps verify attendance during farm visits and improve service delivery.</string>
+
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>We need access to your photo library to save pictures.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
