@@ -165,7 +165,7 @@ public class ApiClass {
         } else {
 
 //             WHEN NETWORK IS NOT AVAILABLE
-            Log.d(TAG, "api: " + "NETWORK IS AVAILABLE");
+            Log.d(TAG, "api: " + "NETWORK IS NOT AVAILABLE");
 
             try {
                 SharedPreferences sharedPreferences = context.getSharedPreferences("FlutterSharedPreferences", Context.MODE_PRIVATE);

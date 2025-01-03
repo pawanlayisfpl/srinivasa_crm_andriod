@@ -156,7 +156,7 @@ class _OfflineLocationScreenState extends State<OfflineLocationScreen> {
                               ),
                               subtitle: Text(
                                 'Time: ${DateFormat.yMMMMd().format(DateTime.parse(item['userDateTime']))}, '
-                                '${DateFormat.y().format(DateTime.parse(item['userDateTime']))}',
+                                '${DateFormat.jms().format(DateTime.parse(item['userDateTime']))}',
                                 style: TextStyle(color: Colors.grey[700]),
                               ),
                             ),
