@@ -31,21 +31,49 @@ import org.json.JSONObject;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import javax.net.ssl.*;
+import java.security.cert.X509Certificate;
 
 public class ApiClass {
     private  Context context;
 
     //  private String postUrl = "http://65.109.229.140:8080/crmsfpl/se/locations";
     // private String postUrl = "http://192.168.1.45:8080/crmsfpl/se/locations";
-//   private String postUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl/se/locations";
+  private String postUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl/se/locations";
 //    private String postUrl = "http://192.168.1.183:8081/crm_sfpl/se/locations";
-   private String postUrl = "https://95.216.201.117:8446/crm_sfpl/se/locations";
+//    private String postUrl = "https://95.216.201.117:8446/crm_sfpl/se/locations";
     private String TAG = "ApiCaller"; // Tag for logging
     private LocationHelperClass locationHelperClass;
 
     public ApiClass(Context context) {
         this.context = context;
 
+    }
+
+    public static void disableSSLCertificateChecking() {
+        try {
+            TrustManager[] trustAllCertificates = new TrustManager[]{
+                    new X509TrustManager() {
+                        public X509Certificate[] getAcceptedIssuers() {
+                            return null;
+                        }
+
+                        public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                        }
+
+                        public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                        }
+                    }
+            };
+
+            SSLContext sc = SSLContext.getInstance("TLS");
+            sc.init(null, trustAllCertificates, new java.security.SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+            HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -82,6 +110,7 @@ public class ApiClass {
 
 //
         if (isNetworkAvailable()) {
+           disableSSLCertificateChecking();
 
             Log.d(TAG, "api: " + "NETWORK IS AVAILABLE");
 
@@ -110,10 +139,10 @@ public class ApiClass {
                     );
 
                     if (result != -1) {
-                        Log.d("Database", "Data inserted successfully");
+                        Log.d("Database", "Data inserted successfully to local");
                         // dbHelper.logLocationData();
                     } else {
-                        Log.e("Database", "Failed to insert data");
+                        Log.e("Database", "Failed to insert data to localll");
                     }
                 } catch (Exception e) {
                     Log.e("DatabaseError", "An error occurred while inserting data: " + e.getMessage(), e);
@@ -126,6 +155,8 @@ public class ApiClass {
                 //             @Override
                 //             public void onResponse(String response) {
                 //                 Log.d("api", "API Response: " + response);
+                //                 // Toast.makeText(context, "Api is successful", Toast.LENGTH_LONG).show();
+
                 //                 // Toast.makeText(context, "Response: " + response, Toast.LENGTH_LONG).show();
                 //             }
                 //         },
@@ -159,8 +190,8 @@ public class ApiClass {
 
                 // Volley.newRequestQueue(context).add(request);
             } catch (JSONException e) {
-                // Log.e("api", "Error preparing API request", e);
-                // Toast.makeText(context, "Error occurred while preparing API request", Toast.LENGTH_LONG).show();
+                Log.e("api", "Error preparing API request", e);
+                Toast.makeText(context, "Error occurred while preparing API request", Toast.LENGTH_LONG).show();
             }
         } else {
 
