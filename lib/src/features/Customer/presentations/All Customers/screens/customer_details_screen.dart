@@ -10,6 +10,8 @@ import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_state.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/screens/check_out_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/screens/checkin_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/domain/model/update_customer_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/screen/update_customer_form_screen.dart';
 
 import '../../../../../config/config.dart';
 import '../../../domain/model/get/customer_model.dart';
@@ -48,7 +50,16 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Customer Details'),
-        actions: const [],
+        actions:  [
+          IconButton(onPressed: () {
+
+            UpdateCustomerModel updateCustomerModel = UpdateCustomerModel(farmId: 12, customerId: "customerId", farmName: "farmName", customerName: "customerName", customerPhone: "customerPhone",  title: "title", email: "email", customerType: true  , addressLine2: "addressLine2", creditLimit: 500  , primarySourceId: 1, zoneId: " ", kycStatus: "kycStatus", countryId: 1, stateId: "1", districtId: "2", cityId: 1, localityId: 1, mandal: "mandal", postalCode: "postalCode", address: "address", isIndividual: false, isOrganization: false, contactPerson: "contactPerson", mobile: "mobile", alternateContact: "alternateContact", farmCapacity: 500, faxNo: "faxNo", divisionId: [], assignTo: 123);
+            if(context.mounted) {
+              Navigator.push(context, ScaleRoute(screen: CustomerUpdateForm(customer: updateCustomerModel)));
+            }
+          }, icon: Icon(Icons.edit)),
+          SizedBox(width: 10,)
+        ],
       ),
       body: widget.customermodel == null
           ? const Center(
