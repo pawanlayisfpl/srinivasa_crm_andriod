@@ -149,46 +149,46 @@ public class ApiClass {
                 }
 
 
-                // StringRequest request = new StringRequest(
-                //         Request.Method.POST, postUrl,  // Replace with your actual endpoint
-                //         new Response.Listener<String>() {
-                //             @Override
-                //             public void onResponse(String response) {
-                //                 Log.d("api", "API Response: " + response);
-                //                 // Toast.makeText(context, "Api is successful", Toast.LENGTH_LONG).show();
+                StringRequest request = new StringRequest(
+                        Request.Method.POST, postUrl,  // Replace with your actual endpoint
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.d("api", "API Response: " + response);
+                                // Toast.makeText(context, "Api is successful", Toast.LENGTH_LONG).show();
 
-                //                 // Toast.makeText(context, "Response: " + response, Toast.LENGTH_LONG).show();
-                //             }
-                //         },
-                //         new Response.ErrorListener() {
-                //             @Override
-                //             public void onErrorResponse(VolleyError error) {
-                //                 Log.e("api", "API Error: " + error.getMessage(), error);
-                //                 // Toast.makeText(context, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
-                //             }
-                //         }) {
-                //     @Override
-                //     public String getBodyContentType() {
-                //         return "application/json; charset=utf-8";
-                //     }
+                                // Toast.makeText(context, "Response: " + response, Toast.LENGTH_LONG).show();
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e("api", "API Error: " + error.getMessage(), error);
+                                // Toast.makeText(context, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }) {
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/json; charset=utf-8";
+                    }
 
-                //     @Override
-                //     public byte[] getBody() {
-                //         return data.toString().getBytes();
-                //     }
+                    @Override
+                    public byte[] getBody() {
+                        return data.toString().getBytes();
+                    }
 
-                //     @Override
-                //     public Map<String, String> getHeaders() throws AuthFailureError {
-                //         Map<String, String> headers = new HashMap<>();
-                //         headers.put("Content-Type", "application/json; charset=utf-8");
-                //         if (tokenValue != null) {
-                //             headers.put("Authorization", "Bearer " + tokenValue);
-                //         }
-                //         return headers;
-                //     }
-                // };
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> headers = new HashMap<>();
+                        headers.put("Content-Type", "application/json; charset=utf-8");
+                        if (tokenValue != null) {
+                            headers.put("Authorization", "Bearer " + tokenValue);
+                        }
+                        return headers;
+                    }
+                };
 
-                // Volley.newRequestQueue(context).add(request);
+                Volley.newRequestQueue(context).add(request);
             } catch (JSONException e) {
                 Log.e("api", "Error preparing API request", e);
                 Toast.makeText(context, "Error occurred while preparing API request", Toast.LENGTH_LONG).show();
