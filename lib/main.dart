@@ -26,6 +26,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cu
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Create/presentation/cubit/customer_create_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Full%20Details/cubit/customer_full_details_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Search/presentation/cubit/search_customer_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/cubit/update_customer_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/dashboard_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/Kyc%20Upload/cubit/kyc_upload_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/cubit/kyc_cubit.dart';
@@ -294,6 +295,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => locator.get<ViewParticularTicketCubit>()),
         BlocProvider(create: (_) => locator.get<AddCommentCubit>()),
         BlocProvider(create: (_) => locator.get<ViewCommentsCubit>()),
+        BlocProvider(create: (_) => locator.get<UpdateCustomerCubit>()),
       ],
       child: MaterialApp(
         navigatorKey: AppKeys.globalNavigatorKey,

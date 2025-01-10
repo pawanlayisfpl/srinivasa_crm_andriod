@@ -1,3 +1,7 @@
+
+import 'package:injectable/injectable.dart';
+
+@injectable
 class UpdateCustomerModel {
   final int farmId;
   final String customerId;

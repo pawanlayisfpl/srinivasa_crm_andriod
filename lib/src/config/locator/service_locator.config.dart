@@ -127,6 +127,10 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%2
     as _i929;
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Search/presentation/cubit/search_customer_cubit.dart'
     as _i86;
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/domain/model/update_customer_model.dart'
+    as _i518;
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/cubit/update_customer_cubit.dart'
+    as _i632;
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/dashboard_cubit.dart'
     as _i66;
 import 'package:srinivasa_crm_new/src/features/Kyc/data/datasource/remote/kyc_remote_datasource.dart'
@@ -261,6 +265,38 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i132.InternetChecker>(() => _i132.InternetChecker(
           gh<_i895.Connectivity>(),
           gh<_i973.InternetConnectionChecker>(),
+        ));
+    gh.factory<_i518.UpdateCustomerModel>(() => _i518.UpdateCustomerModel(
+          farmId: gh<int>(),
+          customerId: gh<String>(),
+          farmName: gh<String>(),
+          customerName: gh<String>(),
+          customerPhone: gh<String>(),
+          title: gh<String>(),
+          email: gh<String>(),
+          customerType: gh<bool>(),
+          addressLine2: gh<String>(),
+          creditLimit: gh<double>(),
+          primarySourceId: gh<int>(),
+          zoneId: gh<String>(),
+          kycStatus: gh<String>(),
+          countryId: gh<int>(),
+          stateId: gh<String>(),
+          districtId: gh<String>(),
+          cityId: gh<int>(),
+          localityId: gh<int>(),
+          mandal: gh<String>(),
+          postalCode: gh<String>(),
+          address: gh<String>(),
+          isIndividual: gh<bool>(),
+          isOrganization: gh<bool>(),
+          contactPerson: gh<String>(),
+          mobile: gh<String>(),
+          alternateContact: gh<String>(),
+          farmCapacity: gh<double>(),
+          faxNo: gh<String>(),
+          divisionId: gh<List<int>>(),
+          assignTo: gh<int>(),
         ));
     gh.factory<_i125.CommonPushNotificationsServices>(
         () => _i125.CommonPushNotificationsServicesImpl());
@@ -499,6 +535,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i466.PrimarySourceRepo>(() => _i531.PrimarySourceRepoImpl(
         primarySourceRemoteDataSource:
             gh<_i568.PrimarySourceRemoteDataSource>()));
+    gh.factory<_i632.UpdateCustomerCubit>(() => _i632.UpdateCustomerCubit(
+          initialState: gh<_i518.UpdateCustomerModel>(),
+          addressRepo: gh<_i311.AddressRepo>(),
+          primarySourceRepo: gh<_i466.PrimarySourceRepo>(),
+        ));
     gh.factory<_i981.EmployeRepo>(() => _i544.EmployeRepoImpl(
         employeDataSource: gh<_i102.EmployeDataSource>()));
     gh.factory<_i455.CheckinCubit>(() => _i455.CheckinCubit(
