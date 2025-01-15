@@ -39,7 +39,7 @@ public class ApiClass {
 
     //  private String postUrl = "http://65.109.229.140:8080/crmsfpl/se/locations";
     // private String postUrl = "http://192.168.1.45:8080/crmsfpl/se/locations";
-  private String postUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl/se/locations";
+  private String postUrl = "http://180.149.244.56:8081/crm_sfpl/se/locations";
 //    private String postUrl = "http://192.168.1.183:8081/crm_sfpl/se/locations";
 //    private String postUrl = "https://95.216.201.117:8446/crm_sfpl/se/locations";
     private String TAG = "ApiCaller"; // Tag for logging
@@ -128,22 +128,22 @@ public class ApiClass {
                 data.put("batteryStatus", String.valueOf(batteryLevel));
 
                 try {
-                    DatabaseHelper dbHelper = new DatabaseHelper(context);
+//                    DatabaseHelper dbHelper = new DatabaseHelper(context);
 
                     // Save data to SQLite
-                    long result = dbHelper.insertLocationData(
-                            String.valueOf(latitude),
-                            String.valueOf(longitude),
-                            LocalDateTime.now().toString(),
-                            String.valueOf(batteryLevel)
-                    );
+//                    long result = dbHelper.insertLocationData(
+//                            String.valueOf(latitude),
+//                            String.valueOf(longitude),
+//                            LocalDateTime.now().toString(),
+//                            String.valueOf(batteryLevel)
+//                    );
 
-                    if (result != -1) {
-                        Log.d("Database", "Data inserted successfully to local");
-                        // dbHelper.logLocationData();
-                    } else {
-                        Log.e("Database", "Failed to insert data to localll");
-                    }
+//                    if (result != -1) {
+//                        Log.d("Database", "Data inserted successfully to local");
+//                        // dbHelper.logLocationData();
+//                    } else {
+//                        Log.e("Database", "Failed to insert data to localll");
+//                    }
                 } catch (Exception e) {
                     Log.e("DatabaseError", "An error occurred while inserting data: " + e.getMessage(), e);
                 }
@@ -215,19 +215,19 @@ public class ApiClass {
                     DatabaseHelper dbHelper = new DatabaseHelper(context);
 
                     // Save data to SQLite
-                    long result = dbHelper.insertLocationData(
-                            String.valueOf(latitude),
-                            String.valueOf(longitude),
-                            LocalDateTime.now().toString(),
-                            String.valueOf(batteryLevel)
-                    );
+//                    long result = dbHelper.insertLocationData(
+//                            String.valueOf(latitude),
+//                            String.valueOf(longitude),
+//                            LocalDateTime.now().toString(),
+//                            String.valueOf(batteryLevel)
+//                    );
 
-                    if (result != -1) {
-                        Log.d("Database", "Data inserted successfully");
-                        // dbHelper.logLocationData();
-                    } else {
-                        Log.e("Database", "Failed to insert data");
-                    }
+//                    if (result != -1) {
+//                        Log.d("Database", "Data inserted successfully");
+//                        // dbHelper.logLocationData();
+//                    } else {
+//                        Log.e("Database", "Failed to insert data");
+//                    }
                 } catch (Exception e) {
                     Log.e("DatabaseError", "An error occurred while inserting data: " + e.getMessage(), e);
                 }

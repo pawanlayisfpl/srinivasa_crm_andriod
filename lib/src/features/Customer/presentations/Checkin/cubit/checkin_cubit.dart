@@ -70,7 +70,10 @@ class CheckinCubit extends Cubit<CheckinState> {
   Future<void> checkoutLogic({required CheckoutPostModel checkOutPostModel,required BuildContext context}) async {
 
     emit(state.copyWith(isLoading: true,apiFailedModel: null,checkInResponseModel: null,checkoutResponseModel: null,isCheckOut: false));
-    QuickAlert.show(context: context, type: QuickAlertType.loading, title: 'Checking Out', text: 'Please wait...',disableBackBtn: true,barrierDismissible: false);
+    // if(context.mounted) {
+    // await QuickAlert.show(context: context, type: QuickAlertType.loading, title: 'Checking Out', text: 'Please wait...',disableBackBtn: true,barrierDismissible: false);
+
+    // }
     final result = await customerRepo.checkOut(checkoutPostModel: checkOutPostModel);
     result.fold(
       (l) {

@@ -74,7 +74,7 @@ class _BatteryOptimizationPermissionsPageState
                   setState(() {
                     batteryOptimizationGranted = true;
                   });
-                  _showSnackBar('Permission granted!');
+                  // _showSnackBar('Permission granted!');
                 } else if (status.isDenied) {
                   _showSnackBar('Permission denied again.');
                 } else if (status.isPermanentlyDenied) {

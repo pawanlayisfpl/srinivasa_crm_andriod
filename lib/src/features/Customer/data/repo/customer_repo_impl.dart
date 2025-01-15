@@ -18,6 +18,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checki
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkout_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/customer_create_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/domain/model/customer_full_response_model.dart';
 
 import '../datasource/remote/customer_remote_datasources.dart';
 
@@ -164,6 +165,20 @@ try {
    }on NetworkExceptions catch(e){
      return Left(e);
    }
+  }
+
+  @override
+  Future<Either<NetworkExceptions, CustomerFullDetailsResponseModel?>> getCustomerDetailsByFarmId({required String farmid})  async {
+     
+     try {
+       
+       final results = await customerRemoteDataSource.getCustomerDetailsByFarmid(farmid: farmid);
+      return right(results);
+     } on NetworkExceptions catch (e) {
+      return left(e);
+       
+     }
+
   }
 
 

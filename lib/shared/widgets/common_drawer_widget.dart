@@ -8,6 +8,7 @@ import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_state.dart';
 
+import '../../src/config/constants/app_strings.dart';
 import '../../src/features/Policies/contact_us_scren.dart';
 import '../../src/features/Policies/faq_screen.dart';
 import '../../src/features/Policies/privacy_pollicy_screen.dart';
@@ -51,7 +52,7 @@ class CommonDrawerWidget extends StatelessWidget {
            const Divider(), 
           //  20.verticalSpace,
           //  NEW VERSION WITH 15 MINUTES INTERVAL
-            const ReusableListTileWidget(title: "App version no", icon: Icons.dashboard,subTitleText: "1.0.4" ,), 
+            const ReusableListTileWidget(title: "App version no", icon: Icons.dashboard,subTitleText: AppStrings.appVersion ,), 
              const Divider(), 
                        GestureDetector(
                         onTap: () {

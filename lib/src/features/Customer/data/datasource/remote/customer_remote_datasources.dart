@@ -21,6 +21,7 @@ import '../../../domain/model/get/customer_created_response_model.dart';
 import '../../../domain/model/get/customer_model.dart'; 
 import '../../../domain/model/get/customer_response_model.dart';
 import '../../../domain/model/get/last_checkin_out_respone_model.dart';
+import '../../../presentations/Customer Update/domain/model/customer_full_response_model.dart';
 
 abstract class CustomerRemoteDataSource{
   Future<CustomerResponseModel> getCustomers();
@@ -35,6 +36,7 @@ abstract class CustomerRemoteDataSource{
   Future<CustomerCreatedResponseModel> createCustomer({required CustomerCreatePostModel customerCreatePostModel});
   Future<List<CustomerCodeModel>> getApprovedCustomerList();
   Future<List<JoinEmployeModel>> getJointEmployeList();
+  Future<CustomerFullDetailsResponseModel?> getCustomerDetailsByFarmid({required String farmid});
   
 }
 
@@ -438,6 +440,21 @@ Future<CustomerFullDetailsModel> getCustomerFullDetails({required String custome
         final List data = response.data['data'];
         final List<JoinEmployeModel> employeeList = data.map((e) => JoinEmployeModel.fromJson(e)).toList();
         return employeeList;
+      }else {
+        throw NetworkExceptions.getDioException(response.data);
+      }
+    } on DioException catch (e) {
+      throw NetworkExceptions.getDioException(e);
+    }
+  }
+  
+  @override
+  Future<CustomerFullDetailsResponseModel?> getCustomerDetailsByFarmid({required String farmid}) async  {
+     try {
+      final response = await dioClient.get(Endpoints.getCustomerDetailsFarmById + farmid,headers: {});
+
+      if(response.statusCode == 200) {
+        return CustomerFullDetailsResponseModel.fromJson(response.data);
       }else {
         throw NetworkExceptions.getDioException(response.data);
       }

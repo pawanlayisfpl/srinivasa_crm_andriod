@@ -5,6 +5,7 @@ class Endpoints {
   // static const String basicUrl = "http://192.168.64.123:8080/crmsfpl";
     // static const String basicUrl = "http://95.216.201.117:8081/crmsfpl";
     
+    // static const String basicUrl = "http://180.149.244.56:8081/crm_sfpl";
     static const String basicUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl";
     static const String testUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl";
     // static const String basicUrl = "http://crmapi.srinivasa.co:8081/crm_sfpl";
@@ -118,6 +119,9 @@ class Endpoints {
   // JOINT-EMPLOYE
   static const String jointemployesUrl = '$basicUrl/se/usersfromassignedzones';
 
+  // GET CUSTOMER DETAILS BY FARM ID
+  static const String getCustomerDetailsFarmById = "$basicUrl/se/getFarm?farmId=";
+
   // TICKETS
   static const String createTicket = "$basicUrl/user/ticket";
   static const String getUserTickets = "$basicUrl/user/ticket";
@@ -135,3 +139,6 @@ class Endpoints {
   static const String locationUrl = '$basicUrl/se/locations';
 
 }
+
+// 79
+// india id 

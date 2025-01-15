@@ -45,5 +45,5 @@ class AppStrings {
   static const String created = "CREATED";
   static const String updated = "UPDATED";
 
-  static const String appVersion = "1.0.4";
+  static const String appVersion = "1.0.5";
 }

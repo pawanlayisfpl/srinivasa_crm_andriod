@@ -210,7 +210,7 @@ void showLogoutDialog(BuildContext context) {
       
           title: GestureDetector(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (c) => OfflineLocationScreen()));
+              // Navigator.push(context, MaterialPageRoute(builder: (c) => OfflineLocationScreen()));
             },
             child: const CustomAppBarTitleWidget(title: "Dashboard",)),
           actions: [

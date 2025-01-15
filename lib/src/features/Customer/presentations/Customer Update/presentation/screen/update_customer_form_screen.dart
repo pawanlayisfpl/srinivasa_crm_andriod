@@ -1,14 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/common/widgets/text/common_textfield_heading_widget.dart';
+import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/domain/model/update_customer_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/domain/model/update_customer_state.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/cubit/update_customer_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/widgets/uc_city_dropdown_widget.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/widgets/uc_countries_dropdown_widget.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/widgets/uc_districts_dropdown_widget.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/widgets/uc_localities_dropdown_widget.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/widgets/uc_states_dropdown_widget.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/widgets/uc_title_dropdown_widget.dart';
 
-class CustomerUpdateForm extends StatelessWidget {
-  final UpdateCustomerModel customer;
+class CustomerUpdateForm extends StatefulWidget {
+  final String? farmid;
+
+  CustomerUpdateForm({super.key, required this.farmid});
+
+  @override
+  State<CustomerUpdateForm> createState() => _CustomerUpdateFormState();
+}
+
+class _CustomerUpdateFormState extends State<CustomerUpdateForm> {
   final _formKey = GlobalKey<FormState>();
 
-  CustomerUpdateForm({required this.customer});
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((c) async {
+   await   context.read<UpdateCustomerCubit>().getInitData(widget.farmid ?? 1.toString(), context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,247 +40,138 @@ class CustomerUpdateForm extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Update Customer'),
       ),
-      body: BlocBuilder<UpdateCustomerCubit, UpdateCustomerModel>(
+      bottomNavigationBar: FractionallySizedBox(
+        widthFactor: 0.8,
+        child: CommonButton(callback: () async {}, title: "Update")).withPadding(bottom: 10),
+      body: BlocBuilder<UpdateCustomerCubit, UpdateCustomerState>(
         builder: (context, state) {
-          final cubit = context.read<UpdateCustomerCubit>();
     
-          // Required and optional fields
-          final requiredFields = ['farmName', 'customerName', 'customerPhone', 'email', 'mobile'];
-          final optionalFields = ['alternateContact', 'address', 'faxNo',"farmCapacity"];
-    
+          
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
             child: Form(
               key: _formKey,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 
                 children: [
-                  _buildTextField(
-                    label: 'Farm Name',
-                    initialValue: state.farmName,
-                    isRequired: requiredFields.contains('farmName'),
-                    onChanged: (value) => cubit.updateCustomerField('farmName', value),
-                  ),
-                  HeightBox(),
-                  _buildTextField(
-                    label: 'Customer Name',
-                    initialValue: state.customerName,
-                    isRequired: requiredFields.contains('customerName'),
-                    onChanged: (value) => cubit.updateCustomerField('customerName', value),
-                  ),
-                        HeightBox(),
-                  _buildTextField(
-                    label: 'Customer Phone',
-                    initialValue: state.customerPhone,
-                    isRequired: requiredFields.contains('customerPhone'),
-                    keyboardType: TextInputType.phone,
-                    onChanged: (value) => cubit.updateCustomerField('customerPhone', value),
-                  ),
-                        HeightBox(),
-                     _buildTextField(
-                    label: 'Tite',
-                    initialValue: state.customerPhone,
-                    isRequired: requiredFields.contains('title'),
-                    keyboardType: TextInputType.phone,
-                    onChanged: (value) => cubit.updateCustomerField('title', value),
-                  ),
-                        HeightBox(),
-                  _buildTextField(
-                    label: 'Email',
-                    initialValue: state.email,
-                    isRequired: requiredFields.contains('email'),
-                    keyboardType: TextInputType.emailAddress,
-                    onChanged: (value) => cubit.updateCustomerField('email', value),
-                  ),
-                        HeightBox(),
-                        CommonTextWidget(title: 'Dropdown'),
-                     _buildTextField(
-                    label: 'Customer Typw',
-                    initialValue: state.email,
-                    isRequired: requiredFields.contains('customerType'),
-                    keyboardType: TextInputType.emailAddress,
-                    onChanged: (value) => cubit.updateCustomerField('customerType', value),
-                  ),
-                        HeightBox(),
-                   _buildTextField(
-                    label: 'Address Line 2',
-                    initialValue: state.address,
-                    isRequired: optionalFields.contains('address'),
-                    onChanged: (value) => cubit.updateCustomerField('address', value),
-                  ),
-                        HeightBox(),
-                       _buildTextField(
-                    label: 'Credit Limit',
-                    initialValue: state.address,
-                    isRequired: optionalFields.contains('address'),
-                    onChanged: (value) => cubit.updateCustomerField('address', value),
-                  ),
-                        HeightBox(),
-                           CommonTextWidget(title: 'Dropdown'),
-                       _buildTextField(
-                    label: 'Primary Source',
-                    initialValue: state.address,
-                    isRequired: optionalFields.contains('address'),
-                    onChanged: (value) => cubit.updateCustomerField('address', value),
-                  ),
-                        HeightBox(),
-                        _buildTextField(
-                    label: 'Zone Id',
-                    initialValue: state.address,
-                    isRequired: optionalFields.contains('address'),
-                    onChanged: (value) => cubit.updateCustomerField('address', value),
-                  ),
-                        HeightBox(),
-                          _buildTextField(
-                    label: 'Kyc Status',
-                    initialValue: state.address,
-                    isRequired: optionalFields.contains('address'),
-                    onChanged: (value) => cubit.updateCustomerField('address', value),
-                  ),
-                        HeightBox(),
-                           CommonTextWidget(title: 'Dropdown'),
-                 _buildTextField(
-                    label: 'Country Id',
-                    initialValue: state.address,
-                    isRequired: optionalFields.contains('address'),
-                    onChanged: (value) => cubit.updateCustomerField('address', value),
-                  ),
-                        HeightBox(),
-                           CommonTextWidget(title: 'Dropdown'),
-                     _buildTextField(
-                    label: 'State Id',
-                    initialValue: state.address,
-                    isRequired: optionalFields.contains('address'),
-                    onChanged: (value) => cubit.updateCustomerField('address', value),
-                  ),
-                        HeightBox(),
-                           CommonTextWidget(title: 'Dropdown'),
-                        _buildTextField(
-                    label: 'District Id',
-                    initialValue: state.address,
-                    isRequired: optionalFields.contains('address'),
-                    onChanged: (value) => cubit.updateCustomerField('address', value),
-                  ),
-                     CommonTextWidget(title: 'Dropdown'),
-                        HeightBox(),
-                        _buildTextField(
-                    label: 'City Id',
-                    initialValue: state.address,
-                    isRequired: optionalFields.contains('address'),
-                    onChanged: (value) => cubit.updateCustomerField('address', value),
-                  ),
-                        HeightBox(),
-                           CommonTextWidget(title: 'Dropdown'),
-                        _buildTextField(
-                    label: 'Locality Id',
-                    initialValue: state.address,
-                    isRequired: optionalFields.contains('address'),
-                    onChanged: (value) => cubit.updateCustomerField('address', value),
-                  ),
-                        HeightBox(),
-                        _buildTextField(
-                    label: 'Mandal',
-                    initialValue: state.address,
-                    isRequired: optionalFields.contains('address'),
-                    onChanged: (value) => cubit.updateCustomerField('address', value),
-                  ),
-                        HeightBox(),
+                //  if(context.watch<UpdateCustomerCubit>().state.isIndividual) 
+                //   _buildTextField(
+                //     textController: context.watch<UpdateCustomerCubit>().farmNameController,
+                //     label: 'Farm Name',
+                //     initialValue: state.farmName,
+                //     onChanged: (value) => cubit.updateCustomerField('farmName', value),
+                //   ),
+                //   const HeightBox(),
+     const   CommonTextFieldHeadingWidget(title: 'Customer Name'),
+                  CommonTextFormFieldWidget(textEditingController: context.watch<UpdateCustomerCubit>().customerNameController, hintText: 'Customer Name', onChanged: (String? val) {
+                    context.read<UpdateCustomerCubit>().onChangeCustomerName(val);
+                  }),
+                
+                        const HeightBox(),
+                   const   CommonTextFieldHeadingWidget(title: 'Customer Phone'),
+                  CommonTextFormFieldWidget(textEditingController: context.watch<UpdateCustomerCubit>().customerPhoneController, hintText: 'Customer Phone', onChanged: (String? val) {
+                    context.read<UpdateCustomerCubit>().onChangeCustomerPhone(val);
+                  }),
+                        const HeightBox(),
+
+                const   CommonTextFieldHeadingWidget(title: 'Title'),
+                    const UcTitleDropDownWidget(),
+                        const HeightBox(),
+                                                 const    CommonTextFieldHeadingWidget(title: 'Email'),
+                  CommonTextFormFieldWidget(textEditingController: context.watch<UpdateCustomerCubit>().emailController, hintText: 'Email', onChanged: (String? val) {
+                    context.read<UpdateCustomerCubit>().onChangeEmail(val);
+                  }),
+                        const HeightBox(),
+                                 const    CommonTextFieldHeadingWidget(title: 'Address Line 2'),
+
+                  CommonTextFormFieldWidget(textEditingController: context.watch<UpdateCustomerCubit>().addressLine2Controller, hintText: 'Alternate Address', onChanged: (String? val) {
+                    context.read<UpdateCustomerCubit>().onChangeAddressLine2(val);
+                  }),
+                        const HeightBox(),
+                                                         const    CommonTextFieldHeadingWidget(title: 'Credit Limit'),
+                  
+                  CommonTextFormFieldWidget(textEditingController: context.watch<UpdateCustomerCubit>().creditLimitController, hintText: 'Credit Limit', onChanged: (String? val) {
+                    context.read<UpdateCustomerCubit>().onChangeCreditLimit(val);
+                  }),
+             
+                        const HeightBox(),
+                                                 const    CommonTextFieldHeadingWidget(title: 'Countries'),
+                           const UcCountriesDropDownWiget(),
+
+                              const HeightBox(),
+                                                 const    CommonTextFieldHeadingWidget(title: 'State'),
+                           const UcStatesDropDownWidget(),
+                           const HeightBox(),
+                                                 const    CommonTextFieldHeadingWidget(title: 'District'),
+                           const UcDistrictsDropDownWidget(),
+                            const HeightBox(),
+                                                 const    CommonTextFieldHeadingWidget(title: 'Mandal'),
+
+                 
+                  CommonTextFormFieldWidget(textEditingController: context.watch<UpdateCustomerCubit>().mandalController, hintText: 'Mandal name', onChanged: (String? val) {
+                    context.read<UpdateCustomerCubit>().onChangeMandal(val);
+                  }),
+                          const HeightBox(),
+                                                 const    CommonTextFieldHeadingWidget(title: 'City'),
+                           const UcCityDropDownWidget(),
+                           const HeightBox(),
+                                                 const    CommonTextFieldHeadingWidget(title: 'Locality'),
+                           const UcLocalityDropDownWidget(),
+                       
+                           
+                           
+                 
+                        const HeightBox(),
+                                                                         const    CommonTextFieldHeadingWidget(title: 'Pincode'),
+
     
-                        _buildTextField(
-                    label: 'Postal Code',
-                    initialValue: state.address,
-                    isRequired: optionalFields.contains('address'),
-                    onChanged: (value) => cubit.updateCustomerField('address', value),
-                  ),
-                        HeightBox(),
+                   
+                  CommonTextFormFieldWidget(textEditingController: context.watch<UpdateCustomerCubit>().postalCodeController, hintText: 'Pincode', onChanged: (String? val) {
+                    context.read<UpdateCustomerCubit>().onChangePostalCode(val);
+                  }),
+                        const HeightBox(),
     
-                        _buildTextField(
-                    label: 'Address',
-                    initialValue: state.address,
-                    isRequired: optionalFields.contains('address'),
-                    onChanged: (value) => cubit.updateCustomerField('address', value),
-                  ),
-                        HeightBox(),
-                           CommonTextWidget(title: 'Dropdown'),
-                         _buildTextField(
-                    label: 'Is Individual',
-                    initialValue: state.address,
-                    isRequired: optionalFields.contains('address'),
-                    onChanged: (value) => cubit.updateCustomerField('address', value),
-                  ),
-                        HeightBox(),
-                         _buildTextField(
-                    label: 'Address',
-                    initialValue: state.address,
-                    isRequired: optionalFields.contains('address'),
-                    onChanged: (value) => cubit.updateCustomerField('address', value),
-                  ),
-                        HeightBox(),
-                  _buildTextField(
-                    label: 'Contact Person',
-                    initialValue: state.mobile,
-                    isRequired: requiredFields.contains('mobile'),
-                    keyboardType: TextInputType.phone,
-                    onChanged: (value) => cubit.updateCustomerField('mobile', value),
-                  ),
-                        HeightBox(),
-    
-                         _buildTextField(
-                    label: 'Mobile',
-                    initialValue: state.address,
-                    isRequired: optionalFields.contains('address'),
-                    onChanged: (value) => cubit.updateCustomerField('address', value),
-                  ),
-                        HeightBox(),
-                  _buildTextField(
-                    label: 'Alternate Contact',
-                    initialValue: state.alternateContact,
-                    isRequired: optionalFields.contains('alternateContact'),
-                    keyboardType: TextInputType.phone,
-                    onChanged: (value) => cubit.updateCustomerField('alternateContact', value),
-                  ),
-                        HeightBox(),
+                                                                  const    CommonTextFieldHeadingWidget(title: 'Address'),
+
+                  CommonTextFormFieldWidget(textEditingController: context.watch<UpdateCustomerCubit>().addressController, hintText: 'Address', onChanged: (String? val) {
+                    context.read<UpdateCustomerCubit>().onChangeAddress(val);
+                  }),
                
-                   _buildTextField(
-                    label: 'Farm Capacity',
-                    initialValue: state.faxNo,
-                    isRequired: optionalFields.contains('farmCapacity'),
-                    keyboardType: TextInputType.number,
-                    onChanged: (value) => cubit.updateCustomerField('farmCapacity', value),
-                  ),
-                        HeightBox(),
-                  _buildTextField(
-                    label: 'Fax No',
-                    initialValue: state.faxNo,
-                    isRequired: optionalFields.contains('faxNo'),
-                    keyboardType: TextInputType.number,
-                    onChanged: (value) => cubit.updateCustomerField('faxNo', value),
-                  ),
-                        HeightBox(),
-                       _buildTextField(
-                    label: 'Division Ids',
-                    initialValue: state.faxNo,
-                    isRequired: optionalFields.contains('faxNo'),
-                    keyboardType: TextInputType.number,
-                    onChanged: (value) => cubit.updateCustomerField('faxNo', value),
-                  ),
-                        HeightBox(),
+                 
+                   
+                        const HeightBox(),
+                                                                         const    CommonTextFieldHeadingWidget(title: 'Contact Name'),
+
+
+                  CommonTextFormFieldWidget(textEditingController: context.watch<UpdateCustomerCubit>().customerNameController  , hintText: 'Customer Name', onChanged: (String? val) {
+                    context.read<UpdateCustomerCubit>().onChangeCustomerName(val);
+                  }),
+                        const HeightBox(),
+                                                                         const    CommonTextFieldHeadingWidget(title: 'Mobile'),
+
+    
+                  CommonTextFormFieldWidget(textEditingController: context.watch<UpdateCustomerCubit>().mobileController, hintText: 'Mobile', onChanged: (String? val) {
+                    context.read<UpdateCustomerCubit>().onChangeMobile(val);
+                  }),
+                        const HeightBox(),
+                                                                  const    CommonTextFieldHeadingWidget(title: 'Alterate mobile'),
+
+                  CommonTextFormFieldWidget(textEditingController: context.watch<UpdateCustomerCubit>().alternativeMobileController, hintText: 'Alternate mobile', onChanged: (String? val) {
+                    context.read<UpdateCustomerCubit>().onChangeAlternativeMobile(val);
+                  }),
+                        const HeightBox(),
+               
+                                                                const    CommonTextFieldHeadingWidget(title: 'Farm Capacity'),
+
+                  CommonTextFormFieldWidget(textEditingController: context.watch<UpdateCustomerCubit>().farmCapacityController, hintText: 'Farm capacity', onChanged: (String? val) {
+                    context.read<UpdateCustomerCubit>().onChangeFarm(val);
+                  }),
+              
+                        const HeightBox(),
                   
                   const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        // Handle form submission
-                        final updatedCustomer = cubit.state;
-                        print('Updated Customer: ${updatedCustomer.customerName}');
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Please fill required fields.')),
-                        );
-                      }
-                    },
-                    child: const Text('Update'),
-                  ),
+                
                 ],
               ),
             ),
@@ -267,6 +182,7 @@ class CustomerUpdateForm extends StatelessWidget {
   }
 
   Widget _buildTextField({
+    required TextEditingController textController,
     required String label,
     required String initialValue,
     required bool isRequired,
@@ -304,6 +220,6 @@ class HeightBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(height: 20,);
+    return const SizedBox(height: 20,);
   }
 }

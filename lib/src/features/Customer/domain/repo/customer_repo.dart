@@ -10,6 +10,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/last_ch
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkin_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checkout_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/customer_create_post_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/domain/model/customer_full_response_model.dart';
 
 import '../../../../../shared/domain/model/zone_model.dart';
 import '../model/get/customer_model.dart';
@@ -18,6 +19,8 @@ import '../model/get/joint_employe_model.dart';
 
 abstract class CustomerRepo {
   Future<Either<NetworkExceptions, CustomerResponseModel>> getCustomers();
+  Future<Either<NetworkExceptions, CustomerFullDetailsResponseModel?>> getCustomerDetailsByFarmId({required String farmid});
+  
   Future<Either<NetworkExceptions, CustomerResponseModel>> getAllCustomerDemo();
   Future<Either<NetworkExceptions, Customermodel>> getCustomerById(int id);
   Future<Either<NetworkExceptions, CheckInResponseModel>> checkIn(
