@@ -8,6 +8,7 @@ class UpdateCustomerModel {
   String? customerPhone;
   String? title;
   String? email;
+  String? additionalPhone;
   bool? customerType;
   String? addressLine2;
   double? creditLimit;
@@ -43,6 +44,7 @@ class UpdateCustomerModel {
     this.customerPhone,
     this.title,
     this.email,
+    this.additionalPhone,
     this.customerType,
     this.addressLine2,
     this.creditLimit,

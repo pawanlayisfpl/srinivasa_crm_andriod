@@ -11,8 +11,8 @@ class Endpoints {
     // static const String basicUrl = "http://crmapi.srinivasa.co:8081/crm_sfpl";
     // static const String basicUrl = "http://95.216.201.117:8081/crm_sfpl";
     // static const String testUrl = "http://95.216.201.117:8081/crm_sfpl";
-  static const int connectionTimeout = 30;
-  static const int receiveTimeout = 60;
+  static const int connectionTimeout = 600;
+  static const int receiveTimeout = 600;
 
   // AUTH
   static const String singupUrl = "$basicUrl/auth/register";
@@ -34,10 +34,12 @@ class Endpoints {
   static const String getAllZones = "/auth/zones";
   // ROLES
   static const String getAllRoles = "/auth/roles";
+  static const String getAllGloablEmployes = "/se/cascade-alluserdetails";
   // DIVISIONS
   static const String getAllDivisions = "/auth/divisions";
   // CUSTOMERS
   static const String createCustomer = "$basicUrl/se/addcustomer";
+  static const String updateCustomer = "$basicUrl/se/updatecustomer/";
   // static const String getAllCustomers = "$basicUrl/se/allcustomers";
   static const String getAllCustomers = "$basicUrl/se/allcustomers-icrm";
   static const String lastCheckInCheckOut = "$basicUrl/se/getlastcheckinoutdetails";
@@ -69,6 +71,7 @@ class Endpoints {
   static const String allRoutes = '$basicUrl/se/all-routes';
   // EMPLOYESS
     static const String allEmployess = '$basicUrl/se/alluserdetails';
+    static const String getEmployeById = '$basicUrl/admin/getUser/';
 
     // PRIMARY SOURCES
       static const String getAllPrimarySources = '$basicUrl/se/primarysource-data';
@@ -118,6 +121,7 @@ class Endpoints {
 
   // JOINT-EMPLOYE
   static const String jointemployesUrl = '$basicUrl/se/usersfromassignedzones';
+  static const String getReportingMangersUrl = '$basicUrl/se/salesrepsinzone';
 
   // GET CUSTOMER DETAILS BY FARM ID
   static const String getCustomerDetailsFarmById = "$basicUrl/se/getFarm?farmId=";

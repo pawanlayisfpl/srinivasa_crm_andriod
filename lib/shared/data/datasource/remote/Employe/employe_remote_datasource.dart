@@ -3,15 +3,25 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
+import 'package:srinivasa_crm_new/shared/domain/model/Employe/all_employe_model.dart';
 
 import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_model.dart';
+import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_reporting_manager_model.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 
 import '../../../../../src/core/model/model.dart';
+import '../../../../domain/model/Employe/single_employe_model.dart';
+import '../../../../domain/repo/Employe/roles_model.dart';
 
 abstract class EmployeDataSource{
   Future<List<EmployeeModel>> getEmployesList();
+  Future<SingleEmployeModel?> getEmployeById({required String employeId});
+  Future<List<RolesModel>> getAllRoles();
+  Future<AllEmployesModel?> getAllGloablEmployesList();
+  Future<EmployeReportingManagerModel?> getEmployeReportingMangers(String zoneId);
 }
+
+
 
 
 @Injectable(as: EmployeDataSource)
@@ -69,6 +79,82 @@ debugPrint('EMPLOYE API CALL MADE THROUGH INTERNET');
 
       throw const NetworkExceptions.noInternetConnection();
     }
+  }
+  
+  @override
+  Future<SingleEmployeModel?> getEmployeById({required String employeId}) async  {
+    try {
+      final response  = await dioClient.get(Endpoints.getEmployeById+employeId,headers: {});
+      if(response.statusCode == 200) {
+        SingleEmployeModel? employeModel = SingleEmployeModel.fromJson(response.data);
+        return employeModel;
+
+      }else {
+        throw NetworkExceptions.getDioException(response.data);
+      }
+      
+    } on DioException catch (e) {
+      throw NetworkExceptions.getDioException(e);
+      
+    }
+  }
+  
+  @override
+  Future<List<RolesModel>> getAllRoles()  async {
+   try {
+      final response  = await dioClient.get(Endpoints.getAllRoles,headers: {});
+      if(response.statusCode == 200) {
+        List data = response.data;
+
+        return data.map((e) => RolesModel.fromJson(e)).toList();
+
+      }else {
+        throw NetworkExceptions.getDioException(response.data);
+      }
+      
+    } on DioException catch (e) {
+      throw NetworkExceptions.getDioException(e);
+      
+    }
+  }
+  
+  @override 
+  Future<AllEmployesModel?> getAllGloablEmployesList()  async {
+    try {
+      final response = await dioClient.get(Endpoints.getAllGloablEmployes,headers: {});
+    if(response.statusCode == 200) {
+      return AllEmployesModel.fromJson(response.data);
+
+      }else {
+        throw NetworkExceptions.getDioException(response.data);
+      }      
+    } on DioException catch (e) {
+              throw NetworkExceptions.getDioException(e);
+
+
+      
+    }
+  }
+  
+  @override
+  Future<EmployeReportingManagerModel?> getEmployeReportingMangers(String zoneId) async {
+      try {
+      final response = await dioClient.post(Endpoints.getReportingMangersUrl,headers: {},data: {
+        "zoneId" : zoneId,
+      });
+    if(response.statusCode == 200) {
+      return EmployeReportingManagerModel.fromJson(response.data);
+
+      }else {
+        throw NetworkExceptions.getDioException(response.data);
+      }      
+    } on DioException catch (e) {
+              throw NetworkExceptions.getDioException(e);
+
+
+      
+    }
+  
   }
 
 }

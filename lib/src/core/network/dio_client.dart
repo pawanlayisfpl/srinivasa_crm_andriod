@@ -181,9 +181,48 @@ rethrow;
   }
 }
 
-  //* put(UPDATE) Method:----------------------------------------------------------------------------------------------------------------
 
-  Future<Response> put(
+
+Future<Response> put(
+  String url, {
+  data,
+  Map<String,dynamic>? headers,
+  Map<String, dynamic>? queryParameters,
+  Options? options,
+  CancelToken? cancelToken,
+  ProgressCallback? onSendProgress,
+  ProgressCallback? onReceiveProgress,
+}) async {
+  final  String? getToken = keyValueStorage.getString(KeyValueStrings.token);
+  String token = getToken ?? '';
+
+  headers = headers != null ? {
+    "Authorization" : 'Bearer $token'
+  } : {};
+  
+  // debugPrint("Headers: $headers");
+
+  try {
+    final Response response = await _dio.put(
+      url,
+      data: data,
+      queryParameters: queryParameters,
+      options: Options(
+          contentType: ContentType.json.toString(),
+          headers: headers),
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+    return response;
+  } on DioException  {
+rethrow;
+  }
+}
+ 
+  //* patch(UPDATE) Method:----------------------------------------------------------------------------------------------------------------
+
+  Future<Response> patch(
     String url, {
     data,
       Map<String,dynamic>? headers,
@@ -203,7 +242,7 @@ rethrow;
   
   // debugPrint("Headers: $headers");
     try {
-      final Response response = await _dio.put(
+      final Response response = await _dio.patch(
         url,
         data: data,
         queryParameters: queryParameters,
@@ -220,6 +259,7 @@ rethrow;
     }
   }
 
+  
   //* Delete Method:----------------------------------------------------------------------------------------------------------------
 
   Future<dynamic> delete(

@@ -19,6 +19,8 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/checko
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/customer_create_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/domain/model/customer_full_response_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/domain/model/update_customer_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/domain/model/update_customer_post_model.dart';
 
 import '../datasource/remote/customer_remote_datasources.dart';
 
@@ -180,7 +182,19 @@ try {
      }
 
   }
+  
+  @override
+  Future<Either<NetworkExceptions, bool>> updateCustomer({required UpdateCustomerPostModel updateCustomerPostModel}) async {
+   try {
+       
+       final results = await customerRemoteDataSource.updateCustomer(updateCustomerPostModel: updateCustomerPostModel);
+      return right(results);
+     } on NetworkExceptions catch (e) {
+      return left(e);
+       
+     }
+  }
 
-
+  
 
 }

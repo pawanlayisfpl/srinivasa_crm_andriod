@@ -303,7 +303,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
     await Future.delayed(const Duration(milliseconds: 800));
     emit(state.copyWith(
       isLoading: true,
-      countryList: [CountryModel(countryId: 79, countryName: "India")],
+      countryList: [CountryModel(countryId: 79.toString(), countryName: "India")],
     ));
 
     // emit(state.copyWith(isLoading: true));
@@ -533,7 +533,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
                 districtId: distirctModel.districtId.toString(),
                 assignTo: assginedTo.id!,
                 divisionId: [state.selectedDivisionModel!.divisionId],
-                countryId: country.countryId,
+                countryId: int.parse(country.countryId!),
                 stateId: stateModel.stateId.toString(),
                 cityId: selectedCityValue.cityId!,
                 localityId: selectedLocalityValue.localityId!,
@@ -603,7 +603,7 @@ class CustomerCreateCubit extends Cubit<CustomerCreateState> {
           districtId: distirctModel.districtId.toString(),
           assignTo: assginedTo.id!,
           divisionId: [state.selectedDivisionModel!.divisionId],
-          countryId: country.countryId,
+          countryId: int.parse(country.countryId!),
           stateId: stateModel.stateId.toString(),
           cityId: selectedCityValue.cityId!,
           localityId: selectedLocalityValue.localityId!,

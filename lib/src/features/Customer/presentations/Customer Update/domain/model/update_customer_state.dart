@@ -1,13 +1,16 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/District/district_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Division/division_model.dart';
+import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Locality/locality_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/StateModel/state_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/domain/model/customer_full_response_model.dart';
 
 import '../../../../../../../shared/domain/model/City/city_model.dart';
 import '../../../../../../../shared/domain/model/Country/country_model.dart';
+import '../../../../../../../shared/domain/model/Employe/employe_reporting_manager_model.dart';
 import '../../../../../../../shared/domain/model/Primary Source/primary_source_model.dart';
+import '../../../../../../../shared/domain/model/zone_model.dart';
 
 part 'update_customer_state.freezed.dart';
 
@@ -38,6 +41,17 @@ class UpdateCustomerState with _$UpdateCustomerState {
     @Default(false) bool isPrimarySourceLoading,
     @Default([]) List<PrimarySourceModel> primarySoruceList,
     @Default(null) PrimarySourceModel? selectedPrimarySourceModel,
+    @Default([]) List<ZoneModel> zonesList,
+    @Default(null) ZoneModel? selectedZoneModel,
+    @Default([]) List<EmployeeModel> employeList,
+    @Default(null) EmployeeModel? selectedEmployeModel,
+    @Default([]) List<EmployeRepModel> repMangerList,
+    @Default(null) EmployeRepModel? selectedRepModel,
+    @Default(false) bool isEmployeRepLoading,
+
+    
+    
+
 
   @Default([]) List<String> titleList,
   @Default(null) String? selectedTitleValue,
@@ -55,7 +69,8 @@ class UpdateCustomerState with _$UpdateCustomerState {
   @Default(false) bool isLocalictyLoading,
   @Default([]) List<LocalityModel> localitiesList,
   @Default(null) LocalityModel? selectedLocalityModel,
-
+  @Default(false) bool isZoneLoading,
+  @Default(false) bool isEmployeLoading,
 
     @Default(-1) int countryId,
     @Default('') String stateId,
@@ -85,6 +100,12 @@ class UpdateCustomerState with _$UpdateCustomerState {
      isPrimarySourceLoading: false,
      selectedPrimarySourceModel:  null,
      primarySoruceList: [],
+     isEmployeLoading: false,
+     isEmployeRepLoading: false,
+     isZoneLoading: false,
+     repMangerList: [],
+     selectedRepModel: null,
+     
     
     selectedStateModel: null,
     selectedTitleValue: null,
@@ -125,5 +146,10 @@ class UpdateCustomerState with _$UpdateCustomerState {
         divisionId: [],
         farmCapacity: 0.0,
         assignTo: -1,
+         employeList: [],
+         selectedZoneModel: null,
+         zonesList: [],
+         selectedEmployeModel: null,
+          
       );
 }

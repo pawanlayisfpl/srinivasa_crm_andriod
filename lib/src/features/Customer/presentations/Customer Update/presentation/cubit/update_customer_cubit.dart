@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -5,21 +6,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:quickalert/quickalert.dart';
+
 import 'package:srinivasa_crm_new/shared/domain/model/City/city_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/District/district_model.dart';
+import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_model.dart';
+import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_reporting_manager_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Locality/locality_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/StateModel/state_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Address/address_repo.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Divisions/divison_repo.dart';
+import 'package:srinivasa_crm_new/shared/domain/repo/Employe/employe_repo.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Primary%20Source/primary_source_repo.dart';
+import 'package:srinivasa_crm_new/shared/domain/repo/Zone/zone_repo.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Full%20Details/screen/customer_full_details_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/domain/model/customer_full_response_model.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/domain/model/update_customer_post_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/domain/model/update_customer_state.dart';
+
 import '../../../../../../../shared/domain/model/Country/country_model.dart';
 import '../../../../../../../shared/domain/model/Division/division_model.dart';
 import '../../../../../../../shared/domain/model/Primary Source/primary_source_model.dart';
+import '../../../../../../../shared/domain/model/zone_model.dart';
 
 @injectable
 class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
@@ -27,18 +35,24 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
   final PrimarySourceRepo primarySourceRepo;
   final DivisionRepo divisionRepo;
   final CustomerRepo customerRepo;
+  final ZoneRepo zoneRepo;
+  final EmployeRepo employeRepo;
   
   UpdateCustomerCubit({
     required this.addressRepo,
     required this.primarySourceRepo,
     required this.divisionRepo,
     required this.customerRepo,
+    required this.zoneRepo,
+    required this.employeRepo,
   }) : super(UpdateCustomerState.initial());
 
 
   final TextEditingController farmNameController  = TextEditingController();
   final TextEditingController customerNameController  = TextEditingController();
   final TextEditingController customerPhoneController  = TextEditingController();
+  final TextEditingController contactNameController  = TextEditingController();
+  final TextEditingController contactPhoneController  = TextEditingController();
   final TextEditingController titleController  = TextEditingController();
   final TextEditingController emailController  = TextEditingController();
   final TextEditingController addressLine2Controller  = TextEditingController();
@@ -51,6 +65,26 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
   final TextEditingController alternativeMobileController  = TextEditingController();
   final TextEditingController farmCapacityController  = TextEditingController();
 
+
+  List<String> customerTypes = [
+    'Organization',
+    "Individual"
+  ];
+
+  String? selectedCustomerType;
+
+
+
+  void setSelectedCustomerType(String? type) {
+    selectedCustomerType = type;
+
+
+  }
+
+
+  void resetCustomerType() {
+    selectedCustomerType = null;
+  }
 
   void onChangeFarm(String? value) {
     farmNameController.text = value ?? "";
@@ -88,6 +122,12 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
   void onChangeCustomerName(String? value) {
     customerNameController.text = value ?? "";
   }
+  void onChangeContactName(String? value) {
+    contactNameController.text = value ?? "";
+  }
+  void onChangeContactPhone(String? value) {
+    contactPhoneController.text = value ?? "";
+  }
 
   void onChangeCustomerPhone(String? value) {
     customerPhoneController.text = value ?? "";
@@ -120,8 +160,8 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
     if(stateModel == null)  Fluttertoast.showToast(msg: 'No state found');
     // state.sel = stateModel;
     emit(state.copyWith(selectedStateModel: stateModel));
-    log(stateModel!.stateId.toString());
-      if(stateModel.stateId.isNotEmpty) {
+    // log(stateModel!.stateId.toString());
+      if(state.selectedStateModel != null) {
                await getAllDistricts();
   await    getAllCities();
     
@@ -161,6 +201,20 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
       CustomerFullDetailsResponseModel? model = r;
 
       if(model == null) return;
+
+      if(model.body?.custStatus?.toString() == "APPROVED" ) {
+        emit(state.copyWith(customerFullDetailsresposneModel: null));
+        if(context.mounted) {
+          QuickAlert.show(context: context, type: QuickAlertType.error,title: "Warning",text: "You can't update values of the customer as KYC is already approved.",barrierDismissible: false,confirmBtnColor: Colors.black, disableBackBtn: true, onConfirmBtnTap: ( ) {
+            if(context.mounted) {
+              Navigator.pop(context);
+              if(context.mounted) {
+                Navigator.pop(context);
+              }
+            }
+          });
+        }
+      }
       log('priting customer full details model');
       log(model.toJson().toString());
 
@@ -177,6 +231,8 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
       farmNameController.text = model.body?.farmName?? "";
       customerNameController.text  = model.body?.customerName ?? "";
       customerPhoneController.text = model.body?.customerPhone ?? "";
+      contactNameController.text = model.body?.contactPerson ?? "";
+      contactPhoneController.text = model.body?.phone ?? "";
       titleController.text = model.body?.title ?? "";
       emailController.text == model.body?.email;
       addressController.text = model.body?.address ?? "";
@@ -187,14 +243,21 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
       addressLine2Controller.text = model.body?.addressLine2 ?? "";
       mobileController.text = model.body?.phone ?? "";
       alternativeMobileController.text = model.body?.additionalPhone ?? "";
-      farmCapacityController.text = model.body?.farmCapacity.toString() ?? "";
+      farmCapacityController.text = model.body?.farmCapacity.toString().split(".").first ?? 0.0.toString();
       await getAllCountries();
+      
       await getTitles();
       setTitleModel(model.body?.title ?? "");
-      
-  await    setSelectedCountryModel(CountryModel(countryId: 79, countryName: model.body?.custCountry ?? "India"));
+     await setSelectedCountryModel(CountryModel(countryId: 79.toString(), countryName: 'India'));
+
+      if(state.countryModel != null) {
      await  setSelectedStateModel(StateModel(stateId: model.body!.state!.stateId!, stateName: model.body!.state!.stateName!, stateCode: model.body!.state!.stateName!));
-      setDistrictModel(DistrictModel(
+
+
+      }
+
+      if(state.selectedStateModel != null) {
+          setDistrictModel(DistrictModel(
         districtId: model.body?.district?.districtId,
         districtName: model.body?.district?.districtName
       ));
@@ -204,10 +267,43 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
     cityName: model.body?.custCity?.cityName
    ));
 
+   await getAllDivisionList();
+
+   if(state.divisionList.isNotEmpty) {
+    // setSelectedDivisionsList(model.body?.)
+   }
+
+   
+
+      }
+      
+  // await    setSelectedCountryModel(CountryModel(countryId: model.body?.custCountry?.id?? "79", countryName: model.body?.custCountry?.name ?? "India"));
+    
+
    setLocalityModel(LocalityModel(
     localaityName: model.body?.locality?.localityName,
     localityId: model.body?.locality?.localityId
    ));
+
+   await getAllEmployes();
+
+
+   await getAllZones();
+ await  setSelectedZone(ZoneModel(
+    zoneId: model.body?.zoneModel?.zoneId,
+    zoneName: model.body?.zoneModel?.zoneName
+   ));
+
+   await getAllPrimarySources();
+
+   if(state.selectedPrimarySourceModel != null) {
+    setPrimarySource(PrimarySourceModel(sourceId: model.body?.primarySource?.primarySourceId ?? 1, sourceName: model.body?.primarySource?.primarySourceName ?? ""));
+   }
+ 
+  //  setSelectedZone(ZoneModel(
+  //   zoneId: model.body?.custZone,
+
+  //  ));
 
   
 
@@ -217,6 +313,55 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
 
     });
   }
+
+  Future<void> getAllZones() async {
+    emit(state.copyWith(isZoneLoading: false, zonesList: [],selectedZoneModel: null));
+    final results = await zoneRepo.getAllZones();
+    results.fold((l) {
+      emit(state.copyWith(zonesList: [],selectedZoneModel: null,isZoneLoading: false));
+    }, (r) async {
+      emit(state.copyWith(zonesList: r,selectedZoneModel: null,isZoneLoading: false));
+
+    });
+  }
+
+  Future<void>  setSelectedZone(ZoneModel model)  async {
+    emit(state.copyWith(selectedZoneModel: model));
+    if(state.selectedZoneModel != null) {
+    await  getEmployeRepMangersList();
+    }
+  }
+
+  void resetSelectedZone() {
+    emit(state.copyWith(selectedZoneModel: null));
+  }
+
+
+
+  Future<void> getAllEmployes() async {
+    emit(state.copyWith(employeList: [],isEmployeLoading: true,selectedEmployeModel: null));
+    await Future.delayed(const Duration(milliseconds: 600));
+    final results = await employeRepo.getEmployeesList();
+    results.fold((l) {
+          emit(state.copyWith(employeList: [],isEmployeLoading: false,selectedEmployeModel: null));
+
+
+      
+    }, (r) {
+          emit(state.copyWith(employeList: r,isEmployeLoading: false,selectedEmployeModel: null));
+
+    });
+  }
+
+
+  void setSelectedEmploye(EmployeRepModel employeModel) {
+    emit(state.copyWith(selectedRepModel: employeModel));
+  }
+
+  void resetSelectedEmploye() {
+    emit(state.copyWith(selectedRepModel:  null));
+  }
+
 
   Future<void> getAllDivisionList() async {
     emit(state.copyWith(divisionList: [],selectedDivisionList: []));
@@ -242,8 +387,46 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
     emit(state.copyWith(isPrimarySourceLoading: true, primarySoruceList: [],selectedPrimarySourceModel: null));
     final results = await primarySourceRepo.getPrimarySources();
 
+    results.fold((l) {
+
+      ApiFailedModel apiFailedModel = ApiFailedModel.fromNetworkExceptions(l);
+            emit(state.copyWith(isPrimarySourceLoading: false, primarySoruceList: [],selectedPrimarySourceModel: null));
+
+
+    }, (r) {
+          emit(state.copyWith(isPrimarySourceLoading: false, primarySoruceList: r,selectedPrimarySourceModel: null));
+
+
+    });
+
 
   }
+
+
+  void setPrimarySource(PrimarySourceModel primarySourceModel) {
+    emit(state.copyWith(selectedPrimarySourceModel: primarySourceModel));
+  } 
+
+
+  void resetPrimarySourceModel() {
+    emit(state.copyWith(selectedPrimarySourceModel: null));
+  }
+
+  Future<void> getEmployeRepMangersList() async {
+    emit(state.copyWith(isEmployeRepLoading: false,repMangerList: [],selectedRepModel: null));
+
+    final results = await employeRepo.getEmployeReportingMange(state.selectedZoneModel?.zoneId?? '');
+
+     results.fold((l) { 
+      emit(state.copyWith(isEmployeLoading: false,repMangerList: [],selectedRepModel: null));
+     }, (r) {
+      emit(state.copyWith(isEmployeRepLoading: false,repMangerList: r?.body ?? [],selectedRepModel: null));
+    });
+  }
+
+
+
+
 
   void resetCountires() async {
     emit(state.copyWith(countryModel: null,statesList: [],selectedStateModel: null,citiesList: [],selectedCityModel: null,districtList: [],selectedDistrictModel: null,localitiesList: [],selectedLocalityModel: null,));
@@ -287,7 +470,8 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
 
   Future<void> setSelectedCountryModel(CountryModel? countrymodel) async {
     emit(state.copyWith(countryModel: countrymodel));
-  await  getStates();
+  // await  getStates();
+  await getAllStates();
   }
 
 
@@ -345,31 +529,8 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
   }
 
 
-  List<String> _customerTypesList = [
-    "Inidividual",
-    "Organization"
-  ];
-  List<String> get customerTypesList => _customerTypesList;
 
-  String? _selectedCustomerType;
-  String? get selectedCustomerType => _selectedCustomerType;
 
-  void setCustomerType(String? value) {
-    _selectedCustomerType = value;
-  }
-
-  void resetCustomerType() {
-    _selectedCustomerType = null;
-  }
-
- 
-  void setPrimarySourceModel(PrimarySourceModel primarySourceModel) {
-    emit(state.copyWith(selectedPrimarySourceModel: primarySourceModel));
-  }
-
-  void resetPrimarySourceModel() {
-    emit(state.copyWith(selectedPrimarySourceModel: null));
-  }
 
   List<DistrictModel> _districtList = [];
   List<DistrictModel> get districtList => _districtList;
@@ -529,10 +690,113 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
       faxNo: key == 'faxNo' ? value : state.faxNo,
       divisionId: key == 'divisionId' ? value : state.divisionId,
       assignTo: key == 'assignTo' ? value : state.assignTo,
+
     );
 
     emit(updatedCustomer);
   }
+
+  Future<void> updateCustomerLogic(BuildContext context) async {
+    emit(state.copyWith(isLoading: true));
+
+    if(context.mounted) {
+      QuickAlert.show(context: context, type: QuickAlertType.loading,title: "Customer Updating",text: 'please wait while updating',disableBackBtn: true,barrierDismissible: false);
+    }
+
+    
+
+    UpdateCustomerPostModel updateCustomerPostModel = UpdateCustomerPostModel(
+      address: addressController.text.trim().isEmpty  ? state.customerFullDetailsresposneModel?.body?.address  :  addressController.text.trim(),
+      addressLine2: addressLine2Controller.text.trim().isEmpty ? state.customerFullDetailsresposneModel?.body?.addressLine2 ?? "" : addressLine2Controller.text.trim(),
+      alternateContact: alternativeMobileController.text.trim().isEmpty ? alternativeMobileController.text.trim() : state.customerFullDetailsresposneModel?.body?.additionalPhone,
+      cityId: state.selectedCityModel == null ? state.customerFullDetailsresposneModel?.body?.custCity?.cityId : state.selectedCityModel?.cityId,
+      contactPerson: contactNameController.text.trim().isEmpty ? state.customerFullDetailsresposneModel?.body?.customerName : customerNameController.text.trim(),
+      countryId: 79,
+      
+      creditLimit: creditLimitController.text.trim().isNotEmpty ? creditLimitController.text.trim() : state.customerFullDetailsresposneModel?.body?.creditLimit?.toString(),
+      customerId: state.customerFullDetailsresposneModel?.body?.customerId,
+      customerName: customerNameController.text.trim().isEmpty ? customerNameController.text.trim() : state.customerFullDetailsresposneModel?.body?.customerName,
+      customerPhone: customerPhoneController.text.trim().isEmpty ? customerPhoneController.text.trim() : state.customerFullDetailsresposneModel?.body?.customerPhone,
+      customerType: state.customerFullDetailsresposneModel?.body?.customerType,
+      districtId: state.selectedDistrictModel != null ? state.selectedDistrictModel?.districtId : state.customerFullDetailsresposneModel?.body?.district?.districtId,
+      email: emailController.text.trim().isNotEmpty ? emailController.text.trim() : state.customerFullDetailsresposneModel?.body?.email,
+      farmCapacity: farmCapacityController.text.trim().isNotEmpty ? farmCapacityController.text.toString() : state.customerFullDetailsresposneModel?.body?.farmCapacity.toString(),
+      farmId: state.customerFullDetailsresposneModel?.body?.farmId,
+      farmName: farmNameController.text.trim().isNotEmpty ? farmNameController.text.trim() : state.customerFullDetailsresposneModel?.body?.farmName,
+      faxNo: faxNoController.text.trim(),
+      // divisionId: state.selectedDivisionList.isNotEmpty ? state.selectedDivisionList.map((e) => e.divisionId).toList() : state.customerFullDetailsresposneModel?.body?.
+      mobile: mobileController.text.trim().isNotEmpty ? mobileController.text.trim() : state.customerFullDetailsresposneModel?.body?.phone,
+      mandal: mandalController.text.trim().isNotEmpty ? mandalController.text.trim() : state.customerFullDetailsresposneModel?.body?.mandal,
+      title: state.selectedTitleValue ?? state.customerFullDetailsresposneModel?.body?.title,
+      primarySourceId: state.selectedPrimarySourceModel != null ? state.selectedPrimarySourceModel?.sourceId : state.customerFullDetailsresposneModel?.body?.primarySource?.primarySourceId,
+
+      kycstatus: state.customerFullDetailsresposneModel?.body?.custStatus,
+      stateId: state.selectedStateModel != null ? state.selectedStateModel?.stateId : state.customerFullDetailsresposneModel?.body?.state?.stateId,
+      zoneId: state.selectedZoneModel?.zoneId,
+      postalCode: postalCodeController.text.trim().isEmpty ? postalCodeController.text.trim() : state.customerFullDetailsresposneModel?.body?.pincode,
+      // divisionId: state.selectedDivisionList.isEmpty ? state.selectedDivisionList.map((e) => e.divisionId).toList() : [],
+      assignTo: state.selectedRepModel != null ? state.selectedRepModel?.id : state.customerFullDetailsresposneModel?.body?.assignTo?.userId,
+      localityId: state.selectedLocalityModel != null ? state.selectedLocalityModel?.localityId : state.customerFullDetailsresposneModel?.body?.locality?.localityId,
+
+        isIndividual: state.customerFullDetailsresposneModel?.body?.isIndividual,
+        isOrganization: state.customerFullDetailsresposneModel?.body?.isOrganization,
+      // primarySourceId: state.customerFullDetailsresposneModel?.body?.primarySource,
+      
+
+
+    );
+
+    await Future.delayed(const Duration(milliseconds: 900));
+        log(updateCustomerPostModel.toJson().toString());
+
+
+
+    final results  = await customerRepo.updateCustomer(updateCustomerPostModel: updateCustomerPostModel);
+
+    results.fold((l)  async {
+
+    if(context.mounted) {
+      if(Navigator.canPop(context)) {
+        Navigator.pop(context);
+        if(context.mounted) {
+                   QuickAlert.show(context: context, type: QuickAlertType.error,title: "Failed to update customer",text: ApiFailedModel.fromNetworkExceptions(l).message);
+
+        }
+      }
+    }
+      
+    }, (r)  async {
+      
+    if(context.mounted) {
+      if(Navigator.canPop(context)) {
+        Navigator.pop(context);
+        if(context.mounted) {
+          if(Navigator.canPop(context)) {
+            Navigator.pop(context);
+            if(context.mounted) {
+          await    context
+          .read<UpdateCustomerCubit>()
+          .getInitData(state.customerFullDetailsresposneModel?.body?.farmId.toString() ?? "-1", context);
+          QuickAlert.show(context: context, type: QuickAlertType.success,title: "Updated Successfully");
+
+            }
+          }
+        }
+      }
+    }
+
+    });
+
+
+
+
+
+
+
+  }
+
+
+
 
     // Method to clear all TextEditingControllers
   void clearAllControllers() {
@@ -570,6 +834,8 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
     mobileController.dispose();
     alternativeMobileController.dispose();
     farmCapacityController.dispose();
+    contactPhoneController.dispose();
+    contactNameController.dispose();
 
     return super.close();
   }

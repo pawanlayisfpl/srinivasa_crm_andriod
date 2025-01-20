@@ -59,7 +59,7 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDataSource {
     try {
         final response = await dioClient.post(Endpoints.districts,headers:  {},data: {
           "stateId" : stateId
-        });
+        },);
   
       if(response.statusCode == 200){
         final List<DistrictModel> states = (response.data['data'] as List).map((e) => DistrictModel.fromJson(e)).toList();

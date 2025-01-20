@@ -13,6 +13,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:injectable/injectable.dart';
 import 'package:srinivasa_crm_new/firebase_options.dart';
+import 'package:srinivasa_crm_new/shared/presentations/AllEmploye/cubit/all_employe_cubit.dart';
+import 'package:srinivasa_crm_new/shared/presentations/Employee/cubit/employee_update_cubit.dart';
 import 'package:srinivasa_crm_new/shared/presentations/Otp/presentations/cubit/otp_cubit.dart';
 import 'package:srinivasa_crm_new/shared/presentations/Update%20Password/presentations/cubit/update_cubit.dart';
 import 'package:srinivasa_crm_new/shared/presentations/cubit/forget_cubit.dart';
@@ -198,14 +200,6 @@ Future<void> backgroundHandler(RemoteMessage message) async {
 
 
 
-// TODO: CHANGE URL OF FIND EMAIL AND RESET PASSWORD FROM TEST TO LIVE URL , ONCE TESTING IS DONE FROM SHASHI REKHA
-// TODO: ADD BATTERY STATUS FEILD IN PUNCH IN , PUNCHOUT, CHECK-IN, CHECKOUT
-// TODO: MODIFY SALES ORDER BODY REQUEST API
-// TODO: START WORK ON TICKET FEEDBACK UI AND API IMPLEMENTATION
-// TODO: WORK ON SYNC PAGE AND OFFLINE BATTERY FIELD IN MULTIPLE LOCAITON ADDING API
-// TODO: CRM APP DEPLOYEMENT IN IOS AND ANDROID PLAYSTORE ALSO....
-// 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
@@ -296,6 +290,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => locator.get<AddCommentCubit>()),
         BlocProvider(create: (_) => locator.get<ViewCommentsCubit>()),
         BlocProvider(create: (_) => locator.get<UpdateCustomerCubit>()),
+        BlocProvider(create: (_) => locator.get<EmployeUpdateCubit>()),
+        BlocProvider(create: (_) => locator.get<AllEmployeCubit>()),
       ],
       child: MaterialApp(
         navigatorKey: AppKeys.globalNavigatorKey,

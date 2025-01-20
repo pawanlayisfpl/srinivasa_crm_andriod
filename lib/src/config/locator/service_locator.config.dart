@@ -62,8 +62,12 @@ import 'package:srinivasa_crm_new/shared/domain/repo/Purpose/purpose_repo.dart'
     as _i490;
 import 'package:srinivasa_crm_new/shared/domain/repo/Zone/zone_repo.dart'
     as _i792;
+import 'package:srinivasa_crm_new/shared/presentations/AllEmploye/cubit/all_employe_cubit.dart'
+    as _i550;
 import 'package:srinivasa_crm_new/shared/presentations/cubit/forget_cubit.dart'
     as _i417;
+import 'package:srinivasa_crm_new/shared/presentations/Employee/cubit/employee_update_cubit.dart'
+    as _i369;
 import 'package:srinivasa_crm_new/shared/presentations/Otp/presentations/cubit/otp_cubit.dart'
     as _i758;
 import 'package:srinivasa_crm_new/shared/presentations/Update%20Password/presentations/cubit/update_cubit.dart'
@@ -127,6 +131,8 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%2
     as _i929;
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Search/presentation/cubit/search_customer_cubit.dart'
     as _i86;
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/cubit/update_customer_cubit.dart'
+    as _i632;
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/dashboard_cubit.dart'
     as _i66;
 import 'package:srinivasa_crm_new/src/features/Kyc/data/datasource/remote/kyc_remote_datasource.dart'
@@ -519,6 +525,14 @@ extension GetItInjectableX on _i174.GetIt {
           employeRepo: gh<_i981.EmployeRepo>(),
           customerRepo: gh<_i209.CustomerRepo>(),
         ));
+    gh.factory<_i632.UpdateCustomerCubit>(() => _i632.UpdateCustomerCubit(
+          addressRepo: gh<_i311.AddressRepo>(),
+          primarySourceRepo: gh<_i466.PrimarySourceRepo>(),
+          divisionRepo: gh<_i389.DivisionRepo>(),
+          customerRepo: gh<_i209.CustomerRepo>(),
+          zoneRepo: gh<_i792.ZoneRepo>(),
+          employeRepo: gh<_i981.EmployeRepo>(),
+        ));
     gh.factory<_i812.SalesOrderCreateCubit>(() => _i812.SalesOrderCreateCubit(
           salesRepo: gh<_i133.SalesRepo>(),
           keyValueStorage: gh<_i961.KeyValueStorage>(),
@@ -529,6 +543,13 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i204.LoginUseCase>(),
           gh<_i961.KeyValueStorage>(),
         ));
+    gh.factory<_i369.EmployeUpdateCubit>(() => _i369.EmployeUpdateCubit(
+          gh<_i981.EmployeRepo>(),
+          gh<_i389.DivisionRepo>(),
+          gh<_i792.ZoneRepo>(),
+        ));
+    gh.factory<_i550.AllEmployeCubit>(
+        () => _i550.AllEmployeCubit(gh<_i981.EmployeRepo>()));
     return this;
   }
 }

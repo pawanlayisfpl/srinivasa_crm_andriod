@@ -32,15 +32,17 @@ class Body {
   String? phone;
   String? email;
   String? additionalPhone;
-  String? primarySource;
+  // String? primarySource;
   String? custZone;
   bool? customerType;
-  dynamic creditLimit;
+  double? creditLimit;
   String? addressLine2;
   String? mandal;
   District? district;
+  PrimarySource? primarySource;
+  CustZoneModel? zoneModel;
   AssignTo? assignTo;
-  String? custCountry;
+  CustCountry? custCountry;
   State? state;
   CustCity? custCity;
   Locality? locality;
@@ -50,7 +52,7 @@ class Body {
   bool? isIndividual;
   String? customerCode;
   String? farmName;
-  double? farmCapacity;
+  dynamic farmCapacity;
   String? createdDate;
   String? createdBy;
   String? custStatus;
@@ -67,6 +69,7 @@ class Body {
       this.email,
       this.additionalPhone,
       this.primarySource,
+      this.zoneModel,
       this.custZone,
       this.customerType,
       this.creditLimit,
@@ -100,19 +103,23 @@ class Body {
     phone = json['phone'];
     email = json['email'];
     additionalPhone = json['additionalPhone'];
-    primarySource = json['primarySource'];
-    custZone = json['custZone'];
+    // primarySource = json['primarySource'];
+    zoneModel = json['custZone'] != null ? CustZoneModel.fromJson(json['custZone']) : null;
     customerType = json['customerType'];
-    creditLimit = json['creditLimit'];
+    creditLimit = double.tryParse(json['creditLimit'].toString()) ?? 0.0;
     addressLine2 = json['addressLine2'];
     mandal = json['mandal'];
     district = json['district'] != null
         ? new District.fromJson(json['district'])
         : null;
+
+        primarySource = json["primarySource"] != null ? PrimarySource.fromJson(json["primarySource"]) : null;
+        zoneModel = json["custZone"] != null ? CustZoneModel.fromJson(json["custZone"]) : null;
     assignTo = json['assignTo'] != null
         ? new AssignTo.fromJson(json['assignTo'])
         : null;
-    custCountry = json['custCountry'];
+
+    custCountry = json['custCountry'] != null ? new CustCountry.fromJson(json['custCountry']) : null;
     state = json['state'] != null ? new State.fromJson(json['state']) : null;
     custCity = json['custCity'] != null
         ? new CustCity.fromJson(json['custCity'])
@@ -200,6 +207,44 @@ class District {
   }
 }
 
+class PrimarySource {
+  int? primarySourceId;
+  String? primarySourceName;
+
+
+  PrimarySource.fromJson(Map<String, dynamic> json) {
+    primarySourceId = json['primarySourceId'];
+    primarySourceName = json['primarySourceName'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['primarySourceId'] = this.primarySourceId;
+    data['primarySourceName'] = this.primarySourceName;
+    return data;
+  }
+}
+
+
+class CustZoneModel {
+  String? zoneName;
+  String? zoneId;
+
+
+  CustZoneModel.fromJson(Map<String, dynamic> json) {
+    zoneId = json['zoneId'];
+    zoneName = json['zoneName'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['zoneId'] = this.zoneId;
+    data['zoneName'] = this.zoneName;
+    return data;
+  }
+}
+
+
 class AssignTo {
   int? userId;
   String? userName;
@@ -236,6 +281,20 @@ class State {
     data['stateId'] = this.stateId;
     return data;
   }
+}
+
+class CustCountry {
+  String? name;
+  int? id;
+
+  CustCountry({this.name, this.id});
+
+  CustCountry.fromJson(Map<String, dynamic> json) {
+    name = json['countryName'];
+    id = json['countryId'];
+  }
+
+
 }
 
 class CustCity {

@@ -1,4 +1,6 @@
 
+
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -22,6 +24,7 @@ import '../../../domain/model/get/customer_model.dart';
 import '../../../domain/model/get/customer_response_model.dart';
 import '../../../domain/model/get/last_checkin_out_respone_model.dart';
 import '../../../presentations/Customer Update/domain/model/customer_full_response_model.dart';
+import '../../../presentations/Customer Update/domain/model/update_customer_post_model.dart';
 
 abstract class CustomerRemoteDataSource{
   Future<CustomerResponseModel> getCustomers();
@@ -37,6 +40,11 @@ abstract class CustomerRemoteDataSource{
   Future<List<CustomerCodeModel>> getApprovedCustomerList();
   Future<List<JoinEmployeModel>> getJointEmployeList();
   Future<CustomerFullDetailsResponseModel?> getCustomerDetailsByFarmid({required String farmid});
+  // Future<Either<NetworkExceptions,bool>> updateCustomer({required UpdateCustomerPostModel updateCustomerModel});
+  Future<bool> updateCustomer({required UpdateCustomerPostModel updateCustomerPostModel});
+
+
+  
   
 }
 
@@ -460,6 +468,24 @@ Future<CustomerFullDetailsModel> getCustomerFullDetails({required String custome
       }
     } on DioException catch (e) {
       throw NetworkExceptions.getDioException(e);
+    }
+  }
+  
+  @override
+  Future<bool> updateCustomer({required UpdateCustomerPostModel updateCustomerPostModel}) async  {
+
+    try {
+      final response = await dioClient.patch(Endpoints.updateCustomer+ updateCustomerPostModel.farmId.toString(),data: updateCustomerPostModel.toJson(),headers: {});
+        
+        if(response.statusCode == 200 || response.statusCode == 201) {
+          return true;
+        }else {
+          return false;
+        }
+      
+    } on DioException catch (e) {
+      throw NetworkExceptions.getDioException(e);
+      
     }
   }
 }

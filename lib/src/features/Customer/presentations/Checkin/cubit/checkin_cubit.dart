@@ -10,6 +10,7 @@ import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Employe/employe_repo.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Purpose/purpose_repo.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
+import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/joint_employe_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_state.dart';
@@ -49,16 +50,30 @@ class CheckinCubit extends Cubit<CheckinState> {
 
   // CHECKIN
 
-  Future<void> checkInLogic({required CheckinPostModel checkInPostModel,required VoidCallback successCallback})async {
+  Future<void> checkInLogic({required CheckinPostModel checkInPostModel,required VoidCallback successCallback, required BuildContext context})async {
+      if(context.mounted) {
+        QuickAlert.show(context: context, type: QuickAlertType.loading);
+      }
     emit(state.copyWith(isLoading: true,apiFailedModel: null,checkInResponseModel: null,checkoutResponseModel: null,isFailed: false,isCheckIn: false));
+    await Future.delayed(const Duration(milliseconds: 800));
     final result = await customerRepo.checkIn(checkinPostModel: checkInPostModel);
     result.fold(
       (l) {
+        if(context.mounted) {
+          if(Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
+        }
         ApiFailedModel apiFailedModel = ApiFailedModel(statusCode: NetworkExceptions.getStatusCode(l), message: NetworkExceptions.getErrorTitle(l), errorMessage: NetworkExceptions.getErrorMessage(l));
            emit(state.copyWith(isLoading: false,apiFailedModel: apiFailedModel,checkInResponseModel: null,checkoutResponseModel: null,isFailed: true,isCheckIn: false));
 
       },
       (r) async {
+          if(context.mounted) {
+          if(Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
+        }
         emit(state.copyWith(isLoading: false,apiFailedModel: null,checkInResponseModel: r,isCheckIn: true));
         lastCheckinCheckoutLogic(customerId: checkInPostModel.customerid.toString(),farmId: checkInPostModel.farmId.toString());
         successCallback();
@@ -68,12 +83,16 @@ class CheckinCubit extends Cubit<CheckinState> {
 
   // CHECKOUt
   Future<void> checkoutLogic({required CheckoutPostModel checkOutPostModel,required BuildContext context}) async {
+    if(context.mounted) {
+        QuickAlert.show(context: context, type: QuickAlertType.loading);
+      }
 
     emit(state.copyWith(isLoading: true,apiFailedModel: null,checkInResponseModel: null,checkoutResponseModel: null,isCheckOut: false));
     // if(context.mounted) {
     // await QuickAlert.show(context: context, type: QuickAlertType.loading, title: 'Checking Out', text: 'Please wait...',disableBackBtn: true,barrierDismissible: false);
 
     // }
+    await Future.delayed(const Duration(milliseconds: 800));
     final result = await customerRepo.checkOut(checkoutPostModel: checkOutPostModel);
     result.fold(
       (l) {

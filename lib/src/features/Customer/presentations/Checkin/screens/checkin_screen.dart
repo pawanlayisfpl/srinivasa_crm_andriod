@@ -141,7 +141,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
                         if (context.mounted) {
                           await context
                               .read<CheckinCubit>()
-                              .checkInLogic(checkInPostModel: checkInPostModel,successCallback: () async {
+                              .checkInLogic( context: context, checkInPostModel: checkInPostModel,successCallback: () async {
                                 context.read<AllCustomerCubit>().getAllCustomer();
                               });
                         }

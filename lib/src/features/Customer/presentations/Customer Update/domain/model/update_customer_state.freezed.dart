@@ -42,6 +42,13 @@ mixin _$UpdateCustomerState {
       throw _privateConstructorUsedError;
   PrimarySourceModel? get selectedPrimarySourceModel =>
       throw _privateConstructorUsedError;
+  List<ZoneModel> get zonesList => throw _privateConstructorUsedError;
+  ZoneModel? get selectedZoneModel => throw _privateConstructorUsedError;
+  List<EmployeeModel> get employeList => throw _privateConstructorUsedError;
+  EmployeeModel? get selectedEmployeModel => throw _privateConstructorUsedError;
+  List<EmployeRepModel> get repMangerList => throw _privateConstructorUsedError;
+  EmployeRepModel? get selectedRepModel => throw _privateConstructorUsedError;
+  bool get isEmployeRepLoading => throw _privateConstructorUsedError;
   List<String> get titleList => throw _privateConstructorUsedError;
   String? get selectedTitleValue => throw _privateConstructorUsedError;
   List<CountryModel> get countriesList => throw _privateConstructorUsedError;
@@ -60,6 +67,8 @@ mixin _$UpdateCustomerState {
   List<LocalityModel> get localitiesList => throw _privateConstructorUsedError;
   LocalityModel? get selectedLocalityModel =>
       throw _privateConstructorUsedError;
+  bool get isZoneLoading => throw _privateConstructorUsedError;
+  bool get isEmployeLoading => throw _privateConstructorUsedError;
   int get countryId => throw _privateConstructorUsedError;
   String get stateId => throw _privateConstructorUsedError;
   String get districtId => throw _privateConstructorUsedError;
@@ -115,6 +124,13 @@ abstract class $UpdateCustomerStateCopyWith<$Res> {
       bool isPrimarySourceLoading,
       List<PrimarySourceModel> primarySoruceList,
       PrimarySourceModel? selectedPrimarySourceModel,
+      List<ZoneModel> zonesList,
+      ZoneModel? selectedZoneModel,
+      List<EmployeeModel> employeList,
+      EmployeeModel? selectedEmployeModel,
+      List<EmployeRepModel> repMangerList,
+      EmployeRepModel? selectedRepModel,
+      bool isEmployeRepLoading,
       List<String> titleList,
       String? selectedTitleValue,
       List<CountryModel> countriesList,
@@ -130,6 +146,8 @@ abstract class $UpdateCustomerStateCopyWith<$Res> {
       bool isLocalictyLoading,
       List<LocalityModel> localitiesList,
       LocalityModel? selectedLocalityModel,
+      bool isZoneLoading,
+      bool isEmployeLoading,
       int countryId,
       String stateId,
       String districtId,
@@ -187,6 +205,13 @@ class _$UpdateCustomerStateCopyWithImpl<$Res, $Val extends UpdateCustomerState>
     Object? isPrimarySourceLoading = null,
     Object? primarySoruceList = null,
     Object? selectedPrimarySourceModel = freezed,
+    Object? zonesList = null,
+    Object? selectedZoneModel = freezed,
+    Object? employeList = null,
+    Object? selectedEmployeModel = freezed,
+    Object? repMangerList = null,
+    Object? selectedRepModel = freezed,
+    Object? isEmployeRepLoading = null,
     Object? titleList = null,
     Object? selectedTitleValue = freezed,
     Object? countriesList = null,
@@ -202,6 +227,8 @@ class _$UpdateCustomerStateCopyWithImpl<$Res, $Val extends UpdateCustomerState>
     Object? isLocalictyLoading = null,
     Object? localitiesList = null,
     Object? selectedLocalityModel = freezed,
+    Object? isZoneLoading = null,
+    Object? isEmployeLoading = null,
     Object? countryId = null,
     Object? stateId = null,
     Object? districtId = null,
@@ -314,6 +341,34 @@ class _$UpdateCustomerStateCopyWithImpl<$Res, $Val extends UpdateCustomerState>
           ? _value.selectedPrimarySourceModel
           : selectedPrimarySourceModel // ignore: cast_nullable_to_non_nullable
               as PrimarySourceModel?,
+      zonesList: null == zonesList
+          ? _value.zonesList
+          : zonesList // ignore: cast_nullable_to_non_nullable
+              as List<ZoneModel>,
+      selectedZoneModel: freezed == selectedZoneModel
+          ? _value.selectedZoneModel
+          : selectedZoneModel // ignore: cast_nullable_to_non_nullable
+              as ZoneModel?,
+      employeList: null == employeList
+          ? _value.employeList
+          : employeList // ignore: cast_nullable_to_non_nullable
+              as List<EmployeeModel>,
+      selectedEmployeModel: freezed == selectedEmployeModel
+          ? _value.selectedEmployeModel
+          : selectedEmployeModel // ignore: cast_nullable_to_non_nullable
+              as EmployeeModel?,
+      repMangerList: null == repMangerList
+          ? _value.repMangerList
+          : repMangerList // ignore: cast_nullable_to_non_nullable
+              as List<EmployeRepModel>,
+      selectedRepModel: freezed == selectedRepModel
+          ? _value.selectedRepModel
+          : selectedRepModel // ignore: cast_nullable_to_non_nullable
+              as EmployeRepModel?,
+      isEmployeRepLoading: null == isEmployeRepLoading
+          ? _value.isEmployeRepLoading
+          : isEmployeRepLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       titleList: null == titleList
           ? _value.titleList
           : titleList // ignore: cast_nullable_to_non_nullable
@@ -374,6 +429,14 @@ class _$UpdateCustomerStateCopyWithImpl<$Res, $Val extends UpdateCustomerState>
           ? _value.selectedLocalityModel
           : selectedLocalityModel // ignore: cast_nullable_to_non_nullable
               as LocalityModel?,
+      isZoneLoading: null == isZoneLoading
+          ? _value.isZoneLoading
+          : isZoneLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isEmployeLoading: null == isEmployeLoading
+          ? _value.isEmployeLoading
+          : isEmployeLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       countryId: null == countryId
           ? _value.countryId
           : countryId // ignore: cast_nullable_to_non_nullable
@@ -478,6 +541,13 @@ abstract class _$$UpdateCustomerStateImplCopyWith<$Res>
       bool isPrimarySourceLoading,
       List<PrimarySourceModel> primarySoruceList,
       PrimarySourceModel? selectedPrimarySourceModel,
+      List<ZoneModel> zonesList,
+      ZoneModel? selectedZoneModel,
+      List<EmployeeModel> employeList,
+      EmployeeModel? selectedEmployeModel,
+      List<EmployeRepModel> repMangerList,
+      EmployeRepModel? selectedRepModel,
+      bool isEmployeRepLoading,
       List<String> titleList,
       String? selectedTitleValue,
       List<CountryModel> countriesList,
@@ -493,6 +563,8 @@ abstract class _$$UpdateCustomerStateImplCopyWith<$Res>
       bool isLocalictyLoading,
       List<LocalityModel> localitiesList,
       LocalityModel? selectedLocalityModel,
+      bool isZoneLoading,
+      bool isEmployeLoading,
       int countryId,
       String stateId,
       String districtId,
@@ -548,6 +620,13 @@ class __$$UpdateCustomerStateImplCopyWithImpl<$Res>
     Object? isPrimarySourceLoading = null,
     Object? primarySoruceList = null,
     Object? selectedPrimarySourceModel = freezed,
+    Object? zonesList = null,
+    Object? selectedZoneModel = freezed,
+    Object? employeList = null,
+    Object? selectedEmployeModel = freezed,
+    Object? repMangerList = null,
+    Object? selectedRepModel = freezed,
+    Object? isEmployeRepLoading = null,
     Object? titleList = null,
     Object? selectedTitleValue = freezed,
     Object? countriesList = null,
@@ -563,6 +642,8 @@ class __$$UpdateCustomerStateImplCopyWithImpl<$Res>
     Object? isLocalictyLoading = null,
     Object? localitiesList = null,
     Object? selectedLocalityModel = freezed,
+    Object? isZoneLoading = null,
+    Object? isEmployeLoading = null,
     Object? countryId = null,
     Object? stateId = null,
     Object? districtId = null,
@@ -675,6 +756,34 @@ class __$$UpdateCustomerStateImplCopyWithImpl<$Res>
           ? _value.selectedPrimarySourceModel
           : selectedPrimarySourceModel // ignore: cast_nullable_to_non_nullable
               as PrimarySourceModel?,
+      zonesList: null == zonesList
+          ? _value._zonesList
+          : zonesList // ignore: cast_nullable_to_non_nullable
+              as List<ZoneModel>,
+      selectedZoneModel: freezed == selectedZoneModel
+          ? _value.selectedZoneModel
+          : selectedZoneModel // ignore: cast_nullable_to_non_nullable
+              as ZoneModel?,
+      employeList: null == employeList
+          ? _value._employeList
+          : employeList // ignore: cast_nullable_to_non_nullable
+              as List<EmployeeModel>,
+      selectedEmployeModel: freezed == selectedEmployeModel
+          ? _value.selectedEmployeModel
+          : selectedEmployeModel // ignore: cast_nullable_to_non_nullable
+              as EmployeeModel?,
+      repMangerList: null == repMangerList
+          ? _value._repMangerList
+          : repMangerList // ignore: cast_nullable_to_non_nullable
+              as List<EmployeRepModel>,
+      selectedRepModel: freezed == selectedRepModel
+          ? _value.selectedRepModel
+          : selectedRepModel // ignore: cast_nullable_to_non_nullable
+              as EmployeRepModel?,
+      isEmployeRepLoading: null == isEmployeRepLoading
+          ? _value.isEmployeRepLoading
+          : isEmployeRepLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       titleList: null == titleList
           ? _value._titleList
           : titleList // ignore: cast_nullable_to_non_nullable
@@ -735,6 +844,14 @@ class __$$UpdateCustomerStateImplCopyWithImpl<$Res>
           ? _value.selectedLocalityModel
           : selectedLocalityModel // ignore: cast_nullable_to_non_nullable
               as LocalityModel?,
+      isZoneLoading: null == isZoneLoading
+          ? _value.isZoneLoading
+          : isZoneLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isEmployeLoading: null == isEmployeLoading
+          ? _value.isEmployeLoading
+          : isEmployeLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       countryId: null == countryId
           ? _value.countryId
           : countryId // ignore: cast_nullable_to_non_nullable
@@ -834,6 +951,13 @@ class _$UpdateCustomerStateImpl implements _UpdateCustomerState {
       this.isPrimarySourceLoading = false,
       final List<PrimarySourceModel> primarySoruceList = const [],
       this.selectedPrimarySourceModel = null,
+      final List<ZoneModel> zonesList = const [],
+      this.selectedZoneModel = null,
+      final List<EmployeeModel> employeList = const [],
+      this.selectedEmployeModel = null,
+      final List<EmployeRepModel> repMangerList = const [],
+      this.selectedRepModel = null,
+      this.isEmployeRepLoading = false,
       final List<String> titleList = const [],
       this.selectedTitleValue = null,
       final List<CountryModel> countriesList = const [],
@@ -849,6 +973,8 @@ class _$UpdateCustomerStateImpl implements _UpdateCustomerState {
       this.isLocalictyLoading = false,
       final List<LocalityModel> localitiesList = const [],
       this.selectedLocalityModel = null,
+      this.isZoneLoading = false,
+      this.isEmployeLoading = false,
       this.countryId = -1,
       this.stateId = '',
       this.districtId = '',
@@ -867,6 +993,9 @@ class _$UpdateCustomerStateImpl implements _UpdateCustomerState {
       this.farmCapacity = 0.0,
       this.assignTo = -1})
       : _primarySoruceList = primarySoruceList,
+        _zonesList = zonesList,
+        _employeList = employeList,
+        _repMangerList = repMangerList,
         _titleList = titleList,
         _countriesList = countriesList,
         _statesList = statesList,
@@ -953,6 +1082,45 @@ class _$UpdateCustomerStateImpl implements _UpdateCustomerState {
   @override
   @JsonKey()
   final PrimarySourceModel? selectedPrimarySourceModel;
+  final List<ZoneModel> _zonesList;
+  @override
+  @JsonKey()
+  List<ZoneModel> get zonesList {
+    if (_zonesList is EqualUnmodifiableListView) return _zonesList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_zonesList);
+  }
+
+  @override
+  @JsonKey()
+  final ZoneModel? selectedZoneModel;
+  final List<EmployeeModel> _employeList;
+  @override
+  @JsonKey()
+  List<EmployeeModel> get employeList {
+    if (_employeList is EqualUnmodifiableListView) return _employeList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_employeList);
+  }
+
+  @override
+  @JsonKey()
+  final EmployeeModel? selectedEmployeModel;
+  final List<EmployeRepModel> _repMangerList;
+  @override
+  @JsonKey()
+  List<EmployeRepModel> get repMangerList {
+    if (_repMangerList is EqualUnmodifiableListView) return _repMangerList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_repMangerList);
+  }
+
+  @override
+  @JsonKey()
+  final EmployeRepModel? selectedRepModel;
+  @override
+  @JsonKey()
+  final bool isEmployeRepLoading;
   final List<String> _titleList;
   @override
   @JsonKey()
@@ -1049,6 +1217,12 @@ class _$UpdateCustomerStateImpl implements _UpdateCustomerState {
   final LocalityModel? selectedLocalityModel;
   @override
   @JsonKey()
+  final bool isZoneLoading;
+  @override
+  @JsonKey()
+  final bool isEmployeLoading;
+  @override
+  @JsonKey()
   final int countryId;
   @override
   @JsonKey()
@@ -1107,7 +1281,7 @@ class _$UpdateCustomerStateImpl implements _UpdateCustomerState {
 
   @override
   String toString() {
-    return 'UpdateCustomerState(isSubmitting: $isSubmitting, isLoading: $isLoading, isStateLoading: $isStateLoading, isCountryLoading: $isCountryLoading, isCityLoading: $isCityLoading, isDistrictLoading: $isDistrictLoading, customerFullDetailsresposneModel: $customerFullDetailsresposneModel, farmId: $farmId, customerId: $customerId, farmName: $farmName, customerName: $customerName, customerPhone: $customerPhone, title: $title, email: $email, customerType: $customerType, addressLine2: $addressLine2, creditLimit: $creditLimit, primarySourceId: $primarySourceId, zoneId: $zoneId, kycStatus: $kycStatus, isPrimarySourceLoading: $isPrimarySourceLoading, primarySoruceList: $primarySoruceList, selectedPrimarySourceModel: $selectedPrimarySourceModel, titleList: $titleList, selectedTitleValue: $selectedTitleValue, countriesList: $countriesList, countryModel: $countryModel, statesList: $statesList, selectedStateModel: $selectedStateModel, districtList: $districtList, selectedDistrictModel: $selectedDistrictModel, citiesList: $citiesList, divisionList: $divisionList, selectedDivisionList: $selectedDivisionList, selectedCityModel: $selectedCityModel, isLocalictyLoading: $isLocalictyLoading, localitiesList: $localitiesList, selectedLocalityModel: $selectedLocalityModel, countryId: $countryId, stateId: $stateId, districtId: $districtId, cityId: $cityId, localityId: $localityId, mandal: $mandal, postalCode: $postalCode, address: $address, contactPerson: $contactPerson, faxNo: $faxNo, mobile: $mobile, alternateContact: $alternateContact, isIndividual: $isIndividual, isOrganization: $isOrganization, divisionId: $divisionId, farmCapacity: $farmCapacity, assignTo: $assignTo)';
+    return 'UpdateCustomerState(isSubmitting: $isSubmitting, isLoading: $isLoading, isStateLoading: $isStateLoading, isCountryLoading: $isCountryLoading, isCityLoading: $isCityLoading, isDistrictLoading: $isDistrictLoading, customerFullDetailsresposneModel: $customerFullDetailsresposneModel, farmId: $farmId, customerId: $customerId, farmName: $farmName, customerName: $customerName, customerPhone: $customerPhone, title: $title, email: $email, customerType: $customerType, addressLine2: $addressLine2, creditLimit: $creditLimit, primarySourceId: $primarySourceId, zoneId: $zoneId, kycStatus: $kycStatus, isPrimarySourceLoading: $isPrimarySourceLoading, primarySoruceList: $primarySoruceList, selectedPrimarySourceModel: $selectedPrimarySourceModel, zonesList: $zonesList, selectedZoneModel: $selectedZoneModel, employeList: $employeList, selectedEmployeModel: $selectedEmployeModel, repMangerList: $repMangerList, selectedRepModel: $selectedRepModel, isEmployeRepLoading: $isEmployeRepLoading, titleList: $titleList, selectedTitleValue: $selectedTitleValue, countriesList: $countriesList, countryModel: $countryModel, statesList: $statesList, selectedStateModel: $selectedStateModel, districtList: $districtList, selectedDistrictModel: $selectedDistrictModel, citiesList: $citiesList, divisionList: $divisionList, selectedDivisionList: $selectedDivisionList, selectedCityModel: $selectedCityModel, isLocalictyLoading: $isLocalictyLoading, localitiesList: $localitiesList, selectedLocalityModel: $selectedLocalityModel, isZoneLoading: $isZoneLoading, isEmployeLoading: $isEmployeLoading, countryId: $countryId, stateId: $stateId, districtId: $districtId, cityId: $cityId, localityId: $localityId, mandal: $mandal, postalCode: $postalCode, address: $address, contactPerson: $contactPerson, faxNo: $faxNo, mobile: $mobile, alternateContact: $alternateContact, isIndividual: $isIndividual, isOrganization: $isOrganization, divisionId: $divisionId, farmCapacity: $farmCapacity, assignTo: $assignTo)';
   }
 
   @override
@@ -1160,6 +1334,20 @@ class _$UpdateCustomerStateImpl implements _UpdateCustomerState {
                 other.selectedPrimarySourceModel ==
                     selectedPrimarySourceModel) &&
             const DeepCollectionEquality()
+                .equals(other._zonesList, _zonesList) &&
+            (identical(other.selectedZoneModel, selectedZoneModel) ||
+                other.selectedZoneModel == selectedZoneModel) &&
+            const DeepCollectionEquality()
+                .equals(other._employeList, _employeList) &&
+            (identical(other.selectedEmployeModel, selectedEmployeModel) ||
+                other.selectedEmployeModel == selectedEmployeModel) &&
+            const DeepCollectionEquality()
+                .equals(other._repMangerList, _repMangerList) &&
+            (identical(other.selectedRepModel, selectedRepModel) ||
+                other.selectedRepModel == selectedRepModel) &&
+            (identical(other.isEmployeRepLoading, isEmployeRepLoading) ||
+                other.isEmployeRepLoading == isEmployeRepLoading) &&
+            const DeepCollectionEquality()
                 .equals(other._titleList, _titleList) &&
             (identical(other.selectedTitleValue, selectedTitleValue) ||
                 other.selectedTitleValue == selectedTitleValue) &&
@@ -1169,23 +1357,18 @@ class _$UpdateCustomerStateImpl implements _UpdateCustomerState {
                 other.countryModel == countryModel) &&
             const DeepCollectionEquality()
                 .equals(other._statesList, _statesList) &&
-            (identical(other.selectedStateModel, selectedStateModel) ||
-                other.selectedStateModel == selectedStateModel) &&
-            const DeepCollectionEquality()
-                .equals(other._districtList, _districtList) &&
-            (identical(other.selectedDistrictModel, selectedDistrictModel) ||
-                other.selectedDistrictModel == selectedDistrictModel) &&
-            const DeepCollectionEquality()
-                .equals(other._citiesList, _citiesList) &&
-            const DeepCollectionEquality()
-                .equals(other._divisionList, _divisionList) &&
-            const DeepCollectionEquality()
-                .equals(other._selectedDivisionList, _selectedDivisionList) &&
-            (identical(other.selectedCityModel, selectedCityModel) ||
-                other.selectedCityModel == selectedCityModel) &&
+            (identical(other.selectedStateModel, selectedStateModel) || other.selectedStateModel == selectedStateModel) &&
+            const DeepCollectionEquality().equals(other._districtList, _districtList) &&
+            (identical(other.selectedDistrictModel, selectedDistrictModel) || other.selectedDistrictModel == selectedDistrictModel) &&
+            const DeepCollectionEquality().equals(other._citiesList, _citiesList) &&
+            const DeepCollectionEquality().equals(other._divisionList, _divisionList) &&
+            const DeepCollectionEquality().equals(other._selectedDivisionList, _selectedDivisionList) &&
+            (identical(other.selectedCityModel, selectedCityModel) || other.selectedCityModel == selectedCityModel) &&
             (identical(other.isLocalictyLoading, isLocalictyLoading) || other.isLocalictyLoading == isLocalictyLoading) &&
             const DeepCollectionEquality().equals(other._localitiesList, _localitiesList) &&
             (identical(other.selectedLocalityModel, selectedLocalityModel) || other.selectedLocalityModel == selectedLocalityModel) &&
+            (identical(other.isZoneLoading, isZoneLoading) || other.isZoneLoading == isZoneLoading) &&
+            (identical(other.isEmployeLoading, isEmployeLoading) || other.isEmployeLoading == isEmployeLoading) &&
             (identical(other.countryId, countryId) || other.countryId == countryId) &&
             (identical(other.stateId, stateId) || other.stateId == stateId) &&
             (identical(other.districtId, districtId) || other.districtId == districtId) &&
@@ -1231,6 +1414,13 @@ class _$UpdateCustomerStateImpl implements _UpdateCustomerState {
         isPrimarySourceLoading,
         const DeepCollectionEquality().hash(_primarySoruceList),
         selectedPrimarySourceModel,
+        const DeepCollectionEquality().hash(_zonesList),
+        selectedZoneModel,
+        const DeepCollectionEquality().hash(_employeList),
+        selectedEmployeModel,
+        const DeepCollectionEquality().hash(_repMangerList),
+        selectedRepModel,
+        isEmployeRepLoading,
         const DeepCollectionEquality().hash(_titleList),
         selectedTitleValue,
         const DeepCollectionEquality().hash(_countriesList),
@@ -1246,6 +1436,8 @@ class _$UpdateCustomerStateImpl implements _UpdateCustomerState {
         isLocalictyLoading,
         const DeepCollectionEquality().hash(_localitiesList),
         selectedLocalityModel,
+        isZoneLoading,
+        isEmployeLoading,
         countryId,
         stateId,
         districtId,
@@ -1300,6 +1492,13 @@ abstract class _UpdateCustomerState implements UpdateCustomerState {
       final bool isPrimarySourceLoading,
       final List<PrimarySourceModel> primarySoruceList,
       final PrimarySourceModel? selectedPrimarySourceModel,
+      final List<ZoneModel> zonesList,
+      final ZoneModel? selectedZoneModel,
+      final List<EmployeeModel> employeList,
+      final EmployeeModel? selectedEmployeModel,
+      final List<EmployeRepModel> repMangerList,
+      final EmployeRepModel? selectedRepModel,
+      final bool isEmployeRepLoading,
       final List<String> titleList,
       final String? selectedTitleValue,
       final List<CountryModel> countriesList,
@@ -1315,6 +1514,8 @@ abstract class _UpdateCustomerState implements UpdateCustomerState {
       final bool isLocalictyLoading,
       final List<LocalityModel> localitiesList,
       final LocalityModel? selectedLocalityModel,
+      final bool isZoneLoading,
+      final bool isEmployeLoading,
       final int countryId,
       final String stateId,
       final String districtId,
@@ -1380,6 +1581,20 @@ abstract class _UpdateCustomerState implements UpdateCustomerState {
   @override
   PrimarySourceModel? get selectedPrimarySourceModel;
   @override
+  List<ZoneModel> get zonesList;
+  @override
+  ZoneModel? get selectedZoneModel;
+  @override
+  List<EmployeeModel> get employeList;
+  @override
+  EmployeeModel? get selectedEmployeModel;
+  @override
+  List<EmployeRepModel> get repMangerList;
+  @override
+  EmployeRepModel? get selectedRepModel;
+  @override
+  bool get isEmployeRepLoading;
+  @override
   List<String> get titleList;
   @override
   String? get selectedTitleValue;
@@ -1409,6 +1624,10 @@ abstract class _UpdateCustomerState implements UpdateCustomerState {
   List<LocalityModel> get localitiesList;
   @override
   LocalityModel? get selectedLocalityModel;
+  @override
+  bool get isZoneLoading;
+  @override
+  bool get isEmployeLoading;
   @override
   int get countryId;
   @override
