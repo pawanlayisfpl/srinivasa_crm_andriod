@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -11,6 +12,7 @@ import 'package:srinivasa_crm_new/src/core/core.dart';
 
 import '../../../../../src/core/model/model.dart';
 import '../../../../domain/model/Employe/single_employe_model.dart';
+import '../../../../domain/model/Employe/update_emloye_post_model.dart';
 import '../../../../domain/repo/Employe/roles_model.dart';
 
 abstract class EmployeDataSource{
@@ -19,6 +21,7 @@ abstract class EmployeDataSource{
   Future<List<RolesModel>> getAllRoles();
   Future<AllEmployesModel?> getAllGloablEmployesList();
   Future<EmployeReportingManagerModel?> getEmployeReportingMangers(String zoneId);
+  Future<bool?> updateEmploye({required UpdateEmployeePostModel updateEmployePostModel});
 }
 
 
@@ -155,6 +158,24 @@ debugPrint('EMPLOYE API CALL MADE THROUGH INTERNET');
       
     }
   
+  }
+  
+  @override
+  Future<bool?> updateEmploye({required UpdateEmployeePostModel updateEmployePostModel}) async  {
+    try {
+      final response = await dioClient.patch(Endpoints.updateEmployeApi+updateEmployePostModel.userId,data: updateEmployePostModel.toMap(),headers: {});
+      if(response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      }else {
+              throw NetworkExceptions.getDioException(response.data);
+
+        
+      }
+      
+    } on DioException catch (e) {
+      throw NetworkExceptions.getDioException(e);
+      
+    }
   }
 
 }

@@ -65,7 +65,7 @@ class UpdateCustomerPostModel {
   UpdateCustomerPostModel.fromJson(Map<String, dynamic> json) {
     farmId = json['farmId'];
     customerId = json['customerId'];
-    farmName = json['farmName'];
+    // farmName = json['farmName'];
     customerName = json['customerName'];
     customerPhone = json['customerPhone'];
     title = json['title'];

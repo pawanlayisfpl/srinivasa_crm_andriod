@@ -1,42 +1,27 @@
-# srinivasa_crm_new
-
-<!-- platform :ios, '14.0' -->
-This is necessary  for ios development
+how to run the flutter code in vs code
 
 
-change gradle version in settings.gradle
+step 1: Open/Drag  the folder  in the visual studio code software 
+
+step 2: open terminal and write two commands
+      a: flutter clean --- clear all the cache files from the folder, 
+      then wait for some seconds then type
+      b: flutter pub get -- refresh all the dependencies of the code
 
 
-
-github email
-ajaysudam.srinivasa@gmail.com
+step 3: Go to main.dart file  (root file of the flutter application) 
 
 
+if you are doing debugging/Changes/Enchancements to the code
+step 4 : click on start debugging icon , which appears at top of the screen
 
+HOW TO GENERATE APK FILE FROM THE CODE 
+COMMANDS : flutter build apk --release
+step 5: how to generate apk file from the code using terminal 
+     :- use command of  (it will generate the apk file which we can share/install in our android mobile also)
 
-EMULATORS::
-firebase emulators:start
-
-
-push notification token
-eqGsuK8yTiCcVuH7b1CIkS:APA91bF2jbFIiOYUm4LMvLLMp0MOdQhoHkp5RKBFxfc-MAyTVbZ96wHwNSahVDnCwltmLHvuEtFBwGN2p5ecxjhd3ZfJv7pn6KBnQxVTA7g_0QPd-3ZoRAvLIpj49sWwpHKbwR-RnvCc
-
-subba reddy token
-fUYCG3RASzu14ngaPslZ5t:APA91bH-Iz2Mx9uNydVM7RHwi9O5ZQ-Q_qu9Oe3IhT7_Dt-lknr-4XeGU4SHjtttKGoD8yuKifCtOl0wHXAbPZN1FgWec7rXOzcVMuwNRVCF2s3GavgJxQajTCRDsFtHVnhJdKJ2-rBN
-
-
-<!-- TOTAL PERSMISSION IN APP -->
-
-1. location permissions
-2. storage permissions
-3. push notifications permissions
-4. 
-
-
-
-
-<!-- SETPS TO CLEAN -->
-
-<!-- cd ios
-xcodebuild clean
-rm -rf build/ -->
+HOW TO GENERATE ABB FILE FORM THE CODE
+COMMAND: flutter build appbundle --release
+step 5 : how to generate abb file to uplaod our apk to playstore
+    --> use command as flutter build appbundle --release
+        (it will create a file extension as .abb which is required by the playstore to post our application to playstore)     

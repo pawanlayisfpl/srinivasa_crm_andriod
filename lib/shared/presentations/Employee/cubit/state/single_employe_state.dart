@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/City/city_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Division/division_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_model.dart';
+import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_reporting_manager_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/StateModel/state_model.dart';
 import 'package:srinivasa_crm_new/shared/shared.dart';
 
@@ -28,8 +29,8 @@ class SingleEmployeState with _$SingleEmployeState {
     @Default([]) List<String> gender,
     @Default(null) String? selectedGender,
     @Default(false) bool genderLoading,
-    @Default([]) List<EmployeeModel> reportingMangerList,
-    @Default(null) EmployeeModel? selectedReportingManager,
+    @Default([]) List<EmployeRepModel> reportingMangerList,
+    @Default(null) EmployeRepModel? selectedReportingManager,
     @Default(false) bool isReportingMangaresLoading,
     @Default([]) List<DivisionModel> divisionList,
     @Default(null) DivisionModel? selectedDivisionModel,

@@ -34,11 +34,24 @@ class _AllEmployeScreenState extends State<AllEmployeScreen> {
          ListView.builder(itemBuilder: (c,i) {
             return ListTile(
               onTap: () {
-                if(context.mounted) {
-                  Navigator.push(context, ScaleRoute(screen: EmployeScreen(
+                  if(context.mounted) {
+                     Navigator.push(context, ScaleRoute(screen: EmployeScreen(
                     empId: state.allEmployeModel?.data?.users?[i].id.toString() ,
 
                   )));
+                  }
+                if(context.mounted) {
+                  
+                //  if(Navigator.canPop(context)) {
+                //   Navigator.pop(context);
+
+                //   // if(context.mounted) {
+                //   //    Navigator.push(context, ScaleRoute(screen: EmployeScreen(
+                //   //   empId: state.allEmployeModel?.data?.users?[i].id.toString() ,
+
+                //   // )));
+                //   // }
+                //  }
                 }
               },
               title: Text(state.allEmployeModel?.data?.users?[i].userName ?? "N/A"),

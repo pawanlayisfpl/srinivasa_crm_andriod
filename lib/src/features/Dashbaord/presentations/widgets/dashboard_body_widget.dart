@@ -11,6 +11,7 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/customer_d
 import 'package:srinivasa_crm_new/src/features/Dashbaord/presentations/dashboard_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Kyc/presentation/screens/kyc_pending_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Monthly%20Plan/presentation/monthly_plan_dashboard_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profile_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/sales_dashboard_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Tickets/presentations/screens/tickets_dashboard.dart';
 import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/screens/user_activity_screen.dart';
@@ -201,7 +202,7 @@ class DashboardBodyWidget extends StatelessWidget {
         trailing: Hero(tag: dashboardIconLists[i].iconName,
         child: Image.asset(dashboardIconLists[i].iconPath,fit: BoxFit.fitHeight,height: 40.h,width: 40.w,)),
         title: CommonTextWidget(title: dashboardIconLists[i].iconName.toString(),fontWeight: FontWeight.w600,),);
-    },itemCount: dashboardIconLists.length, separatorBuilder: (BuildContext context, int index) { return const Divider(); },).withSymetricPadding(horizontalPadding: 10.w);
+    },itemCount: context.watch<ProfileCubit>().state.maybeMap(orElse: () => dashboardIconLists.length -1,loadedLocal: (data) => data.profileResponseModel.userModel!.authorities!.where((e) => e.authority == "Admin" || e.roleId == 73).isNotEmpty ? dashboardIconLists.length : dashboardIconLists.length -1 ), separatorBuilder: (BuildContext context, int index) { return const Divider(); },).withSymetricPadding(horizontalPadding: 10.w);
   }
   
   _buildGridListWidget(BuildContext context) {
@@ -213,7 +214,7 @@ class DashboardBodyWidget extends StatelessWidget {
                  crossAxisSpacing: 16.0, // Spacing between columns
                  mainAxisSpacing: 16.0, // Spacing between rows
                ),
-               itemCount: dashboardIconLists.length,
+               itemCount: context.watch<ProfileCubit>().state.maybeMap(orElse: () => dashboardIconLists.length -1,loadedLocal: (data) => data.profileResponseModel.userModel!.authorities!.where((e) => e.authority == "Admin" || e.roleId == 73).isNotEmpty ? dashboardIconLists.length : dashboardIconLists.length -1 ) ,
                itemBuilder: (context, index) {
                  return _buildGridItem(context, index);
                },

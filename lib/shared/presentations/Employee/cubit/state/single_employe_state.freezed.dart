@@ -31,9 +31,9 @@ mixin _$SingleEmployeState {
   List<String> get gender => throw _privateConstructorUsedError;
   String? get selectedGender => throw _privateConstructorUsedError;
   bool get genderLoading => throw _privateConstructorUsedError;
-  List<EmployeeModel> get reportingMangerList =>
+  List<EmployeRepModel> get reportingMangerList =>
       throw _privateConstructorUsedError;
-  EmployeeModel? get selectedReportingManager =>
+  EmployeRepModel? get selectedReportingManager =>
       throw _privateConstructorUsedError;
   bool get isReportingMangaresLoading => throw _privateConstructorUsedError;
   List<DivisionModel> get divisionList => throw _privateConstructorUsedError;
@@ -72,8 +72,8 @@ abstract class $SingleEmployeStateCopyWith<$Res> {
       List<String> gender,
       String? selectedGender,
       bool genderLoading,
-      List<EmployeeModel> reportingMangerList,
-      EmployeeModel? selectedReportingManager,
+      List<EmployeRepModel> reportingMangerList,
+      EmployeRepModel? selectedReportingManager,
       bool isReportingMangaresLoading,
       List<DivisionModel> divisionList,
       DivisionModel? selectedDivisionModel,
@@ -182,11 +182,11 @@ class _$SingleEmployeStateCopyWithImpl<$Res, $Val extends SingleEmployeState>
       reportingMangerList: null == reportingMangerList
           ? _value.reportingMangerList
           : reportingMangerList // ignore: cast_nullable_to_non_nullable
-              as List<EmployeeModel>,
+              as List<EmployeRepModel>,
       selectedReportingManager: freezed == selectedReportingManager
           ? _value.selectedReportingManager
           : selectedReportingManager // ignore: cast_nullable_to_non_nullable
-              as EmployeeModel?,
+              as EmployeRepModel?,
       isReportingMangaresLoading: null == isReportingMangaresLoading
           ? _value.isReportingMangaresLoading
           : isReportingMangaresLoading // ignore: cast_nullable_to_non_nullable
@@ -242,8 +242,8 @@ abstract class _$$SingleEmployeStateImplCopyWith<$Res>
       List<String> gender,
       String? selectedGender,
       bool genderLoading,
-      List<EmployeeModel> reportingMangerList,
-      EmployeeModel? selectedReportingManager,
+      List<EmployeRepModel> reportingMangerList,
+      EmployeRepModel? selectedReportingManager,
       bool isReportingMangaresLoading,
       List<DivisionModel> divisionList,
       DivisionModel? selectedDivisionModel,
@@ -350,11 +350,11 @@ class __$$SingleEmployeStateImplCopyWithImpl<$Res>
       reportingMangerList: null == reportingMangerList
           ? _value._reportingMangerList
           : reportingMangerList // ignore: cast_nullable_to_non_nullable
-              as List<EmployeeModel>,
+              as List<EmployeRepModel>,
       selectedReportingManager: freezed == selectedReportingManager
           ? _value.selectedReportingManager
           : selectedReportingManager // ignore: cast_nullable_to_non_nullable
-              as EmployeeModel?,
+              as EmployeRepModel?,
       isReportingMangaresLoading: null == isReportingMangaresLoading
           ? _value.isReportingMangaresLoading
           : isReportingMangaresLoading // ignore: cast_nullable_to_non_nullable
@@ -405,7 +405,7 @@ class _$SingleEmployeStateImpl implements _SingleEmployeState {
       final List<String> gender = const [],
       this.selectedGender = null,
       this.genderLoading = false,
-      final List<EmployeeModel> reportingMangerList = const [],
+      final List<EmployeRepModel> reportingMangerList = const [],
       this.selectedReportingManager = null,
       this.isReportingMangaresLoading = false,
       final List<DivisionModel> divisionList = const [],
@@ -496,10 +496,10 @@ class _$SingleEmployeStateImpl implements _SingleEmployeState {
   @override
   @JsonKey()
   final bool genderLoading;
-  final List<EmployeeModel> _reportingMangerList;
+  final List<EmployeRepModel> _reportingMangerList;
   @override
   @JsonKey()
-  List<EmployeeModel> get reportingMangerList {
+  List<EmployeRepModel> get reportingMangerList {
     if (_reportingMangerList is EqualUnmodifiableListView)
       return _reportingMangerList;
     // ignore: implicit_dynamic_type
@@ -508,7 +508,7 @@ class _$SingleEmployeStateImpl implements _SingleEmployeState {
 
   @override
   @JsonKey()
-  final EmployeeModel? selectedReportingManager;
+  final EmployeRepModel? selectedReportingManager;
   @override
   @JsonKey()
   final bool isReportingMangaresLoading;
@@ -663,8 +663,8 @@ abstract class _SingleEmployeState implements SingleEmployeState {
       final List<String> gender,
       final String? selectedGender,
       final bool genderLoading,
-      final List<EmployeeModel> reportingMangerList,
-      final EmployeeModel? selectedReportingManager,
+      final List<EmployeRepModel> reportingMangerList,
+      final EmployeRepModel? selectedReportingManager,
       final bool isReportingMangaresLoading,
       final List<DivisionModel> divisionList,
       final DivisionModel? selectedDivisionModel,
@@ -702,9 +702,9 @@ abstract class _SingleEmployeState implements SingleEmployeState {
   @override
   bool get genderLoading;
   @override
-  List<EmployeeModel> get reportingMangerList;
+  List<EmployeRepModel> get reportingMangerList;
   @override
-  EmployeeModel? get selectedReportingManager;
+  EmployeRepModel? get selectedReportingManager;
   @override
   bool get isReportingMangaresLoading;
   @override

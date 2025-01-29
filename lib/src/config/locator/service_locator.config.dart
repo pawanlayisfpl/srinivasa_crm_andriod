@@ -543,13 +543,14 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i204.LoginUseCase>(),
           gh<_i961.KeyValueStorage>(),
         ));
+    gh.factory<_i550.AllEmployeCubit>(
+        () => _i550.AllEmployeCubit(gh<_i981.EmployeRepo>()));
     gh.factory<_i369.EmployeUpdateCubit>(() => _i369.EmployeUpdateCubit(
           gh<_i981.EmployeRepo>(),
           gh<_i389.DivisionRepo>(),
           gh<_i792.ZoneRepo>(),
+          gh<_i311.AddressRepo>(),
         ));
-    gh.factory<_i550.AllEmployeCubit>(
-        () => _i550.AllEmployeCubit(gh<_i981.EmployeRepo>()));
     return this;
   }
 }

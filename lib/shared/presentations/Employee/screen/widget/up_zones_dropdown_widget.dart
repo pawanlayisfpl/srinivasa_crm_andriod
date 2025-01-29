@@ -61,7 +61,7 @@ class UpZonesDropDownWidget extends StatelessWidget {
                 ),
                 selectedItems: state.selectedZones.isEmpty
                     ? []
-                    : state.zonesList.map((e) => e).toList(),
+                    : state.selectedZones.map((e) => e).toList(),
 
                     items:  state.zonesList.isEmpty ? [] : state.zonesList.map((e) =>e).toList(),
 

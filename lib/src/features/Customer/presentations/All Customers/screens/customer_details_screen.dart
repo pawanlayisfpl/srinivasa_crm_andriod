@@ -141,18 +141,18 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                             const CustomerDetailsDividerWidget(),
                              10.verticalSpace,
                                 const CustomerDetailsHeadingWidget(
-                              title: 'Customer Code',
+                              title: 'Customer Location',
                             ),
                             CustomerDetailsTextWidget(
-                              data: widget.customermodel?.farm!.customerCode ?? 'N/A',  
+                              data: widget.customermodel?.farm!.custLocation ?? 'N/A',  
                             ),
                             const CustomerDetailsDividerWidget(),
                               10.verticalSpace,
       const CustomerDetailsHeadingWidget(
-        title: 'Location Code',
+        title: 'Customer Zone',
       ),
       CustomerDetailsTextWidget(
-        data: widget.customermodel?.farm?.locationCode ?? 'N/A',
+        data: widget.customermodel?.farm?.custZone ?? 'N/A',
       ),
       const CustomerDetailsDividerWidget(),
 
@@ -168,23 +168,23 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
     // ],
                               10.verticalSpace,
                                 const CustomerDetailsHeadingWidget(
-                              title: 'Customer Name',
+                              title: 'Contact Person',
                             ),
                             CustomerDetailsTextWidget(
-                              data: widget.customermodel?.customerName.toString(),  
+                              data: widget.customermodel?.farm?.contactPerson.toString(),  
                             ),
                             const CustomerDetailsDividerWidget(),
                               10.verticalSpace,
                               const CustomerDetailsHeadingWidget(
-                              title: 'Customer Zone',
+                              title: 'Contact Person Number',
                             ),
                             CustomerDetailsTextWidget(
-                              data: widget.customermodel?.farm!.custZone.toString(),
+                              data: widget.customermodel?.farm!.contPersContactNo.toString(),
                             ),
                             const CustomerDetailsDividerWidget(),
                                10.verticalSpace,
                               const CustomerDetailsHeadingWidget(
-                              title: 'Contact Person',
+                              title: 'Contact Person Alternate',
                             ),
                             CustomerDetailsTextWidget(
                               data: widget.customermodel?.farm!.contactPerson.toString(),
@@ -192,54 +192,32 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                             const CustomerDetailsDividerWidget(),
                             10.verticalSpace,
                           
-                            const CustomerDetailsHeadingWidget(title: 'City'),
-                            CustomerDetailsTextWidget(
-                              data: widget.customermodel!.farm!.custCity,
-                            ),
-                           
-                            const CustomerDetailsDividerWidget(),
-                            10.verticalSpace,
-    
-                            const CustomerDetailsHeadingWidget(title: 'Farm Location'),
-                            CustomerDetailsTextWidget(
-                              data: widget.customermodel!.farm!.custLocation,
-                            ),
-                           
-                            const CustomerDetailsDividerWidget(),
-                            10.verticalSpace,
-                              const CustomerDetailsHeadingWidget(title: 'Contact No'),
-                            CustomerDetailsTextWidget(
-                              data: widget.customermodel!.farm!.contPersContactNo,
-                            ),
-                           
-                            const CustomerDetailsDividerWidget(),
-                            10.verticalSpace,
-                              const CustomerDetailsHeadingWidget(title: 'Alternative No'),
-                            CustomerDetailsTextWidget(
-                              data: widget.customermodel!.farm!.contPersAltContNo.toString() == "01234567890" ? "N/A" : widget.customermodel!.farm!.contPersAltContNo.toString(),
-                            ),
-                           
-                            const CustomerDetailsDividerWidget(),
-                            10.verticalSpace,
-                              const CustomerDetailsHeadingWidget(title: 'Country'),
+                            const CustomerDetailsHeadingWidget(title: 'Country'),
                             CustomerDetailsTextWidget(
                               data: widget.customermodel!.farm!.custCountry,
                             ),
                            
                             const CustomerDetailsDividerWidget(),
                             10.verticalSpace,
-                              const CustomerDetailsHeadingWidget(title: 'Address'),
+    
+                            const CustomerDetailsHeadingWidget(title: 'State Code'),
                             CustomerDetailsTextWidget(
-                              maxline: 10,
-                              
-                              data: widget.customermodel!.farm!.custAddress,
+                              data: widget.customermodel!.farm!.custStateCode,
                             ),
                            
                             const CustomerDetailsDividerWidget(),
                             10.verticalSpace,
-                              const CustomerDetailsHeadingWidget(title: 'State'),
+                              const CustomerDetailsHeadingWidget(title: 'Customer Address'),
                             CustomerDetailsTextWidget(
-                              data: widget.customermodel!.farm!.custStateCode,
+                              data: widget.customermodel!.farm!.custAddress,
+                              maxline: 5,
+                            ),
+                           
+                            const CustomerDetailsDividerWidget(),
+                            10.verticalSpace,
+                              const CustomerDetailsHeadingWidget(title: 'Pincode Number'),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel!.farm!.custPostal.toString() == "01234567890" ? "N/A" : widget.customermodel!.farm!.contPersAltContNo.toString(),
                             ),
                            
                             const CustomerDetailsDividerWidget(),
@@ -251,9 +229,53 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                            
                             const CustomerDetailsDividerWidget(),
                             10.verticalSpace,
-                              const CustomerDetailsHeadingWidget(title: 'Postal Code'),
+                              const CustomerDetailsHeadingWidget(title: 'Customer Credit Limit'),
                             CustomerDetailsTextWidget(
-                              data: widget.customermodel!.farm!.custPostal,
+                              maxline: 10,
+                              
+                              data: widget.customermodel!.farm!.custCreditLimit,
+                            ),
+                           
+                            const CustomerDetailsDividerWidget(),
+                            10.verticalSpace,
+                              const CustomerDetailsHeadingWidget(title: 'Customer Status'),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel!.farm!.custStatus,
+                            ),
+                           
+                            const CustomerDetailsDividerWidget(),
+                            10.verticalSpace,
+                              const CustomerDetailsHeadingWidget(title: 'Customer Code'),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel!.farm!.customerCode,
+                            ),
+                           
+                            const CustomerDetailsDividerWidget(),
+                            10.verticalSpace,
+                              const CustomerDetailsHeadingWidget(title: 'Location Code'),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel!.farm!.locationCode,
+                            ),
+
+                                const CustomerDetailsDividerWidget(),
+                            10.verticalSpace,
+                              const CustomerDetailsHeadingWidget(title: 'Organization'),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel!.farm!.isOrganization == true ? "Yes" : "No",
+                            ),
+                           
+                            const CustomerDetailsDividerWidget(),
+                            10.verticalSpace,
+                                const CustomerDetailsHeadingWidget(title: 'Longtitude'),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel!.farm!.longitude,
+                            ),
+                           
+                            const CustomerDetailsDividerWidget(),
+                            10.verticalSpace,
+                                const CustomerDetailsHeadingWidget(title: 'Latitude'),
+                            CustomerDetailsTextWidget(
+                              data: widget.customermodel!.farm!.latitude,
                             ),
                            
                             const CustomerDetailsDividerWidget(),

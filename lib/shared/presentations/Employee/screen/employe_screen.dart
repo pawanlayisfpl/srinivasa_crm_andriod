@@ -38,7 +38,7 @@ class _EmployeScreenState extends State<EmployeScreen> {
         builder: (context, state) {
           return SafeArea(child: 
 
-          state.isSingleEmployeModelLoading ? const Center(child: CircularProgressIndicator(color: AppColors.primaryColor,),) : EmployeDetailsWidget(singleEmployeModel: state.singleEmployeModel?? null)
+          state.isSingleEmployeModelLoading ? const Center(child: CircularProgressIndicator(color: AppColors.primaryColor,),) : EmployeDetailsWidget(singleEmployeModel: state.singleEmployeModel?? null,empIdvalue: widget.empId.toString(),)
 
 
             );
@@ -52,10 +52,15 @@ class _EmployeScreenState extends State<EmployeScreen> {
 
 class EmployeDetailsWidget extends StatelessWidget {
   final SingleEmployeModel? singleEmployeModel;
+  final String empIdvalue;
 
   
 
-  const EmployeDetailsWidget({super.key, this.singleEmployeModel});
+  const EmployeDetailsWidget({
+    Key? key,
+    this.singleEmployeModel,
+    required this.empIdvalue,
+  }) : super(key: key);
   
   
   @override
@@ -95,7 +100,17 @@ class EmployeDetailsWidget extends StatelessWidget {
                           const Divider(),
             const SizedBox(height: 12,),
             CommonButton(callback: () async {
-              Navigator.push(context, MaterialPageRoute(builder: (c) => const UpdateEmployeScreen()));
+              if(context.mounted) {
+                if(Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                  if(context.mounted) {
+                      Navigator.push(context, MaterialPageRoute(builder: (c) =>  UpdateEmployeScreen(
+                
+                empId: empIdvalue,
+              )));
+                  }
+                }
+              }
             }, title: "Click to update details")
             
           ],

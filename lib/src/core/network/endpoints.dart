@@ -35,6 +35,7 @@ class Endpoints {
   // ROLES
   static const String getAllRoles = "/auth/roles";
   static const String getAllGloablEmployes = "/se/cascade-alluserdetails";
+  static const String updateEmployeApi = "/admin/updateUser/";
   // DIVISIONS
   static const String getAllDivisions = "/auth/divisions";
   // CUSTOMERS

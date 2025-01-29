@@ -87,7 +87,7 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
   }
 
   void onChangeFarm(String? value) {
-    farmNameController.text = value ?? "";
+    farmCapacityController.text = value ?? "";
   }
 
 
@@ -473,6 +473,7 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
   // await  getStates();
   await getAllStates();
   }
+  
 
 
   Future<void> getAllStates() async {
@@ -708,15 +709,15 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
     UpdateCustomerPostModel updateCustomerPostModel = UpdateCustomerPostModel(
       address: addressController.text.trim().isEmpty  ? state.customerFullDetailsresposneModel?.body?.address  :  addressController.text.trim(),
       addressLine2: addressLine2Controller.text.trim().isEmpty ? state.customerFullDetailsresposneModel?.body?.addressLine2 ?? "" : addressLine2Controller.text.trim(),
-      alternateContact: alternativeMobileController.text.trim().isEmpty ? alternativeMobileController.text.trim() : state.customerFullDetailsresposneModel?.body?.additionalPhone,
+      alternateContact: alternativeMobileController.text.trim().isNotEmpty ? alternativeMobileController.text.trim() : state.customerFullDetailsresposneModel?.body?.additionalPhone,
       cityId: state.selectedCityModel == null ? state.customerFullDetailsresposneModel?.body?.custCity?.cityId : state.selectedCityModel?.cityId,
-      contactPerson: contactNameController.text.trim().isEmpty ? state.customerFullDetailsresposneModel?.body?.customerName : customerNameController.text.trim(),
+      contactPerson: contactNameController.text.trim().isEmpty ? state.customerFullDetailsresposneModel?.body?.contactPerson : contactNameController.text.trim(),
       countryId: 79,
       
       creditLimit: creditLimitController.text.trim().isNotEmpty ? creditLimitController.text.trim() : state.customerFullDetailsresposneModel?.body?.creditLimit?.toString(),
       customerId: state.customerFullDetailsresposneModel?.body?.customerId,
-      customerName: customerNameController.text.trim().isEmpty ? customerNameController.text.trim() : state.customerFullDetailsresposneModel?.body?.customerName,
-      customerPhone: customerPhoneController.text.trim().isEmpty ? customerPhoneController.text.trim() : state.customerFullDetailsresposneModel?.body?.customerPhone,
+      customerName: customerNameController.text.trim().isNotEmpty ? customerNameController.text.trim() : state.customerFullDetailsresposneModel?.body?.customerName,
+      customerPhone: customerPhoneController.text.trim().isNotEmpty ? customerPhoneController.text.trim() : state.customerFullDetailsresposneModel?.body?.customerPhone,
       customerType: state.customerFullDetailsresposneModel?.body?.customerType,
       districtId: state.selectedDistrictModel != null ? state.selectedDistrictModel?.districtId : state.customerFullDetailsresposneModel?.body?.district?.districtId,
       email: emailController.text.trim().isNotEmpty ? emailController.text.trim() : state.customerFullDetailsresposneModel?.body?.email,
@@ -725,15 +726,15 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
       farmName: farmNameController.text.trim().isNotEmpty ? farmNameController.text.trim() : state.customerFullDetailsresposneModel?.body?.farmName,
       faxNo: faxNoController.text.trim(),
       // divisionId: state.selectedDivisionList.isNotEmpty ? state.selectedDivisionList.map((e) => e.divisionId).toList() : state.customerFullDetailsresposneModel?.body?.
-      mobile: mobileController.text.trim().isNotEmpty ? mobileController.text.trim() : state.customerFullDetailsresposneModel?.body?.phone,
+      mobile: contactPhoneController.text.trim().isNotEmpty ? contactPhoneController.text.trim() : state.customerFullDetailsresposneModel?.body?.phone,
       mandal: mandalController.text.trim().isNotEmpty ? mandalController.text.trim() : state.customerFullDetailsresposneModel?.body?.mandal,
       title: state.selectedTitleValue ?? state.customerFullDetailsresposneModel?.body?.title,
       primarySourceId: state.selectedPrimarySourceModel != null ? state.selectedPrimarySourceModel?.sourceId : state.customerFullDetailsresposneModel?.body?.primarySource?.primarySourceId,
-
+    
       kycstatus: state.customerFullDetailsresposneModel?.body?.custStatus,
       stateId: state.selectedStateModel != null ? state.selectedStateModel?.stateId : state.customerFullDetailsresposneModel?.body?.state?.stateId,
       zoneId: state.selectedZoneModel?.zoneId,
-      postalCode: postalCodeController.text.trim().isEmpty ? postalCodeController.text.trim() : state.customerFullDetailsresposneModel?.body?.pincode,
+      postalCode: postalCodeController.text.trim().isNotEmpty ? postalCodeController.text.trim() : state.customerFullDetailsresposneModel?.body?.pincode,
       // divisionId: state.selectedDivisionList.isEmpty ? state.selectedDivisionList.map((e) => e.divisionId).toList() : [],
       assignTo: state.selectedRepModel != null ? state.selectedRepModel?.id : state.customerFullDetailsresposneModel?.body?.assignTo?.userId,
       localityId: state.selectedLocalityModel != null ? state.selectedLocalityModel?.localityId : state.customerFullDetailsresposneModel?.body?.locality?.localityId,

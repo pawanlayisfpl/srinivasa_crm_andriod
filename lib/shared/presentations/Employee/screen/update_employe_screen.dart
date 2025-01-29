@@ -1,18 +1,26 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:srinivasa_crm_new/shared/presentations/Employee/cubit/employee_update_cubit.dart';
+import 'package:srinivasa_crm_new/shared/presentations/Employee/screen/widget/up_division_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/shared/presentations/Employee/screen/widget/up_gender_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/shared/presentations/Employee/screen/widget/up_zones_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/common/widgets/text/common_textfield_heading_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/screen/update_customer_form_screen.dart';
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/widgets/uc_division_dropdown_widget.dart';
 
-import '../../../../src/features/Customer/presentations/Customer Update/presentation/cubit/update_customer_cubit.dart';
+import 'widget/up_employe_dropdown_widget.dart';
 import 'widget/up_roles_dropdown_widget.dart';
 
 class UpdateEmployeScreen extends StatefulWidget {
-  const UpdateEmployeScreen({super.key});
+  final String? empId;
+  const UpdateEmployeScreen({
+    Key? key,
+    this.empId,
+  }) : super(key: key);
 
   @override
   State<UpdateEmployeScreen> createState() => _UpdateEmployeScreenState();
@@ -41,6 +49,10 @@ class _UpdateEmployeScreenState extends State<UpdateEmployeScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+                   const HeightBox(),
+                         const CommonTextFieldHeadingWidget(title: 'Gender'),
+             const UeGenderDropdownWidget(),
+                   const HeightBox(),
               const CommonTextFieldHeadingWidget(title: 'User name'),
               CommonTextFormFieldWidget(
                   textEditingController:
@@ -49,7 +61,8 @@ class _UpdateEmployeScreenState extends State<UpdateEmployeScreen> {
                   onChanged: (String? val) {
                     context.read<EmployeUpdateCubit>().onChangeUserName(val);
                   }),
-              const HeightBox(),
+                     const HeightBox(),
+                    
               const CommonTextFieldHeadingWidget(title: 'Contact No'),
               CommonTextFormFieldWidget(
                   textEditingController: context
@@ -66,24 +79,24 @@ class _UpdateEmployeScreenState extends State<UpdateEmployeScreen> {
               CommonTextFormFieldWidget(
                   textEditingController: context
                       .watch<EmployeUpdateCubit>()
-                      .emailController,
-                  hintText: 'select your state',
+                      .stateController,
+                  hintText: 'Enter your state',
                   onChanged: (String? val) {
                     context
                         .read<EmployeUpdateCubit>()
-                        .onChangeEmail(val);
+                        .onChangeState(val);
                   }),
               const HeightBox(),
                          const CommonTextFieldHeadingWidget(title: 'City'),
               CommonTextFormFieldWidget(
                   textEditingController: context
                       .watch<EmployeUpdateCubit>()
-                      .emailController,
-                  hintText: 'select your state',
+                      .cityController,
+                  hintText: 'Enter your state',
                   onChanged: (String? val) {
                     context
                         .read<EmployeUpdateCubit>()
-                        .onChangeEmail(val);
+                        .onChangeCity(val);
                   }),
               const HeightBox(),
                          const CommonTextFieldHeadingWidget(title: 'Pincode'),
@@ -98,21 +111,10 @@ class _UpdateEmployeScreenState extends State<UpdateEmployeScreen> {
                         .read<EmployeUpdateCubit>()
                         .onChangeEmail(val);
                   }),
-              const HeightBox(),
-                         const CommonTextFieldHeadingWidget(title: 'Gender'),
-             const UeGenderDropdownWidget(),
+   
               const HeightBox(),
                          const CommonTextFieldHeadingWidget(title: 'Divisions'),
-              CommonTextFormFieldWidget(
-                  textEditingController: context
-                      .watch<EmployeUpdateCubit>()
-                      .emailController,
-                  hintText: 'select your state',
-                  onChanged: (String? val) {
-                    context
-                        .read<EmployeUpdateCubit>()
-                        .onChangeEmail(val);
-                  }),
+             UpDivisionDropDownWiget(),
               const HeightBox(),
                          const CommonTextFieldHeadingWidget(title: 'Roles'),
              const UpRolesDropDownWidget(),
@@ -120,11 +122,23 @@ class _UpdateEmployeScreenState extends State<UpdateEmployeScreen> {
                          const CommonTextFieldHeadingWidget(title: 'Zones'),
            const UpZonesDropDownWidget(),
               const HeightBox(),
+                                const CommonTextFieldHeadingWidget(title: 'Reporting Manger'),
+           const UEmployeeDropDownWidget(),
+              const HeightBox(),
 
             ],
           ),
         ),
       )),
+      bottomNavigationBar:  FractionallySizedBox(
+        widthFactor: 0.7,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 10),
+          child: CommonButton(callback: () {
+            context.read<EmployeUpdateCubit>().updateEmployeLogic(context,widget.empId!);
+          }, title: "Update Employee"),
+        ),
+      ),
     );
   }
 }

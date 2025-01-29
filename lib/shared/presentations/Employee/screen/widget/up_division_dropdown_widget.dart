@@ -1,35 +1,33 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:srinivasa_crm_new/shared/domain/model/Division/division_model.dart';
 import 'package:srinivasa_crm_new/shared/presentations/Employee/cubit/employee_update_cubit.dart';
+import 'package:srinivasa_crm_new/shared/presentations/Employee/cubit/state/single_employe_state.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
-
-import '../../cubit/state/single_employe_state.dart';
-
+import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/cubit/update_customer_cubit.dart';
 
 
-class UeGenderDropdownWidget extends StatelessWidget {
-  const UeGenderDropdownWidget({super.key});
+
+
+class UpDivisionDropDownWiget extends StatelessWidget {
+  const UpDivisionDropDownWiget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EmployeUpdateCubit, SingleEmployeState>(
       builder: (context, state,) {
-        return  state.genderLoading ? const DropdownLoadingWidget() :  DropdownSearch<String>(
+        return DropdownSearch<DivisionModel>(
                 enabled: true,
-                selectedItem: state.selectedGender,
 
-                dropdownBuilder: (context, selectedItems) => state.selectedGender == null ?  const CommonTextWidget(title: "Select gender",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedGender.toString()) ,
+                dropdownBuilder: (context, selectedItems) => CommonTextWidget(title: selectedItems == null ? 'Select Employee Divisions' : selectedItems.divisionName,fontWeight: selectedItems == null ? FontWeight.w400 : FontWeight.w500,maxLines: 6,) ,
                 
                 
-                dropdownButtonProps:  const DropdownButtonProps(
-                  icon: Icon(Icons.arrow_downward),
-                  selectedIcon: Icon(Icons.arrow_drop_down_circle)
-                   
+                dropdownButtonProps: const DropdownButtonProps(
                   
                   
                 ),
-    itemAsString: (item) => item..toString(),
+
                 popupProps: const PopupPropsMultiSelection.modalBottomSheet(
                   
 
@@ -45,7 +43,7 @@ class UeGenderDropdownWidget extends StatelessWidget {
                 showSearchBox: true,
                 searchFieldProps: TextFieldProps(
                   decoration: InputDecoration(
-                    hintText: 'Search gender',
+                    hintText: 'Search Employe divisions',
                     prefixIcon: Icon(Icons.search), 
                 ),
                 ),
@@ -56,26 +54,27 @@ class UeGenderDropdownWidget extends StatelessWidget {
                   enableFeedback: true,
                   icon: const Icon(Icons.clear),
                   onPressed: () {
-                    context.read<EmployeUpdateCubit>().resetGender();
+                    // provider.clearSelectedEmployee();
+                    context.read<UpdateCustomerCubit>().resetDivisionList();
                   }
 
 
                 ),
-                autoValidateMode: AutovalidateMode.disabled,
+                selectedItem: state.selectedDivisionModel,
 
-                    items: state.gender,
+                    items:  state.divisionList,
 
-                
+                  itemAsString: (item) => item.divisionName,
               
+
+                    // itemAsString: (item) => item.userName != null && item.designation == null ? item.userName.toString() :  item.userName != null && item.designation != null ? "${item.userName  }-(${(item.designation)})" :   "No name found"  ,
                 onChanged: (values) {
-                 if(values != null) {
-                    context.read<EmployeUpdateCubit>().setGender(values);
-                  
-                 }
+                  context.read<EmployeUpdateCubit>().setSelectedDivisionModel(values);
                 },
-                validator: (value) =>   value == null? 'Please select gender' : null,
+                // validator: (value) =>   value == null || value.isEmpty ? 'Please select employee' : null,
+                // ... rest of your code
               );
       },
-    ); 
+    );
   }
 }

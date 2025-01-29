@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/common/widgets/text/common_textfield_heading_widget.dart';
@@ -60,14 +61,12 @@ class _CustomerUpdateFormState extends State<CustomerUpdateForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  //  if(context.watch<UpdateCustomerCubit>().state.isIndividual)
-                  //   _buildTextField(
-                  //     textController: context.watch<UpdateCustomerCubit>().farmNameController,
-                  //     label: 'Farm Name',
-                  //     initialValue: state.farmName,
-                  //     onChanged: (value) => cubit.updateCustomerField('farmName', value),
-                  //   ),
-                  //   const HeightBox(),
+               
+                    // const HeightBox(),
+                      const CommonTextFieldHeadingWidget(title: 'Title'),
+                  const UcTitleDropDownWidget(),
+                  const HeightBox(),
+
                   const CommonTextFieldHeadingWidget(title: 'Customer Name'),
                   CommonTextFormFieldWidget(
                       textEditingController: context
@@ -94,9 +93,7 @@ class _CustomerUpdateFormState extends State<CustomerUpdateForm> {
                       }),
                   const HeightBox(),
 
-                  const CommonTextFieldHeadingWidget(title: 'Title'),
-                  const UcTitleDropDownWidget(),
-                  const HeightBox(),
+                 
                   const CommonTextFieldHeadingWidget(title: 'Email'),
                   CommonTextFormFieldWidget(
                       textEditingController:
@@ -105,6 +102,20 @@ class _CustomerUpdateFormState extends State<CustomerUpdateForm> {
                       onChanged: (String? val) {
                         context.read<UpdateCustomerCubit>().onChangeEmail(val);
                       }),
+                  const HeightBox(),
+                       const CommonTextFieldHeadingWidget(title: 'Address'),
+
+                  CommonTextFormFieldWidget(
+                      textEditingController: context
+                          .watch<UpdateCustomerCubit>()
+                          .addressController,
+                      hintText: 'Address',
+                      onChanged: (String? val) {
+                        context
+                            .read<UpdateCustomerCubit>()
+                            .onChangeAddress(val);
+                      }),
+
                   const HeightBox(),
                   const CommonTextFieldHeadingWidget(title: 'Address Line 2'),
 
@@ -120,34 +131,17 @@ class _CustomerUpdateFormState extends State<CustomerUpdateForm> {
                             .onChangeAddressLine2(val);
                       }),
                   const HeightBox(),
-                  const CommonTextFieldHeadingWidget(title: 'Credit Limit'),
-
-                  CommonTextFormFieldWidget(
-                      textEditingController: context
-                          .watch<UpdateCustomerCubit>()
-                          .creditLimitController,
-                      hintText: 'Credit Limit',
-                      onChanged: (String? val) {
-                        context
-                            .read<UpdateCustomerCubit>()
-                            .onChangeCreditLimit(val);
-                      }),
-
-                  const HeightBox(),
-                         const CommonTextFieldHeadingWidget(title: 'Zone'),
+                              const CommonTextFieldHeadingWidget(title: 'Zone'),
                   const UcZoneDropDownWidget(),
                        const HeightBox(),
-                         const CommonTextFieldHeadingWidget(title: 'Reporting Manager'),
+                              const CommonTextFieldHeadingWidget(title: 'Reporting Manager'),
                   const UcEmployeeDropDownWidget(),
-                     const HeightBox(),
-                         const CommonTextFieldHeadingWidget(title: 'Division'),
-                  const UcDivisionDropDownWidget(),
-                           const HeightBox(),
+                    //  const HeightBox(),
+       
+             
+                  
 
-                    const CommonTextFieldHeadingWidget(title: 'Title'),
-                  const UcTitleDropDownWidget(),
-                  const HeightBox(),
-
+                  
                   const HeightBox(),
                   const CommonTextFieldHeadingWidget(title: 'Countries'),
                   const UcCountriesDropDownWiget(),
@@ -190,21 +184,8 @@ class _CustomerUpdateFormState extends State<CustomerUpdateForm> {
                       }),
                   const HeightBox(),
 
-                  const CommonTextFieldHeadingWidget(title: 'Address'),
-
-                  CommonTextFormFieldWidget(
-                      textEditingController: context
-                          .watch<UpdateCustomerCubit>()
-                          .addressController,
-                      hintText: 'Address',
-                      onChanged: (String? val) {
-                        context
-                            .read<UpdateCustomerCubit>()
-                            .onChangeAddress(val);
-                      }),
-
-                  const HeightBox(),
-                  const CommonTextFieldHeadingWidget(title: 'Contact Name'),
+             
+                  const CommonTextFieldHeadingWidget(title: 'Contact Person Name'),
 
                   CommonTextFormFieldWidget(
                       textEditingController: context
@@ -217,7 +198,7 @@ class _CustomerUpdateFormState extends State<CustomerUpdateForm> {
                             .onChangeContactName(val);
                       }),
                   const HeightBox(),
-                  const CommonTextFieldHeadingWidget(title: 'Contact Phone'),
+                  const CommonTextFieldHeadingWidget(title: 'Contact Person Phone'),
 
                   CommonTextFormFieldWidget(
                       textEditingController:
@@ -227,9 +208,14 @@ class _CustomerUpdateFormState extends State<CustomerUpdateForm> {
                         context.read<UpdateCustomerCubit>().onChangeContactPhone(val);
                       }),
                   const HeightBox(),
-                  const CommonTextFieldHeadingWidget(title: 'Alterate mobile'),
+                  const CommonTextFieldHeadingWidget(title: 'Alternate mobile'),
 
                   CommonTextFormFieldWidget(
+                    inputFormaters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    inputType: TextInputType.phone,
+
                       textEditingController: context
                           .watch<UpdateCustomerCubit>()
                           .alternativeMobileController,
@@ -250,6 +236,20 @@ class _CustomerUpdateFormState extends State<CustomerUpdateForm> {
                       hintText: 'Farm capacity',
                       onChanged: (String? val) {
                         context.read<UpdateCustomerCubit>().onChangeFarm(val);
+                      }),
+
+                  const HeightBox(),
+                             const CommonTextFieldHeadingWidget(title: 'Credit Limit'),
+
+                  CommonTextFormFieldWidget(
+                      textEditingController: context
+                          .watch<UpdateCustomerCubit>()
+                          .creditLimitController,
+                      hintText: 'Credit Limit',
+                      onChanged: (String? val) {
+                        context
+                            .read<UpdateCustomerCubit>()
+                            .onChangeCreditLimit(val);
                       }),
 
                   const HeightBox(),

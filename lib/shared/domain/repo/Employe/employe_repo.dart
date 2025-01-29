@@ -6,6 +6,7 @@ import 'package:srinivasa_crm_new/shared/domain/repo/Employe/roles_model.dart';
 import 'package:srinivasa_crm_new/src/core/model/model.dart';
 
 import '../../model/Employe/employe_model.dart';
+import '../../model/Employe/update_emloye_post_model.dart';
 
 abstract class EmployeRepo {
   Future<Either<NetworkExceptions,List<EmployeeModel>>> getEmployeesList();
@@ -13,4 +14,5 @@ abstract class EmployeRepo {
   Future<Either<NetworkExceptions,List<RolesModel>>> getAllRoles();
   Future<Either<NetworkExceptions,AllEmployesModel?>> getAllGlobalEmployesList();
   Future<Either<NetworkExceptions,EmployeReportingManagerModel?>> getEmployeReportingMange(String zoneId);
+  Future<Either<NetworkExceptions,bool>> updateEmploye({required UpdateEmployeePostModel updateEmployePostModel});
 }
