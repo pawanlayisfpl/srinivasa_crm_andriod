@@ -35,7 +35,7 @@ class _AllCustomerScreenState extends State<AllCustomerScreen> {
           IconButton(
             icon:  const Icon(Icons.search),
             onPressed: () {
-              Navigator.push(context, ScaleRoute(screen: const CustomerSearchNewScreen()));
+              Navigator.push(context, ScaleRoute(screen:  CustomerSearchNewScreen(existingCustomerList: context.read<AllCustomerCubit>().customerList,)));
             },
           ),
           10.horizontalSpace,

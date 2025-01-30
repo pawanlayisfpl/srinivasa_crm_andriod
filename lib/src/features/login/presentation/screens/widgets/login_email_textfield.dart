@@ -17,7 +17,7 @@ class LoginEmailTextFieldWidget extends StatelessWidget {
           if(value != null) {
             context.read<LoginCubit>().emailChanged(value.trim().toString());
           }
-        }, validator: (val) => state.emailField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (_) => "Email is empty",invalidEmail: (_) => 'Invalid email'), (r) => null), labelText: "Email", hintText: "Enter your email", autovalidateMode: state.showError ? AutovalidateMode.always : AutovalidateMode.onUserInteraction, textInputAction: TextInputAction.next,);
+        }, validator: (val) => state.emailField.value.fold((l) => l.maybeMap(orElse: () => null,empty: (_) => "Email is empty",invalidEmail: (_) => 'Invalid email'), (r) => null), labelText: "Email", hintText: "Enter your email", autovalidateMode: state.showError ? AutovalidateMode.disabled : AutovalidateMode.disabled, textInputAction: TextInputAction.next,);
       },
     );
   }

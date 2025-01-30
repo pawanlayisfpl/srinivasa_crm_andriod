@@ -34,9 +34,10 @@ class LoginCubit extends Cubit<LoginState> {
     TextEditingController passwordController = TextEditingController();
 
     void emailChanged(String value) {
+      emailController.text = value;
       
-      emit(state.copyWith(
-          emailField: EmailField(value), isLoginFailed: false, showError: false));
+      // emit(state.copyWith(
+      //     emailField: EmailField(value), isLoginFailed: false, showError: false));
     }
 
     void passwordChanged(String value) {
@@ -84,9 +85,9 @@ class LoginCubit extends Cubit<LoginState> {
       final email = state.emailField.value.isRight();
       final password = state.passwordField.value.isRight();
 
-      if (email && password) {
+      if ( password) {
         LoginPostModel loginPostModel = LoginPostModel(
-          email: state.emailField.value.getOrElse(() => ''),
+          email: emailController.text.trim(),
           password: state.passwordField.value.getOrElse(() => ''),
         );
         final result = await loginUseCase.execute(loginPostModel: loginPostModel,);
@@ -105,7 +106,7 @@ class LoginCubit extends Cubit<LoginState> {
 
 
           if(state.isRememberMe) {
-            await keyValueStorage.sharedPreferences.setString(KeyValueStrings.email, state.emailField.value.getOrElse(() => '')); 
+            await keyValueStorage.sharedPreferences.setString(KeyValueStrings.email, emailController.text.trim()); 
             await keyValueStorage.sharedPreferences.setString(KeyValueStrings.password, state.passwordField.value.getOrElse(() => ''));
           } else {
             await keyValueStorage.sharedPreferences.remove(KeyValueStrings.email); 
