@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -22,21 +23,42 @@ class _OfflineLocationScreenState extends State<OfflineLocationScreen> {
     fetchLocationData();
   }
 
+  // Future<void> fetchLocationData() async {
+  //   try {
+  //     final String result = await platform.invokeMethod("location-data");
+  //     final List<dynamic> data = json.decode(result);
+  //     setState(() {
+  //       locationData = data;
+  //       isLoading = false;
+  //     });
+  //   } catch (e) {
+  //     setState(() {
+  //       errorMessage = 'Failed to fetch location data: $e';
+  //       isLoading = false;
+  //     });
+  //   }
+  // }
+
   Future<void> fetchLocationData() async {
-    try {
-      final String result = await platform.invokeMethod("location-data");
-      final List<dynamic> data = json.decode(result);
-      setState(() {
-        locationData = data;
-        isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        errorMessage = 'Failed to fetch location data: $e';
-        isLoading = false;
-      });
-    }
+  try {
+    final String result = await platform.invokeMethod("location-data");
+    log("Raw JSON from Android: $result"); // Debugging
+
+    final List<dynamic> data = json.decode(result);
+    log("Parsed JSON Data: $data"); // Debugging
+
+    setState(() {
+      locationData = data;
+      isLoading = false;
+    });
+  } catch (e) {
+    log("Error fetching location data: $e");
+    setState(() {
+      errorMessage = 'Failed to fetch location data: $e';
+      isLoading = false;
+    });
   }
+}
 
   void shareLocationData() {
     if (locationData.isNotEmpty) {
@@ -98,6 +120,10 @@ class _OfflineLocationScreenState extends State<OfflineLocationScreen> {
         centerTitle: true,
         backgroundColor: Colors.teal,
         actions: [
+            IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: fetchLocationData,
+          ),
           IconButton(
             icon: const Icon(Icons.share),
             onPressed: shareLocationData,

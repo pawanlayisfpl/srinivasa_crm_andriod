@@ -21,6 +21,7 @@ import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profi
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/screens/mark_attendance_screen.dart';
 import 'package:srinivasa_crm_new/src/features/offline_location_screen.dart';
+import 'package:srinivasa_crm_new/src/features/sync_screen.dart';
 
 import '../../../../../shared/presentations/Update Password/presentations/screens/update_password_screen.dart';
 import '../../../../config/config.dart';
@@ -211,6 +212,7 @@ void showLogoutDialog(BuildContext context) {
           title: GestureDetector(
             onTap: () {
               // Navigator.push(context, MaterialPageRoute(builder: (c) => OfflineLocationScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (c) => SyncDataScreen()));
             },
             child: const CustomAppBarTitleWidget(title: "Dashboard",)),
           actions: [

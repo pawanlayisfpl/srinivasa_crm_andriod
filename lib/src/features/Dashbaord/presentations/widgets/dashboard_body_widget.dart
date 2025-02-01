@@ -15,6 +15,7 @@ import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profi
 import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/sales_dashboard_screen.dart';
 import 'package:srinivasa_crm_new/src/features/Tickets/presentations/screens/tickets_dashboard.dart';
 import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/screens/user_activity_screen.dart';
+import 'package:srinivasa_crm_new/src/features/sync_screen.dart';
 
 import '../../../../config/animations/routes/all_animate_routes.dart';
 import '../../../../config/config.dart';
@@ -181,6 +182,9 @@ class DashboardBodyWidget extends StatelessWidget {
       break;
 
       case 8 : 
+      // Navigator.push(context, ScaleRoute(screen: const EmployeScreen()));
+      Navigator.push(context, ScaleRoute(screen:  SyncDataScreen()));
+      case 9 : 
       // Navigator.push(context, ScaleRoute(screen: const EmployeScreen()));
       Navigator.push(context, ScaleRoute(screen: const AllEmployeScreen()));
 

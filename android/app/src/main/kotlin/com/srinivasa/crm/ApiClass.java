@@ -84,12 +84,12 @@ public class ApiClass {
                 // Check if network is available to send the data to the server
                 if (isNetworkAvailable()) {
                     Log.d(TAG, "Network is available, sending data to server...");
-                    sendToServer(context, batteryLevel);
+                    // sendToServer(context, batteryLevel);
                 } else {
                     Log.d(TAG, "Network is not available, data stored locally");
                 }
             } else {
-                sendToServer(context, batteryLevel);
+                // sendToServer(context, batteryLevel);
                 Log.e(TAG, "Failed to insert data into local database");
             }
 

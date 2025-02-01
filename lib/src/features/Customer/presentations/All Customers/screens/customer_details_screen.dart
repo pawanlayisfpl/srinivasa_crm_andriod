@@ -215,9 +215,9 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                            
                             const CustomerDetailsDividerWidget(),
                             10.verticalSpace,
-                              const CustomerDetailsHeadingWidget(title: 'Pincode Number'),
+                              const CustomerDetailsHeadingWidget(title: 'Postal Code'),
                             CustomerDetailsTextWidget(
-                              data: widget.customermodel!.farm!.custPostal.toString() == "01234567890" ? "N/A" : widget.customermodel!.farm!.contPersAltContNo.toString(),
+                              data: widget.customermodel!.farm!.custPostal.toString(),
                             ),
                            
                             const CustomerDetailsDividerWidget(),
@@ -238,7 +238,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                            
                             const CustomerDetailsDividerWidget(),
                             10.verticalSpace,
-                              const CustomerDetailsHeadingWidget(title: 'Customer Status'),
+                              const CustomerDetailsHeadingWidget(title: 'Customer Kyc Status'),
                             CustomerDetailsTextWidget(
                               data: widget.customermodel!.farm!.custStatus,
                             ),

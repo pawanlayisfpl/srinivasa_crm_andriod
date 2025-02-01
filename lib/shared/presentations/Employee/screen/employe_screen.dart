@@ -77,6 +77,8 @@ class EmployeDetailsWidget extends StatelessWidget {
             const SizedBox(height: 12,),
           ProfileRowWidget(title: 'Employe Name ', value: singleEmployeModel?.username.toString() ?? "N/A"),
              const Divider(),
+                ProfileRowWidget(title: 'Employe Number ', value: singleEmployeModel?.contactNo.toString() ?? "N/A"),
+             const Divider(),
             const SizedBox(height: 12,),
              ProfileRowWidget(title: 'Email', value: singleEmployeModel?.email.toString() ?? "N/A"),
                           const Divider(),
