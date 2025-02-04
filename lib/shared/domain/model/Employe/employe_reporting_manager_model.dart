@@ -9,7 +9,7 @@ class EmployeReportingManagerModel {
     if (json['body'] != null) {
       body = <EmployeRepModel>[];
       json['body'].forEach((v) {
-        body!.add(new EmployeRepModel.fromJson(v));
+        body!.add(EmployeRepModel.fromJson(v));
       });
     }
     status = json['status'];
@@ -17,12 +17,12 @@ class EmployeReportingManagerModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    if (this.body != null) {
-      data['body'] = this.body!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (body != null) {
+      data['body'] = body!.map((v) => v.toJson()).toList();
     }
-    data['status'] = this.status;
-    data['message'] = this.message;
+    data['status'] = status;
+    data['message'] = message;
     return data;
   }
 }
@@ -41,10 +41,10 @@ class EmployeRepModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['userName'] = this.userName;
-    data['designation'] = this.designation;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['userName'] = userName;
+    data['designation'] = designation;
     return data;
   }
 }

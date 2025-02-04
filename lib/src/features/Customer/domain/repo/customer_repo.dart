@@ -13,7 +13,6 @@ import 'package:srinivasa_crm_new/src/features/Customer/domain/model/post/custom
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/domain/model/customer_full_response_model.dart';
 
 import '../../../../../shared/domain/model/zone_model.dart';
-import '../../presentations/Customer Update/domain/model/update_customer_model.dart';
 import '../../presentations/Customer Update/domain/model/update_customer_post_model.dart';
 import '../model/get/customer_model.dart';
 import '../model/get/customer_response_model.dart';

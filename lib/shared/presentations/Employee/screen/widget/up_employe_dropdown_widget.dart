@@ -1,13 +1,10 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_reporting_manager_model.dart';
 import 'package:srinivasa_crm_new/shared/presentations/Employee/cubit/employee_update_cubit.dart';
 import 'package:srinivasa_crm_new/shared/presentations/Employee/cubit/state/single_employe_state.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/domain/model/update_customer_state.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/cubit/update_customer_cubit.dart';
 
 
 
@@ -22,7 +19,7 @@ class UEmployeeDropDownWidget extends StatelessWidget {
                 enabled: true,
                 selectedItem: state.selectedReportingManager,
 
-                dropdownBuilder: (context, selectedItems) => state.selectedReportingManager == null ?  const CommonTextWidget(title: "Select Reporting Manager",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedReportingManager!.userName.toString()+" \n"+state.selectedReportingManager!.designation.toString() ) ,
+                dropdownBuilder: (context, selectedItems) => state.selectedReportingManager == null ?  const CommonTextWidget(title: "Select Reporting Manager",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: "${state.selectedReportingManager!.userName} \n${state.selectedReportingManager!.designation}" ) ,
                 
                 
                 dropdownButtonProps:  const DropdownButtonProps(

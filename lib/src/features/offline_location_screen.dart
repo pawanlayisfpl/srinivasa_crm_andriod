@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
 
 class OfflineLocationScreen extends StatefulWidget {
+  const OfflineLocationScreen({super.key});
+
   @override
   _OfflineLocationScreenState createState() => _OfflineLocationScreenState();
 }
@@ -144,7 +146,7 @@ class _OfflineLocationScreenState extends State<OfflineLocationScreen> {
         ],
       ),
       body: isLoading
-          ? const Center(child: const CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : errorMessage.isNotEmpty
               ? Center(
                   child: Text(

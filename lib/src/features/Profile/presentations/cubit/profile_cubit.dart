@@ -42,6 +42,8 @@ class ProfileCubit extends Cubit<ProfileState> {
       }
     });
   }
+  
+
 
   Future<void> logout({required BuildContext context}) async {
 
@@ -50,7 +52,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     QuickAlert.show(
         context: context,
         type: QuickAlertType.loading,
-        barrierDismissible: false,
+        barrierDismissible: true,
         
         animType: QuickAlertAnimType.scale,
         text: 'Logging you out, please wait',
@@ -66,10 +68,15 @@ class ProfileCubit extends Cubit<ProfileState> {
     // TODO: COMMENTED OUT FOR TESTING
     // await keyValueStorage.sharedPreferences.clear();
     await keyValueStorage.clearValue(KeyValueStrings.isLoggedIn);
-   if(context.mounted) {
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (c) => const LoginScreen()), (r) => false);
+     Navigator.pop(context);
+     await   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (c) => const LoginScreen()), (r) => false);
 
-   }
+  //  if(context.mounted) {
+  //   if(Navigator.canPop(context)) {
+  //     Navigator.pop(context);
+  //   }
+
+  //  }
 
     
   }

@@ -19,7 +19,7 @@ class UcEmployeeDropDownWidget extends StatelessWidget {
                 enabled: true,
                 selectedItem: state.selectedRepModel,
 
-                dropdownBuilder: (context, selectedItems) => state.selectedRepModel == null ?  const CommonTextWidget(title: "Select Reporting Manager",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: state.selectedRepModel!.userName.toString()+"\n"+ state.selectedRepModel!.designation.toString()) ,
+                dropdownBuilder: (context, selectedItems) => state.selectedRepModel == null ?  const CommonTextWidget(title: "Select Reporting Manager",fontWeight: FontWeight.w500,textColor: Colors.grey,) : CommonTextWidget(title: "${state.selectedRepModel!.userName}\n${state.selectedRepModel!.designation}") ,
                 
                 
                 dropdownButtonProps:  const DropdownButtonProps(
@@ -29,7 +29,7 @@ class UcEmployeeDropDownWidget extends StatelessWidget {
                   
                   
                 ),
-    itemAsString: (item) => item.userName.toString()+"\n"+ item.designation.toString(),
+    itemAsString: (item) => "${item.userName}\n${item.designation}",
                 popupProps: const PopupPropsMultiSelection.modalBottomSheet(
                   
 

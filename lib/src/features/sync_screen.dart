@@ -1,14 +1,19 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:srinivasa_crm_new/src/features/offline_location_database_helper.dart';
 
 class SyncDataScreen extends StatefulWidget {
+  const SyncDataScreen({super.key});
+
   @override
   _SyncDataScreenState createState() => _SyncDataScreenState();
 }
@@ -19,11 +24,23 @@ class _SyncDataScreenState extends State<SyncDataScreen> {
   bool isLoading = true;
   bool isSyncing = false; // Add a syncing state
   String errorMessage = '';
+    List<Map<String, dynamic>> _locations = [];
+
 
   @override
   void initState() {
     super.initState();
     fetchLocationData();
+    _fetchLocations();
+  }
+    Future<void> _fetchLocations() async {
+      
+    final locations = await OfflineLocationDatabaseHelper.instance.fetchAllLocations();
+    setState(() {
+      pendingRecords = locations.length;
+      _locations = locations;
+      isLoading = false;
+    });
   }
 
   Future<void> fetchLocationData() async {
@@ -64,11 +81,7 @@ class _SyncDataScreenState extends State<SyncDataScreen> {
       return;
     }
 
-    // log("Token: $tokenValue");
-    // log("User ID: $userIdValue");
-
-    // log("Syncing $pendingRecords records...");
-
+  
     try {
       final String result = await platform.invokeMethod("location-data");
       // log("Raw JSON from Android: $result");
@@ -77,6 +90,7 @@ class _SyncDataScreenState extends State<SyncDataScreen> {
       // log("Parsed JSON Data: $data");
 
       final List<Map<String, dynamic>> locationsArray = [];
+      final List<Map<String, dynamic>> iosLocationArray = [];
       for (var location in data) {
         locationsArray.add({
           'latitude': location['latitude'],
@@ -84,6 +98,19 @@ class _SyncDataScreenState extends State<SyncDataScreen> {
           'userDateTime': location['userDateTime'],
           'batteryStatus': location['batteryStatus'],
         });
+      }
+
+      for(var iosLocaitn in _locations) {
+        iosLocationArray.add({
+           'latitude': iosLocaitn['latitude'],
+          'longitude': iosLocaitn['longitude'],
+          'userDateTime': iosLocaitn['userDateTime'],
+          'batteryStatus': iosLocaitn['batteryStatus'],
+        }
+          
+
+
+        );
       }
 
       final Uri url = Uri.parse('https://crmapitest.srinivasa.co:8446/crm_sfpl/se/locations-list');
@@ -95,13 +122,19 @@ class _SyncDataScreenState extends State<SyncDataScreen> {
             'Content-Type': 'application/json; charset=utf-8',
             'Authorization': 'Bearer $tokenValue',
           },
-          body: jsonEncode({'locationsList': locationsArray}),
+          body: jsonEncode({'locationsList': Platform.isIOS ? iosLocationArray : locationsArray}),
         );
 
         if (response.statusCode == 200) {
           log("API Response: ${response.body}");
-          await fetchLocationData();
+          if(Platform.isAndroid) {
           await deleteAllLocationData();
+            
+          }else {
+            await deleteAllIosLocations();
+            await _fetchLocations();
+          }
+       
         } else {
           log("API Error: ${response.statusCode}, ${response.body}");
         }
@@ -115,6 +148,12 @@ class _SyncDataScreenState extends State<SyncDataScreen> {
     setState(() {
       isSyncing = false;
     });
+  }
+
+  Future<void> deleteAllIosLocations() async {
+ await OfflineLocationDatabaseHelper.instance.deleteAllLocations();
+ Fluttertoast.showToast(msg: 'All location updated to server successfully',backgroundColor: Colors.green,textColor: Colors.white)
+;
   }
 
   Future<void> deleteAllLocationData() async {
@@ -156,15 +195,22 @@ class _SyncDataScreenState extends State<SyncDataScreen> {
               setState(() {
                 isLoading = true;
               });
+
+              if(Platform.isAndroid) {
               await fetchLocationData();
+
+
+              }else {
+                await _fetchLocations();
+              }
             },
             icon: const Icon(Icons.refresh),
           ),
         ],
       ),
       body:isSyncing == true  ? Center(child: Column(mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,children: [
-        Text("please wait data is syncing......"),
-        SizedBox(height: 15,),
+        const Text("please wait data is syncing......"),
+        const SizedBox(height: 15,),
         CircularProgressIndicator(color: Theme.of(context).primaryColor,),
       ],),) :  Padding(
         padding: const EdgeInsets.all(20.0),
@@ -243,7 +289,7 @@ class SyncButton extends StatelessWidget {
   final Function syncData;
   final Color primaryColor;
 
-  const SyncButton({
+  const SyncButton({super.key, 
     required this.pendingRecords,
     required this.syncData,
     required this.primaryColor,

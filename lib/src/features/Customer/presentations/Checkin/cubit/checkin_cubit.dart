@@ -10,7 +10,6 @@ import 'package:quickalert/quickalert.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Employe/employe_repo.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Purpose/purpose_repo.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
-import 'package:srinivasa_crm_new/src/config/config.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/model/get/joint_employe_model.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/domain/repo/customer_repo.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cubit/checkin_state.dart';

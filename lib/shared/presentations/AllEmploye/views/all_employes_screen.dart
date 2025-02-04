@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:srinivasa_crm_new/shared/presentations/AllEmploye/cubit/all_employe_cubit.dart';
 import 'package:srinivasa_crm_new/shared/presentations/AllEmploye/cubit/state/all_employe_state.dart';
+import 'package:srinivasa_crm_new/shared/presentations/AllEmploye/views/search_employe_screen.dart';
 import 'package:srinivasa_crm_new/shared/presentations/Employee/screen/employe_screen.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
@@ -26,11 +27,16 @@ class _AllEmployeScreenState extends State<AllEmployeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("All Employess"),
+        title: const Text("All Employess"),
+        actions: [
+          IconButton(onPressed: () {
+            Navigator.push(context, ScaleRoute(screen: const SearchEmployeScreen()));
+          }, icon: const Icon(Icons.search)),
+        ],
       ),
       body: BlocBuilder<AllEmployeCubit, AllEmployeState>(
         builder: (context, state) {
-          return state.isLoading  ? CustomLoadingWidget() : 
+          return state.isLoading  ? const CustomLoadingWidget() : 
          ListView.builder(itemBuilder: (c,i) {
             return ListTile(
               onTap: () {

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -11,6 +12,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:quickalert/quickalert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/config/animations/routes/all_animate_routes.dart';
@@ -21,9 +23,12 @@ import 'package:srinivasa_crm_new/src/features/Profile/presentations/cubit/profi
 import 'package:srinivasa_crm_new/src/features/login/presentation/screens/login_screen.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_state.dart';
+import 'package:srinivasa_crm_new/src/features/offline_location_database_helper.dart';
 
 import '../../../No Internet/screens/no_internet_screen.dart';
 import '../../../Profile/presentations/cubit/profile_state.dart';
+import 'package:http/http.dart' as http;
+
 
 class MarkAttendanceScreen extends StatefulWidget {
     final bool? isCheckedInScreen;
@@ -40,6 +45,8 @@ class MarkAttendanceScreen extends StatefulWidget {
 class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
   late StreamSubscription<ConnectivityResult> _subscription;
        final ConnectivityHelper _connectivityHelper = ConnectivityHelper();
+           static const platform = MethodChannel('com.srinivasa.crm');
+
 
   @override
   void initState() {
@@ -283,11 +290,19 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
                        }
                         } else {
     
-                          if(context.mounted) {
-                            await context
+                         if(Platform.isAndroid) {
+                           if(context.mounted) {
+                            fetchLocationAndShowDialog(context);
+                         }
+
+                         if(Platform.isIOS) {
+                           await context
                               .read<MarkAttendanceCubit>()
                               .punchOutLogic(
                                   );
+
+                         }
+                           
                           }
                               // PermissionStatus status = await Permission.location.request();
                     
@@ -321,6 +336,212 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
       ),
     );
   }
+
+Future<void> fetchLocationAndShowDialog(BuildContext context) async {
+  try {
+    bool isIosDevice = Platform.isIOS;
+    if(isIosDevice) {
+
+      List<Map<String, dynamic>>locations = await OfflineLocationDatabaseHelper.instance.fetchAllLocations();
+            final List<Map<String, dynamic>> iosLocationArray = [];
+              for(var iosLocaitn in locations) {
+        iosLocationArray.add({
+           'latitude': iosLocaitn['latitude'],
+          'longitude': iosLocaitn['longitude'],
+          'userDateTime': iosLocaitn['userDateTime'],
+          'batteryStatus': iosLocaitn['batteryStatus'],
+        }
+        );
+      } 
+       if(context.mounted) {
+      QuickAlert.show(context: context, type: QuickAlertType.info,
+      title: 'Sync Data',
+      text: "Please sync your data to ensure it is updated in the database.",
+      confirmBtnColor: Colors.black,
+      animType: QuickAlertAnimType.slideInUp,
+      cancelBtnText: 'Later',
+      confirmBtnText: 'Sync now',
+       showCancelBtn: true,
+      onCancelBtnTap: () async {
+        if(Navigator.canPop(context)) {
+          Navigator.pop(context);
+          if(context.mounted) {
+            QuickAlert.show(context: context, type: QuickAlertType.confirm,
+            title: "Punch Out",
+            confirmBtnColor: Colors.black,
+            confirmBtnText: 'Proceed',
+            onConfirmBtnTap: () async {
+            await  context.read<ProfileCubit>().logout(context: context);
+              
+            }
+            );
+          }
+        }
+      },
+      onConfirmBtnTap: () async {
+        if(Navigator.canPop(context)) {
+          Navigator.pop(context);
+          if(context.mounted) {
+            QuickAlert.show(context: context, type: QuickAlertType.loading);
+            //! implement api code here
+             final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? tokenValue = prefs.getString('token');
+       final Uri url = Uri.parse('https://crmapitest.srinivasa.co:8446/crm_sfpl/se/locations-list');
+
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Authorization': 'Bearer $tokenValue',
+        },
+        body: jsonEncode({'locationsList': iosLocationArray}),
+      );
+
+      if(response.statusCode == 200 || response.statusCode == 201) {
+          if(context.mounted) {
+             await OfflineLocationDatabaseHelper.instance.deleteAllLocations();
+           Fluttertoast.showToast(msg: 'All location updated to server successfully',backgroundColor: Colors.green,textColor: Colors.white)
+;
+           await context.read<ProfileCubit>().logout(context: context);
+
+          
+        }
+
+      }else {
+        if(context.mounted) {
+          if(Navigator.canPop(context)) {
+            Navigator.pop(context);
+            if(context.mounted) {
+              QuickAlert.show(context: context, type: QuickAlertType.error,title: 'Punch out failed',text: 'please try after some time');
+            }
+          }
+        }
+
+      }
+      
+            
+          }
+        }
+        
+      }
+    );
+    }
+      
+      
+      
+         }else {
+          // android logic
+           final String result = await const MethodChannel('com.srinivasa.crm').invokeMethod("location-data");
+    final List<dynamic> data = json.decode(result);
+
+    // Prepare the locationsArray
+    final List<Map<String, dynamic>> locationsArray = [];
+    for (var location in data) {
+      locationsArray.add({
+        'latitude': location['latitude'],
+        'longitude': location['longitude'],
+        'userDateTime': location['userDateTime'],
+        'batteryStatus': location['batteryStatus'],
+      });
+    }
+
+    if(context.mounted) {
+      QuickAlert.show(context: context, type: QuickAlertType.info,
+      title: 'Sync Data',
+      text: "Please sync your data to ensure it is updated in the database.",
+      confirmBtnColor: Colors.black,
+      animType: QuickAlertAnimType.slideInUp,
+      cancelBtnText: 'Later',
+      confirmBtnText: 'Sync now',
+       showCancelBtn: true,
+      onCancelBtnTap: () async {
+        if(Navigator.canPop(context)) {
+          Navigator.pop(context);
+          if(context.mounted) {
+            QuickAlert.show(context: context, type: QuickAlertType.confirm,
+            title: "Punch Out",
+            confirmBtnColor: Colors.black,
+            confirmBtnText: 'Proceed',
+            onConfirmBtnTap: () async {
+            await  context.read<ProfileCubit>().logout(context: context);
+              
+            }
+            );
+          }
+        }
+      },
+      onConfirmBtnTap: () async {
+        if(Navigator.canPop(context)) {
+          Navigator.pop(context);
+          if(context.mounted) {
+            QuickAlert.show(context: context, type: QuickAlertType.loading);
+            //! implement api code here
+             final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? tokenValue = prefs.getString('token');
+       final Uri url = Uri.parse('https://crmapitest.srinivasa.co:8446/crm_sfpl/se/locations-list');
+
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Authorization': 'Bearer $tokenValue',
+        },
+        body: jsonEncode({'locationsList': locationsArray}),
+      );
+
+      if(response.statusCode == 200 || response.statusCode == 201) {
+          if(context.mounted) {
+                  await platform.invokeMethod("deleteAllLocationData");
+
+           await context.read<ProfileCubit>().logout(context: context);
+
+          // if(Navigator.canPop(context)) {
+          //   Navigator.pop(context);
+          // }
+          
+        }
+
+      }else {
+        if(context.mounted) {
+          if(Navigator.canPop(context)) {
+            Navigator.pop(context);
+            if(context.mounted) {
+              QuickAlert.show(context: context, type: QuickAlertType.error,title: 'Punch out failed',text: 'please try after some time');
+            }
+          }
+        }
+
+      }
+      
+            
+          }
+        }
+        
+      }
+    );
+    }
+
+         }
+
+
+
+    // Fetch the location data from the native method
+   
+
+    // Show AlertSyncDialogScreen as an AlertDialog
+    // showDialog(
+    //   context: context,
+    //   builder: (context) {
+    //     return AlertSyncDialogScreen(locationsArray: locationsArray);
+    //   },
+    // );
+  } catch (e) {
+    // Handle any errors by showing a Snackbar or an alert
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Failed to fetch location data: $e')),
+    );
+  }
+}
 }
 
 class CustomAppBarTitleWidget extends StatelessWidget {

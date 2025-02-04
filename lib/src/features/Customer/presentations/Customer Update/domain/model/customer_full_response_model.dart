@@ -6,18 +6,18 @@ class CustomerFullDetailsResponseModel {
   CustomerFullDetailsResponseModel({this.body, this.status, this.message});
 
   CustomerFullDetailsResponseModel.fromJson(Map<String, dynamic> json) {
-    body = json['body'] != null ? new Body.fromJson(json['body']) : null;
+    body = json['body'] != null ? Body.fromJson(json['body']) : null;
     status = json['status'];
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.body != null) {
-      data['body'] = this.body!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (body != null) {
+      data['body'] = body!.toJson();
     }
-    data['status'] = this.status;
-    data['message'] = this.message;
+    data['status'] = status;
+    data['message'] = message;
     return data;
   }
 }
@@ -110,22 +110,22 @@ class Body {
     addressLine2 = json['addressLine2'];
     mandal = json['mandal'];
     district = json['district'] != null
-        ? new District.fromJson(json['district'])
+        ? District.fromJson(json['district'])
         : null;
 
         primarySource = json["primarySource"] != null ? PrimarySource.fromJson(json["primarySource"]) : null;
         zoneModel = json["custZone"] != null ? CustZoneModel.fromJson(json["custZone"]) : null;
     assignTo = json['assignTo'] != null
-        ? new AssignTo.fromJson(json['assignTo'])
+        ? AssignTo.fromJson(json['assignTo'])
         : null;
 
-    custCountry = json['custCountry'] != null ? new CustCountry.fromJson(json['custCountry']) : null;
-    state = json['state'] != null ? new State.fromJson(json['state']) : null;
+    custCountry = json['custCountry'] != null ? CustCountry.fromJson(json['custCountry']) : null;
+    state = json['state'] != null ? State.fromJson(json['state']) : null;
     custCity = json['custCity'] != null
-        ? new CustCity.fromJson(json['custCity'])
+        ? CustCity.fromJson(json['custCity'])
         : null;
     locality = json['locality'] != null
-        ? new Locality.fromJson(json['locality'])
+        ? Locality.fromJson(json['locality'])
         : null;
     address = json['address'];
     pincode = json['pincode'];
@@ -141,49 +141,49 @@ class Body {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['customerName'] = this.customerName;
-    data['customerId'] = this.customerId;
-    data['farmId'] = this.farmId;
-    data['customerPhone'] = this.customerPhone;
-    data['title'] = this.title;
-    data['contactPerson'] = this.contactPerson;
-    data['phone'] = this.phone;
-    data['email'] = this.email;
-    data['additionalPhone'] = this.additionalPhone;
-    data['primarySource'] = this.primarySource;
-    data['custZone'] = this.custZone;
-    data['customerType'] = this.customerType;
-    data['creditLimit'] = this.creditLimit;
-    data['addressLine2'] = this.addressLine2;
-    data['mandal'] = this.mandal;
-    if (this.district != null) {
-      data['district'] = this.district!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['customerName'] = customerName;
+    data['customerId'] = customerId;
+    data['farmId'] = farmId;
+    data['customerPhone'] = customerPhone;
+    data['title'] = title;
+    data['contactPerson'] = contactPerson;
+    data['phone'] = phone;
+    data['email'] = email;
+    data['additionalPhone'] = additionalPhone;
+    data['primarySource'] = primarySource;
+    data['custZone'] = custZone;
+    data['customerType'] = customerType;
+    data['creditLimit'] = creditLimit;
+    data['addressLine2'] = addressLine2;
+    data['mandal'] = mandal;
+    if (district != null) {
+      data['district'] = district!.toJson();
     }
-    if (this.assignTo != null) {
-      data['assignTo'] = this.assignTo!.toJson();
+    if (assignTo != null) {
+      data['assignTo'] = assignTo!.toJson();
     }
-    data['custCountry'] = this.custCountry;
-    if (this.state != null) {
-      data['state'] = this.state!.toJson();
+    data['custCountry'] = custCountry;
+    if (state != null) {
+      data['state'] = state!.toJson();
     }
-    if (this.custCity != null) {
-      data['custCity'] = this.custCity!.toJson();
+    if (custCity != null) {
+      data['custCity'] = custCity!.toJson();
     }
-    if (this.locality != null) {
-      data['locality'] = this.locality!.toJson();
+    if (locality != null) {
+      data['locality'] = locality!.toJson();
     }
-    data['address'] = this.address;
-    data['pincode'] = this.pincode;
-    data['isOrganization'] = this.isOrganization;
-    data['isIndividual'] = this.isIndividual;
-    data['customerCode'] = this.customerCode;
-    data['farmName'] = this.farmName;
-    data['farmCapacity'] = this.farmCapacity;
-    data['createdDate'] = this.createdDate;
-    data['createdBy'] = this.createdBy;
-    data['custStatus'] = this.custStatus;
-    data['locationCode'] = this.locationCode;
+    data['address'] = address;
+    data['pincode'] = pincode;
+    data['isOrganization'] = isOrganization;
+    data['isIndividual'] = isIndividual;
+    data['customerCode'] = customerCode;
+    data['farmName'] = farmName;
+    data['farmCapacity'] = farmCapacity;
+    data['createdDate'] = createdDate;
+    data['createdBy'] = createdBy;
+    data['custStatus'] = custStatus;
+    data['locationCode'] = locationCode;
     return data;
   }
 }
@@ -200,9 +200,9 @@ class District {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['districtId'] = this.districtId;
-    data['districtName'] = this.districtName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['districtId'] = districtId;
+    data['districtName'] = districtName;
     return data;
   }
 }
@@ -218,9 +218,9 @@ class PrimarySource {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['primarySourceId'] = this.primarySourceId;
-    data['primarySourceName'] = this.primarySourceName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['primarySourceId'] = primarySourceId;
+    data['primarySourceName'] = primarySourceName;
     return data;
   }
 }
@@ -237,9 +237,9 @@ class CustZoneModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['zoneId'] = this.zoneId;
-    data['zoneName'] = this.zoneName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['zoneId'] = zoneId;
+    data['zoneName'] = zoneName;
     return data;
   }
 }
@@ -257,9 +257,9 @@ class AssignTo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userId'] = this.userId;
-    data['userName'] = this.userName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['userId'] = userId;
+    data['userName'] = userName;
     return data;
   }
 }
@@ -276,9 +276,9 @@ class State {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['stateName'] = this.stateName;
-    data['stateId'] = this.stateId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['stateName'] = stateName;
+    data['stateId'] = stateId;
     return data;
   }
 }
@@ -309,9 +309,9 @@ class CustCity {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['cityId'] = this.cityId;
-    data['cityName'] = this.cityName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['cityId'] = cityId;
+    data['cityName'] = cityName;
     return data;
   }
 }
@@ -328,9 +328,9 @@ class Locality {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['localityId'] = this.localityId;
-    data['localityName'] = this.localityName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['localityId'] = localityId;
+    data['localityName'] = localityName;
     return data;
   }
 }

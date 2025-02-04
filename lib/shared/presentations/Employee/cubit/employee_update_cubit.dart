@@ -6,9 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:quickalert/quickalert.dart';
-import 'package:srinivasa_crm_new/shared/domain/model/City/city_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Division/division_model.dart';
-import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_reporting_manager_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Employe/single_employe_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Employe/update_emloye_post_model.dart';
@@ -24,7 +22,6 @@ import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/core/model/api%20failed/api_failed_model.dart';
 
 import '../../../../src/config/config.dart';
-import '../../../domain/model/StateModel/state_model.dart';
 import '../../../domain/repo/Employe/roles_model.dart';
 
 @injectable

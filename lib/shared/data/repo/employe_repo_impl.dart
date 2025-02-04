@@ -2,7 +2,6 @@
 
 
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:srinivasa_crm_new/shared/data/datasource/remote/Employe/employe_remote_datasource.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Employe/all_employe_model.dart';
@@ -12,7 +11,6 @@ import 'package:srinivasa_crm_new/shared/domain/model/Employe/single_employe_mod
 import 'package:srinivasa_crm_new/shared/domain/model/Employe/update_emloye_post_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Employe/employe_repo.dart';
 import 'package:srinivasa_crm_new/shared/domain/repo/Employe/roles_model.dart';
-import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/core/model/network%20exception/network_exception.dart';
 
 

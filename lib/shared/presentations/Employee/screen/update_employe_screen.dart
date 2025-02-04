@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:srinivasa_crm_new/shared/presentations/Employee/cubit/employee_update_cubit.dart';
@@ -10,7 +9,6 @@ import 'package:srinivasa_crm_new/shared/presentations/Employee/screen/widget/up
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/common/widgets/text/common_textfield_heading_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/screen/update_customer_form_screen.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/widgets/uc_division_dropdown_widget.dart';
 
 import 'widget/up_employe_dropdown_widget.dart';
 import 'widget/up_roles_dropdown_widget.dart';
@@ -18,9 +16,9 @@ import 'widget/up_roles_dropdown_widget.dart';
 class UpdateEmployeScreen extends StatefulWidget {
   final String? empId;
   const UpdateEmployeScreen({
-    Key? key,
+    super.key,
     this.empId,
-  }) : super(key: key);
+  });
 
   @override
   State<UpdateEmployeScreen> createState() => _UpdateEmployeScreenState();
@@ -114,7 +112,7 @@ class _UpdateEmployeScreenState extends State<UpdateEmployeScreen> {
    
               const HeightBox(),
                          const CommonTextFieldHeadingWidget(title: 'Divisions'),
-             UpDivisionDropDownWiget(),
+             const UpDivisionDropDownWiget(),
               const HeightBox(),
                          const CommonTextFieldHeadingWidget(title: 'Roles'),
              const UpRolesDropDownWidget(),
@@ -133,7 +131,7 @@ class _UpdateEmployeScreenState extends State<UpdateEmployeScreen> {
       bottomNavigationBar:  FractionallySizedBox(
         widthFactor: 0.7,
         child: Padding(
-          padding: EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.only(bottom: 10),
           child: CommonButton(callback: () {
             context.read<EmployeUpdateCubit>().updateEmployeLogic(context,widget.empId!);
           }, title: "Update Employee"),

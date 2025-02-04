@@ -136,7 +136,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                               title: 'Farm Name',
                             ),
                             CustomerDetailsTextWidget(
-                              data: widget.customermodel?.farm!.farmName.toString(),
+                              data: widget.customermodel?.farm!.farmName ?? "N/A",
                             ),
                             const CustomerDetailsDividerWidget(),
                              10.verticalSpace,
@@ -184,10 +184,10 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                             const CustomerDetailsDividerWidget(),
                                10.verticalSpace,
                               const CustomerDetailsHeadingWidget(
-                              title: 'Contact Person Alternate',
+                              title: 'Contact Person Alternate Number',
                             ),
                             CustomerDetailsTextWidget(
-                              data: widget.customermodel?.farm!.contactPerson.toString(),
+                              data: widget.customermodel?.farm!.contPersAltContNo ?? "N/A",
                             ),
                             const CustomerDetailsDividerWidget(),
                             10.verticalSpace,

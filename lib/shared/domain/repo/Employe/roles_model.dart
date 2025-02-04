@@ -10,9 +10,9 @@ class RolesModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['roleId'] = this.roleId;
-    data['authority'] = this.authority;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['roleId'] = roleId;
+    data['authority'] = authority;
     return data;
   }
 }

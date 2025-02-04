@@ -12,8 +12,8 @@ class ImageGalleryPage extends StatefulWidget {
   const ImageGalleryPage({
     required this.imageUrls,
     this.initialIndex = 0,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ImageGalleryPage> createState() => _ImageGalleryPageState();

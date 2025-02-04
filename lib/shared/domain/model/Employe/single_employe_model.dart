@@ -47,21 +47,21 @@ class SingleEmployeModel {
     if (json['authorities'] != null) {
       authorities = <Authorities>[];
       json['authorities'].forEach((v) {
-        authorities!.add(new Authorities.fromJson(v));
+        authorities!.add(Authorities.fromJson(v));
       });
     }
     if (json['zones'] != null) {
       zones = <Zones>[];
       json['zones'].forEach((v) {
-        zones!.add(new Zones.fromJson(v));
+        zones!.add(Zones.fromJson(v));
       });
     }
     joiningDate = json['joiningDate'];
     currency = json['currency'] != null
-        ? new Currency.fromJson(json['currency'])
+        ? Currency.fromJson(json['currency'])
         : null;
     timeZone = json['timeZone'] != null
-        ? new TimeZone.fromJson(json['timeZone'])
+        ? TimeZone.fromJson(json['timeZone'])
         : null;
     reportingTo = json['reportingTo'];
     repostingManagerName = json['repostingManagerName'];
@@ -71,32 +71,32 @@ class SingleEmployeModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['divisionId'] = this.divisionId;
-    data['contactNo'] = this.contactNo;
-    data['state'] = this.state;
-    data['city'] = this.city;
-    data['pincode'] = this.pincode;
-    data['email'] = this.email;
-    if (this.authorities != null) {
-      data['authorities'] = this.authorities!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['divisionId'] = divisionId;
+    data['contactNo'] = contactNo;
+    data['state'] = state;
+    data['city'] = city;
+    data['pincode'] = pincode;
+    data['email'] = email;
+    if (authorities != null) {
+      data['authorities'] = authorities!.map((v) => v.toJson()).toList();
     }
-    if (this.zones != null) {
-      data['zones'] = this.zones!.map((v) => v.toJson()).toList();
+    if (zones != null) {
+      data['zones'] = zones!.map((v) => v.toJson()).toList();
     }
-    data['joiningDate'] = this.joiningDate;
-    if (this.currency != null) {
-      data['currency'] = this.currency!.toJson();
+    data['joiningDate'] = joiningDate;
+    if (currency != null) {
+      data['currency'] = currency!.toJson();
     }
-    if (this.timeZone != null) {
-      data['timeZone'] = this.timeZone!.toJson();
+    if (timeZone != null) {
+      data['timeZone'] = timeZone!.toJson();
     }
-    data['reportingTo'] = this.reportingTo;
-    data['repostingManagerName'] = this.repostingManagerName;
-    data['gender'] = this.gender;
-    data['username'] = this.username;
-    data['obempVendorCode'] = this.obempVendorCode;
+    data['reportingTo'] = reportingTo;
+    data['repostingManagerName'] = repostingManagerName;
+    data['gender'] = gender;
+    data['username'] = username;
+    data['obempVendorCode'] = obempVendorCode;
     return data;
   }
 }
@@ -113,9 +113,9 @@ class Authorities {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['roleId'] = this.roleId;
-    data['authority'] = this.authority;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['roleId'] = roleId;
+    data['authority'] = authority;
     return data;
   }
 }
@@ -132,9 +132,9 @@ class Zones {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['zoneName'] = this.zoneName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['zoneName'] = zoneName;
     return data;
   }
 }
@@ -151,9 +151,9 @@ class Currency {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['currencyId'] = this.currencyId;
-    data['currencyName'] = this.currencyName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['currencyId'] = currencyId;
+    data['currencyName'] = currencyName;
     return data;
   }
 }
@@ -170,9 +170,9 @@ class TimeZone {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['timeZoneId'] = this.timeZoneId;
-    data['timeZoneName'] = this.timeZoneName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['timeZoneId'] = timeZoneId;
+    data['timeZoneName'] = timeZoneName;
     return data;
   }
 }

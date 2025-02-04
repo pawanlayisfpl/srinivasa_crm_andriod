@@ -187,7 +187,7 @@ class TokenImage extends StatelessWidget {
   final String imageUrl;
 
 
-  const TokenImage({required this.imageUrl});
+  const TokenImage({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {

@@ -9,7 +9,6 @@ import 'package:quickalert/quickalert.dart';
 
 import 'package:srinivasa_crm_new/shared/domain/model/City/city_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/District/district_model.dart';
-import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Employe/employe_reporting_manager_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Locality/locality_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/StateModel/state_model.dart';
@@ -149,7 +148,7 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
     creditLimitController.text = value ?? "";
   }
   // State Data Lists and Models
-  List<StateModel> _statesList = [];
+  final List<StateModel> _statesList = [];
   List<StateModel> get statesList => _statesList;
 
   StateModel? _selectedStateModel;
@@ -549,7 +548,7 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
     // mandalController.clear();
   }
 
-  List<CityModel> _cityList = [];
+  final List<CityModel> _cityList = [];
   List<CityModel> get cityList => _cityList;
 
   CityModel? _selectedCityModel;
@@ -603,7 +602,7 @@ class UpdateCustomerCubit extends Cubit<UpdateCustomerState> {
   Future<void> getDistrictsByStateId() async {
     emit(state.copyWith(isLoading: true));
 
-    final stateId = _selectedStateModel?.stateId?.toString() ?? "1";
+    final stateId = _selectedStateModel?.stateId.toString() ?? "1";
     final results = await addressRepo.getDistrictByState(stateId: stateId);
     results.fold((l) {
       final errorMessage = ApiFailedModel.fromNetworkExceptions(l).message;

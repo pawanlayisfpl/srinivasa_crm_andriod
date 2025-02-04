@@ -96,34 +96,34 @@ class UpdateCustomerPostModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['farmId'] = this.farmId;
-    data['customerId'] = this.customerId;
-    data['farmName'] = this.farmName;
-    data['customerName'] = this.customerName;
-    data['customerPhone'] = this.customerPhone;
-    data['title'] = this.title;
-    data['email'] = this.email;
-    data['addressLine2'] = this.addressLine2;
-    data['creditLimit'] = this.creditLimit;
-    data['primarySourceId'] = this.primarySourceId;
-    data['zoneId'] = this.zoneId;
-    data['kycstatus'] = this.kycstatus;
-    data['countryId'] = this.countryId;
-    data['stateId'] = this.stateId;
-    data['districtId'] = this.districtId;
-    data['cityId'] = this.cityId;
-    data['localityId'] = this.localityId;
-    data['mandal'] = this.mandal;
-    data['postalCode'] = this.postalCode;
-    data['address'] = this.address;
-    data['isIndividual'] = this.isIndividual;
-    data['isOrganization'] = this.isOrganization;
-    data['contactPerson'] = this.contactPerson;
-    data['mobile'] = this.mobile;
-    data['alternateContact'] = this.alternateContact;
-    data['farmCapacity'] = this.farmCapacity;
-    data['assignTo'] = this.assignTo;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['farmId'] = farmId;
+    data['customerId'] = customerId;
+    data['farmName'] = farmName;
+    data['customerName'] = customerName;
+    data['customerPhone'] = customerPhone;
+    data['title'] = title;
+    data['email'] = email;
+    data['addressLine2'] = addressLine2;
+    data['creditLimit'] = creditLimit;
+    data['primarySourceId'] = primarySourceId;
+    data['zoneId'] = zoneId;
+    data['kycstatus'] = kycstatus;
+    data['countryId'] = countryId;
+    data['stateId'] = stateId;
+    data['districtId'] = districtId;
+    data['cityId'] = cityId;
+    data['localityId'] = localityId;
+    data['mandal'] = mandal;
+    data['postalCode'] = postalCode;
+    data['address'] = address;
+    data['isIndividual'] = isIndividual;
+    data['isOrganization'] = isOrganization;
+    data['contactPerson'] = contactPerson;
+    data['mobile'] = mobile;
+    data['alternateContact'] = alternateContact;
+    data['farmCapacity'] = farmCapacity;
+    data['assignTo'] = assignTo;
     return data;
   }
 }

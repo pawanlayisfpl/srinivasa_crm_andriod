@@ -6,7 +6,7 @@ class AllEmployesModel {
   AllEmployesModel({this.data, this.status, this.message});
 
   AllEmployesModel.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
     status = json['status'];
     message = json['message'];
   }
@@ -23,7 +23,7 @@ class Data {
     if (json['users'] != null) {
       users = <Users>[];
       json['users'].forEach((v) {
-        users!.add(new Users.fromJson(v));
+        users!.add(Users.fromJson(v));
       });
     }
   }

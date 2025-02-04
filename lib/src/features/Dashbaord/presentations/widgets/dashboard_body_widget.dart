@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:srinivasa_crm_new/shared/presentations/AllEmploye/views/all_employes_screen.dart';
-import 'package:srinivasa_crm_new/shared/presentations/Employee/screen/employe_screen.dart';
 import 'package:srinivasa_crm_new/src/common/widgets/widgets.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
 import 'package:srinivasa_crm_new/src/features/Alerts%20/presentations/cubit/alert_cubit.dart';
@@ -183,7 +182,7 @@ class DashboardBodyWidget extends StatelessWidget {
 
       case 8 : 
       // Navigator.push(context, ScaleRoute(screen: const EmployeScreen()));
-      Navigator.push(context, ScaleRoute(screen:  SyncDataScreen()));
+      Navigator.push(context, ScaleRoute(screen:  const SyncDataScreen()));
       case 9 : 
       // Navigator.push(context, ScaleRoute(screen: const EmployeScreen()));
       Navigator.push(context, ScaleRoute(screen: const AllEmployeScreen()));

@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:srinivasa_crm_new/src/common/widgets/text/common_textfield_heading_widget.dart';
 import 'package:srinivasa_crm_new/src/common/widgets/widgets.dart';
 import 'package:srinivasa_crm_new/src/core/core.dart';
@@ -48,7 +47,7 @@ class _AddTicketScreenState extends State<AddTicketScreen> {
                   20.verticalSpace,
                   BlocBuilder<AddTicketCubit, AddTicketState>(
                     builder: (context, state) {
-                      return  state.isLoading == true ? Center(child: CircularProgressIndicator(),) : state.imageList.isNotEmpty ? Column(
+                      return  state.isLoading == true ? const Center(child: CircularProgressIndicator(),) : state.imageList.isNotEmpty ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                       
@@ -103,7 +102,7 @@ class _AddTicketScreenState extends State<AddTicketScreen> {
                             }, itemCount: state.imageList.length),
                           ),
                         ],
-                      ) : context.watch<AddTicketCubit>().state.isLoading == true ? Center(child: CircularProgressIndicator(),) : DashedBorderContainer(
+                      ) : context.watch<AddTicketCubit>().state.isLoading == true ? const Center(child: CircularProgressIndicator(),) : DashedBorderContainer(
                         title: 'Upload File',
                         callback: () async {
                           showDialog(
@@ -113,14 +112,14 @@ class _AddTicketScreenState extends State<AddTicketScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
-          title: Row(
+          title: const Row(
             children: [
               Icon(Icons.info_outline, color: Colors.blueAccent),
               SizedBox(width: 8),
               Text("Information"),
             ],
           ),
-          content: Text(
+          content: const Text(
             "Please press and hold to select multiple images.",
             style: TextStyle(fontSize: 16),
           ),
@@ -130,7 +129,7 @@ class _AddTicketScreenState extends State<AddTicketScreen> {
                 Navigator.of(context).pop(); // Close the dialog
                 context.read<AddTicketCubit>().pickAllImages(context); // Call the function
               },
-              child: Text(
+              child: const Text(
                 "OKAY",
                 style: TextStyle(
                   fontSize: 16,

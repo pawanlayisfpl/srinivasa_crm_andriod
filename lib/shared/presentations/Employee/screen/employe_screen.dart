@@ -12,9 +12,9 @@ import 'package:srinivasa_crm_new/src/config/constants/app_colors.dart';
 class EmployeScreen extends StatefulWidget {
   final String? empId;
   const EmployeScreen({
-    Key? key,
+    super.key,
     this.empId,
-  }) : super(key: key);
+  });
 
   @override
   State<EmployeScreen> createState() => _EmployeScreenState();
@@ -38,7 +38,7 @@ class _EmployeScreenState extends State<EmployeScreen> {
         builder: (context, state) {
           return SafeArea(child: 
 
-          state.isSingleEmployeModelLoading ? const Center(child: CircularProgressIndicator(color: AppColors.primaryColor,),) : EmployeDetailsWidget(singleEmployeModel: state.singleEmployeModel?? null,empIdvalue: widget.empId.toString(),)
+          state.isSingleEmployeModelLoading ? const Center(child: CircularProgressIndicator(color: AppColors.primaryColor,),) : EmployeDetailsWidget(singleEmployeModel: state.singleEmployeModel,empIdvalue: widget.empId.toString(),)
 
 
             );
@@ -57,10 +57,10 @@ class EmployeDetailsWidget extends StatelessWidget {
   
 
   const EmployeDetailsWidget({
-    Key? key,
+    super.key,
     this.singleEmployeModel,
     required this.empIdvalue,
-  }) : super(key: key);
+  });
   
   
   @override
@@ -72,12 +72,12 @@ class EmployeDetailsWidget extends StatelessWidget {
           
           mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-          ProfileRowWidget(title: 'Employe Id ', value: singleEmployeModel?.id.toString() ?? "N/A"),
+          ProfileRowWidget(title: 'Employee Id ', value: singleEmployeModel?.id.toString() ?? "N/A"),
           const Divider(),
             const SizedBox(height: 12,),
-          ProfileRowWidget(title: 'Employe Name ', value: singleEmployeModel?.username.toString() ?? "N/A"),
+          ProfileRowWidget(title: 'Employee Name ', value: singleEmployeModel?.username.toString() ?? "N/A"),
              const Divider(),
-                ProfileRowWidget(title: 'Employe Number ', value: singleEmployeModel?.contactNo.toString() ?? "N/A"),
+                ProfileRowWidget(title: 'Employee Number ', value: singleEmployeModel?.contactNo.toString() ?? "N/A"),
              const Divider(),
             const SizedBox(height: 12,),
              ProfileRowWidget(title: 'Email', value: singleEmployeModel?.email.toString() ?? "N/A"),
@@ -136,8 +136,8 @@ class ProfileRowWidget extends StatelessWidget {
     return Row(children: [
               Expanded(
                 flex: 3,
-                child: CommonTextWidget(title: "$title",maxLines: 2,)),
-                CommonTextWidget(title: " : ",textSize: 26,),
+                child: CommonTextWidget(title: title,maxLines: 2,)),
+                const CommonTextWidget(title: " : ",textSize: 26,),
               Expanded(
                 flex: 6,
                 child: CommonTextWidget(title:value,maxLines: 2,)),

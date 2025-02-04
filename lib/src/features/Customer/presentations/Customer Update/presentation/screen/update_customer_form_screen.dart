@@ -9,7 +9,6 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%2
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/widgets/uc_city_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/widgets/uc_countries_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/widgets/uc_districts_dropdown_widget.dart';
-import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/widgets/uc_division_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/widgets/uc_employe_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/widgets/uc_localities_dropdown_widget.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/presentation/widgets/uc_states_dropdown_widget.dart';

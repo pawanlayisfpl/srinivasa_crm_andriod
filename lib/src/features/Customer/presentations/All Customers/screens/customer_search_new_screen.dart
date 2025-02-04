@@ -5,7 +5,7 @@ import 'customer_details_screen.dart';
 class CustomerSearchNewScreen extends StatefulWidget {
   final List<Customermodel> existingCustomerList;
 
-  const CustomerSearchNewScreen({Key? key, required this.existingCustomerList}) : super(key: key);
+  const CustomerSearchNewScreen({super.key, required this.existingCustomerList});
 
   @override
   _CustomerSearchNewScreenState createState() => _CustomerSearchNewScreenState();
@@ -41,7 +41,7 @@ class _CustomerSearchNewScreenState extends State<CustomerSearchNewScreen> {
         title: TextField(
           controller: searchController,
           onChanged: filterCustomers,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             hintText: "Search by name or farm",
             border: InputBorder.none,
           ),

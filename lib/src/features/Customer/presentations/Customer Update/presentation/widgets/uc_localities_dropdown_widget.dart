@@ -1,7 +1,6 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:srinivasa_crm_new/shared/domain/model/City/city_model.dart';
 import 'package:srinivasa_crm_new/shared/domain/model/Locality/locality_model.dart';
 import 'package:srinivasa_crm_new/src/common/common.dart';
 import 'package:srinivasa_crm_new/src/features/Customer/presentations/Customer%20Update/domain/model/update_customer_state.dart';
