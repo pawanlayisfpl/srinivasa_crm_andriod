@@ -81,9 +81,9 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
     super.didUpdateWidget(oldWidget);
     // Add your custom logic here
 
-    if(widget != oldWidget) {
-      Fluttertoast.showToast(msg: 'New Widget');
-    }
+    // if(widget != oldWidget) {
+    //   Fluttertoast.showToast(msg: 'New Widget');
+    // }
   }
 
   
