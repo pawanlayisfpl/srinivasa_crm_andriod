@@ -7,8 +7,8 @@ class Endpoints {
     
     // static const String basicUrl = "http://180.149.244.56:8081/crm_sfpl";
     static const String basicUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl";
-    static const String testUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl";
-    // static const String basicUrl = "http://crmapi.srinivasa.co:8081/crm_sfpl";
+    // static const String testUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl";
+    // static const String basicUrl = "https://crmapi.srinivasa.co:8081/crm_sfpl";
     // static const String basicUrl = "http://95.216.201.117:8081/crm_sfpl";
     // static const String testUrl = "http://95.216.201.117:8081/crm_sfpl";
   static const int connectionTimeout = 600;

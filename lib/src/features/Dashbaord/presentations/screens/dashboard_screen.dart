@@ -230,8 +230,8 @@ void showLogoutDialog(BuildContext context) {
                 Navigator.push(context, SlideRightRoute(screen: const UpdatePasswordScreen()));
               
               } else if (value == "2") {
-                // showLogoutDialog(context);
-                                            fetchLocationAndShowDialog(context);
+                showLogoutDialog(context);
+                                            // fetchLocationAndShowDialog(context);
 
                   //          if(Platform.isAndroid) {
 

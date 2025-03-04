@@ -180,10 +180,10 @@ class DashboardBodyWidget extends StatelessWidget {
       Navigator.push(context, ScaleRoute(screen: const TicketDashbaordScreen()));
       break;
 
-      case 8 : 
+      case 9 : 
       // Navigator.push(context, ScaleRoute(screen: const EmployeScreen()));
       Navigator.push(context, ScaleRoute(screen:  const SyncDataScreen()));
-      case 9 : 
+      case 8 : 
       // Navigator.push(context, ScaleRoute(screen: const EmployeScreen()));
       Navigator.push(context, ScaleRoute(screen: const AllEmployeScreen()));
 
