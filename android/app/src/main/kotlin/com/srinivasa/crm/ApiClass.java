@@ -33,7 +33,7 @@ import java.security.cert.X509Certificate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.List;  
 import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -44,8 +44,8 @@ import javax.net.ssl.X509TrustManager;
 public class ApiClass {
     private Context context;
     private static final String TAG = "ApiCaller"; // Tag for logging
-    // private static final String postUrl = "http://180.149.244.56:8081/crm_sfpl/se/locations"; // Change the post URL as needed
-    private static final String postUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl/se/locations-list"; // Change the post URL as needed
+    private static final String postUrl = "https://crmapi.srinivasa.co:8446/crm_sfpl/se/locations"; // Change the post URL as needed
+    // private static final String postUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl/se/locations-list"; // Change the post URL as needed
 
     public ApiClass(Context context) {
         this.context = context;
@@ -54,48 +54,110 @@ public class ApiClass {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void callAPI(double latitude, double longitude) {
 
-        Log.d(TAG, "callAPI called with latitude: " + latitude + ", longitude: " + longitude);
 
-        // Get battery level
-        int batteryLevel = getBatteryLevel();
-        Log.d(TAG, "Battery level: " + batteryLevel);
-
-        // Prepare data to insert locally when the network is unavailable
-        JSONObject data = new JSONObject();
+        // -------------------------------------------------------------------------------- OLD API CODE STARTSS HEREE ----------------------------------------
+        disableSSLCertificateChecking();
         try {
+             int batteryLevel = getBatteryLevel();
+            SharedPreferences sharedPreferences = context.getSharedPreferences("FlutterSharedPreferences", Context.MODE_PRIVATE);
+            String tokenValue = sharedPreferences.getString("flutter.token", null);
+            String userIdValue = sharedPreferences.getString("flutter.userId", null);
+            // Log.d(TAG, "api printing tokenValue: " + tokenValue);
+            // Log.d(TAG, "api printing userIdValue: " + userIdValue);
+
+            JSONObject data = new JSONObject();
             data.put("latitude", latitude);
             data.put("longitude", longitude);
             data.put("userDateTime", LocalDateTime.now().toString());
             data.put("batteryStatus", String.valueOf(batteryLevel));
+            StringRequest request = new StringRequest(
+                    Request.Method.POST, postUrl,  // Replace with your actual endpoint
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.d("api", "API Response: " + response);
+                            // Toast.makeText(context, "Api is successful", Toast.LENGTH_LONG).show();
 
-            // Insert data into the local database
-            Log.d(TAG, "Inserting data into local database...");
-            DatabaseHelper dbHelper = new DatabaseHelper(context);
-            long result = dbHelper.insertLocationData(
-                    String.valueOf(latitude),
-                    String.valueOf(longitude),
-                    LocalDateTime.now().toString(),
-                    String.valueOf(batteryLevel)
-            );
-
-            if (result != -1) {
-                Log.d(TAG, "Data inserted successfully into local database");
-
-                // Check if network is available to send the data to the server
-                if (isNetworkAvailable()) {
-                    Log.d(TAG, "Network is available, sending data to server...");
-                    // sendToServer(context, batteryLevel);
-                } else {
-                    Log.d(TAG, "Network is not available, data stored locally");
+                            // Toast.makeText(context, "Response: " + response, Toast.LENGTH_LONG).show();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("api", "API Error: " + error.getMessage(), error);
+                            // Toast.makeText(context, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
                 }
-            } else {
-                // sendToServer(context, batteryLevel);
-                Log.e(TAG, "Failed to insert data into local database");
-            }
 
+                @Override
+                public byte[] getBody() {
+                    return data.toString().getBytes();
+                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("Content-Type", "application/json; charset=utf-8");
+                    if (tokenValue != null) {
+                        headers.put("Authorization", "Bearer " + tokenValue);
+                    }
+                    return headers;
+                }
+            };
+
+            Volley.newRequestQueue(context).add(request);
         } catch (JSONException e) {
-            Log.e(TAG, "Error preparing data for local database insertion", e);
+            Log.e("api", "Error preparing API request", e);
+            Toast.makeText(context, "Error occurred while preparing API request", Toast.LENGTH_LONG).show();
+
         }
+        // -------------------------------------------------------------------------------- OLD API CODE ENDS  HEREE --------------------------------------------------------------------------------
+        // Log.d(TAG, "callAPI called with latitude: " + latitude + ", longitude: " + longitude);
+
+        // // Get battery level
+        // int batteryLevel = getBatteryLevel();
+        // Log.d(TAG, "Battery level: " + batteryLevel);
+
+        // // Prepare data to insert locally when the network is unavailable
+        // JSONObject data = new JSONObject();
+        // try {
+        //     data.put("latitude", latitude);
+        //     data.put("longitude", longitude);
+        //     data.put("userDateTime", LocalDateTime.now().toString());
+        //     data.put("batteryStatus", String.valueOf(batteryLevel));
+
+        //     // Insert data into the local database
+        //     Log.d(TAG, "Inserting data into local database...");
+        //     DatabaseHelper dbHelper = new DatabaseHelper(context);
+        //     long result = dbHelper.insertLocationData(
+        //             String.valueOf(latitude),
+        //             String.valueOf(longitude),
+        //             LocalDateTime.now().toString(),
+        //             String.valueOf(batteryLevel)
+        //     );
+
+        //     if (result != -1) {
+        //         Log.d(TAG, "Data inserted successfully into local database");
+
+        //         // Check if network is available to send the data to the server
+        //         if (isNetworkAvailable()) {
+        //             Log.d(TAG, "Network is available, sending data to server...");
+        //             // sendToServer(context, batteryLevel);
+        //         } else {
+        //             Log.d(TAG, "Network is not available, data stored locally");
+        //         }
+        //     } else {
+        //         // sendToServer(context, batteryLevel);
+        //         Log.e(TAG, "Failed to insert data into local database");
+        //     }
+
+        // } catch (JSONException e) {
+        //     Log.e(TAG, "Error preparing data for local database insertion", e);
+        // }
     }
 
     // Method to send data to the server

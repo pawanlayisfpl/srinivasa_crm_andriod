@@ -230,7 +230,13 @@ void showLogoutDialog(BuildContext context) {
                 Navigator.push(context, SlideRightRoute(screen: const UpdatePasswordScreen()));
               
               } else if (value == "2") {
-                showLogoutDialog(context);
+               if(context.mounted) {
+                  QuickAlert.show(context: context, type: QuickAlertType.confirm, title: "Logout",text: "Are you sure?",confirmBtnText: "Yes",confirmBtnColor: Colors.black,onConfirmBtnTap: () {
+                  context.read<ProfileCubit>().logout(context: context);
+      
+          });
+               }
+                // showLogoutDialog(context);
                                             // fetchLocationAndShowDialog(context);
 
                   //          if(Platform.isAndroid) {
@@ -241,10 +247,7 @@ void showLogoutDialog(BuildContext context) {
                   // }
 
           //          if(Platform.isIOS) {
-          //            QuickAlert.show(context: context, type: QuickAlertType.confirm, title: "Logout",text: "Are you sure?",confirmBtnText: "Yes",confirmBtnColor: Colors.black,onConfirmBtnTap: () {
-          //         context.read<ProfileCubit>().logout(context: context);
-      
-          // });
+                    
                     
           //         }
 

@@ -289,21 +289,27 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
                                 );
                        }
                         } else {
-    
-                         if(Platform.isAndroid) {
-                           if(context.mounted) {
-                            fetchLocationAndShowDialog(context);
-                         }
-
-                         if(Platform.isIOS) {
-                           await context
-                              .read<MarkAttendanceCubit>()
-                              .punchOutLogic(
-                                  );
-
-                         }
-                           
+                          if(context.mounted) {
+                                 QuickAlert.show(context: context, type: QuickAlertType.confirm, title: "Punch Out",text: "Are you sure?",confirmBtnText: "Yes",confirmBtnColor: Colors.black,onConfirmBtnTap: () {
+                  context.read<ProfileCubit>().logout(context: context);
+      
+          });
                           }
+    
+                        //  if(Platform.isAndroid) {
+                        //    if(context.mounted) {
+                        //     fetchLocationAndShowDialog(context);
+                        //  }
+
+                        //  if(Platform.isIOS) {
+                        //    await context
+                        //       .read<MarkAttendanceCubit>()
+                        //       .punchOutLogic(
+                        //           );
+
+                        //  }
+                           
+                        //   }
                               // PermissionStatus status = await Permission.location.request();
                     
                               // if(status.isGranted) {
