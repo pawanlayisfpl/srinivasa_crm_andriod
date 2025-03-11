@@ -84,10 +84,10 @@ debugPrint('User granted permission: ${settings.authorizationStatus}');
   
   @override
   Future<String?> generateToken() async {
-    FirebaseMessaging.instance.subscribeToTopic('news').then((_) {
-  print('Subscribed to your_topic_name');
+   await FirebaseMessaging.instance.subscribeToTopic('news').then((_) {
+  debugPrint('Subscribed to your_topic_name');
 }).catchError((error) {
-  print('Failed to subscribe: $error');
+  debugPrint('Failed to subscribe: $error');
 });
   
        String? token = await FirebaseMessaging.instance.getToken();

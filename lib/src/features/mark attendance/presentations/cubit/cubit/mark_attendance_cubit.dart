@@ -133,7 +133,7 @@ class MarkAttendanceCubit extends Cubit<MarkAttendanceState> {
   if(response.statusCode == 200 || response.statusCode == 201) {
     keyValueStorage.sharedPreferences.remove(KeyValueStrings.isLoggedIn);
 
-    await FirebaseMessaging.instance.unsubscribeFromTopic('news');
+    // await FirebaseMessaging.instance.unsubscribeFromTopic('news');
 
 
   }else {

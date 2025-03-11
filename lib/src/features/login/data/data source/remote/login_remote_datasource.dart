@@ -71,6 +71,7 @@ Future<lm.LoginResponseModel> login({required LoginPostModel loginPostModel}) as
   "fcmToken": await FirebaseMessaging.instance.getToken(),
   "isWebLogin": false
     };
+    debugPrint(body['fcmToken'].toString());
     }else {
          IosDeviceInfo iosDeviceInfo = await deviceInfoPlugin.iosInfo;
   log('Running on ${iosDeviceInfo.model.toString()}');  // e.g. "iPod7,1"
@@ -87,6 +88,7 @@ Future<lm.LoginResponseModel> login({required LoginPostModel loginPostModel}) as
   "fcmToken": await FirebaseMessaging.instance.getToken(),
   "isWebLogin": false
     };
+
     }
     
     final response = await dioClient.post(
@@ -96,6 +98,8 @@ Future<lm.LoginResponseModel> login({required LoginPostModel loginPostModel}) as
     );
 
     if(response.statusCode == 200){
+       await FirebaseMessaging.instance.subscribeToTopic('news');
+      //  await FirebaseMessaging.instance.subscribeToTopic('test');
       // await database.insertLoginPost(loginPostModel);
       debugPrint('LOGIN API SUCCESS');
       final data = response.data;
