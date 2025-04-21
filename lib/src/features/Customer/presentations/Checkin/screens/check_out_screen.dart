@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,7 +61,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<CheckinCubit, CheckinState>(
-    listener: (context, state) {
+      listener: (context, state) {
         if (state.isFailed) {
           QuickAlert.show(
               context: context,
@@ -97,76 +98,79 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 height: 30.h,
                 child: ElevatedButton.icon(
                     onPressed: () async {
+                      if (context.mounted) {
+                        int batterylevl = 0;
+                        dynamic lat = "";
+                        dynamic lon = "";
+                        try {
+                          final locationServicesss =
+                              locator.get<CommonLocationServices>();
+                          Position? position =
+                              await locationServicesss.getUserCurrentPosition();
+                          lat = position.latitude;
+                          lon = position.longitude;
+                          batterylevl = await locator
+                              .get<CommonBattery>()
+                              .getBatteryLevel();
+                        } on Exception catch (e) {
+                          if (kDebugMode) {
+                            print(e);
+                          }
+                          // TODO
+                        }
 
-                      if(context.mounted) {
-
-                         final locationServicesss = locator.get<CommonLocationServices>();
-                              Position position = await locationServicesss.getUserCurrentPosition();
-                              double lat = position.latitude;
-                              double long = position.longitude;
-                      
-                      if (context
+                        if (context.read<CheckinCubit>().state.lastCheckinOutResponseModel !=  null &&
+                            context.read<CheckinCubit>().state .selectedPurpose !=  null) {
+                          debugPrint(context.read<CheckinCubit>().state.lastCheckinOutResponseModel!.toJson().toString());
+                          List<int> userIds = context.read<CheckinCubit>().state.lastCheckinOutResponseModel ==
+                                  null
+                              ? []
+                              : context
                                   .read<CheckinCubit>()
                                   .state
-                                  .lastCheckinOutResponseModel !=
-                              null &&
-                          context.read<CheckinCubit>().state.selectedPurpose !=
-                              null) {
-                        debugPrint(context
-                            .read<CheckinCubit>()
-                            .state
-                            .lastCheckinOutResponseModel!
-                            .toJson()
-                            .toString());
-                        List<int> userIds = context
-                                    .read<CheckinCubit>()
-                                    .state
-                                    .lastCheckinOutResponseModel ==
-                                null
-                            ? []
-                            : context
-                                .read<CheckinCubit>()
-                                .state
-                                .lastCheckinOutResponseModel!
-                                .users!
-                                .map((e) => int.parse(e.toString()))
-                                .toList();
-                        PurposeModel purposeModel =
-                            context.read<CheckinCubit>().state.selectedPurpose!;
-                        List<ImageModel> imageLists =
-                            context.read<CheckinCubit>().state.imageLists;
-                        List<FileModel> filesList =
-                            context.read<CheckinCubit>().state.filesList;
+                                  .lastCheckinOutResponseModel!
+                                  .users!
+                                  .map((e) => int.parse(e.toString()))
+                                  .toList();
+                          PurposeModel purposeModel = context
+                              .read<CheckinCubit>()
+                              .state
+                              .selectedPurpose!;
+                          List<ImageModel> imageLists =
+                              context.read<CheckinCubit>().state.imageLists;
+                          List<FileModel> filesList =
+                              context.read<CheckinCubit>().state.filesList;
 
-                                              int batterylevel = await locator.get<CommonBattery>().getBatteryLevel();
-
-
-                        CheckoutPostModel checkoutPostModel = CheckoutPostModel(
-                          userIds: userIds,
-                          customerId: widget.customermodel.farm!.customerId.toString(),
-                          farmId: widget.customermodel.farm!.farmId.toString(),
-                         
-                          customerName: widget.customermodel.customerName,
-                          langitude: lat.toString(),
-                          latitude: long.toString(),
-                          purposeId: purposeModel.purposeId.toString(),
-                          remarks: _descrtiptionController.text.toString(),
-                          files: filesList.map((e) => e.fileBytes).toList(),
-                          images: imageLists.map((e) => e.imageByes).toList(),
-                          batteryStatus: batterylevel.toString(),
-                        );
-                      if(context.mounted) {
-                           await context.read<CheckinCubit>().checkoutLogic(
-                            checkOutPostModel: checkoutPostModel,context: context);
-                      }
-                      } else {
-                        debugPrint('last checkin response model is getting null');
-                        Fluttertoast.showToast(
-                            msg: 'Please select purpose',
-                            backgroundColor: Colors.red,
-                            textColor: Colors.white,
-                            toastLength: Toast.LENGTH_LONG);
-                      }
+                          CheckoutPostModel checkoutPostModel =
+                              CheckoutPostModel(
+                            userIds: userIds,
+                            customerId: widget.customermodel.farm!.customerId
+                                .toString(),
+                            farmId:
+                                widget.customermodel.farm!.farmId.toString(),
+                            customerName: widget.customermodel.customerName,
+                            langitude: lon.toString(),
+                            latitude: lat.toString(),
+                            purposeId: purposeModel.purposeId.toString(),
+                            remarks: _descrtiptionController.text.toString(),
+                            files: filesList.map((e) => e.fileBytes).toList(),
+                            images: imageLists.map((e) => e.imageByes).toList(),
+                            batteryStatus: batterylevl.toString(),
+                          );
+                          if (context.mounted) {
+                            await context.read<CheckinCubit>().checkoutLogic(
+                                checkOutPostModel: checkoutPostModel,
+                                context: context);
+                          }
+                        } else {
+                          debugPrint(
+                              'last checkin response model is getting null');
+                          Fluttertoast.showToast(
+                              msg: 'Please select purpose',
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              toastLength: Toast.LENGTH_LONG);
+                        }
                       }
                     },
                     icon: const Icon(
@@ -253,7 +257,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(5.0)),
                   child: ListTile(
-                 onTap: () => pickImages(context),
+                    onTap: () => pickImages(context),
                     dense: false,
                     contentPadding: EdgeInsets.only(left: 10.w),
                     leading: const Icon(Icons.image),
@@ -312,11 +316,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             splashColor: Colors.grey[200],
                             onTap: () {
                               HapticFeedback.lightImpact();
-                              Navigator.push(context, ScaleRoute(screen: ImageFullScreen(bytes: context
+                              Navigator.push(
+                                  context,
+                                  ScaleRoute(
+                                      screen: ImageFullScreen(
+                                    bytes: context
                                         .read<CheckinCubit>()
                                         .state
                                         .imageLists[i]
-                                        .imageByes,)));
+                                        .imageByes,
+                                  )));
                             },
                             child: Stack(
                               alignment: Alignment.topRight,
@@ -370,21 +379,24 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             .length,
                       ),
                     ),
+                    /// 
               15.verticalSpace,
               InkWell(
-              onTap: context.watch<CheckinCubit>().state.filesList.isEmpty ?  () {
-                  HapticFeedback.lightImpact();
-                  if (mounted) {
-                    // TODO: ADD CAMRA IMAGE UPLOAD ALSO
-                    context.read<CheckinCubit>().pickAllFiles();
-                    // context.read<CheckinProvider>().pickFiles();
-                  }
-                } : () async {
-                  HapticFeedback.lightImpact();
-                  if (mounted) {
-                    context.read<CheckinCubit>().pickOneMoreFile();
-                  }
-                },
+                onTap: context.watch<CheckinCubit>().state.filesList.isEmpty
+                    ? () {
+                        HapticFeedback.lightImpact();
+                        if (mounted) {
+                          // TODO: ADD CAMRA IMAGE UPLOAD ALSO
+                          context.read<CheckinCubit>().pickAllFiles();
+                          // context.read<CheckinProvider>().pickFiles();
+                        }
+                      }
+                    : () async {
+                        HapticFeedback.lightImpact();
+                        if (mounted) {
+                          context.read<CheckinCubit>().pickOneMoreFile();
+                        }
+                      },
                 splashColor: Colors.grey[200],
                 child: Container(
                   decoration: BoxDecoration(
@@ -467,15 +479,27 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Icon(
-                                    context
-                                            .watch<CheckinCubit>()
-                                            .state
-                                            .filesList[i]
-                                            .name.split(".").last.toLowerCase() == "mp4" ? Icons.ondemand_video  :  context
-                                            .watch<CheckinCubit>()
-                                            .state
-                                            .filesList[i]
-                                            .name.split(".").last.toLowerCase() == "pdf" ? Icons.picture_as_pdf_sharp  :    Icons.file_copy,
+                                        context
+                                                    .watch<CheckinCubit>()
+                                                    .state
+                                                    .filesList[i]
+                                                    .name
+                                                    .split(".")
+                                                    .last
+                                                    .toLowerCase() ==
+                                                "mp4"
+                                            ? Icons.ondemand_video
+                                            : context
+                                                        .watch<CheckinCubit>()
+                                                        .state
+                                                        .filesList[i]
+                                                        .name
+                                                        .split(".")
+                                                        .last
+                                                        .toLowerCase() ==
+                                                    "pdf"
+                                                ? Icons.picture_as_pdf_sharp
+                                                : Icons.file_copy,
                                         color: Colors.white,
                                         size: 40.sp,
                                       ),
@@ -535,49 +559,50 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
     );
   }
-  
-  void pickImages(BuildContext context) 
-  {
+
+  void pickImages(BuildContext context) {
     HapticFeedback.lightImpact();
     if (context.mounted) {
       showDialog(
+          context: context,
+          builder: (c) => AlertDialog(
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
 
-        context: context, builder: (c) => AlertDialog(
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-        
-        // title: CommonTextWidget(title: 'Pick image from ',align: TextAlign.center,),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              onTap: () {
-                Navigator.pop(context);
-                context.read<CheckinCubit>().pickFromCameraLogic();
-                
-              },
-              title: const CommonTextWidget(title: 'Camera'),
-              leading: const Icon(Icons.camera_alt),
-            ),
-            const Divider(),
-            ListTile(
-              onTap: () {
-                Navigator.pop(context);
-                // context.read<CheckinCubit>().pickSingleImageFromGallery();
-                context.read<CheckinCubit>().pickAllImages();
-              },
-              title: const CommonTextWidget(title: 'Gallery'),
-              leading: const Icon(Icons.image),
-            ),
-            const Divider(),
-              TextButton(onPressed: () {
-              Navigator.pop(context);
-            }, child: const Text("Close"),)
-          ],
-        ),      
-      ));
+                // title: CommonTextWidget(title: 'Pick image from ',align: TextAlign.center,),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ListTile(
+                      onTap: () {
+                        Navigator.pop(context);
+                        context.read<CheckinCubit>().pickFromCameraLogic();
+                      },
+                      title: const CommonTextWidget(title: 'Camera'),
+                      leading: const Icon(Icons.camera_alt),
+                    ),
+                    const Divider(),
+                    ListTile(
+                      onTap: () {
+                        Navigator.pop(context);
+                        // context.read<CheckinCubit>().pickSingleImageFromGallery();
+                        context.read<CheckinCubit>().pickAllImages();
+                      },
+                      title: const CommonTextWidget(title: 'Gallery'),
+                      leading: const Icon(Icons.image),
+                    ),
+                    const Divider(),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Close"),
+                    )
+                  ],
+                ),
+              ));
     }
   }
 }

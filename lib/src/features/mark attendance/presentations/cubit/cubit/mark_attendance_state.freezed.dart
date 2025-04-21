@@ -26,6 +26,14 @@ mixin _$MarkAttendanceState {
   bool get punchOutSuccess => throw _privateConstructorUsedError;
   ApiFailedModel? get apiFailModel => throw _privateConstructorUsedError;
   bool get loaded => throw _privateConstructorUsedError;
+  int get dataState => throw _privateConstructorUsedError;
+  List<VechileItemsModel> get vehicleItems =>
+      throw _privateConstructorUsedError;
+  VechileItemsModel? get selectedVehicle => throw _privateConstructorUsedError;
+  bool get showInputError => throw _privateConstructorUsedError;
+  List<ImageModel> get imageLists => throw _privateConstructorUsedError;
+  MarketOdometerField get marketOdometerField =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of MarkAttendanceState
   /// with the given fields replaced by the non-null parameter values.
@@ -49,7 +57,13 @@ abstract class $MarkAttendanceStateCopyWith<$Res> {
       bool punchInSuccess,
       bool punchOutSuccess,
       ApiFailedModel? apiFailModel,
-      bool loaded});
+      bool loaded,
+      int dataState,
+      List<VechileItemsModel> vehicleItems,
+      VechileItemsModel? selectedVehicle,
+      bool showInputError,
+      List<ImageModel> imageLists,
+      MarketOdometerField marketOdometerField});
 
   $ApiFailedModelCopyWith<$Res>? get apiFailModel;
 }
@@ -78,6 +92,12 @@ class _$MarkAttendanceStateCopyWithImpl<$Res, $Val extends MarkAttendanceState>
     Object? punchOutSuccess = null,
     Object? apiFailModel = freezed,
     Object? loaded = null,
+    Object? dataState = null,
+    Object? vehicleItems = null,
+    Object? selectedVehicle = freezed,
+    Object? showInputError = null,
+    Object? imageLists = null,
+    Object? marketOdometerField = null,
   }) {
     return _then(_value.copyWith(
       lastPunchInResponseModel: freezed == lastPunchInResponseModel
@@ -116,6 +136,30 @@ class _$MarkAttendanceStateCopyWithImpl<$Res, $Val extends MarkAttendanceState>
           ? _value.loaded
           : loaded // ignore: cast_nullable_to_non_nullable
               as bool,
+      dataState: null == dataState
+          ? _value.dataState
+          : dataState // ignore: cast_nullable_to_non_nullable
+              as int,
+      vehicleItems: null == vehicleItems
+          ? _value.vehicleItems
+          : vehicleItems // ignore: cast_nullable_to_non_nullable
+              as List<VechileItemsModel>,
+      selectedVehicle: freezed == selectedVehicle
+          ? _value.selectedVehicle
+          : selectedVehicle // ignore: cast_nullable_to_non_nullable
+              as VechileItemsModel?,
+      showInputError: null == showInputError
+          ? _value.showInputError
+          : showInputError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      imageLists: null == imageLists
+          ? _value.imageLists
+          : imageLists // ignore: cast_nullable_to_non_nullable
+              as List<ImageModel>,
+      marketOdometerField: null == marketOdometerField
+          ? _value.marketOdometerField
+          : marketOdometerField // ignore: cast_nullable_to_non_nullable
+              as MarketOdometerField,
     ) as $Val);
   }
 
@@ -151,7 +195,13 @@ abstract class _$$MarkAttendanceStateImplCopyWith<$Res>
       bool punchInSuccess,
       bool punchOutSuccess,
       ApiFailedModel? apiFailModel,
-      bool loaded});
+      bool loaded,
+      int dataState,
+      List<VechileItemsModel> vehicleItems,
+      VechileItemsModel? selectedVehicle,
+      bool showInputError,
+      List<ImageModel> imageLists,
+      MarketOdometerField marketOdometerField});
 
   @override
   $ApiFailedModelCopyWith<$Res>? get apiFailModel;
@@ -179,6 +229,12 @@ class __$$MarkAttendanceStateImplCopyWithImpl<$Res>
     Object? punchOutSuccess = null,
     Object? apiFailModel = freezed,
     Object? loaded = null,
+    Object? dataState = null,
+    Object? vehicleItems = null,
+    Object? selectedVehicle = freezed,
+    Object? showInputError = null,
+    Object? imageLists = null,
+    Object? marketOdometerField = null,
   }) {
     return _then(_$MarkAttendanceStateImpl(
       lastPunchInResponseModel: freezed == lastPunchInResponseModel
@@ -217,6 +273,30 @@ class __$$MarkAttendanceStateImplCopyWithImpl<$Res>
           ? _value.loaded
           : loaded // ignore: cast_nullable_to_non_nullable
               as bool,
+      dataState: null == dataState
+          ? _value.dataState
+          : dataState // ignore: cast_nullable_to_non_nullable
+              as int,
+      vehicleItems: null == vehicleItems
+          ? _value._vehicleItems
+          : vehicleItems // ignore: cast_nullable_to_non_nullable
+              as List<VechileItemsModel>,
+      selectedVehicle: freezed == selectedVehicle
+          ? _value.selectedVehicle
+          : selectedVehicle // ignore: cast_nullable_to_non_nullable
+              as VechileItemsModel?,
+      showInputError: null == showInputError
+          ? _value.showInputError
+          : showInputError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      imageLists: null == imageLists
+          ? _value._imageLists
+          : imageLists // ignore: cast_nullable_to_non_nullable
+              as List<ImageModel>,
+      marketOdometerField: null == marketOdometerField
+          ? _value.marketOdometerField
+          : marketOdometerField // ignore: cast_nullable_to_non_nullable
+              as MarketOdometerField,
     ));
   }
 }
@@ -233,7 +313,15 @@ class _$MarkAttendanceStateImpl implements _MarkAttendanceState {
       this.punchInSuccess = false,
       this.punchOutSuccess = false,
       this.apiFailModel = null,
-      this.loaded = false});
+      this.loaded = false,
+      this.dataState = 0,
+      final List<VechileItemsModel> vehicleItems = const [],
+      this.selectedVehicle,
+      this.showInputError = false,
+      final List<ImageModel> imageLists = const [],
+      required this.marketOdometerField})
+      : _vehicleItems = vehicleItems,
+        _imageLists = imageLists;
 
   @override
   @JsonKey()
@@ -262,10 +350,38 @@ class _$MarkAttendanceStateImpl implements _MarkAttendanceState {
   @override
   @JsonKey()
   final bool loaded;
+  @override
+  @JsonKey()
+  final int dataState;
+  final List<VechileItemsModel> _vehicleItems;
+  @override
+  @JsonKey()
+  List<VechileItemsModel> get vehicleItems {
+    if (_vehicleItems is EqualUnmodifiableListView) return _vehicleItems;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_vehicleItems);
+  }
+
+  @override
+  final VechileItemsModel? selectedVehicle;
+  @override
+  @JsonKey()
+  final bool showInputError;
+  final List<ImageModel> _imageLists;
+  @override
+  @JsonKey()
+  List<ImageModel> get imageLists {
+    if (_imageLists is EqualUnmodifiableListView) return _imageLists;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_imageLists);
+  }
+
+  @override
+  final MarketOdometerField marketOdometerField;
 
   @override
   String toString() {
-    return 'MarkAttendanceState(lastPunchInResponseModel: $lastPunchInResponseModel, punchInFailure: $punchInFailure, punchOutFailure: $punchOutFailure, loading: $loading, isSubmitting: $isSubmitting, punchInSuccess: $punchInSuccess, punchOutSuccess: $punchOutSuccess, apiFailModel: $apiFailModel, loaded: $loaded)';
+    return 'MarkAttendanceState(lastPunchInResponseModel: $lastPunchInResponseModel, punchInFailure: $punchInFailure, punchOutFailure: $punchOutFailure, loading: $loading, isSubmitting: $isSubmitting, punchInSuccess: $punchInSuccess, punchOutSuccess: $punchOutSuccess, apiFailModel: $apiFailModel, loaded: $loaded, dataState: $dataState, vehicleItems: $vehicleItems, selectedVehicle: $selectedVehicle, showInputError: $showInputError, imageLists: $imageLists, marketOdometerField: $marketOdometerField)';
   }
 
   @override
@@ -289,7 +405,19 @@ class _$MarkAttendanceStateImpl implements _MarkAttendanceState {
                 other.punchOutSuccess == punchOutSuccess) &&
             (identical(other.apiFailModel, apiFailModel) ||
                 other.apiFailModel == apiFailModel) &&
-            (identical(other.loaded, loaded) || other.loaded == loaded));
+            (identical(other.loaded, loaded) || other.loaded == loaded) &&
+            (identical(other.dataState, dataState) ||
+                other.dataState == dataState) &&
+            const DeepCollectionEquality()
+                .equals(other._vehicleItems, _vehicleItems) &&
+            (identical(other.selectedVehicle, selectedVehicle) ||
+                other.selectedVehicle == selectedVehicle) &&
+            (identical(other.showInputError, showInputError) ||
+                other.showInputError == showInputError) &&
+            const DeepCollectionEquality()
+                .equals(other._imageLists, _imageLists) &&
+            (identical(other.marketOdometerField, marketOdometerField) ||
+                other.marketOdometerField == marketOdometerField));
   }
 
   @override
@@ -303,7 +431,13 @@ class _$MarkAttendanceStateImpl implements _MarkAttendanceState {
       punchInSuccess,
       punchOutSuccess,
       apiFailModel,
-      loaded);
+      loaded,
+      dataState,
+      const DeepCollectionEquality().hash(_vehicleItems),
+      selectedVehicle,
+      showInputError,
+      const DeepCollectionEquality().hash(_imageLists),
+      marketOdometerField);
 
   /// Create a copy of MarkAttendanceState
   /// with the given fields replaced by the non-null parameter values.
@@ -317,15 +451,22 @@ class _$MarkAttendanceStateImpl implements _MarkAttendanceState {
 
 abstract class _MarkAttendanceState implements MarkAttendanceState {
   const factory _MarkAttendanceState(
-      {final LastPunchInResponseModel? lastPunchInResponseModel,
-      final bool punchInFailure,
-      final bool punchOutFailure,
-      final bool loading,
-      final bool isSubmitting,
-      final bool punchInSuccess,
-      final bool punchOutSuccess,
-      final ApiFailedModel? apiFailModel,
-      final bool loaded}) = _$MarkAttendanceStateImpl;
+          {final LastPunchInResponseModel? lastPunchInResponseModel,
+          final bool punchInFailure,
+          final bool punchOutFailure,
+          final bool loading,
+          final bool isSubmitting,
+          final bool punchInSuccess,
+          final bool punchOutSuccess,
+          final ApiFailedModel? apiFailModel,
+          final bool loaded,
+          final int dataState,
+          final List<VechileItemsModel> vehicleItems,
+          final VechileItemsModel? selectedVehicle,
+          final bool showInputError,
+          final List<ImageModel> imageLists,
+          required final MarketOdometerField marketOdometerField}) =
+      _$MarkAttendanceStateImpl;
 
   @override
   LastPunchInResponseModel? get lastPunchInResponseModel;
@@ -345,6 +486,18 @@ abstract class _MarkAttendanceState implements MarkAttendanceState {
   ApiFailedModel? get apiFailModel;
   @override
   bool get loaded;
+  @override
+  int get dataState;
+  @override
+  List<VechileItemsModel> get vehicleItems;
+  @override
+  VechileItemsModel? get selectedVehicle;
+  @override
+  bool get showInputError;
+  @override
+  List<ImageModel> get imageLists;
+  @override
+  MarketOdometerField get marketOdometerField;
 
   /// Create a copy of MarkAttendanceState
   /// with the given fields replaced by the non-null parameter values.

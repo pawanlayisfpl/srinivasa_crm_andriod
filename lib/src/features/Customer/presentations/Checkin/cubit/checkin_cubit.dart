@@ -16,6 +16,8 @@ import 'package:srinivasa_crm_new/src/features/Customer/presentations/Checkin/cu
 
 import '../../../../../../shared/domain/model/Image/image_model.dart';
 import '../../../../../../shared/domain/model/Purpose/purpose_model.dart';
+import '../../../../../config/locator/locator.dart';
+import '../../../../../core/core.dart';
 import '../../../../../core/model/model.dart';
 import '../../../domain/model/post/checkin_post_model.dart';
 import '../../../domain/model/post/checkout_post_model.dart';
@@ -73,6 +75,23 @@ class CheckinCubit extends Cubit<CheckinState> {
             Navigator.pop(context);
           }
         }
+        final dioclinet = locator.get<DioClient>(); 
+       String userDateTime = DateTime.now().toIso8601String();
+      final response = await dioclinet.post(Endpoints.locationUrl, data: {
+        "latitude": checkInPostModel.latitude,
+        "longitude": checkInPostModel.langitude,
+        "userDateTime": userDateTime,
+        "batteryStatus": checkInPostModel.batteryStatus,
+      }, headers: {});
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        debugPrint("In Check-In locationss Api Called");
+      }else{
+        debugPrint("n Check-In locationss Api Calling fail");
+      }
+
+
+
         emit(state.copyWith(isLoading: false,apiFailedModel: null,checkInResponseModel: r,isCheckIn: true));
         lastCheckinCheckoutLogic(customerId: checkInPostModel.customerid.toString(),farmId: checkInPostModel.farmId.toString());
         successCallback();
@@ -100,6 +119,20 @@ class CheckinCubit extends Cubit<CheckinState> {
         emit(state.copyWith(isLoading:  false,apiFailedModel: apiFailedModel,checkInResponseModel: null,checkoutResponseModel: null,isFailed: true,isCheckIn: false));
       },
       (r) async {
+        final dioclinet = locator.get<DioClient>(); 
+       String userDateTime = DateTime.now().toIso8601String();
+      final response = await dioclinet.post(Endpoints.locationUrl, data: {
+        "latitude": checkOutPostModel.latitude,
+        "longitude": checkOutPostModel.langitude,
+        "userDateTime": userDateTime,
+        "batteryStatus": checkOutPostModel.batteryStatus,
+      }, headers: {});
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        debugPrint("n Check-OUT locationss Api Called");
+      }else{
+        debugPrint("n Check-OUT locationss Api Calling fail");
+      }
          Navigator.pop(context);
         emit(CheckinState.initial());
         resetCheckoutState();
@@ -112,6 +145,7 @@ class CheckinCubit extends Cubit<CheckinState> {
 
   // LAST CHECKIN CHECKOUT RESPONSE
   Future<void> lastCheckinCheckoutLogic({required String customerId,required String farmId}) async {
+     
     emit(state.copyWith(isLoading: true,apiFailedModel: null,checkInResponseModel: null,checkoutResponseModel: null,isFailed: false,lastCheckinOutResponseModel: null,isCheckIn: false,isCheckOut: false));
     final result = await customerRepo.getLastCheckInCheckoutDetails(customerId: customerId, farmId: farmId);
     result.fold(

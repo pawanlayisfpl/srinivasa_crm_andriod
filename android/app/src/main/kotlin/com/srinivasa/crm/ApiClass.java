@@ -44,7 +44,7 @@ import javax.net.ssl.X509TrustManager;
 public class ApiClass {
     private Context context;
     private static final String TAG = "ApiCaller"; // Tag for logging
-    private static final String postUrl = "https://crmapi.srinivasa.co:8446/crm_sfpl/se/locations"; // Change the post URL as needed
+    private static final String postUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl/se/locations"; // Change the post URL as needed
     // private static final String postUrl = "https://crmapitest.srinivasa.co:8446/crm_sfpl/se/locations-list"; // Change the post URL as needed
 
     public ApiClass(Context context) {

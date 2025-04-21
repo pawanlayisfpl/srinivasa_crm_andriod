@@ -232,7 +232,11 @@ void showLogoutDialog(BuildContext context) {
               } else if (value == "2") {
                if(context.mounted) {
                   QuickAlert.show(context: context, type: QuickAlertType.confirm, title: "Logout",text: "Are you sure?",confirmBtnText: "Yes",confirmBtnColor: Colors.black,onConfirmBtnTap: () {
-                  context.read<ProfileCubit>().logout(context: context);
+                 if(context.mounted) {
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (c) => const MarkAttendanceScreen(isCheckedInScreen: false)));
+                            }
+                
+                //  context.read<ProfileCubit>().logout(context: context);
       
           });
                }

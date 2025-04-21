@@ -12,6 +12,7 @@ class CommonTextWidget extends StatelessWidget {
   final double? wordsSpacing;
   final TextDecoration? textDecoration;
   final TextAlign? align;
+  final TextOverflow? over;
 
   const CommonTextWidget({
     super.key,
@@ -24,6 +25,7 @@ class CommonTextWidget extends StatelessWidget {
     this.wordsSpacing,
     this.textDecoration,
     this.align,
+    this.over,
   });
 
   @override
@@ -42,7 +44,7 @@ class CommonTextWidget extends StatelessWidget {
           decoration: textDecoration,
           fontSize: textSize ?? 18.sp,
           fontWeight: fontWeight ?? FontWeight.normal,
-          overflow: TextOverflow.ellipsis,
+          overflow: over??TextOverflow.ellipsis,
           wordSpacing: wordsSpacing,
 
           letterSpacing: letterSpacing),

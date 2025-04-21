@@ -116,9 +116,27 @@ if (punchLIsts.isNotEmpty && punchOutLists.isNotEmpty) {
     final database = PunchInPostDatabase();
 
 
-    if(results) {
+    if(results) { 
+         List<MultipartFile> imagesList = [];
+         if (punchInPostModel.images != null) {
+           for (var file in punchInPostModel.images!) {
+             imagesList.add(MultipartFile.fromBytes(file, filename: 'images'));
+           }
+        }
+
+         FormData data = FormData.fromMap({
+          'latitude': punchInPostModel.latitude,
+          'longitude': punchInPostModel.longitude,
+          'createdAt': DateTime.now().toString(), 
+          'batteryStatus':punchInPostModel.batteryStatus,
+          'punchInOdometerKMS':punchInPostModel.punchInOdometerKMS.toString(),
+          'punchOutOdometerKMS':"",
+          'vehicleId':punchInPostModel.vehicleId,
+          'images': imagesList, 
+        });
+
       try{
-      final response = await dioClient.post(Endpoints.punchIn,data: punchInPostModel.toJson(),headers: {});
+      final response = await dioClient.post(Endpoints.punchIn,data:data,/*punchInPostModel.toJson()*/headers: {});
       if(response.statusCode == 200){
         return PunchInOutResponseModel.fromJson(response.data);
       }else{
@@ -146,15 +164,9 @@ if (punchLIsts.isNotEmpty && punchOutLists.isNotEmpty) {
       }
 
       }else {
-        throw const NetworkExceptions.noInternetConnection();
-        
+        throw const NetworkExceptions.noInternetConnection(); 
       }
-
-    }
-
-
-
-    
+    } 
   }
   
   @override
@@ -162,8 +174,25 @@ if (punchLIsts.isNotEmpty && punchOutLists.isNotEmpty) {
     final results = await internetChecker.hasInternet();
     final database = PunchoutPostDatabase();
     if(results) {
+       List<MultipartFile> imagesList = [];
+        if (punchInPostModel.images != null) {
+          for (var file in punchInPostModel.images!) {
+            imagesList.add(MultipartFile.fromBytes(file, filename: 'images'));
+          }
+        }
+
+         FormData data = FormData.fromMap({
+          'latitude': punchInPostModel.latitude,
+          'longitude': punchInPostModel.longitude,
+          'createdAt': DateTime.now().toString(), 
+          'batteryStatus':punchInPostModel.batteryStatus,
+          'punchInOutDistance':(punchInPostModel.punchInOutDistance.toString()!="0")?punchInPostModel.punchInOutDistance.toString():"",
+          'punchOutOdometerKMS':punchInPostModel.punchOutOdometerKMS.toString(),
+          'vehicleId':punchInPostModel.vehicleId,
+          'images': (imagesList.isEmpty)?[]:imagesList, 
+        }); 
       try {
-      final response = await dioClient.post(Endpoints.punchOut,data: punchInPostModel.toJson(),headers: {});
+      final response = await dioClient.post(Endpoints.punchOut,data:data  /*punchInPostModel.toJson()*/,headers: {});
       if(response.statusCode == 200){
         return PunchInOutResponseModel.fromJson(response.data);
       }else{
@@ -193,10 +222,7 @@ if (punchLIsts.isNotEmpty && punchOutLists.isNotEmpty) {
      }else{
         throw const NetworkExceptions.noInternetConnection();
      }
-
-    }
-    
-    
+    } 
   }
 
 

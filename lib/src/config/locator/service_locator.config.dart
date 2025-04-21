@@ -478,13 +478,6 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i537.ForgetPasswordRepo>(),
           gh<_i961.KeyValueStorage>(),
         ));
-    gh.factory<_i796.MarkAttendanceCubit>(() => _i796.MarkAttendanceCubit(
-          gh<_i866.PunchInUseCase>(),
-          gh<_i866.PunchOutUsecase>(),
-          gh<_i866.LastPunchInOutUseCase>(),
-          gh<_i972.CommonLocationServices>(),
-          gh<_i1051.CommonNotifications>(),
-        ));
     gh.factory<_i311.AddressRepo>(() => _i1057.AddressRepoImpl(
         addressRemoteDataSource: gh<_i566.AddressRemoteDataSource>()));
     gh.factory<_i792.ZoneRepo>(() => _i605.ZoneRepoImpl(
@@ -492,6 +485,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i192.KycUploadCubit>(() => _i192.KycUploadCubit(
           imageServices: gh<_i972.CommonImageServices>(),
           kycRepo: gh<_i382.KycRepo>(),
+        ));
+    gh.factory<_i796.MarkAttendanceCubit>(() => _i796.MarkAttendanceCubit(
+          gh<_i866.PunchInUseCase>(),
+          gh<_i866.PunchOutUsecase>(),
+          gh<_i866.LastPunchInOutUseCase>(),
+          gh<_i972.CommonLocationServices>(),
+          gh<_i1051.CommonNotifications>(),
+          gh<_i972.CommonImageServices>(),
         ));
     gh.factory<_i10.ViewCommentsCubit>(
         () => _i10.ViewCommentsCubit(gh<_i802.CommentsRepo>()));
