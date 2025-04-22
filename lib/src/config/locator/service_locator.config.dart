@@ -217,6 +217,10 @@ import 'package:srinivasa_crm_new/src/features/Tickets/presentations/View%20Part
     as _i493;
 import 'package:srinivasa_crm_new/src/features/Tickets/presentations/View%20Ticket/cubit/view_ticket_cubit.dart'
     as _i560;
+import 'package:srinivasa_crm_new/src/features/Travel_Data/cubits/travel_data_cubit.dart'
+    as _i677;
+import 'package:srinivasa_crm_new/src/features/Travel_Data/repo/travel_data_repo_impl.dart'
+    as _i415;
 import 'package:srinivasa_crm_new/src/features/User%20Activity/data/repo/user_activity_repo.dart'
     as _i939;
 import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/cubit/user_activity_cubit.dart'
@@ -357,6 +361,11 @@ extension GetItInjectableX on _i174.GetIt {
           keyValueStorage: gh<_i961.KeyValueStorage>(),
           internetChecker: gh<_i961.InternetChecker>(),
         ));
+    gh.factory<_i415.TravelDataRepo>(() => _i415.TicketsRepoImpl(
+          dioClient: gh<_i961.DioClient>(),
+          keyValueStorage: gh<_i961.KeyValueStorage>(),
+          internetChecker: gh<_i961.InternetChecker>(),
+        ));
     gh.factory<_i355.PurposeRemoteDatasource>(
         () => _i355.PurposeRemoteDatasourceImpl(
               dioClient: gh<_i961.DioClient>(),
@@ -458,6 +467,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i118.MonthlyPlanRepo>(),
           gh<_i472.DailyPlanRepo>(),
         ));
+    gh.factory<_i677.TravelDataCubit>(
+        () => _i677.TravelDataCubit(gh<_i415.TravelDataRepo>()));
     gh.factory<_i320.AllCustomerCubit>(
         () => _i320.AllCustomerCubit(customerRepo: gh<_i209.CustomerRepo>()));
     gh.factory<_i929.CustomerFullDetailsCubit>(() =>

@@ -6,7 +6,10 @@ import 'package:srinivasa_crm_new/src/core/model/network%20exception/network%20e
 import '../model/traveldatamodel.dart'; 
 
 abstract class TravelDataRepo {
-   Future<Either<NetworkExceptions,TravelDataModel>> getTravelData() ;  
+   Future<Either<NetworkExceptions,TravelDataModel>> getTravelData(
+      String startDate,
+      String endDate,
+   ) ;  
 }
 
 @Injectable(as: TravelDataRepo)
@@ -18,12 +21,13 @@ class TicketsRepoImpl implements TravelDataRepo {
   TicketsRepoImpl({required this.dioClient, required this.keyValueStorage, required this.internetChecker});
   
    @override
-  Future<Either<NetworkExceptions, TravelDataModel>> getTravelData() async  {
+  Future<Either<NetworkExceptions, TravelDataModel>> getTravelData(  String startDate,
+    String endDate,) async  {
 
     final status = await internetChecker.hasInternet();
     if(status) {
       try { 
-        final response = await dioClient.get('${Endpoints.getTravelData}?startDate=2025-03-01&endDate=2025-03-10}',headers: {});
+        final response = await dioClient.get('${Endpoints.getTravelData}?startDate=$startDate&endDate=$endDate',headers: {});
         if(response.statusCode == 200) {
           TravelDataModel travelDataResponseModel = TravelDataModel.fromJson(response.data);
           return right(travelDataResponseModel);

@@ -144,7 +144,7 @@ class Endpoints {
   static const String locationUrl = '$basicUrl/se/locations';
 
   /// Travel Data
-  static const String getTravelData = "$basicUrl/admin/custom-daily-report?";
+  static const String getTravelData = "$basicUrl/admin/custom-daily-report";
 
 }
 

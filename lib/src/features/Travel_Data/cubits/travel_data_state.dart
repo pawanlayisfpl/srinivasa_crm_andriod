@@ -10,14 +10,16 @@ class TravelDataState with _$TravelDataState {
     @Default(false) bool isLoading,
     @Default(false) bool isSubmiting,
     @Default(false) bool showInputError,
+    @Default([]) List<TravelDataModel> travelDataList,
     ApiFailedModel? apiFailedModel, 
   }) = _TravelDataState;
 
-  factory TravelDataState.initial() => TravelDataState(
+  factory TravelDataState.initial() => const TravelDataState(
         travelDataModel: null,
         isLoading: false,
         isSubmiting: false,
         showInputError: false,
         apiFailedModel: null, 
+        travelDataList:[],
       );
 }

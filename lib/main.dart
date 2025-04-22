@@ -45,6 +45,7 @@ import 'package:srinivasa_crm_new/src/features/Sales%20Order/presentation/Sales%
 import 'package:srinivasa_crm_new/src/features/Tickets/presentations/View%20Particular%20Ticket/cubit/view_particular_ticket_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Tickets/presentations/View%20Ticket/cubit/view_ticket_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/Tickets/presentations/cubit/add_ticket_cubit.dart';
+import 'package:srinivasa_crm_new/src/features/Travel_Data/cubits/travel_data_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/User%20Activity/presentation/cubit/user_activity_cubit.dart';
 import 'package:srinivasa_crm_new/src/features/mark%20attendance/presentations/cubit/cubit/mark_attendance_cubit.dart';
 
@@ -269,7 +270,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => locator.get<CustomerFullDetailsCubit>()),
         BlocProvider(create: (_) => locator.get<MonthlyPlanSearchCubit>()),
         BlocProvider(create: (_) => locator.get<MonthlyPlanPendingCubit>()),
-      BlocProvider(create: (_) => locator.get<UpdateMonthlyPlanCubit>()),
+        BlocProvider(create: (_) => locator.get<UpdateMonthlyPlanCubit>()),
         BlocProvider(create: (_) => locator.get<CustomerCreateCubit>()),
         BlocProvider(create: (_) => locator.get<KycCubit>()),
         BlocProvider(create: (_) => locator.get<KycUploadCubit>()),
@@ -292,6 +293,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => locator.get<UpdateCustomerCubit>()),
         BlocProvider(create: (_) => locator.get<EmployeUpdateCubit>()),
         BlocProvider(create: (_) => locator.get<AllEmployeCubit>()),
+        BlocProvider(create: (_) => locator.get<TravelDataCubit>()),
       ],
       child: MaterialApp(
         navigatorKey: AppKeys.globalNavigatorKey,

@@ -20,6 +20,8 @@ mixin _$TravelDataState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isSubmiting => throw _privateConstructorUsedError;
   bool get showInputError => throw _privateConstructorUsedError;
+  List<TravelDataModel> get travelDataList =>
+      throw _privateConstructorUsedError;
   ApiFailedModel? get apiFailedModel => throw _privateConstructorUsedError;
 
   /// Create a copy of TravelDataState
@@ -40,6 +42,7 @@ abstract class $TravelDataStateCopyWith<$Res> {
       bool isLoading,
       bool isSubmiting,
       bool showInputError,
+      List<TravelDataModel> travelDataList,
       ApiFailedModel? apiFailedModel});
 
   $ApiFailedModelCopyWith<$Res>? get apiFailedModel;
@@ -64,6 +67,7 @@ class _$TravelDataStateCopyWithImpl<$Res, $Val extends TravelDataState>
     Object? isLoading = null,
     Object? isSubmiting = null,
     Object? showInputError = null,
+    Object? travelDataList = null,
     Object? apiFailedModel = freezed,
   }) {
     return _then(_value.copyWith(
@@ -83,6 +87,10 @@ class _$TravelDataStateCopyWithImpl<$Res, $Val extends TravelDataState>
           ? _value.showInputError
           : showInputError // ignore: cast_nullable_to_non_nullable
               as bool,
+      travelDataList: null == travelDataList
+          ? _value.travelDataList
+          : travelDataList // ignore: cast_nullable_to_non_nullable
+              as List<TravelDataModel>,
       apiFailedModel: freezed == apiFailedModel
           ? _value.apiFailedModel
           : apiFailedModel // ignore: cast_nullable_to_non_nullable
@@ -118,6 +126,7 @@ abstract class _$$TravelDataStateImplCopyWith<$Res>
       bool isLoading,
       bool isSubmiting,
       bool showInputError,
+      List<TravelDataModel> travelDataList,
       ApiFailedModel? apiFailedModel});
 
   @override
@@ -141,6 +150,7 @@ class __$$TravelDataStateImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? isSubmiting = null,
     Object? showInputError = null,
+    Object? travelDataList = null,
     Object? apiFailedModel = freezed,
   }) {
     return _then(_$TravelDataStateImpl(
@@ -160,6 +170,10 @@ class __$$TravelDataStateImplCopyWithImpl<$Res>
           ? _value.showInputError
           : showInputError // ignore: cast_nullable_to_non_nullable
               as bool,
+      travelDataList: null == travelDataList
+          ? _value._travelDataList
+          : travelDataList // ignore: cast_nullable_to_non_nullable
+              as List<TravelDataModel>,
       apiFailedModel: freezed == apiFailedModel
           ? _value.apiFailedModel
           : apiFailedModel // ignore: cast_nullable_to_non_nullable
@@ -176,7 +190,9 @@ class _$TravelDataStateImpl implements _TravelDataState {
       this.isLoading = false,
       this.isSubmiting = false,
       this.showInputError = false,
-      this.apiFailedModel});
+      final List<TravelDataModel> travelDataList = const [],
+      this.apiFailedModel})
+      : _travelDataList = travelDataList;
 
   @override
   final TravelDataModel? travelDataModel;
@@ -189,12 +205,21 @@ class _$TravelDataStateImpl implements _TravelDataState {
   @override
   @JsonKey()
   final bool showInputError;
+  final List<TravelDataModel> _travelDataList;
+  @override
+  @JsonKey()
+  List<TravelDataModel> get travelDataList {
+    if (_travelDataList is EqualUnmodifiableListView) return _travelDataList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_travelDataList);
+  }
+
   @override
   final ApiFailedModel? apiFailedModel;
 
   @override
   String toString() {
-    return 'TravelDataState(travelDataModel: $travelDataModel, isLoading: $isLoading, isSubmiting: $isSubmiting, showInputError: $showInputError, apiFailedModel: $apiFailedModel)';
+    return 'TravelDataState(travelDataModel: $travelDataModel, isLoading: $isLoading, isSubmiting: $isSubmiting, showInputError: $showInputError, travelDataList: $travelDataList, apiFailedModel: $apiFailedModel)';
   }
 
   @override
@@ -210,13 +235,21 @@ class _$TravelDataStateImpl implements _TravelDataState {
                 other.isSubmiting == isSubmiting) &&
             (identical(other.showInputError, showInputError) ||
                 other.showInputError == showInputError) &&
+            const DeepCollectionEquality()
+                .equals(other._travelDataList, _travelDataList) &&
             (identical(other.apiFailedModel, apiFailedModel) ||
                 other.apiFailedModel == apiFailedModel));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, travelDataModel, isLoading,
-      isSubmiting, showInputError, apiFailedModel);
+  int get hashCode => Object.hash(
+      runtimeType,
+      travelDataModel,
+      isLoading,
+      isSubmiting,
+      showInputError,
+      const DeepCollectionEquality().hash(_travelDataList),
+      apiFailedModel);
 
   /// Create a copy of TravelDataState
   /// with the given fields replaced by the non-null parameter values.
@@ -234,6 +267,7 @@ abstract class _TravelDataState implements TravelDataState {
       final bool isLoading,
       final bool isSubmiting,
       final bool showInputError,
+      final List<TravelDataModel> travelDataList,
       final ApiFailedModel? apiFailedModel}) = _$TravelDataStateImpl;
 
   @override
@@ -244,6 +278,8 @@ abstract class _TravelDataState implements TravelDataState {
   bool get isSubmiting;
   @override
   bool get showInputError;
+  @override
+  List<TravelDataModel> get travelDataList;
   @override
   ApiFailedModel? get apiFailedModel;
 

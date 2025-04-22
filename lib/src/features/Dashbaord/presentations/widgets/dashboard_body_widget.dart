@@ -18,7 +18,7 @@ import 'package:srinivasa_crm_new/src/features/sync_screen.dart';
 
 import '../../../../config/animations/routes/all_animate_routes.dart';
 import '../../../../config/config.dart';
-import '../../../Travel_Data/presentation/traveld_data.dart';
+import '../../../Travel_Data/screens/traveld_data.dart';
 import '../../../mark attendance/presentations/screens/mark_attendance_screen.dart';
 import '../../domain/dashboard_model.dart';
 
@@ -182,7 +182,7 @@ class DashboardBodyWidget extends StatelessWidget {
       break;
 
       case 9 : 
-      // Navigator.push(context, ScaleRoute(screen: const TravelDataScreen()));
+       Navigator.push(context, ScaleRoute(screen: const TravelDataScreen()));
       // Navigator.push(context, ScaleRoute(screen: const EmployeScreen()));
      // Navigator.push(context, ScaleRoute(screen:  const SyncDataScreen()));
       case 8 : 

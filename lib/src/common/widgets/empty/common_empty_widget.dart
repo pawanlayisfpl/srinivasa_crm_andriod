@@ -9,10 +9,12 @@ import '../../common.dart';
 
 class EmptyWidget extends StatelessWidget {
   final String title;
+  final bool? isRetrySHow;
   final VoidCallback callback;
   const EmptyWidget({
     super.key,
     required this.title,
+    this.isRetrySHow,
     required this.callback,
   });
 
@@ -35,7 +37,7 @@ class EmptyWidget extends StatelessWidget {
             )
           ),
           20.verticalSpace,
-          CommonButton(title: 'Retry', callback: () => callback()),
+         (isRetrySHow == false)?const SizedBox() :CommonButton(title: 'Retry', callback: () => callback()),
         ],  
       ).withSymetricPadding(horizontalPadding: 10.w),
     );

@@ -10,13 +10,18 @@ class TravelDataCubit extends Cubit<TravelDataState> {
 
   TravelDataCubit(this.travelDataRepo) : super(TravelDataState.initial());
 
-  Future<void> getTickets() async {
-    emit(state.copyWith(isLoading: true, apiFailedModel: null,));
+  Future<void> getTravelDataApi(String startDate,
+    String endDate,) async {
+    emit(state.copyWith(isLoading: true, apiFailedModel: null,travelDataList: []));
     await Future.delayed(const Duration(milliseconds: 800));
-    final results = await travelDataRepo.getTravelData();
+    final results = await travelDataRepo.getTravelData(startDate,endDate);
     results.fold(
       (l) => emit(state.copyWith(isLoading: false, apiFailedModel: ApiFailedModel.fromNetworkExceptions(l))),
-      (r) => emit(state.copyWith(isLoading: false, )),
+     (r)=>   emit(state.copyWith(
+        isLoading: false,
+        travelDataModel: r, 
+      ))
+      //(r) => emit(state.copyWith(isLoading: false,travelDataList: r.data?.customDailyReportDtoList ?? [])),
     );
   }
 
